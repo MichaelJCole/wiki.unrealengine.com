@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>UE4与WEB服务器交互(json) - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=vector&amp;*" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=vector&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"UE4与WEB服务器交互(json)","wgTitle":"UE4与WEB服务器交互(json)","wgCurRevisionId":8536,"wgRevisionId":8536,"wgArticleId":1696,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Code","Community Created Content"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"UE4与WEB服务器交互(json)","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:27249162ef7002415c3792ce5dfd2a9a */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["ext.voteNY","mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><style type="text/css">/*<![CDATA[*/
+.source-php {line-height: normal;}
+.source-php li, .source-php pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for php
+ * CSS class: source-php, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.php.source-php .de1, .php.source-php .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.php.source-php  {font-family:monospace;}
+.php.source-php .imp {font-weight: bold; color: red;}
+.php.source-php li, .php.source-php .li1 {font-weight: normal; vertical-align:top;}
+.php.source-php .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.php.source-php .li2 {font-weight: bold; vertical-align:top;}
+.php.source-php .kw1 {color: #b1b100;}
+.php.source-php .kw2 {color: #000000; font-weight: bold;}
+.php.source-php .kw3 {color: #990000;}
+.php.source-php .kw4 {color: #009900; font-weight: bold;}
+.php.source-php .co1 {color: #666666; font-style: italic;}
+.php.source-php .co2 {color: #666666; font-style: italic;}
+.php.source-php .co3 {color: #0000cc; font-style: italic;}
+.php.source-php .co4 {color: #009933; font-style: italic;}
+.php.source-php .coMULTI {color: #666666; font-style: italic;}
+.php.source-php .es0 {color: #000099; font-weight: bold;}
+.php.source-php .es1 {color: #000099; font-weight: bold;}
+.php.source-php .es2 {color: #660099; font-weight: bold;}
+.php.source-php .es3 {color: #660099; font-weight: bold;}
+.php.source-php .es4 {color: #006699; font-weight: bold;}
+.php.source-php .es5 {color: #006699; font-weight: bold; font-style: italic;}
+.php.source-php .es6 {color: #009933; font-weight: bold;}
+.php.source-php .es_h {color: #000099; font-weight: bold;}
+.php.source-php .br0 {color: #009900;}
+.php.source-php .sy0 {color: #339933;}
+.php.source-php .sy1 {color: #000000; font-weight: bold;}
+.php.source-php .st0 {color: #0000ff;}
+.php.source-php .st_h {color: #0000ff;}
+.php.source-php .nu0 {color: #cc66cc;}
+.php.source-php .nu8 {color: #208080;}
+.php.source-php .nu12 {color: #208080;}
+.php.source-php .nu19 {color:#800080;}
+.php.source-php .me1 {color: #004000;}
+.php.source-php .me2 {color: #004000;}
+.php.source-php .re0 {color: #000088;}
+.php.source-php .ln-xtra, .php.source-php li.ln-xtra, .php.source-php div.ln-xtra {background-color: #ffc;}
+.php.source-php span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-UE4与WEB服务器交互_json skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">UE4与WEB服务器交互(json)</span></h1>
+			<div id="bodyContent">
+								<div id="siteSub">From Epic Wiki</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-navigation">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="tip">
+<div>
+<b>Rate this Article:</b> <div id="rating_"><div class="rating-score"><div class="voteboxrate">2.00</div></div><div class="rating-section"><img class="vote-rating-star" data-vote-the-vote="1" data-vote-id="" data-vote-action="3" data-vote-rating="2.00" data-vote-voted="0" id="rating__1" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="2" data-vote-id="" data-vote-action="3" data-vote-rating="2.00" data-vote-voted="0" id="rating__2" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="3" data-vote-id="" data-vote-action="3" data-vote-rating="2.00" data-vote-voted="0" id="rating__3" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="4" data-vote-id="" data-vote-action="3" data-vote-rating="2.00" data-vote-voted="0" id="rating__4" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="5" data-vote-id="" data-vote-action="3" data-vote-rating="2.00" data-vote-voted="0" id="rating__5" src="/extensions/VoteNY/images/star_off.gif" alt="" /> <span class="rating-total">(one vote)</span></div>
+				<div class="rating-clear">
+			</div></div>
+</div>
+<div>
+<p>Approved for Versions:(4.1)
+</p>
+</div>
+</div>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E6.A6.82.E8.BF.B0"><span class="tocnumber">1</span> <span class="toctext">概述</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E6.B7.BB.E5.8A.A0.E6.A8.A1.E5.9D.97.E5.92.8C.E5.A4.B4.E6.96.87.E4.BB.B6.E5.BC.95.E7.94.A8"><span class="tocnumber">2</span> <span class="toctext">添加模块和头文件引用</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E5.88.9B.E5.BB.BAjson.E6.95.B0.E6.8D.AE.E5.8C.85"><span class="tocnumber">3</span> <span class="toctext">创建json数据包</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.E5.87.86.E5.A4.87.E6.8E.A5.E6.94.B6json.E6.95.B0.E6.8D.AE.E5.8C.85.E7.9A.84PHP.E7.BD.91.E9.A1.B5"><span class="tocnumber">4</span> <span class="toctext">准备接收json数据包的PHP网页</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#POST.E6.95.B0.E6.8D.AE"><span class="tocnumber">5</span> <span class="toctext">POST数据</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#.E6.80.BB.E7.BB.93"><span class="tocnumber">6</span> <span class="toctext">总结</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#.E5.B8.B8.E8.A7.81.E9.97.AE.E9.A2.98.E5.8F.8A.E5.8F.82.E8.80.83"><span class="tocnumber">7</span> <span class="toctext">常见问题及参考</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E6.A6.82.E8.BF.B0">概述</span></h2>
+<p>制作游戏在很多情况下需要和WEB服务器进行交互，最常见的是在做Demo时需要通过游戏向WEB服务器传递数据（登录/注册验请求），WEB服务器处理（操作数据库）之后返回结果并调用指定的方法。
+该教程简单介绍了如何通过UE4向WEB服务器（PHP）发送json数据包及回调方法。
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id=".E6.B7.BB.E5.8A.A0.E6.A8.A1.E5.9D.97.E5.92.8C.E5.A4.B4.E6.96.87.E4.BB.B6.E5.BC.95.E7.94.A8">添加模块和头文件引用</span></h2>
+<p>在代码编辑器中打开项目解决方案，在&lt;Solution Name&gt;/Source/&lt;ProjectName&gt;路径下，找到并打开&lt;ProjectName&gt;.Build.cs文件，添加HTTP模块：
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">&#160;
+PrivateDependencyModuleNames.<span class="me1">AddRange</span><span class="br0">&#40;</span><span class="kw3">new</span> string<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span><span class="st0">&quot;HTTP&quot;</span><span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy4">;</span> 
+PrivateIncludePathModuleNames.<span class="me1">AddRange</span><span class="br0">&#40;</span><span class="kw3">new</span> string<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span><span class="st0">&quot;HTTP&quot;</span><span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<p>然后在需要实现该功能的类文件中添加如下的头文件引用:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">&#160;
+<span class="co2">#include &quot;Http.h&quot;</span>
+<span class="co2">#include &quot;Json.h&quot;</span></pre></div></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id=".E5.88.9B.E5.BB.BAjson.E6.95.B0.E6.8D.AE.E5.8C.85">创建json数据包</span></h2>
+<p>数据内容为：
+</p>
+<pre>{ "user"&#160;: "StormUnited"}
+</pre>
+<p>创建：
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">&#160;
+<span class="co1">// Create a writer and hold it in this FString</span>
+FString JsonStr<span class="sy4">;</span>
+TSharedRef<span class="sy1">&lt;</span> TJsonWriter<span class="sy1">&lt;</span>TCHAR, TCondensedJsonPrintPolicy<span class="sy1">&lt;</span>TCHAR<span class="sy1">&gt;</span> <span class="sy1">&gt;</span> <span class="sy1">&gt;</span> JsonWriter <span class="sy1">=</span> TJsonWriterFactory<span class="sy1">&lt;</span>TCHAR, TCondensedJsonPrintPolicy<span class="sy1">&lt;</span>TCHAR<span class="sy1">&gt;</span> <span class="sy1">&gt;</span><span class="sy4">::</span><span class="me2">Create</span><span class="br0">&#40;</span><span class="sy3">&amp;</span>JsonStr<span class="br0">&#41;</span><span class="sy4">;</span>
+JsonWriter<span class="sy2">-</span><span class="sy1">&gt;</span>WriteObjectStart<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+JsonWriter<span class="sy2">-</span><span class="sy1">&gt;</span>WriteValue<span class="br0">&#40;</span>TEXT<span class="br0">&#40;</span><span class="st0">&quot;user&quot;</span><span class="br0">&#41;</span>, TEXT<span class="br0">&#40;</span><span class="st0">&quot;StormUnited&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+JsonWriter<span class="sy2">-</span><span class="sy1">&gt;</span>WriteObjectEnd<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="co1">// Close the writer and finalize the output such that JsonStr has what we want</span>
+JsonWriter<span class="sy2">-</span><span class="sy1">&gt;</span>Close<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<p>至此，json数据包准备完成。
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id=".E5.87.86.E5.A4.87.E6.8E.A5.E6.94.B6json.E6.95.B0.E6.8D.AE.E5.8C.85.E7.9A.84PHP.E7.BD.91.E9.A1.B5">准备接收json数据包的PHP网页</span></h2>
+<p>本示例中使用了PHP，你可以选择使用搭建动态网站或者服务器的开源软件，比如说wamp/lamp等在本机上建立一个WEB服务器来解析PHP页面。
+创建mywebpage.php文件，并添加如下代码：
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="php source-php"><pre class="de1"><span class="kw2">&lt;?php</span>
+     <span class="co1">// 首先接收上传的数据</span>
+     <span class="re0">$post_data</span> <span class="sy0">=</span> <span class="kw3">file_get_contents</span><span class="br0">&#40;</span><span class="st_h">'php://input'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+     <span class="co1">// 解析json字符串</span>
+     <span class="re0">$obj</span> <span class="sy0">=</span> <span class="kw3">json_decode</span><span class="br0">&#40;</span><span class="re0">$post_data</span><span class="br0">&#41;</span><span class="sy0">;</span>
+     <span class="co1">// 获取包含在Json字符串中的数据</span>
+     <span class="kw1">echo</span> <span class="re0">$obj</span><span class="sy0">-&gt;</span><span class="br0">&#123;</span><span class="st_h">'user'</span><span class="br0">&#125;</span><span class="sy0">;</span>
+<span class="sy1">?&gt;</span></pre></div></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="POST.E6.95.B0.E6.8D.AE">POST数据</span></h2>
+<p>将通过如下的代码将上面准备好的json数据包提交给 <a rel="nofollow" class="external free" href="http://localhost/mywebpage.php">http://localhost/mywebpage.php</a>
+</p>
+<ul>
+<li> SetHeader：可以设置POST数据的格式
+</li>
+<li> SetURL：可以指定用于处理上传数据的链接
+</li>
+<li> SetVerb：可以设置POST/PUT/GET
+</li>
+<li> SetContentAsString：用于填充上传的数据内容
+</li>
+<li> OnProcessRequestComplete().BindUObject 用于指定在发送请求之后的回调方法。
+</li>
+</ul>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">TSharedRef<span class="sy1">&lt;</span>IHttpRequest<span class="sy1">&gt;</span> HttpRequest <span class="sy1">=</span> FHttpModule<span class="sy4">::</span><span class="me2">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">CreateRequest</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+HttpRequest<span class="sy2">-</span><span class="sy1">&gt;</span>SetHeader<span class="br0">&#40;</span>TEXT<span class="br0">&#40;</span><span class="st0">&quot;Content-Type&quot;</span><span class="br0">&#41;</span>, TEXT<span class="br0">&#40;</span><span class="st0">&quot;application/json; charset=utf-8&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+HttpRequest<span class="sy2">-</span><span class="sy1">&gt;</span>SetURL<span class="br0">&#40;</span>TEXT<span class="br0">&#40;</span><span class="st0">&quot;http://localhost/mywebpage.php&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+HttpRequest<span class="sy2">-</span><span class="sy1">&gt;</span>SetVerb<span class="br0">&#40;</span>TEXT<span class="br0">&#40;</span><span class="st0">&quot;POST&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+HttpRequest<span class="sy2">-</span><span class="sy1">&gt;</span>SetContentAsString<span class="br0">&#40;</span>JsonStr<span class="br0">&#41;</span><span class="sy4">;</span>
+HttpRequest<span class="sy2">-</span><span class="sy1">&gt;</span>OnProcessRequestComplete<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">BindUObject</span><span class="br0">&#40;</span><span class="kw3">this</span>, <span class="sy3">&amp;</span>ASUMiniGameMode<span class="sy4">::</span><span class="me2">HttpCompleteCallback</span><span class="br0">&#41;</span><span class="sy4">;</span>
+HttpRequest<span class="sy2">-</span><span class="sy1">&gt;</span>ProcessRequest<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>  
+<p><br />
+关于回调函数的结构：void HttpCompleteCallback(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+示例：
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw4">void</span> ASUMiniGameMode<span class="sy4">::</span><span class="me2">HttpCompleteCallback</span><span class="br0">&#40;</span>FHttpRequestPtr Request, FHttpResponsePtr Response, <span class="kw4">bool</span> bWasSuccessful<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+     FString MessageBody <span class="sy1">=</span> <span class="st0">&quot;&quot;</span><span class="sy4">;</span>
+&#160;
+     <span class="co1">// If HTTP fails client-side, this will still be called but with a NULL shared pointer!</span>
+     <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy3">!</span>Response.<span class="me1">IsValid</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+     <span class="br0">&#123;</span>
+          MessageBody <span class="sy1">=</span> <span class="st0">&quot;{<span class="es1">\&quot;</span>success<span class="es1">\&quot;</span>:<span class="es1">\&quot;</span>Error: Unable to process HTTP Request!<span class="es1">\&quot;</span>}&quot;</span><span class="sy4">;</span>
+     <span class="br0">&#125;</span>
+     <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>EHttpResponseCodes<span class="sy4">::</span><span class="me2">IsOk</span><span class="br0">&#40;</span>Response<span class="sy2">-</span><span class="sy1">&gt;</span>GetResponseCode<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+     <span class="br0">&#123;</span>
+          MessageBody <span class="sy1">=</span> Response<span class="sy2">-</span><span class="sy1">&gt;</span>GetContentAsString<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+     <span class="br0">&#125;</span>
+     <span class="kw1">else</span>
+     <span class="br0">&#123;</span>
+          MessageBody <span class="sy1">=</span> FString<span class="sy4">::</span><span class="me2">Printf</span><span class="br0">&#40;</span>TEXT<span class="br0">&#40;</span><span class="st0">&quot;{<span class="es1">\&quot;</span>success<span class="es1">\&quot;</span>:<span class="es1">\&quot;</span>HTTP Error:&#160;%d<span class="es1">\&quot;</span>}&quot;</span><span class="br0">&#41;</span>, Response<span class="sy2">-</span><span class="sy1">&gt;</span>GetResponseCode<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+     <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>一旦发送出请求后肯定会调用HttpCompleteCallback方法，WEB服务器处理的数据结果包含在Response参数中，可以通过Response-&gt;GetContentAsString()来获取返回的字符串，比如在本例中是StormUnited。
+</p>
+<h2><span class="mw-headline" id=".E6.80.BB.E7.BB.93">总结</span></h2>
+<p>联系我：<a href="/User:Bm0nkey" title="User:Bm0nkey">bm0nkey</a>
+</p>
+<h2><span class="mw-headline" id=".E5.B8.B8.E8.A7.81.E9.97.AE.E9.A2.98.E5.8F.8A.E5.8F.82.E8.80.83">常见问题及参考</span></h2>
+<ul>
+<li> <a rel="nofollow" class="external free" href="https://answers.unrealengine.com/questions/4383/sending-an-fstring-via-sockets.html">https://answers.unrealengine.com/questions/4383/sending-an-fstring-via-sockets.html</a>
+</li>
+<li> <a rel="nofollow" class="external free" href="https://answers.unrealengine.com/questions/4406/need-help-with-json-objects.html">https://answers.unrealengine.com/questions/4406/need-help-with-json-objects.html</a>
+</li>
+<li> <a rel="nofollow" class="external free" href="https://answers.unrealengine.com/questions/2830/best-way-to-perform-a-http-request.html">https://answers.unrealengine.com/questions/2830/best-way-to-perform-a-http-request.html</a>
+</li>
+<li> <a rel="nofollow" class="external free" href="https://answers.unrealengine.com/questions/3530/does-httprequest-use-httpmanager-by-default.html">https://answers.unrealengine.com/questions/3530/does-httprequest-use-httpmanager-by-default.html</a>
+</li>
+<li> <a rel="nofollow" class="external free" href="https://answers.unrealengine.com/questions/2830/best-way-to-perform-a-http-request.html">https://answers.unrealengine.com/questions/2830/best-way-to-perform-a-http-request.html</a>
+</li>
+<li> <a rel="nofollow" class="external free" href="https://answers.unrealengine.com/questions/23170/making-http-calls.html">https://answers.unrealengine.com/questions/23170/making-http-calls.html</a>
+</li>
+<li> <a rel="nofollow" class="external free" href="https://answers.unrealengine.com/questions/31079/http%E9%80%9A%E4%BF%A1%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html">https://answers.unrealengine.com/questions/31079/http%E9%80%9A%E4%BF%A1%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6.html</a>
+</li>
+<li> <a rel="nofollow" class="external free" href="https://answers.unrealengine.com/questions/26704/trouble-deserializing-json.html">https://answers.unrealengine.com/questions/26704/trouble-deserializing-json.html</a>
+</li>
+<li> <a rel="nofollow" class="external free" href="https://answers.unrealengine.com/questions/2830/best-way-to-perform-a-http-request.html">https://answers.unrealengine.com/questions/2830/best-way-to-perform-a-http-request.html</a>
+</li>
+</ul>
+
+<!-- 
+NewPP limit report
+CPU time usage: 0.073 seconds
+Real time usage: 0.085 seconds
+Preprocessor visited node count: 94/1000000
+Preprocessor generated node count: 202/1000000
+Post‐expand include size: 145/2097152 bytes
+Template argument size: 12/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+</div>								<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=UE4与WEB服务器交互(json)&amp;oldid=8536">https://wiki.unrealengine.com/index.php?title=UE4与WEB服务器交互(json)&amp;oldid=8536</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li><li><a href="/Category:Code" title="Category:Code">Code</a></li><li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=UE4%E4%B8%8EWEB%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A4%E4%BA%92%28json%29&amp;returntoquery=redirect%3Dno&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=UE4%E4%B8%8EWEB%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A4%E4%BA%92%28json%29&amp;returntoquery=redirect%3Dno" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/UE4%E4%B8%8EWEB%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A4%E4%BA%92(json)"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:UE4%E4%B8%8EWEB%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A4%E4%BA%92(json)&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/UE4%E4%B8%8EWEB%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A4%E4%BA%92(json)" >Read</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=UE4%E4%B8%8EWEB%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A4%E4%BA%92(json)&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=UE4%E4%B8%8EWEB%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A4%E4%BA%92(json)&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="/index.php" id="searchform">
+				<div id="simpleSearch">
+						<input name="search" placeholder="Search" title="Search Epic Wiki [f]" accesskey="f" id="searchInput" />						<button type="submit" name="button" title="Search the pages for this text" id="searchButton"><img src="/skins/vector/images/search-ltr.png?303" alt="Search" width="12" height="13" /></button>								<input type='hidden' name="title" value="Special:Search"/>
+		</div>
+	</form>
+</div>
+				</div>
+			</div>
+			<div id="mw-panel">
+					<div id="p-logo" role="banner"><a style="background-image: url(/images/WikiLogo_uev2.png);" href="/Main_Page"  title="Visit the main page"></a></div>
+				<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a></li>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Videos"><a href="/Videos">Videos</a></li>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Code"><a href="/Category:Code">Code</a></li>
+			<li id="n-Games"><a href="/Category:Games">Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/UE4%E4%B8%8EWEB%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A4%E4%BA%92(json)" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/UE4%E4%B8%8EWEB%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A4%E4%BA%92(json)" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=UE4%E4%B8%8EWEB%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A4%E4%BA%92(json)&amp;redirect=no&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=UE4%E4%B8%8EWEB%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A4%E4%BA%92(json)&amp;oldid=8536" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=UE4%E4%B8%8EWEB%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A4%E4%BA%92(json)&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+			</div>
+		</div>
+		<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<!-- Served in 0.161 secs. -->
+	</body>
+</html>

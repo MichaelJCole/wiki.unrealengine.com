@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Difference between revisions of "Garbage Collection &amp; Dynamic Memory Allocation" - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=vector&amp;*" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.action.history.diff&amp;only=styles&amp;skin=vector&amp;*" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=vector&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Garbage_Collection_\u0026_Dynamic_Memory_Allocation","wgTitle":"Garbage Collection \u0026 Dynamic Memory Allocation","wgCurRevisionId":7026,"wgRevisionId":1605,"wgArticleId":702,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Code"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Garbage_Collection_\u0026_Dynamic_Memory_Allocation","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:27249162ef7002415c3792ce5dfd2a9a */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Garbage_Collection_Dynamic_Memory_Allocation skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Difference between revisions of "Garbage Collection &amp; Dynamic Memory Allocation"</span></h1>
+			<div id="bodyContent">
+								<div id="siteSub">From Epic Wiki</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-navigation">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table class='diff diff-contentalign-left'>
+				<col class='diff-marker' />
+				<col class='diff-content' />
+				<col class='diff-marker' />
+				<col class='diff-content' />
+				<tr style='vertical-align: top;'>
+				<td colspan='2' class='diff-otitle'><div id="mw-diff-otitle1"><strong><a href="/index.php?title=Garbage_Collection_%26_Dynamic_Memory_Allocation&amp;oldid=1604" title="Garbage Collection &amp; Dynamic Memory Allocation">Revision as of 05:48, 21 March 2014</a> (<a href="/index.php?title=Garbage_Collection_%26_Dynamic_Memory_Allocation&amp;action=edit&amp;oldid=1604" title="Garbage Collection &amp; Dynamic Memory Allocation">view source</a>)</strong></div><div id="mw-diff-otitle2"><a href="/User:Rama" title="User:Rama" class="mw-userlink">Rama</a>  <span class="mw-usertoollinks">(<a href="/User_talk:Rama" title="User talk:Rama">Talk</a> | <a href="/Special:Contributions/Rama" title="Special:Contributions/Rama">contribs</a>)</span></div><div id="mw-diff-otitle3"></div><div id="mw-diff-otitle5"></div><div id="mw-diff-otitle4"><a href="/index.php?title=Garbage_Collection_%26_Dynamic_Memory_Allocation&amp;diff=prev&amp;oldid=1604" title="Garbage Collection &amp; Dynamic Memory Allocation" id="differences-prevlink">← Older edit</a></div></td>
+				<td colspan='2' class='diff-ntitle'><div id="mw-diff-ntitle1"><strong><a href="/index.php?title=Garbage_Collection_%26_Dynamic_Memory_Allocation&amp;oldid=1605" title="Garbage Collection &amp; Dynamic Memory Allocation">Revision as of 05:49, 21 March 2014</a> (<a href="/index.php?title=Garbage_Collection_%26_Dynamic_Memory_Allocation&amp;action=edit&amp;oldid=1605" title="Garbage Collection &amp; Dynamic Memory Allocation">view source</a>) </strong></div><div id="mw-diff-ntitle2"><a href="/User:Rama" title="User:Rama" class="mw-userlink">Rama</a>  <span class="mw-usertoollinks">(<a href="/User_talk:Rama" title="User talk:Rama">Talk</a> | <a href="/Special:Contributions/Rama" title="Special:Contributions/Rama">contribs</a>)</span> </div><div id="mw-diff-ntitle3"></div><div id="mw-diff-ntitle5"></div><div id="mw-diff-ntitle4"><a href="/index.php?title=Garbage_Collection_%26_Dynamic_Memory_Allocation&amp;diff=next&amp;oldid=1605" title="Garbage Collection &amp; Dynamic Memory Allocation" id="differences-nextlink">Newer edit →</a></div></td>
+				</tr><tr><td colspan="2" class="diff-lineno">Line 54:</td>
+<td colspan="2" class="diff-lineno">Line 54:</td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>If you do not use UPROPERTY() you can never rely on your dynamic UObject staying in existence!</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>If you do not use UPROPERTY() you can never rely on your dynamic UObject staying in existence!</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>−</td><td class='diff-deletedline'><div>Make sure you pay close attention to this if you are spawning UObjects or using NewObject())!</div></td><td class='diff-marker'>+</td><td class='diff-addedline'><div><ins class="diffchange diffchange-inline">'''</ins>Make sure you pay close attention to this<ins class="diffchange diffchange-inline">''' </ins></div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>&#160;</div></td></tr>
+<tr><td colspan="2">&#160;</td><td class='diff-marker'>+</td><td class='diff-addedline'><div>if you are spawning UObjects or using NewObject())!</div></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'></td><td class='diff-marker'>&#160;</td><td class='diff-context'></td></tr>
+<tr><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==Destroying / Deallocating==</div></td><td class='diff-marker'>&#160;</td><td class='diff-context'><div>==Destroying / Deallocating==</div></td></tr>
+</table><hr class='diff-hr' />
+		<h2 class='diff-currentversion-title'>Revision as of 05:49, 21 March 2014</h2>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Dynamic_Load_Object_From_Asset_Path"><span class="tocnumber">2</span> <span class="toctext">Dynamic Load Object From Asset Path</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Disclaimer"><span class="tocnumber">3</span> <span class="toctext">Disclaimer</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Dynamic_UObject_Allocation"><span class="tocnumber">4</span> <span class="toctext">Dynamic UObject Allocation</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Preventing_Garbage_Collection"><span class="tocnumber">5</span> <span class="toctext">Preventing Garbage Collection</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#.H"><span class="tocnumber">5.1</span> <span class="toctext">.H</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#.CPP"><span class="tocnumber">5.2</span> <span class="toctext">.CPP</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Impliciations_of_Not_Using_UPROPERTY.28.29"><span class="tocnumber">5.3</span> <span class="toctext">Impliciations of Not Using UPROPERTY()</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Destroying_.2F_Deallocating"><span class="tocnumber">6</span> <span class="toctext">Destroying / Deallocating</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Destroying_Objects"><span class="tocnumber">6.1</span> <span class="toctext">Destroying Objects</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Destroying_Actors"><span class="tocnumber">6.2</span> <span class="toctext">Destroying Actors</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#IsValidLowLevel.28.29"><span class="tocnumber">7</span> <span class="toctext">IsValidLowLevel()</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Memory.h_.2F_FMemory::"><span class="tocnumber">8</span> <span class="toctext">Memory.h / FMemory::</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="#Templated_UE4_C.2B.2B_Malloc_Function"><span class="tocnumber">8.1</span> <span class="toctext">Templated UE4 C++ Malloc Function</span></a>
+<ul>
+<li class="toclevel-3 tocsection-15"><a href="#Example_Usage"><span class="tocnumber">8.1.1</span> <span class="toctext">Example Usage</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#.3DUE4_C.2B.2B_Free"><span class="tocnumber">9</span> <span class="toctext">=UE4 C++ Free</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="#If_You_Use_Malloc_You_Must_Use_Free"><span class="tocnumber">10</span> <span class="toctext">If You Use Malloc You Must Use Free</span></a></li>
+<li class="toclevel-1 tocsection-18"><a href="#Summary"><span class="tocnumber">11</span> <span class="toctext">Summary</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p><i>Original Author:</i> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)
+</p><p>Please note this tutorial in its present state reflects only my understanding and is not an Epic tutorial, you should examine the UE4 Source to get a more complete understanding of Dynamic Memory Management and the Garbage Collection System.
+</p><p>What I post here are the basics to get you started&#160;:)
+</p>
+<h2><span class="mw-headline" id="Dynamic_Load_Object_From_Asset_Path">Dynamic Load Object From Asset Path</span></h2>
+<p>See my Dynamic Load Object Tutorial!
+</p><p><b><a href="/Dynamic_Load_Object" title="Dynamic Load Object">Dynamic Load Object</a></b>
+</p><p>This is how you load objects from an Asset Path, after creating those assets via the Editor!
+</p><p>You can use Dynamic Load Object to load a UStaticMesh into your game and then assign it to a Static Mesh Actor that you spawn, for example.
+</p>
+<pre> If you are new to C++ / UE4 C++ I recommend you start with my Dynamic Load Object tutorial.
+</pre>
+<h2><span class="mw-headline" id="Disclaimer">Disclaimer</span></h2>
+<pre> Please note that the rest of this tutorial is an advanced tutorial, 
+ and you should not attempt any of this until you are comfortable with C++ and UE4 C++.
+</pre>
+<h2><span class="mw-headline" id="Dynamic_UObject_Allocation">Dynamic UObject Allocation</span></h2>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">//in any class</span>
+UMyObjectClass<span class="sy2">*</span> DynamicObj <span class="sy1">=</span> NewObject<span class="sy1">&lt;</span>UMyObjectClass<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="kw3">this</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<p>this = Outer, if you are looking through the UE4 Source.
+</p>
+<h2><span class="mw-headline" id="Preventing_Garbage_Collection">Preventing Garbage Collection</span></h2>
+<p>UE4 Garbage Collection only counts references to UObjects that are UPROPERTY()
+</p><p>To ensure that your spawned UObjects or objects created with NewObject are not Garbage Collected prematurely,
+</p><p>you must have at least 1 reference to the UObject that is UPROPERTY()
+</p>
+<h3><span class="mw-headline" id=".H">.H</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">UPROPERTY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+UMyObjectClass<span class="sy2">*</span> MyGCProtectedObj<span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id=".CPP">.CPP</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">MyGCProtectedObj <span class="sy1">=</span> NewObject<span class="sy1">&lt;</span>UMyObjectClass<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="kw3">this</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id="Impliciations_of_Not_Using_UPROPERTY.28.29">Impliciations of Not Using UPROPERTY()</span></h3>
+<p>If you do not use UPROPERTY() you can never rely on your dynamic UObject staying in existence!
+</p><p><b>Make sure you pay close attention to this</b> 
+</p><p>if you are spawning UObjects or using NewObject())!
+</p>
+<h2><span class="mw-headline" id="Destroying_.2F_Deallocating">Destroying / Deallocating</span></h2>
+<h3><span class="mw-headline" id="Destroying_Objects">Destroying Objects</span></h3>
+<p>You can destroy objects created during runtime using:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>MyObject<span class="br0">&#41;</span> <span class="kw1">return</span><span class="sy4">;</span>
+<span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>MyObject<span class="sy2">-</span><span class="sy1">&gt;</span>IsValidLowLevel<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="kw1">return</span><span class="sy4">;</span>
+&#160;
+MyObject<span class="sy2">-</span><span class="sy1">&gt;</span>BeginDestroy<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+MyObject <span class="sy1">=</span> nullptr<span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id="Destroying_Actors">Destroying Actors</span></h3>
+<p>You can destroy AActor extending classes using
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>TheCharacter<span class="br0">&#41;</span> <span class="kw1">return</span><span class="sy4">;</span>
+<span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>TheCharacter<span class="sy2">-</span><span class="sy1">&gt;</span>IsValidLowLevel<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="kw1">return</span><span class="sy4">;</span>
+TheCharacter<span class="sy2">-</span><span class="sy1">&gt;</span>Destroy<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<h2><span class="mw-headline" id="IsValidLowLevel.28.29">IsValidLowLevel()</span></h2>
+<p>You must always check if a UObject or AActor is valid before deferencing the pointer to it!
+</p><p>If you are wanting to use Dynamic Allocation of UObjects, you absolutely must also use IsValidLowLevel()
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">//Get the Name of my Dynamic Object</span>
+<span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>MyGCProtectedObj<span class="br0">&#41;</span> <span class="kw1">return</span><span class="sy4">;</span>
+<span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>MyGCProtectedObj<span class="sy2">-</span><span class="sy1">&gt;</span>IsValidLowLevel<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="kw1">return</span><span class="sy4">;</span>
+ClientMessage<span class="br0">&#40;</span>MyGCProtectedObj<span class="sy2">-</span><span class="sy1">&gt;</span>GetName<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<h2><span class="mw-headline" id="Memory.h_.2F_FMemory::">Memory.h / FMemory::</span></h2>
+<p>Use the Memory.h functions!
+</p><p>Do not use c++ level memory functions!
+</p>
+<pre> FMemory contains UE4 C++ versions that are maintained by Epic as the engine evolves.
+</pre>
+<h3><span class="mw-headline" id="Templated_UE4_C.2B.2B_Malloc_Function">Templated UE4 C++ Malloc Function</span></h3>
+<p>Here is my very own Templated Malloc function which I used to make my In-game Editor Undo system!
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">//The purpose of this template is to ensure no typos when malloc-ing</span>
+<span class="co1">//		types that are related and will pass static cast, but if there's a typo could be allocating</span>
+<span class="co1">//		insufficient amount of space</span>
+&#160;
+<span class="co1">//the name is VStruct because I was mallocing USTRUCTS</span>
+&#160;
+<span class="kw2">template</span> <span class="sy1">&lt;</span><span class="kw2">typename</span> DataType<span class="sy1">&gt;</span>
+FORCEINLINE DataType<span class="sy2">*</span> VStructMalloc<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">return</span>	<span class="kw2">static_cast</span><span class="sy1">&lt;</span>DataType<span class="sy2">*</span><span class="sy1">&gt;</span><span class="br0">&#40;</span>FMemory<span class="sy4">::</span><span class="me2">Malloc</span><span class="br0">&#40;</span><span class="kw3">sizeof</span><span class="br0">&#40;</span>DataType<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h4><span class="mw-headline" id="Example_Usage">Example Usage</span></h4>
+<p>template &lt;typename DataType&gt;
+FVictoryUndoDataCreateWall* NewUndo = VStructMalloc&lt;FVictoryUndoDataCreateWall&gt;();
+if(!NewUndo) return;
+//05:47, 21 March 2014 (UTC)05:47, 21 March 2014 (UTC)
+&lt;/syntaxhighlight&gt;
+</p>
+<h2><span class="mw-headline" id=".3DUE4_C.2B.2B_Free">=UE4 C++ Free</span></h2>
+<p>template &lt;typename DataType&gt;
+FMemory::Free(NewUndo);
+&lt;/syntaxhighlight&gt;
+</p>
+<h2><span class="mw-headline" id="If_You_Use_Malloc_You_Must_Use_Free">If You Use Malloc You Must Use Free</span></h2>
+<p>Every Malloc must be paired with a Free when you are doing your own Dynamic Memory management, or you will have a Memory Leak.
+</p><p>template &lt;typename DataType&gt;
+FMemory::Malloc
+FMemory::Free
+&lt;/syntaxhighlight&gt;
+</p>
+<h2><span class="mw-headline" id="Summary">Summary</span></h2>
+<p>Now you know how to dynamically spawn / create UObjects and also prevent them from getting Garbage Collected!
+</p><p>You also know how to prevent your game from crashing constantly.
+</p>
+<pre> It's called IsValidLowLevel()&#160;!!!
+</pre>
+<p>You also have a very brief intro into Dynamic Memory Management which I plan to let you explore further by studying Memory.h directly.
+</p><p>Enjoy!
+</p><p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.046 seconds
+Real time usage: 0.050 seconds
+Preprocessor visited node count: 133/1000000
+Preprocessor generated node count: 216/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+</div>								<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=Garbage_Collection_%26_Dynamic_Memory_Allocation&amp;oldid=1605">https://wiki.unrealengine.com/index.php?title=Garbage_Collection_%26_Dynamic_Memory_Allocation&amp;oldid=1605</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Garbage+Collection+%26+Dynamic+Memory+Allocation&amp;returntoquery=diff%3D1605%26oldid%3Dprev&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Garbage+Collection+%26+Dynamic+Memory+Allocation&amp;returntoquery=diff%3D1605%26oldid%3Dprev" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Garbage_Collection_%26_Dynamic_Memory_Allocation"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Garbage_Collection_%26_Dynamic_Memory_Allocation&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Garbage_Collection_%26_Dynamic_Memory_Allocation" >Read</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Garbage_Collection_%26_Dynamic_Memory_Allocation&amp;action=edit&amp;oldid=1605"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Garbage_Collection_%26_Dynamic_Memory_Allocation&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="/index.php" id="searchform">
+				<div id="simpleSearch">
+						<input name="search" placeholder="Search" title="Search Epic Wiki [f]" accesskey="f" id="searchInput" />						<button type="submit" name="button" title="Search the pages for this text" id="searchButton"><img src="/skins/vector/images/search-ltr.png?303" alt="Search" width="12" height="13" /></button>								<input type='hidden' name="title" value="Special:Search"/>
+		</div>
+	</form>
+</div>
+				</div>
+			</div>
+			<div id="mw-panel">
+					<div id="p-logo" role="banner"><a style="background-image: url(/images/WikiLogo_uev2.png);" href="/Main_Page"  title="Visit the main page"></a></div>
+				<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a></li>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Videos"><a href="/Videos">Videos</a></li>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Code"><a href="/Category:Code">Code</a></li>
+			<li id="n-Games"><a href="/Category:Games">Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Garbage_Collection_%26_Dynamic_Memory_Allocation" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Garbage_Collection_%26_Dynamic_Memory_Allocation" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=Garbage_Collection_%26_Dynamic_Memory_Allocation&amp;diff=1605&amp;oldid=prev&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Garbage_Collection_%26_Dynamic_Memory_Allocation&amp;oldid=1605" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Garbage_Collection_%26_Dynamic_Memory_Allocation&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+			</div>
+		</div>
+		<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<!-- Served in 0.158 secs. -->
+	</body>
+</html>
