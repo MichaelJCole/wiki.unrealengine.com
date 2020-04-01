@@ -3,4 +3,7 @@ module.exports = {
   description: 'A static site pulled from the internet archive',
   base: '/wiki.unrealengine.com/',
   theme: '@vuepress/theme-default',
+  themeConfig: {
+    displayAllHeaders: true // Default: false
+  }
 }
