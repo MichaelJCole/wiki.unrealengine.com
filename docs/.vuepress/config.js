@@ -3,6 +3,7 @@ module.exports = {
   description: 'A static site pulled from the internet archive',
   base: '/wiki.unrealengine.com/',
   theme: '@vuepress/theme-default',
+  shouldPrefetch: false, // or never loads
   themeConfig: {
   }
 }
