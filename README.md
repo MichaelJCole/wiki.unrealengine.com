@@ -5,7 +5,7 @@ For the articles, see below.
 ### About this Site
 
 - Is this site awesome?  Hell no.
-- Is this site a replacement?  Nope.  No formatting, tagging, or images came in the dump.
+- Is this site a replacement?  Nope.  A lot didn't make it.  A lot did.
 - Can you copy the text from your wiki's and start over?  Yes.
 
 Please note this site was taken offline for security reason, so please handle the "original" folder in the [git repo](https://github.com/MichaelJCole/wiki.unrealengine.com) appropriately.
