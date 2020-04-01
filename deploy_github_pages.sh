@@ -4,7 +4,7 @@
 set -e
 
 # build
-npm run docs:build
+NODE_OPTIONS="--max-old-space-size=12288" yarn docs:build
 
 # navigate into the build output directory
 cd docs/.vuepress/dist

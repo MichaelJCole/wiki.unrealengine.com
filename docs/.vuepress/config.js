@@ -1,8 +1,8 @@
 const glob = require('glob');
 
 let markdownFiles = glob.sync('docs/**/*.md').map(markdownFile => {
-  var path = markdownFile.replace('docs', '').replace('index.md', '')
-  return ['/' + markdownFile, path]
+  var path = markdownFile.replace('docs', '').replace('README.md', '')
+  return [path, path]
 }); 
 
 console.log(markdownFiles)

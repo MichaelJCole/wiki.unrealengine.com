@@ -58,9 +58,6 @@ function markdownFilename(htmlFilename) {
 // List the files
 htmlFiles = recFindByExt('../original','html')
 
-// Useful for testing
-//htmlFiles = htmlFiles.slice(0, 1)
-
 // Loop each filename
 htmlFiles.forEach(htmlFilename => {
   
@@ -97,7 +94,7 @@ htmlFiles.forEach(htmlFilename => {
   
   // Read the file contents
   fsRead.readFile(htmlFilename, 'utf8', function(err, contents) {
-    if (err) return console.log(htmlFilename, err) // read error
+    if (err) return console.error(htmlFilename, err)
 
     // get new name
     var newName = markdownFilename(htmlFilename)
@@ -107,6 +104,6 @@ htmlFiles.forEach(htmlFilename => {
     
     fsWrite.outputFile(newName, markdown)
     .then(() => { console.log('SUCCESS ', newName) })  // Complete
-    .catch(err => { console.log(newName, err) }) // Write error
+    .catch(err => { console.error(newName, err) }) // Write error
   })
 })

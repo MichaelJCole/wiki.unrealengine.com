@@ -34,7 +34,7 @@ PR's welcome
 
 It's highly recommended and in active development: https://snipcart.com/blog/choose-best-static-site-generator
 
-Gitbook is no longer in active development after a pivot to Saa: https://github.com/GitbookIO/gitbook
+Gitbook is no longer in active development after a pivot to SaaS: https://github.com/GitbookIO/gitbook
 
 # How can I help?
 
