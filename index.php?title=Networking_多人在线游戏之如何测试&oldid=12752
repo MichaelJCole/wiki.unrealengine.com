@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Networking 多人在线游戏之如何测试 - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Networking_多人在线游戏之如何测试","wgTitle":"Networking 多人在线游戏之如何测试","wgCurRevisionId":12752,"wgRevisionId":12752,"wgArticleId":2492,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Community Created Content"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Networking_多人在线游戏之如何测试","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["ext.voteNY","mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Networking_多人在线游戏之如何测试 skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head">
+		
+
+
+
+
+
+<input type="hidden" id="updateenable" value="true">
+
+    <script src="https://cdn1.unrealengine.com/2670222/unifiedHeaderBundle-c133cbefbece60d20fd29c5b1819fa39.js" defer></script>
+    <link rel="stylesheet" href="https://cdn1.unrealengine.com/2670222/unifiedHeader-dd083735d5017970978496baee5b916e.css">
+
+
+<header id="header" data-path="/" data-sitepath="https://www.unrealengine.com">
+<input type="hidden" id="isUnified" value="1" />
+    <input type="hidden" id="current_locale" value="en_US"/>
+    <input type="hidden" id="header-host" value="https://www.unrealengine.com" />
+    <nav class="main-menu">
+        <div class="menu-mobile">
+            <span class="menu-mobile-icon"></span>
+            <ul>
+
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">About</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Learn</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Community</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/blog">Blog</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Marketplace</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Academia</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/education">Education Program</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                
+                <li class="btn-account ignore" style="display: none">
+                    <a href="https://www.unrealengine.com/dashboard">Account</a>
+                </li>
+                <li class="btn-signout ignore" style="display: none">
+                    <a class="sso-sign-out" href="">Log Out</a>
+                </li>
+                <li class="btn-signin ignore" style="display: none">
+                    <a class="sso-sign-in" href="">Sign in</a>
+                </li>
+            </ul>
+        </div>
+
+        <ul class="menu-items">
+            <li class="logo ignore">
+                
+                    <a href="https://www.unrealengine.com/blog"></a>
+                
+            </li>
+
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>About</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Learn</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Community</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/blog">Blog</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Marketplace</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Academia</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/education">Education Program</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+        </ul>
+
+
+        <div class="menu-download" data-sub="dl">
+            <a class="sso-register" href="">
+                <span class="isUpdateEnabled">Get Unreal</span>
+            </a>
+        </div>
+        
+
+        <div id="search" class="menu-search ignore">
+                <span></span>
+        </div>
+        
+        <div class="search-header">
+            <div class="input-search">
+                <div id="search-tips" class="search-tips-en_US">
+                    You may be unable to view the results of this search unless you connect to a VPN first.
+                </div>
+                <span></span>
+                <input type="text" name="search" value="" style="background:none !important" id="isearch" class="text" placeholder="Search..." />
+                <p class="search-btn">Search</p>
+            </div>
+        </div>
+
+        <ul class="menu-icons">
+            <li id="btn-account" class="ignore" data-sub="account" style="display: none">
+                <a href="/dashboard">Account</a>
+                <ul class="account-sub-menu">
+                    <li>
+                        <a href="/dashboard">Personal</a>
+                    </li>
+                    <li>
+                        <a href="https://publish.unrealengine.com/">Seller</a>
+                    </li>
+                </ul>
+            </li>
+            <li id="btn-signout" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-out last-border" href="">Log Out</a>
+            </li>
+            <li id="btn-signin" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-in last-border" href="">Sign in</a>
+            </li>
+        </ul>
+        
+    </nav>
+</header>
+
+		</div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a></li>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Videos"><a href="/Videos">Videos</a></li>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Code"><a href="/Category:Code">Code</a></li>
+			<li id="n-Games"><a href="/Category:Games">Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Networking_%E5%A4%9A%E4%BA%BA%E5%9C%A8%E7%BA%BF%E6%B8%B8%E6%88%8F%E4%B9%8B%E5%A6%82%E4%BD%95%E6%B5%8B%E8%AF%95" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Networking_%E5%A4%9A%E4%BA%BA%E5%9C%A8%E7%BA%BF%E6%B8%B8%E6%88%8F%E4%B9%8B%E5%A6%82%E4%BD%95%E6%B5%8B%E8%AF%95" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=Networking_%E5%A4%9A%E4%BA%BA%E5%9C%A8%E7%BA%BF%E6%B8%B8%E6%88%8F%E4%B9%8B%E5%A6%82%E4%BD%95%E6%B5%8B%E8%AF%95&amp;oldid=12752&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Networking_%E5%A4%9A%E4%BA%BA%E5%9C%A8%E7%BA%BF%E6%B8%B8%E6%88%8F%E4%B9%8B%E5%A6%82%E4%BD%95%E6%B5%8B%E8%AF%95&amp;oldid=12752" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Networking_%E5%A4%9A%E4%BA%BA%E5%9C%A8%E7%BA%BF%E6%B8%B8%E6%88%8F%E4%B9%8B%E5%A6%82%E4%BD%95%E6%B5%8B%E8%AF%95&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Networking_%E5%A4%9A%E4%BA%BA%E5%9C%A8%E7%BA%BF%E6%B8%B8%E6%88%8F%E4%B9%8B%E5%A6%82%E4%BD%95%E6%B5%8B%E8%AF%95"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Networking_%E5%A4%9A%E4%BA%BA%E5%9C%A8%E7%BA%BF%E6%B8%B8%E6%88%8F%E4%B9%8B%E5%A6%82%E4%BD%95%E6%B5%8B%E8%AF%95&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Networking_%E5%A4%9A%E4%BA%BA%E5%9C%A8%E7%BA%BF%E6%B8%B8%E6%88%8F%E4%B9%8B%E5%A6%82%E4%BD%95%E6%B5%8B%E8%AF%95" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Networking_%E5%A4%9A%E4%BA%BA%E5%9C%A8%E7%BA%BF%E6%B8%B8%E6%88%8F%E4%B9%8B%E5%A6%82%E4%BD%95%E6%B5%8B%E8%AF%95&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Networking_%E5%A4%9A%E4%BA%BA%E5%9C%A8%E7%BA%BF%E6%B8%B8%E6%88%8F%E4%B9%8B%E5%A6%82%E4%BD%95%E6%B5%8B%E8%AF%95&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Networking+%E5%A4%9A%E4%BA%BA%E5%9C%A8%E7%BA%BF%E6%B8%B8%E6%88%8F%E4%B9%8B%E5%A6%82%E4%BD%95%E6%B5%8B%E8%AF%95&amp;returntoquery=oldid%3D12752&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Networking+%E5%A4%9A%E4%BA%BA%E5%9C%A8%E7%BA%BF%E6%B8%B8%E6%88%8F%E4%B9%8B%E5%A6%82%E4%BD%95%E6%B5%8B%E8%AF%95&amp;returntoquery=oldid%3D12752" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Networking 多人在线游戏之如何测试</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"><div id="mw-revision-info">Revision as of 09:11, 22 March 2015 by <a href="/User:Hexcola" title="User:Hexcola" class="mw-userlink">Hexcola</a>  <span class="mw-usertoollinks">(<a href="/index.php?title=User_talk:Hexcola&amp;action=edit&amp;redlink=1" class="new" title="User talk:Hexcola (page does not exist)">Talk</a> | <a href="/Special:Contributions/Hexcola" title="Special:Contributions/Hexcola">contribs</a>)</span></div><br />
+				<div id="mw-revision-nav">(<a href="/index.php?title=Networking_%E5%A4%9A%E4%BA%BA%E5%9C%A8%E7%BA%BF%E6%B8%B8%E6%88%8F%E4%B9%8B%E5%A6%82%E4%BD%95%E6%B5%8B%E8%AF%95&amp;diff=prev&amp;oldid=12752" title="Networking 多人在线游戏之如何测试">diff</a>) <a href="/index.php?title=Networking_%E5%A4%9A%E4%BA%BA%E5%9C%A8%E7%BA%BF%E6%B8%B8%E6%88%8F%E4%B9%8B%E5%A6%82%E4%BD%95%E6%B5%8B%E8%AF%95&amp;direction=prev&amp;oldid=12752" title="Networking 多人在线游戏之如何测试">← Older revision</a> | Latest revision (diff) | Newer revision → (diff)</div></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="aux">
+<div>
+<b>Rate this Article:</b> <div id="rating_"><div class="rating-score"><div class="voteboxrate">4.00</div></div><div class="rating-section"><img class="vote-rating-star" data-vote-the-vote="1" data-vote-id="" data-vote-action="3" data-vote-rating="4.00" data-vote-voted="0" id="rating__1" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="2" data-vote-id="" data-vote-action="3" data-vote-rating="4.00" data-vote-voted="0" id="rating__2" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="3" data-vote-id="" data-vote-action="3" data-vote-rating="4.00" data-vote-voted="0" id="rating__3" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="4" data-vote-id="" data-vote-action="3" data-vote-rating="4.00" data-vote-voted="0" id="rating__4" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="5" data-vote-id="" data-vote-action="3" data-vote-rating="4.00" data-vote-voted="0" id="rating__5" src="/extensions/VoteNY/images/star_off.gif" alt="" /> <span class="rating-total">(2 votes)</span></div>
+				<div class="rating-clear">
+			</div></div>
+</div>
+<div>
+<p>Approved for Versions:(4.2)
+</p>
+</div>
+</div>
+<p><big>NOTE&#160;: WIP, don't delete for this moment, please. Thanks&#160;:) 文档编写过程中</big>
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E6.A6.82.E8.BF.B0"><span class="tocnumber">1</span> <span class="toctext">概述</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E6.9C.8D.E5.8A.A1.E5.99.A8.E7.B1.BB.E5.9E.8B"><span class="tocnumber">2</span> <span class="toctext">服务器类型</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E6.96.B0.E5.BB.BA.E9.A1.B9.E7.9B.AE.E5.B9.B6.E8.BF.90.E8.A1.8C.E6.B5.8B.E8.AF.95"><span class="tocnumber">3</span> <span class="toctext">新建项目并运行测试</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#.E7.BC.96.E8.BE.91.E5.99.A8.28PIE.29.E4.B8.AD.E8.BF.90.E8.A1.8C"><span class="tocnumber">3.1</span> <span class="toctext">编辑器(PIE)中运行</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#.E4.BB.A5Launch.E6.96.B9.E5.BC.8F.E8.BF.90.E8.A1.8C"><span class="tocnumber">3.2</span> <span class="toctext">以Launch方式运行</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#.E4.BB.A5.E5.8F.91.E5.B8.83.E6.96.B9.E5.BC.8F.E8.BF.90.E8.A1.8C"><span class="tocnumber">3.3</span> <span class="toctext">以发布方式运行</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#.E6.80.BB.E7.BB.93"><span class="tocnumber">4</span> <span class="toctext">总结</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E6.A6.82.E8.BF.B0">概述</span></h2>
+<p>Unreal Engine中开发网络游戏极为容易，但将C/S同置于一个项目，也许对于很多熟悉编写独立C/S的开发者来说比较不适应。将通过本教程介绍常见的几种多人游戏测试方法。
+示例项目：Blueprint Third Person Template
+</p>
+<h2><span class="mw-headline" id=".E6.9C.8D.E5.8A.A1.E5.99.A8.E7.B1.BB.E5.9E.8B">服务器类型</span></h2>
+<p>在次之前先简单介绍UE4中两种服务器类型：
+</p>
+<ul>
+<li> Listen-Server ：Listen-Server 表示玩家
+</li>
+<li> Dedicated-Server ：与我们常见的无异
+</li>
+</ul>
+<p><br />
+</p>
+<h2><span class="mw-headline" id=".E6.96.B0.E5.BB.BA.E9.A1.B9.E7.9B.AE.E5.B9.B6.E8.BF.90.E8.A1.8C.E6.B5.8B.E8.AF.95">新建项目并运行测试</span></h2>
+<p><a href="/File:Ue4_network_how_to_test_01.png" class="image"><img alt="Ue4 network how to test 01.png" src="https://d26ilriwvtzlb.cloudfront.net/7/75/Ue4_network_how_to_test_01.png" width="933" height="738" /></a>
+</p>
+<h3><span class="mw-headline" id=".E7.BC.96.E8.BE.91.E5.99.A8.28PIE.29.E4.B8.AD.E8.BF.90.E8.A1.8C">编辑器(PIE)中运行</span></h3>
+<p>点击Play右侧的小三角，现在我们主要关注：
+</p><p><a href="/File:Ue4_network_how_to_test_02.png" class="image"><img alt="Ue4 network how to test 02.png" src="https://d26ilriwvtzlb.cloudfront.net/0/0c/Ue4_network_how_to_test_02.png" width="327" height="402" /></a>
+</p><p>Numbers of Clients&#160;:
+当我们指定的客户端数量超过1个时，就表示我们想运行多人游戏了，这里最大数量是64，也就是最多支持64人。
+Run Dedicated Server: 勾选表示运行独立服务器，不选择则运行Listen Server
+</p><p><a href="/File:Ue4_network_how_to_test_03.png" class="image"><img alt="Ue4 network how to test 03.png" src="https://d26ilriwvtzlb.cloudfront.net/1/19/Ue4_network_how_to_test_03.png" width="972" height="1029" /></a>
+</p><p>点击Play就可以了看到立即实例化两个角色出来了。
+</p><p><a href="/File:Ue4_network_how_to_test_04.png" class="image"><img alt="Ue4 network how to test 04.png" src="https://d26ilriwvtzlb.cloudfront.net/b/b9/Ue4_network_how_to_test_04.png" width="326" height="399" /></a>
+</p><p><a href="/File:Ue4_network_how_to_test_05.png" class="image"><img alt="Ue4 network how to test 05.png" src="https://d26ilriwvtzlb.cloudfront.net/c/ca/Ue4_network_how_to_test_05.png" width="972" height="1027" /></a>
+</p><p>其他：
+根据需要，可以点击Advanced，模拟客户端的窗口的位置与大小。
+</p><p><a href="/File:Ue4_network_how_to_test_06.png" class="image"><img alt="Ue4 network how to test 06.png" src="https://d26ilriwvtzlb.cloudfront.net/9/9d/Ue4_network_how_to_test_06.png" width="923" height="625" /></a>
+</p><p>虽然PIE测试很简单，但有些情况下PIE并不能满足我们的需求，比如说我们在测试另一个玩家开火的声音，或者看另一个玩家蹲下被爆头的效果等等至少需要两个人才能完成测试的条件下，PIE就难以满足。
+</p><p><a href="/File:Ue4_network_how_to_test_07.png" class="image"><img alt="Ue4 network how to test 07.png" src="https://d26ilriwvtzlb.cloudfront.net/2/21/Ue4_network_how_to_test_07.png" width="1129" height="296" /></a>
+</p>
+<h3><span class="mw-headline" id=".E4.BB.A5Launch.E6.96.B9.E5.BC.8F.E8.BF.90.E8.A1.8C">以Launch方式运行</span></h3>
+<p>首先抱歉的是，我不知道该如何命名这个运行方式。
+</p><p>在你的编辑器也就是UE4Editor.exe目录下创建 分别运行客户端、服务端的快捷方式，
+右击快捷方式，
+加上参数，客户端很简单：127.0.0.1 -game
+- 示例：
+C:\UnrealEngine\4.2.1\Engine\Binaries\Win64\UE4Editor.exe D:\Project\Unreal\4.2\MyTPS\127.0.0.1 -game
+</p><p>服务端&#160;:
+Listen Server: Example_Map?listen -game
+- 示例：
+C:\UnrealEngine\4.2.1\Engine\Binaries\Win64\UE4Editor.exe D:\Project\Unreal\4.2\MyTPS\MyTPS.uproject Example_Map?listen -game
+</p><p>Dedicated Server&#160;: &lt;MapName&gt; -server -log
+- 示例：
+Map5D -server -log
+</p><p>为什么要使用这种方式运行？
+这是最接近编译结果的方式，你可以多人联机测试
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id=".E4.BB.A5.E5.8F.91.E5.B8.83.E6.96.B9.E5.BC.8F.E8.BF.90.E8.A1.8C">以发布方式运行</span></h3>
+<p>发布游戏，我们需要打包游戏资源，编译游戏代码。如果你是刚刚开始学习UE4，这边的资料可能
+有些繁杂。
+</p><p>UE4是开源的，就目前而言也是不成熟的，大部分情况下我们使用编译过的编辑器来工作，
+不成熟导致我们在从编译好的编辑器下打包游戏时，只有DebugGame/Development/Shipping三
+个选项，但没有编译客户端还是服务器的概念。
+</p><p>所以想要以发布的方式运行多人游戏，在本文里只介绍使用Listen Server，如果对如何打包
+Dedicated Server感兴趣，可以看看我的另外一篇博文：
+Unreal Engine 4 Packaging与Cooking游戏项目
+</p>
+<h2><span class="mw-headline" id=".E6.80.BB.E7.BB.93">总结</span></h2>
+<p>联系我：<a href="/User:Hexcola" title="User:Hexcola">hexcola</a>
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.103 seconds
+Real time usage: 0.309 seconds
+Preprocessor visited node count: 40/1000000
+Preprocessor generated node count: 82/1000000
+Post‐expand include size: 145/2097152 bytes
+Template argument size: 12/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=Networking_多人在线游戏之如何测试&amp;oldid=12752">https://wiki.unrealengine.com/index.php?title=Networking_多人在线游戏之如何测试&amp;oldid=12752</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li><li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.380 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

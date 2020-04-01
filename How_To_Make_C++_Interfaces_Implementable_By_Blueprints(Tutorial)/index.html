@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>How To Make C++ Interfaces Implementable By Blueprints(Tutorial) - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"How_To_Make_C++_Interfaces_Implementable_By_Blueprints(Tutorial)","wgTitle":"How To Make C++ Interfaces Implementable By Blueprints(Tutorial)","wgCurRevisionId":22091,"wgRevisionId":22091,"wgArticleId":6261,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Templates","Tutorials"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"How_To_Make_C++_Interfaces_Implementable_By_Blueprints(Tutorial)","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["ext.voteNY","mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-How_To_Make_C_Interfaces_Implementable_By_Blueprints_Tutorial skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head"></div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-recentchanges"><a href="/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Community' aria-labelledby='p-Community-label'>
+	<h3 id='p-Community-label'>Community</h3>
+	<div class="body">
+		<ul>
+			<li id="n-UE4-Games"><a href="/Category:Games">UE4 Games</a></li>
+			<li id="n-Dev-Blogs"><a href="/Developer_Blogs">Dev Blogs</a></li>
+			<li id="n-Dev-Livestreams"><a href="/Developer_Livestreams">Dev Livestreams</a></li>
+			<li id="n-Code-Sharing-Hub"><a href="/GitHub_Sharing_Hub">Code Sharing Hub</a></li>
+			<li id="n-UE-User-Groups"><a href="/User_Group_Map">UE User Groups</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Learning_Resources' aria-labelledby='p-Learning_Resources-label'>
+	<h3 id='p-Learning_Resources-label'>Learning Resources</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Example-Projects"><a href="/Category:Example_Projects">Example Projects</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Software_and_Tools' aria-labelledby='p-Software_and_Tools-label'>
+	<h3 id='p-Software_and_Tools-label'>Software and Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Art:-3D"><a href="/3D_Art_Resources">Art: 3D</a></li>
+			<li id="n-Art:-2D"><a href="/2D_Art_Resources">Art: 2D</a></li>
+			<li id="n-Audio"><a href="/Audio_Resources">Audio</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Modding' aria-labelledby='p-Modding-label'>
+	<h3 id='p-Modding-label'>Modding</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Modding-Resources"><a href="/Category:Modding_Resources">Modding Resources</a></li>
+			<li id="n-Moddable-Games"><a href="/Category:Moddable_Games">Moddable Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Epic_Official' aria-labelledby='p-Epic_Official-label'>
+	<h3 id='p-Epic_Official-label'>Epic Official</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Website"><a href="https://www.unrealengine.com" rel="nofollow">Website</a></li>
+			<li id="n-Learning-Resources"><a href="https://docs.unrealengine.com/latest/INT/" rel="nofollow">Learning Resources</a></li>
+			<li id="n-Forums"><a href="https://forums.unrealengine.com/" rel="nofollow">Forums</a></li>
+			<li id="n-Blog"><a href="https://www.unrealengine.com/blog" rel="nofollow">Blog</a></li>
+			<li id="n-YouTube"><a href="https://www.youtube.com/UnrealEngine" rel="nofollow">YouTube</a></li>
+			<li id="n-Twitch"><a href="http://www.twitch.tv/unrealengine" rel="nofollow">Twitch</a></li>
+			<li id="n-Twitter"><a href="https://twitter.com/UnrealEngine" rel="nofollow">Twitter</a></li>
+			<li id="n-Facebook"><a href="https://www.facebook.com/UnrealEngine" rel="nofollow">Facebook</a></li>
+			<li id="n-Instagram"><a href="https://instagram.com/unrealengine/" rel="nofollow">Instagram</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/How_To_Make_C%2B%2B_Interfaces_Implementable_By_Blueprints(Tutorial)" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/How_To_Make_C%2B%2B_Interfaces_Implementable_By_Blueprints(Tutorial)" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=How_To_Make_C%2B%2B_Interfaces_Implementable_By_Blueprints(Tutorial)&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=How_To_Make_C%2B%2B_Interfaces_Implementable_By_Blueprints(Tutorial)&amp;oldid=22091" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=How_To_Make_C%2B%2B_Interfaces_Implementable_By_Blueprints(Tutorial)&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/How_To_Make_C%2B%2B_Interfaces_Implementable_By_Blueprints(Tutorial)"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk"><span><a href="/Talk:How_To_Make_C%2B%2B_Interfaces_Implementable_By_Blueprints(Tutorial)"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/How_To_Make_C%2B%2B_Interfaces_Implementable_By_Blueprints(Tutorial)" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=How_To_Make_C%2B%2B_Interfaces_Implementable_By_Blueprints(Tutorial)&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=How_To_Make_C%2B%2B_Interfaces_Implementable_By_Blueprints(Tutorial)&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=How+To+Make+C%2B%2B+Interfaces+Implementable+By+Blueprints%28Tutorial%29&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=How+To+Make+C%2B%2B+Interfaces+Implementable+By+Blueprints%28Tutorial%29" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">How To Make C++ Interfaces Implementable By Blueprints(Tutorial)</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="aux">
+<div>
+<b>Rate this Tutorial:</b> <div id="rating_"><div class="rating-score"><div class="voteboxrate">5.00</div></div><div class="rating-section"><img class="vote-rating-star" data-vote-the-vote="1" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__1" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="2" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__2" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="3" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__3" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="4" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__4" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="5" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__5" src="/extensions/VoteNY/images/star_on.gif" alt="" /> <span class="rating-total">(one vote)</span></div>
+				<div class="rating-clear">
+			</div></div>
+</div>
+<div>
+<p>Approved for Versions:4.10
+</p>
+</div>
+</div>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Getting_Started"><span class="tocnumber">2</span> <span class="toctext">Getting Started</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#How_to_implement_an_Interface"><span class="tocnumber">2.1</span> <span class="toctext">How to implement an Interface</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Creating_an_Actor_which_inherits_from_this_Interface"><span class="tocnumber">2.2</span> <span class="toctext">Creating an Actor which inherits from this Interface</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Let_it_grow"><span class="tocnumber">2.3</span> <span class="toctext">Let it grow</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p>Hello Ladies and Gentlemen,
+</p><p>I recently came to the conclusion that it is a bit tricky to make C++ Interfaces also implementable by Blueprints. Because of the lack of Information I could get from the Search Engine I used, I had to gather all this knowledge little by little.
+So lets begin&#160;:)
+</p>
+<h2><span class="mw-headline" id="Getting_Started">Getting Started</span></h2>
+<p>At first we have to implement our Interface:
+Unreal Engine has a special way to handle Interfaces so this part was a bit confusing at first. But in the End it was all clear (for me &gt;_&gt;)
+</p><p>I assume that you know how to do basic stuff like creating projects and new c++ classes etc.
+</p>
+<h3><span class="mw-headline" id="How_to_implement_an_Interface">How to implement an Interface</span></h3>
+<p>Our first step is to create a new C++ Class and let it inherit from our beloved Base Class UObject.
+Unfortunately one cannot simply inherit from UInterface directly so we have to do it ourselves.
+Lets call the Interface "Lookable".
+</p><p>Let's make a code example to better visualize:
+</p><p><b>Interface Header File</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co2">#pragma once</span>
+&#160;
+<span class="co2">#include &quot;Object.h&quot;</span>
+<span class="co2">#include &quot;Lookable.generated.h&quot;</span>
+&#160;
+<span class="co1">//Instead of UCLASS() we use UINTERFACE()</span>
+UINTERFACE<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw2">class</span> IAWESOME_API ULookable<span class="sy4">:</span> <span class="kw2">public</span> UInterface
+<span class="br0">&#123;</span>
+        <span class="co1">//Dont forget to use this makro.</span>
+	GENERATED_UINTERFACE_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+<span class="br0">&#125;</span><span class="sy4">;</span>
+&#160;
+<span class="co1">//Create a new class ILookable and use GENERATED_IINTERFACE_BODY() Makro in class body</span>
+<span class="kw2">class</span> ILookable
+<span class="br0">&#123;</span>
+	GENERATED_IINTERFACE_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+	UFUNCTION<span class="br0">&#40;</span>BlueprintNativeEvent, BlueprintCallable, Category <span class="sy1">=</span> Gameplay<span class="br0">&#41;</span>
+		<span class="kw4">void</span> ProcessEvent<span class="br0">&#40;</span>FName TestParamName, <span class="kw4">float</span> TestParamFloat<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<p>Here you can see that I'm using a BlueprintNativeEvent. This tells Unreal internally that we want to implement this function in Blueprint and/or C++.
+</p><p><b>Interface Source File</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co2">#include &quot;IAwesome.h&quot;</span>
+<span class="co2">#include &quot;Lookable.h&quot;</span>
+&#160;
+<span class="co1">//This constructor is predeclared so you dont have to declare it in your .header file</span>
+<span class="co1">//Don't forget to define this constructor so no compiler errors are thrown</span>
+ULookable<span class="sy4">::</span><span class="me2">ULookable</span><span class="br0">&#40;</span><span class="kw4">const</span> FObjectInitializer<span class="sy3">&amp;</span> ObjectInitializer<span class="br0">&#41;</span>
+	<span class="sy4">:</span>Super<span class="br0">&#40;</span>ObjectInitializer<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+&#160;
+<span class="br0">&#125;</span>
+&#160;
+<span class="co1">//This is the C++ part of our Event. Just let the Body empty if you don't want to do stuff in your Base Interface&lt;br /&gt;</span>
+ <span class="co1">//;)&#160;!!!Do not forget the _Implementation suffix!!!</span>
+<span class="kw4">void</span> ILookable<span class="sy4">::</span><span class="me2">ProcessEvent_Implementation</span><span class="br0">&#40;</span>FName TestParamName, <span class="kw4">float</span> TestParamFloat<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+&#160;
+<span class="br0">&#125;</span></pre></div></div>
+<h3><span class="mw-headline" id="Creating_an_Actor_which_inherits_from_this_Interface">Creating an Actor which inherits from this Interface</span></h3>
+<p>So far so good.
+Let's create a new C++ Class which inherits from AActor. Lets call him LookableActor.
+In addition to that, we have to let our new LookableActorinherit from ILookable(NOT ULookable) right after we included "Lookable.h".
+</p><p><b>Actor Header File</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co2">#pragma once</span>
+&#160;
+<span class="co2">#include &quot;GameFramework/Actor.h&quot;</span>
+<span class="co2">#include &quot;Lookable.h&quot;</span>
+<span class="co2">#include &quot;LookableActor.generated.h&quot;</span>
+&#160;
+UCLASS<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw2">class</span> IAWESOME_API ALookableActor<span class="sy4">:</span> <span class="kw2">public</span> AActor, <span class="kw2">public</span> ILookable
+<span class="br0">&#123;</span>
+	GENERATED_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+	ALookableActor<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw2">virtual</span> <span class="kw4">void</span> BeginPlay<span class="br0">&#40;</span><span class="br0">&#41;</span> override<span class="sy4">;</span>
+&#160;
+	<span class="kw2">virtual</span> <span class="kw4">void</span> Tick<span class="br0">&#40;</span><span class="kw4">float</span> DeltaTime<span class="br0">&#41;</span> override<span class="sy4">;</span>
+&#160;
+	<span class="kw2">virtual</span> <span class="kw4">void</span> ProcessEvent_Implementation<span class="br0">&#40;</span>FName Name, <span class="kw4">float</span> Float<span class="br0">&#41;</span> override<span class="sy4">;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<p>Make sure to override ProcessEvent_Implementation Function.
+Unfortunately all methods which are provided of our Interface <b>HAVE TO</b> be overridden.
+The Compiler makes sure to tell you if you forget it.
+</p><p><b>Actor Header File</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co2">#include &quot;IAwesome.h&quot;</span>
+<span class="co2">#include &quot;LookableActor.h&quot;</span>
+&#160;
+ALookableActor<span class="sy4">::</span><span class="me2">ALookableActor</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	PrimaryActorTick.<span class="me1">bCanEverTick</span> <span class="sy1">=</span> <span class="kw2">true</span><span class="sy4">;</span>
+        RootComponent <span class="sy1">=</span> CreateDefaultSubobject<span class="sy1">&lt;</span>UStaticMeshComponent<span class="sy1">&gt;</span><span class="br0">&#40;</span>TEXT<span class="br0">&#40;</span><span class="st0">&quot;LookAtMe&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> ALookableActor<span class="sy4">::</span><span class="me2">BeginPlay</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Super<span class="sy4">::</span><span class="me2">BeginPlay</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> ALookableActor<span class="sy4">::</span><span class="me2">Tick</span><span class="br0">&#40;</span><span class="kw4">float</span> DeltaTime<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Super<span class="sy4">::</span><span class="me2">Tick</span><span class="br0">&#40;</span>DeltaTime<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> ALookableActor<span class="sy4">::</span><span class="me2">ProcessEvent_Implementation</span><span class="br0">&#40;</span>FName Name, <span class="kw4">float</span> Float<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+        UE_LOG<span class="br0">&#40;</span>LogTemp, Warning, TEXT<span class="br0">&#40;</span><span class="st0">&quot;Parameter (FName)&#160;:&#160;%s <span class="es1">\n</span>Parameter (float)&#160;:&#160;%f&quot;</span><span class="br0">&#41;</span>, <span class="sy2">*</span>Name.<span class="me1">ToString</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, Float<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	SetActorScale3D<span class="br0">&#40;</span>FVector<span class="br0">&#40;</span>GetActorScale.<span class="me1">X</span> <span class="sy2">*</span> <span class="nu17">1.05f</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>This ProcessEvent defines that everytime this is called on our Actor he grows by 5%.
+</p>
+<h3><span class="mw-headline" id="Let_it_grow">Let it grow</span></h3>
+<p>So now we have an Actor which gets bigger and bigger. 
+Unfortunately there isn't an Actor which calls our ProcessEvent Function so our Actor stays small&#160;:(
+BUT WAIT (Dramatic Sound Playing)
+We can do that ourselves because we have hands which create whole new <b>Worlds</b> and <b>Universes</b> by writing cool <b>Letters</b>.&#160;;D
+For the ones who think I'm weird and I should begin to just write a Tutorial without making stupid jokes. I can't.
+</p><p>Let's go on by quickly creating a new Actor which calls our ProcessEvent Function.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co2">#pragma once</span>
+&#160;
+<span class="co2">#include &quot;GameFramework/Actor.h&quot;</span>
+<span class="co2">#include &quot;LineTraceActor.generated.h&quot;</span>
+&#160;
+UCLASS<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw2">class</span> IAWESOME_API ALineTraceActor<span class="sy4">:</span> <span class="kw2">public</span> AActor
+<span class="br0">&#123;</span>
+	GENERATED_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>	
+	<span class="co1">// Sets default values for this actor's properties</span>
+	ALineTraceActor<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">// Called when the game starts or when spawned</span>
+	<span class="kw2">virtual</span> <span class="kw4">void</span> BeginPlay<span class="br0">&#40;</span><span class="br0">&#41;</span> override<span class="sy4">;</span>
+&#160;
+	<span class="co1">// Called every frame</span>
+	<span class="kw2">virtual</span> <span class="kw4">void</span> Tick<span class="br0">&#40;</span> <span class="kw4">float</span> DeltaSeconds <span class="br0">&#41;</span> override<span class="sy4">;</span>
+&#160;
+	UFUNCTION<span class="br0">&#40;</span><span class="br0">&#41;</span>
+	<span class="kw4">void</span> NotifyEvent<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="coMULTI">/*
+		This Function creates a Raycast and fills the given HitResult
+		@param Hit: This Variable will be filled with the Information one needs.
+		@return bool value which specifies IF something was hit
+	*/</span>
+	<span class="kw4">bool</span> LineTraceFromCamera<span class="br0">&#40;</span>FHitResult<span class="sy3">&amp;</span> Hit<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="kw2">private</span><span class="sy4">:</span>
+	<span class="co1">//A Reference to the Player Camera</span>
+	APlayerController<span class="sy2">*</span> PC<span class="sy4">;</span>
+&#160;
+&#160;
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<p>At first I create 2 Methods NotifyEvent and LineTraceFromCamera I would say that the names describe their functions pretty well&#160;:)
+The next step is to fill our source file:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co2">#include &quot;IAwesome.h&quot;</span>
+<span class="co2">#include &quot;Interfaced.h&quot;</span>
+<span class="co2">#include &quot;LineTraceActor.h&quot;</span>
+&#160;
+&#160;
+<span class="co1">// Sets default values</span>
+ALineTraceActor<span class="sy4">::</span><span class="me2">ALineTraceActor</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+ 	<span class="co1">// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.</span>
+	PrimaryActorTick.<span class="me1">bCanEverTick</span> <span class="sy1">=</span> <span class="kw2">false</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="co1">// Called when the game starts or when spawned</span>
+<span class="kw4">void</span> ALineTraceActor<span class="sy4">::</span><span class="me2">BeginPlay</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Super<span class="sy4">::</span><span class="me2">BeginPlay</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> ALineTraceActor<span class="sy4">::</span><span class="me2">Tick</span><span class="br0">&#40;</span><span class="kw4">float</span> DeltaTime<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+        Super<span class="sy4">::</span><span class="me2">Tick</span><span class="br0">&#40;</span>DeltaTime<span class="br0">&#41;</span><span class="sy4">;</span>
+        NotifyEvent<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">bool</span> ALineTraceActor<span class="sy4">::</span><span class="me2">LineTraceFromCamera</span><span class="br0">&#40;</span>FHitResult<span class="sy3">&amp;</span> Hit<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw4">auto</span> PlayerCameraManager <span class="sy1">=</span> PC<span class="sy2">-</span><span class="sy1">&gt;</span>PlayerCameraManager<span class="sy4">;</span>
+&#160;
+        FName TraceTag <span class="sy1">=</span> Text<span class="br0">&#40;</span><span class="st0">&quot;Draw&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	GetWorld<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>DebugDrawTraceTag <span class="sy1">=</span> TraceTag<span class="sy4">;</span>
+&#160;
+	<span class="kw1">if</span> <span class="br0">&#40;</span>PlayerCameraManager<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		FVector CameraForwardVector <span class="sy1">=</span> PlayerCameraManager<span class="sy2">-</span><span class="sy1">&gt;</span>GetActorForwardVector<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+		FVector LineStart <span class="sy1">=</span> PlayerCameraManager<span class="sy2">-</span><span class="sy1">&gt;</span>GetCameraLocation<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		FVector LineEnd <span class="sy1">=</span> LineStart <span class="sy2">+</span> CameraForwardVector <span class="sy2">*</span> <span class="nu0">1024</span><span class="sy4">;</span>
+&#160;
+		FCollisionQueryParams Params<span class="sy4">;</span>
+		Params.<span class="me1">bTraceComplex</span> <span class="sy1">=</span> <span class="kw2">true</span><span class="sy4">;</span>
+		Params.<span class="me1">bReturnPhysicalMaterial</span> <span class="sy1">=</span> <span class="kw2">false</span><span class="sy4">;</span>
+		Params.<span class="me1">bReturnFaceIndex</span> <span class="sy1">=</span> <span class="kw2">false</span><span class="sy4">;</span>
+                Params.<span class="me1">TraceTag</span> <span class="sy1">=</span> TraceTag<span class="sy4">;</span>
+&#160;
+		<span class="kw1">return</span> GetWorld<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>LineTraceSingleByChannel<span class="br0">&#40;</span>Hit, LineStart, LineEnd, ECollisionChannel<span class="sy4">::</span><span class="me2">ECC_Visibility</span>, Params<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+&#160;
+&#160;
+	UE_LOG<span class="br0">&#40;</span>LogTemp, Error, TEXT<span class="br0">&#40;</span><span class="st0">&quot;PlayerCameraManager is null&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="kw1">return</span> <span class="kw2">false</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>Our Tick method just calls NotifyEvent which will be defined next.
+</p><p>The LineTraceFromCamera method just generates a LineTrace from the Cameras View. This setting for now should only be used for Ego Perspective games.
+To see our LineTrace we override the DebugDrawTraceTag of our World to "Draw". (I don't know if there a predefined Names for it, but just changing it to any Name should give you the expected result)
+Our next step is to calculate the LineStart and LineEnd of our Trace. 
+In our case the LineStart begins at the WorldLocation of our Camera. 
+The LineEnd should be calculated by using the Forward Vector of the Camera Multiplied by the length of the line PLUS our LineStart. Simple Vector calculation&#160;:)
+Our next step is to fill the collision parameters for our linetrace. Make sure to let the TraceTag of your parameter having the same value as the worlds TraceTag.
+</p><p>Our next method is NotifyEvent which is the key to notify not only c++ Interactables but also Blueprint's.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw4">void</span> ALineTraceActor<span class="sy4">::</span><span class="me2">NotfiyEvent</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	FHitResult Hit<span class="sy4">;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>LineTraceFromCamera<span class="br0">&#40;</span>Hit<span class="br0">&#41;</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		<span class="kw1">if</span><span class="br0">&#40;</span>Hit.<span class="me1">GetActor</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>Implements<span class="sy1">&lt;</span>ULookable<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+                <span class="br0">&#123;</span>
+			ILookable<span class="sy4">::</span><span class="me2">Execute_ProcessEvent</span><span class="br0">&#40;</span>Hit.<span class="me1">GetActor</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, Hit.<span class="me1">GetActor</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetFName<span class="br0">&#40;</span><span class="br0">&#41;</span>, Hit.<span class="me1">Distance</span><span class="br0">&#41;</span><span class="sy4">;</span>
+                <span class="br0">&#125;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>Let's go through this:
+We create a new variable of type FHitResult which we will fill by giving it into our LineTrace Method.
+If something was hit we have to check first if the Actor from our Hit Result Implements <b>ULookable</b> not ILookable. Please make sure to not forget that&#160;:) 
+Fortunately the Compiler throws an error if we give ILookable into the template because its not of type UObject&#160;:P
+</p><p>Now we use a static method from our ILookable Interface which was generated by Unreal itself.
+The Parameters are the Actor and the parameters we specified ourselves in our ProcessEvent Function&#160;:) (FName and float)
+</p><p>Our last step is testing this Interface in either C++ and Blueprint
+</p><p>Let's place our LineTrace Actor in the Scene. Also our Lookabel Actor should be placed somewhere.
+Don't forget to give our LookableActor a visual representation by just editing the StaticMesh Value of our Root StaticMeshComponent.
+</p><p>Next we will create a Blueprint Actor which also implements from Lookable. You just have to open the Blueprint Editor and go to Class Settings to Add our cool Interface.
+Then go to the Event Graph and Right Click on an empty spot. Then search "Event ProcessEvent" and define a funny behaviour to see your result.
+Don't forget to add a Static Mesh to this Actor&#160;:)
+</p><p>Now let's place this Blueprint Actor next to our LookableActor in World.
+Just hit 'Play' and see the result of our hard work&#160;:D
+</p><p>I hope you enjoyed this tutorial.
+I try to edit this further to give more visual examples of the final result&#160;;)
+</p><p>Thanks and have fun
+</p><p>Greetings Cloudy
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.057 seconds
+Real time usage: 0.059 seconds
+Preprocessor visited node count: 76/1000000
+Preprocessor generated node count: 214/1000000
+Post‐expand include size: 168/2097152 bytes
+Template argument size: 12/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=How_To_Make_C%2B%2B_Interfaces_Implementable_By_Blueprints(Tutorial)&amp;oldid=22091">https://wiki.unrealengine.com/index.php?title=How_To_Make_C%2B%2B_Interfaces_Implementable_By_Blueprints(Tutorial)&amp;oldid=22091</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.105 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

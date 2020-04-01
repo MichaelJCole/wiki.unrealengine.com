@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>View source for Visual Effects: Lesson 07A: Using GPU Particle Simulations - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Visual_Effects:_Lesson_07A:_Using_GPU_Particle_Simulations","wgTitle":"Visual Effects: Lesson 07A: Using GPU Particle Simulations","wgCurRevisionId":10330,"wgRevisionId":0,"wgArticleId":2883,"wgIsArticle":false,"wgIsRedirect":false,"wgAction":"edit","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgBreakFrames":true,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Visual_Effects:_Lesson_07A:_Using_GPU_Particle_Simulations","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Visual_Effects_Lesson_07A_Using_GPU_Particle_Simulations skin-epic action-edit vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head">
+		
+
+
+
+
+
+<input type="hidden" id="updateenable" value="true">
+
+    <script src="https://cdn1.unrealengine.com/2670222/unifiedHeaderBundle-c133cbefbece60d20fd29c5b1819fa39.js" defer></script>
+    <link rel="stylesheet" href="https://cdn1.unrealengine.com/2670222/unifiedHeader-dd083735d5017970978496baee5b916e.css">
+
+
+<header id="header" data-path="/" data-sitepath="https://www.unrealengine.com">
+<input type="hidden" id="isUnified" value="1" />
+    <input type="hidden" id="current_locale" value="en_US"/>
+    <input type="hidden" id="header-host" value="https://www.unrealengine.com" />
+    <nav class="main-menu">
+        <div class="menu-mobile">
+            <span class="menu-mobile-icon"></span>
+            <ul>
+
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">About</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Learn</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Community</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/blog">Blog</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Marketplace</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Academia</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/education">Education Program</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                
+                <li class="btn-account ignore" style="display: none">
+                    <a href="https://www.unrealengine.com/dashboard">Account</a>
+                </li>
+                <li class="btn-signout ignore" style="display: none">
+                    <a class="sso-sign-out" href="">Log Out</a>
+                </li>
+                <li class="btn-signin ignore" style="display: none">
+                    <a class="sso-sign-in" href="">Sign in</a>
+                </li>
+            </ul>
+        </div>
+
+        <ul class="menu-items">
+            <li class="logo ignore">
+                
+                    <a href="https://www.unrealengine.com/blog"></a>
+                
+            </li>
+
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>About</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Learn</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Community</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/blog">Blog</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Marketplace</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Academia</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/education">Education Program</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+        </ul>
+
+
+        <div class="menu-download" data-sub="dl">
+            <a class="sso-register" href="">
+                <span class="isUpdateEnabled">Get Unreal</span>
+            </a>
+        </div>
+        
+
+        <div id="search" class="menu-search ignore">
+                <span></span>
+        </div>
+        
+        <div class="search-header">
+            <div class="input-search">
+                <div id="search-tips" class="search-tips-en_US">
+                    You may be unable to view the results of this search unless you connect to a VPN first.
+                </div>
+                <span></span>
+                <input type="text" name="search" value="" style="background:none !important" id="isearch" class="text" placeholder="Search..." />
+                <p class="search-btn">Search</p>
+            </div>
+        </div>
+
+        <ul class="menu-icons">
+            <li id="btn-account" class="ignore" data-sub="account" style="display: none">
+                <a href="/dashboard">Account</a>
+                <ul class="account-sub-menu">
+                    <li>
+                        <a href="/dashboard">Personal</a>
+                    </li>
+                    <li>
+                        <a href="https://publish.unrealengine.com/">Seller</a>
+                    </li>
+                </ul>
+            </li>
+            <li id="btn-signout" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-out last-border" href="">Log Out</a>
+            </li>
+            <li id="btn-signin" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-in last-border" href="">Sign in</a>
+            </li>
+        </ul>
+        
+    </nav>
+</header>
+
+		</div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a></li>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Videos"><a href="/Videos">Videos</a></li>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Code"><a href="/Category:Code">Code</a></li>
+			<li id="n-Games"><a href="/Category:Games">Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Visual_Effects:_Lesson_07A:_Using_GPU_Particle_Simulations" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Visual_Effects:_Lesson_07A:_Using_GPU_Particle_Simulations" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-info"><a href="/index.php?title=Visual_Effects:_Lesson_07A:_Using_GPU_Particle_Simulations&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Visual_Effects:_Lesson_07A:_Using_GPU_Particle_Simulations"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Visual_Effects:_Lesson_07A:_Using_GPU_Particle_Simulations&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view"><span><a href="/Visual_Effects:_Lesson_07A:_Using_GPU_Particle_Simulations" >View</a></span></li>
+					<li id="ca-viewsource" class="selected"><span><a href="/index.php?title=Visual_Effects:_Lesson_07A:_Using_GPU_Particle_Simulations&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Visual_Effects:_Lesson_07A:_Using_GPU_Particle_Simulations&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Visual+Effects%3A+Lesson+07A%3A+Using+GPU+Particle+Simulations&amp;returntoquery=action%3Dedit&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Visual+Effects%3A+Lesson+07A%3A+Using+GPU+Particle+Simulations&amp;returntoquery=action%3Dedit" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">View source for Visual Effects: Lesson 07A: Using GPU Particle Simulations</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub">← <a href="/Visual_Effects:_Lesson_07A:_Using_GPU_Particle_Simulations" title="Visual Effects: Lesson 07A: Using GPU Particle Simulations">Visual Effects: Lesson 07A: Using GPU Particle Simulations</a></div>
+																<div id="mw-content-text"><p>You do not have permission to edit this page, for the following reason:
+</p>
+<div class="permissions-errors">
+<p>The action you have requested is limited to users in the group: <a href="/index.php?title=Epic_Wiki:Users&amp;action=edit&amp;redlink=1" class="new" title="Epic Wiki:Users (page does not exist)">Users</a>.
+</p>
+</div>
+<hr />
+<p>You can view and copy the source of this page:
+</p><textarea readonly="" accesskey="," id="wpTextbox1" cols="80" rows="25" style="" lang="en" dir="ltr" name="wpTextbox1">[[Category:Tutorials]]
+[[Category:Particle]]
+[[Category:Epic Created Content]]
+
+==Overview of GPU particles==
+
+GPU Particles are spawned on the CPU and simulated in a separate pass on the GPU.  GPU particles are a very fast alternative to CPU particles, but come with some limitations because the GPU simulation requiring per particle attributes is very optimized. 
+
+There are specific limitations GPU particles have which CPU particles do not.  These will be described in further detail later in this document. In short, it is best to default to GPU particles for best performance considerations, unless there are specific features of CPU particles necessary for your FX.
+
+Spawning Particles
+
+In order to make best use of some of the features in Cascade, as well as add the ability to spawn in randomized positions, GPU particles are spawned on the CPU from Cascade.  This allows GPU particles to take advantage of existing Cascade functionality such as Particle Parameters for color, and Particle Events.
+
+When using GPU particles it is important to consider they are spawned on the CPU, especially for burst spawning, as performance slow-down can be a side effect of burst spawning too many particles in a given frame.  It is recommended that you do not spawn more than ~15k particles in a burst event.  One trick to use is to separate burst events by .05-.1 seconds when spawning large volumes of sprites.
+
+[[File:7 1.png|thumb|left|400px]]
+&lt;br clear=all>
+ 
+
+You still want to take your overall scene particle counts into consideration, and make use of LODs to control these counts, as large volumes of particles spawning in tandem during gameplay events can have a negative impact on CPU performance. You can use stat gpuparticles to see counts, which can be turned on via the Show/Stat/Advanced/GPUParticle dropdown menu in the editor viewport, or in-game with the console and stat gpuparticle.
+
+[[File:7 2.png|thumb|left|400px]]
+&lt;br clear=all> 
+
+==Overdraw Considerations==
+
+Now you can spawn thousands of particles at a time and see lots of crazy organic movement in your scene!  With great power, comes great responsibility. It is important to make certain you are checking your shader complexity of these FX.  With lit materials it can be easy to create high overdraw costs in these types of scenarios.
+
+There comes a point where you can have so many particles active that you are negatively impacting performance, even though the viewer’s eye may not distinguish between particle counts.  For instance, look at these two particle systems side by side.
+
+[[File:7 3.png|thumb|left|400px]]
+&lt;br clear=all> 
+
+To the untrained eye, these two systems would look nearly identical when viewed separately.  Of course, your trained eye can see there is some breakup of the profile where it intersects the ground plane, but overall the effect is very similar. If we look at them in shader complexity mode, we can see the FX are vastly different to compute.  
+
+[[File:7 4.png|thumb|left|400px]]
+&lt;br clear=all>  
+
+White = Expensive. Most FX are typically shaded red, because translucency is more costly to render than opaque surfaces.
+
+It is important to find the sweet spot in terms of visuals and cost, and it can be beneficial to verify your shader cost when spawning large amounts of GPU particles in a burst list.
+
+ 
+
+==Vector Fields==
+
+Spawning particles into a vector field can be a very powerful way to create unique looking behaviors impossible with standard Cascade module setups.
+
+[[File:7 5.png|thumb|left|400px]]
+&lt;br clear=all>  
+
+For instance, this shape is created by using a vector field which spins particles down the length of the interior of a cylindrical object, like a vortex pushing in a direction.  This vector field is then rotated around an axis at a slow rate with a relatively low intensity and a tightness of 1.
+ 
+[[File:7 6.png|thumb|left|400px]]
+&lt;br clear=all> 
+ 
+This effect can be found on the Marketplace in the Effects Cave sample content for free.  I have disabled the flames and smoke to make it easy to visualize the GPU elements.  Vector fields are unique in that many of their controls can be manipulated directly in the Cascade viewport using the handles. For instance, I can click and drag on the X-axis of the vector field to move the field around in the Cascade viewport. The same applies for Rotation and Scale.  
+
+[[File:7 7.png|thumb|left|400px]]
+&lt;br clear=all>  
+
+Unfortunately, the standard W, E, R, keys are not supported at this time, but you can toggle through the handles in Cascade using the old space bar method.
+
+Inexpensive Collisions Based on Scene Depth
+
+GPU Particles can make use of the Depth Buffer to drive collisions on a large scale.  I will go into this feature in more depth in Lesson 08.
+ 
+
+
+==Unique Usage Cases for GPU Particles== 
+
+Some usage cases have limitations on them due to memory restrictions.  When implementing the GPU Particle system, VFX artists worked closely with programmers to determine where the limits needed to be placed.  There are fixed costs, so we worked hard to limit features only where necessary so we can maintain high visual fidelity, with low evaluation cost.  These cost reductions are what allow us to have millions of GPU particles in a scene.
+
+''These are some of the old features that have largely been made obsolete, although some are still available with limited functionality:''
+
+'''Single Vector for Acceleration''' – Currently, GPU particles only use a single vector for world acceleration.  If you want an additional vector you can add a Vector field for variation.
+
+'''Random SubUV Interpolation Method''' – This is currently not supported for GPU particles.
+
+'''SubUVMovie Module''' – This module is currently unsupported for use with GPU particles.  If you would like your particles to playback @ ~30 fps, you can average out a looping flipbook and set your uniform curve from 0-36 for a 1 second lifespan particle, double the value for a 2 second particle etc. or control SubUV playback speed in your material with the SubUV Texture function.
+
+'''Initial Color edge case''' – Does not support a uniform distribution with Use Extremes checked (will only return a single color value that never changes).
+
+'''Orbit Module''' – This has limited functionality and is not recommended for use.  It is included for those who do not wish to use Vector Fields (the preferred method) to create random orbit-style movement.
+
+'''Dynamic Parameter''' – Dynamic parameters are not supported with GPU particles.  If you combine Material Instance Constant controls, using Materials you can hijack the ParticleColor module to act as a Dynamic Parameter and drive material attributes this way.  There are several water FX in the Effects Cave demo which are setup in this manner.
+
+'''Fixed Bounding Box''' – you will notice an error message on screen if you do not set fixed bounds in your particle system.  It is recommended you use fixed bounds as often as possible for particle systems, as calculating bounds is an expensive process.
+
+'''Particle Parameters''' – These are supported in a limited fashion - look for grayed-out text in the distribution list drop-down.  Generally speaking if you are modifying a spawn module, or color features it has been implemented to work.  In general Particle Parameters for GPU emitters are limited.
+
+'''LODs''' – Distance Based Levels of Detail have a limited feature set.  Currently they only support spawn rates and emitter disabling per LOD distance.
+
+
+==When to Use GPU vs CPU Particles==
+
+As a rule of thumb, you should use GPU particles whenever possible.  GPU particles are much faster to evaluate than CPU particles, and will generally lower your overall game evaluation costs.
+
+Even so, CPU and GPU particle features work well in tandem.  For example you can spawn a single CPU particle and set it to use CPU world collision settings. If you tie this together with an event module and an EventReceiverSpawn module you can burst spawn hundreds of small GPU particles on the collision event.
+
+Keep in mind SceneDepthCollision will not generate an event. Only the CPU collision module does this.
+
+GPU particles are also an excellent way to add variation to distant vistas, flocks of birds, columns of smoke rising, etc.  All of these elements can evaluate quickly when done with GPU particles.
+
+Vector Fields are not limited to small local VFX either. Try experimenting with larger global vector fields. You might be surprised with the results.  
+
+ 
+For example, here is a rough scene in Maya with some world geo exported from UE4.
+
+[[File:7 8.png|thumb|left|400px]]
+&lt;br clear=all>  
+
+I created some rough collision hulls to wrap around some of the interior faces where I felt the predominant boundaries of play space defined by the world geometry may lay.
+
+[[File:7 9.png|thumb|left|400px]]
+&lt;br clear=all>  
+
+I then set up the fluid container in Maya to collide with these boundaries and the ground terrain so my vectors align to the surfaces and applied a uniform field to the volume to define a global wind direction.
+ 
+[[File:7 10.png|thumb|left|400px]]
+&lt;br clear=all> 
+
+If we fly in closer you can see the larger, more coarse grid can be used to define the wind vector for a given space in the game world, so larger sprites can move through the space in a natural manner.  
+
+The grid scale in this case is relative to the world, the grid space can be smaller relative to a character, for example, for finer layers of detail.
+
+ 
+Here is another view to illustrate the flow.
+
+[[File:7 11.png|thumb|left|400px]]
+&lt;br clear=all>  
+
+This type of world flow can be used for all types of global FX.  Add a global vector field to all of your combat effects with some influence settings and manipulate their behavior after spawning.  Perhaps your grenade smoke, for example, can drift in a general direction which matches your environmental FX.
+
+GPU particles have tons of useful functionality.  In many ways, there are limitations which are greater than traditional CPU particles, but the idea is to leverage the strengths of two systems together.  GPU particles also do not need to be relegated to hundreds or thousands of little flakes of debris flying through your scene. They can be used for larger FX as well, as illustrated above.
+
+*[[Visual_Effects:_Lesson_06:_Techniques_for_use_in_Particle_Effects|Go back to Lesson 06]]
+*[[Visual_Effects:_Lesson_07B:_Creating_and_Using_GPU_Particle_Simulations|Continue to Lesson 07 part B]]
+</textarea><div class="templatesUsed"></div><p id="mw-returnto">Return to <a href="/Visual_Effects:_Lesson_07A:_Using_GPU_Particle_Simulations" title="Visual Effects: Lesson 07A: Using GPU Particle Simulations">Visual Effects: Lesson 07A: Using GPU Particle Simulations</a>.</p>
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/Visual_Effects:_Lesson_07A:_Using_GPU_Particle_Simulations">https://wiki.unrealengine.com/Visual_Effects:_Lesson_07A:_Using_GPU_Particle_Simulations</a>"				</div>
+												<div id='catlinks' class='catlinks catlinks-allhidden'></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.edit.collapsibleFooter","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.101 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

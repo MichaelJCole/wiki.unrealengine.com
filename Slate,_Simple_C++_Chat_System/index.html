@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Slate, Simple C++ Chat System - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Slate,_Simple_C++_Chat_System","wgTitle":"Slate, Simple C++ Chat System","wgCurRevisionId":18817,"wgRevisionId":18817,"wgArticleId":5668,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Templates","Tutorials","Code","Community Created Content"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Slate,_Simple_C++_Chat_System","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["ext.voteNY","mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Slate_Simple_C_Chat_System skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head"></div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-recentchanges"><a href="/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Community' aria-labelledby='p-Community-label'>
+	<h3 id='p-Community-label'>Community</h3>
+	<div class="body">
+		<ul>
+			<li id="n-UE4-Games"><a href="/Category:Games">UE4 Games</a></li>
+			<li id="n-Dev-Blogs"><a href="/Developer_Blogs">Dev Blogs</a></li>
+			<li id="n-Dev-Livestreams"><a href="/Developer_Livestreams">Dev Livestreams</a></li>
+			<li id="n-Code-Sharing-Hub"><a href="/GitHub_Sharing_Hub">Code Sharing Hub</a></li>
+			<li id="n-UE-User-Groups"><a href="/User_Group_Map">UE User Groups</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Learning_Resources' aria-labelledby='p-Learning_Resources-label'>
+	<h3 id='p-Learning_Resources-label'>Learning Resources</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Example-Projects"><a href="/Category:Example_Projects">Example Projects</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Software_and_Tools' aria-labelledby='p-Software_and_Tools-label'>
+	<h3 id='p-Software_and_Tools-label'>Software and Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Art:-3D"><a href="/3D_Art_Resources">Art: 3D</a></li>
+			<li id="n-Art:-2D"><a href="/2D_Art_Resources">Art: 2D</a></li>
+			<li id="n-Audio"><a href="/Audio_Resources">Audio</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Modding' aria-labelledby='p-Modding-label'>
+	<h3 id='p-Modding-label'>Modding</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Modding-Resources"><a href="/Category:Modding_Resources">Modding Resources</a></li>
+			<li id="n-Moddable-Games"><a href="/Category:Moddable_Games">Moddable Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Epic_Official' aria-labelledby='p-Epic_Official-label'>
+	<h3 id='p-Epic_Official-label'>Epic Official</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Website"><a href="https://www.unrealengine.com" rel="nofollow">Website</a></li>
+			<li id="n-Learning-Resources"><a href="https://docs.unrealengine.com/latest/INT/" rel="nofollow">Learning Resources</a></li>
+			<li id="n-Forums"><a href="https://forums.unrealengine.com/" rel="nofollow">Forums</a></li>
+			<li id="n-Blog"><a href="https://www.unrealengine.com/blog" rel="nofollow">Blog</a></li>
+			<li id="n-YouTube"><a href="https://www.youtube.com/UnrealEngine" rel="nofollow">YouTube</a></li>
+			<li id="n-Twitch"><a href="http://www.twitch.tv/unrealengine" rel="nofollow">Twitch</a></li>
+			<li id="n-Twitter"><a href="https://twitter.com/UnrealEngine" rel="nofollow">Twitter</a></li>
+			<li id="n-Facebook"><a href="https://www.facebook.com/UnrealEngine" rel="nofollow">Facebook</a></li>
+			<li id="n-Instagram"><a href="https://instagram.com/unrealengine/" rel="nofollow">Instagram</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Slate,_Simple_C%2B%2B_Chat_System" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Slate,_Simple_C%2B%2B_Chat_System" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=Slate,_Simple_C%2B%2B_Chat_System&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Slate,_Simple_C%2B%2B_Chat_System&amp;oldid=18817" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Slate,_Simple_C%2B%2B_Chat_System&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Slate,_Simple_C%2B%2B_Chat_System"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Slate,_Simple_C%2B%2B_Chat_System&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Slate,_Simple_C%2B%2B_Chat_System" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Slate,_Simple_C%2B%2B_Chat_System&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Slate,_Simple_C%2B%2B_Chat_System&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Slate%2C+Simple+C%2B%2B+Chat+System&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Slate%2C+Simple+C%2B%2B+Chat+System" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Slate, Simple C++ Chat System</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="aux">
+<div>
+<b>Rate this Article:</b> <div id="rating_"><div class="rating-score"><div class="voteboxrate">0.00</div></div><div class="rating-section"><img class="vote-rating-star" data-vote-the-vote="1" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__1" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="2" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__2" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="3" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__3" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="4" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__4" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="5" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__5" src="/extensions/VoteNY/images/star_off.gif" alt="" /></div>
+				<div class="rating-clear">
+			</div></div>
+</div>
+<div>
+<p>Approved for Versions:4.10
+</p>
+</div>
+</div>
+<div style="background-color: #fff5cd; border: 1px solid #FF7400; border-left: 5px solid #FF7400; padding: 5px; min-height: 40px;">
+<div class="floatleft"><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" /></div> <b>Some or all of the information on this page is inconsistent, irrelevant or confusing.</b>
+<p>Please help clean it up if you are able.
+</p>
+</div>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Getting_Started"><span class="tocnumber">2</span> <span class="toctext">Getting Started</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Adding_Classes"><span class="tocnumber">3</span> <span class="toctext">Adding Classes</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#MyGameMode.h"><span class="tocnumber">3.1</span> <span class="toctext">MyGameMode.h</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#MyGameMode.cpp"><span class="tocnumber">3.2</span> <span class="toctext">MyGameMode.cpp</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#MyHUD.h"><span class="tocnumber">3.3</span> <span class="toctext">MyHUD.h</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#MyHUD.cpp"><span class="tocnumber">3.4</span> <span class="toctext">MyHUD.cpp</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#MyPlayerState.h"><span class="tocnumber">3.5</span> <span class="toctext">MyPlayerState.h</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#MyPlayerState.cpp"><span class="tocnumber">3.6</span> <span class="toctext">MyPlayerState.cpp</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#MyChatWidget.h"><span class="tocnumber">3.7</span> <span class="toctext">MyChatWidget.h</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#MyChatWidget.cpp"><span class="tocnumber">3.8</span> <span class="toctext">MyChatWidget.cpp</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p><i>Author:</i> <a rel="nofollow" class="external text" href="//forums.unrealengine.com/member.php?43891-WhooKid">WhooKid</a> (<a rel="nofollow" class="external text" href="//forums.unrealengine.com/showthread.php?94453-Simple-C-Chat-System&amp;p=438276">talk</a>)
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:402px;"><a href="/File:Ue4chat7.jpg" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/8/8f/Ue4chat7.jpg/400px-Ue4chat7.jpg" width="400" height="266" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/8/8f/Ue4chat7.jpg/600px-Ue4chat7.jpg 1.5x, https://d26ilriwvtzlb.cloudfront.net/8/8f/Ue4chat7.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:Ue4chat7.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Simple C++ Chat System with Slate</div></div></div>
+<p>I made a lightweight simple chat system with Slate widgets and server RPCs.
+</p><p>The way it works is a widget is created then attached in the Hud class. The user presses enter to focus the inputbox and when he submits the message is passed to the player state then is replicated on the server and then to all players with a multicast server call.
+</p><p>You will have to enable slate and extend 4 classes.
+</p>
+<ul>
+<li> <i>MyGameMode</i> extends <i>AGameMode</i>
+</li>
+<li> <i>MyHUD</i> extends <i>AHUD</i>
+</li>
+<li> <i>MyPlayerState</i> extends <i>APlayerState</i>
+</li>
+<li> <i>MyChatWidget</i> extends <i>SCompoundWidget</i>
+</li>
+</ul>
+<h2><span class="mw-headline" id="Getting_Started">Getting Started</span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:402px;"><a href="/File:Ue4chat8.jpg" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/d/d5/Ue4chat8.jpg/400px-Ue4chat8.jpg" width="400" height="214" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/d/d5/Ue4chat8.jpg/600px-Ue4chat8.jpg 1.5x, https://d26ilriwvtzlb.cloudfront.net/d/d5/Ue4chat8.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:Ue4chat8.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Enable Slate in your PROJECT.Build.cs file</div></div></div>
+<p>First thing you have to do is enable the Slate module.<br />
+It can be done with this tutorial <a href="/Slate,_Hello" title="Slate, Hello">Slate,_Hello</a>.<br />
+To enable slate you need to open your PROJECT.Build.cs in your source/PROJECT folder and uncomment the line:<br />
+PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });<br />
+</p>
+<h2><span class="mw-headline" id="Adding_Classes">Adding Classes</span></h2>
+<p>Now you need to extend the 4 classes and add the code. You may already have these classes extended so you may have to add this code to your existing classes.<br />
+To extend a class go to File &gt; New C++ Class... <br />
+The first 3 classes are extending main classes so you can find them in the main search area.<br />
+</p><p>The Last class MyChatWidget extends SCompoundWidget add you will have to click the Show All Classes button and type in SCompoundWidget.
+</p><p>Once you have all the classes extended you need to add the code. You will have to rename the include files to your project name and possible some other class names if you chose different ones.
+</p><p>Note you will also have to change the Project name in each .h file to your project name. (ex CHATTUTORIAL_API to MYGAME_API)
+</p>
+<ul class="gallery mw-gallery-traditional">
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:39.5px auto;"><a href="/File:Ue4chat3.jpg" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/4/46/Ue4chat3.jpg/120px-Ue4chat3.jpg" width="120" height="71" /></a></div></div>
+			<div class="gallerytext">
+<p>Extending the AGameMode class in Editor.
+</p>
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:37px auto;"><a href="/File:Ue4chat9.jpg" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/5/57/Ue4chat9.jpg/120px-Ue4chat9.jpg" width="120" height="76" /></a></div></div>
+			<div class="gallerytext">
+<p>Extending the SCompoundWidget class with Show All Classes enabled.
+</p>
+			</div>
+		</div></li>
+</ul>
+<h3><span class="mw-headline" id="MyGameMode.h">MyGameMode.h</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Fill out your copyright notice in the Description page of Project Settings.</span>
+&#160;
+<span class="co2">#pragma once</span>
+&#160;
+<span class="co2">#include &quot;GameFramework/GameMode.h&quot;</span>
+<span class="co2">#include &quot;MyGameMode.generated.h&quot;</span>
+&#160;
+<span class="coMULTI">/**
+ * 
+ */</span>
+UCLASS<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw2">class</span> CHATTUTORIAL_API AMyGameMode <span class="sy4">:</span> <span class="kw2">public</span> AGameMode
+<span class="br0">&#123;</span>
+	GENERATED_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+	AMyGameMode<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id="MyGameMode.cpp">MyGameMode.cpp</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Fill out your copyright notice in the Description page of Project Settings.</span>
+&#160;
+<span class="co2">#include &quot;ChatTutorial.h&quot;</span>
+<span class="co2">#include &quot;MyGameMode.h&quot;</span>
+&#160;
+<span class="co2">#include &quot;MyHUD.h&quot;</span>
+<span class="co2">#include &quot;MyPlayerState.h&quot;</span>
+&#160;
+AMyGameMode<span class="sy4">::</span><span class="me2">AMyGameMode</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="co1">// assign our custom classes above their parents</span>
+	HUDClass <span class="sy1">=</span> AMyHUD<span class="sy4">::</span><span class="me2">StaticClass</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	PlayerStateClass <span class="sy1">=</span> AMyPlayerState<span class="sy4">::</span><span class="me2">StaticClass</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="coMULTI">/* use this is you wish to extend the c++ into a bp and assign the bp to the class
+	static ConstructorHelpers::FClassFinder&lt;AMyHUD&gt; hudclassobj(TEXT(&quot;Blueprint'/MyHUD.MyHUD_C'&quot;));
+	if (hudclassobj.Class&#160;!= NULL)
+		HUDClass = hudclassobj.Class;
+&#160;
+	static ConstructorHelpers::FClassFinder&lt;AMyPlayerState&gt; psclassobj(TEXT(&quot;Blueprint'/MyPlayerState.MyPlayerState_C'&quot;));
+	if (psclassobj.Class&#160;!= NULL)
+		PlayerStateClass = psclassobj.Class;
+	*/</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h3><span class="mw-headline" id="MyHUD.h">MyHUD.h</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Fill out your copyright notice in the Description page of Project Settings.</span>
+&#160;
+<span class="co2">#pragma once</span>
+&#160;
+<span class="co2">#include &quot;GameFramework/HUD.h&quot;</span>
+<span class="co2">#include &quot;MyHUD.generated.h&quot;</span>
+&#160;
+USTRUCT<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw4">struct</span> FSChatMsg <span class="co1">// Struct to hold the message data to be passed between classes</span>
+<span class="br0">&#123;</span>
+	GENERATED_USTRUCT_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+	UPROPERTY<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="co1">// UProperty means this variable will be replicated</span>
+	<span class="kw4">int32</span> Type<span class="sy4">;</span>
+&#160;
+	UPROPERTY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+	FText Username<span class="sy4">;</span>
+&#160;
+	UPROPERTY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+	FText Text<span class="sy4">;</span>
+&#160;
+	FText Timestamp<span class="sy4">;</span> <span class="co1">// Dont replicate time because we can set it locally once we receive the struct</span>
+&#160;
+	<span class="kw4">double</span> Created<span class="sy4">;</span>
+&#160;
+	<span class="kw4">void</span> Init<span class="br0">&#40;</span><span class="kw4">int32</span> NewType, FText NewUsername, FText NewText<span class="br0">&#41;</span> <span class="co1">// Assign only the vars we wish to replicate</span>
+	<span class="br0">&#123;</span>
+		Type <span class="sy1">=</span> NewType<span class="sy4">;</span>
+		Username <span class="sy1">=</span> NewUsername<span class="sy4">;</span>
+		Text <span class="sy1">=</span> NewText<span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+	<span class="kw4">void</span> SetTime<span class="br0">&#40;</span>FText NewTimestamp, <span class="kw4">double</span> NewCreated<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		Timestamp <span class="sy1">=</span> NewTimestamp<span class="sy4">;</span>
+		Created <span class="sy1">=</span> NewCreated<span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+	<span class="kw4">void</span> Destroy<span class="br0">&#40;</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		Type <span class="sy1">=</span> <span class="kw2">NULL</span><span class="sy4">;</span>
+		Username.<span class="me1">GetEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		Text.<span class="me1">GetEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		Timestamp.<span class="me1">GetEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		Created <span class="sy1">=</span> <span class="kw2">NULL</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span>
+&#160;
+<span class="coMULTI">/**
+ * 
+ */</span>
+UCLASS<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw2">class</span> CHATTUTORIAL_API AMyHUD <span class="sy4">:</span> <span class="kw2">public</span> AHUD
+<span class="br0">&#123;</span>
+	GENERATED_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+&#160;
+	AMyHUD<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	TSharedPtr<span class="sy1">&lt;</span><span class="kw2">class</span> SMyChatWidget<span class="sy1">&gt;</span> MyUIWidget<span class="sy4">;</span> <span class="co1">// Reference to the main chat widget</span>
+&#160;
+	APlayerController<span class="sy2">*</span> MyPC<span class="sy4">;</span>
+&#160;
+	UFUNCTION<span class="br0">&#40;</span>BlueprintCallable, Category <span class="sy1">=</span> <span class="st0">&quot;User&quot;</span><span class="br0">&#41;</span>
+	<span class="kw4">void</span> AddMessageBP<span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">int32</span> Type, <span class="kw4">const</span> FString<span class="sy3">&amp;</span> Username, <span class="kw4">const</span> FString<span class="sy3">&amp;</span> Text, <span class="kw4">const</span> <span class="kw4">bool</span> Replicate<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// A Blueprint function you can use to place messages in the chat box during runtime</span>
+&#160;
+<span class="kw2">protected</span><span class="sy4">:</span>
+&#160;
+	<span class="kw2">virtual</span> <span class="kw4">void</span> PostInitializeComponents<span class="br0">&#40;</span><span class="br0">&#41;</span> override<span class="sy4">;</span> <span class="co1">// All game elements are created, add our chat box</span>
+&#160;
+	<span class="kw2">virtual</span> <span class="kw4">void</span> DrawHUD<span class="br0">&#40;</span><span class="br0">&#41;</span> override<span class="sy4">;</span> <span class="co1">// The HUD is drawn on our screen</span>
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id="MyHUD.cpp">MyHUD.cpp</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Fill out your copyright notice in the Description page of Project Settings.</span>
+&#160;
+<span class="co2">#include &quot;ChatTutorial.h&quot;</span>
+<span class="co2">#include &quot;MyHUD.h&quot;</span>
+&#160;
+<span class="co2">#include &quot;MyChatWidget.h&quot;</span>
+<span class="co2">#include &quot;MyPlayerState.h&quot;</span>
+&#160;
+AMyHUD<span class="sy4">::</span><span class="me2">AMyHUD</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+&#160;
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> AMyHUD<span class="sy4">::</span><span class="me2">PostInitializeComponents</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Super<span class="sy4">::</span><span class="me2">PostInitializeComponents</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">if</span> <span class="br0">&#40;</span>GEngine <span class="sy3">&amp;&amp;</span> GEngine<span class="sy2">-</span><span class="sy1">&gt;</span>GameViewport<span class="br0">&#41;</span> <span class="co1">// make sure our screen is ready for the widget</span>
+	<span class="br0">&#123;</span>
+		SAssignNew<span class="br0">&#40;</span>MyUIWidget, SMyChatWidget<span class="br0">&#41;</span>.<span class="me1">OwnerHUD</span><span class="br0">&#40;</span><span class="kw3">this</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// add the widget and assign it to the var</span>
+		GEngine<span class="sy2">-</span><span class="sy1">&gt;</span>GameViewport<span class="sy2">-</span><span class="sy1">&gt;</span>AddViewportWidgetContent<span class="br0">&#40;</span>SNew<span class="br0">&#40;</span>SWeakWidget<span class="br0">&#41;</span>.<span class="me1">PossiblyNullContent</span><span class="br0">&#40;</span>MyUIWidget.<span class="me1">ToSharedRef</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> AMyHUD<span class="sy4">::</span><span class="me2">DrawHUD</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Super<span class="sy4">::</span><span class="me2">DrawHUD</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy3">!</span>MyPC<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		MyPC <span class="sy1">=</span> GetOwningPlayerController<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		AddMessageBP<span class="br0">&#40;</span><span class="nu0">2</span>, TEXT<span class="br0">&#40;</span><span class="st0">&quot;&quot;</span><span class="br0">&#41;</span>, TEXT<span class="br0">&#40;</span><span class="st0">&quot;Welcome. Press Enter to chat.&quot;</span><span class="br0">&#41;</span>, <span class="kw2">false</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// random Welcome message shown to the local player. To be deleted. note type 2 is system message and username is blank</span>
+		<span class="kw1">return</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+&#160;
+	<span class="kw1">if</span> <span class="br0">&#40;</span>MyPC<span class="sy2">-</span><span class="sy1">&gt;</span>WasInputKeyJustPressed<span class="br0">&#40;</span>EKeys<span class="sy4">::</span><span class="me2">Enter</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+		<span class="kw1">if</span> <span class="br0">&#40;</span>MyUIWidget.<span class="me1">IsValid</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy3">&amp;&amp;</span> MyUIWidget<span class="sy2">-</span><span class="sy1">&gt;</span>ChatInput.<span class="me1">IsValid</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+			FSlateApplication<span class="sy4">::</span><span class="me2">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">SetKeyboardFocus</span><span class="br0">&#40;</span>MyUIWidget<span class="sy2">-</span><span class="sy1">&gt;</span>ChatInput<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// When the user presses Enter he will focus his keypresses on the chat input bar</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> AMyHUD<span class="sy4">::</span><span class="me2">AddMessageBP</span><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">int32</span> Type, <span class="kw4">const</span> FString<span class="sy3">&amp;</span> Username, <span class="kw4">const</span> FString<span class="sy3">&amp;</span> Text, <span class="kw4">const</span> <span class="kw4">bool</span> Replicate<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy3">!</span>MyPC <span class="sy3">||</span> <span class="sy3">!</span>MyUIWidget.<span class="me1">IsValid</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+		<span class="kw1">return</span><span class="sy4">;</span>
+&#160;
+	FSChatMsg newmessage<span class="sy4">;</span>
+	newmessage.<span class="me1">Init</span><span class="br0">&#40;</span>Type, FText<span class="sy4">::</span><span class="me2">FromString</span><span class="br0">&#40;</span>Username<span class="br0">&#41;</span>, FText<span class="sy4">::</span><span class="me2">FromString</span><span class="br0">&#40;</span>Text<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// initialize our struct and prep the message</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>newmessage.<span class="me1">Type</span> <span class="sy1">&gt;</span> <span class="nu0">0</span><span class="br0">&#41;</span>
+		<span class="kw1">if</span> <span class="br0">&#40;</span>Replicate<span class="br0">&#41;</span>
+		<span class="br0">&#123;</span>
+			AMyPlayerState<span class="sy2">*</span> MyPS <span class="sy1">=</span> Cast<span class="sy1">&lt;</span>AMyPlayerState<span class="sy1">&gt;</span><span class="br0">&#40;</span>MyPC<span class="sy2">-</span><span class="sy1">&gt;</span>PlayerState<span class="br0">&#41;</span><span class="sy4">;</span>
+			<span class="kw1">if</span> <span class="br0">&#40;</span>MyPS<span class="br0">&#41;</span>
+				MyPS<span class="sy2">-</span><span class="sy1">&gt;</span>UserChatRPC<span class="br0">&#40;</span>newmessage<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// Send the complete chat message to the PlayerState so it can be replicated then displayed</span>
+		<span class="br0">&#125;</span>
+		<span class="kw1">else</span>
+			MyUIWidget<span class="sy2">-</span><span class="sy1">&gt;</span>AddMessage<span class="br0">&#40;</span>newmessage<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// Send a local message to this client only, no one else receives it</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h3><span class="mw-headline" id="MyPlayerState.h">MyPlayerState.h</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Fill out your copyright notice in the Description page of Project Settings.</span>
+&#160;
+<span class="co2">#pragma once</span>
+&#160;
+<span class="co2">#include &quot;GameFramework/PlayerState.h&quot;</span>
+&#160;
+<span class="co2">#include &quot;MyHUD.h&quot;</span>
+&#160;
+<span class="co2">#include &quot;MyPlayerState.generated.h&quot;</span>
+&#160;
+<span class="coMULTI">/**
+ * 
+ */</span>
+UCLASS<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw2">class</span> CHATTUTORIAL_API AMyPlayerState <span class="sy4">:</span> <span class="kw2">public</span> APlayerState
+<span class="br0">&#123;</span>
+	GENERATED_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+&#160;
+	AMyPlayerState<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	UFUNCTION<span class="br0">&#40;</span>Server, Reliable, WithValidation<span class="br0">&#41;</span> <span class="co1">// for player to player rpc you need to first call the message on the server</span>
+	<span class="kw2">virtual</span> <span class="kw4">void</span> UserChatRPC<span class="br0">&#40;</span><span class="kw4">const</span> FSChatMsg<span class="sy3">&amp;</span> newmessage<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// first rpc for the server</span>
+	UFUNCTION<span class="br0">&#40;</span>NetMulticast, Reliable, WithValidation<span class="br0">&#41;</span> <span class="co1">// then the server calls the function with a multicast that executes on all clients and the server</span>
+	<span class="kw2">virtual</span> <span class="kw4">void</span> UserChat<span class="br0">&#40;</span><span class="kw4">const</span> FSChatMsg<span class="sy3">&amp;</span> newmessage<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// second rpc for all the clients</span>
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id="MyPlayerState.cpp">MyPlayerState.cpp</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Fill out your copyright notice in the Description page of Project Settings.</span>
+&#160;
+<span class="co2">#include &quot;ChatTutorial.h&quot;</span>
+<span class="co2">#include &quot;MyPlayerState.h&quot;</span>
+&#160;
+<span class="co2">#include &quot;MyHUD.h&quot;</span>
+<span class="co2">#include &quot;MyChatWidget.h&quot;</span>
+&#160;
+AMyPlayerState<span class="sy4">::</span><span class="me2">AMyPlayerState</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+&#160;
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">bool</span> AMyPlayerState<span class="sy4">::</span><span class="me2">UserChatRPC_Validate</span><span class="br0">&#40;</span><span class="kw4">const</span> FSChatMsg<span class="sy3">&amp;</span> newmessage<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">return</span> <span class="kw2">true</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+<span class="kw4">void</span> AMyPlayerState<span class="sy4">::</span><span class="me2">UserChatRPC_Implementation</span><span class="br0">&#40;</span><span class="kw4">const</span> FSChatMsg<span class="sy3">&amp;</span> newmessage<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	UserChat<span class="br0">&#40;</span>newmessage<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+<span class="kw4">bool</span> AMyPlayerState<span class="sy4">::</span><span class="me2">UserChat_Validate</span><span class="br0">&#40;</span><span class="kw4">const</span> FSChatMsg<span class="sy3">&amp;</span> newmessage<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">return</span> <span class="kw2">true</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+<span class="kw4">void</span> AMyPlayerState<span class="sy4">::</span><span class="me2">UserChat_Implementation</span><span class="br0">&#40;</span><span class="kw4">const</span> FSChatMsg<span class="sy3">&amp;</span> newmessage<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	APlayerController<span class="sy2">*</span> MyCon<span class="sy4">;</span>
+	AMyHUD<span class="sy2">*</span> MyHud<span class="sy4">;</span>
+&#160;
+	<span class="kw1">for</span> <span class="br0">&#40;</span>FConstPlayerControllerIterator Iterator <span class="sy1">=</span> GetWorld<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetPlayerControllerIterator<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> Iterator<span class="sy4">;</span> <span class="sy2">++</span>Iterator<span class="br0">&#41;</span> <span class="co1">// find all controllers</span>
+	<span class="br0">&#123;</span>
+		MyCon <span class="sy1">=</span> Cast<span class="sy1">&lt;</span>APlayerController<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="sy2">*</span>Iterator<span class="br0">&#41;</span><span class="sy4">;</span>
+		<span class="kw1">if</span> <span class="br0">&#40;</span>MyCon<span class="br0">&#41;</span>
+		<span class="br0">&#123;</span>
+			MyHud <span class="sy1">=</span> Cast<span class="sy1">&lt;</span>AMyHUD<span class="sy1">&gt;</span><span class="br0">&#40;</span>MyCon<span class="sy2">-</span><span class="sy1">&gt;</span>GetHUD<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+			<span class="kw1">if</span> <span class="br0">&#40;</span>MyHud <span class="sy3">&amp;&amp;</span> MyHud<span class="sy2">-</span><span class="sy1">&gt;</span>MyUIWidget.<span class="me1">IsValid</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+				MyHud<span class="sy2">-</span><span class="sy1">&gt;</span>MyUIWidget<span class="sy2">-</span><span class="sy1">&gt;</span>AddMessage<span class="br0">&#40;</span>newmessage<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// place the chat message on this player controller</span>
+		<span class="br0">&#125;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h3><span class="mw-headline" id="MyChatWidget.h">MyChatWidget.h</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Fill out your copyright notice in the Description page of Project Settings.</span>
+&#160;
+<span class="co2">#pragma once</span>
+&#160;
+<span class="co2">#include &quot;MyHUD.h&quot;</span>
+<span class="co2">#include &quot;SlateBasics.h&quot;</span>
+&#160;
+<span class="coMULTI">/**
+ * 
+ */</span>
+<span class="kw2">class</span> CHATTUTORIAL_API SMyChatWidget <span class="sy4">:</span> <span class="kw2">public</span> SCompoundWidget
+<span class="br0">&#123;</span>
+	SLATE_BEGIN_ARGS<span class="br0">&#40;</span>SMyChatWidget<span class="br0">&#41;</span> <span class="sy4">:</span> _OwnerHUD<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span><span class="br0">&#125;</span> <span class="co1">// the OwnerHUD var is passed to the widget so the owner can be set.</span>
+&#160;
+	SLATE_ARGUMENT<span class="br0">&#40;</span>TWeakObjectPtr<span class="sy1">&lt;</span><span class="kw2">class</span> AMyHUD<span class="sy1">&gt;</span>, OwnerHUD<span class="br0">&#41;</span>
+&#160;
+	SLATE_END_ARGS<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+&#160;
+	<span class="kw4">void</span> Construct<span class="br0">&#40;</span><span class="kw4">const</span> FArguments<span class="sy3">&amp;</span> InArgs<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	TSharedRef<span class="sy1">&lt;</span>ITableRow<span class="sy1">&gt;</span> OnGenerateRowForList<span class="br0">&#40;</span>TSharedPtr<span class="sy1">&lt;</span>FSChatMsg<span class="sy1">&gt;</span> Item, <span class="kw4">const</span> TSharedRef<span class="sy1">&lt;</span>STableViewBase<span class="sy1">&gt;</span><span class="sy3">&amp;</span> OwnerTable<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// the function that is called for each chat element to be displayed in the chatbox</span>
+	TArray<span class="sy1">&lt;</span>TSharedPtr<span class="sy1">&lt;</span>FSChatMsg<span class="sy1">&gt;&gt;</span> Items<span class="sy4">;</span> <span class="co1">// array of all the current items in this players chat box</span>
+	TSharedPtr<span class="sy1">&lt;</span> SListView<span class="sy1">&lt;</span> TSharedPtr<span class="sy1">&lt;</span>FSChatMsg<span class="sy1">&gt;</span> <span class="sy1">&gt;</span> <span class="sy1">&gt;</span> ListViewWidget<span class="sy4">;</span> <span class="co1">// the acutall widgets for each chat element</span>
+&#160;
+	<span class="kw4">const</span> FSlateFontInfo fontinfo <span class="sy1">=</span> FSlateFontInfo<span class="br0">&#40;</span>FPaths<span class="sy4">::</span><span class="me2">EngineContentDir</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">/</span> TEXT<span class="br0">&#40;</span><span class="st0">&quot;UI/Fonts/Comfortaa-Regular.ttf&quot;</span><span class="br0">&#41;</span>, <span class="nu0">15</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// Font, Font Size  for the chatbox</span>
+&#160;
+	TWeakObjectPtr<span class="sy1">&lt;</span><span class="kw2">class</span> AMyHUD<span class="sy1">&gt;</span> OwnerHUD<span class="sy4">;</span>
+&#160;
+	TSharedPtr<span class="sy1">&lt;</span> SVerticalBox <span class="sy1">&gt;</span> ChatBox<span class="sy4">;</span>
+	TSharedPtr<span class="sy1">&lt;</span> SEditableText <span class="sy1">&gt;</span> ChatInput<span class="sy4">;</span>
+&#160;
+	<span class="kw4">void</span> OnChatTextChanged<span class="br0">&#40;</span><span class="kw4">const</span> FText<span class="sy3">&amp;</span> InText<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="kw4">void</span> OnChatTextCommitted<span class="br0">&#40;</span><span class="kw4">const</span> FText<span class="sy3">&amp;</span> InText, ETextCommit<span class="sy4">::</span><span class="me2">Type</span> CommitMethod<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw4">void</span> AddMessage<span class="br0">&#40;</span><span class="kw4">const</span> FSChatMsg<span class="sy3">&amp;</span> newmessage<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// the final stage, this function takes the input and does the final placement in the chatbox</span>
+&#160;
+	<span class="kw4">void</span> Tick<span class="br0">&#40;</span><span class="kw4">const</span> FGeometry<span class="sy3">&amp;</span> AllottedGeometry, <span class="kw4">const</span> <span class="kw4">double</span> InCurrentTime, <span class="kw4">const</span> <span class="kw4">float</span> InDeltaTime<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// The full widget ticks and deletes messages</span>
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id="MyChatWidget.cpp">MyChatWidget.cpp</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Fill out your copyright notice in the Description page of Project Settings.</span>
+&#160;
+<span class="co2">#include &quot;ChatTutorial.h&quot;</span>
+<span class="co2">#include &quot;MyChatWidget.h&quot;</span>
+&#160;
+<span class="co2">#include &quot;MyHUD.h&quot;</span>
+<span class="co2">#include &quot;MyPlayerState.h&quot;</span>
+&#160;
+<span class="co2">#define LOCTEXT_NAMESPACE &quot;SMyChatWidget&quot;</span>
+&#160;
+<span class="kw4">void</span> SMyChatWidget<span class="sy4">::</span><span class="me2">Construct</span><span class="br0">&#40;</span><span class="kw4">const</span> FArguments<span class="sy3">&amp;</span> InArgs<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	OwnerHUD <span class="sy1">=</span> InArgs._OwnerHUD<span class="sy4">;</span>
+&#160;
+	ChildSlot <span class="co1">// Build the base for the chatbox</span>
+		.<span class="me1">VAlign</span><span class="br0">&#40;</span>VAlign_Bottom<span class="br0">&#41;</span>
+		.<span class="me1">HAlign</span><span class="br0">&#40;</span>HAlign_Left<span class="br0">&#41;</span>
+		.<span class="me1">Padding</span><span class="br0">&#40;</span><span class="nu0">15</span><span class="br0">&#41;</span> <span class="co1">// move the chat box out from the corner </span>
+		<span class="br0">&#91;</span>
+			SNew<span class="br0">&#40;</span>SVerticalBox<span class="br0">&#41;</span> <span class="co1">// outter container</span>
+			<span class="sy2">+</span> SVerticalBox<span class="sy4">::</span><span class="me2">Slot</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+			.<span class="me1">AutoHeight</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+			.<span class="me1">MaxHeight</span><span class="br0">&#40;</span><span class="nu0">408</span>.<span class="me1">f</span><span class="br0">&#41;</span>
+			.<span class="me1">VAlign</span><span class="br0">&#40;</span>VAlign_Bottom<span class="br0">&#41;</span>
+			<span class="br0">&#91;</span>
+				SAssignNew<span class="br0">&#40;</span>ListViewWidget, SListView<span class="sy1">&lt;</span> TSharedPtr<span class="sy1">&lt;</span> FSChatMsg <span class="sy1">&gt;</span> <span class="sy1">&gt;</span><span class="br0">&#41;</span> <span class="co1">// a ListView widget that takes the array of messages and draws them on the hud</span>
+				.<span class="me1">ListItemsSource</span><span class="br0">&#40;</span><span class="sy3">&amp;</span>Items<span class="br0">&#41;</span> <span class="co1">//The Items array is the source of this listview</span>
+				.<span class="me1">OnGenerateRow</span><span class="br0">&#40;</span><span class="kw3">this</span>, <span class="sy3">&amp;</span>SMyChatWidget<span class="sy4">::</span><span class="me2">OnGenerateRowForList</span><span class="br0">&#41;</span> <span class="co1">// The widget is trying to draw, give the elements</span>
+				.<span class="me1">ScrollbarVisibility</span><span class="br0">&#40;</span>EVisibility<span class="sy4">::</span><span class="me2">Hidden</span><span class="br0">&#41;</span>
+			<span class="br0">&#93;</span>
+			<span class="sy2">+</span> SVerticalBox<span class="sy4">::</span><span class="me2">Slot</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+			.<span class="me1">AutoHeight</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+			.<span class="me1">FillHeight</span><span class="br0">&#40;</span><span class="nu0">30</span>.<span class="me1">f</span><span class="br0">&#41;</span>
+			<span class="br0">&#91;</span>
+				SNew<span class="br0">&#40;</span>SHorizontalBox<span class="br0">&#41;</span>
+				<span class="sy2">+</span> SHorizontalBox<span class="sy4">::</span><span class="me2">Slot</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+				.<span class="me1">AutoWidth</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+				.<span class="me1">MaxWidth</span><span class="br0">&#40;</span><span class="nu0">600</span>.<span class="me1">f</span><span class="br0">&#41;</span>
+				<span class="br0">&#91;</span>
+					SAssignNew<span class="br0">&#40;</span>ChatInput, SEditableText<span class="br0">&#41;</span> <span class="co1">// the widget for player input</span>
+					.<span class="me1">OnTextCommitted</span><span class="br0">&#40;</span><span class="kw3">this</span>, <span class="sy3">&amp;</span>SMyChatWidget<span class="sy4">::</span><span class="me2">OnChatTextCommitted</span><span class="br0">&#41;</span> <span class="co1">// function to call when text is entered</span>
+					.<span class="me1">OnTextChanged</span><span class="br0">&#40;</span><span class="kw3">this</span>, <span class="sy3">&amp;</span>SMyChatWidget<span class="sy4">::</span><span class="me2">OnChatTextChanged</span><span class="br0">&#41;</span> <span class="co1">// function to call when text is changed</span>
+					.<span class="me1">ClearKeyboardFocusOnCommit</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span>
+					.<span class="me1">Text</span><span class="br0">&#40;</span>FText<span class="sy4">::</span><span class="me2">FromString</span><span class="br0">&#40;</span><span class="st0">&quot;&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+					.<span class="me1">Font</span><span class="br0">&#40;</span>FSlateFontInfo<span class="br0">&#40;</span>fontinfo.<span class="me1">FontMaterial</span>, fontinfo.<span class="me1">Size</span> <span class="sy2">+</span> <span class="nu0">2</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="co1">// set the font for the input and add 2 font size</span>
+					.<span class="me1">ColorAndOpacity</span><span class="br0">&#40;</span>FLinearColor<span class="br0">&#40;</span><span class="nu0">1</span>.<span class="me1">f</span>, <span class="nu0">1</span>.<span class="me1">f</span>, <span class="nu0">1</span>.<span class="me1">f</span>, <span class="nu17">0.9f</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="co1">// send color and alpha R G B A</span>
+					.<span class="me1">HintText</span><span class="br0">&#40;</span>FText<span class="sy4">::</span><span class="me2">FromString</span><span class="br0">&#40;</span><span class="st0">&quot;Send a message to everyone.&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="co1">// hint message (optional)</span>
+				<span class="br0">&#93;</span>
+			<span class="br0">&#93;</span>
+		<span class="br0">&#93;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+TSharedRef<span class="sy1">&lt;</span>ITableRow<span class="sy1">&gt;</span> SMyChatWidget<span class="sy4">::</span><span class="me2">OnGenerateRowForList</span><span class="br0">&#40;</span>TSharedPtr<span class="sy1">&lt;</span> FSChatMsg <span class="sy1">&gt;</span> Item, <span class="kw4">const</span> TSharedRef<span class="sy1">&lt;</span>STableViewBase<span class="sy1">&gt;</span><span class="sy3">&amp;</span> OwnerTable<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy3">!</span>Items.<span class="me1">IsValidIndex</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span> <span class="sy3">||</span> <span class="sy3">!</span>Item.<span class="me1">IsValid</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy3">||</span> <span class="sy3">!</span>Item.<span class="me1">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="co1">// Error catcher</span>
+		<span class="kw1">return</span>
+			SNew<span class="br0">&#40;</span>STableRow<span class="sy1">&lt;</span> TSharedPtr<span class="sy1">&lt;</span> FSChatMsg <span class="sy1">&gt;</span> <span class="sy1">&gt;</span>, OwnerTable<span class="br0">&#41;</span>
+			<span class="br0">&#91;</span>
+				SNew<span class="br0">&#40;</span>SBox<span class="br0">&#41;</span>
+			<span class="br0">&#93;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">if</span> <span class="br0">&#40;</span>Item.<span class="me1">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>Type <span class="sy1">===</span> <span class="nu0">1</span><span class="br0">&#41;</span> <span class="co1">// Type 1 is for player chat messages</span>
+	<span class="kw1">return</span>
+		SNew<span class="br0">&#40;</span>STableRow<span class="sy1">&lt;</span> TSharedPtr<span class="sy1">&lt;</span> FSChatMsg <span class="sy1">&gt;</span> <span class="sy1">&gt;</span>, OwnerTable<span class="br0">&#41;</span>
+		<span class="br0">&#91;</span>
+			SNew<span class="br0">&#40;</span>SWrapBox<span class="br0">&#41;</span>
+			.<span class="me1">PreferredWidth</span><span class="br0">&#40;</span><span class="nu0">600</span>.<span class="me1">f</span><span class="br0">&#41;</span>
+			<span class="sy2">+</span> SWrapBox<span class="sy4">::</span><span class="me2">Slot</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+			<span class="br0">&#91;</span>
+				SNew<span class="br0">&#40;</span>STextBlock<span class="br0">&#41;</span> <span class="co1">// places the timestamp</span>
+				.<span class="me1">Text</span><span class="br0">&#40;</span>Item.<span class="me1">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>Timestamp<span class="br0">&#41;</span>
+				.<span class="me1">ColorAndOpacity</span><span class="br0">&#40;</span>FLinearColor<span class="br0">&#40;</span><span class="nu17">0.25f</span>, <span class="nu17">0.25f</span>, <span class="nu17">0.25f</span>, <span class="nu0">1</span>.<span class="me1">f</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+				.<span class="me1">Font</span><span class="br0">&#40;</span>fontinfo<span class="br0">&#41;</span>
+				.<span class="me1">ShadowColorAndOpacity</span><span class="br0">&#40;</span>FLinearColor<span class="sy4">::</span><span class="me2">Black</span><span class="br0">&#41;</span>
+				.<span class="me1">ShadowOffset</span><span class="br0">&#40;</span>FIntPoint<span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+			<span class="br0">&#93;</span>
+			<span class="sy2">+</span> SWrapBox<span class="sy4">::</span><span class="me2">Slot</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+			<span class="br0">&#91;</span>
+				SNew<span class="br0">&#40;</span>STextBlock<span class="br0">&#41;</span> <span class="co1">// places the username</span>
+				.<span class="me1">Text</span><span class="br0">&#40;</span>Item.<span class="me1">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>Username<span class="br0">&#41;</span>
+				.<span class="me1">ColorAndOpacity</span><span class="br0">&#40;</span>FLinearColor<span class="sy4">::</span><span class="me2">White</span><span class="br0">&#41;</span>
+				.<span class="me1">Font</span><span class="br0">&#40;</span>fontinfo<span class="br0">&#41;</span>
+				.<span class="me1">ShadowColorAndOpacity</span><span class="br0">&#40;</span>FLinearColor<span class="sy4">::</span><span class="me2">Black</span><span class="br0">&#41;</span>
+				.<span class="me1">ShadowOffset</span><span class="br0">&#40;</span>FIntPoint<span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+			<span class="br0">&#93;</span>
+			<span class="sy2">+</span> SWrapBox<span class="sy4">::</span><span class="me2">Slot</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+			<span class="br0">&#91;</span>
+				SNew<span class="br0">&#40;</span>STextBlock<span class="br0">&#41;</span> <span class="co1">// adds the&#160;: between the username and chat text</span>
+				.<span class="me1">Text</span><span class="br0">&#40;</span>FText<span class="sy4">::</span><span class="me2">FromString</span><span class="br0">&#40;</span><span class="st0">&quot;&#160;:  &quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+				.<span class="me1">ColorAndOpacity</span><span class="br0">&#40;</span>FLinearColor<span class="br0">&#40;</span><span class="nu17">0.5f</span>, <span class="nu17">0.5f</span>, <span class="nu17">0.5f</span>, <span class="nu0">1</span>.<span class="me1">f</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+				.<span class="me1">Font</span><span class="br0">&#40;</span>fontinfo<span class="br0">&#41;</span>
+				.<span class="me1">ShadowColorAndOpacity</span><span class="br0">&#40;</span>FLinearColor<span class="sy4">::</span><span class="me2">Black</span><span class="br0">&#41;</span>
+				.<span class="me1">ShadowOffset</span><span class="br0">&#40;</span>FIntPoint<span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+			<span class="br0">&#93;</span>
+			<span class="sy2">+</span> SWrapBox<span class="sy4">::</span><span class="me2">Slot</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+			<span class="br0">&#91;</span>
+				SNew<span class="br0">&#40;</span>STextBlock<span class="br0">&#41;</span> <span class="co1">// places the user text</span>
+				.<span class="me1">Text</span><span class="br0">&#40;</span>Item.<span class="me1">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>Text<span class="br0">&#41;</span>
+				.<span class="me1">ColorAndOpacity</span><span class="br0">&#40;</span>FLinearColor<span class="br0">&#40;</span><span class="nu17">0.5f</span>, <span class="nu17">0.5f</span>, <span class="nu17">0.5f</span>, <span class="nu0">1</span>.<span class="me1">f</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+				.<span class="me1">Font</span><span class="br0">&#40;</span>fontinfo<span class="br0">&#41;</span>
+				.<span class="me1">ShadowColorAndOpacity</span><span class="br0">&#40;</span>FLinearColor<span class="sy4">::</span><span class="me2">Black</span><span class="br0">&#41;</span>
+				.<span class="me1">ShadowOffset</span><span class="br0">&#40;</span>FIntPoint<span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+			<span class="br0">&#93;</span>
+		<span class="br0">&#93;</span><span class="sy4">;</span>
+	<span class="kw1">else</span> <span class="co1">// 2 is for server messages, add more types for whispers friendslists etc</span>
+	<span class="kw1">return</span>
+		SNew<span class="br0">&#40;</span>STableRow<span class="sy1">&lt;</span> TSharedPtr<span class="sy1">&lt;</span> FSChatMsg <span class="sy1">&gt;</span> <span class="sy1">&gt;</span>, OwnerTable<span class="br0">&#41;</span>
+		<span class="br0">&#91;</span>
+			SNew<span class="br0">&#40;</span>SWrapBox<span class="br0">&#41;</span>
+			.<span class="me1">PreferredWidth</span><span class="br0">&#40;</span><span class="nu0">600</span>.<span class="me1">f</span><span class="br0">&#41;</span>
+			<span class="sy2">+</span> SWrapBox<span class="sy4">::</span><span class="me2">Slot</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+			<span class="br0">&#91;</span>
+				SNew<span class="br0">&#40;</span>STextBlock<span class="br0">&#41;</span>
+				.<span class="me1">Text</span><span class="br0">&#40;</span>Item.<span class="me1">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>Timestamp<span class="br0">&#41;</span>
+				.<span class="me1">ColorAndOpacity</span><span class="br0">&#40;</span>FLinearColor<span class="br0">&#40;</span><span class="nu17">0.25f</span>, <span class="nu17">0.25f</span>, <span class="nu17">0.25f</span>, <span class="nu0">1</span>.<span class="me1">f</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+				.<span class="me1">Font</span><span class="br0">&#40;</span>fontinfo<span class="br0">&#41;</span>
+				.<span class="me1">ShadowColorAndOpacity</span><span class="br0">&#40;</span>FLinearColor<span class="sy4">::</span><span class="me2">Black</span><span class="br0">&#41;</span>
+				.<span class="me1">ShadowOffset</span><span class="br0">&#40;</span>FIntPoint<span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+			<span class="br0">&#93;</span>
+			<span class="sy2">+</span> SWrapBox<span class="sy4">::</span><span class="me2">Slot</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+			<span class="br0">&#91;</span>
+				SNew<span class="br0">&#40;</span>STextBlock<span class="br0">&#41;</span>
+				.<span class="me1">Text</span><span class="br0">&#40;</span>Item.<span class="me1">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>Text<span class="br0">&#41;</span>
+				.<span class="me1">ColorAndOpacity</span><span class="br0">&#40;</span>FLinearColor<span class="br0">&#40;</span><span class="nu17">0.75f</span>, <span class="nu17">0.75f</span>, <span class="nu17">0.75f</span>, <span class="nu0">1</span>.<span class="me1">f</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+				.<span class="me1">Font</span><span class="br0">&#40;</span>fontinfo<span class="br0">&#41;</span>
+				.<span class="me1">ShadowColorAndOpacity</span><span class="br0">&#40;</span>FLinearColor<span class="sy4">::</span><span class="me2">Black</span><span class="br0">&#41;</span>
+				.<span class="me1">ShadowOffset</span><span class="br0">&#40;</span>FIntPoint<span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+			<span class="br0">&#93;</span>
+		<span class="br0">&#93;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> SMyChatWidget<span class="sy4">::</span><span class="me2">OnChatTextChanged</span><span class="br0">&#40;</span><span class="kw4">const</span> FText<span class="sy3">&amp;</span> InText<span class="br0">&#41;</span> <span class="co1">// Called everytime the user presses a key on the input bar</span>
+<span class="br0">&#123;</span>
+	FString SText <span class="sy1">=</span> InText.<span class="me1">ToString</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>SText.<span class="me1">Len</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy1">&gt;</span> <span class="nu0">120</span><span class="br0">&#41;</span> <span class="co1">// if there are more that 120 characters in the char box, remove the rest</span>
+	<span class="br0">&#123;</span>
+		SText <span class="sy1">=</span> SText.<span class="me1">Left</span><span class="br0">&#40;</span><span class="nu0">120</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		<span class="kw1">if</span> <span class="br0">&#40;</span>ChatInput.<span class="me1">IsValid</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+			ChatInput<span class="sy2">-</span><span class="sy1">&gt;</span>SetText<span class="br0">&#40;</span>FText<span class="sy4">::</span><span class="me2">FromString</span><span class="br0">&#40;</span>SText<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> SMyChatWidget<span class="sy4">::</span><span class="me2">OnChatTextCommitted</span><span class="br0">&#40;</span><span class="kw4">const</span> FText<span class="sy3">&amp;</span> InText, ETextCommit<span class="sy4">::</span><span class="me2">Type</span> CommitMethod<span class="br0">&#41;</span> <span class="co1">// The chat box is submitted</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>CommitMethod <span class="sy3">!</span><span class="sy1">=</span> ETextCommit<span class="sy4">::</span><span class="me2">OnEnter</span><span class="br0">&#41;</span> <span class="co1">// only complete if the textbox was comitted with enter</span>
+		<span class="kw1">return</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">if</span> <span class="br0">&#40;</span>ChatInput.<span class="me1">IsValid</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		FText NFText <span class="sy1">=</span> FText<span class="sy4">::</span><span class="me2">TrimPrecedingAndTrailing</span><span class="br0">&#40;</span>InText<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// remove whitespace</span>
+		<span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy3">!</span>NFText.<span class="me1">IsEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+		<span class="br0">&#123;</span>
+			AMyPlayerState<span class="sy2">*</span> MyPS <span class="sy1">=</span> Cast<span class="sy1">&lt;</span>AMyPlayerState<span class="sy1">&gt;</span><span class="br0">&#40;</span>OwnerHUD<span class="sy2">-</span><span class="sy1">&gt;</span>MyPC<span class="sy2">-</span><span class="sy1">&gt;</span>PlayerState<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// cast to our player state that contains the rpc functions</span>
+			<span class="kw1">if</span> <span class="br0">&#40;</span>MyPS<span class="br0">&#41;</span>
+			<span class="br0">&#123;</span>
+				<span class="co1">// Insert code here if you wish to have / commands</span>
+				FSChatMsg newmessage<span class="sy4">;</span> <span class="co1">// make a new struct to send for replication</span>
+				newmessage.<span class="me1">Init</span><span class="br0">&#40;</span><span class="nu0">1</span>, FText<span class="sy4">::</span><span class="me2">FromString</span><span class="br0">&#40;</span>MyPS<span class="sy2">-</span><span class="sy1">&gt;</span>PlayerName<span class="br0">&#41;</span>, NFText<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// initialize the message struct for replication</span>
+				<span class="kw1">if</span> <span class="br0">&#40;</span>newmessage.<span class="me1">Type</span> <span class="sy1">&gt;</span> <span class="nu0">0</span><span class="br0">&#41;</span>
+					MyPS<span class="sy2">-</span><span class="sy1">&gt;</span>UserChatRPC<span class="br0">&#40;</span>newmessage<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// Send the complete chat message to the PlayerState so it can be replicated then displayed</span>
+			<span class="br0">&#125;</span>
+		<span class="br0">&#125;</span>
+		ChatInput<span class="sy2">-</span><span class="sy1">&gt;</span>SetText<span class="br0">&#40;</span>FText<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// clear the chat box now were done with it</span>
+	<span class="br0">&#125;</span>
+&#160;
+	FSlateApplication<span class="sy4">::</span><span class="me2">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">SetUserFocusToGameViewport</span><span class="br0">&#40;</span><span class="nu0">0</span>, EFocusCause<span class="sy4">::</span><span class="me2">SetDirectly</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// set the players focus back to the gameport</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> SMyChatWidget<span class="sy4">::</span><span class="me2">AddMessage</span><span class="br0">&#40;</span><span class="kw4">const</span> FSChatMsg<span class="sy3">&amp;</span> newmessage<span class="br0">&#41;</span> <span class="co1">// this function is the last in line and does the actual placing of the message</span>
+<span class="br0">&#123;</span>
+	<span class="kw4">int32</span> index <span class="sy1">=</span> Items.<span class="me1">Add</span><span class="br0">&#40;</span>MakeShareable<span class="br0">&#40;</span><span class="kw3">new</span> FSChatMsg<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// add a new message to the chatbox array</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>Items<span class="br0">&#91;</span>index<span class="br0">&#93;</span>.<span class="me1">IsValid</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		Items<span class="br0">&#91;</span>index<span class="br0">&#93;</span><span class="sy2">-</span><span class="sy1">&gt;</span>Init<span class="br0">&#40;</span>newmessage.<span class="me1">Type</span>, newmessage.<span class="me1">Username</span>, newmessage.<span class="me1">Text</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// intiate our new message with the passed message</span>
+&#160;
+		<span class="kw4">int32</span> Year, Month, Day, DayOfWeek, Hour, Minute, Second, Millisecond<span class="sy4">;</span> <span class="co1">// set the timestamp and decay timer</span>
+		FPlatformTime<span class="sy4">::</span><span class="me2">SystemTime</span><span class="br0">&#40;</span>Year, Month, DayOfWeek, Day, Hour, Minute, Second, Millisecond<span class="br0">&#41;</span><span class="sy4">;</span>
+		Items<span class="br0">&#91;</span>index<span class="br0">&#93;</span><span class="sy2">-</span><span class="sy1">&gt;</span>SetTime<span class="br0">&#40;</span>FText<span class="sy4">::</span><span class="me2">FromString</span><span class="br0">&#40;</span>FString<span class="sy4">::</span><span class="me2">Printf</span><span class="br0">&#40;</span>TEXT<span class="br0">&#40;</span><span class="st0">&quot;[&#160;%02d:%02d:%02d ] &quot;</span><span class="br0">&#41;</span>, Hour, Minute, Second<span class="br0">&#41;</span><span class="br0">&#41;</span>, FPlatformTime<span class="sy4">::</span><span class="me2">Seconds</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// Comment this line to remove timestamps or replace FPlatformTime::Seconds() with 0 to slow decay the messages</span>
+&#160;
+		ListViewWidget<span class="sy2">-</span><span class="sy1">&gt;</span>RequestListRefresh<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// update the chatbox widget with our new array element</span>
+		ListViewWidget<span class="sy2">-</span><span class="sy1">&gt;</span>ScrollToBottom<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// scroll the chatbox to the bottom so our new message pops up</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> SMyChatWidget<span class="sy4">::</span><span class="me2">Tick</span><span class="br0">&#40;</span><span class="kw4">const</span> FGeometry<span class="sy3">&amp;</span> AllottedGeometry, <span class="kw4">const</span> <span class="kw4">double</span> InCurrentTime, <span class="kw4">const</span> <span class="kw4">float</span> InDeltaTime<span class="br0">&#41;</span> <span class="co1">// called everyframe and used for our gamelogic</span>
+<span class="br0">&#123;</span>
+	SCompoundWidget<span class="sy4">::</span><span class="me2">Tick</span><span class="br0">&#40;</span>AllottedGeometry, InCurrentTime, InDeltaTime<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">if</span> <span class="br0">&#40;</span>Items.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="co1">// make sure there is atleast one element in the chatbox array</span>
+	<span class="br0">&#123;</span>
+		<span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy3">!</span>Items<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="sy2">-</span><span class="sy1">&gt;</span>Created<span class="br0">&#41;</span> <span class="co1">// this element doesnt have a creation time and will last forever so lets set the creation time now and it was start decaying</span>
+			Items<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="sy2">-</span><span class="sy1">&gt;</span>Created <span class="sy1">=</span> InCurrentTime<span class="sy4">;</span>
+		<span class="kw1">if</span> <span class="br0">&#40;</span>InCurrentTime <span class="sy2">-</span> Items<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="sy2">-</span><span class="sy1">&gt;</span>Created <span class="sy1">&gt;</span> <span class="nu0">20</span><span class="br0">&#41;</span> <span class="co1">// the first message in the array is older that 20 seconds</span>
+		<span class="br0">&#123;</span>
+			Items<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="sy2">-</span><span class="sy1">&gt;</span>Destroy<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// clear the vars and pointers</span>
+			Items.<span class="me1">RemoveAt</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// remove the item from the array</span>
+			Items.<span class="me1">Shrink</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		<span class="br0">&#125;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>Once you compile all the classes. Make sure your game is using your new GameMode in the Project Settings Maps&amp;Modes setting.
+</p><p>thanks to <a href="/User:Rama" title="User:Rama">Rama</a>!
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.163 seconds
+Real time usage: 0.325 seconds
+Preprocessor visited node count: 137/1000000
+Preprocessor generated node count: 298/1000000
+Post‐expand include size: 515/2097152 bytes
+Template argument size: 11/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=Slate,_Simple_C%2B%2B_Chat_System&amp;oldid=18817">https://wiki.unrealengine.com/index.php?title=Slate,_Simple_C%2B%2B_Chat_System&amp;oldid=18817</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li><li><a href="/Category:Code" title="Category:Code">Code</a></li><li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.418 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

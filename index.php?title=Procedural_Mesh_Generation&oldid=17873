@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Procedural Mesh Generation - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Procedural_Mesh_Generation","wgTitle":"Procedural Mesh Generation","wgCurRevisionId":17873,"wgRevisionId":17873,"wgArticleId":914,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Templates","Code"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Procedural_Mesh_Generation","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["ext.voteNY","mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Procedural_Mesh_Generation skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head">
+		
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        
+            <link rel="stylesheet" href="https://cdn1.unrealengine.com/2914259/unifiedHeader-3d2c9ef25bcd93abc24a45ff7ec4282f.css">
+        
+    </head>
+
+    <body>
+        <input type="hidden" id="updateenable" value="true">
+
+        
+            
+
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        
+            <link rel="stylesheet" href="https://cdn1.unrealengine.com/2914259/webpack/epicGamesHeader.epic-games-nav-8bdd68f01817afb9b978f4481fcc2994.css"/>
+        
+    </head>
+    <body>
+        <script type="text/javascript">
+            //required so the config object is not utf-8 encoded
+            
+                (function() {
+                    var config = (function(){ return {"hideSearch":false,"_contentType":426,"links":[{"title":"About","useCustomCallback":false,"kids":[{"title":"Overview","href":"https://www.unrealengine.com/what-is-unreal-engine-4"},{"title":"Features","href":"https://www.unrealengine.com/unreal-engine-4"},{"title":"Virtual Reality","href":"https://www.unrealengine.com/vr-page"},{"title":"Showcase","href":"https://www.unrealengine.com/showcase"},{"title":"What's New","href":"https://www.unrealengine.com/410-release-notes-overview"},{"title":"FAQ / EULA","href":"https://www.unrealengine.com/faq"},{"title":"Previous Versions","href":"https://www.unrealengine.com/previous-versions"},{"title":"Enterprise","href":"https://www.unrealengine.com/enterprise"}],"key":"about"},{"title":"Learn","useCustomCallback":false,"collapseTarget":"More","kids":[{"title":"Documentation","useCustomCallback":false,"href":"https://docs.unrealengine.com/"},{"title":"Video Tutorials","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Videos "},{"title":"Wiki","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page"}],"key":"learn"},{"title":"Community","useCustomCallback":false,"collapseTarget":"More","kids":[{"title":"Blog","href":"https://www.unrealengine.com/blog"},{"title":"Forums","useCustomCallback":false,"href":"https://forums.unrealengine.com/"},{"title":"AnswerHub","useCustomCallback":false,"href":"https://answers.unrealengine.com/"},{"title":"Roadmap","useCustomCallback":false,"href":"https://trello.com/b/gHooNW9I/ue4-roadmap"},{"title":"Unreal Dev Grants","href":"https://www.unrealengine.com/unrealdevgrants"},{"title":"Unreal Tournament","useCustomCallback":false,"href":"http://www.unrealtournament.com/blog/"}],"key":"community"},{"title":"Marketplace","useCustomCallback":false,"collapseTarget":"More","kids":[{"title":" Browse","href":"https://www.unrealengine.com/marketplace"},{"title":"Business Terms","useCustomCallback":false,"href":"https://publish.unrealengine.com/faq"},{"title":"Submission Guidelines","useCustomCallback":false,"href":"https://publish.unrealengine.com/submission-guidelines"},{"title":"Submit Your Content","useCustomCallback":false,"href":"https://publish.unrealengine.com/welcome"},{"title":"Marketplace Forums","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace"}],"key":"marketplace"},{"title":"Academia","useCustomCallback":false,"collapseTarget":"More","kids":[{"title":"Education Program","href":"https://www.unrealengine.com/education"},{"title":"Academic Partners","href":"https://www.unrealengine.com/academic-partners"}],"key":"academia"}],"epicPropertyName":"unreal_engine","properties":[{"egSkip":false,"egDisabled":false}],"hideLocale":true,"messages":{"sign_in":"Sign In","search":"Search","locale":"Locale","sign_out":"Sign Out","default_username":"Account"},"logoLink":{"key":"logo","href":"https://www.unrealengine.com/blog"},"hideCallToAction":false,"accountLinks":{"signOutLink":{"useCustomCallback":true,"key":"signout"},"signInLinks":[{"title":"Sign In","href":"https://www.unrealengine.com/login","key":"signin"}],"dropdownLinks":[{"title":"Personal","href":"https://www.unrealengine.com/dashboard","key":"personal"},{"title":"Seller","useCustomCallback":false,"href":"https://publish.unrealengine.com/"}]},"downloadLink":{"title":"Get Unreal","useCustomCallback":true},"callToAction":{"title":"Get Unreal","useCustomCallback":true},"hideSignIn":true,"overrideParams":{"hideLocale":true,"useServerUrl":true,"hideSignIn":true},"locale":"en-US","serverUrl":"https://www.unrealengine.com"}; })();
+                    if (typeof window._epicGamesNav === 'undefined') {
+                        window._epicGamesNav = config;
+                    } else {
+                        for (var key in config) {
+                            if (typeof key === 'string') {
+                                if (!window._epicGamesNav[key] && config[key] !== null) {
+                                    window._epicGamesNav[key] = config[key];
+                                }
+                            }
+                        }
+                    }
+
+                    /**
+                     * For a documented example of what the config json object looks like:
+                     *   /frontend/app/scripts/utils/epicGamesNavObserver.js
+                     */
+                })();
+            
+        </script>
+
+        <div id="epicGamesNavigation" data-external="false"></div>
+
+        
+            <script src="https://cdn1.unrealengine.com/2914259/webpack/epicGamesHeader.epic-games-nav-e2bdecdb85442f990ed9317c5bf5965c.js" type="text/javascript" ></script>
+        
+    </body>
+</html>
+        
+
+        
+
+        
+            <link rel="stylesheet" href="https://cdn1.unrealengine.com/2914259/webpack/epicGamesHeader.epic-games-nav-8bdd68f01817afb9b978f4481fcc2994.css"/>
+        
+
+        <script src="https://cdn1.unrealengine.com/2914259/epicGamesHeaderBundle-326e37f675279686aeb27f816e260031.js" defer></script>
+
+        <div id="header" data-path="" data-sitepath="https://www.unrealengine.com">
+            <input type="hidden" id="isUnified" value="1" />
+            <input type="hidden" id="current_locale" value="en-US"/>
+            <input type="hidden" id="header-host" value="https://www.unrealengine.com" />
+            <input type="hidden" id="current_country" value="GB"/>
+        </div>
+    </body>
+</html>
+
+
+
+
+		</div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-recentchanges"><a href="/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Community' aria-labelledby='p-Community-label'>
+	<h3 id='p-Community-label'>Community</h3>
+	<div class="body">
+		<ul>
+			<li id="n-UE4-Games"><a href="/Category:Games">UE4 Games</a></li>
+			<li id="n-Dev-Blogs"><a href="/Developer_Blogs">Dev Blogs</a></li>
+			<li id="n-Dev-Livestreams"><a href="/Developer_Livestreams">Dev Livestreams</a></li>
+			<li id="n-Code-Sharing-Hub"><a href="/GitHub_Sharing_Hub">Code Sharing Hub</a></li>
+			<li id="n-UE-User-Groups"><a href="/User_Group_Map">UE User Groups</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Learning_Resources' aria-labelledby='p-Learning_Resources-label'>
+	<h3 id='p-Learning_Resources-label'>Learning Resources</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Example-Projects"><a href="/Category:Example_Projects">Example Projects</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Software_and_Tools' aria-labelledby='p-Software_and_Tools-label'>
+	<h3 id='p-Software_and_Tools-label'>Software and Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Art:-3D"><a href="/3D_Art_Resources">Art: 3D</a></li>
+			<li id="n-Art:-2D"><a href="/2D_Art_Resources">Art: 2D</a></li>
+			<li id="n-Audio"><a href="/Audio_Resources">Audio</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Modding' aria-labelledby='p-Modding-label'>
+	<h3 id='p-Modding-label'>Modding</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Modding-Resources"><a href="/Category:Modding_Resources">Modding Resources</a></li>
+			<li id="n-Moddable-Games"><a href="/Category:Moddable_Games">Moddable Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Epic_Official' aria-labelledby='p-Epic_Official-label'>
+	<h3 id='p-Epic_Official-label'>Epic Official</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Website"><a href="https://www.unrealengine.com" rel="nofollow">Website</a></li>
+			<li id="n-Learning-Resources"><a href="https://docs.unrealengine.com/latest/INT/" rel="nofollow">Learning Resources</a></li>
+			<li id="n-Forums"><a href="https://forums.unrealengine.com/" rel="nofollow">Forums</a></li>
+			<li id="n-Blog"><a href="https://www.unrealengine.com/blog" rel="nofollow">Blog</a></li>
+			<li id="n-YouTube"><a href="https://www.youtube.com/UnrealEngine" rel="nofollow">YouTube</a></li>
+			<li id="n-Twitch"><a href="http://www.twitch.tv/unrealengine" rel="nofollow">Twitch</a></li>
+			<li id="n-Twitter"><a href="https://twitter.com/UnrealEngine" rel="nofollow">Twitter</a></li>
+			<li id="n-Facebook"><a href="https://www.facebook.com/UnrealEngine" rel="nofollow">Facebook</a></li>
+			<li id="n-Instagram"><a href="https://instagram.com/unrealengine/" rel="nofollow">Instagram</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Procedural_Mesh_Generation" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Procedural_Mesh_Generation" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=Procedural_Mesh_Generation&amp;oldid=17873&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Procedural_Mesh_Generation&amp;oldid=17873" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Procedural_Mesh_Generation&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Procedural_Mesh_Generation"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk"><span><a href="/Talk:Procedural_Mesh_Generation"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Procedural_Mesh_Generation" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Procedural_Mesh_Generation&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Procedural_Mesh_Generation&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Procedural+Mesh+Generation&amp;returntoquery=oldid%3D17873&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Procedural+Mesh+Generation&amp;returntoquery=oldid%3D17873" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Procedural Mesh Generation</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"><div id="mw-revision-info">Revision as of 21:42, 20 February 2016 by <a href="/index.php?title=User:SRombauts&amp;action=edit&amp;redlink=1" class="new mw-userlink" title="User:SRombauts (page does not exist)">SRombauts</a>  <span class="mw-usertoollinks">(<a href="/index.php?title=User_talk:SRombauts&amp;action=edit&amp;redlink=1" class="new" title="User talk:SRombauts (page does not exist)">Talk</a> | <a href="/Special:Contributions/SRombauts" title="Special:Contributions/SRombauts">contribs</a>)</span></div><br />
+				<div id="mw-revision-nav">(<a href="/index.php?title=Procedural_Mesh_Generation&amp;diff=prev&amp;oldid=17873" title="Procedural Mesh Generation">diff</a>) <a href="/index.php?title=Procedural_Mesh_Generation&amp;direction=prev&amp;oldid=17873" title="Procedural Mesh Generation">← Older revision</a> | Latest revision (diff) | Newer revision → (diff)</div></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="aux">
+<div>
+<b>Rate this Article:</b> <div id="rating_"><div class="rating-score"><div class="voteboxrate">5.00</div></div><div class="rating-section"><img class="vote-rating-star" data-vote-the-vote="1" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__1" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="2" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__2" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="3" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__3" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="4" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__4" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="5" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__5" src="/extensions/VoteNY/images/star_on.gif" alt="" /> <span class="rating-total">(one vote)</span></div>
+				<div class="rating-clear">
+			</div></div>
+</div>
+<div>
+<p>Approved for Versions:4.7
+</p>
+</div>
+</div>
+<p>This is a very simple demonstration on how to generate procedural meshes and spawn them in game. It is not to be taken as an example of proper programming technique, but only as an indication to help you generate your own meshes.
+</p><p>You can <b><a rel="nofollow" class="external text" href="https://github.com/SRombauts/UE4ProceduralMesh/">get this up-to-date demo code in a working UE 4.7 project on GitHub</a></b>. Please note that this no longer works in 4.8 because Epic added an <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/BlueprintAPI/Components/ProceduralMesh/index.html">official component with the same name (UProceduralMeshComponent) and similar functionality</a> (see also <a href="/Procedural_Mesh_Component_in_C%2B%2B:Getting_Started" title="Procedural Mesh Component in C++:Getting Started">Procedural Mesh Component in C++:Getting Started</a>).
+</p><p>The following assumes you already have a project created. However, you will need to add RHI, RenderCore and ShaderCore modules in your build file.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">PublicDependencyModuleNames.<span class="me1">AddRange</span><span class="br0">&#40;</span><span class="kw3">new</span> string<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span> <span class="st0">&quot;Core&quot;</span>, <span class="st0">&quot;CoreUObject&quot;</span>, <span class="st0">&quot;Engine&quot;</span>, <span class="st0">&quot;InputCore&quot;</span>, <span class="st0">&quot;RHI&quot;</span>, <span class="st0">&quot;RenderCore&quot;</span>, <span class="st0">&quot;ShaderCore&quot;</span> <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Creating_a_Generated_Mesh_class"><span class="tocnumber">1</span> <span class="toctext">Creating a Generated Mesh class</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#GeneratedMeshComponent.h"><span class="tocnumber">1.1</span> <span class="toctext">GeneratedMeshComponent.h</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#GeneratedMeshComponent.cpp"><span class="tocnumber">1.2</span> <span class="toctext">GeneratedMeshComponent.cpp</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Creating_a_Generated_Actor_Class"><span class="tocnumber">2</span> <span class="toctext">Creating a Generated Actor Class</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#GameGeneratedActor.h"><span class="tocnumber">2.1</span> <span class="toctext">GameGeneratedActor.h</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#GameGeneratedActor.cpp"><span class="tocnumber">2.2</span> <span class="toctext">GameGeneratedActor.cpp</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Spawning_the_Actor"><span class="tocnumber">3</span> <span class="toctext">Spawning the Actor</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Connecting_standard_UCustomMeshComponent"><span class="tocnumber">4</span> <span class="toctext">Connecting standard UCustomMeshComponent</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Blueprint_implementation"><span class="tocnumber">5</span> <span class="toctext">Blueprint implementation</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Changelog"><span class="tocnumber">6</span> <span class="toctext">Changelog</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Update_1"><span class="tocnumber">6.1</span> <span class="toctext">Update 1</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Update_2"><span class="tocnumber">6.2</span> <span class="toctext">Update 2</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Update_3"><span class="tocnumber">6.3</span> <span class="toctext">Update 3</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Update_4"><span class="tocnumber">6.4</span> <span class="toctext">Update 4</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Update_5"><span class="tocnumber">6.5</span> <span class="toctext">Update 5</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Update_6"><span class="tocnumber">6.6</span> <span class="toctext">Update 6</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17"><a href="#External_link"><span class="tocnumber">7</span> <span class="toctext">External link</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Creating_a_Generated_Mesh_class">Creating a Generated Mesh class</span></h2>
+<p>The Unreal Engine 4 sources come with a CustomMeshComponent under Engine\Plugins\Runtime\CustomMeshComponent. I had trouble with using it as a plugin (link error), so I have reimplemented it. Essentially, copy the files to your project and rename them GeneratedMeshComponent (.h/.cpp). Replace all occurences of "Custom" to "Generated". You will need to add your project header to the cpp file. Otherwise, the code as I have use it is untouched.
+</p><p>Here they are as they appear in my test project:
+</p>
+<h3><span class="mw-headline" id="GeneratedMeshComponent.h">GeneratedMeshComponent.h</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.</span>
+&#160;
+<span class="co2">#pragma once</span>
+&#160;
+<span class="co2">#include &quot;GeneratedMeshComponent.generated.h&quot;</span>
+&#160;
+USTRUCT<span class="br0">&#40;</span>BlueprintType<span class="br0">&#41;</span>
+<span class="kw4">struct</span> FGeneratedMeshTriangle
+<span class="br0">&#123;</span>
+	GENERATED_USTRUCT_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+	UPROPERTY<span class="br0">&#40;</span>EditAnywhere, Category<span class="sy1">=</span>Triangle<span class="br0">&#41;</span>
+	FVector Vertex0<span class="sy4">;</span>
+&#160;
+	UPROPERTY<span class="br0">&#40;</span>EditAnywhere, Category<span class="sy1">=</span>Triangle<span class="br0">&#41;</span>
+	FVector Vertex1<span class="sy4">;</span>
+&#160;
+	UPROPERTY<span class="br0">&#40;</span>EditAnywhere, Category<span class="sy1">=</span>Triangle<span class="br0">&#41;</span>
+	FVector Vertex2<span class="sy4">;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span>
+&#160;
+<span class="coMULTI">/** Component that allows you to specify custom triangle mesh geometry */</span>
+UCLASS<span class="br0">&#40;</span>editinlinenew, meta<span class="sy1">=</span><span class="br0">&#40;</span>BlueprintSpawnableComponent<span class="br0">&#41;</span>, ClassGroup<span class="sy1">=</span>Rendering<span class="br0">&#41;</span>
+<span class="kw2">class</span> UGeneratedMeshComponent <span class="sy4">:</span> <span class="kw2">public</span> UMeshComponent, <span class="kw2">public</span> IInterface_CollisionDataProvider 
+<span class="br0">&#123;</span>
+	GENERATED_UCLASS_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+	<span class="coMULTI">/** Set the geometry to use on this triangle mesh */</span>
+	UFUNCTION<span class="br0">&#40;</span>BlueprintCallable, Category<span class="sy1">=</span><span class="st0">&quot;Components|GeneratedMesh&quot;</span><span class="br0">&#41;</span>
+	<span class="kw4">bool</span> SetGeneratedMeshTriangles<span class="br0">&#40;</span><span class="kw4">const</span> TArray<span class="sy1">&lt;</span>FGeneratedMeshTriangle<span class="sy1">&gt;</span><span class="sy3">&amp;</span> Triangles<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="coMULTI">/** Description of collision */</span>
+	UPROPERTY<span class="br0">&#40;</span>BlueprintReadOnly, Category<span class="sy1">=</span><span class="st0">&quot;Collision&quot;</span><span class="br0">&#41;</span>
+	<span class="kw2">class</span> UBodySetup<span class="sy2">*</span> ModelBodySetup<span class="sy4">;</span>
+&#160;
+	<span class="co1">// Begin UMeshComponent interface.</span>
+	<span class="kw2">virtual</span> <span class="kw4">int32</span> GetNumMaterials<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> OVERRIDE<span class="sy4">;</span>
+	<span class="co1">// End UMeshComponent interface.</span>
+&#160;
+	<span class="co1">// Begin Interface_CollisionDataProvider Interface</span>
+	<span class="kw2">virtual</span> <span class="kw4">bool</span> GetPhysicsTriMeshData<span class="br0">&#40;</span><span class="kw4">struct</span> FTriMeshCollisionData<span class="sy2">*</span> CollisionData, <span class="kw4">bool</span> InUseAllTriData<span class="br0">&#41;</span> OVERRIDE<span class="sy4">;</span>
+	<span class="kw2">virtual</span> <span class="kw4">bool</span> ContainsPhysicsTriMeshData<span class="br0">&#40;</span><span class="kw4">bool</span> InUseAllTriData<span class="br0">&#41;</span> <span class="kw4">const</span> OVERRIDE<span class="sy4">;</span>
+	<span class="kw2">virtual</span> <span class="kw4">bool</span> WantsNegXTriMesh<span class="br0">&#40;</span><span class="br0">&#41;</span> OVERRIDE <span class="br0">&#123;</span> <span class="kw1">return</span> <span class="kw2">false</span><span class="sy4">;</span> <span class="br0">&#125;</span>
+	<span class="co1">// End Interface_CollisionDataProvider Interface</span>
+&#160;
+	<span class="co1">// Begin UPrimitiveComponent interface.</span>
+	<span class="kw2">virtual</span> FPrimitiveSceneProxy<span class="sy2">*</span> CreateSceneProxy<span class="br0">&#40;</span><span class="br0">&#41;</span> OVERRIDE<span class="sy4">;</span>
+	<span class="kw2">virtual</span> <span class="kw2">class</span> UBodySetup<span class="sy2">*</span> GetBodySetup<span class="br0">&#40;</span><span class="br0">&#41;</span> OVERRIDE<span class="sy4">;</span>
+	<span class="co1">// End UPrimitiveComponent interface.</span>
+&#160;
+	<span class="kw4">void</span> UpdateBodySetup<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="kw4">void</span> UpdateCollision<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="kw2">private</span><span class="sy4">:</span>
+&#160;
+&#160;
+&#160;
+	<span class="co1">// Begin USceneComponent interface.</span>
+	<span class="kw2">virtual</span> FBoxSphereBounds CalcBounds<span class="br0">&#40;</span><span class="kw4">const</span> FTransform <span class="sy3">&amp;</span> LocalToWorld<span class="br0">&#41;</span> <span class="kw4">const</span> OVERRIDE<span class="sy4">;</span>
+	<span class="co1">// Begin USceneComponent interface.</span>
+&#160;
+	<span class="coMULTI">/** */</span>
+	TArray<span class="sy1">&lt;</span>FGeneratedMeshTriangle<span class="sy1">&gt;</span> GeneratedMeshTris<span class="sy4">;</span>
+&#160;
+	<span class="kw2">friend</span> <span class="kw2">class</span> FGeneratedMeshSceneProxy<span class="sy4">;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id="GeneratedMeshComponent.cpp">GeneratedMeshComponent.cpp</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved. </span>
+<span class="co2">#include &quot;MyProject5.h&quot;</span>
+<span class="co2">#include &quot;DynamicMeshBuilder.h&quot;</span>
+<span class="co2">#include &quot;GeneratedMeshComponent.h&quot;</span>
+<span class="co2">#include &quot;Runtime/Launch/Resources/Version.h&quot; // for ENGINE_xxx_VERSION</span>
+&#160;
+<span class="coMULTI">/** Vertex Buffer */</span>
+<span class="kw2">class</span> FGeneratedMeshVertexBuffer <span class="sy4">:</span> <span class="kw2">public</span> FVertexBuffer 
+<span class="br0">&#123;</span>
+<span class="kw2">public</span><span class="sy4">:</span>
+	TArray<span class="sy1">&lt;</span>FDynamicMeshVertex<span class="sy1">&gt;</span> Vertices<span class="sy4">;</span>
+&#160;
+	<span class="kw2">virtual</span> <span class="kw4">void</span> InitRHI<span class="br0">&#40;</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+<span class="co2">#if ENGINE_MAJOR_VERSION &gt;= 4 &amp;&amp; ENGINE_MINOR_VERSION &gt;= 3</span>
+                FRHIResourceCreateInfo CreateInfo<span class="sy4">;</span>
+		VertexBufferRHI <span class="sy1">=</span> RHICreateVertexBuffer<span class="br0">&#40;</span>Vertices.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">*</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>FDynamicMeshVertex<span class="br0">&#41;</span>,BUF_Static,CreateInfo<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="co2">#else</span>
+		VertexBufferRHI <span class="sy1">=</span> RHICreateVertexBuffer<span class="br0">&#40;</span>Vertices.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">*</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>FDynamicMeshVertex<span class="br0">&#41;</span>,<span class="kw2">NULL</span>,BUF_Static<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="co2">#endif</span>
+		<span class="co1">// Copy the vertex data into the vertex buffer.</span>
+		<span class="kw4">void</span><span class="sy2">*</span> VertexBufferData <span class="sy1">=</span> RHILockVertexBuffer<span class="br0">&#40;</span>VertexBufferRHI,<span class="nu0">0</span>,Vertices.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">*</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>FDynamicMeshVertex<span class="br0">&#41;</span>, RLM_WriteOnly<span class="br0">&#41;</span><span class="sy4">;</span>
+		FMemory<span class="sy4">::</span><span class="me2">Memcpy</span><span class="br0">&#40;</span>VertexBufferData,Vertices.<span class="me1">GetTypedData</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,Vertices.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">*</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>FDynamicMeshVertex<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		RHIUnlockVertexBuffer<span class="br0">&#40;</span>VertexBufferRHI<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="br0">&#125;</span>
+&#160;
+<span class="br0">&#125;</span><span class="sy4">;</span>
+&#160;
+<span class="coMULTI">/** Index Buffer */</span>
+<span class="kw2">class</span> FGeneratedMeshIndexBuffer <span class="sy4">:</span> <span class="kw2">public</span> FIndexBuffer 
+<span class="br0">&#123;</span>
+<span class="kw2">public</span><span class="sy4">:</span>
+	TArray<span class="sy1">&lt;</span><span class="kw4">int32</span><span class="sy1">&gt;</span> Indices<span class="sy4">;</span>
+&#160;
+	<span class="kw2">virtual</span> <span class="kw4">void</span> InitRHI<span class="br0">&#40;</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+<span class="co2">#if ENGINE_MAJOR_VERSION &gt;= 4 &amp;&amp; ENGINE_MINOR_VERSION &gt;= 3</span>
+                FRHIResourceCreateInfo CreateInfo<span class="sy4">;</span>
+		IndexBufferRHI <span class="sy1">=</span> RHICreateIndexBuffer<span class="br0">&#40;</span><span class="kw3">sizeof</span><span class="br0">&#40;</span><span class="kw4">int32</span><span class="br0">&#41;</span>,Indices.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">*</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span><span class="kw4">int32</span><span class="br0">&#41;</span>,BUF_Static,CreateInfo<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="co2">#else</span>
+		IndexBufferRHI <span class="sy1">=</span> RHICreateIndexBuffer<span class="br0">&#40;</span><span class="kw3">sizeof</span><span class="br0">&#40;</span><span class="kw4">int32</span><span class="br0">&#41;</span>,Indices.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">*</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span><span class="kw4">int32</span><span class="br0">&#41;</span>,<span class="kw2">NULL</span>,BUF_Static<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="co2">#endif</span>
+		<span class="co1">// Write the indices to the index buffer.</span>
+		<span class="kw4">void</span><span class="sy2">*</span> Buffer <span class="sy1">=</span> RHILockIndexBuffer<span class="br0">&#40;</span>IndexBufferRHI,<span class="nu0">0</span>,Indices.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">*</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span><span class="kw4">int32</span><span class="br0">&#41;</span>,RLM_WriteOnly<span class="br0">&#41;</span><span class="sy4">;</span>
+		FMemory<span class="sy4">::</span><span class="me2">Memcpy</span><span class="br0">&#40;</span>Buffer,Indices.<span class="me1">GetTypedData</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,Indices.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">*</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span><span class="kw4">int32</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		RHIUnlockIndexBuffer<span class="br0">&#40;</span>IndexBufferRHI<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span>
+&#160;
+<span class="coMULTI">/** Vertex Factory */</span>
+<span class="kw2">class</span> FGeneratedMeshVertexFactory <span class="sy4">:</span> <span class="kw2">public</span> FLocalVertexFactory
+<span class="br0">&#123;</span>
+<span class="kw2">public</span><span class="sy4">:</span>
+&#160;
+	FGeneratedMeshVertexFactory<span class="br0">&#40;</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span><span class="br0">&#125;</span>
+&#160;
+&#160;
+	<span class="coMULTI">/** Initialization */</span>
+	<span class="kw4">void</span> Init<span class="br0">&#40;</span><span class="kw4">const</span> FGeneratedMeshVertexBuffer<span class="sy2">*</span> VertexBuffer<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		check<span class="br0">&#40;</span><span class="sy3">!</span>IsInRenderingThread<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+		ENQUEUE_UNIQUE_RENDER_COMMAND_TWOPARAMETER<span class="br0">&#40;</span>
+			InitGeneratedMeshVertexFactory,
+			FGeneratedMeshVertexFactory<span class="sy2">*</span>,VertexFactory,<span class="kw3">this</span>,
+			<span class="kw4">const</span> FGeneratedMeshVertexBuffer<span class="sy2">*</span>,VertexBuffer,VertexBuffer,
+		<span class="br0">&#123;</span>
+			<span class="co1">// Initialize the vertex factory's stream components.</span>
+			DataType NewData<span class="sy4">;</span>
+			NewData.<span class="me1">PositionComponent</span> <span class="sy1">=</span> STRUCTMEMBER_VERTEXSTREAMCOMPONENT<span class="br0">&#40;</span>VertexBuffer,FDynamicMeshVertex,Position,VET_Float3<span class="br0">&#41;</span><span class="sy4">;</span>
+			NewData.<span class="me1">TextureCoordinates</span>.<span class="me1">Add</span><span class="br0">&#40;</span>
+				FVertexStreamComponent<span class="br0">&#40;</span>VertexBuffer,STRUCT_OFFSET<span class="br0">&#40;</span>FDynamicMeshVertex,TextureCoordinate<span class="br0">&#41;</span>,<span class="kw3">sizeof</span><span class="br0">&#40;</span>FDynamicMeshVertex<span class="br0">&#41;</span>,VET_Float2<span class="br0">&#41;</span>
+				<span class="br0">&#41;</span><span class="sy4">;</span>
+			NewData.<span class="me1">TangentBasisComponents</span><span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span> <span class="sy1">=</span> STRUCTMEMBER_VERTEXSTREAMCOMPONENT<span class="br0">&#40;</span>VertexBuffer,FDynamicMeshVertex,TangentX,VET_PackedNormal<span class="br0">&#41;</span><span class="sy4">;</span>
+			NewData.<span class="me1">TangentBasisComponents</span><span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span> <span class="sy1">=</span> STRUCTMEMBER_VERTEXSTREAMCOMPONENT<span class="br0">&#40;</span>VertexBuffer,FDynamicMeshVertex,TangentZ,VET_PackedNormal<span class="br0">&#41;</span><span class="sy4">;</span>
+			NewData.<span class="me1">ColorComponent</span> <span class="sy1">=</span> STRUCTMEMBER_VERTEXSTREAMCOMPONENT<span class="br0">&#40;</span>VertexBuffer, FDynamicMeshVertex, Color, VET_Color<span class="br0">&#41;</span><span class="sy4">;</span>
+			VertexFactory<span class="sy2">-</span><span class="sy1">&gt;</span>SetData<span class="br0">&#40;</span>NewData<span class="br0">&#41;</span><span class="sy4">;</span>
+		<span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span>
+&#160;
+&#160;
+&#160;
+<span class="co1">//////////////////////////////////////////////////////////////////////////</span>
+&#160;
+UGeneratedMeshComponent<span class="sy4">::</span><span class="me2">UGeneratedMeshComponent</span><span class="br0">&#40;</span> <span class="kw4">const</span> FPostConstructInitializeProperties<span class="sy3">&amp;</span> PCIP <span class="br0">&#41;</span>
+	<span class="sy4">:</span> Super<span class="br0">&#40;</span> PCIP <span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	PrimaryComponentTick.<span class="me1">bCanEverTick</span> <span class="sy1">=</span> <span class="kw2">false</span><span class="sy4">;</span>
+&#160;
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">bool</span> UGeneratedMeshComponent<span class="sy4">::</span><span class="me2">SetGeneratedMeshTriangles</span><span class="br0">&#40;</span><span class="kw4">const</span> TArray<span class="sy1">&lt;</span>FGeneratedMeshTriangle<span class="sy1">&gt;</span><span class="sy3">&amp;</span> Triangles<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	GeneratedMeshTris <span class="sy1">=</span> Triangles<span class="sy4">;</span>
+&#160;
+	UpdateCollision<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">// Need to recreate scene proxy to send it over</span>
+	MarkRenderStateDirty<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">return</span> <span class="kw2">true</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+&#160;
+FPrimitiveSceneProxy<span class="sy2">*</span> UGeneratedMeshComponent<span class="sy4">::</span><span class="me2">CreateSceneProxy</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+&#160;
+	<span class="coMULTI">/** Scene proxy defined only inside the scope of this one function */</span>
+	<span class="kw2">class</span> FGeneratedMeshSceneProxy <span class="sy4">:</span> <span class="kw2">public</span> FPrimitiveSceneProxy
+	<span class="br0">&#123;</span>
+	<span class="kw2">public</span><span class="sy4">:</span>
+&#160;
+		FGeneratedMeshSceneProxy<span class="br0">&#40;</span>UGeneratedMeshComponent<span class="sy2">*</span> Component<span class="br0">&#41;</span>
+			<span class="sy4">:</span> FPrimitiveSceneProxy<span class="br0">&#40;</span>Component<span class="br0">&#41;</span>
+<span class="co2">#if ENGINE_MAJOR_VERSION &gt;= 4 &amp;&amp; ENGINE_MINOR_VERSION &gt;= 5</span>
+			, MaterialRelevance<span class="br0">&#40;</span>Component<span class="sy2">-</span><span class="sy1">&gt;</span>GetMaterialRelevance<span class="br0">&#40;</span>ERHIFeatureLevel<span class="sy4">::</span><span class="me2">SM4</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="co1">// Feature level defined by the capabilities of DX10 Shader Model 4.</span>
+<span class="co2">#else</span>
+			, MaterialRelevance<span class="br0">&#40;</span>Component<span class="sy2">-</span><span class="sy1">&gt;</span>GetMaterialRelevance<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+<span class="co2">#endif</span>
+		<span class="br0">&#123;</span>
+			<span class="kw4">const</span> FColor VertexColor<span class="br0">&#40;</span><span class="nu0">255</span>,<span class="nu0">255</span>,<span class="nu0">255</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+			<span class="co1">// Add each triangle to the vertex/index buffer</span>
+			<span class="kw1">for</span><span class="br0">&#40;</span><span class="kw4">int</span> TriIdx<span class="sy1">=</span><span class="nu0">0</span><span class="sy4">;</span> TriIdx<span class="sy1">&lt;</span>Component<span class="sy2">-</span><span class="sy1">&gt;</span>GeneratedMeshTris.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> TriIdx<span class="sy2">++</span><span class="br0">&#41;</span>
+			<span class="br0">&#123;</span>
+				FGeneratedMeshTriangle<span class="sy3">&amp;</span> Tri <span class="sy1">=</span> Component<span class="sy2">-</span><span class="sy1">&gt;</span>GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span><span class="sy4">;</span>
+&#160;
+				<span class="kw4">const</span> FVector Edge01 <span class="sy1">=</span> <span class="br0">&#40;</span>Tri.<span class="me1">Vertex1</span> <span class="sy2">-</span> Tri.<span class="me1">Vertex0</span><span class="br0">&#41;</span><span class="sy4">;</span>
+				<span class="kw4">const</span> FVector Edge02 <span class="sy1">=</span> <span class="br0">&#40;</span>Tri.<span class="me1">Vertex2</span> <span class="sy2">-</span> Tri.<span class="me1">Vertex0</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+				<span class="kw4">const</span> FVector TangentX <span class="sy1">=</span> Edge01.<span class="me1">SafeNormal</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+				<span class="kw4">const</span> FVector TangentZ <span class="sy1">=</span> <span class="br0">&#40;</span>Edge02 <span class="sy3">^</span> Edge01<span class="br0">&#41;</span>.<span class="me1">SafeNormal</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+				<span class="kw4">const</span> FVector TangentY <span class="sy1">=</span> <span class="br0">&#40;</span>TangentX <span class="sy3">^</span> TangentZ<span class="br0">&#41;</span>.<span class="me1">SafeNormal</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+				FDynamicMeshVertex Vert0<span class="sy4">;</span>
+				Vert0.<span class="me1">Position</span> <span class="sy1">=</span> Tri.<span class="me1">Vertex0</span><span class="sy4">;</span>
+				Vert0.<span class="me1">Color</span> <span class="sy1">=</span> VertexColor<span class="sy4">;</span>
+				Vert0.<span class="me1">SetTangents</span><span class="br0">&#40;</span>TangentX, TangentY, TangentZ<span class="br0">&#41;</span><span class="sy4">;</span>
+				<span class="kw4">int32</span> VIndex <span class="sy1">=</span> VertexBuffer.<span class="me1">Vertices</span>.<span class="me1">Add</span><span class="br0">&#40;</span>Vert0<span class="br0">&#41;</span><span class="sy4">;</span>
+				IndexBuffer.<span class="me1">Indices</span>.<span class="me1">Add</span><span class="br0">&#40;</span>VIndex<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+				FDynamicMeshVertex Vert1<span class="sy4">;</span>
+				Vert1.<span class="me1">Position</span> <span class="sy1">=</span> Tri.<span class="me1">Vertex1</span><span class="sy4">;</span>
+				Vert1.<span class="me1">Color</span> <span class="sy1">=</span> VertexColor<span class="sy4">;</span>
+				Vert1.<span class="me1">SetTangents</span><span class="br0">&#40;</span>TangentX, TangentY, TangentZ<span class="br0">&#41;</span><span class="sy4">;</span>
+				VIndex <span class="sy1">=</span> VertexBuffer.<span class="me1">Vertices</span>.<span class="me1">Add</span><span class="br0">&#40;</span>Vert1<span class="br0">&#41;</span><span class="sy4">;</span>
+				IndexBuffer.<span class="me1">Indices</span>.<span class="me1">Add</span><span class="br0">&#40;</span>VIndex<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+				FDynamicMeshVertex Vert2<span class="sy4">;</span>
+				Vert2.<span class="me1">Position</span> <span class="sy1">=</span> Tri.<span class="me1">Vertex2</span><span class="sy4">;</span>
+				Vert2.<span class="me1">Color</span> <span class="sy1">=</span> VertexColor<span class="sy4">;</span>
+				Vert2.<span class="me1">SetTangents</span><span class="br0">&#40;</span>TangentX, TangentY, TangentZ<span class="br0">&#41;</span><span class="sy4">;</span>
+				VIndex <span class="sy1">=</span> VertexBuffer.<span class="me1">Vertices</span>.<span class="me1">Add</span><span class="br0">&#40;</span>Vert2<span class="br0">&#41;</span><span class="sy4">;</span>
+				IndexBuffer.<span class="me1">Indices</span>.<span class="me1">Add</span><span class="br0">&#40;</span>VIndex<span class="br0">&#41;</span><span class="sy4">;</span>
+			<span class="br0">&#125;</span>
+&#160;
+			<span class="co1">// Init vertex factory</span>
+			VertexFactory.<span class="me1">Init</span><span class="br0">&#40;</span><span class="sy3">&amp;</span>VertexBuffer<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+			<span class="co1">// Enqueue initialization of render resource</span>
+			BeginInitResource<span class="br0">&#40;</span><span class="sy3">&amp;</span>VertexBuffer<span class="br0">&#41;</span><span class="sy4">;</span>
+			BeginInitResource<span class="br0">&#40;</span><span class="sy3">&amp;</span>IndexBuffer<span class="br0">&#41;</span><span class="sy4">;</span>
+			BeginInitResource<span class="br0">&#40;</span><span class="sy3">&amp;</span>VertexFactory<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+			<span class="co1">// Grab material</span>
+			Material <span class="sy1">=</span> Component<span class="sy2">-</span><span class="sy1">&gt;</span>GetMaterial<span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span>
+			<span class="kw1">if</span><span class="br0">&#40;</span>Material <span class="sy1">==</span> <span class="kw2">NULL</span><span class="br0">&#41;</span>
+			<span class="br0">&#123;</span>
+				Material <span class="sy1">=</span> UMaterial<span class="sy4">::</span><span class="me2">GetDefaultMaterial</span><span class="br0">&#40;</span>MD_Surface<span class="br0">&#41;</span><span class="sy4">;</span>
+			<span class="br0">&#125;</span>
+		<span class="br0">&#125;</span>
+&#160;
+		<span class="kw2">virtual</span> ~FGeneratedMeshSceneProxy<span class="br0">&#40;</span><span class="br0">&#41;</span>
+		<span class="br0">&#123;</span>
+			VertexBuffer.<span class="me1">ReleaseResource</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+			IndexBuffer.<span class="me1">ReleaseResource</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+			VertexFactory.<span class="me1">ReleaseResource</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		<span class="br0">&#125;</span>
+&#160;
+		<span class="kw2">virtual</span> <span class="kw4">void</span> DrawDynamicElements<span class="br0">&#40;</span>FPrimitiveDrawInterface<span class="sy2">*</span> PDI,<span class="kw4">const</span> FSceneView<span class="sy2">*</span> View<span class="br0">&#41;</span>
+		<span class="br0">&#123;</span>
+			QUICK_SCOPE_CYCLE_COUNTER<span class="br0">&#40;</span> STAT_GeneratedMeshSceneProxy_DrawDynamicElements <span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+			<span class="kw4">const</span> <span class="kw4">bool</span> bWireframe <span class="sy1">=</span> View<span class="sy2">-</span><span class="sy1">&gt;</span>Family<span class="sy2">-</span><span class="sy1">&gt;</span>EngineShowFlags.<span class="me1">Wireframe</span><span class="sy4">;</span>
+&#160;
+			<span class="kw4">auto</span> WireframeMaterialInstance <span class="sy1">=</span> <span class="kw3">new</span> FColoredMaterialRenderProxy<span class="br0">&#40;</span>
+				GEngine<span class="sy2">-</span><span class="sy1">&gt;</span>WireframeMaterial <span class="sy4">?</span> GEngine<span class="sy2">-</span><span class="sy1">&gt;</span>WireframeMaterial<span class="sy2">-</span><span class="sy1">&gt;</span>GetRenderProxy<span class="br0">&#40;</span>IsSelected<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="sy4">:</span> <span class="kw2">NULL</span>,
+				FLinearColor<span class="br0">&#40;</span><span class="nu0">0</span>, <span class="nu17">0.5f</span>, <span class="nu0">1</span>.<span class="me1">f</span><span class="br0">&#41;</span>
+				<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+			FMaterialRenderProxy<span class="sy2">*</span> MaterialProxy <span class="sy1">=</span> <span class="kw2">NULL</span><span class="sy4">;</span>
+			<span class="kw1">if</span><span class="br0">&#40;</span>bWireframe<span class="br0">&#41;</span>
+			<span class="br0">&#123;</span>
+				MaterialProxy <span class="sy1">=</span> <span class="sy3">&amp;</span>WireframeMaterialInstance<span class="sy4">;</span>
+			<span class="br0">&#125;</span>
+			<span class="kw1">else</span>
+			<span class="br0">&#123;</span>
+				MaterialProxy <span class="sy1">=</span> Material<span class="sy2">-</span><span class="sy1">&gt;</span>GetRenderProxy<span class="br0">&#40;</span>IsSelected<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+			<span class="br0">&#125;</span>
+&#160;
+			<span class="co1">// Draw the mesh.</span>
+			FMeshBatch Mesh<span class="sy4">;</span>
+			FMeshBatchElement<span class="sy3">&amp;</span> BatchElement <span class="sy1">=</span> Mesh.<span class="me1">Elements</span><span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="sy4">;</span>
+			BatchElement.<span class="me1">IndexBuffer</span> <span class="sy1">=</span> <span class="sy3">&amp;</span>IndexBuffer<span class="sy4">;</span>
+			Mesh.<span class="me1">bWireframe</span> <span class="sy1">=</span> bWireframe<span class="sy4">;</span>
+			Mesh.<span class="me1">VertexFactory</span> <span class="sy1">=</span> <span class="sy3">&amp;</span>VertexFactory<span class="sy4">;</span>
+			Mesh.<span class="me1">MaterialRenderProxy</span> <span class="sy1">=</span> MaterialProxy<span class="sy4">;</span>
+<span class="co2">#if ENGINE_MAJOR_VERSION &gt;= 4 &amp;&amp; ENGINE_MINOR_VERSION &gt;= 5</span>
+			BatchElement.<span class="me1">PrimitiveUniformBuffer</span> <span class="sy1">=</span> CreatePrimitiveUniformBufferImmediate<span class="br0">&#40;</span>GetLocalToWorld<span class="br0">&#40;</span><span class="br0">&#41;</span>, GetBounds<span class="br0">&#40;</span><span class="br0">&#41;</span>, GetLocalBounds<span class="br0">&#40;</span><span class="br0">&#41;</span>, <span class="kw2">true</span>, UseEditorDepthTest<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="co2">#else</span>
+			BatchElement.<span class="me1">PrimitiveUniformBuffer</span> <span class="sy1">=</span> CreatePrimitiveUniformBufferImmediate<span class="br0">&#40;</span>GetLocalToWorld<span class="br0">&#40;</span><span class="br0">&#41;</span>, GetBounds<span class="br0">&#40;</span><span class="br0">&#41;</span>, GetLocalBounds<span class="br0">&#40;</span><span class="br0">&#41;</span>, <span class="kw2">true</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="co2">#endif</span>
+			BatchElement.<span class="me1">FirstIndex</span> <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span>
+			BatchElement.<span class="me1">NumPrimitives</span> <span class="sy1">=</span> IndexBuffer.<span class="me1">Indices</span>.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">/</span> <span class="nu0">3</span><span class="sy4">;</span>
+			BatchElement.<span class="me1">MinVertexIndex</span> <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span>
+			BatchElement.<span class="me1">MaxVertexIndex</span> <span class="sy1">=</span> VertexBuffer.<span class="me1">Vertices</span>.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">-</span> <span class="nu0">1</span><span class="sy4">;</span>
+			Mesh.<span class="me1">ReverseCulling</span> <span class="sy1">=</span> IsLocalToWorldDeterminantNegative<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+			Mesh.<span class="me1">Type</span> <span class="sy1">=</span> PT_TriangleList<span class="sy4">;</span>
+			Mesh.<span class="me1">DepthPriorityGroup</span> <span class="sy1">=</span> SDPG_World<span class="sy4">;</span>
+			PDI<span class="sy2">-</span><span class="sy1">&gt;</span>DrawMesh<span class="br0">&#40;</span>Mesh<span class="br0">&#41;</span><span class="sy4">;</span>
+		<span class="br0">&#125;</span>
+&#160;
+		<span class="kw2">virtual</span> FPrimitiveViewRelevance GetViewRelevance<span class="br0">&#40;</span><span class="kw4">const</span> FSceneView<span class="sy2">*</span> View<span class="br0">&#41;</span>
+		<span class="br0">&#123;</span>
+			FPrimitiveViewRelevance Result<span class="sy4">;</span>
+			Result.<span class="me1">bDrawRelevance</span> <span class="sy1">=</span> IsShown<span class="br0">&#40;</span>View<span class="br0">&#41;</span><span class="sy4">;</span>
+			Result.<span class="me1">bShadowRelevance</span> <span class="sy1">=</span> IsShadowCast<span class="br0">&#40;</span>View<span class="br0">&#41;</span><span class="sy4">;</span>
+			Result.<span class="me1">bDynamicRelevance</span> <span class="sy1">=</span> <span class="kw2">true</span><span class="sy4">;</span>
+			MaterialRelevance.<span class="me1">SetPrimitiveViewRelevance</span><span class="br0">&#40;</span>Result<span class="br0">&#41;</span><span class="sy4">;</span>
+			<span class="kw1">return</span> Result<span class="sy4">;</span>
+		<span class="br0">&#125;</span>
+&#160;
+		<span class="kw2">virtual</span> <span class="kw4">bool</span> CanBeOccluded<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> OVERRIDE
+		<span class="br0">&#123;</span>
+			<span class="kw1">return</span> <span class="sy3">!</span>MaterialRelevance.<span class="me1">bDisableDepthTest</span><span class="sy4">;</span>
+		<span class="br0">&#125;</span>
+&#160;
+		<span class="kw2">virtual</span> <span class="kw4">uint32</span> GetMemoryFootprint<span class="br0">&#40;</span> <span class="kw4">void</span> <span class="br0">&#41;</span> <span class="kw4">const</span> <span class="br0">&#123;</span> <span class="kw1">return</span><span class="br0">&#40;</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span> <span class="sy2">*</span><span class="kw3">this</span> <span class="br0">&#41;</span> <span class="sy2">+</span> GetAllocatedSize<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#41;</span><span class="sy4">;</span> <span class="br0">&#125;</span>
+&#160;
+		<span class="kw4">uint32</span> GetAllocatedSize<span class="br0">&#40;</span> <span class="kw4">void</span> <span class="br0">&#41;</span> <span class="kw4">const</span> <span class="br0">&#123;</span> <span class="kw1">return</span><span class="br0">&#40;</span> FPrimitiveSceneProxy<span class="sy4">::</span><span class="me2">GetAllocatedSize</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#41;</span><span class="sy4">;</span> <span class="br0">&#125;</span>
+&#160;
+	<span class="kw2">private</span><span class="sy4">:</span>
+&#160;
+		UMaterialInterface<span class="sy2">*</span> Material<span class="sy4">;</span>
+		FGeneratedMeshVertexBuffer VertexBuffer<span class="sy4">;</span>
+		FGeneratedMeshIndexBuffer IndexBuffer<span class="sy4">;</span>
+		FGeneratedMeshVertexFactory VertexFactory<span class="sy4">;</span>
+&#160;
+		FMaterialRelevance MaterialRelevance<span class="sy4">;</span>
+	<span class="br0">&#125;</span><span class="sy4">;</span>
+&#160;
+&#160;
+	<span class="co1">//Only create if have enough tris</span>
+	<span class="kw1">if</span><span class="br0">&#40;</span>GeneratedMeshTris.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy1">&gt;</span> <span class="nu0">0</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		<span class="kw1">return</span> <span class="kw3">new</span> FGeneratedMeshSceneProxy<span class="br0">&#40;</span><span class="kw3">this</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+	<span class="kw1">else</span>
+	<span class="br0">&#123;</span>
+		<span class="kw1">return</span> nullptr<span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">int32</span> UGeneratedMeshComponent<span class="sy4">::</span><span class="me2">GetNumMaterials</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">return</span> <span class="nu0">1</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+&#160;
+FBoxSphereBounds UGeneratedMeshComponent<span class="sy4">::</span><span class="me2">CalcBounds</span><span class="br0">&#40;</span><span class="kw4">const</span> FTransform <span class="sy3">&amp;</span> LocalToWorld<span class="br0">&#41;</span> <span class="kw4">const</span>
+<span class="br0">&#123;</span>
+	<span class="co1">// Minimum Vector: It's set to the first vertex's position initially (NULL == FVector::ZeroVector might be required and a known vertex vector has intrinsically valid values)</span>
+	FVector vecMin <span class="sy1">=</span> GeneratedMeshTris<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span>.<span class="me1">Vertex0</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">// Maximum Vector: It's set to the first vertex's position initially (NULL == FVector::ZeroVector might be required and a known vertex vector has intrinsically valid values)</span>
+	FVector vecMax <span class="sy1">=</span> GeneratedMeshTris<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span>.<span class="me1">Vertex0</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">// Get maximum and minimum X, Y and Z positions of vectors</span>
+	<span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int32</span> TriIdx <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> TriIdx <span class="sy1">&lt;</span> GeneratedMeshTris.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> TriIdx<span class="sy2">++</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		vecMin.<span class="me1">X</span> <span class="sy1">=</span> <span class="br0">&#40;</span>vecMin.<span class="me1">X</span> <span class="sy1">&gt;</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex0</span>.<span class="me1">X</span><span class="br0">&#41;</span> <span class="sy4">?</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex0</span>.<span class="me1">X</span> <span class="sy4">:</span> vecMin.<span class="me1">X</span><span class="sy4">;</span>
+		vecMin.<span class="me1">X</span> <span class="sy1">=</span> <span class="br0">&#40;</span>vecMin.<span class="me1">X</span> <span class="sy1">&gt;</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex1</span>.<span class="me1">X</span><span class="br0">&#41;</span> <span class="sy4">?</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex1</span>.<span class="me1">X</span> <span class="sy4">:</span> vecMin.<span class="me1">X</span><span class="sy4">;</span>
+		vecMin.<span class="me1">X</span> <span class="sy1">=</span> <span class="br0">&#40;</span>vecMin.<span class="me1">X</span> <span class="sy1">&gt;</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex2</span>.<span class="me1">X</span><span class="br0">&#41;</span> <span class="sy4">?</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex2</span>.<span class="me1">X</span> <span class="sy4">:</span> vecMin.<span class="me1">X</span><span class="sy4">;</span>
+&#160;
+		vecMin.<span class="me1">Y</span> <span class="sy1">=</span> <span class="br0">&#40;</span>vecMin.<span class="me1">Y</span> <span class="sy1">&gt;</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex0</span>.<span class="me1">Y</span><span class="br0">&#41;</span> <span class="sy4">?</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex0</span>.<span class="me1">Y</span> <span class="sy4">:</span> vecMin.<span class="me1">Y</span><span class="sy4">;</span>
+		vecMin.<span class="me1">Y</span> <span class="sy1">=</span> <span class="br0">&#40;</span>vecMin.<span class="me1">Y</span> <span class="sy1">&gt;</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex1</span>.<span class="me1">Y</span><span class="br0">&#41;</span> <span class="sy4">?</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex1</span>.<span class="me1">Y</span> <span class="sy4">:</span> vecMin.<span class="me1">Y</span><span class="sy4">;</span>
+		vecMin.<span class="me1">Y</span> <span class="sy1">=</span> <span class="br0">&#40;</span>vecMin.<span class="me1">Y</span> <span class="sy1">&gt;</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex2</span>.<span class="me1">Y</span><span class="br0">&#41;</span> <span class="sy4">?</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex2</span>.<span class="me1">Y</span> <span class="sy4">:</span> vecMin.<span class="me1">Y</span><span class="sy4">;</span>
+&#160;
+		vecMin.<span class="me1">Z</span> <span class="sy1">=</span> <span class="br0">&#40;</span>vecMin.<span class="me1">Z</span> <span class="sy1">&gt;</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex0</span>.<span class="me1">Z</span><span class="br0">&#41;</span> <span class="sy4">?</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex0</span>.<span class="me1">Z</span> <span class="sy4">:</span> vecMin.<span class="me1">Z</span><span class="sy4">;</span>
+		vecMin.<span class="me1">Z</span> <span class="sy1">=</span> <span class="br0">&#40;</span>vecMin.<span class="me1">Z</span> <span class="sy1">&gt;</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex1</span>.<span class="me1">Z</span><span class="br0">&#41;</span> <span class="sy4">?</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex1</span>.<span class="me1">Z</span> <span class="sy4">:</span> vecMin.<span class="me1">Z</span><span class="sy4">;</span>
+		vecMin.<span class="me1">Z</span> <span class="sy1">=</span> <span class="br0">&#40;</span>vecMin.<span class="me1">Z</span> <span class="sy1">&gt;</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex2</span>.<span class="me1">Z</span><span class="br0">&#41;</span> <span class="sy4">?</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex2</span>.<span class="me1">Z</span> <span class="sy4">:</span> vecMin.<span class="me1">Z</span><span class="sy4">;</span>
+&#160;
+		vecMax.<span class="me1">X</span> <span class="sy1">=</span> <span class="br0">&#40;</span>vecMax.<span class="me1">X</span> <span class="sy1">&lt;</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex0</span>.<span class="me1">X</span><span class="br0">&#41;</span> <span class="sy4">?</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex0</span>.<span class="me1">X</span> <span class="sy4">:</span> vecMax.<span class="me1">X</span><span class="sy4">;</span>
+		vecMax.<span class="me1">X</span> <span class="sy1">=</span> <span class="br0">&#40;</span>vecMax.<span class="me1">X</span> <span class="sy1">&lt;</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex1</span>.<span class="me1">X</span><span class="br0">&#41;</span> <span class="sy4">?</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex1</span>.<span class="me1">X</span> <span class="sy4">:</span> vecMax.<span class="me1">X</span><span class="sy4">;</span>
+		vecMax.<span class="me1">X</span> <span class="sy1">=</span> <span class="br0">&#40;</span>vecMax.<span class="me1">X</span> <span class="sy1">&lt;</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex2</span>.<span class="me1">X</span><span class="br0">&#41;</span> <span class="sy4">?</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex2</span>.<span class="me1">X</span> <span class="sy4">:</span> vecMax.<span class="me1">X</span><span class="sy4">;</span>
+&#160;
+		vecMax.<span class="me1">Y</span> <span class="sy1">=</span> <span class="br0">&#40;</span>vecMax.<span class="me1">Y</span> <span class="sy1">&lt;</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex0</span>.<span class="me1">Y</span><span class="br0">&#41;</span> <span class="sy4">?</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex0</span>.<span class="me1">Y</span> <span class="sy4">:</span> vecMax.<span class="me1">Y</span><span class="sy4">;</span>
+		vecMax.<span class="me1">Y</span> <span class="sy1">=</span> <span class="br0">&#40;</span>vecMax.<span class="me1">Y</span> <span class="sy1">&lt;</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex1</span>.<span class="me1">Y</span><span class="br0">&#41;</span> <span class="sy4">?</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex1</span>.<span class="me1">Y</span> <span class="sy4">:</span> vecMax.<span class="me1">Y</span><span class="sy4">;</span>
+		vecMax.<span class="me1">Y</span> <span class="sy1">=</span> <span class="br0">&#40;</span>vecMax.<span class="me1">Y</span> <span class="sy1">&lt;</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex2</span>.<span class="me1">Y</span><span class="br0">&#41;</span> <span class="sy4">?</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex2</span>.<span class="me1">Y</span> <span class="sy4">:</span> vecMax.<span class="me1">Y</span><span class="sy4">;</span>
+&#160;
+		vecMax.<span class="me1">Z</span> <span class="sy1">=</span> <span class="br0">&#40;</span>vecMax.<span class="me1">Z</span> <span class="sy1">&lt;</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex0</span>.<span class="me1">Z</span><span class="br0">&#41;</span> <span class="sy4">?</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex0</span>.<span class="me1">Z</span> <span class="sy4">:</span> vecMax.<span class="me1">Z</span><span class="sy4">;</span>
+		vecMax.<span class="me1">Z</span> <span class="sy1">=</span> <span class="br0">&#40;</span>vecMax.<span class="me1">Z</span> <span class="sy1">&lt;</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex1</span>.<span class="me1">Z</span><span class="br0">&#41;</span> <span class="sy4">?</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex1</span>.<span class="me1">Z</span> <span class="sy4">:</span> vecMax.<span class="me1">Z</span><span class="sy4">;</span>
+		vecMax.<span class="me1">Z</span> <span class="sy1">=</span> <span class="br0">&#40;</span>vecMax.<span class="me1">Z</span> <span class="sy1">&lt;</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex2</span>.<span class="me1">Z</span><span class="br0">&#41;</span> <span class="sy4">?</span> GeneratedMeshTris<span class="br0">&#91;</span>TriIdx<span class="br0">&#93;</span>.<span class="me1">Vertex2</span>.<span class="me1">Z</span> <span class="sy4">:</span> vecMax.<span class="me1">Z</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+&#160;
+	FVector vecOrigin <span class="sy1">=</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>vecMax <span class="sy2">-</span> vecMin<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="nu0">2</span><span class="br0">&#41;</span> <span class="sy2">+</span> vecMin<span class="sy4">;</span>	<span class="coMULTI">/* Origin = ((Max Vertex's Vector - Min Vertex's Vector) / 2 ) + Min Vertex's Vector */</span>
+	FVector BoxPoint <span class="sy1">=</span> vecMax <span class="sy2">-</span> vecMin<span class="sy4">;</span>			<span class="coMULTI">/* The difference between the &quot;Maximum Vertex&quot; and the &quot;Minimum Vertex&quot; is our actual Bounds Box */</span>
+	<span class="kw1">return</span> FBoxSphereBounds<span class="br0">&#40;</span>vecOrigin, BoxPoint, BoxPoint.<span class="me1">Size</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>.<span class="me1">TransformBy</span><span class="br0">&#40;</span>LocalToWorld<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+&#160;
+<span class="kw4">bool</span> UGeneratedMeshComponent<span class="sy4">::</span><span class="me2">GetPhysicsTriMeshData</span><span class="br0">&#40;</span><span class="kw4">struct</span> FTriMeshCollisionData<span class="sy2">*</span> CollisionData, <span class="kw4">bool</span> InUseAllTriData<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	FTriIndices Triangle<span class="sy4">;</span>
+&#160;
+	<span class="kw1">for</span><span class="br0">&#40;</span><span class="kw4">int32</span> i<span class="sy1">=</span><span class="nu0">0</span><span class="sy4">;</span>i<span class="sy1">&lt;</span>GeneratedMeshTris.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>i<span class="sy2">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		<span class="kw4">const</span> FGeneratedMeshTriangle<span class="sy3">&amp;</span> tri <span class="sy1">=</span> GeneratedMeshTris<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy4">;</span>
+&#160;
+		Triangle.<span class="me1">v0</span> <span class="sy1">=</span> CollisionData<span class="sy2">-</span><span class="sy1">&gt;</span>Vertices.<span class="me1">Add</span><span class="br0">&#40;</span>tri.<span class="me1">Vertex0</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		Triangle.<span class="me1">v1</span> <span class="sy1">=</span> CollisionData<span class="sy2">-</span><span class="sy1">&gt;</span>Vertices.<span class="me1">Add</span><span class="br0">&#40;</span>tri.<span class="me1">Vertex1</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		Triangle.<span class="me1">v2</span> <span class="sy1">=</span> CollisionData<span class="sy2">-</span><span class="sy1">&gt;</span>Vertices.<span class="me1">Add</span><span class="br0">&#40;</span>tri.<span class="me1">Vertex2</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+		CollisionData<span class="sy2">-</span><span class="sy1">&gt;</span>Indices.<span class="me1">Add</span><span class="br0">&#40;</span>Triangle<span class="br0">&#41;</span><span class="sy4">;</span>
+		CollisionData<span class="sy2">-</span><span class="sy1">&gt;</span>MaterialIndices.<span class="me1">Add</span><span class="br0">&#40;</span>i<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+&#160;
+	CollisionData<span class="sy2">-</span><span class="sy1">&gt;</span>bFlipNormals <span class="sy1">=</span> <span class="kw2">true</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">return</span> <span class="kw2">true</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">bool</span> UGeneratedMeshComponent<span class="sy4">::</span><span class="me2">ContainsPhysicsTriMeshData</span><span class="br0">&#40;</span><span class="kw4">bool</span> InUseAllTriData<span class="br0">&#41;</span> <span class="kw4">const</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">return</span> <span class="br0">&#40;</span>GeneratedMeshTris.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy1">&gt;</span> <span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> UGeneratedMeshComponent<span class="sy4">::</span><span class="me2">UpdateBodySetup</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>ModelBodySetup <span class="sy1">==</span> <span class="kw2">NULL</span><span class="br0">&#41;</span>	<span class="br0">&#123;</span>
+		ModelBodySetup <span class="sy1">=</span> ConstructObject<span class="sy1">&lt;</span>UBodySetup<span class="sy1">&gt;</span><span class="br0">&#40;</span>UBodySetup<span class="sy4">::</span><span class="me2">StaticClass</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, <span class="kw3">this</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		ModelBodySetup<span class="sy2">-</span><span class="sy1">&gt;</span>CollisionTraceFlag <span class="sy1">=</span> CTF_UseComplexAsSimple<span class="sy4">;</span>
+		ModelBodySetup<span class="sy2">-</span><span class="sy1">&gt;</span>bMeshCollideAll <span class="sy1">=</span> <span class="kw2">true</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> UGeneratedMeshComponent<span class="sy4">::</span><span class="me2">UpdateCollision</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>bPhysicsStateCreated<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		DestroyPhysicsState<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		UpdateBodySetup<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		CreatePhysicsState<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+                ModelBodySetup<span class="sy2">-</span><span class="sy1">&gt;</span>InvalidatePhysicsData<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">//Will not work in Packaged build</span>
+                                                         <span class="co1">//Epic needs to add support for this</span>
+		ModelBodySetup<span class="sy2">-</span><span class="sy1">&gt;</span>CreatePhysicsMeshes<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+UBodySetup<span class="sy2">*</span> UGeneratedMeshComponent<span class="sy4">::</span><span class="me2">GetBodySetup</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+	UpdateBodySetup<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="kw1">return</span> ModelBodySetup<span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h2><span class="mw-headline" id="Creating_a_Generated_Actor_Class">Creating a Generated Actor Class</span></h2>
+<p>Next you need to create an Actor-derived class so you can attach the UGeneratedMeshComponent to it and spawn it. Also, to make it accessible to blueprints. Note that this example class should have a TArray&lt;FVector&gt;&amp; input parameter to describe the polyline we are going to rotate, but for our purposes the polyline has been hardcoded.
+</p><p>Create a new class called GameGeneratedActor (i.e. AGameGeneratedActor). There is also a Lathe function that I am including which is very simple, just for the purposes of this exercise. Here's the source for it:
+</p>
+<h3><span class="mw-headline" id="GameGeneratedActor.h">GameGeneratedActor.h</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.</span>
+&#160;
+<span class="co2">#pragma once</span>
+&#160;
+<span class="co2">#include &quot;GameFramework/Actor.h&quot;</span>
+<span class="co2">#include &quot;GeneratedMeshComponent.h&quot;</span>
+<span class="co2">#include &quot;GameGeneratedActor.generated.h&quot;</span>
+&#160;
+<span class="coMULTI">/**
+ * 
+ */</span>
+UCLASS<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw2">class</span> AGameGeneratedActor <span class="sy4">:</span> <span class="kw2">public</span> AActor
+<span class="br0">&#123;</span>
+	GENERATED_UCLASS_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+	<span class="kw4">void</span> Lathe<span class="br0">&#40;</span><span class="kw4">const</span> TArray<span class="sy1">&lt;</span>FVector<span class="sy1">&gt;</span><span class="sy3">&amp;</span> points, TArray<span class="sy1">&lt;</span>FGeneratedMeshTriangle<span class="sy1">&gt;</span><span class="sy3">&amp;</span> triangles, <span class="kw4">int</span> segments <span class="sy1">=</span> <span class="nu0">64</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id="GameGeneratedActor.cpp">GameGeneratedActor.cpp</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.</span>
+&#160;
+<span class="co2">#include &quot;MyProject5.h&quot;</span>
+<span class="co2">#include &quot;GameGeneratedActor.h&quot;</span>
+&#160;
+AGameGeneratedActor<span class="sy4">::</span><span class="me2">AGameGeneratedActor</span><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw2">class</span> FPostConstructInitializeProperties<span class="sy3">&amp;</span> PCIP<span class="br0">&#41;</span>
+	<span class="sy4">:</span> Super<span class="br0">&#40;</span>PCIP<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+&#160;
+	UGeneratedMeshComponent<span class="sy2">*</span> mesh <span class="sy1">=</span> PCIP.<span class="me1">CreateDefaultSubobject</span><span class="sy1">&lt;</span>UGeneratedMeshComponent<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="kw3">this</span>, TEXT<span class="br0">&#40;</span><span class="st0">&quot;GeneratedMesh&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//Contains the points describing the polyline we are going to rotate</span>
+	TArray<span class="sy1">&lt;</span>FVector<span class="sy1">&gt;</span> points<span class="sy4">;</span>
+&#160;
+	points.<span class="me1">Add</span><span class="br0">&#40;</span>FVector<span class="br0">&#40;</span><span class="nu0">20</span>, <span class="nu0">5</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	points.<span class="me1">Add</span><span class="br0">&#40;</span>FVector<span class="br0">&#40;</span><span class="nu0">15</span>, <span class="nu0">6</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	points.<span class="me1">Add</span><span class="br0">&#40;</span>FVector<span class="br0">&#40;</span><span class="nu0">12</span>, <span class="nu0">7</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	points.<span class="me1">Add</span><span class="br0">&#40;</span>FVector<span class="br0">&#40;</span><span class="nu0">11</span>, <span class="nu0">8</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	points.<span class="me1">Add</span><span class="br0">&#40;</span>FVector<span class="br0">&#40;</span><span class="nu0">8</span>, <span class="nu0">7</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	points.<span class="me1">Add</span><span class="br0">&#40;</span>FVector<span class="br0">&#40;</span><span class="nu0">7</span>, <span class="nu0">6</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	points.<span class="me1">Add</span><span class="br0">&#40;</span>FVector<span class="br0">&#40;</span><span class="nu0">4</span>, <span class="nu0">5</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	points.<span class="me1">Add</span><span class="br0">&#40;</span>FVector<span class="br0">&#40;</span><span class="nu0">3</span>, <span class="nu0">4</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	points.<span class="me1">Add</span><span class="br0">&#40;</span>FVector<span class="br0">&#40;</span><span class="nu0">2</span>, <span class="nu0">3</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	points.<span class="me1">Add</span><span class="br0">&#40;</span>FVector<span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">4</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	TArray<span class="sy1">&lt;</span>FGeneratedMeshTriangle<span class="sy1">&gt;</span> triangles<span class="sy4">;</span>
+	Lathe<span class="br0">&#40;</span>points, triangles,<span class="nu0">128</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	mesh<span class="sy2">-</span><span class="sy1">&gt;</span>SetGeneratedMeshTriangles<span class="br0">&#40;</span>triangles<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	RootComponent <span class="sy1">=</span> mesh<span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> AGameGeneratedActor<span class="sy4">::</span><span class="me2">Lathe</span><span class="br0">&#40;</span><span class="kw4">const</span> TArray<span class="sy1">&lt;</span>FVector<span class="sy1">&gt;</span><span class="sy3">&amp;</span> points, TArray<span class="sy1">&lt;</span>FGeneratedMeshTriangle<span class="sy1">&gt;</span><span class="sy3">&amp;</span> triangles, <span class="kw4">int</span> segments<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+	UE_LOG<span class="br0">&#40;</span>LogClass, Log, TEXT<span class="br0">&#40;</span><span class="st0">&quot;AGameGeneratedActor::Lathe POINTS&#160;%d&quot;</span><span class="br0">&#41;</span>, points.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	TArray<span class="sy1">&lt;</span>FVector<span class="sy1">&gt;</span> verts<span class="sy4">;</span>
+&#160;
+	<span class="co1">// precompute some trig</span>
+	<span class="kw4">float</span> angle <span class="sy1">=</span> FMath<span class="sy4">::</span><span class="me2">DegreesToRadians</span><span class="br0">&#40;</span><span class="nu17">360.0f</span> <span class="sy2">/</span> segments<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="kw4">float</span> sinA <span class="sy1">=</span> FMath<span class="sy4">::</span><span class="me2">Sin</span><span class="br0">&#40;</span>angle<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="kw4">float</span> cosA <span class="sy1">=</span> FMath<span class="sy4">::</span><span class="me2">Cos</span><span class="br0">&#40;</span>angle<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="coMULTI">/*
+	This implementation is rotation around the X Axis, other formulas below
+&#160;
+	Z Axis Rotation
+	x' = x*cos q - y*sin q
+	y' = x*sin q + y*cos q
+	z' = z
+&#160;
+	X Axis Rotation
+	y' = y*cos q - z*sin q
+	z' = y*sin q + z*cos q
+	x' = x
+&#160;
+	Y Axis Rotation
+	z' = z*cos q - x*sin q
+	x' = z*sin q + x*cos q
+	y' = y
+	*/</span>
+&#160;
+	<span class="co1">//Working point array, in which we keep the rotated line we draw with</span>
+	TArray<span class="sy1">&lt;</span>FVector<span class="sy1">&gt;</span> wp<span class="sy4">;</span>
+	<span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> points.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> i<span class="sy2">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		wp.<span class="me1">Add</span><span class="br0">&#40;</span>points<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+&#160;
+	<span class="co1">// Add a first and last point on the axis to complete the triangles</span>
+	FVector p0<span class="br0">&#40;</span>wp<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span>.<span class="me1">X</span>, <span class="nu0">0</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	FVector pLast<span class="br0">&#40;</span>wp<span class="br0">&#91;</span>wp.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">-</span> <span class="nu0">1</span><span class="br0">&#93;</span>.<span class="me1">X</span>, <span class="nu0">0</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	FGeneratedMeshTriangle tri<span class="sy4">;</span>
+	<span class="co1">//for each segment draw the triangles clockwise for normals pointing out or counterclockwise for the opposite (this here does CW)</span>
+	<span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> segment <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> segment<span class="sy1">&lt;</span>segments<span class="sy4">;</span> segment<span class="sy2">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+&#160;
+		<span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i<span class="sy1">&lt;</span>points.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">-</span> <span class="nu0">1</span><span class="sy4">;</span> i<span class="sy2">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+			FVector p1 <span class="sy1">=</span> wp<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy4">;</span>
+			FVector p2 <span class="sy1">=</span> wp<span class="br0">&#91;</span>i <span class="sy2">+</span> <span class="nu0">1</span><span class="br0">&#93;</span><span class="sy4">;</span>
+			FVector p1r<span class="br0">&#40;</span>p1.<span class="me1">X</span>, p1.<span class="me1">Y</span><span class="sy2">*</span>cosA <span class="sy2">-</span> p1.<span class="me1">Z</span><span class="sy2">*</span>sinA, p1.<span class="me1">Y</span><span class="sy2">*</span>sinA <span class="sy2">+</span> p1.<span class="me1">Z</span><span class="sy2">*</span>cosA<span class="br0">&#41;</span><span class="sy4">;</span>
+			FVector p2r<span class="br0">&#40;</span>p2.<span class="me1">X</span>, p2.<span class="me1">Y</span><span class="sy2">*</span>cosA <span class="sy2">-</span> p2.<span class="me1">Z</span><span class="sy2">*</span>sinA, p2.<span class="me1">Y</span><span class="sy2">*</span>sinA <span class="sy2">+</span> p2.<span class="me1">Z</span><span class="sy2">*</span>cosA<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+			<span class="kw1">if</span> <span class="br0">&#40;</span>i <span class="sy1">==</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+				tri.<span class="me1">Vertex0</span> <span class="sy1">=</span> p1<span class="sy4">;</span>
+				tri.<span class="me1">Vertex1</span> <span class="sy1">=</span> p0<span class="sy4">;</span>
+				tri.<span class="me1">Vertex2</span> <span class="sy1">=</span> p1r<span class="sy4">;</span>
+				triangles.<span class="me1">Add</span><span class="br0">&#40;</span>tri<span class="br0">&#41;</span><span class="sy4">;</span>
+			<span class="br0">&#125;</span>
+&#160;
+			tri.<span class="me1">Vertex0</span> <span class="sy1">=</span> p1<span class="sy4">;</span>
+			tri.<span class="me1">Vertex1</span> <span class="sy1">=</span> p1r<span class="sy4">;</span>
+			tri.<span class="me1">Vertex2</span> <span class="sy1">=</span> p2<span class="sy4">;</span>
+			triangles.<span class="me1">Add</span><span class="br0">&#40;</span>tri<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+			tri.<span class="me1">Vertex0</span> <span class="sy1">=</span> p2<span class="sy4">;</span>
+			tri.<span class="me1">Vertex1</span> <span class="sy1">=</span> p1r<span class="sy4">;</span>
+			tri.<span class="me1">Vertex2</span> <span class="sy1">=</span> p2r<span class="sy4">;</span>
+			triangles.<span class="me1">Add</span><span class="br0">&#40;</span>tri<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+			<span class="kw1">if</span> <span class="br0">&#40;</span>i <span class="sy1">==</span> points.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">-</span> <span class="nu0">2</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+				tri.<span class="me1">Vertex0</span> <span class="sy1">=</span> p2<span class="sy4">;</span>
+				tri.<span class="me1">Vertex1</span> <span class="sy1">=</span> p2r<span class="sy4">;</span>
+				tri.<span class="me1">Vertex2</span> <span class="sy1">=</span> pLast<span class="sy4">;</span>
+				triangles.<span class="me1">Add</span><span class="br0">&#40;</span>tri<span class="br0">&#41;</span><span class="sy4">;</span>
+				wp<span class="br0">&#91;</span>i <span class="sy2">+</span> <span class="nu0">1</span><span class="br0">&#93;</span> <span class="sy1">=</span> p2r<span class="sy4">;</span>
+			<span class="br0">&#125;</span>
+&#160;
+			wp<span class="br0">&#91;</span>i<span class="br0">&#93;</span> <span class="sy1">=</span> p1r<span class="sy4">;</span>
+		<span class="br0">&#125;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h2><span class="mw-headline" id="Spawning_the_Actor">Spawning the Actor</span></h2>
+<p>Once the project has been compiled, the new classes are accessible by Blueprints. So you will need to hook up a SpawnActor in some blueprint and set its class to GameGeneratedActor(I used a PlayerController, and its hooked to a HUD event), and it should look like this (note: I use the transform before and after as it seems to not consider scale on the spawn. In this example I suggest a scale of 10, otherwise the object will be too small)
+</p><p><a href="/File:SpawnActorBlueprintExample.png" class="image"><img alt="SpawnActorBlueprintExample.png" src="https://d26ilriwvtzlb.cloudfront.net/2/27/SpawnActorBlueprintExample.png" width="1071" height="410" /></a>
+</p><p>Once you run the game and trigger the spawn, it should look like this:
+</p><p><a href="/File:GeneratedMeshExample.png" class="image"><img alt="GeneratedMeshExample.png" src="https://d26ilriwvtzlb.cloudfront.net/4/4e/GeneratedMeshExample.png" width="655" height="518" /></a>
+</p><p>For more info, see this thread: <a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?1552-Generate-Procedural-Mesh">Generate Procedural Mesh</a>
+</p><p>Enjoy!
+</p>
+<h2><span class="mw-headline" id="Connecting_standard_UCustomMeshComponent">Connecting standard UCustomMeshComponent</span></h2>
+<p>If you want to avoid code duplication and standard functionality of UCustomMeshComponent is more than enough for you, you can try to connect CustomMeshPlugin. To avoid link error you should use import/export macro for class: 
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.</span>
+&#160;
+<span class="co2">#pragma once</span>
+&#160;
+...
+&#160;
+<span class="coMULTI">/** Component that allows you to specify custom triangle mesh geometry */</span>
+UCLASS<span class="br0">&#40;</span>hidecategories<span class="sy1">=</span><span class="br0">&#40;</span>Object,LOD, Physics, Collision<span class="br0">&#41;</span>, editinlinenew, meta<span class="sy1">=</span><span class="br0">&#40;</span>BlueprintSpawnableComponent<span class="br0">&#41;</span>, ClassGroup<span class="sy1">=</span>Rendering<span class="br0">&#41;</span>
+<span class="kw2">class</span> CUSTOMMESHCOMPONENT_API UCustomMeshComponent <span class="sy4">:</span> <span class="kw2">public</span> UMeshComponent</pre></div></div>
+<h2><span class="mw-headline" id="Blueprint_implementation">Blueprint implementation</span></h2>
+<p>If you want to be able to generate a mesh from blueprints you can do this: 
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co2">#include &quot;GameFramework/Actor.h&quot;</span>
+<span class="co2">#include &quot;ProceduralMeshComponent.h&quot;</span>
+<span class="co2">#include &quot;CustomMeshBridge.generated.h&quot;</span>
+&#160;
+&#160;
+<span class="coMULTI">/**
+ *  code by Frederic Artus Nieto
+ */</span>
+UCLASS<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw2">class</span> SSS2_API ACustomMeshBridge <span class="sy4">:</span> <span class="kw2">public</span> AActor
+<span class="br0">&#123;</span>
+	GENERATED_UCLASS_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw2">public</span><span class="sy4">:</span>
+&#160;
+	UFUNCTION<span class="br0">&#40;</span>BlueprintPure, meta <span class="sy1">=</span> <span class="br0">&#40;</span>FriendlyName <span class="sy1">=</span> <span class="st0">&quot;Make Triangle&quot;</span>, Keywords <span class="sy1">=</span> <span class="st0">&quot;New Triangle&quot;</span><span class="br0">&#41;</span>, Category <span class="sy1">=</span> ProceduralMesh<span class="br0">&#41;</span>
+		<span class="kw4">static</span> FGeneratedMeshTriangle CreateTriangle<span class="br0">&#40;</span>FVector vertex0, FVector vertex1, FVector vertex2<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	UFUNCTION<span class="br0">&#40;</span>BlueprintCallable, meta <span class="sy1">=</span> <span class="br0">&#40;</span>FriendlyName <span class="sy1">=</span> <span class="st0">&quot;Set Mesh Material&quot;</span>, Keywords <span class="sy1">=</span> <span class="st0">&quot;Set Mesh Material&quot;</span><span class="br0">&#41;</span>, Category <span class="sy1">=</span> ProceduralMesh<span class="br0">&#41;</span>
+		<span class="kw4">static</span> <span class="kw4">void</span> SetMeshMaterial<span class="br0">&#40;</span>UProceduralMeshComponent<span class="sy2">*</span> component, UMaterialInterface<span class="sy2">*</span> Material<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	UFUNCTION<span class="br0">&#40;</span>BlueprintCallable, meta <span class="sy1">=</span> <span class="br0">&#40;</span>FriendlyName <span class="sy1">=</span> <span class="st0">&quot;Set Mesh Triangles&quot;</span>, Keywords <span class="sy1">=</span> <span class="st0">&quot;Set Mesh Triangles&quot;</span><span class="br0">&#41;</span>, Category <span class="sy1">=</span> ProceduralMesh<span class="br0">&#41;</span>
+		<span class="kw4">static</span> <span class="kw4">void</span> SetMeshTriangles<span class="br0">&#40;</span>UProceduralMeshComponent<span class="sy2">*</span> component, TArray<span class="sy1">&lt;</span>FGeneratedMeshTriangle<span class="sy1">&gt;</span> Triangles<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// code by Frederic Artus Nieto</span>
+<span class="co2">#include &quot;SSS2.h&quot;</span>
+<span class="co2">#include &quot;DynamicMeshBuilder.h&quot;</span>
+<span class="co2">#include &quot;CustomMeshBridge.h&quot;</span>
+<span class="co2">#include &quot;ConstructorHelpers.h&quot;</span>
+&#160;
+ACustomMeshBridge<span class="sy4">::</span><span class="me2">ACustomMeshBridge</span><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw2">class</span> FPostConstructInitializeProperties<span class="sy3">&amp;</span> PCIP<span class="br0">&#41;</span>
+	<span class="sy4">:</span> Super<span class="br0">&#40;</span>PCIP<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+<span class="br0">&#125;</span>
+&#160;
+FGeneratedMeshTriangle ACustomMeshBridge<span class="sy4">::</span><span class="me2">CreateTriangle</span><span class="br0">&#40;</span>FVector vertex0, FVector vertex1, FVector vertex2<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	FGeneratedMeshTriangle tri<span class="sy4">;</span>
+	tri.<span class="me1">Vertex0</span> <span class="sy1">=</span> vertex0<span class="sy4">;</span>
+	tri.<span class="me1">Vertex1</span> <span class="sy1">=</span> vertex1<span class="sy4">;</span>
+	tri.<span class="me1">Vertex2</span> <span class="sy1">=</span> vertex2<span class="sy4">;</span>
+	<span class="kw1">return</span> tri<span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> ACustomMeshBridge<span class="sy4">::</span><span class="me2">SetMeshMaterial</span><span class="br0">&#40;</span>GameGeneratedActor <span class="sy2">*</span> component, UMaterialInterface<span class="sy2">*</span> Material<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	component<span class="sy2">-</span><span class="sy1">&gt;</span>SetMaterial<span class="br0">&#40;</span><span class="nu0">0</span>, Material<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> ACustomMeshBridge<span class="sy4">::</span><span class="me2">SetMeshTriangles</span><span class="br0">&#40;</span>GameGeneratedActor <span class="sy2">*</span> component, TArray<span class="sy1">&lt;</span>FGeneratedMeshTriangle<span class="sy1">&gt;</span> Triangles<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	component<span class="sy2">-</span><span class="sy1">&gt;</span>SetProceduralMeshTriangles<span class="br0">&#40;</span>Triangles<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>Once you made this class, you will see some new nodes in the ProceduralMesh tab when you select a new node in the blueprint editor (you have to untick "Context Sensitive").
+Note that you do need to have a GameGeneratedActor component in your actor to do that. 
+</p><p>You then have to use the SetMeshTriangles node to apply the new triangles to the GameGeneratedActor.
+You can do it during runtime to make animated meshes (I had some laggy experience when updating too many vertices). 
+You can apply a material to the mesh with the SetMeshMaterial node if you want. Note that there are no UVs.
+</p>
+<h2><span class="mw-headline" id="Changelog">Changelog</span></h2>
+<h3><span class="mw-headline" id="Update_1">Update 1</span></h3>
+<p>The UGeneratedMeshComponent class has been updated to include collisions. However, this is currently only available within the Editor, as it is related to cooking physics at runtime (which is not supported outside the Editor at this time). Epic will include the capability for version 4.2 or 4.3. See <a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?2695-Implement-Runtime-Collision-Detection-for-Procedural-Generated-Meshes">this thread</a> and <a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?2078-How-to-create-collision-information-for-procedural-geometry">this thread</a>. Thanks to all who participated in those threads for pointers, credit goes to them. Remember to set SetActorCollisionsEnabled(true) in your Actor! <a href="/index.php?title=User:Dmacesic&amp;action=edit&amp;redlink=1" class="new" title="User:Dmacesic (page does not exist)">Dmacesic</a> (<a href="/index.php?title=User_talk:Dmacesic&amp;action=edit&amp;redlink=1" class="new" title="User talk:Dmacesic (page does not exist)">talk</a>) 18:04, 11 April 2014 (UTC)
+</p>
+<h3><span class="mw-headline" id="Update_2">Update 2</span></h3>
+<p>Added vertex color fix from Ryvar as per <a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?1552-Generate-Procedural-Mesh&amp;p=50833&amp;viewfull=1#post50833">this post</a>.
+</p>
+<h3><span class="mw-headline" id="Update_3">Update 3</span></h3>
+<p>RHICreateXXXBuffer function signature changed for 4.3.  Put in macro code to make code work both for 4.2 and 4.3
+</p>
+<h3><span class="mw-headline" id="Update_4">Update 4</span></h3>
+<p>Code updated for UE4.5&#160;: #include Version.h for ENGINE_MINOR_VERSION macro, GetMaterialRelevance(::SM5) , CreatePrimitiveUniformBufferImmediate() with UseEditorDepthTest() and comments on mesh collision in cooked game.
+</p>
+<h3><span class="mw-headline" id="Update_5">Update 5</span></h3>
+<p>Add information about solving link problem.
+</p>
+<h3><span class="mw-headline" id="Update_6">Update 6</span></h3>
+<p>Added an example of blueprint implementation.
+If you made a little build please post a screen of the bluprint if none is there.
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="External_link">External link</span></h2>
+<ul>
+<li> <a rel="nofollow" class="external text" href="https://github.com/SRombauts/UE4ProceduralMesh/">Get this demo code in a working UE 4.7 project on GitHub</a>.
+</li>
+</ul>
+
+<!-- 
+NewPP limit report
+CPU time usage: 0.204 seconds
+Real time usage: 0.450 seconds
+Preprocessor visited node count: 151/1000000
+Preprocessor generated node count: 282/1000000
+Post‐expand include size: 166/2097152 bytes
+Template argument size: 10/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=Procedural_Mesh_Generation&amp;oldid=17873">https://wiki.unrealengine.com/index.php?title=Procedural_Mesh_Generation&amp;oldid=17873</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.568 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

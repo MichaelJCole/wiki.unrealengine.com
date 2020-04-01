@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>UMG, Custom Widget Components And Render Code, Usable In UMG Designer - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="canonical" href="/UMG,_Custom_Widget_Components_And_Render_Code,_Usable_In_UMG_Designer" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"UMG,_Custom_Widget_Components_And_Render_Code,_Usable_In_UMG_Designer","wgTitle":"UMG, Custom Widget Components And Render Code, Usable In UMG Designer","wgCurRevisionId":21856,"wgRevisionId":21856,"wgArticleId":3775,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Code"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"UMG,_Custom_Widget_Components_And_Render_Code,_Usable_In_UMG_Designer","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgRedirectedFrom":"UMG,_Custom_Components_And_Render_Code,_Usable_In_UMG_Designer","wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-UMG_Custom_Widget_Components_And_Render_Code_Usable_In_UMG_Designer skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head"></div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-recentchanges"><a href="/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Community' aria-labelledby='p-Community-label'>
+	<h3 id='p-Community-label'>Community</h3>
+	<div class="body">
+		<ul>
+			<li id="n-UE4-Games"><a href="/Category:Games">UE4 Games</a></li>
+			<li id="n-Dev-Blogs"><a href="/Developer_Blogs">Dev Blogs</a></li>
+			<li id="n-Dev-Livestreams"><a href="/Developer_Livestreams">Dev Livestreams</a></li>
+			<li id="n-Code-Sharing-Hub"><a href="/GitHub_Sharing_Hub">Code Sharing Hub</a></li>
+			<li id="n-UE-User-Groups"><a href="/User_Group_Map">UE User Groups</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Learning_Resources' aria-labelledby='p-Learning_Resources-label'>
+	<h3 id='p-Learning_Resources-label'>Learning Resources</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Example-Projects"><a href="/Category:Example_Projects">Example Projects</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Software_and_Tools' aria-labelledby='p-Software_and_Tools-label'>
+	<h3 id='p-Software_and_Tools-label'>Software and Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Art:-3D"><a href="/3D_Art_Resources">Art: 3D</a></li>
+			<li id="n-Art:-2D"><a href="/2D_Art_Resources">Art: 2D</a></li>
+			<li id="n-Audio"><a href="/Audio_Resources">Audio</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Modding' aria-labelledby='p-Modding-label'>
+	<h3 id='p-Modding-label'>Modding</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Modding-Resources"><a href="/Category:Modding_Resources">Modding Resources</a></li>
+			<li id="n-Moddable-Games"><a href="/Category:Moddable_Games">Moddable Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Epic_Official' aria-labelledby='p-Epic_Official-label'>
+	<h3 id='p-Epic_Official-label'>Epic Official</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Website"><a href="https://www.unrealengine.com" rel="nofollow">Website</a></li>
+			<li id="n-Learning-Resources"><a href="https://docs.unrealengine.com/latest/INT/" rel="nofollow">Learning Resources</a></li>
+			<li id="n-Forums"><a href="https://forums.unrealengine.com/" rel="nofollow">Forums</a></li>
+			<li id="n-Blog"><a href="https://www.unrealengine.com/blog" rel="nofollow">Blog</a></li>
+			<li id="n-YouTube"><a href="https://www.youtube.com/UnrealEngine" rel="nofollow">YouTube</a></li>
+			<li id="n-Twitch"><a href="http://www.twitch.tv/unrealengine" rel="nofollow">Twitch</a></li>
+			<li id="n-Twitter"><a href="https://twitter.com/UnrealEngine" rel="nofollow">Twitter</a></li>
+			<li id="n-Facebook"><a href="https://www.facebook.com/UnrealEngine" rel="nofollow">Facebook</a></li>
+			<li id="n-Instagram"><a href="https://instagram.com/unrealengine/" rel="nofollow">Instagram</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/UMG,_Custom_Widget_Components_And_Render_Code,_Usable_In_UMG_Designer" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/UMG,_Custom_Widget_Components_And_Render_Code,_Usable_In_UMG_Designer" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=UMG,_Custom_Widget_Components_And_Render_Code,_Usable_In_UMG_Designer&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=UMG,_Custom_Widget_Components_And_Render_Code,_Usable_In_UMG_Designer&amp;oldid=21856" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=UMG,_Custom_Widget_Components_And_Render_Code,_Usable_In_UMG_Designer&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/UMG,_Custom_Widget_Components_And_Render_Code,_Usable_In_UMG_Designer"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:UMG,_Custom_Widget_Components_And_Render_Code,_Usable_In_UMG_Designer&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/UMG,_Custom_Widget_Components_And_Render_Code,_Usable_In_UMG_Designer" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=UMG,_Custom_Widget_Components_And_Render_Code,_Usable_In_UMG_Designer&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=UMG,_Custom_Widget_Components_And_Render_Code,_Usable_In_UMG_Designer&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=UMG%2C+Custom+Widget+Components+And+Render+Code%2C+Usable+In+UMG+Designer&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=UMG%2C+Custom+Widget+Components+And+Render+Code%2C+Usable+In+UMG+Designer" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">UMG, Custom Widget Components And Render Code, Usable In UMG Designer</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub">(Redirected from <a href="/index.php?title=UMG,_Custom_Components_And_Render_Code,_Usable_In_UMG_Designer&amp;redirect=no" title="UMG, Custom Components And Render Code, Usable In UMG Designer">UMG, Custom Components And Render Code, Usable In UMG Designer</a>)</div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Video_of_Custom_UMG_Component.2C_Editable_within_Designer"><span class="tocnumber">2</span> <span class="toctext">Video of Custom UMG Component, Editable within Designer</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Custom_UMG_Component_Property:_Thickness"><span class="tocnumber">3</span> <span class="toctext">Custom UMG Component Property: Thickness</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Build_CS"><span class="tocnumber">4</span> <span class="toctext">Build CS</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#C.2B.2B_Code_for_You"><span class="tocnumber">5</span> <span class="toctext">C++ Code for You</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#JoySoftEdgeImage.h"><span class="tocnumber">5.1</span> <span class="toctext">JoySoftEdgeImage.h</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#JoySoftEdgeImage.cpp"><span class="tocnumber">5.2</span> <span class="toctext">JoySoftEdgeImage.cpp</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#.h"><span class="tocnumber">5.3</span> <span class="toctext">.h</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#.cpp"><span class="tocnumber">5.4</span> <span class="toctext">.cpp</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Conclusion"><span class="tocnumber">6</span> <span class="toctext">Conclusion</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p><a href="/File:RamaUMGCustomComponents.jpg" class="image"><img alt="RamaUMGCustomComponents.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/a/ac/RamaUMGCustomComponents.jpg/900px-RamaUMGCustomComponents.jpg" width="900" height="599" srcset="https://d26ilriwvtzlb.cloudfront.net/a/ac/RamaUMGCustomComponents.jpg 1.5x, https://d26ilriwvtzlb.cloudfront.net/a/ac/RamaUMGCustomComponents.jpg 2x" /></a>
+</p><p><i>Original Author:</i> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)
+</p><p>In this wiki I provide you with the full code that I used to create a custom Designer-positionable and editable UMG component!
+</p><p>This is a UMG widget/component with completely custom render code that works with UMG's render transform system!
+</p>
+<h2><span class="mw-headline" id="Video_of_Custom_UMG_Component.2C_Editable_within_Designer">Video of Custom UMG Component, Editable within Designer</span></h2>
+<p><iframe width="560" height="315" src="//www.youtube.com/embed/1prIYTfng9g" frameborder="0" allowfullscreen></iframe>
+</p>
+<h2><span class="mw-headline" id="Custom_UMG_Component_Property:_Thickness">Custom UMG Component Property: Thickness</span></h2>
+<p>In my code I am not only sharing with you how to do custom render code, I am also showing you how to make your own custom properties that will update in the UMG Designer!
+</p><p>As you see in the video, my custom property Thickness, which directly affects the rendering, does update instantly every time I enter new values within the UMG Designer!
+</p>
+<h2><span class="mw-headline" id="Build_CS">Build CS</span></h2>
+<p>Make sure you have this in your project's build cs to ensure my code below will compile!
+</p>
+<pre> PublicDependencyModuleNames.AddRange(new string[] { 
+ 	"Core", "CoreUObject", "Engine", "InputCore",
+ 	"UMG", "Slate", "SlateCore",
+ });
+</pre>
+<h2><span class="mw-headline" id="C.2B.2B_Code_for_You">C++ Code for You</span></h2>
+<p>You are welcome to use my C++ code as a template for your own custom UMG components, just please credit me as the original author/contributor of the code that you use! Mentioning me as "Rama" is sufficient.
+</p><p>Note that there are two new classes!
+</p><p>There is the Slate C++ Core widget, which has the custom render code and the custom property, thickness, for use with the render code.
+</p><p>This Slate widget extends SImage to minimize introduction of duplicate/unnecessary code while also allowing me to inherit any new features that Epic adds to the SImage in the future!
+</p><p>Then there is also a UMG Component which wraps my custom Slate widget!
+</p><p>The core additional code to this UMG component class is my code to enable the Thickness property to trigger dynamic updates of the visual appearance of the custom component while in the Designer! These dynamic updates are accomplished using SynchronizeProperties().
+</p>
+<h3><span class="mw-headline" id="JoySoftEdgeImage.h">JoySoftEdgeImage.h</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="coMULTI">/*
+	JoySoftEdgeImage by Rama
+*/</span>
+<span class="co2">#pragma once</span>
+&#160;
+<span class="co1">//~~~~~~~~~~~~ UMG ~~~~~~~~~~~~~~~~</span>
+<span class="co2">#include &quot;Runtime/UMG/Public/UMG.h&quot;</span>
+<span class="co2">#include &quot;Runtime/UMG/Public/UMGStyle.h&quot;</span>
+<span class="co1">//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+&#160;
+<span class="co1">//Custom Slate Element</span>
+<span class="co2">#include &quot;SSoftEdgeImage.h&quot;</span>
+&#160;
+<span class="co2">#include &quot;JoySoftEdgeImage.generated.h&quot;</span>
+&#160;
+UCLASS<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw2">class</span> UJoySoftEdgeImage <span class="sy4">:</span> <span class="kw2">public</span> UWidget
+<span class="br0">&#123;</span>
+	GENERATED_UCLASS_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+<span class="co1">//Custom Slate Element </span>
+<span class="kw2">protected</span><span class="sy4">:</span>
+	TSharedPtr<span class="sy1">&lt;</span>SSoftEdgeImage<span class="sy1">&gt;</span> MyImage<span class="sy4">;</span>
+&#160;
+<span class="co1">//~~~~~~~~~~</span>
+<span class="co1">//Thickness</span>
+<span class="co1">// 	Rama's custom UMG Widget property!</span>
+<span class="co1">//~~~~~~~~~~</span>
+<span class="kw2">public</span><span class="sy4">:</span>
+	<span class="coMULTI">/** Thickness */</span>
+	UPROPERTY<span class="br0">&#40;</span>EditAnywhere, BlueprintReadWrite, Category<span class="sy1">=</span><span class="st0">&quot;Joy Soft Edge Image&quot;</span><span class="br0">&#41;</span>
+	<span class="kw4">float</span> Thickness<span class="sy4">;</span>
+&#160;
+        <span class="co1">//Delegate verison if you want it!</span>
+	<span class="co1">//		-Rama</span>
+	<span class="co1">//UPROPERTY()</span>
+	<span class="co1">//FGetFloat ThicknessDelegate;</span>
+&#160;
+	<span class="coMULTI">/** Update thickness of Soft Edge Image! Yay! */</span>
+	UFUNCTION<span class="br0">&#40;</span>BlueprintCallable, Category<span class="sy1">=</span><span class="st0">&quot;Joy Soft Edge Image&quot;</span><span class="br0">&#41;</span>
+	<span class="kw4">void</span> SetThickness<span class="br0">&#40;</span><span class="kw4">float</span> InThickness<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="co1">//~~~ Rest is copied from UMG Image.h ~~~</span>
+<span class="kw2">public</span><span class="sy4">:</span>
+&#160;
+	<span class="coMULTI">/** Image to draw */</span>
+	UPROPERTY<span class="br0">&#40;</span>EditDefaultsOnly, BlueprintReadOnly, Category<span class="sy1">=</span>Appearance<span class="br0">&#41;</span>
+	FSlateBrush Brush<span class="sy4">;</span>
+&#160;
+	<span class="coMULTI">/** A bindable delegate for the Image. */</span>
+	UPROPERTY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+	FGetSlateBrush BrushDelegate<span class="sy4">;</span>
+&#160;
+	<span class="coMULTI">/** Color and opacity */</span>
+	UPROPERTY<span class="br0">&#40;</span>EditDefaultsOnly, BlueprintReadOnly, Category<span class="sy1">=</span>Appearance<span class="br0">&#41;</span>
+	FLinearColor ColorAndOpacity<span class="sy4">;</span>
+&#160;
+	<span class="coMULTI">/** A bindable delegate for the ColorAndOpacity. */</span>
+	UPROPERTY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+	FGetLinearColor ColorAndOpacityDelegate<span class="sy4">;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+&#160;
+	UPROPERTY<span class="br0">&#40;</span>EditDefaultsOnly, Category<span class="sy1">=</span>Events<span class="br0">&#41;</span>
+	FOnPointerEvent OnMouseButtonDownEvent<span class="sy4">;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+&#160;
+	<span class="coMULTI">/**  */</span>
+	UFUNCTION<span class="br0">&#40;</span>BlueprintCallable, Category<span class="sy1">=</span><span class="st0">&quot;Appearance&quot;</span><span class="br0">&#41;</span>
+	<span class="kw4">void</span> SetColorAndOpacity<span class="br0">&#40;</span>FLinearColor InColorAndOpacity<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="coMULTI">/**  */</span>
+	UFUNCTION<span class="br0">&#40;</span>BlueprintCallable, Category<span class="sy1">=</span><span class="st0">&quot;Appearance&quot;</span><span class="br0">&#41;</span>
+	<span class="kw4">void</span> SetOpacity<span class="br0">&#40;</span><span class="kw4">float</span> InOpacity<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="coMULTI">/**  */</span>
+	UFUNCTION<span class="br0">&#40;</span>BlueprintCallable, Category<span class="sy1">=</span><span class="st0">&quot;Appearance&quot;</span><span class="br0">&#41;</span>
+	<span class="kw4">void</span> SetBrushFromAsset<span class="br0">&#40;</span>USlateBrushAsset<span class="sy2">*</span> Asset<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="coMULTI">/**  */</span>
+	UFUNCTION<span class="br0">&#40;</span>BlueprintCallable, Category<span class="sy1">=</span><span class="st0">&quot;Appearance&quot;</span><span class="br0">&#41;</span>
+	<span class="kw4">void</span> SetBrushFromTexture<span class="br0">&#40;</span>UTexture2D<span class="sy2">*</span> Texture<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="coMULTI">/**  */</span>
+	UFUNCTION<span class="br0">&#40;</span>BlueprintCallable, Category<span class="sy1">=</span><span class="st0">&quot;Appearance&quot;</span><span class="br0">&#41;</span>
+	<span class="kw4">void</span> SetBrushFromMaterial<span class="br0">&#40;</span>UMaterialInterface<span class="sy2">*</span> Material<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="coMULTI">/**  */</span>
+	UFUNCTION<span class="br0">&#40;</span>BlueprintCallable, Category<span class="sy1">=</span><span class="st0">&quot;Appearance&quot;</span><span class="br0">&#41;</span>
+	UMaterialInstanceDynamic<span class="sy2">*</span> GetDynamicMaterial<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">// UWidget interface</span>
+	<span class="kw2">virtual</span> <span class="kw4">void</span> SynchronizeProperties<span class="br0">&#40;</span><span class="br0">&#41;</span> override<span class="sy4">;</span>
+	<span class="co1">// End of UWidget interface</span>
+&#160;
+	<span class="co1">// UVisual interface</span>
+	<span class="kw2">virtual</span> <span class="kw4">void</span> ReleaseSlateResources<span class="br0">&#40;</span><span class="kw4">bool</span> bReleaseChildren<span class="br0">&#41;</span> override<span class="sy4">;</span>
+	<span class="co1">// End of UVisual interface</span>
+&#160;
+<span class="co2">#if WITH_EDITOR</span>
+	<span class="co1">// UWidget interface</span>
+	<span class="kw2">virtual</span> <span class="kw4">const</span> FSlateBrush<span class="sy2">*</span> GetEditorIcon<span class="br0">&#40;</span><span class="br0">&#41;</span> override<span class="sy4">;</span>
+	<span class="kw2">virtual</span> <span class="kw4">const</span> FText GetPaletteCategory<span class="br0">&#40;</span><span class="br0">&#41;</span> override<span class="sy4">;</span>
+	<span class="co1">// End UWidget interface</span>
+<span class="co2">#endif</span>
+&#160;
+<span class="kw2">protected</span><span class="sy4">:</span>
+	<span class="co1">// UWidget interface</span>
+	<span class="kw2">virtual</span> TSharedRef<span class="sy1">&lt;</span>SWidget<span class="sy1">&gt;</span> RebuildWidget<span class="br0">&#40;</span><span class="br0">&#41;</span> override<span class="sy4">;</span>
+	<span class="co1">// End of UWidget interface</span>
+&#160;
+	<span class="coMULTI">/** Translates the bound brush data and assigns it to the cached brush used by this widget. */</span>
+	<span class="kw4">const</span> FSlateBrush<span class="sy2">*</span> ConvertImage<span class="br0">&#40;</span>TAttribute<span class="sy1">&lt;</span>FSlateBrush<span class="sy1">&gt;</span> InImageAsset<span class="br0">&#41;</span> <span class="kw4">const</span><span class="sy4">;</span>
+&#160;
+	FReply HandleMouseButtonDown<span class="br0">&#40;</span><span class="kw4">const</span> FGeometry<span class="sy3">&amp;</span> Geometry, <span class="kw4">const</span> FPointerEvent<span class="sy3">&amp;</span> MouseEvent<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id="JoySoftEdgeImage.cpp">JoySoftEdgeImage.cpp</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="coMULTI">/*
+	UJoySoftEdgeImage by Rama
+*/</span>
+&#160;
+<span class="co1">//Project Name</span>
+<span class="co2">#include &quot;Abatron.h&quot;</span>
+<span class="co2">#include &quot;JoySoftEdgeImage.h&quot;</span>
+&#160;
+<span class="co1">//LOCTEXT</span>
+<span class="co2">#define LOCTEXT_NAMESPACE &quot;UMG&quot;</span>
+&#160;
+<span class="co1">/////////////////////////////////////////////////////</span>
+<span class="co1">// UJoySoftEdgeImage</span>
+&#160;
+&#160;
+&#160;
+UJoySoftEdgeImage<span class="sy4">::</span><span class="me2">UJoySoftEdgeImage</span><span class="br0">&#40;</span><span class="kw4">const</span> FObjectInitializer<span class="sy3">&amp;</span> ObjectInitializer<span class="br0">&#41;</span>
+	<span class="sy4">:</span> Super<span class="br0">&#40;</span>ObjectInitializer<span class="br0">&#41;</span>
+	, ColorAndOpacity<span class="br0">&#40;</span>FLinearColor<span class="br0">&#40;</span><span class="nu0">0</span>,<span class="nu0">0</span>,<span class="nu0">1</span>,<span class="nu16">0.0333</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+	, Thickness<span class="br0">&#40;</span><span class="nu0">24</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>  
+	<span class="co1">//Default Values Set Here, see above</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="co1">//Rebuild using custom Slate Widget </span>
+<span class="co1">//		-Rama</span>
+TSharedRef<span class="sy1">&lt;</span>SWidget<span class="sy1">&gt;</span> UJoySoftEdgeImage<span class="sy4">::</span><span class="me2">RebuildWidget</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	MyImage <span class="sy1">=</span> SNew<span class="br0">&#40;</span>SSoftEdgeImage<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="kw1">return</span> MyImage.<span class="me1">ToSharedRef</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="co1">//Set Thickness</span>
+<span class="kw4">void</span> UJoySoftEdgeImage<span class="sy4">::</span><span class="me2">SetThickness</span><span class="br0">&#40;</span><span class="kw4">float</span> InThickness<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Thickness <span class="sy1">=</span> InThickness<span class="sy4">;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span> MyImage.<span class="me1">IsValid</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		MyImage<span class="sy2">-</span><span class="sy1">&gt;</span>SetThickness<span class="br0">&#40;</span>InThickness<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="co1">//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+<span class="co1">//This is where the SSoftEdgeImage slate widget gets updated </span>
+<span class="co1">//		when the UPROPERTY() is changed in the Editor</span>
+<span class="co1">//		-Rama</span>
+<span class="co1">//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+<span class="kw4">void</span> UJoySoftEdgeImage<span class="sy4">::</span><span class="me2">SynchronizeProperties</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Super<span class="sy4">::</span><span class="me2">SynchronizeProperties</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+        <span class="co1">//Thickness Delegate Version</span>
+	<span class="co1">//TAttribute&lt;float&gt; ThickBind = OPTIONAL_BINDING(float, Thickness);</span>
+	<span class="co1">//MyImage-&gt;SetThickness(ThickBind.Get());   </span>
+&#160;
+	<span class="co1">//Thickness non-delegate version</span>
+	MyImage<span class="sy2">-</span><span class="sy1">&gt;</span>SetThickness<span class="br0">&#40;</span>Thickness<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//Color and Opacity</span>
+	TAttribute<span class="sy1">&lt;</span>FSlateColor<span class="sy1">&gt;</span> ColorAndOpacityBinding <span class="sy1">=</span> OPTIONAL_BINDING<span class="br0">&#40;</span>FSlateColor, ColorAndOpacity<span class="br0">&#41;</span><span class="sy4">;</span>
+	MyImage<span class="sy2">-</span><span class="sy1">&gt;</span>SetColorAndOpacity<span class="br0">&#40;</span>ColorAndOpacityBinding<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//Image</span>
+	TAttribute<span class="sy1">&lt;</span><span class="kw4">const</span> FSlateBrush<span class="sy2">*</span><span class="sy1">&gt;</span> ImageBinding <span class="sy1">=</span> OPTIONAL_BINDING_CONVERT<span class="br0">&#40;</span>FSlateBrush, Brush, <span class="kw4">const</span> FSlateBrush<span class="sy2">*</span>, ConvertImage<span class="br0">&#41;</span><span class="sy4">;</span>
+	MyImage<span class="sy2">-</span><span class="sy1">&gt;</span>SetImage<span class="br0">&#40;</span>ImageBinding<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//Mouse</span>
+	MyImage<span class="sy2">-</span><span class="sy1">&gt;</span>SetOnMouseButtonDown<span class="br0">&#40;</span>BIND_UOBJECT_DELEGATE<span class="br0">&#40;</span>FPointerEventHandler, HandleMouseButtonDown<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+&#160;
+<span class="co1">//~~~ Rest is copied from UMG Image.h ~~~</span>
+&#160;
+<span class="kw4">void</span> UJoySoftEdgeImage<span class="sy4">::</span><span class="me2">ReleaseSlateResources</span><span class="br0">&#40;</span><span class="kw4">bool</span> bReleaseChildren<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Super<span class="sy4">::</span><span class="me2">ReleaseSlateResources</span><span class="br0">&#40;</span>bReleaseChildren<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	MyImage.<span class="me1">Reset</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> UJoySoftEdgeImage<span class="sy4">::</span><span class="me2">SetColorAndOpacity</span><span class="br0">&#40;</span>FLinearColor InColorAndOpacity<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	ColorAndOpacity <span class="sy1">=</span> InColorAndOpacity<span class="sy4">;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span> MyImage.<span class="me1">IsValid</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		MyImage<span class="sy2">-</span><span class="sy1">&gt;</span>SetColorAndOpacity<span class="br0">&#40;</span>ColorAndOpacity<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> UJoySoftEdgeImage<span class="sy4">::</span><span class="me2">SetOpacity</span><span class="br0">&#40;</span><span class="kw4">float</span> InOpacity<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	ColorAndOpacity.<span class="me1">A</span> <span class="sy1">=</span> InOpacity<span class="sy4">;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span> MyImage.<span class="me1">IsValid</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		MyImage<span class="sy2">-</span><span class="sy1">&gt;</span>SetColorAndOpacity<span class="br0">&#40;</span>ColorAndOpacity<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">const</span> FSlateBrush<span class="sy2">*</span> UJoySoftEdgeImage<span class="sy4">::</span><span class="me2">ConvertImage</span><span class="br0">&#40;</span>TAttribute<span class="sy1">&lt;</span>FSlateBrush<span class="sy1">&gt;</span> InImageAsset<span class="br0">&#41;</span> <span class="kw4">const</span>
+<span class="br0">&#123;</span>
+	UJoySoftEdgeImage<span class="sy2">*</span> MutableThis <span class="sy1">=</span> <span class="kw2">const_cast</span><span class="sy1">&lt;</span>UJoySoftEdgeImage<span class="sy2">*</span><span class="sy1">&gt;</span><span class="br0">&#40;</span> <span class="kw3">this</span> <span class="br0">&#41;</span><span class="sy4">;</span>
+	MutableThis<span class="sy2">-</span><span class="sy1">&gt;</span>Brush <span class="sy1">=</span> InImageAsset.<span class="me1">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">return</span> <span class="sy3">&amp;</span>Brush<span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> UJoySoftEdgeImage<span class="sy4">::</span><span class="me2">SetBrushFromAsset</span><span class="br0">&#40;</span>USlateBrushAsset<span class="sy2">*</span> Asset<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Brush <span class="sy1">=</span> Asset <span class="sy4">?</span> Asset<span class="sy2">-</span><span class="sy1">&gt;</span>Brush <span class="sy4">:</span> FSlateBrush<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">if</span> <span class="br0">&#40;</span> MyImage.<span class="me1">IsValid</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		MyImage<span class="sy2">-</span><span class="sy1">&gt;</span>SetImage<span class="br0">&#40;</span><span class="sy3">&amp;</span>Brush<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> UJoySoftEdgeImage<span class="sy4">::</span><span class="me2">SetBrushFromTexture</span><span class="br0">&#40;</span>UTexture2D<span class="sy2">*</span> Texture<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Brush.<span class="me1">SetResourceObject</span><span class="br0">&#40;</span>Texture<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">if</span> <span class="br0">&#40;</span> MyImage.<span class="me1">IsValid</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		MyImage<span class="sy2">-</span><span class="sy1">&gt;</span>SetImage<span class="br0">&#40;</span><span class="sy3">&amp;</span>Brush<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> UJoySoftEdgeImage<span class="sy4">::</span><span class="me2">SetBrushFromMaterial</span><span class="br0">&#40;</span>UMaterialInterface<span class="sy2">*</span> Material<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Brush.<span class="me1">SetResourceObject</span><span class="br0">&#40;</span>Material<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//TODO UMG Check if the material can be used with the UI</span>
+&#160;
+	<span class="kw1">if</span> <span class="br0">&#40;</span> MyImage.<span class="me1">IsValid</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		MyImage<span class="sy2">-</span><span class="sy1">&gt;</span>SetImage<span class="br0">&#40;</span><span class="sy3">&amp;</span>Brush<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+UMaterialInstanceDynamic<span class="sy2">*</span> UJoySoftEdgeImage<span class="sy4">::</span><span class="me2">GetDynamicMaterial</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	UMaterialInterface<span class="sy2">*</span> Material <span class="sy1">=</span> <span class="kw2">NULL</span><span class="sy4">;</span>
+&#160;
+	UObject<span class="sy2">*</span> Resource <span class="sy1">=</span> Brush.<span class="me1">GetResourceObject</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	Material <span class="sy1">=</span> Cast<span class="sy1">&lt;</span>UMaterialInterface<span class="sy1">&gt;</span><span class="br0">&#40;</span>Resource<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">if</span> <span class="br0">&#40;</span> Material <span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		UMaterialInstanceDynamic<span class="sy2">*</span> DynamicMaterial <span class="sy1">=</span> Cast<span class="sy1">&lt;</span>UMaterialInstanceDynamic<span class="sy1">&gt;</span><span class="br0">&#40;</span>Material<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+		<span class="kw1">if</span> <span class="br0">&#40;</span> <span class="sy3">!</span>DynamicMaterial <span class="br0">&#41;</span>
+		<span class="br0">&#123;</span>
+			DynamicMaterial <span class="sy1">=</span> UMaterialInstanceDynamic<span class="sy4">::</span><span class="me2">Create</span><span class="br0">&#40;</span>Material, <span class="kw3">this</span><span class="br0">&#41;</span><span class="sy4">;</span>
+			Brush.<span class="me1">SetResourceObject</span><span class="br0">&#40;</span>DynamicMaterial<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+			<span class="kw1">if</span> <span class="br0">&#40;</span> MyImage.<span class="me1">IsValid</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#41;</span>
+			<span class="br0">&#123;</span>
+				MyImage<span class="sy2">-</span><span class="sy1">&gt;</span>SetImage<span class="br0">&#40;</span><span class="sy3">&amp;</span>Brush<span class="br0">&#41;</span><span class="sy4">;</span>
+			<span class="br0">&#125;</span>
+		<span class="br0">&#125;</span>
+&#160;
+		<span class="kw1">return</span> DynamicMaterial<span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+&#160;
+	<span class="co1">//TODO UMG can we do something for textures?  General purpose dynamic material for them?</span>
+&#160;
+	<span class="kw1">return</span> <span class="kw2">NULL</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+FReply UJoySoftEdgeImage<span class="sy4">::</span><span class="me2">HandleMouseButtonDown</span><span class="br0">&#40;</span><span class="kw4">const</span> FGeometry<span class="sy3">&amp;</span> Geometry, <span class="kw4">const</span> FPointerEvent<span class="sy3">&amp;</span> MouseEvent<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span> OnMouseButtonDownEvent.<span class="me1">IsBound</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		<span class="kw1">return</span> OnMouseButtonDownEvent.<span class="me1">Execute</span><span class="br0">&#40;</span>Geometry, MouseEvent<span class="br0">&#41;</span>.<span class="me1">NativeReply</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+&#160;
+	<span class="kw1">return</span> FReply<span class="sy4">::</span><span class="me2">Unhandled</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="co2">#if WITH_EDITOR</span>
+&#160;
+<span class="kw4">const</span> FSlateBrush<span class="sy2">*</span> UJoySoftEdgeImage<span class="sy4">::</span><span class="me2">GetEditorIcon</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">return</span> FUMGStyle<span class="sy4">::</span><span class="me2">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">GetBrush</span><span class="br0">&#40;</span><span class="st0">&quot;Widget.Image&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">const</span> FText UJoySoftEdgeImage<span class="sy4">::</span><span class="me2">GetPaletteCategory</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">return</span> LOCTEXT<span class="br0">&#40;</span><span class="st0">&quot;Common&quot;</span>, <span class="st0">&quot;Common&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="co2">#endif</span>
+&#160;
+&#160;
+<span class="co1">/////////////////////////////////////////////////////</span>
+&#160;
+<span class="co2">#undef LOCTEXT_NAMESPACE</span></pre></div></div>
+<h3><span class="mw-headline" id=".h">.h</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="coMULTI">/*
+	By Rama
+*/</span>
+&#160;
+<span class="co2">#pragma once</span>
+&#160;
+<span class="co1">//Slate Core</span>
+<span class="co2">#include &quot;SlateCore.h&quot;</span>
+&#160;
+<span class="kw2">class</span> SSoftEdgeImage
+	<span class="sy4">:</span> <span class="kw2">public</span> SImage
+<span class="br0">&#123;</span>
+<span class="kw2">public</span><span class="sy4">:</span>
+	SLATE_BEGIN_ARGS<span class="br0">&#40;</span> SSoftEdgeImage <span class="br0">&#41;</span>
+		<span class="sy4">:</span> _Image<span class="br0">&#40;</span> FCoreStyle<span class="sy4">::</span><span class="me2">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">GetDefaultBrush</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#41;</span>
+		, _ColorAndOpacity<span class="br0">&#40;</span> FLinearColor<span class="br0">&#40;</span><span class="nu0">0</span>,<span class="nu0">0</span>,<span class="nu0">1</span>,<span class="nu16">0.02333</span><span class="br0">&#41;</span> <span class="br0">&#41;</span>
+		, _Thickness<span class="br0">&#40;</span><span class="nu0">24</span><span class="br0">&#41;</span>
+		, _OnMouseButtonDown<span class="br0">&#40;</span><span class="br0">&#41;</span>
+		<span class="br0">&#123;</span><span class="br0">&#125;</span>
+&#160;
+		<span class="coMULTI">/** Image resource */</span>
+		SLATE_ATTRIBUTE<span class="br0">&#40;</span> <span class="kw4">const</span> FSlateBrush<span class="sy2">*</span>, Image <span class="br0">&#41;</span>
+&#160;
+		<span class="coMULTI">/** Color and opacity */</span>
+		SLATE_ATTRIBUTE<span class="br0">&#40;</span> FSlateColor, ColorAndOpacity <span class="br0">&#41;</span>
+&#160;
+		<span class="coMULTI">/** Thickness */</span>
+		SLATE_ATTRIBUTE<span class="br0">&#40;</span> <span class="kw4">float</span>, Thickness <span class="br0">&#41;</span>
+&#160;
+		<span class="coMULTI">/** Invoked when the mouse is pressed in the widget. */</span>
+		SLATE_EVENT<span class="br0">&#40;</span> FPointerEventHandler, OnMouseButtonDown <span class="br0">&#41;</span>
+&#160;
+	SLATE_END_ARGS<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+	<span class="coMULTI">/**
+	 * Construct this widget
+	 *
+	 * @param	InArgs	The declaration data for this widget
+	 */</span>
+	<span class="kw4">void</span> Construct<span class="br0">&#40;</span> <span class="kw4">const</span> FArguments<span class="sy3">&amp;</span> InArgs <span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="co1">//~~~~~~~~</span>
+<span class="co1">//Thickness</span>
+<span class="co1">//~~~~~~~~</span>
+<span class="kw2">public</span><span class="sy4">:</span>
+	<span class="kw4">void</span> SetThickness<span class="br0">&#40;</span> <span class="kw4">float</span> InThickness <span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="coMULTI">/** How many times the image is repeated to give a softness to the edge */</span>
+	<span class="kw4">float</span> Thickness<span class="sy4">;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+&#160;
+	<span class="co1">// SWidget overrides</span>
+&#160;
+	<span class="kw2">virtual</span> <span class="kw4">int32</span> OnPaint<span class="br0">&#40;</span> <span class="kw4">const</span> FPaintArgs<span class="sy3">&amp;</span> Args, <span class="kw4">const</span> FGeometry<span class="sy3">&amp;</span> AllottedGeometry, <span class="kw4">const</span> FSlateRect<span class="sy3">&amp;</span> MyClippingRect, FSlateWindowElementList<span class="sy3">&amp;</span> OutDrawElements, <span class="kw4">int32</span> LayerId, <span class="kw4">const</span> FWidgetStyle<span class="sy3">&amp;</span> InWidgetStyle, <span class="kw4">bool</span> bParentEnabled <span class="br0">&#41;</span> <span class="kw4">const</span> override<span class="sy4">;</span>
+&#160;
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id=".cpp">.cpp</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="coMULTI">/*
+	By Rama
+*/</span>
+&#160;
+<span class="co2">#include &quot;Abatron.h&quot;</span>
+<span class="co2">#include &quot;SSoftEdgeImage.h&quot;</span>
+&#160;
+DECLARE_CYCLE_STAT<span class="br0">&#40;</span> TEXT<span class="br0">&#40;</span><span class="st0">&quot;OnPaint SSoftEdgeImage&quot;</span><span class="br0">&#41;</span>, STAT_SlateOnPaint_SSoftEdgeImage, STATGROUP_Slate <span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="coMULTI">/**
+ * Construct this widget
+ *
+ * @param	InArgs	The declaration data for this widget
+ */</span>
+<span class="kw4">void</span> SSoftEdgeImage<span class="sy4">::</span><span class="me2">Construct</span><span class="br0">&#40;</span> <span class="kw4">const</span> FArguments<span class="sy3">&amp;</span> InArgs <span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Image 				<span class="sy1">=</span> InArgs._Image<span class="sy4">;</span>
+	ColorAndOpacity 		<span class="sy1">=</span> InArgs._ColorAndOpacity<span class="sy4">;</span>
+	Thickness 			<span class="sy1">=</span> InArgs._Thickness.<span class="me1">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	OnMouseButtonDownHandler 	<span class="sy1">=</span> InArgs._OnMouseButtonDown<span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> SSoftEdgeImage<span class="sy4">::</span><span class="me2">SetThickness</span><span class="br0">&#40;</span> <span class="kw4">float</span> InThickness <span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Thickness <span class="sy1">=</span> InThickness<span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">int32</span> SSoftEdgeImage<span class="sy4">::</span><span class="me2">OnPaint</span><span class="br0">&#40;</span> <span class="kw4">const</span> FPaintArgs<span class="sy3">&amp;</span> Args, <span class="kw4">const</span> FGeometry<span class="sy3">&amp;</span> AllottedGeometry, <span class="kw4">const</span> FSlateRect<span class="sy3">&amp;</span> MyClippingRect, FSlateWindowElementList<span class="sy3">&amp;</span> OutDrawElements, <span class="kw4">int32</span> LayerId, <span class="kw4">const</span> FWidgetStyle<span class="sy3">&amp;</span> InWidgetStyle, <span class="kw4">bool</span> bParentEnabled <span class="br0">&#41;</span> <span class="kw4">const</span>
+<span class="br0">&#123;</span>
+<span class="co2">#if SLATE_HD_STATS</span>
+	SCOPE_CYCLE_COUNTER<span class="br0">&#40;</span> STAT_SlateOnPaint_SSoftEdgeImage <span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="co2">#endif</span>
+	<span class="kw4">const</span> FSlateBrush<span class="sy2">*</span> ImageBrush <span class="sy1">=</span> Image.<span class="me1">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">if</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>ImageBrush <span class="sy3">!</span><span class="sy1">=</span> nullptr<span class="br0">&#41;</span> <span class="sy3">&amp;&amp;</span> <span class="br0">&#40;</span>ImageBrush<span class="sy2">-</span><span class="sy1">&gt;</span>DrawAs <span class="sy3">!</span><span class="sy1">=</span> ESlateBrushDrawType<span class="sy4">::</span><span class="me2">NoDrawType</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		<span class="kw4">const</span> <span class="kw4">bool</span> bIsEnabled <span class="sy1">=</span> ShouldBeEnabled<span class="br0">&#40;</span>bParentEnabled<span class="br0">&#41;</span><span class="sy4">;</span>
+		<span class="kw4">const</span> <span class="kw4">uint32</span> DrawEffects <span class="sy1">=</span> bIsEnabled <span class="sy4">?</span> ESlateDrawEffect<span class="sy4">::</span><span class="me2">None</span> <span class="sy4">:</span> ESlateDrawEffect<span class="sy4">::</span><span class="me2">DisabledEffect</span><span class="sy4">;</span>
+&#160;
+		<span class="kw4">const</span> FColor FinalColorAndOpacity<span class="br0">&#40;</span> InWidgetStyle.<span class="me1">GetColorAndOpacityTint</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy2">*</span> ColorAndOpacity.<span class="me1">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">GetColor</span><span class="br0">&#40;</span>InWidgetStyle<span class="br0">&#41;</span> <span class="sy2">*</span> ImageBrush<span class="sy2">-</span><span class="sy1">&gt;</span>GetTint<span class="br0">&#40;</span> InWidgetStyle <span class="br0">&#41;</span> <span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+		<span class="co1">//For Thickness</span>
+		<span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int32</span> v <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> v <span class="sy1">&lt;</span> Thickness<span class="sy4">;</span> v<span class="sy2">++</span> <span class="br0">&#41;</span> 
+		<span class="br0">&#123;</span>   		
+			<span class="co1">//Size</span>
+			FVector2D AdjustedSize <span class="sy1">=</span> 
+				FVector2D<span class="br0">&#40;</span>
+					AllottedGeometry.<span class="me1">GetLocalSize</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">X</span> <span class="sy2">-</span> v<span class="sy2">*</span><span class="nu0">2</span>,
+					AllottedGeometry.<span class="me1">GetLocalSize</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">Y</span> <span class="sy2">-</span> v<span class="sy2">*</span><span class="nu0">2</span>
+				<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+			<span class="co1">//There's a warning about using this constructor in Geometry.h</span>
+			<span class="co1">//		But it looks like the code was fixed in Geometry.cpp to use layout transform properly. Plus all render transforms work great in Editor.</span>
+			<span class="co1">//			So keeping this for now&#160;:)</span>
+			FPaintGeometry PaintGeom <span class="sy1">=</span> 
+				AllottedGeometry.<span class="me1">ToPaintGeometry</span><span class="br0">&#40;</span>
+					FVector2D<span class="br0">&#40;</span>v,v<span class="br0">&#41;</span>,		<span class="co1">//Local Translation</span>
+					AdjustedSize,		<span class="co1">//Local Size</span>
+					<span class="nu0">1</span>			<span class="co1">//Local Scale</span>
+				<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+			FSlateDrawElement<span class="sy4">::</span><span class="me2">MakeBox</span><span class="br0">&#40;</span>
+				OutDrawElements, 	<span class="co1">//Out</span>
+				LayerId, 
+				PaintGeom, 		<span class="co1">//Paint Geom</span>
+				ImageBrush, 		<span class="co1">//Brush</span>
+				MyClippingRect, 		<span class="co1">//Clip</span>
+				DrawEffects, 
+				FinalColorAndOpacity 	<span class="co1">//Color and Opacity</span>
+			<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+		<span class="br0">&#125;</span> <span class="co1">//For loop</span>
+	<span class="br0">&#125;</span>
+	<span class="kw1">return</span> LayerId<span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h2><span class="mw-headline" id="Conclusion">Conclusion</span></h2>
+<p>In this wiki I have now given you the entire code that I used to create the custom UMG widget with custom render code that you saw in my video!
+</p><p>Have fun making your own UMG Widgets for use with the UMG Designer!
+</p><p>♥
+</p><p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.097 seconds
+Real time usage: 0.127 seconds
+Preprocessor visited node count: 83/1000000
+Preprocessor generated node count: 144/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:3775-0!*!0!!en!2!* and timestamp 20160923045204
+ -->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=UMG,_Custom_Widget_Components_And_Render_Code,_Usable_In_UMG_Designer&amp;oldid=21856">https://wiki.unrealengine.com/index.php?title=UMG,_Custom_Widget_Components_And_Render_Code,_Usable_In_UMG_Designer&amp;oldid=21856</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.188 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

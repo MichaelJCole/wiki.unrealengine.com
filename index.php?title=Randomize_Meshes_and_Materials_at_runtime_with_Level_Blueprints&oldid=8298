@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Randomize Meshes and Materials at runtime with Level Blueprints - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Randomize_Meshes_and_Materials_at_runtime_with_Level_Blueprints","wgTitle":"Randomize Meshes and Materials at runtime with Level Blueprints","wgCurRevisionId":8298,"wgRevisionId":8298,"wgArticleId":748,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Blueprint","Community Created Content"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Randomize_Meshes_and_Materials_at_runtime_with_Level_Blueprints","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["ext.voteNY","mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Randomize_Meshes_and_Materials_at_runtime_with_Level_Blueprints skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head">
+		
+
+
+
+
+
+<input type="hidden" id="updateenable" value="true">
+
+    <script src="https://cdn1.unrealengine.com/2670222/unifiedHeaderBundle-c133cbefbece60d20fd29c5b1819fa39.js" defer></script>
+    <link rel="stylesheet" href="https://cdn1.unrealengine.com/2670222/unifiedHeader-dd083735d5017970978496baee5b916e.css">
+
+
+<header id="header" data-path="/" data-sitepath="https://www.unrealengine.com">
+<input type="hidden" id="isUnified" value="1" />
+    <input type="hidden" id="current_locale" value="en_US"/>
+    <input type="hidden" id="header-host" value="https://www.unrealengine.com" />
+    <nav class="main-menu">
+        <div class="menu-mobile">
+            <span class="menu-mobile-icon"></span>
+            <ul>
+
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">About</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Learn</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Community</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/blog">Blog</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Marketplace</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Academia</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/education">Education Program</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                
+                <li class="btn-account ignore" style="display: none">
+                    <a href="https://www.unrealengine.com/dashboard">Account</a>
+                </li>
+                <li class="btn-signout ignore" style="display: none">
+                    <a class="sso-sign-out" href="">Log Out</a>
+                </li>
+                <li class="btn-signin ignore" style="display: none">
+                    <a class="sso-sign-in" href="">Sign in</a>
+                </li>
+            </ul>
+        </div>
+
+        <ul class="menu-items">
+            <li class="logo ignore">
+                
+                    <a href="https://www.unrealengine.com/blog"></a>
+                
+            </li>
+
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>About</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Learn</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Community</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/blog">Blog</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Marketplace</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Academia</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/education">Education Program</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+        </ul>
+
+
+        <div class="menu-download" data-sub="dl">
+            <a class="sso-register" href="">
+                <span class="isUpdateEnabled">Get Unreal</span>
+            </a>
+        </div>
+        
+
+        <div id="search" class="menu-search ignore">
+                <span></span>
+        </div>
+        
+        <div class="search-header">
+            <div class="input-search">
+                <div id="search-tips" class="search-tips-en_US">
+                    You may be unable to view the results of this search unless you connect to a VPN first.
+                </div>
+                <span></span>
+                <input type="text" name="search" value="" style="background:none !important" id="isearch" class="text" placeholder="Search..." />
+                <p class="search-btn">Search</p>
+            </div>
+        </div>
+
+        <ul class="menu-icons">
+            <li id="btn-account" class="ignore" data-sub="account" style="display: none">
+                <a href="/dashboard">Account</a>
+                <ul class="account-sub-menu">
+                    <li>
+                        <a href="/dashboard">Personal</a>
+                    </li>
+                    <li>
+                        <a href="https://publish.unrealengine.com/">Seller</a>
+                    </li>
+                </ul>
+            </li>
+            <li id="btn-signout" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-out last-border" href="">Log Out</a>
+            </li>
+            <li id="btn-signin" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-in last-border" href="">Sign in</a>
+            </li>
+        </ul>
+        
+    </nav>
+</header>
+
+		</div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a></li>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Videos"><a href="/Videos">Videos</a></li>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Code"><a href="/Category:Code">Code</a></li>
+			<li id="n-Games"><a href="/Category:Games">Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Randomize_Meshes_and_Materials_at_runtime_with_Level_Blueprints" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Randomize_Meshes_and_Materials_at_runtime_with_Level_Blueprints" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=Randomize_Meshes_and_Materials_at_runtime_with_Level_Blueprints&amp;oldid=8298&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Randomize_Meshes_and_Materials_at_runtime_with_Level_Blueprints&amp;oldid=8298" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Randomize_Meshes_and_Materials_at_runtime_with_Level_Blueprints&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Randomize_Meshes_and_Materials_at_runtime_with_Level_Blueprints"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Randomize_Meshes_and_Materials_at_runtime_with_Level_Blueprints&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Randomize_Meshes_and_Materials_at_runtime_with_Level_Blueprints" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Randomize_Meshes_and_Materials_at_runtime_with_Level_Blueprints&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Randomize_Meshes_and_Materials_at_runtime_with_Level_Blueprints&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Randomize+Meshes+and+Materials+at+runtime+with+Level+Blueprints&amp;returntoquery=oldid%3D8298&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Randomize+Meshes+and+Materials+at+runtime+with+Level+Blueprints&amp;returntoquery=oldid%3D8298" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Randomize Meshes and Materials at runtime with Level Blueprints</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"><div id="mw-revision-info">Revision as of 22:10, 7 August 2014 by <a href="/index.php?title=User:Sean_Gribbin&amp;action=edit&amp;redlink=1" class="new mw-userlink" title="User:Sean Gribbin (page does not exist)">Sean Gribbin</a>  <span class="mw-usertoollinks">(<a href="/index.php?title=User_talk:Sean_Gribbin&amp;action=edit&amp;redlink=1" class="new" title="User talk:Sean Gribbin (page does not exist)">Talk</a> | <a href="/Special:Contributions/Sean_Gribbin" title="Special:Contributions/Sean Gribbin">contribs</a>)</span></div><br />
+				<div id="mw-revision-nav">(<a href="/index.php?title=Randomize_Meshes_and_Materials_at_runtime_with_Level_Blueprints&amp;diff=prev&amp;oldid=8298" title="Randomize Meshes and Materials at runtime with Level Blueprints">diff</a>) <a href="/index.php?title=Randomize_Meshes_and_Materials_at_runtime_with_Level_Blueprints&amp;direction=prev&amp;oldid=8298" title="Randomize Meshes and Materials at runtime with Level Blueprints">← Older revision</a> | Latest revision (diff) | Newer revision → (diff)</div></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="aux">
+<div>
+<b>Rate this Article:</b> <div id="rating_"><div class="rating-score"><div class="voteboxrate">5.00</div></div><div class="rating-section"><img class="vote-rating-star" data-vote-the-vote="1" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__1" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="2" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__2" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="3" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__3" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="4" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__4" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="5" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__5" src="/extensions/VoteNY/images/star_on.gif" alt="" /> <span class="rating-total">(one vote)</span></div>
+				<div class="rating-clear">
+			</div></div>
+</div>
+<div>
+<p>Approved for Versions:(please verify)
+</p>
+</div>
+</div>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Setting_up_Meshes"><span class="tocnumber">2</span> <span class="toctext">Setting up Meshes</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Randomizing_Mesh"><span class="tocnumber">3</span> <span class="toctext">Randomizing Mesh</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Randomizing_Materials.2FTextures"><span class="tocnumber">4</span> <span class="toctext">Randomizing Materials/Textures</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Matinee_Embellishment"><span class="tocnumber">5</span> <span class="toctext">Matinee Embellishment</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Ending_it"><span class="tocnumber">6</span> <span class="toctext">Ending it</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p>Blueprints are a kind of Next Generation for Kismet from UE3. In this tutorial I would provide a way to Randomize Meshes and Materials through Blueprints at run-time. I am using 3 very basic Meshes and very basic Vector Colored Materials for this purpose.
+</p><p>Along the tutorial I'll also provide a few steps where the people very new to Unreal could easily learn to Animate meshes with Matinee.
+Lastly, it was made on the Rocket Beta version of UE4 that I was testing since a few months. Version: 1904627
+</p>
+<h2><span class="mw-headline" id="Setting_up_Meshes">Setting up Meshes</span></h2>
+<p>So firstly, import your Static Meshes and Textures with Content Browser. The 3 Meshes I imported are of a Rocket, Spaceship and a Saucer and applied very basic Materials on each of them.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:514px;"><a href="/File:ImportMeshes.jpg" class="image"><img alt="ImportMeshes.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/7/79/ImportMeshes.jpg/512px-ImportMeshes.jpg" width="512" height="256" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/7/79/ImportMeshes.jpg/768px-ImportMeshes.jpg 1.5x, https://d3ar1piqh1oeli.cloudfront.net/7/79/ImportMeshes.jpg/1024px-ImportMeshes.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:ImportMeshes.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" /> 
+</p><p>Now in your level, put in one of your meshes and change its Mobility to <b>"Movable"</b>. The reason behind this is that a Static Mesh only gets dynamically accessed or moved with Matinee, Code or Blueprints in-game when it is set to Movable. This is similar to <b>"InterpActor"</b> entity in UDK.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:514px;"><a href="/File:Mobility.jpg" class="image"><img alt="Mobility.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/7/74/Mobility.jpg/512px-Mobility.jpg" width="512" height="256" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/7/74/Mobility.jpg/768px-Mobility.jpg 1.5x, https://d3ar1piqh1oeli.cloudfront.net/7/74/Mobility.jpg/1024px-Mobility.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:Mobility.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" /> 
+</p><p>Open the Level Blueprints, which can be accessed from the top panel of the Editor. Select the Static Mesh Actor in the Level and go to the Blueprints Graph Editor. While the Actor still selected, Right-click on the Graph Workspace and do a search filter for <b>"Set Static Mesh"</b>. You will then get a <b>"Set Static Mesh"</b> node with the Actor variable already attached to it. Hover over the <b>"New Mesh"</b> option and click to the last Grid-like button which says <b>"Pick"</b>. In the search field, find the Mesh you want it to change with and click on it. In my case, I wanted to set it with the Spaceship mesh I imported.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:514px;"><a href="/File:SetSMFilter.jpg" class="image"><img alt="SetSMFilter.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/7/7c/SetSMFilter.jpg/512px-SetSMFilter.jpg" width="512" height="356" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/7/7c/SetSMFilter.jpg 1.5x, https://d26ilriwvtzlb.cloudfront.net/7/7c/SetSMFilter.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:SetSMFilter.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" /> 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:514px;"><a href="/File:SetSM.jpg" class="image"><img alt="SetSM.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/e/e9/SetSM.jpg/512px-SetSM.jpg" width="512" height="356" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/e/e9/SetSM.jpg 1.5x, https://d26ilriwvtzlb.cloudfront.net/e/e9/SetSM.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:SetSM.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" /> 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:514px;"><a href="/File:PickMesh.jpg" class="image"><img alt="PickMesh.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/8/88/PickMesh.jpg/512px-PickMesh.jpg" width="512" height="356" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/8/88/PickMesh.jpg 1.5x, https://d26ilriwvtzlb.cloudfront.net/8/88/PickMesh.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:PickMesh.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<h2><span class="mw-headline" id="Randomizing_Mesh">Randomizing Mesh</span></h2>
+<p>Now, before anything else, make 2 more copies of the <b>"Set Static Mesh"</b> node and in each node, pick a different New Mesh. You can do this simply with Ctrl+C and Ctrl+V. In my case, I kept one copy as the Rocket mesh itself and another as Saucer mesh I imported. Just make sure that you connect the variable node as <b>Target</b> in each "Set Static Mesh" node.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:514px;"><a href="/File:CopySSM.jpg" class="image"><img alt="CopySSM.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/1/19/CopySSM.jpg/512px-CopySSM.jpg" width="512" height="356" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/1/19/CopySSM.jpg 1.5x, https://d26ilriwvtzlb.cloudfront.net/1/19/CopySSM.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:CopySSM.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>To the right of the Blueprints Editor, in the Palette column, or by Right-clicking on the empty Graph area, search and find a Function Node called <b>"Switch on Int"</b> and place it in the graph. This can be related to the <i>Switch Cases</i> in programming languages where you can give multiple switch cases and also declare a <i>"Default"</i> value which keeps you on the safe side by giving an output if something beyond the scope of the Switch Cases is called. We'll Understand this quickly here soon.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:514px;"><a href="/File:FindSwitch.jpg" class="image"><img alt="FindSwitch.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/a/ac/FindSwitch.jpg/512px-FindSwitch.jpg" width="512" height="213" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/a/ac/FindSwitch.jpg/768px-FindSwitch.jpg 1.5x, https://d3ar1piqh1oeli.cloudfront.net/a/ac/FindSwitch.jpg/1024px-FindSwitch.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:FindSwitch.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>Now, add 3 output pins by clicking thrice on the <b>"Add Pin"</b> button on the node. This basically sets the output nodes for the Switch Cases. Also, on the left part of the Switch node, is an Input plug for Selection, which is Green in color, which means that it'll take an <i>Integer</i> for an input(the color coding of Unreal is pretty good even in UE3/UDK Kismet). Now you can give this Integer input value dynamically anyhow in your game levels. In this case here, we'll <b>Randomize</b> it. Go back to the Palette Search on the right and search <b>"Random Integer"</b> and place it in the graph. It also has a <b>Max</b> integer input plug, which can be declared internally by putting a value just besides it. I'll set it to <b>3</b>. This means that it'll output randomly between numbers 0-3. Output this Random node to the Integer Input of Switch Node. One thing to note here is that the Switch node, again, works like the Programming counterparts and starts with 0 being the first value and not 1. So if we are switching between random numbers 0-3, it will mean that whenever 3 is output from Random node, the Switch will select <b>Default</b> declaration because Switch legally toggles between numbers <b>0,1,2</b>. Since 3 is out of its scope, it will save us from a hazard by choosing Default. This can be very useful in the games as well as in usual Programming. Just take each output node from Switch and connect it to each <b>"Set Static Mesh"</b> node. I put Default as first Set Static Mesh node too.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:514px;"><a href="/File:Randomnode.jpg" class="image"><img alt="Randomnode.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/9/98/Randomnode.jpg/512px-Randomnode.jpg" width="512" height="213" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/9/98/Randomnode.jpg/768px-Randomnode.jpg 1.5x, https://d3ar1piqh1oeli.cloudfront.net/9/98/Randomnode.jpg/1024px-Randomnode.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:Randomnode.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<h2><span class="mw-headline" id="Randomizing_Materials.2FTextures">Randomizing Materials/Textures</span></h2>
+<p>Being done with the part of setting Static Meshes dynamically, we move forward to setting the Materials dynamically. Make sure you still have the Static Mesh Actor Selected in the level and do the similar steps; Right-click on Graph, filter out and place <b>"Set Material"</b> node. In the Material input of the node, I picked Spaceship Material, made 2 more copies of it and in them picked Rocket and Saucer materials.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:514px;"><a href="/File:SetMaterial.jpg" class="image"><img alt="SetMaterial.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/5/55/SetMaterial.jpg/512px-SetMaterial.jpg" width="512" height="294" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/5/55/SetMaterial.jpg/768px-SetMaterial.jpg 1.5x, https://d26ilriwvtzlb.cloudfront.net/5/55/SetMaterial.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:SetMaterial.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>Now simply copy and paste the <b>Switch</b> and its connected <b>Random Integer</b> nodes and place them between the <b>"Set Static Mesh"</b> and <b>"Set Material"</b> nodes. Input each Static Mesh node into the Switch Input node and connect each Output of the Switch to each <b>"Set Material"</b>
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:514px;"><a href="/File:ConnectSSM-SM.jpg" class="image"><img alt="ConnectSSM-SM.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/8/8c/ConnectSSM-SM.jpg/512px-ConnectSSM-SM.jpg" width="512" height="263" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/8/8c/ConnectSSM-SM.jpg/768px-ConnectSSM-SM.jpg 1.5x, https://d3ar1piqh1oeli.cloudfront.net/8/8c/ConnectSSM-SM.jpg/1024px-ConnectSSM-SM.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:ConnectSSM-SM.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<h2><span class="mw-headline" id="Matinee_Embellishment">Matinee Embellishment</span></h2>
+<p>Firstly now, compile your Blueprint from the Top-left option on the Blueprint Editor and save the level just for the safety and close the Blueprint Editor. Go to the Rocket Editor and from the top <b>Matinee</b> option choose <b>"Add Matinee"</b>.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:514px;"><a href="/File:AddMatinee.jpg" class="image"><img alt="AddMatinee.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/0/01/AddMatinee.jpg/512px-AddMatinee.jpg" width="512" height="263" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/0/01/AddMatinee.jpg/768px-AddMatinee.jpg 1.5x, https://d3ar1piqh1oeli.cloudfront.net/0/01/AddMatinee.jpg/1024px-AddMatinee.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:AddMatinee.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>When the Matinee editor opens up, again, make sure your Static Mesh actor is selected. Right-click on the blank grey area of the editor and choose <b>"Add New Empty Group"</b>. When the naming box comes, we simply name it <i>Rocket01</i> and we see a track is created in the Matinee Editor by the same name.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:514px;"><a href="/File:ChooseEmptyGroup.jpg" class="image"><img alt="ChooseEmptyGroup.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/5/5d/ChooseEmptyGroup.jpg/512px-ChooseEmptyGroup.jpg" width="512" height="263" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/5/5d/ChooseEmptyGroup.jpg/768px-ChooseEmptyGroup.jpg 1.5x, https://d3ar1piqh1oeli.cloudfront.net/5/5d/ChooseEmptyGroup.jpg/1024px-ChooseEmptyGroup.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:ChooseEmptyGroup.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:514px;"><a href="/File:Trackcreated.jpg" class="image"><img alt="Trackcreated.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/0/0f/Trackcreated.jpg/512px-Trackcreated.jpg" width="512" height="263" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/0/0f/Trackcreated.jpg/768px-Trackcreated.jpg 1.5x, https://d3ar1piqh1oeli.cloudfront.net/0/0f/Trackcreated.jpg/1024px-Trackcreated.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:Trackcreated.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>To test that the Static Mesh Actor in the level is connected to the Matinee track here, simply click on the track. If it's all well, it'll select the Actor in the level. Now, Right-click on the track and select <b>"Add New Movement Track"</b>.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:514px;"><a href="/File:NewMovetrack.jpg" class="image"><img alt="NewMovetrack.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/8/89/NewMovetrack.jpg/512px-NewMovetrack.jpg" width="512" height="263" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/8/89/NewMovetrack.jpg/768px-NewMovetrack.jpg 1.5x, https://d3ar1piqh1oeli.cloudfront.net/8/89/NewMovetrack.jpg/1024px-NewMovetrack.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:NewMovetrack.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>Just to show a simple straight line movement, we drag the black Time Bar to the end of the track, which by default is set to 5 Seconds. If you have to make it smaller or bigger, you can do so by moving the bar with the Red end on the Right side. So, at the end of the track, and with <b>"Movement"</b> track selected, either press Enter or click <b>"Add Key"</b> to the left top corner of the window. This will add a new Keyframe at the Timeline as well as activate the Matinee animation Input. You can see <b>"Key Movement 1"</b> visible at the left bottom corner. While the Matinee Editor still open, just minimize it and drag you Actor wherever you want; you can even rotate it in anyway. If its all going right, you should be able to see a yellow trajectory when you drag your actor. This trajectory is basically the path on which your Actor travels.(Pretty useful in Camera animations specifically, if you ask me).
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:514px;"><a href="/File:MatineeKeyframe.jpg" class="image"><img alt="MatineeKeyframe.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/5/54/MatineeKeyframe.jpg/512px-MatineeKeyframe.jpg" width="512" height="266" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/5/54/MatineeKeyframe.jpg/768px-MatineeKeyframe.jpg 1.5x, https://d3ar1piqh1oeli.cloudfront.net/5/54/MatineeKeyframe.jpg/1024px-MatineeKeyframe.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:MatineeKeyframe.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:514px;"><a href="/File:MatineeAnimateActor.jpg" class="image"><img alt="MatineeAnimateActor.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/9/97/MatineeAnimateActor.jpg/512px-MatineeAnimateActor.jpg" width="512" height="358" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/9/97/MatineeAnimateActor.jpg/768px-MatineeAnimateActor.jpg 1.5x, https://d3ar1piqh1oeli.cloudfront.net/9/97/MatineeAnimateActor.jpg/1024px-MatineeAnimateActor.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:MatineeAnimateActor.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>Now simply close your Matinee Editor and in the Outliner, select the Matinee Actor which got created and while its selected, open back your Level Blueprints Editor. Right-click on the graph and filter search <b>"Matinee Play"</b>. Select it and you should get a Play node with your Matinee Actor attached to it. Now simply connect all three <b>"Set Material"</b> nodes to the <b>Play</b> input of the Matinee node.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:514px;"><a href="/File:MatineeBluePrintConnect.jpg" class="image"><img alt="MatineeBluePrintConnect.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/3/33/MatineeBluePrintConnect.jpg/512px-MatineeBluePrintConnect.jpg" width="512" height="366" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/3/33/MatineeBluePrintConnect.jpg/768px-MatineeBluePrintConnect.jpg 1.5x, https://d26ilriwvtzlb.cloudfront.net/3/33/MatineeBluePrintConnect.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:MatineeBluePrintConnect.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<h2><span class="mw-headline" id="Ending_it">Ending it</span></h2>
+<p>To end it, just plug the first node to an Event. In our case, I'll plug it to the <b>"RecieveBeginPlay"</b> event. So now if you compile the Blueprint and run the Simulation, every time you run it, a random Mesh and a Random Material will execute on the give Matinee path. You could even loop it if you require.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:514px;"><a href="/File:Eventplugin.jpg" class="image"><img alt="Eventplugin.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/3/34/Eventplugin.jpg/512px-Eventplugin.jpg" width="512" height="255" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/3/34/Eventplugin.jpg/768px-Eventplugin.jpg 1.5x, https://d3ar1piqh1oeli.cloudfront.net/3/34/Eventplugin.jpg/1024px-Eventplugin.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:Eventplugin.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>This could be multiplied for more Static Mesh actors generating more Random Meshes and Materials on their respective Matinee paths by just copy-pasting all the nodes and simply changing the Mesh, Material and Random Integer input values.
+</p><p>Hope you find it useful.
+</p><p><a href="/User:Shashank" title="User:Shashank">Shashank</a>
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.135 seconds
+Real time usage: 0.318 seconds
+Preprocessor visited node count: 54/1000000
+Preprocessor generated node count: 114/1000000
+Post‐expand include size: 155/2097152 bytes
+Template argument size: 22/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=Randomize_Meshes_and_Materials_at_runtime_with_Level_Blueprints&amp;oldid=8298">https://wiki.unrealengine.com/index.php?title=Randomize_Meshes_and_Materials_at_runtime_with_Level_Blueprints&amp;oldid=8298</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li><li><a href="/Category:Blueprint" title="Category:Blueprint">Blueprint</a></li><li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.450 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

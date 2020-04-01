@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Integrating OpenCV Into Unreal Engine 4 - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Integrating_OpenCV_Into_Unreal_Engine_4","wgTitle":"Integrating OpenCV Into Unreal Engine 4","wgCurRevisionId":14881,"wgRevisionId":14881,"wgArticleId":4230,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Code","Tutorial"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Integrating_OpenCV_Into_Unreal_Engine_4","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Integrating_OpenCV_Into_Unreal_Engine_4 skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head">
+		
+
+
+
+
+
+<input type="hidden" id="updateenable" value="true">
+
+    <script src="https://cdn1.unrealengine.com/2670222/unifiedHeaderBundle-c133cbefbece60d20fd29c5b1819fa39.js" defer></script>
+    <link rel="stylesheet" href="https://cdn1.unrealengine.com/2670222/unifiedHeader-dd083735d5017970978496baee5b916e.css">
+
+
+<header id="header" data-path="/" data-sitepath="https://www.unrealengine.com">
+<input type="hidden" id="isUnified" value="1" />
+    <input type="hidden" id="current_locale" value="en_US"/>
+    <input type="hidden" id="header-host" value="https://www.unrealengine.com" />
+    <nav class="main-menu">
+        <div class="menu-mobile">
+            <span class="menu-mobile-icon"></span>
+            <ul>
+
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">About</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Learn</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Community</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/blog">Blog</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Marketplace</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Academia</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/education">Education Program</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                
+                <li class="btn-account ignore" style="display: none">
+                    <a href="https://www.unrealengine.com/dashboard">Account</a>
+                </li>
+                <li class="btn-signout ignore" style="display: none">
+                    <a class="sso-sign-out" href="">Log Out</a>
+                </li>
+                <li class="btn-signin ignore" style="display: none">
+                    <a class="sso-sign-in" href="">Sign in</a>
+                </li>
+            </ul>
+        </div>
+
+        <ul class="menu-items">
+            <li class="logo ignore">
+                
+                    <a href="https://www.unrealengine.com/blog"></a>
+                
+            </li>
+
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>About</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Learn</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Community</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/blog">Blog</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Marketplace</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Academia</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/education">Education Program</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+        </ul>
+
+
+        <div class="menu-download" data-sub="dl">
+            <a class="sso-register" href="">
+                <span class="isUpdateEnabled">Get Unreal</span>
+            </a>
+        </div>
+        
+
+        <div id="search" class="menu-search ignore">
+                <span></span>
+        </div>
+        
+        <div class="search-header">
+            <div class="input-search">
+                <div id="search-tips" class="search-tips-en_US">
+                    You may be unable to view the results of this search unless you connect to a VPN first.
+                </div>
+                <span></span>
+                <input type="text" name="search" value="" style="background:none !important" id="isearch" class="text" placeholder="Search..." />
+                <p class="search-btn">Search</p>
+            </div>
+        </div>
+
+        <ul class="menu-icons">
+            <li id="btn-account" class="ignore" data-sub="account" style="display: none">
+                <a href="/dashboard">Account</a>
+                <ul class="account-sub-menu">
+                    <li>
+                        <a href="/dashboard">Personal</a>
+                    </li>
+                    <li>
+                        <a href="https://publish.unrealengine.com/">Seller</a>
+                    </li>
+                </ul>
+            </li>
+            <li id="btn-signout" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-out last-border" href="">Log Out</a>
+            </li>
+            <li id="btn-signin" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-in last-border" href="">Sign in</a>
+            </li>
+        </ul>
+        
+    </nav>
+</header>
+
+		</div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a></li>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Videos"><a href="/Videos">Videos</a></li>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Code"><a href="/Category:Code">Code</a></li>
+			<li id="n-Games"><a href="/Category:Games">Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Integrating_OpenCV_Into_Unreal_Engine_4" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Integrating_OpenCV_Into_Unreal_Engine_4" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=Integrating_OpenCV_Into_Unreal_Engine_4&amp;oldid=14881&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Integrating_OpenCV_Into_Unreal_Engine_4&amp;oldid=14881" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Integrating_OpenCV_Into_Unreal_Engine_4&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Integrating_OpenCV_Into_Unreal_Engine_4"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Integrating_OpenCV_Into_Unreal_Engine_4&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Integrating_OpenCV_Into_Unreal_Engine_4" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Integrating_OpenCV_Into_Unreal_Engine_4&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Integrating_OpenCV_Into_Unreal_Engine_4&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Integrating+OpenCV+Into+Unreal+Engine+4&amp;returntoquery=oldid%3D14881&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Integrating+OpenCV+Into+Unreal+Engine+4&amp;returntoquery=oldid%3D14881" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Integrating OpenCV Into Unreal Engine 4</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"><div id="mw-revision-info">Revision as of 23:23, 31 July 2015 by <a href="/User:Ginku" title="User:Ginku" class="mw-userlink">Ginku</a>  <span class="mw-usertoollinks">(<a href="/User_talk:Ginku" title="User talk:Ginku">Talk</a> | <a href="/Special:Contributions/Ginku" title="Special:Contributions/Ginku">contribs</a>)</span></div><br />
+				<div id="mw-revision-nav">(diff) ← Older revision | Latest revision (diff) | Newer revision → (diff)</div></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Why_OpenCV.3F"><span class="tocnumber">1.1</span> <span class="toctext">Why OpenCV?</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Linking_OpenCV_in_Visual_Studios"><span class="tocnumber">2</span> <span class="toctext">Linking OpenCV in Visual Studios</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Copying_the_OpenCV_Files"><span class="tocnumber">2.1</span> <span class="toctext">Copying the OpenCV Files</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Adding_OpenCV_Dependencies"><span class="tocnumber">2.2</span> <span class="toctext">Adding OpenCV Dependencies</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Copying_the_DLL.27s_to_the_Build"><span class="tocnumber">2.3</span> <span class="toctext">Copying the DLL's to the Build</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Adding_a_WebcamReader_class"><span class="tocnumber">3</span> <span class="toctext">Adding a WebcamReader class</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Header"><span class="tocnumber">3.1</span> <span class="toctext">Header</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Source"><span class="tocnumber">3.2</span> <span class="toctext">Source</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Moving_to_Blueprints"><span class="tocnumber">4</span> <span class="toctext">Moving to Blueprints</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Adding_the_WebcamBillboard_Actor"><span class="tocnumber">4.1</span> <span class="toctext">Adding the WebcamBillboard Actor</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Adding_the_WebcamBillboard_to_a_Level"><span class="tocnumber">4.2</span> <span class="toctext">Adding the WebcamBillboard to a Level</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p><i>Original Author:</i> <a href="/User:Ginku" title="User:Ginku">Ginku</a> (<a href="/User_talk:Ginku" title="User talk:Ginku">talk</a>)
+</p><p>Hello all! This is my first wiki tutorial, I hope it can be of help to someone!
+</p><p>I am making this tutorial in response to a few requests.  This will be a detailed, step-by-step guide to linking OpenCV to Unreal Engine 4 using the Unreal Build Tool. You can find a general tutorial on linking any static library to unreal <a href="/index.php?title=Tutorial:Linking_Static_Libraries_Using_The_Build_System&amp;action=edit&amp;redlink=1" class="new" title="Tutorial:Linking Static Libraries Using The Build System (page does not exist)">here.</a> I recommend reading it in addition to this tutorial, as it is what this tutorial is based on.
+</p>
+<h3><span class="mw-headline" id="Why_OpenCV.3F">Why OpenCV?</span></h3>
+<p>OpenCV is a powerful open-source computer vision library, and once included into any unreal engine 4 project it will allow for the use of the engine in many non-traditional ways. Including OpenCV in a project as a dependency will allow developers to create state-of-the-art environments with either augmented reality components, virtual reality environments that resemble the user’s surroundings, or any mixture of the two. In this tutorial I will show you how to quickly and painlessly include OpenCV in any unreal engine 4 project with the Windows OS, and then I will guide you through displaying a webcam in the game environment.
+</p>
+<h2><span class="mw-headline" id="Linking_OpenCV_in_Visual_Studios">Linking OpenCV in Visual Studios</span></h2>
+<p>Before you continue, make sure you are starting from a code project, or have added code to your project with the editor!
+</p>
+<h3><span class="mw-headline" id="Copying_the_OpenCV_Files">Copying the OpenCV Files</span></h3>
+<p>In order to begin, all of OpenCV’s include and library files will need to be added to your project’s ‘/ThirdParty’ directory. To begin, locate your installation of OpenCV. Inside its root directory you will find the ‘/build/include’ directory. Copy all of the contents of this directory into the ‘ProjectRootDirectory]/ThirdParty/OpenCV/Includes’ directory. Next, copy all of the files in the ‘/build/x64/vc12/lib’ and ‘/build/x64/vc12/bin’ folders to the ‘ProjectRootDirectory]/ThirdParty/OpenCV/Libraries/Win64/’ directory. Finally, copy all of the files in the ‘/build/x86/vc12/lib’ and ‘/build/x86/vc12/bin’ folders to the ‘ProjectRootDirectory]/ThirdParty/OpenCV/Libraries/Win32/’ directory.
+</p>
+<h3><span class="mw-headline" id="Adding_OpenCV_Dependencies">Adding OpenCV Dependencies</span></h3>
+<p>Locate and open your projects module rules file, which should be in your projects ‘Source/[Project Name]’ directory. (It will be in the format of ‘ProjectName.Build.cs’) In this file, we will add the necessary code so that the unreal build tool will include all of the necessary dependencies during build time.
+</p><p>First, be sure to add the following include at the top of the file:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw2">using</span> System.<span class="me1">IO</span><span class="sy4">;</span></pre></div></div>
+<p>This lets you use the Path helper class, which is very useful for assembling directory paths!
+</p><p>Inside your ModuleRules class and before the constructor, add the following getters:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw2">private</span> string ModulePath
+<span class="br0">&#123;</span> 
+	get <span class="br0">&#123;</span> <span class="kw1">return</span> Path.<span class="me1">GetDirectoryName</span><span class="br0">&#40;</span>RulesCompiler.<span class="me1">GetModuleFilename</span><span class="br0">&#40;</span><span class="kw3">this</span>.<span class="me1">GetType</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">Name</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+<span class="kw2">private</span> string ThirdPartyPath
+<span class="br0">&#123;</span> 
+	get <span class="br0">&#123;</span> <span class="kw1">return</span> Path.<span class="me1">GetFullPath</span><span class="br0">&#40;</span>Path.<span class="me1">Combine</span><span class="br0">&#40;</span>ModulePath, <span class="st0">&quot;../../ThirdParty/&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="br0">&#125;</span> 
+<span class="br0">&#125;</span></pre></div></div>
+<p>These are helper functions for retrieving the /ThirdParty/ path, and can be very helpful when including more than one third party dependency to a project. Now, add the following function after the constructor:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw2">public</span> <span class="kw4">bool</span> LoadOpenCV<span class="br0">&#40;</span>TargetInfo Target<span class="br0">&#41;</span>
+<span class="br0">&#123;</span> 
+	<span class="kw4">bool</span> isLibrarySupported <span class="sy1">=</span> <span class="kw2">false</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">// Create OpenCV Path </span>
+	string OpenCVPath <span class="sy1">=</span> Path.<span class="me1">Combine</span><span class="br0">&#40;</span>ThirdPartyPath, <span class="st0">&quot;OpenCV&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">// Get Library Path </span>
+	string LibPath <span class="sy1">=</span> <span class="st0">&quot;&quot;</span><span class="sy4">;</span> 
+	<span class="kw4">bool</span> isdebug <span class="sy1">=</span> Target.<span class="me1">Configuration</span> <span class="sy1">==</span> UnrealTargetConfiguration.<span class="me1">Debug</span> <span class="sy3">&amp;&amp;</span> BuildConfiguration.<span class="me1">bDebugBuildsActuallyUseDebugCRT</span><span class="sy4">;</span> 
+	<span class="kw1">if</span> <span class="br0">&#40;</span>Target.<span class="me1">Platform</span> <span class="sy1">==</span> UnrealTargetPlatform.<span class="me1">Win64</span><span class="br0">&#41;</span> 
+	<span class="br0">&#123;</span> 
+		LibPath <span class="sy1">=</span> Path.<span class="me1">Combine</span><span class="br0">&#40;</span>OpenCVPath, <span class="st0">&quot;Libraries&quot;</span>, <span class="st0">&quot;Win64&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span> 
+		isLibrarySupported <span class="sy1">=</span> <span class="kw2">true</span><span class="sy4">;</span> 
+	<span class="br0">&#125;</span> 
+	<span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>Target.<span class="me1">Platform</span> <span class="sy1">==</span> UnrealTargetPlatform.<span class="me1">Win32</span><span class="br0">&#41;</span> 
+	<span class="br0">&#123;</span> 
+		LibPath <span class="sy1">=</span> Path.<span class="me1">Combine</span><span class="br0">&#40;</span>OpenCVPath, <span class="st0">&quot;Libraries&quot;</span>, <span class="st0">&quot;Win32&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span> 
+		isLibrarySupported <span class="sy1">=</span> <span class="kw2">true</span><span class="sy4">;</span> 
+	<span class="br0">&#125;</span> 
+	<span class="kw1">else</span> 
+	<span class="br0">&#123;</span> 
+		string Err <span class="sy1">=</span> string.<span class="me1">Format</span><span class="br0">&#40;</span><span class="st0">&quot;{0} dedicated server is made to depend on {1}. We want to avoid this, please correct module dependencies.&quot;</span>, Target.<span class="me1">Platform</span>.<span class="me1">ToString</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, <span class="kw3">this</span>.<span class="me1">ToString</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> System.<span class="me1">Console</span>.<span class="me1">WriteLine</span><span class="br0">&#40;</span>Err<span class="br0">&#41;</span><span class="sy4">;</span> 
+	<span class="br0">&#125;</span>
+&#160;
+	<span class="kw1">if</span> <span class="br0">&#40;</span>isLibrarySupported<span class="br0">&#41;</span> 
+	<span class="br0">&#123;</span> 
+		<span class="co1">// Add Library Path </span>
+		PublicLibraryPaths.<span class="me1">Add</span><span class="br0">&#40;</span>LibPath<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+		<span class="co1">// Add Dependencies </span>
+		<span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy3">!</span>isdebug<span class="br0">&#41;</span> 
+		<span class="br0">&#123;</span> 
+			<span class="co1">//Add the static libraries</span>
+			PublicAdditionalLibraries.<span class="me1">Add</span><span class="br0">&#40;</span>Path.<span class="me1">Combine</span><span class="br0">&#40;</span>LibPath, <span class="st0">&quot;opencv_core2410.lib&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+			PublicAdditionalLibraries.<span class="me1">Add</span><span class="br0">&#40;</span>Path.<span class="me1">Combine</span><span class="br0">&#40;</span>LibPath, <span class="st0">&quot;highgui2410.lib&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> 
+			PublicAdditionalLibraries.<span class="me1">Add</span><span class="br0">&#40;</span>Path.<span class="me1">Combine</span><span class="br0">&#40;</span>LibPath, <span class="st0">&quot;imgproc2410.lib&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> 
+			<span class="co1">// ... (Add as many as you need! Be sure to change the 2410 [ver 2.4.10] to whatever your version is!)</span>
+&#160;
+			<span class="co1">//Add the dynamic libraries</span>
+			PublicDelayLoadDLLs.<span class="me1">Add</span><span class="br0">&#40;</span>Path.<span class="me1">Combine</span><span class="br0">&#40;</span>LibPath, <span class="st0">&quot;opencv_core2410.dll&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+			PublicDelayLoadDLLs.<span class="me1">Add</span><span class="br0">&#40;</span>Path.<span class="me1">Combine</span><span class="br0">&#40;</span>LibPath, <span class="st0">&quot;highgui2410.dll&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+			PublicDelayLoadDLLs.<span class="me1">Add</span><span class="br0">&#40;</span>Path.<span class="me1">Combine</span><span class="br0">&#40;</span>LibPath, <span class="st0">&quot;imgproc2410.dll&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+			<span class="co1">// ... (Add as many as you need! Be sure to change the 2410 [ver 2.4.10] to whatever your version is!)</span>
+		<span class="br0">&#125;</span>
+		<span class="kw1">else</span>
+		<span class="br0">&#123;</span>
+			<span class="co1">//Add the static libraries (debug versions)</span>
+			PublicAdditionalLibraries.<span class="me1">Add</span><span class="br0">&#40;</span>Path.<span class="me1">Combine</span><span class="br0">&#40;</span>LibPath, <span class="st0">&quot;opencv_core2410d.lib&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+			PublicAdditionalLibraries.<span class="me1">Add</span><span class="br0">&#40;</span>Path.<span class="me1">Combine</span><span class="br0">&#40;</span>LibPath, <span class="st0">&quot;highgui2410d.lib&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> 
+			PublicAdditionalLibraries.<span class="me1">Add</span><span class="br0">&#40;</span>Path.<span class="me1">Combine</span><span class="br0">&#40;</span>LibPath, <span class="st0">&quot;imgproc2410d.lib&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> 
+			<span class="co1">// ... (Add as many as you need! Be sure to change the 2410 [ver 2.4.10] to whatever your version is!)</span>
+&#160;
+			<span class="co1">//Add the dynamic libraries (debug versions)</span>
+			PublicDelayLoadDLLs.<span class="me1">Add</span><span class="br0">&#40;</span>Path.<span class="me1">Combine</span><span class="br0">&#40;</span>LibPath, <span class="st0">&quot;opencv_core2410d.dll&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+			PublicDelayLoadDLLs.<span class="me1">Add</span><span class="br0">&#40;</span>Path.<span class="me1">Combine</span><span class="br0">&#40;</span>LibPath, <span class="st0">&quot;highgui2410d.dll&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+			PublicDelayLoadDLLs.<span class="me1">Add</span><span class="br0">&#40;</span>Path.<span class="me1">Combine</span><span class="br0">&#40;</span>LibPath, <span class="st0">&quot;imgproc2410d.dll&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+			<span class="co1">// ... (Add as many as you need! Be sure to change the 2410 [ver 2.4.10] to whatever your version is!)</span>
+		<span class="br0">&#125;</span>
+&#160;
+		<span class="co1">//Add include path </span>
+		PublicIncludePaths.<span class="me1">Add</span><span class="br0">&#40;</span>Path.<span class="me1">Combine</span><span class="br0">&#40;</span>OpenCVPath, <span class="st0">&quot;Includes&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span> 
+	<span class="br0">&#125;</span>
+&#160;
+	Definitions.<span class="me1">Add</span><span class="br0">&#40;</span>string.<span class="me1">Format</span><span class="br0">&#40;</span><span class="st0">&quot;WITH_OPENCV_BINDING={0}&quot;</span>, isLibrarySupported <span class="sy4">?</span> <span class="nu0">1</span> <span class="sy4">:</span> <span class="nu0">0</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">return</span> isLibrarySupported<span class="sy4">;</span> 
+<span class="br0">&#125;</span></pre></div></div>
+<p>This function includes all of the required includes and libraries for OpenCV. Now, simply call this function inside your project constructor after the standard public modules:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">PublicDependencyModuleNames.<span class="me1">AddRange</span><span class="br0">&#40;</span><span class="kw3">new</span> string<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span> <span class="st0">&quot;Core&quot;</span>, <span class="st0">&quot;CoreUObject&quot;</span>, <span class="st0">&quot;Engine&quot;</span>, <span class="st0">&quot;InputCore&quot;</span>, <span class="st0">&quot;RHI&quot;</span>, <span class="st0">&quot;RenderCore&quot;</span>, <span class="st0">&quot;ShaderCore&quot;</span> <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+LoadOpenCV<span class="br0">&#40;</span>Target<span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<p>Be sure to add the InputCore, RHI, and RenderCore engine modules to the public dependency list, we will use these later to create a dynamic texture from the camera feed.
+</p><p>Now, your project should successfully compile with OpenCV included within the engine build! However, there is one more thing that needs to be included before you can launch an instance of your project’s editor.
+</p>
+<h3><span class="mw-headline" id="Copying_the_DLL.27s_to_the_Build">Copying the DLL's to the Build</span></h3>
+<p>Before your project will run with any OpenCV code, you will first need to add all of the dynamically linked library (.dll) files that you use to your editor’s bin folder. Your editor will typically be a 64-bit application, so copy all of the .dll files that you plan on using in your code from the OpenCV’s 64 bit bin folder (full directory shown above) and paste them inside the ‘[ProjectRootDirectory]/Binaries/Win64’ directory.  These DLL's should be included with any distributions of the project.
+</p>
+<h2><span class="mw-headline" id="Adding_a_WebcamReader_class">Adding a WebcamReader class</span></h2>
+<p>You are now ready to launch an instance of your editor and start using OpenCV! Right click the project name in your solution explorer, and select Debug &gt; Start new instance. Once the editor loads, select File &gt; New C++ Class… and select the ‘Actor’ parent class. Press Next, name the actor ‘WebcamReader’ and press Create Class. Once Unreal has finished adding the new actor, the new header and source files will be opened inside Visual Studios. Add the following code to each of them:
+</p>
+<h3><span class="mw-headline" id="Header">Header</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Fill out your copyright notice in the Description page of Project Settings.</span>
+&#160;
+<span class="co2">#pragma once</span>
+&#160;
+<span class="co2">#include &quot;GameFramework/Actor.h&quot;</span>
+<span class="co2">#include &quot;C:/Users//Brandon/Desktop/UnrealRobotics/ThirdParty/OpenCV/Includes/opencv2/core/core.hpp&quot;		//Change this to your include path!</span>
+<span class="co2">#include &quot;C:/Users//Brandon/Desktop/UnrealRobotics/ThirdParty/OpenCV/Includes/opencv2/highgui/highgui.hpp&quot;	//Change this to your include path!</span>
+<span class="co2">#include &quot;C:/Users//Brandon/Desktop/UnrealRobotics/ThirdParty/OpenCV/Includes/opencv2/imgproc/imgproc.hpp&quot;	//Change this to your include path!</span>
+<span class="co2">#include &quot;WebcamReader.generated.h&quot;</span>
+&#160;
+UCLASS<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw2">class</span> UNREALROBOTICS_API AWebcamReader <span class="sy4">:</span> <span class="kw2">public</span> AActor
+<span class="br0">&#123;</span>
+	GENERATED_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>	
+	<span class="co1">// Sets default values for this actor's properties</span>
+	AWebcamReader<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">// deallocates memory for the opencv fields</span>
+	~AWebcamReader<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">// Called when the game starts or when spawned</span>
+	<span class="kw2">virtual</span> <span class="kw4">void</span> BeginPlay<span class="br0">&#40;</span><span class="br0">&#41;</span> override<span class="sy4">;</span>
+&#160;
+	<span class="co1">// Called every frame</span>
+	<span class="kw2">virtual</span> <span class="kw4">void</span> Tick<span class="br0">&#40;</span> <span class="kw4">float</span> DeltaSeconds <span class="br0">&#41;</span> override<span class="sy4">;</span>
+&#160;
+	<span class="co1">// The device ID opened by the Video Stream</span>
+	UPROPERTY<span class="br0">&#40;</span>BlueprintReadWrite, EditAnywhere, Category <span class="sy1">=</span> Webcam<span class="br0">&#41;</span>
+	<span class="kw4">int32</span> CameraID<span class="sy4">;</span>
+&#160;
+	<span class="co1">// If the webcam images should be resized every frame</span>
+	UPROPERTY<span class="br0">&#40;</span>BlueprintReadWrite, EditAnywhere, Category <span class="sy1">=</span> Webcam<span class="br0">&#41;</span>
+	<span class="kw4">bool</span> ShouldResize<span class="sy4">;</span>
+&#160;
+	<span class="co1">// The targeted resize width and height (width, height)</span>
+	UPROPERTY<span class="br0">&#40;</span>BlueprintReadWrite, EditAnywhere, Category <span class="sy1">=</span> Webcam<span class="br0">&#41;</span>
+	FVector2D ResizeDeminsions<span class="sy4">;</span>
+&#160;
+	<span class="co1">// The rate at which the color data array and video texture is updated (in frames per second)</span>
+	UPROPERTY<span class="br0">&#40;</span>BlueprintReadWrite, EditAnywhere, Category <span class="sy1">=</span> Webcam<span class="br0">&#41;</span>
+	<span class="kw4">float</span> RefreshRate<span class="sy4">;</span>
+&#160;
+	<span class="co1">// The refresh timer</span>
+	UPROPERTY<span class="br0">&#40;</span>BlueprintReadWrite, Category <span class="sy1">=</span> Webcam<span class="br0">&#41;</span>
+	<span class="kw4">float</span> RefreshTimer<span class="sy4">;</span>
+&#160;
+	<span class="co1">// Blueprint Event called every time the video frame is updated</span>
+	UFUNCTION<span class="br0">&#40;</span>BlueprintNativeEvent, Category <span class="sy1">=</span> Webcam<span class="br0">&#41;</span>
+	<span class="kw4">void</span> OnNextVideoFrame<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">// OpenCV fields</span>
+	cv<span class="sy4">::</span><span class="me2">Mat</span><span class="sy2">*</span> frame<span class="sy4">;</span>
+	cv<span class="sy4">::</span><span class="me2">VideoCapture</span><span class="sy2">*</span> stream<span class="sy4">;</span>
+	cv<span class="sy4">::</span><span class="me2">Size</span><span class="sy2">*</span> size<span class="sy4">;</span>
+&#160;
+	<span class="co1">// OpenCV prototypes</span>
+	<span class="kw4">void</span> UpdateFrame<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="kw4">void</span> UpdateTexture<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">// If the stream has succesfully opened yet</span>
+	UPROPERTY<span class="br0">&#40;</span>BlueprintReadWrite, Category <span class="sy1">=</span> Webcam<span class="br0">&#41;</span>
+	<span class="kw4">bool</span> isStreamOpen<span class="sy4">;</span>
+&#160;
+	<span class="co1">// The videos width and height (width, height)</span>
+	UPROPERTY<span class="br0">&#40;</span>BlueprintReadWrite, Category <span class="sy1">=</span> Webcam<span class="br0">&#41;</span>
+	FVector2D VideoSize<span class="sy4">;</span>
+&#160;
+	<span class="co1">// The current video frame's corresponding texture</span>
+	UPROPERTY<span class="br0">&#40;</span>BlueprintReadWrite, Category <span class="sy1">=</span> Webcam<span class="br0">&#41;</span>
+	UTexture2D<span class="sy2">*</span> VideoTexture<span class="sy4">;</span>
+&#160;
+	<span class="co1">// The current data array</span>
+	UPROPERTY<span class="br0">&#40;</span>BlueprintReadWrite, Category <span class="sy1">=</span> Webcam<span class="br0">&#41;</span>
+	TArray<span class="sy1">&lt;</span>FColor<span class="sy1">&gt;</span> Data<span class="sy4">;</span>
+&#160;
+<span class="kw2">protected</span><span class="sy4">:</span>
+&#160;
+	<span class="co1">// Use this function to update the texture rects you want to change:</span>
+	<span class="co1">// NOTE: There is a method called UpdateTextureRegions in UTexture2D but it is compiled WITH_EDITOR and is not marked as ENGINE_API so it cannot be linked</span>
+	<span class="co1">// from plugins.</span>
+	<span class="co1">// FROM: https://wiki.unrealengine.com/Dynamic_Textures</span>
+	<span class="kw4">void</span> UpdateTextureRegions<span class="br0">&#40;</span>UTexture2D<span class="sy2">*</span> Texture, <span class="kw4">int32</span> MipIndex, <span class="kw4">uint32</span> NumRegions, FUpdateTextureRegion2D<span class="sy2">*</span> Regions, <span class="kw4">uint32</span> SrcPitch, <span class="kw4">uint32</span> SrcBpp, <span class="kw4">uint8</span><span class="sy2">*</span> SrcData, <span class="kw4">bool</span> bFreeData<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">// Pointer to update texture region 2D struct</span>
+	FUpdateTextureRegion2D<span class="sy2">*</span> VideoUpdateTextureRegion<span class="sy4">;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<p>You might have noticed that I am using the <b>full include paths</b> in this example. Please change these to your own header paths! I could not get the Unreal Build Tool to properly add the include folder. If you find a way, please add it to this example!
+</p>
+<h3><span class="mw-headline" id="Source">Source</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Fill out your copyright notice in the Description page of Project Settings.</span>
+&#160;
+<span class="co2">#include &quot;YOURPROJECT.h&quot;</span>
+<span class="co2">#include &quot;WebcamReader.h&quot;</span>
+&#160;
+<span class="co1">// Sets default values</span>
+AWebcamReader<span class="sy4">::</span><span class="me2">AWebcamReader</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+ 	<span class="co1">// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.</span>
+	PrimaryActorTick.<span class="me1">bCanEverTick</span> <span class="sy1">=</span> <span class="kw2">true</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">// Initialize OpenCV and webcam properties</span>
+	CameraID <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span>
+	RefreshRate <span class="sy1">=</span> <span class="nu0">15</span><span class="sy4">;</span>
+	isStreamOpen <span class="sy1">=</span> <span class="kw2">false</span><span class="sy4">;</span>
+	VideoSize <span class="sy1">=</span> FVector2D<span class="br0">&#40;</span><span class="nu0">0</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	ShouldResize <span class="sy1">=</span> <span class="kw2">false</span><span class="sy4">;</span>
+	ResizeDeminsions <span class="sy1">=</span> FVector2D<span class="br0">&#40;</span><span class="nu0">320</span>, <span class="nu0">240</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	stream <span class="sy1">=</span> <span class="kw3">new</span> cv<span class="sy4">::</span><span class="me2">VideoCapture</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	frame <span class="sy1">=</span> <span class="kw3">new</span> cv<span class="sy4">::</span><span class="me2">Mat</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	RefreshTimer <span class="sy1">=</span> <span class="nu17">1000000.0f</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+AWebcamReader<span class="sy4">::</span>~AWebcamReader<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	FMemory<span class="sy4">::</span><span class="me2">Free</span><span class="br0">&#40;</span>stream<span class="br0">&#41;</span><span class="sy4">;</span>
+	FMemory<span class="sy4">::</span><span class="me2">Free</span><span class="br0">&#40;</span>frame<span class="br0">&#41;</span><span class="sy4">;</span>
+	FMemory<span class="sy4">::</span><span class="me2">Free</span><span class="br0">&#40;</span>size<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="co1">// Called when the game starts or when spawned</span>
+<span class="kw4">void</span> AWebcamReader<span class="sy4">::</span><span class="me2">BeginPlay</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Super<span class="sy4">::</span><span class="me2">BeginPlay</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	stream<span class="sy2">-</span><span class="sy1">&gt;</span>open<span class="br0">&#40;</span>CameraID<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>stream<span class="sy2">-</span><span class="sy1">&gt;</span>isOpened<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		<span class="co1">//Initialize stream</span>
+		isStreamOpen <span class="sy1">=</span> <span class="kw2">true</span><span class="sy4">;</span>
+		UpdateFrame<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		VideoSize <span class="sy1">=</span> FVector2D<span class="br0">&#40;</span>frame<span class="sy2">-</span><span class="sy1">&gt;</span>cols, frame<span class="sy2">-</span><span class="sy1">&gt;</span>rows<span class="br0">&#41;</span><span class="sy4">;</span>
+		size <span class="sy1">=</span> <span class="kw3">new</span> cv<span class="sy4">::</span><span class="me2">Size</span><span class="br0">&#40;</span>ResizeDeminsions.<span class="me1">X</span>, ResizeDeminsions.<span class="me1">Y</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		VideoTexture <span class="sy1">=</span> UTexture2D<span class="sy4">::</span><span class="me2">CreateTransient</span><span class="br0">&#40;</span>VideoSize.<span class="me1">X</span>, VideoSize.<span class="me1">Y</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		VideoTexture<span class="sy2">-</span><span class="sy1">&gt;</span>UpdateResource<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		VideoUpdateTextureRegion <span class="sy1">=</span> <span class="kw3">new</span> FUpdateTextureRegion2D<span class="br0">&#40;</span><span class="nu0">0</span>, <span class="nu0">0</span>, <span class="nu0">0</span>, <span class="nu0">0</span>, VideoSize.<span class="me1">X</span>, VideoSize.<span class="me1">Y</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+		<span class="co1">//Initialize data array</span>
+		Data.<span class="me1">Init</span><span class="br0">&#40;</span>FColor<span class="br0">&#40;</span><span class="nu0">0</span>, <span class="nu0">0</span>, <span class="nu0">0</span>, <span class="nu0">255</span><span class="br0">&#41;</span>, VideoSize.<span class="me1">X</span> <span class="sy2">*</span> VideoSize.<span class="me1">Y</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+&#160;
+<span class="br0">&#125;</span>
+&#160;
+<span class="co1">// Called every frame</span>
+<span class="kw4">void</span> AWebcamReader<span class="sy4">::</span><span class="me2">Tick</span><span class="br0">&#40;</span> <span class="kw4">float</span> DeltaTime <span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Super<span class="sy4">::</span><span class="me2">Tick</span><span class="br0">&#40;</span> DeltaTime <span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	RefreshTimer <span class="sy2">+</span><span class="sy1">=</span> DeltaTime<span class="sy4">;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>isStreamOpen <span class="sy3">&amp;&amp;</span> RefreshTimer <span class="sy1">&gt;=</span> <span class="nu17">1.0f</span> <span class="sy2">/</span> RefreshRate<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		RefreshTimer <span class="sy2">-</span><span class="sy1">=</span> <span class="nu17">1.0f</span> <span class="sy2">/</span> RefreshRate<span class="sy4">;</span>
+		UpdateFrame<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		UpdateTexture<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		OnNextVideoFrame<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> AWebcamReader<span class="sy4">::</span><span class="me2">UpdateFrame</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>isStreamOpen<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		stream<span class="sy2">-</span><span class="sy1">&gt;</span>read<span class="br0">&#40;</span><span class="sy2">*</span>frame<span class="br0">&#41;</span><span class="sy4">;</span>
+		<span class="kw1">if</span> <span class="br0">&#40;</span>ShouldResize<span class="br0">&#41;</span>
+		<span class="br0">&#123;</span>
+			cv<span class="sy4">::</span><span class="me2">resize</span><span class="br0">&#40;</span><span class="sy2">*</span>frame, <span class="sy2">*</span>frame, <span class="sy2">*</span>size<span class="br0">&#41;</span><span class="sy4">;</span>
+		<span class="br0">&#125;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> AWebcamReader<span class="sy4">::</span><span class="me2">UpdateTexture</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>isStreamOpen <span class="sy3">&amp;&amp;</span> frame<span class="sy2">-</span><span class="sy1">&gt;</span>data<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		<span class="co1">//Copy Mat data to Data array</span>
+		<span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> y <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> y <span class="sy1">&lt;</span> VideoSize.<span class="me1">Y</span><span class="sy4">;</span> y<span class="sy2">++</span><span class="br0">&#41;</span>
+		<span class="br0">&#123;</span>
+			<span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> x <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> x <span class="sy1">&lt;</span> VideoSize.<span class="me1">X</span><span class="sy4">;</span> x<span class="sy2">++</span><span class="br0">&#41;</span>
+			<span class="br0">&#123;</span>
+				<span class="kw4">int</span> i <span class="sy1">=</span> x <span class="sy2">+</span> <span class="br0">&#40;</span>y <span class="sy2">*</span> VideoSize.<span class="me1">X</span><span class="br0">&#41;</span><span class="sy4">;</span>
+				Data<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">B</span> <span class="sy1">=</span> frame<span class="sy2">-</span><span class="sy1">&gt;</span>data<span class="br0">&#91;</span>i <span class="sy2">*</span> <span class="nu0">3</span> <span class="sy2">+</span> <span class="nu0">0</span><span class="br0">&#93;</span><span class="sy4">;</span>
+				Data<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">G</span> <span class="sy1">=</span> frame<span class="sy2">-</span><span class="sy1">&gt;</span>data<span class="br0">&#91;</span>i <span class="sy2">*</span> <span class="nu0">3</span> <span class="sy2">+</span> <span class="nu0">1</span><span class="br0">&#93;</span><span class="sy4">;</span>
+				Data<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">R</span> <span class="sy1">=</span> frame<span class="sy2">-</span><span class="sy1">&gt;</span>data<span class="br0">&#91;</span>i <span class="sy2">*</span> <span class="nu0">3</span> <span class="sy2">+</span> <span class="nu0">2</span><span class="br0">&#93;</span><span class="sy4">;</span>
+			<span class="br0">&#125;</span>
+		<span class="br0">&#125;</span>
+&#160;
+		<span class="co1">//Update texture 2D</span>
+		UpdateTextureRegions<span class="br0">&#40;</span>VideoTexture, <span class="br0">&#40;</span><span class="kw4">int32</span><span class="br0">&#41;</span><span class="nu0">0</span>, <span class="br0">&#40;</span><span class="kw4">uint32</span><span class="br0">&#41;</span><span class="nu0">3</span>, VideoUpdateTextureRegion, <span class="br0">&#40;</span><span class="kw4">uint32</span><span class="br0">&#41;</span><span class="br0">&#40;</span><span class="nu0">4</span> <span class="sy2">*</span> VideoSize.<span class="me1">X</span><span class="br0">&#41;</span>, <span class="br0">&#40;</span><span class="kw4">uint32</span><span class="br0">&#41;</span><span class="nu0">4</span>, <span class="br0">&#40;</span><span class="kw4">uint8</span><span class="sy2">*</span><span class="br0">&#41;</span>Data.<span class="me1">GetData</span><span class="br0">&#40;</span><span class="br0">&#41;</span>, <span class="kw2">false</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> AWebcamReader<span class="sy4">::</span><span class="me2">UpdateTextureRegions</span><span class="br0">&#40;</span>UTexture2D<span class="sy2">*</span> Texture, <span class="kw4">int32</span> MipIndex, <span class="kw4">uint32</span> NumRegions, FUpdateTextureRegion2D<span class="sy2">*</span> Regions, <span class="kw4">uint32</span> SrcPitch, <span class="kw4">uint32</span> SrcBpp, <span class="kw4">uint8</span><span class="sy2">*</span> SrcData, <span class="kw4">bool</span> bFreeData<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>Texture<span class="sy2">-</span><span class="sy1">&gt;</span>Resource<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		<span class="kw4">struct</span> FUpdateTextureRegionsData
+		<span class="br0">&#123;</span>
+			FTexture2DResource<span class="sy2">*</span> Texture2DResource<span class="sy4">;</span>
+			<span class="kw4">int32</span> MipIndex<span class="sy4">;</span>
+			<span class="kw4">uint32</span> NumRegions<span class="sy4">;</span>
+			FUpdateTextureRegion2D<span class="sy2">*</span> Regions<span class="sy4">;</span>
+			<span class="kw4">uint32</span> SrcPitch<span class="sy4">;</span>
+			<span class="kw4">uint32</span> SrcBpp<span class="sy4">;</span>
+			<span class="kw4">uint8</span><span class="sy2">*</span> SrcData<span class="sy4">;</span>
+		<span class="br0">&#125;</span><span class="sy4">;</span>
+&#160;
+		FUpdateTextureRegionsData<span class="sy2">*</span> RegionData <span class="sy1">=</span> <span class="kw3">new</span> FUpdateTextureRegionsData<span class="sy4">;</span>
+&#160;
+		RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>Texture2DResource <span class="sy1">=</span> <span class="br0">&#40;</span>FTexture2DResource<span class="sy2">*</span><span class="br0">&#41;</span>Texture<span class="sy2">-</span><span class="sy1">&gt;</span>Resource<span class="sy4">;</span>
+		RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>MipIndex <span class="sy1">=</span> MipIndex<span class="sy4">;</span>
+		RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>NumRegions <span class="sy1">=</span> NumRegions<span class="sy4">;</span>
+		RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>Regions <span class="sy1">=</span> Regions<span class="sy4">;</span>
+		RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>SrcPitch <span class="sy1">=</span> SrcPitch<span class="sy4">;</span>
+		RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>SrcBpp <span class="sy1">=</span> SrcBpp<span class="sy4">;</span>
+		RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>SrcData <span class="sy1">=</span> SrcData<span class="sy4">;</span>
+&#160;
+		ENQUEUE_UNIQUE_RENDER_COMMAND_TWOPARAMETER<span class="br0">&#40;</span>
+			UpdateTextureRegionsData,
+			FUpdateTextureRegionsData<span class="sy2">*</span>, RegionData, RegionData,
+			<span class="kw4">bool</span>, bFreeData, bFreeData,
+			<span class="br0">&#123;</span>
+			<span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">uint32</span> RegionIndex <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> RegionIndex <span class="sy1">&lt;</span> RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>NumRegions<span class="sy4">;</span> <span class="sy2">++</span>RegionIndex<span class="br0">&#41;</span>
+			<span class="br0">&#123;</span>
+				<span class="kw4">int32</span> CurrentFirstMip <span class="sy1">=</span> RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>Texture2DResource<span class="sy2">-</span><span class="sy1">&gt;</span>GetCurrentFirstMip<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+				<span class="kw1">if</span> <span class="br0">&#40;</span>RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>MipIndex <span class="sy1">&gt;=</span> CurrentFirstMip<span class="br0">&#41;</span>
+				<span class="br0">&#123;</span>
+					RHIUpdateTexture2D<span class="br0">&#40;</span>
+						RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>Texture2DResource<span class="sy2">-</span><span class="sy1">&gt;</span>GetTexture2DRHI<span class="br0">&#40;</span><span class="br0">&#41;</span>,
+						RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>MipIndex <span class="sy2">-</span> CurrentFirstMip,
+						RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>Regions<span class="br0">&#91;</span>RegionIndex<span class="br0">&#93;</span>,
+						RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>SrcPitch,
+						RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>SrcData
+						<span class="sy2">+</span> RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>Regions<span class="br0">&#91;</span>RegionIndex<span class="br0">&#93;</span>.<span class="me1">SrcY</span> <span class="sy2">*</span> RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>SrcPitch
+						<span class="sy2">+</span> RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>Regions<span class="br0">&#91;</span>RegionIndex<span class="br0">&#93;</span>.<span class="me1">SrcX</span> <span class="sy2">*</span> RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>SrcBpp
+						<span class="br0">&#41;</span><span class="sy4">;</span>
+				<span class="br0">&#125;</span>
+			<span class="br0">&#125;</span>
+			<span class="kw1">if</span> <span class="br0">&#40;</span>bFreeData<span class="br0">&#41;</span>
+			<span class="br0">&#123;</span>
+				FMemory<span class="sy4">::</span><span class="me2">Free</span><span class="br0">&#40;</span>RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>Regions<span class="br0">&#41;</span><span class="sy4">;</span>
+				FMemory<span class="sy4">::</span><span class="me2">Free</span><span class="br0">&#40;</span>RegionData<span class="sy2">-</span><span class="sy1">&gt;</span>SrcData<span class="br0">&#41;</span><span class="sy4">;</span>
+			<span class="br0">&#125;</span>
+			<span class="kw3">delete</span> RegionData<span class="sy4">;</span>
+		<span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> AWebcamReader<span class="sy4">::</span><span class="me2">OnNextVideoFrame_Implementation</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="co1">// No default implementation</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>This class is used as a wrapper for a future unreal blueprint class. It allows for you to specify the device ID, target resolution and framerate of the camera, as well as providing a dynamic texture and FColor array of the current frame's pixels and a blueprint native event that is called whenever the next webcam frame is available!
+</p>
+<h2><span class="mw-headline" id="Moving_to_Blueprints">Moving to Blueprints</span></h2>
+<p>You can now access your webcam feed in blueprints. From this point forward we will be working in the editor.
+</p>
+<h3><span class="mw-headline" id="Adding_the_WebcamBillboard_Actor">Adding the WebcamBillboard Actor</span></h3>
+<p>Now that all the code has been included for accessing your webcams, I will now show you how to use the dynamic texture from the WebcamReader actor in a new WebcamBillboard subclass. This time, the code will be implemented in unreal blueprints! Launch the editor again with Debug &gt; Start new instance. In your choice of directory, right click and add a new blueprint class. At the bottom of the new window, expand ‘All Classes’ and search ‘AWebcamReader’ and select it as the parent class. Name the new blueprint ‘BP_WebcamBillboard’ and open it.
+</p><p>Within the viewport, add a cube static mesh component, and name it ‘Billboard.’ This will be the component that the texture is rendered to. At the beginning of the game, we will want to create a dynamic material instance and set it to the billboard mesh. Under Variables, click the + button to add a new Material Instance Dynamic called ‘DynamicMaterial.’ Drag the Billboard component onto the Event Graph, and create a getter node. Drag out from this new getter and create a Create Dynamic Material Instance node and connect the white execution wire to the transparent BeginPlay event (or create one). This creates an special unreal material instance that can be altered at runtime. However, we have not created this unreal material!
+</p><p>Go back to your content browser, right click and create a new material. Call this material ‘M_Webcam’ and open it. Click on the M_Webcam node and set the Shading Mode to Unlit. Hold ‘T’ and left click anywhere in the new graph to create a texture node. You will have to set the default texture to anything (I used T_Ceramic_Tile_M). Right click this node and convert it to a parameter. Call this parameter ‘Texture’ and connect its white Float3 pin to the Emissive Color pin on the M_Webcam node. Make sure the save the material!
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:Webcam_Material_with_Parameter.png" class="image"><img alt="Webcam Material with Parameter.png" src="https://d3ar1piqh1oeli.cloudfront.net/a/a5/Webcam_Material_with_Parameter.png/180px-Webcam_Material_with_Parameter.png" width="180" height="205" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/a/a5/Webcam_Material_with_Parameter.png/270px-Webcam_Material_with_Parameter.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/a/a5/Webcam_Material_with_Parameter.png/360px-Webcam_Material_with_Parameter.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:Webcam_Material_with_Parameter.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p>Now, back in the BP_WebcamBillboard blueprint, select the M_Webcam as the Source Material for the Create Dynamic Material Instance node, and make sure the Element Index is set to 0. Drag out from the original billboard getter and create a Set Material node. Set the Material pin to the output of the Create Dynamic Material Instance node, and again make sure the Element Index is set to 0. Finally, drag out the DynamicMaterial variable we created earlier and create a setter. Connect the output of the Create Dynamic Material Instance node to the DynamicMaterial input pin to save a reference of this special material for later use.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:WebcamBillboard_event_graph.png" class="image"><img alt="WebcamBillboard event graph.png" src="https://d3ar1piqh1oeli.cloudfront.net/2/2a/WebcamBillboard_event_graph.png/180px-WebcamBillboard_event_graph.png" width="180" height="99" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/2/2a/WebcamBillboard_event_graph.png/270px-WebcamBillboard_event_graph.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/2/2a/WebcamBillboard_event_graph.png/360px-WebcamBillboard_event_graph.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:WebcamBillboard_event_graph.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p>We have dynamically set the material of our Billboard mesh, and now we need to update its texture parameter each time a new frame is received. To do this, right click on the Event Graph and create a OnNextVideoFrame event. This event is called in the WebcamReader actor whenever a new frame is read. Drag out the DynamicMaterial variable and create a getter underneath the new event. Drag out from the getter and create a Set Texture Parameter Value node. Set the Parameter Name to ‘Texture’ (the name of the texture parameter in the M_Webcam material). Right click on the Event Graph and type ‘VideoTexture’ to retrieve a reference to the webcam texture provided by the WebcamReader parent class. Connect the output pin of this VideoTexture reference to the Value pin of the Set Texture Parameter Value node. With that, the BP_WebcamBillboard is ready for use!
+</p>
+<h3><span class="mw-headline" id="Adding_the_WebcamBillboard_to_a_Level">Adding the WebcamBillboard to a Level</span></h3>
+<p>Drag the BP_WebcamBillboard blueprint from the content browser into your level. Orientate and position it however you like, and scale it to a similar scale of your images resolution (about 6.4, 4.8, and 0.5 for my webcam). Now, set the Webcam properties in the detail panel. (I used a Camera ID of 0, Should Resize to false, and Refresh Rate of 2.0) Your Camera ID will determine the camera that renders, it should be 0 unless you have more than one webcam. In the case of a laptop, 0 will probably be the integrated laptop, and 1+ will be any additional webcams. You can now press play to see the results!
+</p><p><a href="/File:Webcam_Billboard_in_Unreal_Engine_4.png" class="image"><img alt="Webcam Billboard in Unreal Engine 4.png" src="https://d26ilriwvtzlb.cloudfront.net/3/35/Webcam_Billboard_in_Unreal_Engine_4.png" width="1279" height="719" /></a>
+</p><p>You can hold alt and move the object to duplicate it. Change its Camera ID to render a second webcam!
+</p><p><a href="/File:Two_Webcam_Billboard_in_Unreal_Engine_4.png" class="image"><img alt="Two Webcam Billboard in Unreal Engine 4.png" src="https://d26ilriwvtzlb.cloudfront.net/f/f6/Two_Webcam_Billboard_in_Unreal_Engine_4.png" width="1275" height="715" /></a>
+</p><p>Good luck with your OpenCV / UE4 Projects!&#160;:)
+</p><p><a href="/User:Ginku" title="User:Ginku">Ginku</a> (<a href="/User_talk:Ginku" title="User talk:Ginku">talk</a>)
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.143 seconds
+Real time usage: 0.510 seconds
+Preprocessor visited node count: 100/1000000
+Preprocessor generated node count: 172/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:4230-0!*!0!!en!2!* and timestamp 20150911002055
+ -->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=Integrating_OpenCV_Into_Unreal_Engine_4&amp;oldid=14881">https://wiki.unrealengine.com/index.php?title=Integrating_OpenCV_Into_Unreal_Engine_4&amp;oldid=14881</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li><li><a href="/Category:Tutorial" title="Category:Tutorial">Tutorial</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.118 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

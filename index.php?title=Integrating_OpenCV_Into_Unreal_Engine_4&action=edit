@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>View source for Integrating OpenCV Into Unreal Engine 4 - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Integrating_OpenCV_Into_Unreal_Engine_4","wgTitle":"Integrating OpenCV Into Unreal Engine 4","wgCurRevisionId":14881,"wgRevisionId":0,"wgArticleId":4230,"wgIsArticle":false,"wgIsRedirect":false,"wgAction":"edit","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgBreakFrames":true,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Integrating_OpenCV_Into_Unreal_Engine_4","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Integrating_OpenCV_Into_Unreal_Engine_4 skin-epic action-edit vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head">
+		
+
+
+
+
+
+<input type="hidden" id="updateenable" value="true">
+
+    <script src="https://cdn1.unrealengine.com/2670222/unifiedHeaderBundle-c133cbefbece60d20fd29c5b1819fa39.js" defer></script>
+    <link rel="stylesheet" href="https://cdn1.unrealengine.com/2670222/unifiedHeader-dd083735d5017970978496baee5b916e.css">
+
+
+<header id="header" data-path="/" data-sitepath="https://www.unrealengine.com">
+<input type="hidden" id="isUnified" value="1" />
+    <input type="hidden" id="current_locale" value="en_US"/>
+    <input type="hidden" id="header-host" value="https://www.unrealengine.com" />
+    <nav class="main-menu">
+        <div class="menu-mobile">
+            <span class="menu-mobile-icon"></span>
+            <ul>
+
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">About</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Learn</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Community</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/blog">Blog</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Marketplace</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Academia</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/education">Education Program</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                
+                <li class="btn-account ignore" style="display: none">
+                    <a href="https://www.unrealengine.com/dashboard">Account</a>
+                </li>
+                <li class="btn-signout ignore" style="display: none">
+                    <a class="sso-sign-out" href="">Log Out</a>
+                </li>
+                <li class="btn-signin ignore" style="display: none">
+                    <a class="sso-sign-in" href="">Sign in</a>
+                </li>
+            </ul>
+        </div>
+
+        <ul class="menu-items">
+            <li class="logo ignore">
+                
+                    <a href="https://www.unrealengine.com/blog"></a>
+                
+            </li>
+
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>About</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Learn</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Community</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/blog">Blog</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Marketplace</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Academia</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/education">Education Program</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+        </ul>
+
+
+        <div class="menu-download" data-sub="dl">
+            <a class="sso-register" href="">
+                <span class="isUpdateEnabled">Get Unreal</span>
+            </a>
+        </div>
+        
+
+        <div id="search" class="menu-search ignore">
+                <span></span>
+        </div>
+        
+        <div class="search-header">
+            <div class="input-search">
+                <div id="search-tips" class="search-tips-en_US">
+                    You may be unable to view the results of this search unless you connect to a VPN first.
+                </div>
+                <span></span>
+                <input type="text" name="search" value="" style="background:none !important" id="isearch" class="text" placeholder="Search..." />
+                <p class="search-btn">Search</p>
+            </div>
+        </div>
+
+        <ul class="menu-icons">
+            <li id="btn-account" class="ignore" data-sub="account" style="display: none">
+                <a href="/dashboard">Account</a>
+                <ul class="account-sub-menu">
+                    <li>
+                        <a href="/dashboard">Personal</a>
+                    </li>
+                    <li>
+                        <a href="https://publish.unrealengine.com/">Seller</a>
+                    </li>
+                </ul>
+            </li>
+            <li id="btn-signout" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-out last-border" href="">Log Out</a>
+            </li>
+            <li id="btn-signin" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-in last-border" href="">Sign in</a>
+            </li>
+        </ul>
+        
+    </nav>
+</header>
+
+		</div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a></li>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Videos"><a href="/Videos">Videos</a></li>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Code"><a href="/Category:Code">Code</a></li>
+			<li id="n-Games"><a href="/Category:Games">Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Integrating_OpenCV_Into_Unreal_Engine_4" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Integrating_OpenCV_Into_Unreal_Engine_4" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-info"><a href="/index.php?title=Integrating_OpenCV_Into_Unreal_Engine_4&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Integrating_OpenCV_Into_Unreal_Engine_4"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Integrating_OpenCV_Into_Unreal_Engine_4&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view"><span><a href="/Integrating_OpenCV_Into_Unreal_Engine_4" >View</a></span></li>
+					<li id="ca-viewsource" class="selected"><span><a href="/index.php?title=Integrating_OpenCV_Into_Unreal_Engine_4&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Integrating_OpenCV_Into_Unreal_Engine_4&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Integrating+OpenCV+Into+Unreal+Engine+4&amp;returntoquery=action%3Dedit&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Integrating+OpenCV+Into+Unreal+Engine+4&amp;returntoquery=action%3Dedit" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">View source for Integrating OpenCV Into Unreal Engine 4</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub">← <a href="/Integrating_OpenCV_Into_Unreal_Engine_4" title="Integrating OpenCV Into Unreal Engine 4">Integrating OpenCV Into Unreal Engine 4</a></div>
+																<div id="mw-content-text"><p>You do not have permission to edit this page, for the following reason:
+</p>
+<div class="permissions-errors">
+<p>The action you have requested is limited to users in the group: <a href="/index.php?title=Epic_Wiki:Users&amp;action=edit&amp;redlink=1" class="new" title="Epic Wiki:Users (page does not exist)">Users</a>.
+</p>
+</div>
+<hr />
+<p>You can view and copy the source of this page:
+</p><textarea readonly="" accesskey="," id="wpTextbox1" cols="80" rows="25" style="" lang="en" dir="ltr" name="wpTextbox1">==Overview==
+
+''Original Author:'' [[User:Ginku|Ginku]] ([[User talk:Ginku|talk]])
+
+Hello all! This is my first wiki tutorial, I hope it can be of help to someone!
+
+I am making this tutorial in response to a few requests.  This will be a detailed, step-by-step guide to linking OpenCV to Unreal Engine 4 using the Unreal Build Tool. You can find a general tutorial on linking any static library to unreal [[Tutorial:Linking Static Libraries Using The Build System|here.]] I recommend reading it in addition to this tutorial, as it is what this tutorial is based on.
+
+===Why OpenCV?===
+
+OpenCV is a powerful open-source computer vision library, and once included into any unreal engine 4 project it will allow for the use of the engine in many non-traditional ways. Including OpenCV in a project as a dependency will allow developers to create state-of-the-art environments with either augmented reality components, virtual reality environments that resemble the user’s surroundings, or any mixture of the two. In this tutorial I will show you how to quickly and painlessly include OpenCV in any unreal engine 4 project with the Windows OS, and then I will guide you through displaying a webcam in the game environment.
+
+==Linking OpenCV in Visual Studios==
+
+Before you continue, make sure you are starting from a code project, or have added code to your project with the editor!
+
+===Copying the OpenCV Files===
+
+In order to begin, all of OpenCV’s include and library files will need to be added to your project’s ‘/ThirdParty’ directory. To begin, locate your installation of OpenCV. Inside its root directory you will find the ‘/build/include’ directory. Copy all of the contents of this directory into the ‘ProjectRootDirectory]/ThirdParty/OpenCV/Includes’ directory. Next, copy all of the files in the ‘/build/x64/vc12/lib’ and ‘/build/x64/vc12/bin’ folders to the ‘ProjectRootDirectory]/ThirdParty/OpenCV/Libraries/Win64/’ directory. Finally, copy all of the files in the ‘/build/x86/vc12/lib’ and ‘/build/x86/vc12/bin’ folders to the ‘ProjectRootDirectory]/ThirdParty/OpenCV/Libraries/Win32/’ directory.
+
+===Adding OpenCV Dependencies===
+
+Locate and open your projects module rules file, which should be in your projects ‘Source/[Project Name]’ directory. (It will be in the format of ‘ProjectName.Build.cs’) In this file, we will add the necessary code so that the unreal build tool will include all of the necessary dependencies during build time.
+
+First, be sure to add the following include at the top of the file:
+
+&lt;syntaxhighlight lang="cpp">
+using System.IO;
+&lt;/syntaxhighlight>
+
+This lets you use the Path helper class, which is very useful for assembling directory paths!
+
+Inside your ModuleRules class and before the constructor, add the following getters:
+
+&lt;syntaxhighlight lang="cpp">
+private string ModulePath
+{ 
+	get { return Path.GetDirectoryName(RulesCompiler.GetModuleFilename(this.GetType().Name)); }
+}
+private string ThirdPartyPath
+{ 
+	get { return Path.GetFullPath(Path.Combine(ModulePath, "../../ThirdParty/")); } 
+}
+&lt;/syntaxhighlight>
+
+These are helper functions for retrieving the /ThirdParty/ path, and can be very helpful when including more than one third party dependency to a project. Now, add the following function after the constructor:
+
+&lt;syntaxhighlight lang="cpp">
+public bool LoadOpenCV(TargetInfo Target)
+{ 
+	bool isLibrarySupported = false;
+
+	// Create OpenCV Path 
+	string OpenCVPath = Path.Combine(ThirdPartyPath, "OpenCV");
+
+	// Get Library Path 
+	string LibPath = ""; 
+	bool isdebug = Target.Configuration == UnrealTargetConfiguration.Debug &amp;&amp; BuildConfiguration.bDebugBuildsActuallyUseDebugCRT; 
+	if (Target.Platform == UnrealTargetPlatform.Win64) 
+	{ 
+		LibPath = Path.Combine(OpenCVPath, "Libraries", "Win64"); 
+		isLibrarySupported = true; 
+	} 
+	else if (Target.Platform == UnrealTargetPlatform.Win32) 
+	{ 
+		LibPath = Path.Combine(OpenCVPath, "Libraries", "Win32"); 
+		isLibrarySupported = true; 
+	} 
+	else 
+	{ 
+		string Err = string.Format("{0} dedicated server is made to depend on {1}. We want to avoid this, please correct module dependencies.", Target.Platform.ToString(), this.ToString()); System.Console.WriteLine(Err); 
+	}
+
+	if (isLibrarySupported) 
+	{ 
+		// Add Library Path 
+		PublicLibraryPaths.Add(LibPath);
+
+		// Add Dependencies 
+		if (!isdebug) 
+		{ 
+			//Add the static libraries
+			PublicAdditionalLibraries.Add(Path.Combine(LibPath, "opencv_core2410.lib"));
+			PublicAdditionalLibraries.Add(Path.Combine(LibPath, "highgui2410.lib")); 
+			PublicAdditionalLibraries.Add(Path.Combine(LibPath, "imgproc2410.lib")); 
+			// ... (Add as many as you need! Be sure to change the 2410 [ver 2.4.10] to whatever your version is!)
+
+			//Add the dynamic libraries
+			PublicDelayLoadDLLs.Add(Path.Combine(LibPath, "opencv_core2410.dll"));
+			PublicDelayLoadDLLs.Add(Path.Combine(LibPath, "highgui2410.dll"));
+			PublicDelayLoadDLLs.Add(Path.Combine(LibPath, "imgproc2410.dll"));
+			// ... (Add as many as you need! Be sure to change the 2410 [ver 2.4.10] to whatever your version is!)
+		}
+		else
+		{
+			//Add the static libraries (debug versions)
+			PublicAdditionalLibraries.Add(Path.Combine(LibPath, "opencv_core2410d.lib"));
+			PublicAdditionalLibraries.Add(Path.Combine(LibPath, "highgui2410d.lib")); 
+			PublicAdditionalLibraries.Add(Path.Combine(LibPath, "imgproc2410d.lib")); 
+			// ... (Add as many as you need! Be sure to change the 2410 [ver 2.4.10] to whatever your version is!)
+
+			//Add the dynamic libraries (debug versions)
+			PublicDelayLoadDLLs.Add(Path.Combine(LibPath, "opencv_core2410d.dll"));
+			PublicDelayLoadDLLs.Add(Path.Combine(LibPath, "highgui2410d.dll"));
+			PublicDelayLoadDLLs.Add(Path.Combine(LibPath, "imgproc2410d.dll"));
+			// ... (Add as many as you need! Be sure to change the 2410 [ver 2.4.10] to whatever your version is!)
+		}
+
+		//Add include path 
+		PublicIncludePaths.Add(Path.Combine(OpenCVPath, "Includes")); 
+	}
+
+	Definitions.Add(string.Format("WITH_OPENCV_BINDING={0}", isLibrarySupported ? 1 : 0));
+
+	return isLibrarySupported; 
+}
+&lt;/syntaxhighlight>
+
+This function includes all of the required includes and libraries for OpenCV. Now, simply call this function inside your project constructor after the standard public modules:
+
+&lt;syntaxhighlight lang="cpp">
+PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "RHI", "RenderCore", "ShaderCore" });
+
+LoadOpenCV(Target);
+&lt;/syntaxhighlight>
+
+Be sure to add the InputCore, RHI, and RenderCore engine modules to the public dependency list, we will use these later to create a dynamic texture from the camera feed.
+
+Now, your project should successfully compile with OpenCV included within the engine build! However, there is one more thing that needs to be included before you can launch an instance of your project’s editor.
+
+===Copying the DLL's to the Build===
+
+Before your project will run with any OpenCV code, you will first need to add all of the dynamically linked library (.dll) files that you use to your editor’s bin folder. Your editor will typically be a 64-bit application, so copy all of the .dll files that you plan on using in your code from the OpenCV’s 64 bit bin folder (full directory shown above) and paste them inside the ‘[ProjectRootDirectory]/Binaries/Win64’ directory.  These DLL's should be included with any distributions of the project.
+
+==Adding a WebcamReader class==
+
+You are now ready to launch an instance of your editor and start using OpenCV! Right click the project name in your solution explorer, and select Debug > Start new instance. Once the editor loads, select File > New C++ Class… and select the ‘Actor’ parent class. Press Next, name the actor ‘WebcamReader’ and press Create Class. Once Unreal has finished adding the new actor, the new header and source files will be opened inside Visual Studios. Add the following code to each of them:
+
+===Header===
+
+&lt;syntaxhighlight lang="cpp">
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "GameFramework/Actor.h"
+#include "C:/Users//Brandon/Desktop/UnrealRobotics/ThirdParty/OpenCV/Includes/opencv2/core/core.hpp"		//Change this to your include path!
+#include "C:/Users//Brandon/Desktop/UnrealRobotics/ThirdParty/OpenCV/Includes/opencv2/highgui/highgui.hpp"	//Change this to your include path!
+#include "C:/Users//Brandon/Desktop/UnrealRobotics/ThirdParty/OpenCV/Includes/opencv2/imgproc/imgproc.hpp"	//Change this to your include path!
+#include "WebcamReader.generated.h"
+
+UCLASS()
+class UNREALROBOTICS_API AWebcamReader : public AActor
+{
+	GENERATED_BODY()
+	
+public:	
+	// Sets default values for this actor's properties
+	AWebcamReader();
+
+	// deallocates memory for the opencv fields
+	~AWebcamReader();
+
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+	
+	// Called every frame
+	virtual void Tick( float DeltaSeconds ) override;
+
+	// The device ID opened by the Video Stream
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Webcam)
+	int32 CameraID;
+
+	// If the webcam images should be resized every frame
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Webcam)
+	bool ShouldResize;
+
+	// The targeted resize width and height (width, height)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Webcam)
+	FVector2D ResizeDeminsions;
+
+	// The rate at which the color data array and video texture is updated (in frames per second)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Webcam)
+	float RefreshRate;
+
+	// The refresh timer
+	UPROPERTY(BlueprintReadWrite, Category = Webcam)
+	float RefreshTimer;
+
+	// Blueprint Event called every time the video frame is updated
+	UFUNCTION(BlueprintNativeEvent, Category = Webcam)
+	void OnNextVideoFrame();
+
+	// OpenCV fields
+	cv::Mat* frame;
+	cv::VideoCapture* stream;
+	cv::Size* size;
+
+	// OpenCV prototypes
+	void UpdateFrame();
+	void UpdateTexture();
+
+	// If the stream has succesfully opened yet
+	UPROPERTY(BlueprintReadWrite, Category = Webcam)
+	bool isStreamOpen;
+
+	// The videos width and height (width, height)
+	UPROPERTY(BlueprintReadWrite, Category = Webcam)
+	FVector2D VideoSize;
+
+	// The current video frame's corresponding texture
+	UPROPERTY(BlueprintReadWrite, Category = Webcam)
+	UTexture2D* VideoTexture;
+
+	// The current data array
+	UPROPERTY(BlueprintReadWrite, Category = Webcam)
+	TArray&lt;FColor> Data;
+
+protected:
+
+	// Use this function to update the texture rects you want to change:
+	// NOTE: There is a method called UpdateTextureRegions in UTexture2D but it is compiled WITH_EDITOR and is not marked as ENGINE_API so it cannot be linked
+	// from plugins.
+	// FROM: https://wiki.unrealengine.com/Dynamic_Textures
+	void UpdateTextureRegions(UTexture2D* Texture, int32 MipIndex, uint32 NumRegions, FUpdateTextureRegion2D* Regions, uint32 SrcPitch, uint32 SrcBpp, uint8* SrcData, bool bFreeData);
+
+	// Pointer to update texture region 2D struct
+	FUpdateTextureRegion2D* VideoUpdateTextureRegion;
+};
+
+&lt;/syntaxhighlight>
+
+You might have noticed that I am using the '''full include paths''' in this example. Please change these to your own header paths! I could not get the Unreal Build Tool to properly add the include folder. If you find a way, please add it to this example!
+
+===Source===
+
+&lt;syntaxhighlight lang="cpp">
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#include "YOURPROJECT.h"
+#include "WebcamReader.h"
+
+// Sets default values
+AWebcamReader::AWebcamReader()
+{
+ 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+
+	// Initialize OpenCV and webcam properties
+	CameraID = 0;
+	RefreshRate = 15;
+	isStreamOpen = false;
+	VideoSize = FVector2D(0, 0);
+	ShouldResize = false;
+	ResizeDeminsions = FVector2D(320, 240);
+	stream = new cv::VideoCapture();
+	frame = new cv::Mat();
+	RefreshTimer = 1000000.0f;
+}
+
+AWebcamReader::~AWebcamReader()
+{
+	FMemory::Free(stream);
+	FMemory::Free(frame);
+	FMemory::Free(size);
+}
+
+// Called when the game starts or when spawned
+void AWebcamReader::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	stream->open(CameraID);
+	if (stream->isOpened())
+	{
+		//Initialize stream
+		isStreamOpen = true;
+		UpdateFrame();
+		VideoSize = FVector2D(frame->cols, frame->rows);
+		size = new cv::Size(ResizeDeminsions.X, ResizeDeminsions.Y);
+		VideoTexture = UTexture2D::CreateTransient(VideoSize.X, VideoSize.Y);
+		VideoTexture->UpdateResource();
+		VideoUpdateTextureRegion = new FUpdateTextureRegion2D(0, 0, 0, 0, VideoSize.X, VideoSize.Y);
+
+		//Initialize data array
+		Data.Init(FColor(0, 0, 0, 255), VideoSize.X * VideoSize.Y);
+	}
+
+}
+
+// Called every frame
+void AWebcamReader::Tick( float DeltaTime )
+{
+	Super::Tick( DeltaTime );
+
+	RefreshTimer += DeltaTime;
+	if (isStreamOpen &amp;&amp; RefreshTimer >= 1.0f / RefreshRate)
+	{
+		RefreshTimer -= 1.0f / RefreshRate;
+		UpdateFrame();
+		UpdateTexture();
+		OnNextVideoFrame();
+	}
+}
+
+void AWebcamReader::UpdateFrame()
+{
+	if (isStreamOpen)
+	{
+		stream->read(*frame);
+		if (ShouldResize)
+		{
+			cv::resize(*frame, *frame, *size);
+		}
+	}
+}
+
+void AWebcamReader::UpdateTexture()
+{
+	if (isStreamOpen &amp;&amp; frame->data)
+	{
+		//Copy Mat data to Data array
+		for (int y = 0; y &lt; VideoSize.Y; y++)
+		{
+			for (int x = 0; x &lt; VideoSize.X; x++)
+			{
+				int i = x + (y * VideoSize.X);
+				Data[i].B = frame->data[i * 3 + 0];
+				Data[i].G = frame->data[i * 3 + 1];
+				Data[i].R = frame->data[i * 3 + 2];
+			}
+		}
+
+		//Update texture 2D
+		UpdateTextureRegions(VideoTexture, (int32)0, (uint32)3, VideoUpdateTextureRegion, (uint32)(4 * VideoSize.X), (uint32)4, (uint8*)Data.GetData(), false);
+	}
+}
+
+void AWebcamReader::UpdateTextureRegions(UTexture2D* Texture, int32 MipIndex, uint32 NumRegions, FUpdateTextureRegion2D* Regions, uint32 SrcPitch, uint32 SrcBpp, uint8* SrcData, bool bFreeData)
+{
+	if (Texture->Resource)
+	{
+		struct FUpdateTextureRegionsData
+		{
+			FTexture2DResource* Texture2DResource;
+			int32 MipIndex;
+			uint32 NumRegions;
+			FUpdateTextureRegion2D* Regions;
+			uint32 SrcPitch;
+			uint32 SrcBpp;
+			uint8* SrcData;
+		};
+
+		FUpdateTextureRegionsData* RegionData = new FUpdateTextureRegionsData;
+
+		RegionData->Texture2DResource = (FTexture2DResource*)Texture->Resource;
+		RegionData->MipIndex = MipIndex;
+		RegionData->NumRegions = NumRegions;
+		RegionData->Regions = Regions;
+		RegionData->SrcPitch = SrcPitch;
+		RegionData->SrcBpp = SrcBpp;
+		RegionData->SrcData = SrcData;
+
+		ENQUEUE_UNIQUE_RENDER_COMMAND_TWOPARAMETER(
+			UpdateTextureRegionsData,
+			FUpdateTextureRegionsData*, RegionData, RegionData,
+			bool, bFreeData, bFreeData,
+			{
+			for (uint32 RegionIndex = 0; RegionIndex &lt; RegionData->NumRegions; ++RegionIndex)
+			{
+				int32 CurrentFirstMip = RegionData->Texture2DResource->GetCurrentFirstMip();
+				if (RegionData->MipIndex >= CurrentFirstMip)
+				{
+					RHIUpdateTexture2D(
+						RegionData->Texture2DResource->GetTexture2DRHI(),
+						RegionData->MipIndex - CurrentFirstMip,
+						RegionData->Regions[RegionIndex],
+						RegionData->SrcPitch,
+						RegionData->SrcData
+						+ RegionData->Regions[RegionIndex].SrcY * RegionData->SrcPitch
+						+ RegionData->Regions[RegionIndex].SrcX * RegionData->SrcBpp
+						);
+				}
+			}
+			if (bFreeData)
+			{
+				FMemory::Free(RegionData->Regions);
+				FMemory::Free(RegionData->SrcData);
+			}
+			delete RegionData;
+		});
+	}
+}
+
+void AWebcamReader::OnNextVideoFrame_Implementation()
+{
+	// No default implementation
+}
+&lt;/syntaxhighlight>
+
+This class is used as a wrapper for a future unreal blueprint class. It allows for you to specify the device ID, target resolution and framerate of the camera, as well as providing a dynamic texture and FColor array of the current frame's pixels and a blueprint native event that is called whenever the next webcam frame is available!
+
+==Moving to Blueprints==
+
+You can now access your webcam feed in blueprints. From this point forward we will be working in the editor.
+
+===Adding the WebcamBillboard Actor===
+
+Now that all the code has been included for accessing your webcams, I will now show you how to use the dynamic texture from the WebcamReader actor in a new WebcamBillboard subclass. This time, the code will be implemented in unreal blueprints! Launch the editor again with Debug > Start new instance. In your choice of directory, right click and add a new blueprint class. At the bottom of the new window, expand ‘All Classes’ and search ‘AWebcamReader’ and select it as the parent class. Name the new blueprint ‘BP_WebcamBillboard’ and open it.
+
+Within the viewport, add a cube static mesh component, and name it ‘Billboard.’ This will be the component that the texture is rendered to. At the beginning of the game, we will want to create a dynamic material instance and set it to the billboard mesh. Under Variables, click the + button to add a new Material Instance Dynamic called ‘DynamicMaterial.’ Drag the Billboard component onto the Event Graph, and create a getter node. Drag out from this new getter and create a Create Dynamic Material Instance node and connect the white execution wire to the transparent BeginPlay event (or create one). This creates an special unreal material instance that can be altered at runtime. However, we have not created this unreal material!
+
+Go back to your content browser, right click and create a new material. Call this material ‘M_Webcam’ and open it. Click on the M_Webcam node and set the Shading Mode to Unlit. Hold ‘T’ and left click anywhere in the new graph to create a texture node. You will have to set the default texture to anything (I used T_Ceramic_Tile_M). Right click this node and convert it to a parameter. Call this parameter ‘Texture’ and connect its white Float3 pin to the Emissive Color pin on the M_Webcam node. Make sure the save the material!
+
+[[File:Webcam_Material_with_Parameter.png|180px|thumb|right]]
+
+Now, back in the BP_WebcamBillboard blueprint, select the M_Webcam as the Source Material for the Create Dynamic Material Instance node, and make sure the Element Index is set to 0. Drag out from the original billboard getter and create a Set Material node. Set the Material pin to the output of the Create Dynamic Material Instance node, and again make sure the Element Index is set to 0. Finally, drag out the DynamicMaterial variable we created earlier and create a setter. Connect the output of the Create Dynamic Material Instance node to the DynamicMaterial input pin to save a reference of this special material for later use.
+
+[[File:WebcamBillboard_event_graph.png|180px|thumb|right]]
+
+We have dynamically set the material of our Billboard mesh, and now we need to update its texture parameter each time a new frame is received. To do this, right click on the Event Graph and create a OnNextVideoFrame event. This event is called in the WebcamReader actor whenever a new frame is read. Drag out the DynamicMaterial variable and create a getter underneath the new event. Drag out from the getter and create a Set Texture Parameter Value node. Set the Parameter Name to ‘Texture’ (the name of the texture parameter in the M_Webcam material). Right click on the Event Graph and type ‘VideoTexture’ to retrieve a reference to the webcam texture provided by the WebcamReader parent class. Connect the output pin of this VideoTexture reference to the Value pin of the Set Texture Parameter Value node. With that, the BP_WebcamBillboard is ready for use!
+
+===Adding the WebcamBillboard to a Level===
+
+Drag the BP_WebcamBillboard blueprint from the content browser into your level. Orientate and position it however you like, and scale it to a similar scale of your images resolution (about 6.4, 4.8, and 0.5 for my webcam). Now, set the Webcam properties in the detail panel. (I used a Camera ID of 0, Should Resize to false, and Refresh Rate of 2.0) Your Camera ID will determine the camera that renders, it should be 0 unless you have more than one webcam. In the case of a laptop, 0 will probably be the integrated laptop, and 1+ will be any additional webcams. You can now press play to see the results!
+
+[[File:Webcam_Billboard_in_Unreal_Engine_4.png]]
+
+You can hold alt and move the object to duplicate it. Change its Camera ID to render a second webcam!
+
+[[File:Two_Webcam_Billboard_in_Unreal_Engine_4.png]]
+
+Good luck with your OpenCV / UE4 Projects! :)
+
+[[User:Ginku|Ginku]] ([[User talk:Ginku|talk]])
+
+[[Category:Code]]
+[[Category:Tutorial]]
+</textarea><div class="templatesUsed"></div><p id="mw-returnto">Return to <a href="/Integrating_OpenCV_Into_Unreal_Engine_4" title="Integrating OpenCV Into Unreal Engine 4">Integrating OpenCV Into Unreal Engine 4</a>.</p>
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/Integrating_OpenCV_Into_Unreal_Engine_4">https://wiki.unrealengine.com/Integrating_OpenCV_Into_Unreal_Engine_4</a>"				</div>
+												<div id='catlinks' class='catlinks catlinks-allhidden'></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.edit.collapsibleFooter","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.067 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

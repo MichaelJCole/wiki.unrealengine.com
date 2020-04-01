@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Third Person Camera Zoom C++ - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Third_Person_Camera_Zoom_C++","wgTitle":"Third Person Camera Zoom C++","wgCurRevisionId":10030,"wgRevisionId":10030,"wgArticleId":1461,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Code","Community Created Content"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Third_Person_Camera_Zoom_C++","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["ext.voteNY","mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Third_Person_Camera_Zoom_C skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head">
+		
+
+
+
+
+
+<input type="hidden" id="updateenable" value="true">
+
+    <script src="https://cdn1.unrealengine.com/2670222/unifiedHeaderBundle-c133cbefbece60d20fd29c5b1819fa39.js" defer></script>
+    <link rel="stylesheet" href="https://cdn1.unrealengine.com/2670222/unifiedHeader-dd083735d5017970978496baee5b916e.css">
+
+
+<header id="header" data-path="/" data-sitepath="https://www.unrealengine.com">
+<input type="hidden" id="isUnified" value="1" />
+    <input type="hidden" id="current_locale" value="en_US"/>
+    <input type="hidden" id="header-host" value="https://www.unrealengine.com" />
+    <nav class="main-menu">
+        <div class="menu-mobile">
+            <span class="menu-mobile-icon"></span>
+            <ul>
+
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">About</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Learn</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Community</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/blog">Blog</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Marketplace</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Academia</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/education">Education Program</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                
+                <li class="btn-account ignore" style="display: none">
+                    <a href="https://www.unrealengine.com/dashboard">Account</a>
+                </li>
+                <li class="btn-signout ignore" style="display: none">
+                    <a class="sso-sign-out" href="">Log Out</a>
+                </li>
+                <li class="btn-signin ignore" style="display: none">
+                    <a class="sso-sign-in" href="">Sign in</a>
+                </li>
+            </ul>
+        </div>
+
+        <ul class="menu-items">
+            <li class="logo ignore">
+                
+                    <a href="https://www.unrealengine.com/blog"></a>
+                
+            </li>
+
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>About</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Learn</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Community</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/blog">Blog</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Marketplace</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Academia</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/education">Education Program</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+        </ul>
+
+
+        <div class="menu-download" data-sub="dl">
+            <a class="sso-register" href="">
+                <span class="isUpdateEnabled">Get Unreal</span>
+            </a>
+        </div>
+        
+
+        <div id="search" class="menu-search ignore">
+                <span></span>
+        </div>
+        
+        <div class="search-header">
+            <div class="input-search">
+                <div id="search-tips" class="search-tips-en_US">
+                    You may be unable to view the results of this search unless you connect to a VPN first.
+                </div>
+                <span></span>
+                <input type="text" name="search" value="" style="background:none !important" id="isearch" class="text" placeholder="Search..." />
+                <p class="search-btn">Search</p>
+            </div>
+        </div>
+
+        <ul class="menu-icons">
+            <li id="btn-account" class="ignore" data-sub="account" style="display: none">
+                <a href="/dashboard">Account</a>
+                <ul class="account-sub-menu">
+                    <li>
+                        <a href="/dashboard">Personal</a>
+                    </li>
+                    <li>
+                        <a href="https://publish.unrealengine.com/">Seller</a>
+                    </li>
+                </ul>
+            </li>
+            <li id="btn-signout" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-out last-border" href="">Log Out</a>
+            </li>
+            <li id="btn-signin" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-in last-border" href="">Sign in</a>
+            </li>
+        </ul>
+        
+    </nav>
+</header>
+
+		</div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a></li>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Videos"><a href="/Videos">Videos</a></li>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Code"><a href="/Category:Code">Code</a></li>
+			<li id="n-Games"><a href="/Category:Games">Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Third_Person_Camera_Zoom_C%2B%2B" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Third_Person_Camera_Zoom_C%2B%2B" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=Third_Person_Camera_Zoom_C%2B%2B&amp;oldid=10030&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Third_Person_Camera_Zoom_C%2B%2B&amp;oldid=10030" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Third_Person_Camera_Zoom_C%2B%2B&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Third_Person_Camera_Zoom_C%2B%2B"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk"><span><a href="/Talk:Third_Person_Camera_Zoom_C%2B%2B"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Third_Person_Camera_Zoom_C%2B%2B" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Third_Person_Camera_Zoom_C%2B%2B&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Third_Person_Camera_Zoom_C%2B%2B&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Third+Person+Camera+Zoom+C%2B%2B&amp;returntoquery=oldid%3D10030&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Third+Person+Camera+Zoom+C%2B%2B&amp;returntoquery=oldid%3D10030" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Third Person Camera Zoom C++</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"><div id="mw-revision-info">Revision as of 17:40, 31 October 2014 by <a href="/index.php?title=User:Thk123&amp;action=edit&amp;redlink=1" class="new mw-userlink" title="User:Thk123 (page does not exist)">Thk123</a>  <span class="mw-usertoollinks">(<a href="/index.php?title=User_talk:Thk123&amp;action=edit&amp;redlink=1" class="new" title="User talk:Thk123 (page does not exist)">Talk</a> | <a href="/Special:Contributions/Thk123" title="Special:Contributions/Thk123">contribs</a>)</span></div><br />
+				<div id="mw-revision-nav">(<a href="/index.php?title=Third_Person_Camera_Zoom_C%2B%2B&amp;diff=prev&amp;oldid=10030" title="Third Person Camera Zoom C++">diff</a>) <a href="/index.php?title=Third_Person_Camera_Zoom_C%2B%2B&amp;direction=prev&amp;oldid=10030" title="Third Person Camera Zoom C++">← Older revision</a> | Latest revision (diff) | Newer revision → (diff)</div></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="aux">
+<div>
+<b>Rate this Article:</b> <div id="rating_"><div class="rating-score"><div class="voteboxrate">4.50</div></div><div class="rating-section"><img class="vote-rating-star" data-vote-the-vote="1" data-vote-id="" data-vote-action="3" data-vote-rating="4.50" data-vote-voted="0" id="rating__1" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="2" data-vote-id="" data-vote-action="3" data-vote-rating="4.50" data-vote-voted="0" id="rating__2" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="3" data-vote-id="" data-vote-action="3" data-vote-rating="4.50" data-vote-voted="0" id="rating__3" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="4" data-vote-id="" data-vote-action="3" data-vote-rating="4.50" data-vote-voted="0" id="rating__4" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="5" data-vote-id="" data-vote-action="3" data-vote-rating="4.50" data-vote-voted="0" id="rating__5" src="/extensions/VoteNY/images/star_half.gif" alt="" /> <span class="rating-total">(2 votes)</span></div>
+				<div class="rating-clear">
+			</div></div>
+</div>
+<div>
+<p>Approved for Versions:4.2.1+
+</p>
+</div>
+</div>
+<h2><span class="mw-headline" id="Third_Person_Camera_Zoom_with_C.2B.2B"><b>Third Person Camera Zoom with C++</b></span></h2>
+<pre><br /><br />
+</pre>
+<p>Hello and welcome to this page! Here is a list of things that you will learn upon the completion of this tutorial: <br />
+</p>
+<ul>
+<li> <i>1) Creating Custom Functions</i><br />
+</li>
+<li> <i>2) Initializing and Declaring Local and Global Variables</i><br />
+</li>
+<li> <i>3) Compiling and Creating Working Code for a Zooming 3rd Person Camera</i><br />
+</li>
+<li> <i>4) Understanding WHY it works! (I can't stress how important this is!)</i><br />
+</li>
+</ul>
+<pre> <br />
+</pre>
+<p>Well then, let's get started shall we? First and foremost go ahead and start the UE4 launcher. That would be this little guy here in the caption:<br />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UE4ZoomTut1.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/d/d2/UE4ZoomTut1.png/180px-UE4ZoomTut1.png" width="180" height="101" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/d/d2/UE4ZoomTut1.png/270px-UE4ZoomTut1.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/d/d2/UE4ZoomTut1.png/360px-UE4ZoomTut1.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UE4ZoomTut1.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>The Launcher</div></div></div><br />
+<p>Now that this is open it's important too follow these steps very carefully. We wouldn't want to get lost would we? Anyways, go ahead and click the big yellow button that says "Launch".<br /><br />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UE4ZoomTut2.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/6/64/UE4ZoomTut2.png/180px-UE4ZoomTut2.png" width="180" height="101" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/6/64/UE4ZoomTut2.png/270px-UE4ZoomTut2.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/6/64/UE4ZoomTut2.png/360px-UE4ZoomTut2.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UE4ZoomTut2.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Template</div></div></div>
+<p>Now that you've done that you'll want to click "New Project" and scroll down until you find the "Code Third Person" template. When you've done that you can go ahead and name it anything you'd like but i'd strongly recommend you follow my naming convention (Basically name it the same as me) so that way it'll be easier to follow, i'll explain later, in case you're lost please click the image that says Template.<br />
+<br />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UE4ZoomTut3.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/2/2e/UE4ZoomTut3.png/180px-UE4ZoomTut3.png" width="180" height="101" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/2/2e/UE4ZoomTut3.png/270px-UE4ZoomTut3.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/2/2e/UE4ZoomTut3.png/360px-UE4ZoomTut3.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UE4ZoomTut3.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Visual Studio Startup</div></div></div>
+<p>So you've just created the Code Third Person template with the name TutorialForOthers and just clicked Create Project. Amazing! Let's move on. If you have Microsoft Visual Studio 2013(Which is basically required for Coding in UE4!), the project should have immediately started in the compiler. If it did and this is your first time with Visual Studio 2013, don't freak out. I admit that it does look sort of intimidating but don't let that frighten you. Be sure to click the image on this wiki page called Visual Studio Startup.<br /><br />
+</p><p><br />
+One thing you'll notice is that on the left panel I have TutorialForOthers selected that is why it's highlighted in blue. But directly to the left you should notice a little arrow, go ahead and click that to open up the solution's contents. Now go ahead and click on the folder called "<b>Source</b>" and again just click the little arrow underneath it. Go ahead and repeat the process for the folder in that one called "<i>TutorialForOthers</i>"<br /><br />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UE4ZoomTut4.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/3/31/UE4ZoomTut4.png/180px-UE4ZoomTut4.png" width="180" height="101" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/3/31/UE4ZoomTut4.png/270px-UE4ZoomTut4.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/3/31/UE4ZoomTut4.png/360px-UE4ZoomTut4.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UE4ZoomTut4.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Visual Studio Solution 1</div></div></div>
+<p><i>(Oh and for good reference please click the picture called Visual Studio Solution 1 to double check that you're looking at the exact same thing as I.)</i><br /><br />
+</p><p><br />
+Anyways, let's continue. Now you're probably thinking if you're new to Visual Studio or programming in general, "What the heck am I looking at!?". Trust me this is totally normal. On the left hand side you should notice a bunch of files that are literally called TutorialForOthers with their respective .cpp (C++) and .h(Header) files next to them.<br /><br />
+</p>
+<h3><span class="mw-headline" id="Coding_Start">Coding Start</span></h3>
+<p>Well where do we get started? Simple. If we think about this logically, who does the camera really concern in a game? The character. So that tells us immediately that we should probably take a look in the TutorialForOthersCharacter.cpp and TutorialForOthersCharacter.h files. Go ahead and double click on both of those.<br /><br />
+</p><p><i>(A Header File is a file in which the programmer typically creates a class and defines all the functions (Or methods, it's basically the same thing.) into it, this includes variables as well. This is called proto-typing. That means that if I wanted a character to Jump, i'd create the Jumping in the Header file but the actual code that performs the jump would be in the .cpp file. Get it? A Class is just a collection of Methods and Variables, it's called encapsulation.)</i><br /><br />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UE4ZoomTut5.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/5/52/UE4ZoomTut5.png/180px-UE4ZoomTut5.png" width="180" height="101" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/5/52/UE4ZoomTut5.png/270px-UE4ZoomTut5.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/5/52/UE4ZoomTut5.png/360px-UE4ZoomTut5.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UE4ZoomTut5.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Visual Studio Solution 2</div></div></div>
+<p>Please go ahead and click the image Visual Studio Solution 2. Immediately you should notice that we should be in the TutorialForOthersCharacter.h file, in the protected section. Don't worry about protection and what that means until you've familiarized yourself with C++ a little more. It's a little out of the scope of this tutorial and won't effect us at this time. Now here is where the real fun begins and it's time to get our hands dirty with some actual coding.<br />
+<br />
+</p><p>First and fore-most. Directly under "<i>protected:</i>" it is important to write this exactly as I do, if confused look at the image HeaderFileCharacter .<br />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UE4ZoomTut6.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/8/83/UE4ZoomTut6.png/180px-UE4ZoomTut6.png" width="180" height="101" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/8/83/UE4ZoomTut6.png/270px-UE4ZoomTut6.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/8/83/UE4ZoomTut6.png/360px-UE4ZoomTut6.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UE4ZoomTut6.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>HeaderFileCharacter</div></div></div>
+<p><br />
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw2">protected</span><span class="sy4">:</span>
+    <span class="kw4">void</span> CameraZoomIn<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw4">void</span> CameraZoomOut<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw4">float</span> CameraZoom_v<span class="sy4">;</span></pre></div></div>
+<p>Don't worry about all the other code directly underneath the bit we just wrote. Now then it's important to explain exactly what we did. As mentioned before this is called proto-typing. We created two functions(Or methods, same thing really) with the void return type(No return type) which is literally just a name of something that we expect it to do. For instance if we made a function name called Jump then we'd expect something to jump when that function is called. Last but not least we created a variable using the data type float which is basically a decimal number. We're going to call it CameraZoom_v, why _v? Because it reminds me that this is a variable that needs to be assigned a number later on.<br />
+<br />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UE4ZoomTut7.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/0/0a/UE4ZoomTut7.png/180px-UE4ZoomTut7.png" width="180" height="101" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/0/0a/UE4ZoomTut7.png/270px-UE4ZoomTut7.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/0/0a/UE4ZoomTut7.png/360px-UE4ZoomTut7.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UE4ZoomTut7.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>CPPFileCharacter</div></div></div>
+<p>Go ahead and double click on TutorialForOthersCharacter.cpp and it should open the appropriate file. Of course you can click on the image on this wiki CPPFileCharacter to make sure that you're on the right track. Don't mind the red lines that your compiler might get for now. It's perfectly fine. Visual Studio 2013 can act a little bit slow and glitchy from time to time. It isn't anything to worry about at this time. <br />
+<br />
+</p><p>Now let's get to work. Directly underneath the two include instructions at the top of the code I want you to create the following. If you're lost then go ahead and click the image called CPPFileCharacter2.
+<br />
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">/////</span>
+<span class="kw4">void</span> ATutorialForOthersCharacter<span class="sy4">::</span><span class="me2">CameraZoomIn</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+&#160;
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> ATutorialForOthersCharacter<span class="sy4">::</span><span class="me2">CameraZoomOut</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+&#160;
+<span class="br0">&#125;</span></pre></div></div>
+<p><br />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UE4ZoomTut8.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/5/52/UE4ZoomTut8.png/180px-UE4ZoomTut8.png" width="180" height="101" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/5/52/UE4ZoomTut8.png/270px-UE4ZoomTut8.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/5/52/UE4ZoomTut8.png/360px-UE4ZoomTut8.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UE4ZoomTut8.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>CPPFileCharacter2</div></div></div>
+<p><br />
+Alright, I feel it's pretty important to discuss exactly what we just did. Remember in the .h file we made the name of the two functions and I mentioned that we were proto-typing them? Well this is where we actually start to see it come to life. In the .cpp file we're going to actually make it DO SOMETHING. First though we had to specify it's return type, the void and then call the name of the class with the letter A in front of it, in this case it was called ATutorialForOthersCharacter. Then we included the membership operator which is the two colons&#160;:: followed by the name of the function that we earlier created in the Header file. Pretty cool huh? We separated it this time with curly braces and this means that inside this function any code created will be used. So now it's time to actually tell the camera how we want it to operate.<br />
+<br />
+</p><p>Inside the CameraZoomIn function what do we expect? Well, if I scroll up with my middle mouse button then I expect the camera to zoom in. But how do we do that? If you scrolled down and looked at this page you might have found this: CameraBoom-&gt;TargetArmLength = 300.0f; Woah, what the heck is that!? Well, when we started with the Third Person Template from earlier it created something called a CameraBoom which handles the camera. That was nice of it wasn't it? Thanks Unreal! Anyways, it then has an arrow pointing towards something called TargetArmLength, this is called the member Access operator. Don't worry about it since it is a little beyond the scope of this tutorial. However at the end we can see a float value at the number 300.0f. This means the the camera is currently behind the character at around 300.0 unreal measurement units. This is extremely important to us because this is the number we want to play with.<br />
+<br />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UE4ZoomTut9.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/e/eb/UE4ZoomTut9.png/180px-UE4ZoomTut9.png" width="180" height="101" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/e/eb/UE4ZoomTut9.png/270px-UE4ZoomTut9.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/e/eb/UE4ZoomTut9.png/360px-UE4ZoomTut9.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UE4ZoomTut9.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>NextPart</div></div></div>
+<p>So here is what we're going to do, if confused you know the drill, simply click the image titled NextPart. Inside of our newly created CameraZoomIn function let's go ahead and add the following:<br />
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw4">float</span> a <span class="sy1">=</span> <span class="nu16">25.0</span><span class="sy4">;</span>
+CameraZoom_v <span class="sy1">=</span> CameraZoom_v <span class="sy2">-</span> <span class="nu16">25.0</span><span class="sy4">;</span>
+&#160;
+<span class="kw1">if</span><span class="br0">&#40;</span>CameraZoom_v <span class="sy1">&lt;=</span> <span class="nu16">75.0</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    CameraBoom<span class="sy2">-</span><span class="sy1">&gt;</span>TargetArmLength <span class="sy1">=</span> <span class="nu16">75.0</span><span class="sy4">;</span>
+    CameraZoom_v <span class="sy1">=</span> <span class="nu16">75.0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+<span class="kw1">else</span>
+<span class="br0">&#123;</span>
+    CameraBoom<span class="sy2">-</span><span class="sy1">&gt;</span>TargetArmLength <span class="sy1">=</span> CameraZoom_v<span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p><br />
+Oh boy! Well let's go over what we just did and why. First we created a local variable called 'a'. That means that ONLY IN THIS FUNCTION can the variable 'a' be used. The moment this function is done, that variable is gone and the bytes it took to store it are now no longer being used. Anyways, we had also assigned the float type variable 'a' to the number '25.0'. Then underneath that we decided to use our old friend CameraZoom_v. We assigned CameraZoom_v to itself and then performed abit of math. We're going to subtract whatever number (Currently nothing) that's in CameraZoom_v by 25.0. This means every time you call this function that number is going to get subtracted by 'a'. <br />
+<br />
+Next on the list we have our first control statement called an If statement. It does exactly what it sounds like. If the condition is true then perform what is inside the brackets if it is no longer true then perform the else statement. Now the real question is what is inside these control statements and how are they working? Well, the if statement says: "If CameraZoom_v is less than or equal to the number 75.0 then inside I want you to set the camera at 75.0 no matter what. Also let's set the number CameraZoom_v to 75 as well.". Next in the else statement it's telling us: "Hey, if CameraZoom_v is anything greater than the number 75.0 then I want you to set the camera to whatever number is in CameraZoom_v.". Pretty neat, huh?<br />
+<br />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UE4ZoomTut10.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/e/e4/UE4ZoomTut10.png/180px-UE4ZoomTut10.png" width="180" height="101" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/e/e4/UE4ZoomTut10.png/270px-UE4ZoomTut10.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/e/e4/UE4ZoomTut10.png/360px-UE4ZoomTut10.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UE4ZoomTut10.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Constructor</div></div></div>
+<p>Now then... this all look's fine and dandy except we're missing one thing. What number is assigned to CameraZoom_v!? Well currently we don't have a number in it so if we ran this right now the compiler is going to throw a huge fit and say "Hey buddy, I don't know what number this is! You tell me!". So that's exactly what we're going to do. Scroll down to the constructor. What is the constructor you might be asking? Well, when this class is created and turned into an object the first thing it's going to do is run something called a constructor. This is the FIRST bit of code that get's executed. <br />
+So scroll on down and look for the following: <i>ATutorialForOthersCharacter::ATutorialForOthersCharacter(const class FPostConstructInitializeProperties&amp; PCIP)</i>.<br />
+A good way to know that this is the constructor is that the membership operator&#160;:: is literally the same name as the Class. A constructor will ALWAYS have the same name as the Class.<br />
+<br />
+Anyways... by now you should know that the code goes in between the brackets. So let's go ahead and write our code, of course if you're lost just go ahead and click the picture that says Constructor.<br /><br />
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">CameraZoom_v <span class="sy1">=</span> <span class="nu16">300.0</span><span class="sy4">;</span></pre></div></div>
+<p><br />
+</p><p><br />
+Woah that was real hard wasn't it? Phew. Glad we could manage to do that. By now you might be able to see what i'm getting at here. Programming isn't really that difficult once you understand the logic and syntax(How it's formatted and written, us programmers like to use terms of art though which can make things really confusing!). What we just said was the moment this object, our character, is created we want to turn this global (float) variable CameraZoom_v into the number 300.0. So now the compiler knows exactly what this number is and now we do too.<br />
+<br />
+</p><p><br />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UE4ZoomTut11.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/1/1a/UE4ZoomTut11.png/180px-UE4ZoomTut11.png" width="180" height="101" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/1/1a/UE4ZoomTut11.png/270px-UE4ZoomTut11.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/1/1a/UE4ZoomTut11.png/360px-UE4ZoomTut11.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UE4ZoomTut11.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>ZoomOutTut</div></div></div>
+<p>Say... aren't we forgetting something else? Oh my goodness we are! What happens when we zoom out!? Well currently nothing. Scroll back on up to your ZoomOut function. Now... I wouldn't recommend copying and pasting because that is usually where things typically can go wrong, but quite literally you CAN copy and paste this next part from your own code and tweak it slightly to work for you. We're not going to do that though, but you'll see what I mean in just a second, if not go ahead and click the image called ZoomOutTut on this page.<br />
+<br />
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw4">float</span> a <span class="sy1">=</span> <span class="nu16">25.0</span><span class="sy4">;</span>
+CameraZoom_v <span class="sy1">=</span> CameraZoom_v <span class="sy2">+</span> <span class="nu16">25.0</span><span class="sy4">;</span>
+&#160;
+<span class="kw1">if</span><span class="br0">&#40;</span>CameraZoom_v <span class="sy1">&gt;=</span> <span class="nu16">300.0</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    CameraBoom<span class="sy2">-</span><span class="sy1">&gt;</span>TargetArmLength <span class="sy1">=</span> <span class="nu16">300.0</span><span class="sy4">;</span>
+    CameraZoom_v <span class="sy1">=</span> <span class="nu16">300.0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+<span class="kw1">else</span>
+<span class="br0">&#123;</span>
+    CameraBoom<span class="sy2">-</span><span class="sy1">&gt;</span>TargetArmLength <span class="sy1">=</span> CameraZoom_v<span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p><br />
+</p><p>Do you by chance happen to see something here? A pattern maybe? If not i'll help you see it! Remember in our CameraZoomIn we said CameraZoom_v = CameraZoom_v - 25.0;? Well now we're going to go in the opposite direction and ADD. You might begin to see the picture now. When we zoom out we're subtracting from 300.0 and since we know that 300.0 is the start of the camera position we're actually moving it closer to the character who is at 0. When we're adding to that number we're actually moving the camera further by adding to it. Pretty simple right? Uh-oh... then we get to our if statement what on earth does that mean?<br />
+<br />
+The If statement says "Hey listen fella. If CameraZoom_v is greater then or equal to 300.0 then i'm going to lock this at 300.0 i'm also going to set the variable CameraZoom_v to 300.0 and make sure it doesn't exceed past that number. If this isn't true then well, let's go ahead and set the number to whatever CameraZoom_v is". And that is literally all that If statement does... but we STILL aren't done, I know, I know. Trust me we're almost finished! This will go by so much quicker when you completely understand what is happening.<br />
+<br />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UE4ZoomTut12.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/8/8e/UE4ZoomTut12.png/180px-UE4ZoomTut12.png" width="180" height="101" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/8/8e/UE4ZoomTut12.png/270px-UE4ZoomTut12.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/8/8e/UE4ZoomTut12.png/360px-UE4ZoomTut12.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UE4ZoomTut12.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>CharacterInput</div></div></div><br />
+<p><i>(Now just in case you haven't been looking at the pictures you're going to want to do so here.)</i><br />
+<br />
+</p><p>Next we want a way to actually CALL these functions. They exist but how do we actually use them? Well, scroll on down towards the function/method called <i>void ATutorialForOthersCharacter::SetupPlayerInputComponent(class UInputComponent* InputComponent)</i>. At first glance you might look at it and immediately recognize that this is where all the character input is actually handled from your keyboard, touch-screen or controller. For the sake of this tutorial though we're using the keyboard. Anyways we're going to add two lines of code and then guess what? We're done with the programming part! Cheers! By now you should know where the code goes, if not look at the picture called CharacterInput<br />
+<br />
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">InputComponent<span class="sy2">-</span><span class="sy1">&gt;</span>BindAction<span class="br0">&#40;</span><span class="st0">&quot;ZoomIn&quot;</span>, IE_Pressed, <span class="kw3">this</span>, <span class="sy3">&amp;</span>ATutorialForOthersCharacter<span class="sy4">::</span><span class="me2">CameraZoomIn</span><span class="br0">&#41;</span><span class="sy4">;</span>
+InputComponent<span class="sy2">-</span><span class="sy1">&gt;</span>BindAction<span class="br0">&#40;</span><span class="st0">&quot;ZoomOut&quot;</span>, IE_Pressed, <span class="kw3">this</span>, <span class="sy3">&amp;</span>ATutorialForOthersCharacter<span class="sy4">::</span><span class="me2">CameraZoomOut</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<p><br />
+</p><p>Alright, so what on earth are we telling the compiler? Well... when I press a button, which we haven't decided yet, I want to call the Action <b>"ZoomIn"</b> and only do this when I press the button, <b>IE_Pressed</b>. I want it to effect <b>this</b> object(TutorialForOthers). When that happens I want you to call the function CameraZoomIn from this object (&amp;ATutorialForOthersCharacter::CameraZoomIn). <br />
+<br /><br />
+</p>
+<h2><span class="mw-headline" id="Enough_Coding_Already.21">Enough Coding Already!</span></h2>
+<p>Good news or bad news first? Okay, the bad news is we aren't done just yet. Good news is we've finished the programming side of things! Go ahead and click the Green Arrow on your compiler that says "Start Debugging". This will compile and launch the editor. It might take a little while for the first time but it will eventually speed up. <br />
+<br />
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UE4ZoomTut13.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/1/1f/UE4ZoomTut13.png/180px-UE4ZoomTut13.png" width="180" height="101" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/1/1f/UE4ZoomTut13.png/270px-UE4ZoomTut13.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/1/1f/UE4ZoomTut13.png/360px-UE4ZoomTut13.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UE4ZoomTut13.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>HomeStretch</div></div></div>
+<p>Right about now you should be looking at the default level that comes with this template, if confused click the image called HomeStretch. Here is what you need to do. At the top left click Edit and then scroll down to Project Settings and then click on the left hand side the button that says Input. Underneath action mappings we want to add our own input, how do we do that? Click the + sign next to the button Action Mappings. Now this part is very important, you'll notice a new box appeared underneath Jump. You need to name this "ZoomIn" just like you did in the code. Click the + button beside the new ZoomIn action map to add something underneath it. Be sure to click the arrow to expand the window. Here you can set it to whatever button you would like. For the sake of this tutorial though you may want to set it to Mouse Wheel Up. Repeat this process except for the next field make sure it's called ZoomOut and then map it to whichever key you like. Of course you SHOULD use Mouse Wheel Down if you had already used Mouse Wheel Up, it's only common sense... unless you LIKE being confused and confusing others with weird inputs! Anyways...<br />
+<br />
+Last but not least close that window and press the giant play button and test it out. I hope you enjoyed this tutorial! Happy Coding and be sure to make your Unreal Engine 4 a FUN experience the way that you would like to. Take it easy!<br />
+<br />
+</p><p>Creator of this Tutorial: <a rel="nofollow" class="external free" href="https://wiki.unrealengine.com/User:Master_Kyp">https://wiki.unrealengine.com/User:Master_Kyp</a>
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.086 seconds
+Real time usage: 0.105 seconds
+Preprocessor visited node count: 153/1000000
+Preprocessor generated node count: 336/1000000
+Post‐expand include size: 146/2097152 bytes
+Template argument size: 13/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=Third_Person_Camera_Zoom_C%2B%2B&amp;oldid=10030">https://wiki.unrealengine.com/index.php?title=Third_Person_Camera_Zoom_C%2B%2B&amp;oldid=10030</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li><li><a href="/Category:Code" title="Category:Code">Code</a></li><li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.162 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

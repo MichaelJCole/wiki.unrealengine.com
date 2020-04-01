@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Slate Data Binding Part 3 - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,follow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;printable=1&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;printable=1&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;printable=1&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Slate_Data_Binding_Part_3","wgTitle":"Slate Data Binding Part 3","wgCurRevisionId":12614,"wgRevisionId":12614,"wgArticleId":3532,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Pages with broken file links","Tutorials","Code","Community Created Content"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Slate_Data_Binding_Part_3","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;printable=1&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["ext.voteNY","mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Slate_Data_Binding_Part_3 skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head">
+		
+
+
+
+
+
+<input type="hidden" id="updateenable" value="true">
+
+    <script src="https://cdn1.unrealengine.com/2670222/unifiedHeaderBundle-c133cbefbece60d20fd29c5b1819fa39.js" defer></script>
+    <link rel="stylesheet" href="https://cdn1.unrealengine.com/2670222/unifiedHeader-dd083735d5017970978496baee5b916e.css">
+
+
+<header id="header" data-path="/" data-sitepath="https://www.unrealengine.com">
+<input type="hidden" id="isUnified" value="1" />
+    <input type="hidden" id="current_locale" value="en_US"/>
+    <input type="hidden" id="header-host" value="https://www.unrealengine.com" />
+    <nav class="main-menu">
+        <div class="menu-mobile">
+            <span class="menu-mobile-icon"></span>
+            <ul>
+
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">About</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Learn</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Community</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/blog">Blog</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Marketplace</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Academia</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/education">Education Program</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                
+                <li class="btn-account ignore" style="display: none">
+                    <a href="https://www.unrealengine.com/dashboard">Account</a>
+                </li>
+                <li class="btn-signout ignore" style="display: none">
+                    <a class="sso-sign-out" href="">Log Out</a>
+                </li>
+                <li class="btn-signin ignore" style="display: none">
+                    <a class="sso-sign-in" href="">Sign in</a>
+                </li>
+            </ul>
+        </div>
+
+        <ul class="menu-items">
+            <li class="logo ignore">
+                
+                    <a href="https://www.unrealengine.com/blog"></a>
+                
+            </li>
+
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>About</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Learn</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Community</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/blog">Blog</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Marketplace</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Academia</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/education">Education Program</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+        </ul>
+
+
+        <div class="menu-download" data-sub="dl">
+            <a class="sso-register" href="">
+                <span class="isUpdateEnabled">Get Unreal</span>
+            </a>
+        </div>
+        
+
+        <div id="search" class="menu-search ignore">
+                <span></span>
+        </div>
+        
+        <div class="search-header">
+            <div class="input-search">
+                <div id="search-tips" class="search-tips-en_US">
+                    You may be unable to view the results of this search unless you connect to a VPN first.
+                </div>
+                <span></span>
+                <input type="text" name="search" value="" style="background:none !important" id="isearch" class="text" placeholder="Search..." />
+                <p class="search-btn">Search</p>
+            </div>
+        </div>
+
+        <ul class="menu-icons">
+            <li id="btn-account" class="ignore" data-sub="account" style="display: none">
+                <a href="/dashboard">Account</a>
+                <ul class="account-sub-menu">
+                    <li>
+                        <a href="/dashboard">Personal</a>
+                    </li>
+                    <li>
+                        <a href="https://publish.unrealengine.com/">Seller</a>
+                    </li>
+                </ul>
+            </li>
+            <li id="btn-signout" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-out last-border" href="">Log Out</a>
+            </li>
+            <li id="btn-signin" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-in last-border" href="">Sign in</a>
+            </li>
+        </ul>
+        
+    </nav>
+</header>
+
+		</div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a></li>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Videos"><a href="/Videos">Videos</a></li>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Code"><a href="/Category:Code">Code</a></li>
+			<li id="n-Games"><a href="/Category:Games">Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Slate_Data_Binding_Part_3" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Slate_Data_Binding_Part_3" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Slate_Data_Binding_Part_3&amp;oldid=12614" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Slate_Data_Binding_Part_3&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Slate_Data_Binding_Part_3"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Slate_Data_Binding_Part_3&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Slate_Data_Binding_Part_3" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Slate_Data_Binding_Part_3&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Slate_Data_Binding_Part_3&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Slate+Data+Binding+Part+3&amp;returntoquery=printable%3Dyes&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Slate+Data+Binding+Part+3&amp;returntoquery=printable%3Dyes" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Slate Data Binding Part 3</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="aux">
+<div>
+<b>Rate this Article:</b> <div id="rating_"><div class="rating-score"><div class="voteboxrate">0.00</div></div><div class="rating-section"><img class="vote-rating-star" data-vote-the-vote="1" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__1" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="2" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__2" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="3" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__3" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="4" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__4" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="5" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__5" src="/extensions/VoteNY/images/star_off.gif" alt="" /></div>
+				<div class="rating-clear">
+			</div></div>
+</div>
+<div>
+<p>Approved for Versions:(4.7)
+</p>
+</div>
+</div>
+<div style="background-color: #fff5cd; border: 1px solid #FF7400; border-left: 5px solid #FF7400; padding: 5px; min-height: 40px;">
+<div class="floatleft"><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" /></div> <b>Some or all of the information on this page is inconsistent, irrelevant or confusing.</b>
+<p>Please help clean it up if you are able.
+</p>
+</div>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Creating_Menus_with_Slate.2FC.2B.2B.2C_Part_3"><span class="tocnumber">1</span> <span class="toctext">Creating Menus with Slate/C++, Part 3</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Overview"><span class="tocnumber">1.1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Step_1:_Overview_.26_Prep"><span class="tocnumber">1.2</span> <span class="toctext">Step 1: Overview &amp; Prep</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Step_3:_Binding_our_Data"><span class="tocnumber">1.3</span> <span class="toctext">Step 3: Binding our Data</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Step_4:_Binding_it_to_something_Useful"><span class="tocnumber">1.4</span> <span class="toctext">Step 4: Binding it to something Useful</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Creating_Menus_with_Slate.2FC.2B.2B.2C_Part_3">Creating Menus with Slate/C++, Part 3</span></h1>
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p><i>Original Author</i> <a rel="nofollow" class="external text" href="https://forums.unrealengine.com/member.php?1034-Minalien">Minalien</a>
+</p><p>Welcome back to my tutorial series on creating menus in Unreal Engine 4 using Slate &amp; C++!
+</p>
+<ul>
+<li> <a rel="nofollow" class="external text" href="https://wiki.unrealengine.com/Slate_Introduction_%E2%80%92_Basic_Menu_Part_1">Part 1: Introduction &amp; Basic Menu</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="https://wiki.unrealengine.com/Slate_Style_Sets_Part_2">Part 2: Style Sets</a>
+</li>
+<li> <a rel="nofollow" class="external text" href="https://wiki.unrealengine.com/Slate_Data_Binding_Part_3">Part 3: Data Binding</a>
+</li>
+</ul>
+<h2><span class="mw-headline" id="Step_1:_Overview_.26_Prep">Step 1: Overview &amp; Prep</span></h2>
+<p>What is data binding? Data binding is a concept from software development where information output, such as the player’s current health, is tied to the information it actually represents. In this way, any time you change the data (for example, by damaging the player) the display is updated automatically. This can have a great many uses, both simple and complex – in Soul Tech, a Mech Action/RPG I am programming for, I use data binding handle the individual pages available in the Mech customization &amp; shop screens. My UI only has to worry about having space to display data from the current page – updating the actual page does not require also sending update messages to the UI.
+</p><p>In our case, we are going to create a new Slate UI that will serve as an in-game HUD, displaying the player’s current health and score in the upper corners of the screen. Initially, the HUD will only have static values – we will change it to be bound data in the next step. I’m going to paste the code below, but I will not go into detail on how it works – it’s all pretty simple content that has been covered in past tutorials.
+</p><p>TutorialGameHUDUI.h
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.</span>
+<span class="co1">// TutorialGameHUDUI.h - Provides an implementation of the Slate UI representing the tutorial game HUD.</span>
+&#160;
+<span class="co2">#pragma once</span>
+&#160;
+<span class="co2">#include &quot;Slate.h&quot;</span>
+&#160;
+<span class="co1">// Lays out and controls the Tutorial HUD UI.</span>
+&#160;
+<span class="kw2">class</span> STutorialGameHUDUI <span class="sy4">:</span> <span class="kw2">public</span> SCompoundWidget
+<span class="br0">&#123;</span>
+    SLATE_BEGIN_ARGS<span class="br0">&#40;</span>STutorialGameHUDUI<span class="br0">&#41;</span>
+        <span class="sy4">:</span> _OwnerHUD<span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+    <span class="br0">&#125;</span>
+&#160;
+    SLATE_ARGUMENT<span class="br0">&#40;</span>TWeakObjectPtr<span class="sy1">&lt;</span><span class="kw2">class</span> ATutorialGameHUD<span class="sy1">&gt;</span>, OwnerHUD<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+    SLATE_END_ARGS<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+    <span class="coMULTI">/**
+     * Constructs and lays out the Tutorial HUD UI Widget.
+     * 
+     * \args Arguments structure that contains widget-specific setup information.
+     **/</span>
+    <span class="kw4">void</span> Construct<span class="br0">&#40;</span><span class="kw4">const</span> FArguments<span class="sy3">&amp;</span> args<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="kw2">private</span><span class="sy4">:</span>
+    <span class="coMULTI">/**
+     * Stores a weak reference to the HUD owning this widget.
+     **/</span>
+    TWeakObjectPtr<span class="sy1">&lt;</span><span class="kw2">class</span> ATutorialGameHUD<span class="sy1">&gt;</span> OwnerHUD<span class="sy4">;</span>
+&#160;
+    <span class="coMULTI">/**
+     * A reference to the Slate Style used for this HUD's widgets.
+     **/</span>
+    <span class="kw4">const</span> <span class="kw4">struct</span> FGlobalStyle<span class="sy2">*</span> HUDStyle<span class="sy4">;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<p>TutorialGameHUDUI.cpp
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.</span>
+&#160;
+<span class="co2">#include &quot;SlateTutorials.h&quot;</span>
+&#160;
+<span class="co2">#include &quot;TutorialGameHUD.h&quot;</span>
+<span class="co2">#include &quot;TutorialGameHUDUI.h&quot;</span>
+&#160;
+<span class="co2">#include &quot;Menus/GlobalMenuStyle.h&quot;</span>
+<span class="co2">#include &quot;Menus/MenuStyles.h&quot;</span>
+&#160;
+<span class="kw4">void</span> STutorialGameHUDUI<span class="sy4">::</span><span class="me2">Construct</span><span class="br0">&#40;</span><span class="kw4">const</span> FArguments<span class="sy3">&amp;</span> args<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    OwnerHUD <span class="sy1">=</span> args._OwnerHUD<span class="sy4">;</span>
+&#160;
+    HUDStyle <span class="sy1">=</span> <span class="sy3">&amp;</span>FMenuStyles<span class="sy4">::</span><span class="me2">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">GetWidgetStyle</span><span class="sy1">&lt;</span>FGlobalStyle<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="st0">&quot;Global&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+    ChildSlot
+        <span class="br0">&#91;</span>
+            SNew<span class="br0">&#40;</span>SOverlay<span class="br0">&#41;</span>
+            <span class="sy2">+</span> SOverlay<span class="sy4">::</span><span class="me2">Slot</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+                .<span class="me1">HAlign</span><span class="br0">&#40;</span>HAlign_Right<span class="br0">&#41;</span>
+                .<span class="me1">VAlign</span><span class="br0">&#40;</span>VAlign_Top<span class="br0">&#41;</span>
+                <span class="br0">&#91;</span>
+                    SNew<span class="br0">&#40;</span>STextBlock<span class="br0">&#41;</span>
+                        .<span class="me1">TextStyle</span><span class="br0">&#40;</span><span class="sy3">&amp;</span>HUDStyle<span class="sy2">-</span><span class="sy1">&gt;</span>MenuTitleStyle<span class="br0">&#41;</span>
+                        .<span class="me1">Text</span><span class="br0">&#40;</span>FText<span class="sy4">::</span><span class="me2">FromString</span><span class="br0">&#40;</span><span class="st0">&quot;SCORE: 0&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+                <span class="br0">&#93;</span>
+            <span class="sy2">+</span> SOverlay<span class="sy4">::</span><span class="me2">Slot</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+                .<span class="me1">HAlign</span><span class="br0">&#40;</span>HAlign_Left<span class="br0">&#41;</span>
+                .<span class="me1">VAlign</span><span class="br0">&#40;</span>VAlign_Top<span class="br0">&#41;</span>
+                <span class="br0">&#91;</span>
+                    SNew<span class="br0">&#40;</span>STextBlock<span class="br0">&#41;</span>
+                        .<span class="me1">TextStyle</span><span class="br0">&#40;</span><span class="sy3">&amp;</span>HUDStyle<span class="sy2">-</span><span class="sy1">&gt;</span>MenuTitleStyle<span class="br0">&#41;</span>
+                        .<span class="me1">Text</span><span class="br0">&#40;</span>FText<span class="sy4">::</span><span class="me2">FromString</span><span class="br0">&#40;</span><span class="st0">&quot;HEALTH: 100&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+                <span class="br0">&#93;</span>
+        <span class="br0">&#93;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>TutorialGameHUD.h
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.</span>
+<span class="co1">// TutorialGameHUD.h - Provides an implementation of the HUD that will embed the Tutorial Game UI.</span>
+&#160;
+<span class="co2">#pragma once</span>
+&#160;
+<span class="co2">#include &quot;GameFramework/HUD.h&quot;</span>
+&#160;
+<span class="co2">#include &quot;TutorialGameHUD.generated.h&quot;</span>
+&#160;
+<span class="coMULTI">/**
+ * Provides an implementation of the game's in-game HUD, which will display the player's current health and score.
+ **/</span>
+UCLASS<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw2">class</span> ATutorialGameHUD <span class="sy4">:</span> <span class="kw2">public</span> AHUD
+<span class="br0">&#123;</span>
+    GENERATED_UCLASS_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+    <span class="coMULTI">/**
+     * Initializes the Slate UI and adds it as a widget to the game viewport.
+     **/</span>
+    <span class="kw2">virtual</span> <span class="kw4">void</span> PostInitializeComponents<span class="br0">&#40;</span><span class="br0">&#41;</span> override<span class="sy4">;</span>
+&#160;
+<span class="kw2">private</span><span class="sy4">:</span>
+    <span class="coMULTI">/**
+     * Reference to the Game HUD UI.
+     **/</span>
+    TSharedPtr<span class="sy1">&lt;</span><span class="kw2">class</span> STutorialGameHUDUI<span class="sy1">&gt;</span> GameHUD<span class="sy4">;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<p>TutorialGameHUD.cpp
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.</span>
+&#160;
+<span class="co2">#include &quot;SlateTutorials.h&quot;</span>
+&#160;
+<span class="co2">#include &quot;TutorialGameHUD.h&quot;</span>
+<span class="co2">#include &quot;TutorialGameHUDUI.h&quot;</span>
+&#160;
+ATutorialGameHUD<span class="sy4">::</span><span class="me2">ATutorialGameHUD</span><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw2">class</span> FPostConstructInitializeProperties<span class="sy3">&amp;</span> PCIP<span class="br0">&#41;</span>
+    <span class="sy4">:</span> Super<span class="br0">&#40;</span>PCIP<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> ATutorialGameHUD<span class="sy4">::</span><span class="me2">PostInitializeComponents</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    Super<span class="sy4">::</span><span class="me2">PostInitializeComponents</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>GEngine <span class="sy3">&amp;&amp;</span> GEngine<span class="sy2">-</span><span class="sy1">&gt;</span>GameViewport<span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        UGameViewportClient<span class="sy2">*</span> Viewport <span class="sy1">=</span> GEngine<span class="sy2">-</span><span class="sy1">&gt;</span>GameViewport<span class="sy4">;</span>
+&#160;
+        SAssignNew<span class="br0">&#40;</span>GameHUD, STutorialGameHUDUI<span class="br0">&#41;</span>
+            .<span class="me1">OwnerHUD</span><span class="br0">&#40;</span>TWeakObjectPtr<span class="sy1">&lt;</span>ATutorialGameHUD<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="kw3">this</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+        Viewport<span class="sy2">-</span><span class="sy1">&gt;</span>AddViewportWidgetContent<span class="br0">&#40;</span>
+            SNew<span class="br0">&#40;</span>SWeakWidget<span class="br0">&#41;</span>.<span class="me1">PossiblyNullContent</span><span class="br0">&#40;</span>GameHUD.<span class="me1">ToSharedRef</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+            <span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>Go ahead and build the project and set up a new map and game mode and test the HUD out!
+</p>
+<h2><span class="mw-headline" id="Step_3:_Binding_our_Data">Step 3: Binding our Data</span></h2>
+<p>We have two bits of information that we want to bind to our UI: Score and Health. Both of these are integers, but they have to be bound as strings for our HUD! I will cover obtaining this information from the Game Mode (Score) and active Character (Health) in a minute, but first we’ll handle the data binding portion. Our binding is going to have two important tasks: first, it is going to obtain the actual data. Next, it will convert it to an FText to be applied to the text block widgets.
+</p><p>There are two things needed for each of these: the Attribute, and something to bind it to. In our case, because we need to do extra processing on the data (converting from an integer to a string), we will have a function on our widget class itself to bind to. Add the following private values to the STutorialGameHUDUI class:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw2">private</span><span class="sy4">:</span>
+    <span class="coMULTI">/**
+     * Attribute storing the binding for the player's score.
+     **/</span>
+    TAttribute<span class="sy1">&lt;</span>FText<span class="sy1">&gt;</span> Score<span class="sy4">;</span>
+&#160;
+    <span class="coMULTI">/**
+     * Attribute storing the binding for the player's health.
+     **/</span>
+    TAttribute<span class="sy1">&lt;</span>FText<span class="sy1">&gt;</span> Health<span class="sy4">;</span>
+&#160;
+    <span class="coMULTI">/**
+     * Our Score will be bound to this function, which will retrieve the appropriate data and convert it into an FText.
+     **/</span>
+    FText GetScore<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span><span class="sy4">;</span>
+&#160;
+    <span class="coMULTI">/**
+     * Our Health will be bound to this function, which will retrieve the appropriate data and convert it into an FText.
+     **/</span>
+    FText GetHealth<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span><span class="sy4">;</span></pre></div></div>
+<p>The TAttribute type is used in Unreal to provide data binding that only has an accessor/getter. Next, we have two constant functions that will be responsible for retrieving and formatting the data into a form the UI can use! So how do we actually do the binding? Well, it’s quite simple – in fact, you’ve already done it if you’ve ever done input binding within C++ for an Unreal project. In the top of STutorialGameHUDUI’s Construct method, just after capturing HUDStyle, add the following to bind our TAttributes to their appropriate functions:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">Score.<span class="me1">Bind</span><span class="br0">&#40;</span><span class="kw3">this</span>, <span class="sy3">&amp;</span>STutorialGameHUDUI<span class="sy4">::</span><span class="me2">GetScore</span><span class="br0">&#41;</span><span class="sy4">;</span>
+Health.<span class="me1">Bind</span><span class="br0">&#40;</span><span class="kw3">this</span>, <span class="sy3">&amp;</span>STutorialGameHUDUI<span class="sy4">::</span><span class="me2">GetHealth</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<p>Next, we can use the TAttributes directly in our Text specifications when constructing the UI layout:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="sy2">+</span> SOverlay<span class="sy4">::</span><span class="me2">Slot</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+    .<span class="me1">HAlign</span><span class="br0">&#40;</span>HAlign_Right<span class="br0">&#41;</span>
+    .<span class="me1">VAlign</span><span class="br0">&#40;</span>VAlign_Top<span class="br0">&#41;</span>
+    <span class="br0">&#91;</span>
+        SNew<span class="br0">&#40;</span>STextBlock<span class="br0">&#41;</span>
+            .<span class="me1">TextStyle</span><span class="br0">&#40;</span><span class="sy3">&amp;</span>HUDStyle<span class="sy2">-</span><span class="sy1">&gt;</span>MenuTitleStyle<span class="br0">&#41;</span>
+            .<span class="me1">Text</span><span class="br0">&#40;</span>Score<span class="br0">&#41;</span>
+    <span class="br0">&#93;</span>
+<span class="sy2">+</span> SOverlay<span class="sy4">::</span><span class="me2">Slot</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+    .<span class="me1">HAlign</span><span class="br0">&#40;</span>HAlign_Left<span class="br0">&#41;</span>
+    .<span class="me1">VAlign</span><span class="br0">&#40;</span>VAlign_Top<span class="br0">&#41;</span>
+    <span class="br0">&#91;</span>
+        SNew<span class="br0">&#40;</span>STextBlock<span class="br0">&#41;</span>
+            .<span class="me1">TextStyle</span><span class="br0">&#40;</span><span class="sy3">&amp;</span>HUDStyle<span class="sy2">-</span><span class="sy1">&gt;</span>MenuTitleStyle<span class="br0">&#41;</span>
+            .<span class="me1">Text</span><span class="br0">&#40;</span>Health<span class="br0">&#41;</span>
+    <span class="br0">&#93;</span></pre></div></div>
+<p>And finally, we’ll put in some placeholder data for our bound functions, just to make sure everything’s worked:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">FText STutorialGameHUDUI<span class="sy4">::</span><span class="me2">GetScore</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> <span class="br0">&#123;</span> <span class="kw1">return</span> FText<span class="sy4">::</span><span class="me2">FromString</span><span class="br0">&#40;</span><span class="st0">&quot;SCORE: --&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="br0">&#125;</span>
+FText STutorialGameHUDUI<span class="sy4">::</span><span class="me2">GetHealth</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> <span class="br0">&#123;</span> <span class="kw1">return</span> FText<span class="sy4">::</span><span class="me2">FromString</span><span class="br0">&#40;</span><span class="st0">&quot;HEALTH: --&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="br0">&#125;</span></pre></div></div>
+<p>Go ahead and build and make sure everything’s working, and congratulations! You’ve just bound your text blocks! You can do this binding for just about everything in Slate – button text, list items, image backgrounds, styles, etc.
+</p><p><a href="/File:%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82_2015-03-18_16.55.25.png" class="image"><img alt="Скриншот 2015-03-18 16.55.25.png" src="https://d26ilriwvtzlb.cloudfront.net/4/47/%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82_2015-03-18_16.55.25.png" width="859" height="373" /></a>
+</p>
+<h2><span class="mw-headline" id="Step_4:_Binding_it_to_something_Useful">Step 4: Binding it to something Useful</span></h2>
+<p>If you only needed to learn how to do data binding, and don’t care about the specifics for this tutorial then you don’t need to continue past this point – here, we’re just implementing our Score and Health functions. Consider it bonus content!
+</p><p>To get the score and health data for this tutorial, I’ve added the following GameMode and Character classes and set them up to be used with the GameMap level.
+</p><p>TutGameMode.h
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.</span>
+<span class="co1">// TutGameMode.h - Provides a simple game mode providing a Score!</span>
+&#160;
+<span class="co2">#pragma once</span>
+&#160;
+<span class="co2">#include &quot;GameFramework/GameMode.h&quot;</span>
+<span class="co2">#include &quot;TutGameMode.generated.h&quot;</span>
+&#160;
+<span class="coMULTI">/**
+ * A simple game mode providing a means of retrieving and adjusting a single Score value.
+ **/</span>
+UCLASS<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw2">class</span> ATutGameMode <span class="sy4">:</span> <span class="kw2">public</span> AGameMode
+<span class="br0">&#123;</span>
+    GENERATED_UCLASS_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+    <span class="coMULTI">/**
+     * Retrieves the current Score from the game mode.
+     **/</span>
+    UFUNCTION<span class="br0">&#40;</span>BlueprintPure, BlueprintCallable, Category <span class="sy1">=</span> <span class="st0">&quot;Score&quot;</span><span class="br0">&#41;</span>
+    <span class="kw4">int32</span> GetScore<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+    <span class="coMULTI">/**
+     * Adds to the game score.
+     **/</span>
+    UFUNCTION<span class="br0">&#40;</span>BlueprintCallable, Category <span class="sy1">=</span> <span class="st0">&quot;Score&quot;</span><span class="br0">&#41;</span>
+    <span class="kw4">void</span> AddPoints<span class="br0">&#40;</span><span class="kw4">int32</span> value<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+    <span class="coMULTI">/**
+     * Removes from the game score.
+     **/</span>
+    UFUNCTION<span class="br0">&#40;</span>BlueprintCallable, Category <span class="sy1">=</span> <span class="st0">&quot;Score&quot;</span><span class="br0">&#41;</span>
+    <span class="kw4">void</span> DeductPoints<span class="br0">&#40;</span><span class="kw4">int32</span> value<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="kw2">private</span><span class="sy4">:</span>
+    <span class="coMULTI">/**
+     * Stores the current score.
+     **/</span>
+    <span class="kw4">int32</span> CurrentScore<span class="sy4">;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<p>TutGameMode.cpp
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.</span>
+&#160;
+<span class="co2">#include &quot;SlateTutorials.h&quot;</span>
+&#160;
+<span class="co2">#include &lt;algorithm&gt;</span>
+&#160;
+<span class="co2">#include &quot;TutGameMode.h&quot;</span>
+&#160;
+ATutGameMode<span class="sy4">::</span><span class="me2">ATutGameMode</span><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw2">class</span> FPostConstructInitializeProperties<span class="sy3">&amp;</span> PCIP<span class="br0">&#41;</span>
+    <span class="sy4">:</span> Super<span class="br0">&#40;</span>PCIP<span class="br0">&#41;</span>, CurrentScore<span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">int32</span> ATutGameMode<span class="sy4">::</span><span class="me2">GetScore</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">return</span> CurrentScore<span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> ATutGameMode<span class="sy4">::</span><span class="me2">AddPoints</span><span class="br0">&#40;</span><span class="kw4">int32</span> value<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>value <span class="sy1">&gt;</span> <span class="nu0">0</span><span class="br0">&#41;</span>
+        CurrentScore <span class="sy2">+</span><span class="sy1">=</span> value<span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> ATutGameMode<span class="sy4">::</span><span class="me2">DeductPoints</span><span class="br0">&#40;</span><span class="kw4">int32</span> value<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>value <span class="sy1">&gt;</span> <span class="nu0">0</span><span class="br0">&#41;</span>
+        CurrentScore <span class="sy1">=</span> std<span class="sy4">::</span><span class="me2">max</span><span class="br0">&#40;</span>CurrentScore <span class="sy2">-</span> value, <span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>TutorialCharacter.h
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.</span>
+<span class="co1">// TutorialCharacter.h - Provides a simple character providing Health!</span>
+&#160;
+<span class="co2">#pragma once</span>
+&#160;
+<span class="co2">#include &quot;GameFramework/Character.h&quot;</span>
+<span class="co2">#include &quot;TutorialCharacter.generated.h&quot;</span>
+&#160;
+<span class="coMULTI">/**
+ * A simple character providing a means of retrieving and manipulating health.
+ **/</span>
+UCLASS<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw2">class</span> ATutorialCharacter <span class="sy4">:</span> <span class="kw2">public</span> ACharacter
+<span class="br0">&#123;</span>
+    GENERATED_UCLASS_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+    <span class="coMULTI">/**
+     * Stores the character's current health.
+     **/</span>
+    UPROPERTY<span class="br0">&#40;</span>EditAnywhere, BlueprintReadWrite, Category <span class="sy1">=</span> <span class="st0">&quot;Combat&quot;</span><span class="br0">&#41;</span>
+    <span class="kw4">int32</span> Health<span class="sy4">;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<p>TutorialCharacter.cpp
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.</span>
+&#160;
+<span class="co2">#include &quot;SlateTutorials.h&quot;</span>
+&#160;
+<span class="co2">#include &quot;TutorialCharacter.h&quot;</span>
+&#160;
+ATutorialCharacter<span class="sy4">::</span><span class="me2">ATutorialCharacter</span><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw2">class</span> FPostConstructInitializeProperties<span class="sy3">&amp;</span> PCIP<span class="br0">&#41;</span>
+    <span class="sy4">:</span> Super<span class="br0">&#40;</span>PCIP<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    Health <span class="sy1">=</span> <span class="nu0">100</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>Once we’ve got these, retrieving and applying the score and health is simple
+</p><p>TutorialGameHUDUI.cpp
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">FText STutorialGameHUDUI<span class="sy4">::</span><span class="me2">GetScore</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span>
+<span class="br0">&#123;</span>
+    <span class="co1">// NOTE: THIS IS A TERRIBLE WAY TO DO THIS. DO NOT DO IT. IT ONLY WORKS ON SERVERS. USE GAME STATES INSTEAD!</span>
+    ATutGameMode<span class="sy2">*</span> gameMode <span class="sy1">=</span> Cast<span class="sy1">&lt;</span>ATutGameMode<span class="sy1">&gt;</span><span class="br0">&#40;</span>OwnerHUD<span class="sy2">-</span><span class="sy1">&gt;</span>GetWorldSettings<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetWorld<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetAuthGameMode<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>gameMode <span class="sy1">==</span> nullptr<span class="br0">&#41;</span>
+        <span class="kw1">return</span> FText<span class="sy4">::</span><span class="me2">FromString</span><span class="br0">&#40;</span>TEXT<span class="br0">&#40;</span><span class="st0">&quot;SCORE: --&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+    FString score <span class="sy1">=</span> TEXT<span class="br0">&#40;</span><span class="st0">&quot;SCORE: &quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    score.<span class="me1">AppendInt</span><span class="br0">&#40;</span>gameMode<span class="sy2">-</span><span class="sy1">&gt;</span>GetScore<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+    <span class="kw1">return</span> FText<span class="sy4">::</span><span class="me2">FromString</span><span class="br0">&#40;</span>score<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+FText STutorialGameHUDUI<span class="sy4">::</span><span class="me2">GetHealth</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span> 
+<span class="br0">&#123;</span>
+    ATutorialCharacter<span class="sy2">*</span> character <span class="sy1">=</span> Cast<span class="sy1">&lt;</span>ATutorialCharacter<span class="sy1">&gt;</span><span class="br0">&#40;</span>OwnerHUD<span class="sy2">-</span><span class="sy1">&gt;</span>PlayerOwner<span class="sy2">-</span><span class="sy1">&gt;</span>GetCharacter<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>character <span class="sy1">==</span> nullptr<span class="br0">&#41;</span>
+        <span class="kw1">return</span> FText<span class="sy4">::</span><span class="me2">FromString</span><span class="br0">&#40;</span>TEXT<span class="br0">&#40;</span><span class="st0">&quot;HEALTH: --&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+    FString health <span class="sy1">=</span> TEXT<span class="br0">&#40;</span><span class="st0">&quot;HEALTH: &quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    health.<span class="me1">AppendInt</span><span class="br0">&#40;</span>character<span class="sy2">-</span><span class="sy1">&gt;</span>Health<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+    <span class="kw1">return</span> FText<span class="sy4">::</span><span class="me2">FromString</span><span class="br0">&#40;</span>health<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>Go ahead and run the game, then update the score! (You can do this in the sample files by pressing the Home/End to adjust health &amp; Page Up/Page Down to adjust score).
+</p><p>Source code: <a href="/index.php?title=Special:Upload&amp;wpDestFile=SlateTutorials-3" class="new" title="File:SlateTutorials-3">File:SlateTutorials-3</a> (~547KB)
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.140 seconds
+Real time usage: 0.204 seconds
+Preprocessor visited node count: 123/1000000
+Preprocessor generated node count: 346/1000000
+Post‐expand include size: 470/2097152 bytes
+Template argument size: 12/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=Slate_Data_Binding_Part_3&amp;oldid=12614">https://wiki.unrealengine.com/index.php?title=Slate_Data_Binding_Part_3&amp;oldid=12614</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Pages_with_broken_file_links" title="Category:Pages with broken file links">Pages with broken file links</a></li><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li><li><a href="/Category:Code" title="Category:Code">Code</a></li><li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;printable=1&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.255 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

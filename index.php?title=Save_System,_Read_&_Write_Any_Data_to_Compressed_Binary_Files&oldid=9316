@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Save System, Read &amp; Write Any Data to Compressed Binary Files - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Save_System,_Read_\u0026_Write_Any_Data_to_Compressed_Binary_Files","wgTitle":"Save System, Read \u0026 Write Any Data to Compressed Binary Files","wgCurRevisionId":9316,"wgRevisionId":9316,"wgArticleId":588,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Code","Community Created Content"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Save_System,_Read_\u0026_Write_Any_Data_to_Compressed_Binary_Files","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["ext.voteNY","mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Save_System_Read_Write_Any_Data_to_Compressed_Binary_Files skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head">
+		
+
+
+
+
+
+<input type="hidden" id="updateenable" value="true">
+
+    <script src="https://cdn1.unrealengine.com/2670222/unifiedHeaderBundle-c133cbefbece60d20fd29c5b1819fa39.js" defer></script>
+    <link rel="stylesheet" href="https://cdn1.unrealengine.com/2670222/unifiedHeader-dd083735d5017970978496baee5b916e.css">
+
+
+<header id="header" data-path="/" data-sitepath="https://www.unrealengine.com">
+<input type="hidden" id="isUnified" value="1" />
+    <input type="hidden" id="current_locale" value="en_US"/>
+    <input type="hidden" id="header-host" value="https://www.unrealengine.com" />
+    <nav class="main-menu">
+        <div class="menu-mobile">
+            <span class="menu-mobile-icon"></span>
+            <ul>
+
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">About</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Learn</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Community</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/blog">Blog</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Marketplace</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Academia</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/education">Education Program</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                
+                <li class="btn-account ignore" style="display: none">
+                    <a href="https://www.unrealengine.com/dashboard">Account</a>
+                </li>
+                <li class="btn-signout ignore" style="display: none">
+                    <a class="sso-sign-out" href="">Log Out</a>
+                </li>
+                <li class="btn-signin ignore" style="display: none">
+                    <a class="sso-sign-in" href="">Sign in</a>
+                </li>
+            </ul>
+        </div>
+
+        <ul class="menu-items">
+            <li class="logo ignore">
+                
+                    <a href="https://www.unrealengine.com/blog"></a>
+                
+            </li>
+
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>About</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Learn</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Community</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/blog">Blog</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Marketplace</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Academia</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/education">Education Program</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+        </ul>
+
+
+        <div class="menu-download" data-sub="dl">
+            <a class="sso-register" href="">
+                <span class="isUpdateEnabled">Get Unreal</span>
+            </a>
+        </div>
+        
+
+        <div id="search" class="menu-search ignore">
+                <span></span>
+        </div>
+        
+        <div class="search-header">
+            <div class="input-search">
+                <div id="search-tips" class="search-tips-en_US">
+                    You may be unable to view the results of this search unless you connect to a VPN first.
+                </div>
+                <span></span>
+                <input type="text" name="search" value="" style="background:none !important" id="isearch" class="text" placeholder="Search..." />
+                <p class="search-btn">Search</p>
+            </div>
+        </div>
+
+        <ul class="menu-icons">
+            <li id="btn-account" class="ignore" data-sub="account" style="display: none">
+                <a href="/dashboard">Account</a>
+                <ul class="account-sub-menu">
+                    <li>
+                        <a href="/dashboard">Personal</a>
+                    </li>
+                    <li>
+                        <a href="https://publish.unrealengine.com/">Seller</a>
+                    </li>
+                </ul>
+            </li>
+            <li id="btn-signout" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-out last-border" href="">Log Out</a>
+            </li>
+            <li id="btn-signin" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-in last-border" href="">Sign in</a>
+            </li>
+        </ul>
+        
+    </nav>
+</header>
+
+		</div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a></li>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Videos"><a href="/Videos">Videos</a></li>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Code"><a href="/Category:Code">Code</a></li>
+			<li id="n-Games"><a href="/Category:Games">Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Save_System,_Read_%26_Write_Any_Data_to_Compressed_Binary_Files" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Save_System,_Read_%26_Write_Any_Data_to_Compressed_Binary_Files" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=Save_System,_Read_%26_Write_Any_Data_to_Compressed_Binary_Files&amp;oldid=9316&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Save_System,_Read_%26_Write_Any_Data_to_Compressed_Binary_Files&amp;oldid=9316" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Save_System,_Read_%26_Write_Any_Data_to_Compressed_Binary_Files&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Save_System,_Read_%26_Write_Any_Data_to_Compressed_Binary_Files"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk"><span><a href="/Talk:Save_System,_Read_%26_Write_Any_Data_to_Compressed_Binary_Files"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Save_System,_Read_%26_Write_Any_Data_to_Compressed_Binary_Files" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Save_System,_Read_%26_Write_Any_Data_to_Compressed_Binary_Files&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Save_System,_Read_%26_Write_Any_Data_to_Compressed_Binary_Files&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Save+System%2C+Read+%26+Write+Any+Data+to+Compressed+Binary+Files&amp;returntoquery=oldid%3D9316&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Save+System%2C+Read+%26+Write+Any+Data+to+Compressed+Binary+Files&amp;returntoquery=oldid%3D9316" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Save System, Read &amp; Write Any Data to Compressed Binary Files</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"><div id="mw-revision-info">Revision as of 14:02, 30 September 2014 by <a href="/index.php?title=User:Daveoh&amp;action=edit&amp;redlink=1" class="new mw-userlink" title="User:Daveoh (page does not exist)">Daveoh</a>  <span class="mw-usertoollinks">(<a href="/index.php?title=User_talk:Daveoh&amp;action=edit&amp;redlink=1" class="new" title="User talk:Daveoh (page does not exist)">Talk</a> | <a href="/Special:Contributions/Daveoh" title="Special:Contributions/Daveoh">contribs</a>)</span></div><br />
+				<div id="mw-revision-nav">(<a href="/index.php?title=Save_System,_Read_%26_Write_Any_Data_to_Compressed_Binary_Files&amp;diff=prev&amp;oldid=9316" title="Save System, Read &amp; Write Any Data to Compressed Binary Files">diff</a>) <a href="/index.php?title=Save_System,_Read_%26_Write_Any_Data_to_Compressed_Binary_Files&amp;direction=prev&amp;oldid=9316" title="Save System, Read &amp; Write Any Data to Compressed Binary Files">← Older revision</a> | Latest revision (diff) | Newer revision → (diff)</div></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="aux">
+<div>
+<b>Rate this Article:</b> <div id="rating_"><div class="rating-score"><div class="voteboxrate">5.00</div></div><div class="rating-section"><img class="vote-rating-star" data-vote-the-vote="1" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__1" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="2" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__2" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="3" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__3" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="4" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__4" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="5" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__5" src="/extensions/VoteNY/images/star_on.gif" alt="" /> <span class="rating-total">(3 votes)</span></div>
+				<div class="rating-clear">
+			</div></div>
+</div>
+<div>
+<p>Approved for Versions:(please verify)
+</p>
+</div>
+</div>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Custom_Save_System_To_Binary_Files"><span class="tocnumber">1</span> <span class="toctext">Custom Save System To Binary Files</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Pre-Summary"><span class="tocnumber">1.1</span> <span class="toctext">Pre-Summary</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Two_Levels_of_Conversions"><span class="tocnumber">1.2</span> <span class="toctext">Two Levels of Conversions</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Binary_Array_.3D_TArray.3Cuint8.3E"><span class="tocnumber">1.2.1</span> <span class="toctext">Binary Array = TArray&lt;uint8&gt;</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Step_1:_Variable_Format_-.3E_Binary_Array"><span class="tocnumber">1.2.2</span> <span class="toctext">Step 1: Variable Format -&gt; Binary Array</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#Step_2:_Binary_Array_-.3E_Hard_Disk"><span class="tocnumber">1.2.3</span> <span class="toctext">Step 2: Binary Array -&gt; Hard Disk</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Optinal_Step_3:_Compressed_Binary"><span class="tocnumber">1.2.4</span> <span class="toctext">Optinal Step 3: Compressed Binary</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-8"><a href="#Core_Header_Files"><span class="tocnumber">1.3</span> <span class="toctext">Core Header Files</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="#Archive.h_and_ArchiveBase.h"><span class="tocnumber">1.3.1</span> <span class="toctext">Archive.h and ArchiveBase.h</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#FileManager.h"><span class="tocnumber">1.3.2</span> <span class="toctext">FileManager.h</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#BufferArchive"><span class="tocnumber">1.3.3</span> <span class="toctext">BufferArchive</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#FMemoryReader"><span class="tocnumber">1.3.4</span> <span class="toctext">FMemoryReader</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13"><a href="#The_.3C.3C_Operator"><span class="tocnumber">1.4</span> <span class="toctext">The &lt;&lt; Operator</span></a>
+<ul>
+<li class="toclevel-3 tocsection-14"><a href="#Variable_-.3E_Binary"><span class="tocnumber">1.4.1</span> <span class="toctext">Variable -&gt; Binary</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#Binary_-.3E_Variable"><span class="tocnumber">1.4.2</span> <span class="toctext">Binary -&gt; Variable</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-16"><a href="#The_Hardest_Concept_of_UE4_C.2B.2B_Custom_Save_System"><span class="tocnumber">1.5</span> <span class="toctext">The Hardest Concept of UE4 C++ Custom Save System</span></a>
+<ul>
+<li class="toclevel-3 tocsection-17"><a href="#Writing_Your_Function_to_Be_Two-Way"><span class="tocnumber">1.5.1</span> <span class="toctext">Writing Your Function to Be Two-Way</span></a>
+<ul>
+<li class="toclevel-4 tocsection-18"><a href="#The_order_of_how_you_write_out_data_to_binary_file_must_be_the_exact_order_that_you_read_it_back_in.21"><span class="tocnumber">1.5.1.1</span> <span class="toctext">The order of how you write out data to binary file must be the exact order that you read it back in!</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-19"><a href="#"><span class="tocnumber">1.6</span> <span class="toctext"></span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#SaveLoadData:_Two-Way_Save_System_Function"><span class="tocnumber">1.7</span> <span class="toctext">SaveLoadData: Two-Way Save System Function</span></a>
+<ul>
+<li class="toclevel-3 tocsection-21"><a href="#Saving"><span class="tocnumber">1.7.1</span> <span class="toctext">Saving</span></a></li>
+<li class="toclevel-3 tocsection-22"><a href="#Loading"><span class="tocnumber">1.7.2</span> <span class="toctext">Loading</span></a></li>
+<li class="toclevel-3 tocsection-23"><a href="#Summary"><span class="tocnumber">1.7.3</span> <span class="toctext">Summary</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-24"><a href="#My_Binary_Save_System_Functions_For_You"><span class="tocnumber">1.8</span> <span class="toctext">My Binary Save System Functions For You</span></a>
+<ul>
+<li class="toclevel-3 tocsection-25"><a href="#Saving_Binary_Files"><span class="tocnumber">1.8.1</span> <span class="toctext">Saving Binary Files</span></a></li>
+<li class="toclevel-3 tocsection-26"><a href="#Loading_Binary_Files"><span class="tocnumber">1.8.2</span> <span class="toctext">Loading Binary Files</span></a></li>
+<li class="toclevel-3 tocsection-27"><a href="#Saving_Compressed"><span class="tocnumber">1.8.3</span> <span class="toctext">Saving Compressed</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="#Loading_Compressed"><span class="tocnumber">1.8.4</span> <span class="toctext">Loading Compressed</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-29"><a href="#_2"><span class="tocnumber">1.9</span> <span class="toctext"></span></a></li>
+<li class="toclevel-2 tocsection-30"><a href="#Overloading_the_.3C.3C_Operator"><span class="tocnumber">1.10</span> <span class="toctext">Overloading the &lt;&lt; Operator</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="#Crashes.3F"><span class="tocnumber">1.11</span> <span class="toctext">Crashes?</span></a></li>
+<li class="toclevel-2 tocsection-32"><a href="#Enjoy.21"><span class="tocnumber">1.12</span> <span class="toctext">Enjoy!</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Custom_Save_System_To_Binary_Files">Custom Save System To Binary Files</span></h1>
+<p>Original Author: <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)
+</p><p>Dear Community,
+</p><p><b>Using what I explain in this tutorial you can write your own custom save systems wherein you</b>
+</p>
+<ul>
+<li>write out literally any game-related data you want
+</li>
+<li>read back in this data any time you want, from hard-disk
+</li>
+<li>compress (ZLIB) these files to minimize usage of the end-user's computer hard disk space
+</li>
+</ul>
+<p>I've already been writing out and loading back in levels that are zipped binary data files for my in-game editor.
+</p><p><br />
+<b>I am currently able to save literally any custom data I want, including dynamic arrays, for all my custom classes.</b>
+</p><p><br />
+I've developed a streamlined method for doing all this by overloading a specific UE4 C++ operator, so yay thank you thank you Epic for C++ access!
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Pre-Summary">Pre-Summary</span></h2>
+<p>There's a lot of concepts in this tutorial, try out each part and get it working before moving on to the next
+</p><p>Just copy-pasting code will not work here, you need to understand the basics, because all I am presenting is the basics,
+</p><p>and you must apply the basics to your own project's needs.
+</p><p>After all, this is about a save system for any arbitrary project-specific custom class data&#160;:)
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Two_Levels_of_Conversions">Two Levels of Conversions</span></h2>
+<p>When you want to save custom variable data for your custom save system,
+</p><p>there are TWO major steps involved
+</p><p><b>Step 1</b> = variable format -&gt; binary array (serialized by Archive class of UE4)
+</p><p><b>Step 2</b> = Binary array -&gt; hard disk
+</p><p>These steps are then done in reverse to read back in data from hard disk.
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Binary_Array_.3D_TArray.3Cuint8.3E">Binary Array = TArray&lt;uint8&gt;</span></h3>
+<p>Binary data is represented in a very UE4 C++ friendly looking way as a dynamic array of uint8.
+</p><p>So any time you see TArray&lt;uint8&gt; in my code in this tutorial, that literally means "Binary Array" from UE4 C++ standpoint.
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Step_1:_Variable_Format_-.3E_Binary_Array">Step 1: Variable Format -&gt; Binary Array</span></h3>
+<p>An int32 takes up 4 bytes, as does a float.
+</p><p>An int64 takes up 8 bytes.
+</p><p>An FName takes up 8 bytes.
+</p><p>An FString takes up 16 bytes.
+</p><p>An FVector takes up 3 x float bytes.
+</p><p>etc.
+</p><p>So even a single int32 is actually an array of bytes, not a single entry.
+</p><p>Now let's suppose your save system needs to store
+</p>
+<ul>
+<li> 3 FVector's
+</li>
+</ul>
+<ul>
+<li> 40 int32's
+</li>
+</ul>
+<ul>
+<li> 20 FName's
+</li>
+</ul>
+<p>Do all the math and this is a lot of bytes!
+</p><p>3 x 3  = 9
+</p><p>40 x 4 = 160
+</p><p>20 x 8 = 160 
+</p><p>329
+</p><p>So this means that before your data leaves UE4 and goes to hard disk, you need a TArray&lt;uint8&gt; that has 329 entries.
+</p>
+<h3><span class="mw-headline" id="Step_2:_Binary_Array_-.3E_Hard_Disk">Step 2: Binary Array -&gt; Hard Disk</span></h3>
+<p>UE4 C++ gives you functions via FileManager.h to write out TArray&lt;uint8&gt; to hard disk!
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Optinal_Step_3:_Compressed_Binary">Optinal Step 3: Compressed Binary</span></h3>
+<p>UE4 gives you functionality via Archive.h to compress a TArray&lt;uint8&gt; before sending it to the FileManager
+</p><p>
+C++ Code For You
+
+</p><p>Below I am giving you the functions that I use to to read and write binary files of any custom data I choose
+</p><p><br /> 
+</p>
+<h2><span class="mw-headline" id="Core_Header_Files">Core Header Files</span></h2>
+<h3><span class="mw-headline" id="Archive.h_and_ArchiveBase.h">Archive.h and ArchiveBase.h</span></h3>
+<p>See Archive.h and ArchiveBase.h for all the info you need about getting from your varibles and custom class data to binary format (serialized data)
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="FileManager.h">FileManager.h</span></h3>
+<p>All the functions you need to 
+</p>
+<ul>
+<li>create directories
+</li>
+<li>delete directories
+</li>
+<li>create files
+</li>
+<li>delete files
+</li>
+<li>get a listing of all files in a given path
+</li>
+<li>get a listing of all folders in a given path
+</li>
+<li>get the age of a file
+</li>
+</ul>
+<p>and more
+</p><p>are found in FileManager.h
+</p><p>You access these functions from anywhere using
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw1">if</span><span class="br0">&#40;</span>GFileManager<span class="br0">&#41;</span> GFileManager<span class="sy2">-</span><span class="sy1">&gt;</span>TheFunction<span class="br0">&#40;</span><span class="br0">&#41;</span></pre></div></div>
+<h3><span class="mw-headline" id="BufferArchive">BufferArchive</span></h3>
+<p>The buffer archive is both a binary array (TArray&lt;uint8&gt;), and a MemoryWriter
+</p><p><b>Archive.h</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="coMULTI">/**
+ * Buffer archiver.
+ */</span>
+<span class="kw2">class</span> FBufferArchive <span class="sy4">:</span> <span class="kw2">public</span> FMemoryWriter, <span class="kw2">public</span> TArray<span class="sy1">&lt;</span><span class="kw4">uint8</span><span class="sy1">&gt;</span>
+<span class="br0">&#123;</span></pre></div></div>
+<p>Because of this multiple-inheritance, the BufferArchive is my preferred way to write data to binary file.
+</p><p>As my code will show, because the GFileManager wants to receive a TArray&lt;uint8&gt;, not a MemoryArchive.
+</p><p>Review my Steps 1 and 2 to see why this is such an awesome class.&#160;:)
+</p><p>Thanks UE4 Devs!
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="FMemoryReader">FMemoryReader</span></h3>
+<p>To read Data back from a binary array, that is retrieved by the FileManager, you need a MemoryReader
+</p><p><b>Archive.h</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="coMULTI">/**
+ * Archive for reading arbitrary data from the specified memory location
+ */</span>
+<span class="kw2">class</span> FMemoryReader <span class="sy4">:</span> <span class="kw2">public</span> FMemoryArchive
+<span class="br0">&#123;</span>
+<span class="kw2">public</span><span class="sy4">:</span></pre></div></div>
+<h2><span class="mw-headline" id="The_.3C.3C_Operator">The &lt;&lt; Operator</span></h2>
+<p>The BufferArchive/Binary Array needs to retrieve your game's variable data, how do you tell it what you want stored as binary?
+</p><p>The &lt;&lt; operator!
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Variable_-.3E_Binary">Variable -&gt; Binary</span></h3>
+<p>Here's how you would put an FVector into a BufferArchive to then be saved to hard disk.
+</p><p>//in player controller class
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">FBufferArchive ToBinary<span class="sy4">;</span>
+ToBinary <span class="sy1">&lt;&lt;</span> GetPawn<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetActorLocation<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">//save player location to hard disk</span>
+&#160;
+<span class="co1">//save ToBinary to hard disk using File Manager, </span>
+<span class="co1">//see complete code samples below</span></pre></div></div>
+<h3><span class="mw-headline" id="Binary_-.3E_Variable">Binary -&gt; Variable</span></h3>
+<p>Here's how you would retrieve an FVector from a TArray&lt;uint8&gt; as retrieved by GFileManager.
+</p>
+/<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="sy2">/</span>TheBinaryArray was already obtained from FileManager, 
+<span class="co1">//see code below for full examples</span>
+&#160;
+<span class="co1">//need to supply a variable to be filled with the data</span>
+FVector ToBeFilledWithData<span class="sy4">;</span>
+&#160;
+FMemoryReader Ar <span class="sy1">=</span> FMemoryReader<span class="br0">&#40;</span>TheBinaryArray, <span class="kw2">true</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">//true, free data after done</span>
+Ar.<span class="me1">Seek</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">//make sure we at the beginning</span>
+&#160;
+Ar <span class="sy1">&lt;&lt;</span> ToBeFilledWithData<span class="sy4">;</span></pre></div></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="The_Hardest_Concept_of_UE4_C.2B.2B_Custom_Save_System">The Hardest Concept of UE4 C++ Custom Save System</span></h2>
+<p>Compare these two lines
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">ToBinary <span class="sy1">&lt;&lt;</span> GetPawn<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetActorLocation<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+Ar <span class="sy1">&lt;&lt;</span> ToBeFilledWithData<span class="sy4">;</span></pre></div></div>
+<p>The hardest concept for me about the UE4 archive system was the fact that the &lt;&lt; operator could mean
+</p><p>- getting data out of the archive and putting it into the variable
+</p><p>or
+</p><p>- putting data from the variable into the archived binary format
+</p><p>depending on the context!
+</p><p><br />
+So that's why I recommend you name your BufferArchive something like ToBinary,
+</p><p>and your MemoryReader something <b>totally different</b>,
+</p><p>you can only discern the difference between writing to binary and reading from binary
+</p><p>based on the context as you show it in your code, as the &lt;&lt; operator will tell you nothing from a simple glance.
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Writing_Your_Function_to_Be_Two-Way">Writing Your Function to Be Two-Way</span></h3>
+<p>The critical advantage of this system though is that you can write a single function that works both ways.
+</p><p>So you can write a single function that loads data from file, or saves to file.
+</p><p>But why would you want this?
+</p><p>Because:
+</p>
+<h4><span class="mw-headline" id="The_order_of_how_you_write_out_data_to_binary_file_must_be_the_exact_order_that_you_read_it_back_in.21">The order of how you write out data to binary file must be the exact order that you read it back in!</span></h4>
+<p>The computer does not have any way of knowing, nor does UE4, what the correct order of variable data should be.
+</p><p>You are responsible for telling the computer and UE4 to read data back in in the same order it was written out to file.
+</p><p>Thus, having a single function that both reads and writes, using the multi-purpose &lt;&lt; operator, is the safest thing you can do to ensure consistency of writing/reading binary data.
+</p>
+<h2><span class="mw-headline" id=""></span></h2>
+<h2><span class="mw-headline" id="SaveLoadData:_Two-Way_Save_System_Function">SaveLoadData: Two-Way Save System Function</span></h2>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="st0">''</span><span class="st0">'.h'</span><span class="st0">''</span>
+&#160;
+<span class="co1">//FArchive is shared base class for FBufferArchive and FMemoryReader</span>
+<span class="kw4">void</span> SaveLoadData<span class="br0">&#40;</span>FArchive<span class="sy3">&amp;</span> Ar, <span class="kw4">int32</span><span class="sy3">&amp;</span> SaveDataInt32, FVector<span class="sy3">&amp;</span> SaveDataVector, TArray<span class="sy1">&lt;</span>FRotator<span class="sy1">&gt;</span><span class="sy3">&amp;</span> SaveDataRotatorArray<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="st0">''</span><span class="st0">'.cpp'</span><span class="st0">''</span>
+&#160;
+<span class="co1">//I am using controller class for convenience, use any class you want</span>
+&#160;
+<span class="co1">//SaveLoadData</span>
+<span class="kw4">void</span> YourControllerClass<span class="sy4">::</span><span class="me2">SaveLoadData</span><span class="br0">&#40;</span>FArchive<span class="sy3">&amp;</span> Ar,
+  <span class="kw4">int32</span><span class="sy3">&amp;</span> SaveDataInt32,
+  FVector<span class="sy3">&amp;</span> SaveDataVector,
+  TArray<span class="sy1">&lt;</span>FRotator<span class="sy1">&gt;</span><span class="sy3">&amp;</span> SaveDataRotatorArray
+<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Ar <span class="sy1">&lt;&lt;</span> SaveDataInt32<span class="sy4">;</span>
+	Ar <span class="sy1">&lt;&lt;</span> SaveDataVector<span class="sy4">;</span>
+	Ar <span class="sy1">&lt;&lt;</span> SaveDataRotatorArray<span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h3><span class="mw-headline" id="Saving">Saving</span></h3>
+<p>Make a BufferArchive and pass it in, it is a Binary Array and also an FArchive
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">FBufferArchive ToBinary<span class="sy4">;</span>
+SaveLoadData<span class="br0">&#40;</span>ToBinary,NumGemsCollected,PlayerLocation,ArrayOfRotationsOfTheStars<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="co1">//save the binary array / FBufferArchive to hard disk, see below</span></pre></div></div>
+<h3><span class="mw-headline" id="Loading">Loading</span></h3>
+<p>//TheBinaryArray already retrieved from file, see full code sapmle
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">FMemoryReader FromBinary <span class="sy1">=</span> FMemoryReader<span class="br0">&#40;</span>TheBinaryArray, <span class="kw2">true</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">//true, free data after done</span>
+FromBinary.<span class="me1">Seek</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span>
+SaveLoadData<span class="br0">&#40;</span>FromBinary,NumGemsCollected,PlayerLocation,ArrayOfRotationsOfTheStars<span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id="Summary">Summary</span></h3>
+<p>Use this setup to avoid crashes due to reading data not in same order that you wrote it to disk!
+</p><p>this two way functionality of UE4 &lt;&lt; operator saves the day!
+</p><p>Thanks Epic Devs!
+</p>
+<h2><span class="mw-headline" id="My_Binary_Save_System_Functions_For_You">My Binary Save System Functions For You</span></h2>
+<p>Below I am giving you the functions that I use to save/load binary files!
+</p>
+<h3><span class="mw-headline" id="Saving_Binary_Files">Saving Binary Files</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw4">bool</span> ControllerClass<span class="sy4">::</span><span class="me2">SaveGameDataToFile</span><span class="br0">&#40;</span><span class="kw4">const</span> FString<span class="sy3">&amp;</span> FullFilePath, FBufferArchive<span class="sy3">&amp;</span> ToBinary<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="co1">//note that the supplied FString must be the entire Filepath</span>
+	<span class="co1">// 	if writing it out yourself in C++ make sure to use the \\</span>
+	<span class="co1">// 	for example:</span>
+&#160;
+	<span class="co1">// 	FString SavePath = &quot;C:\\MyProject\\MySaveDir&quot;;</span>
+&#160;
+	<span class="co1">//Step 1: Variable Data -&gt; Binary</span>
+&#160;
+	<span class="co1">//following along from above examples</span>
+	FBufferArchive ToBinary<span class="sy4">;</span>
+	SaveLoadData<span class="br0">&#40;</span>ToBinary,NumGemsCollected,PlayerLocation,ArrayOfRotationsOfTheStars<span class="br0">&#41;</span><span class="sy4">;</span> 
+	<span class="co1">//presumed to be global var data, </span>
+	<span class="co1">//could pass in the data too if you preferred</span>
+&#160;
+	<span class="co1">//No Data</span>
+	<span class="kw1">if</span><span class="br0">&#40;</span>ToBinary.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy1">&lt;=</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="kw1">return</span><span class="sy4">;</span>
+	<span class="co1">//~</span>
+&#160;
+	<span class="co1">//Step 2: Binary to Hard Disk</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>FFileHelper<span class="sy4">::</span><span class="me2">SaveArrayToFile</span><span class="br0">&#40;</span>ToBinary, <span class="sy2">*</span> FullFilePath<span class="br0">&#41;</span><span class="br0">&#41;</span> 
+	<span class="br0">&#123;</span>
+		<span class="co1">// Free Binary Array 	</span>
+		ToBinary.<span class="me1">FlushCache</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		ToBinary.<span class="me1">Empty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+		ClientMessage<span class="br0">&#40;</span><span class="st0">&quot;Save Success!&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		<span class="kw1">return</span> <span class="kw2">true</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+&#160;
+	<span class="co1">// Free Binary Array 	</span>
+	ToBinary.<span class="me1">FlushCache</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	ToBinary.<span class="me1">Empty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	ClientMessage<span class="br0">&#40;</span><span class="st0">&quot;File Could Not Be Saved!&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">return</span> <span class="kw2">false</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>FBufferArchive
+</p>
+<h3><span class="mw-headline" id="Loading_Binary_Files">Loading Binary Files</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">//I am using the sample save data from above examples as the data being loaded</span>
+<span class="kw4">bool</span> ControllerClass<span class="sy4">::</span><span class="me2">LoadGameDataFromFileCompressed</span><span class="br0">&#40;</span>
+	<span class="kw4">const</span> FString<span class="sy3">&amp;</span> FullFilePath, 
+	<span class="kw4">int32</span><span class="sy3">&amp;</span> SaveDataInt32,
+	FVector<span class="sy3">&amp;</span> SaveDataVector,
+	TArray<span class="sy1">&lt;</span>FRotator<span class="sy1">&gt;</span><span class="sy3">&amp;</span> SaveDataRotatorArray
+<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="co1">//Load the Compressed data array,</span>
+	<span class="co1">// 	you do not need to pre-initialize this array,</span>
+	<span class="co1">//		UE4 C++ is awesome and fills it </span>
+	<span class="co1">//		with whatever contents of file are, </span>
+	<span class="co1">//		and however many bytes that is</span>
+	TArray<span class="sy1">&lt;</span><span class="kw4">uint8</span><span class="sy1">&gt;</span> TheBinaryArray<span class="sy4">;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy3">!</span>FFileHelper<span class="sy4">::</span><span class="me2">LoadFileToArray</span><span class="br0">&#40;</span>TheBinaryArray, <span class="sy2">*</span>FullFilePath<span class="br0">&#41;</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		ClientMessage<span class="br0">&#40;</span><span class="st0">&quot;FFILEHELPER:&gt;&gt; Invalid File&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		<span class="kw1">return</span> <span class="kw2">false</span><span class="sy4">;</span>
+		<span class="co1">//~~</span>
+	<span class="br0">&#125;</span>
+&#160;
+	<span class="co1">//Testing</span>
+	ClientMessage<span class="br0">&#40;</span><span class="st0">&quot;Loaded File Size&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	ClientMessage<span class="br0">&#40;</span>FString<span class="sy4">::</span><span class="me2">FromInt</span><span class="br0">&#40;</span>TheBinaryArray.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//File Load Error</span>
+	<span class="kw1">if</span><span class="br0">&#40;</span>TheBinaryArray.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy1">&lt;=</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="kw1">return</span> <span class="kw2">false</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//~</span>
+	<span class="co1">//		  Read the Data Retrieved by GFileManager</span>
+	<span class="co1">//~</span>
+&#160;
+	FMemoryReader FromBinary <span class="sy1">=</span> FMemoryReader<span class="br0">&#40;</span>TheBinaryArray, <span class="kw2">true</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">//true, free data after done</span>
+	FromBinary.<span class="me1">Seek</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	SaveLoadData<span class="br0">&#40;</span>FromBinary,NumGemsCollected,PlayerLocation,ArrayOfRotationsOfTheStars<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//~</span>
+	<span class="co1">//								Clean up </span>
+	<span class="co1">//~</span>
+	FromBinary.<span class="me1">FlushCache</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">// Empty &amp; Close Buffer </span>
+	TheBinaryArray.<span class="me1">Empty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	TheBinaryArray.<span class="me1">Close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">return</span> <span class="kw2">true</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h3><span class="mw-headline" id="Saving_Compressed">Saving Compressed</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw4">bool</span> ControllerClass<span class="sy4">::</span><span class="me2">SaveGameDataToFileCompressed</span><span class="br0">&#40;</span><span class="kw4">const</span> FString<span class="sy3">&amp;</span> FullFilePath, 
+	<span class="kw4">int32</span><span class="sy3">&amp;</span> SaveDataInt32,
+	FVector<span class="sy3">&amp;</span> SaveDataVector,
+	TArray<span class="sy1">&lt;</span>FRotator<span class="sy1">&gt;</span><span class="sy3">&amp;</span> SaveDataRotatorArray
+<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	FBufferArchive ToBinary<span class="sy4">;</span>
+	SaveLoadData<span class="br0">&#40;</span>ToBinary,NumGemsCollected,PlayerLocation,ArrayOfRotationsOfTheStars<span class="br0">&#41;</span><span class="sy4">;</span> 
+&#160;
+	<span class="co1">//Pre Compressed Size</span>
+	ClientMessage<span class="br0">&#40;</span><span class="st0">&quot;~ PreCompressed Size ~&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	ClientMessage<span class="br0">&#40;</span>FString<span class="sy4">::</span><span class="me2">FromInt</span><span class="br0">&#40;</span>ToBinary.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//</span>
+&#160;
+	<span class="co1">// Compress File </span>
+	<span class="co1">//tmp compressed data array</span>
+	TArray<span class="sy1">&lt;</span><span class="kw4">uint8</span><span class="sy1">&gt;</span> CompressedData<span class="sy4">;</span>
+	FArchiveSaveCompressedProxy Compressor <span class="sy1">=</span> 
+		FArchiveSaveCompressedProxy<span class="br0">&#40;</span>CompressedData, ECompressionFlags<span class="sy4">::</span><span class="me2">COMPRESS_ZLIB</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//Send entire binary array/archive to compressor</span>
+	Compressor <span class="sy1">&lt;&lt;</span> ToBinary<span class="sy4">;</span>
+&#160;
+	<span class="co1">//send archive serialized data to binary array</span>
+	Compressor.<span class="me1">Flush</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//</span>
+&#160;
+	<span class="co1">//Compressed Size</span>
+	ClientMessage<span class="br0">&#40;</span><span class="st0">&quot;~ Compressed Size ~&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	ClientMessage<span class="br0">&#40;</span>FString<span class="sy4">::</span><span class="me2">FromInt</span><span class="br0">&#40;</span>CompressedData.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+&#160;
+	<span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy3">!</span>GFileManager<span class="br0">&#41;</span> <span class="kw1">return</span> <span class="kw2">false</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//vibes to file, return successful or not</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>FFileHelper<span class="sy4">::</span><span class="me2">SaveArrayToFile</span><span class="br0">&#40;</span>CompressedData, <span class="sy2">*</span> FullFilePath<span class="br0">&#41;</span><span class="br0">&#41;</span> 
+	<span class="br0">&#123;</span>
+		<span class="co1">// Free Binary Arrays </span>
+		Compressor.<span class="me1">FlushCache</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		CompressedData.<span class="me1">Empty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+		ToBinary.<span class="me1">FlushCache</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		ToBinary.<span class="me1">Empty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+		<span class="co1">// Close Buffer </span>
+		ToBinary.<span class="me1">Close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+		ClientMessage<span class="br0">&#40;</span><span class="st0">&quot;File Save Success!&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+		<span class="kw1">return</span> <span class="kw2">true</span><span class="sy4">;</span>
+		<span class="co1">//</span>
+	<span class="br0">&#125;</span>
+	<span class="kw1">else</span>
+	<span class="br0">&#123;</span>
+		<span class="co1">// Free Binary Arrays </span>
+                Compressor.<span class="me1">FlushCache</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		CompressedData.<span class="me1">Empty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+		ToBinary.<span class="me1">FlushCache</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		ToBinary.<span class="me1">Empty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+		<span class="co1">// Close Buffer </span>
+		ToBinary.<span class="me1">Close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+		ClientMessage<span class="br0">&#40;</span><span class="st0">&quot;File Could Not Be Saved!&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+		<span class="kw1">return</span> <span class="kw2">false</span><span class="sy4">;</span>
+		<span class="co1">//</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Loading_Compressed">Loading Compressed</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">//I am using the sample save data from above examples as the data being loaded</span>
+<span class="kw4">bool</span> ControllerClass<span class="sy4">::</span><span class="me2">LoadGameDataFromFileCompressed</span><span class="br0">&#40;</span>
+	<span class="kw4">const</span> FString<span class="sy3">&amp;</span> FullFilePath, 
+	<span class="kw4">int32</span><span class="sy3">&amp;</span> SaveDataInt32,
+	FVector<span class="sy3">&amp;</span> SaveDataVector,
+	TArray<span class="sy1">&lt;</span>FRotator<span class="sy1">&gt;</span><span class="sy3">&amp;</span> SaveDataRotatorArray
+<span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="co1">//Load the Compressed data array</span>
+	TArray<span class="sy1">&lt;</span><span class="kw4">uint8</span><span class="sy1">&gt;</span> CompressedData<span class="sy4">;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy3">!</span>FFileHelper<span class="sy4">::</span><span class="me2">LoadFileToArray</span><span class="br0">&#40;</span>CompressedData, <span class="sy2">*</span>FullFilePath<span class="br0">&#41;</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		Optimize<span class="br0">&#40;</span><span class="st0">&quot;FFILEHELPER:&gt;&gt; Invalid File&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		<span class="kw1">return</span> <span class="kw2">false</span><span class="sy4">;</span>
+		<span class="co1">//~~</span>
+	<span class="br0">&#125;</span>
+&#160;
+	<span class="co1">// Decompress File </span>
+	FArchiveLoadCompressedProxy Decompressor <span class="sy1">=</span> 
+		FArchiveLoadCompressedProxy<span class="br0">&#40;</span>CompressedData, ECompressionFlags<span class="sy4">::</span><span class="me2">COMPRESS_ZLIB</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//Decompression Error?</span>
+	<span class="kw1">if</span><span class="br0">&#40;</span>Decompressor.<span class="me1">GetError</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		Optimize<span class="br0">&#40;</span><span class="st0">&quot;FArchiveLoadCompressedProxy&gt;&gt; ERROR&#160;: File Was Not Compressed &quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		<span class="kw1">return</span> <span class="kw2">false</span><span class="sy4">;</span>
+		<span class="co1">//</span>
+	<span class="br0">&#125;</span>
+&#160;
+	<span class="co1">//Decompress</span>
+	FBufferArchive DecompressedBinaryArray<span class="sy4">;</span>
+	Decompressor <span class="sy1">&lt;&lt;</span> DecompressedBinaryArray<span class="sy4">;</span>
+&#160;
+	<span class="co1">//~</span>
+	<span class="co1">//		  Read the Data Retrieved by GFileManager</span>
+	<span class="co1">//~</span>
+&#160;
+	FMemoryReader FromBinary <span class="sy1">=</span> FMemoryReader<span class="br0">&#40;</span>DecompressedBinaryArray, <span class="kw2">true</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">//true, free data after done</span>
+	FromBinary.<span class="me1">Seek</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	SaveLoadData<span class="br0">&#40;</span>FromBinary,NumGemsCollected,PlayerLocation,ArrayOfRotationsOfTheStars<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//~</span>
+	<span class="co1">//								Clean up </span>
+	<span class="co1">//~</span>
+	CompressedData.<span class="me1">Empty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	Decompressor.<span class="me1">FlushCache</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	FromBinary.<span class="me1">FlushCache</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">// Empty &amp; Close Buffer </span>
+	DecompressedBinaryArray.<span class="me1">Empty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	DecompressedBinaryArray.<span class="me1">Close</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">return</span> <span class="kw2">true</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="_2"></span></h2>
+<h2><span class="mw-headline" id="Overloading_the_.3C.3C_Operator">Overloading the &lt;&lt; Operator</span></h2>
+<p>Create your own &lt;&lt; Operator overloads to simplify the process!
+</p><p>Let's say you have your own USTRUCT or your own class, and you want to write a way to
+</p><p>simply write
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">ToBinary <span class="sy1">&lt;&lt;</span> MyEntireSaveSystem<span class="sy4">;</span></pre></div></div>
+<p>or
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">ToBinary <span class="sy1">&lt;&lt;</span> MySpecialUStruct<span class="sy4">;</span></pre></div></div>
+<p><br />
+Here's how you overload the &lt;&lt; Operator!
+</p><p>Please note this must be in the .h file, and no contents in the .cpp.
+</p><p>Also there is no context, such as MyClass::, it must be at the global level.
+</p><p>Also the .h file that has this definition must be compiled before any classes that want to use it.
+</p><p>You can use UClass(dependson=UYourDefinitionsClass) to ensure this
+</p><p>or simply put the .h contents in your public directory
+</p><p>and include them as a header somewhere.
+</p><p><b>.h</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">//Make as many Unique Overloads as you want!</span>
+FORCEINLINE FArchive<span class="sy3">&amp;</span> operator<span class="sy1">&lt;&lt;</span><span class="br0">&#40;</span>FArchive <span class="sy3">&amp;</span>Ar, UMySaveGameClass<span class="sy2">*</span> SaveGameData <span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>SaveGameData<span class="br0">&#41;</span> <span class="kw1">return</span><span class="sy4">;</span>
+	<span class="co1">//~</span>
+&#160;
+	Ar <span class="sy1">&lt;&lt;</span> SaveGameData<span class="sy2">-</span><span class="sy1">&gt;</span>NumGemsCollected<span class="sy4">;</span>  <span class="co1">//int32</span>
+	Ar <span class="sy1">&lt;&lt;</span> SaveGameData<span class="sy2">-</span><span class="sy1">&gt;</span>PlayerLocation<span class="sy4">;</span>  <span class="co1">//FVector</span>
+	Ar <span class="sy1">&lt;&lt;</span> SaveGameData<span class="sy2">-</span><span class="sy1">&gt;</span>ArrayOfRotationsOfTheStars<span class="sy4">;</span> <span class="co1">//TArray&lt;FRotator&gt;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p><b>Note:</b>
+</p><p>1. The operator is returning the Ar by reference.
+</p><p>2. No const are allowed at global level (its a compile error)
+</p><p>3. No const allowed inside because you dont know if you are reading or writing due to nature of &lt;&lt; operator.
+</p>
+<h2><span class="mw-headline" id="Crashes.3F">Crashes?</span></h2>
+<p>If you get crashes you are not reading/writing data in same order,
+</p><p>use overloaded &lt;&lt; operator and the idea of a single function like SaveLoadGame to avoid this
+</p><p><br />
+Also, if you <b>compress data before saving it</b> make sure you are loading it using my <b>compressed function</b>, not the regular one, and vice versa&#160;:)
+</p>
+<h2><span class="mw-headline" id="Enjoy.21">Enjoy!</span></h2>
+<p>Have fun making your very own custom save game system, and saving it to compressed binary file!
+</p><p>♥
+</p><p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.116 seconds
+Real time usage: 0.117 seconds
+Preprocessor visited node count: 283/1000000
+Preprocessor generated node count: 502/1000000
+Post‐expand include size: 155/2097152 bytes
+Template argument size: 22/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=Save_System,_Read_%26_Write_Any_Data_to_Compressed_Binary_Files&amp;oldid=9316">https://wiki.unrealengine.com/index.php?title=Save_System,_Read_%26_Write_Any_Data_to_Compressed_Binary_Files&amp;oldid=9316</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li><li><a href="/Category:Code" title="Category:Code">Code</a></li><li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.176 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

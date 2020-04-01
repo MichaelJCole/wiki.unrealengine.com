@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>AI Navigation in C++, Customize Path Following Every Tick - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"AI_Navigation_in_C++,_Customize_Path_Following_Every_Tick","wgTitle":"AI Navigation in C++, Customize Path Following Every Tick","wgCurRevisionId":13958,"wgRevisionId":13958,"wgArticleId":3296,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Code"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"AI_Navigation_in_C++,_Customize_Path_Following_Every_Tick","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-AI_Navigation_in_C_Customize_Path_Following_Every_Tick skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head"></div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-recentchanges"><a href="/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Community' aria-labelledby='p-Community-label'>
+	<h3 id='p-Community-label'>Community</h3>
+	<div class="body">
+		<ul>
+			<li id="n-UE4-Games"><a href="/Category:Games">UE4 Games</a></li>
+			<li id="n-Dev-Blogs"><a href="/Developer_Blogs">Dev Blogs</a></li>
+			<li id="n-Dev-Livestreams"><a href="/Developer_Livestreams">Dev Livestreams</a></li>
+			<li id="n-Code-Sharing-Hub"><a href="/GitHub_Sharing_Hub">Code Sharing Hub</a></li>
+			<li id="n-UE-User-Groups"><a href="/User_Group_Map">UE User Groups</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Learning_Resources' aria-labelledby='p-Learning_Resources-label'>
+	<h3 id='p-Learning_Resources-label'>Learning Resources</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Example-Projects"><a href="/Category:Example_Projects">Example Projects</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Software_and_Tools' aria-labelledby='p-Software_and_Tools-label'>
+	<h3 id='p-Software_and_Tools-label'>Software and Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Art:-3D"><a href="/3D_Art_Resources">Art: 3D</a></li>
+			<li id="n-Art:-2D"><a href="/2D_Art_Resources">Art: 2D</a></li>
+			<li id="n-Audio"><a href="/Audio_Resources">Audio</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Modding' aria-labelledby='p-Modding-label'>
+	<h3 id='p-Modding-label'>Modding</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Modding-Resources"><a href="/Category:Modding_Resources">Modding Resources</a></li>
+			<li id="n-Moddable-Games"><a href="/Category:Moddable_Games">Moddable Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Epic_Official' aria-labelledby='p-Epic_Official-label'>
+	<h3 id='p-Epic_Official-label'>Epic Official</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Website"><a href="https://www.unrealengine.com" rel="nofollow">Website</a></li>
+			<li id="n-Learning-Resources"><a href="https://docs.unrealengine.com/latest/INT/" rel="nofollow">Learning Resources</a></li>
+			<li id="n-Forums"><a href="https://forums.unrealengine.com/" rel="nofollow">Forums</a></li>
+			<li id="n-Blog"><a href="https://www.unrealengine.com/blog" rel="nofollow">Blog</a></li>
+			<li id="n-YouTube"><a href="https://www.youtube.com/UnrealEngine" rel="nofollow">YouTube</a></li>
+			<li id="n-Twitch"><a href="http://www.twitch.tv/unrealengine" rel="nofollow">Twitch</a></li>
+			<li id="n-Twitter"><a href="https://twitter.com/UnrealEngine" rel="nofollow">Twitter</a></li>
+			<li id="n-Facebook"><a href="https://www.facebook.com/UnrealEngine" rel="nofollow">Facebook</a></li>
+			<li id="n-Instagram"><a href="https://instagram.com/unrealengine/" rel="nofollow">Instagram</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/AI_Navigation_in_C%2B%2B,_Customize_Path_Following_Every_Tick" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/AI_Navigation_in_C%2B%2B,_Customize_Path_Following_Every_Tick" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=AI_Navigation_in_C%2B%2B,_Customize_Path_Following_Every_Tick&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=AI_Navigation_in_C%2B%2B,_Customize_Path_Following_Every_Tick&amp;oldid=13958" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=AI_Navigation_in_C%2B%2B,_Customize_Path_Following_Every_Tick&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/AI_Navigation_in_C%2B%2B,_Customize_Path_Following_Every_Tick"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:AI_Navigation_in_C%2B%2B,_Customize_Path_Following_Every_Tick&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/AI_Navigation_in_C%2B%2B,_Customize_Path_Following_Every_Tick" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=AI_Navigation_in_C%2B%2B,_Customize_Path_Following_Every_Tick&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=AI_Navigation_in_C%2B%2B,_Customize_Path_Following_Every_Tick&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=AI+Navigation+in+C%2B%2B%2C+Customize+Path+Following+Every+Tick&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=AI+Navigation+in+C%2B%2B%2C+Customize+Path+Following+Every+Tick" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">AI Navigation in C++, Customize Path Following Every Tick</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Rama_C.2B.2B_AI_Jumping_Video"><span class="tocnumber">2</span> <span class="toctext">Rama C++ AI Jumping Video</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Rama_Video_.7E_Training_PhysX_Simulating_Balls_to_Navigate_Narrow_Ledges.21"><span class="tocnumber">3</span> <span class="toctext">Rama Video ~ Training PhysX Simulating Balls to Navigate Narrow Ledges!</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Steps"><span class="tocnumber">4</span> <span class="toctext">Steps</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Have_your_own_Custom_ai_controller_.28extends_AAIController.29"><span class="tocnumber">4.1</span> <span class="toctext">Have your own Custom ai controller (extends AAIController)</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Tell_ai_controller_to_use_custom_path_following_component.2C_which_extends_the_base_UE4_class"><span class="tocnumber">4.2</span> <span class="toctext">Tell ai controller to use custom path following component, which extends the base UE4 class</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Make_sure_your_build.cs_is_including_AIModule_as_part_of_your_dependencies"><span class="tocnumber">4.3</span> <span class="toctext">Make sure your build.cs is including AIModule as part of your dependencies</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Override_these_functions_in_your_custom_PathFollowingComponent.21"><span class="tocnumber">4.4</span> <span class="toctext">Override these functions in your custom PathFollowingComponent!</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Video_Result"><span class="tocnumber">5</span> <span class="toctext">Video Result</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#More_of_Ny_Customized_C.2B.2B_AI_Pathing_Videos"><span class="tocnumber">6</span> <span class="toctext">More of Ny Customized C++ AI Pathing Videos</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#How_to_Get_All_UE4_Navigation_Polys"><span class="tocnumber">7</span> <span class="toctext">How to Get All UE4 Navigation Polys</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Conclusion"><span class="tocnumber">8</span> <span class="toctext">Conclusion</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p><a href="/File:RamaAIJump.gif" class="image"><img alt="RamaAIJump.gif" src="https://d26ilriwvtzlb.cloudfront.net/7/7a/RamaAIJump.gif" width="600" height="338" /></a>
+</p><p><i>Original Author:</i> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)
+</p><p>Dear Community,
+As gif above shows there is a way to modify standard UE4 pathing via C++ to introduce customized path following behavior without rewriting the whole system!
+</p><p>In gif above I am telling the unit how to jump from one nav mesh piece to another using only C++ (nothing was placed in the editor other than basic nav mesh, and I can add new level geometry any time)
+</p><p>I am also drawing each UE4 Nav Area that the unit is passing through, and I use Nav Mesh Traces + the area info to identify how the unit should jump, and at what angle, to path over terrain that requires jumping.
+</p><p>The point of this wiki is that my method involves only C++ code and a custom Path Following Component. 
+</p><p>I am adding to the stock UE4 code, keeping its benefits, while introducing my own custom path following mechanics.
+</p>
+<h2><span class="mw-headline" id="Rama_C.2B.2B_AI_Jumping_Video">Rama C++ AI Jumping Video</span></h2>
+<p>I used the code structure I am describing in this wiki to train my AI to do jump pathing calculations using just UE4 C++!
+</p><p><iframe width="560" height="315" src="//www.youtube.com/embed/sMMSQdnyt6o" frameborder="0" allowfullscreen></iframe>
+</p><p>More Rama AI Jumping Videos
+</p><p><a rel="nofollow" class="external free" href="https://forums.unrealengine.com/showthread.php?25410-Rama-s-Multi-Threaded-Dynamic-Pathing-System-Full-Physics-Support&amp;p=251216&amp;viewfull=1#post251216">https://forums.unrealengine.com/showthread.php?25410-Rama-s-Multi-Threaded-Dynamic-Pathing-System-Full-Physics-Support&amp;p=251216&amp;viewfull=1#post251216</a>
+</p>
+<h2><span class="mw-headline" id="Rama_Video_.7E_Training_PhysX_Simulating_Balls_to_Navigate_Narrow_Ledges.21">Rama Video ~ Training PhysX Simulating Balls to Navigate Narrow Ledges!</span></h2>
+<p>In this video you can see that I use a custom path following component ( as explained in this wiki ) to enable PhysX simulating characters to navigate narrow ledges!
+</p><p><iframe width="560" height="315" src="//www.youtube.com/embed/d7mAhStMABo" frameborder="0" allowfullscreen></iframe>
+</p>
+<h2><span class="mw-headline" id="Steps">Steps</span></h2>
+<p>You need to do several things
+</p>
+<h3><span class="mw-headline" id="Have_your_own_Custom_ai_controller_.28extends_AAIController.29">Have your own Custom ai controller (extends AAIController)</span></h3>
+<p>Here's the required header info
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co2">#pragma once</span>
+&#160;
+<span class="co1">//Super</span>
+<span class="co2">#include &quot;AIController.h&quot;</span>
+&#160;
+<span class="co2">#include &quot;JoyController.generated.h&quot;</span>
+&#160;
+&#160;
+UCLASS<span class="br0">&#40;</span><span class="br0">&#41;</span> 
+<span class="kw2">class</span> AJoyController <span class="sy4">:</span> <span class="kw2">public</span> AAIController
+<span class="br0">&#123;</span> 
+    GENERATED_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw2">public</span><span class="sy4">:</span>
+    AJoyController<span class="br0">&#40;</span><span class="kw4">const</span> FObjectInitializer<span class="sy3">&amp;</span> ObjectInitializer<span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id="Tell_ai_controller_to_use_custom_path_following_component.2C_which_extends_the_base_UE4_class">Tell ai controller to use custom path following component, which extends the base UE4 class</span></h3>
+<p>Here's the code for that, you just modify the constructor
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">//		UJoyPathFollowComp is used here!</span>
+AJoyController<span class="sy4">::</span><span class="me2">AJoyController</span><span class="br0">&#40;</span><span class="kw4">const</span> FObjectInitializer<span class="sy3">&amp;</span> ObjectInitializer<span class="br0">&#41;</span>
+   <span class="sy4">:</span> Super<span class="br0">&#40;</span>ObjectInitializer.<span class="me1">SetDefaultSubobjectClass</span><span class="sy1">&lt;</span>UJoyPathFollowComp<span class="sy1">&gt;</span><span class="br0">&#40;</span>TEXT<span class="br0">&#40;</span><span class="st0">&quot;PathFollowingComponent&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span></pre></div></div>
+<h3><span class="mw-headline" id="Make_sure_your_build.cs_is_including_AIModule_as_part_of_your_dependencies">Make sure your build.cs is including AIModule as part of your dependencies</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">PublicDependencyModuleNames.<span class="me1">AddRange</span><span class="br0">&#40;</span><span class="kw3">new</span> string<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span> 
+	<span class="st0">&quot;Core&quot;</span>, 
+	<span class="st0">&quot;CoreUObject&quot;</span>, 
+	<span class="st0">&quot;Engine&quot;</span>, 
+	<span class="st0">&quot;InputCore&quot;</span> ,
+        <span class="st0">&quot;Landscape&quot;</span>,
+       <span class="st0">&quot;UMG&quot;</span>,
+&#160;
+        <span class="st0">&quot;PhysX&quot;</span>,  <span class="st0">&quot;APEX&quot;</span>,
+&#160;
+	<span class="st0">&quot;AIModule&quot;</span>      <span class="co1">//&lt;~~~~~~</span>
+<span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id="Override_these_functions_in_your_custom_PathFollowingComponent.21">Override these functions in your custom PathFollowingComponent!</span></h3>
+<p>Especially FollowPathSegment&#160;!
+</p><p>This is where you can take control of exact pathing methods!
+</p><p><br />
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">//~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+<span class="co1">//~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+<span class="co1">//~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+<span class="co1">//	  Per Tick Modification of Path Following</span>
+<span class="co1">//			this is how you really customize </span>
+<span class="co1">//				how units follow the path! </span>
+&#160;
+<span class="coMULTI">/** follow current path segment */</span>
+<span class="kw2">virtual</span> <span class="kw4">void</span> FollowPathSegment<span class="br0">&#40;</span><span class="kw4">float</span> DeltaTime<span class="br0">&#41;</span> override<span class="sy4">;</span>
+&#160;
+<span class="coMULTI">/** sets variables related to current move segment */</span>
+<span class="kw2">virtual</span> <span class="kw4">void</span> SetMoveSegment<span class="br0">&#40;</span><span class="kw4">int32</span> SegmentStartIndex<span class="br0">&#41;</span> override<span class="sy4">;</span>
+&#160;
+<span class="coMULTI">/** check state of path following, update move segment if needed */</span>
+<span class="kw2">virtual</span> <span class="kw4">void</span> UpdatePathSegment<span class="br0">&#40;</span><span class="br0">&#41;</span> override<span class="sy4">;</span></pre></div></div>
+<h2><span class="mw-headline" id="Video_Result">Video Result</span></h2>
+<p>Using the above method is how I made custom C++ Jump pathing calculations that dont need any in-editor additions to the level, just the basic nav mesh volume.
+</p><p><iframe width="560" height="315" src="//www.youtube.com/embed/0GX-1x-wACI" frameborder="0" allowfullscreen></iframe>
+</p>
+<h2><span class="mw-headline" id="More_of_Ny_Customized_C.2B.2B_AI_Pathing_Videos">More of Ny Customized C++ AI Pathing Videos</span></h2>
+<p><a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?25410-Rama-s-Multi-Threaded-Dynamic-Pathing-System-Full-Physics-Support&amp;p=129896&amp;viewfull=1#post129896">Rama's C++ Jump Pathing Videos</a>
+</p>
+<h2><span class="mw-headline" id="How_to_Get_All_UE4_Navigation_Polys">How to Get All UE4 Navigation Polys</span></h2>
+<p>In the video above you will see I get all the UE4 Nav Polys in order to do all my C++ AI Jump calculations!
+</p><p>Here's the function I wrote to do this, just for you!
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">//Nav Data Main</span>
+	FORCEINLINE <span class="kw4">const</span> ANavigationData<span class="sy2">*</span> GetMainNavData<span class="br0">&#40;</span>FNavigationSystem<span class="sy4">::</span><span class="me2">ECreateIfEmpty</span> CreateNewIfNoneFound<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		UNavigationSystem<span class="sy2">*</span> NavSys <span class="sy1">=</span> GetWorld<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetNavigationSystem<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		<span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>NavSys<span class="br0">&#41;</span> <span class="kw1">return</span> <span class="kw2">NULL</span><span class="sy4">;</span> 
+		<span class="kw1">return</span> NavSys<span class="sy2">-</span><span class="sy1">&gt;</span>GetMainNavData<span class="br0">&#40;</span>CreateNewIfNoneFound<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+&#160;
+	<span class="co1">//Choose Which Nav Data To Use</span>
+	FORCEINLINE <span class="kw4">const</span> ANavigationData<span class="sy2">*</span> JoyGetNavData<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span>
+	<span class="br0">&#123;</span>
+		<span class="kw4">const</span> FNavAgentProperties<span class="sy3">&amp;</span> AgentProperties <span class="sy1">=</span> MovementComp<span class="sy2">-</span><span class="sy1">&gt;</span>GetNavAgentPropertiesRef<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy4">;</span>
+		<span class="kw4">const</span> ANavigationData<span class="sy2">*</span> NavData <span class="sy1">=</span> GetNavDataForProps<span class="br0">&#40;</span>AgentProperties<span class="br0">&#41;</span> <span class="sy4">;</span>
+		<span class="kw1">if</span> <span class="br0">&#40;</span>NavData <span class="sy1">==</span> <span class="kw2">NULL</span><span class="br0">&#41;</span>
+		<span class="br0">&#123;</span>
+			VSCREENMSG<span class="br0">&#40;</span><span class="st0">&quot;ERROR USING MAIN NAV DATA&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span> 
+			NavData <span class="sy1">=</span> GetMainNavData<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		<span class="br0">&#125;</span>
+&#160;
+		<span class="kw1">return</span> NavData<span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+&#160;
+<span class="co1">//VERY IMPORTANT FOR CRASH PROTECTION&#160;!!!!!</span>
+FORCEINLINE <span class="kw4">bool</span> TileIsValid<span class="br0">&#40;</span><span class="kw4">const</span> ARecastNavMesh<span class="sy2">*</span> NavMesh,<span class="kw4">int32</span> TileIndex<span class="br0">&#41;</span> <span class="kw4">const</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>NavMesh<span class="br0">&#41;</span> <span class="kw1">return</span> <span class="kw2">false</span><span class="sy4">;</span>
+	<span class="co1">//~~~~~~~~~~~~~~</span>
+	<span class="kw4">const</span> FBox TileBounds <span class="sy1">=</span> NavMesh<span class="sy2">-</span><span class="sy1">&gt;</span>GetNavMeshTileBounds<span class="br0">&#40;</span>TileIndex<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">return</span> TileBounds.<span class="me1">IsValid</span> <span class="sy3">!</span><span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="co1">//add this to your custom path follow component!</span>
+<span class="kw4">bool</span> NavPoly_GetAllPolys<span class="br0">&#40;</span>TArray<span class="sy1">&lt;</span>NavNodeRef<span class="sy1">&gt;</span><span class="sy3">&amp;</span> Polys<span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">//Rama's UE4 Nav code to get all the nav polys!</span>
+<span class="kw4">bool</span> UJoyPathFollowComp<span class="sy4">::</span><span class="me2">NavPoly_GetAllPolys</span><span class="br0">&#40;</span>TArray<span class="sy1">&lt;</span>NavNodeRef<span class="sy1">&gt;</span><span class="sy3">&amp;</span> Polys<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>MovementComp<span class="br0">&#41;</span> <span class="kw1">return</span> <span class="kw2">false</span><span class="sy4">;</span>
+	<span class="co1">//~~~~~~~~~~~~~~~~~~</span>
+&#160;
+	<span class="co1">//Get Nav Data</span>
+	<span class="kw4">const</span> ANavigationData<span class="sy2">*</span> NavData <span class="sy1">=</span> JoyGetNavData<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw4">const</span> ARecastNavMesh<span class="sy2">*</span> NavMesh <span class="sy1">=</span> Cast<span class="sy1">&lt;</span>ARecastNavMesh<span class="sy1">&gt;</span><span class="br0">&#40;</span>NavData<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>NavMesh<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		<span class="kw1">return</span> <span class="kw2">false</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+&#160;
+	TArray<span class="sy1">&lt;</span>FNavPoly<span class="sy1">&gt;</span> EachPolys<span class="sy4">;</span>
+	<span class="kw1">for</span><span class="br0">&#40;</span><span class="kw4">int32</span> v <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> v <span class="sy1">&lt;</span> NavMesh<span class="sy2">-</span><span class="sy1">&gt;</span>GetNavMeshTilesCount<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> v<span class="sy2">++</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+&#160;
+                <span class="co1">//CHECK IS VALID FIRST OR WILL CRASH!!! </span>
+               <span class="co1">//     256 entries but only few are valid!</span>
+                <span class="co1">// use continue in case the valid polys are not stored sequentially</span>
+		<span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>TileIsValid<span class="br0">&#40;</span>NavMesh,v<span class="br0">&#41;</span><span class="br0">&#41;</span> 
+                <span class="br0">&#123;</span>
+                    <span class="kw1">continue</span><span class="sy4">;</span>
+		<span class="br0">&#125;</span>	
+&#160;
+		NavMesh<span class="sy2">-</span><span class="sy1">&gt;</span>GetPolysInTile<span class="br0">&#40;</span>v,EachPolys<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>	
+&#160;
+&#160;
+	<span class="co1">//Add them all!</span>
+	<span class="kw1">for</span><span class="br0">&#40;</span><span class="kw4">int32</span> v <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> v <span class="sy1">&lt;</span> EachPolys.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> v<span class="sy2">++</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		Polys.<span class="me1">Add</span><span class="br0">&#40;</span>EachPolys<span class="br0">&#91;</span>v<span class="br0">&#93;</span>.<span class="me1">Ref</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h2><span class="mw-headline" id="Conclusion">Conclusion</span></h2>
+<p>Have fun writing your own custom Path Following code that integrates with the UE4 standard Path Following code!
+</p><p>Now you can extend the wonderful foundation that the AI engineers at Epic built for you!
+</p><p>Enjoy!
+</p><p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.061 seconds
+Real time usage: 0.086 seconds
+Preprocessor visited node count: 127/1000000
+Preprocessor generated node count: 232/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:3296-0!*!0!!en!2!* and timestamp 20161206205109
+ -->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=AI_Navigation_in_C%2B%2B,_Customize_Path_Following_Every_Tick&amp;oldid=13958">https://wiki.unrealengine.com/index.php?title=AI_Navigation_in_C%2B%2B,_Customize_Path_Following_Every_Tick&amp;oldid=13958</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.064 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

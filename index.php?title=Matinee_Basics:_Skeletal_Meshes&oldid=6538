@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Matinee Basics: Skeletal Meshes - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Matinee_Basics:_Skeletal_Meshes","wgTitle":"Matinee Basics: Skeletal Meshes","wgCurRevisionId":6538,"wgRevisionId":6538,"wgArticleId":1268,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Cinematic","Matinee","Epic Created Content"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Matinee_Basics:_Skeletal_Meshes","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Matinee_Basics_Skeletal_Meshes skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head">
+		
+
+
+
+
+
+<input type="hidden" id="updateenable" value="true">
+
+    <script src="https://cdn1.unrealengine.com/2670222/unifiedHeaderBundle-c133cbefbece60d20fd29c5b1819fa39.js" defer></script>
+    <link rel="stylesheet" href="https://cdn1.unrealengine.com/2670222/unifiedHeader-dd083735d5017970978496baee5b916e.css">
+
+
+<header id="header" data-path="/" data-sitepath="https://www.unrealengine.com">
+<input type="hidden" id="isUnified" value="1" />
+    <input type="hidden" id="current_locale" value="en_US"/>
+    <input type="hidden" id="header-host" value="https://www.unrealengine.com" />
+    <nav class="main-menu">
+        <div class="menu-mobile">
+            <span class="menu-mobile-icon"></span>
+            <ul>
+
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">About</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Learn</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Community</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/blog">Blog</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Marketplace</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Academia</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/education">Education Program</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                
+                <li class="btn-account ignore" style="display: none">
+                    <a href="https://www.unrealengine.com/dashboard">Account</a>
+                </li>
+                <li class="btn-signout ignore" style="display: none">
+                    <a class="sso-sign-out" href="">Log Out</a>
+                </li>
+                <li class="btn-signin ignore" style="display: none">
+                    <a class="sso-sign-in" href="">Sign in</a>
+                </li>
+            </ul>
+        </div>
+
+        <ul class="menu-items">
+            <li class="logo ignore">
+                
+                    <a href="https://www.unrealengine.com/blog"></a>
+                
+            </li>
+
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>About</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Learn</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Community</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/blog">Blog</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Marketplace</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Academia</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/education">Education Program</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+        </ul>
+
+
+        <div class="menu-download" data-sub="dl">
+            <a class="sso-register" href="">
+                <span class="isUpdateEnabled">Get Unreal</span>
+            </a>
+        </div>
+        
+
+        <div id="search" class="menu-search ignore">
+                <span></span>
+        </div>
+        
+        <div class="search-header">
+            <div class="input-search">
+                <div id="search-tips" class="search-tips-en_US">
+                    You may be unable to view the results of this search unless you connect to a VPN first.
+                </div>
+                <span></span>
+                <input type="text" name="search" value="" style="background:none !important" id="isearch" class="text" placeholder="Search..." />
+                <p class="search-btn">Search</p>
+            </div>
+        </div>
+
+        <ul class="menu-icons">
+            <li id="btn-account" class="ignore" data-sub="account" style="display: none">
+                <a href="/dashboard">Account</a>
+                <ul class="account-sub-menu">
+                    <li>
+                        <a href="/dashboard">Personal</a>
+                    </li>
+                    <li>
+                        <a href="https://publish.unrealengine.com/">Seller</a>
+                    </li>
+                </ul>
+            </li>
+            <li id="btn-signout" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-out last-border" href="">Log Out</a>
+            </li>
+            <li id="btn-signin" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-in last-border" href="">Sign in</a>
+            </li>
+        </ul>
+        
+    </nav>
+</header>
+
+		</div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a></li>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Videos"><a href="/Videos">Videos</a></li>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Code"><a href="/Category:Code">Code</a></li>
+			<li id="n-Games"><a href="/Category:Games">Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Matinee_Basics:_Skeletal_Meshes" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Matinee_Basics:_Skeletal_Meshes" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=Matinee_Basics:_Skeletal_Meshes&amp;oldid=6538&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Matinee_Basics:_Skeletal_Meshes&amp;oldid=6538" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Matinee_Basics:_Skeletal_Meshes&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Matinee_Basics:_Skeletal_Meshes"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Matinee_Basics:_Skeletal_Meshes&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Matinee_Basics:_Skeletal_Meshes" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Matinee_Basics:_Skeletal_Meshes&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Matinee_Basics:_Skeletal_Meshes&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Matinee+Basics%3A+Skeletal+Meshes&amp;returntoquery=oldid%3D6538&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Matinee+Basics%3A+Skeletal+Meshes&amp;returntoquery=oldid%3D6538" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Matinee Basics: Skeletal Meshes</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"><div id="mw-revision-info">Revision as of 20:18, 8 July 2014 by <a href="/index.php?title=User:TJ_Ballard&amp;action=edit&amp;redlink=1" class="new mw-userlink" title="User:TJ Ballard (page does not exist)">TJ Ballard</a>  <span class="mw-usertoollinks">(<a href="/index.php?title=User_talk:TJ_Ballard&amp;action=edit&amp;redlink=1" class="new" title="User talk:TJ Ballard (page does not exist)">Talk</a> | <a href="/Special:Contributions/TJ_Ballard" title="Special:Contributions/TJ Ballard">contribs</a>)</span></div><br />
+				<div id="mw-revision-nav">(<a href="/index.php?title=Matinee_Basics:_Skeletal_Meshes&amp;diff=prev&amp;oldid=6538" title="Matinee Basics: Skeletal Meshes">diff</a>) <a href="/index.php?title=Matinee_Basics:_Skeletal_Meshes&amp;direction=prev&amp;oldid=6538" title="Matinee Basics: Skeletal Meshes">← Older revision</a> | Latest revision (diff) | Newer revision → (diff)</div></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Part_One:_So_What_Exactly_Is_A_Skeletal_Mesh.3F"><span class="tocnumber">1</span> <span class="toctext">Part One: So What Exactly Is A Skeletal Mesh?</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Part_Two:_How_to_Find_A_Skeletal_Mesh_In_The_Browser"><span class="tocnumber">2</span> <span class="toctext">Part Two: How to Find A Skeletal Mesh In The Browser</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Part_Three:_How_To_Create_A_New_Skeletal_Mesh_Group_In_Matinee"><span class="tocnumber">3</span> <span class="toctext">Part Three:  How To Create A New Skeletal Mesh Group In Matinee</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Part_Four:_How_To_Clear_Or_Assign_A_Skeletal_Mesh_To_An_Existing_Skeletal_Mesh_Group."><span class="tocnumber">4</span> <span class="toctext">Part Four: How To Clear Or Assign A Skeletal Mesh To An Existing Skeletal Mesh Group.</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Part_Five:_Positioning_A_Skeletal_Mesh"><span class="tocnumber">5</span> <span class="toctext">Part Five: Positioning A Skeletal Mesh</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Part_Six:_Animating_A_Skeletal_Mesh"><span class="tocnumber">6</span> <span class="toctext">Part Six: Animating A Skeletal Mesh</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Conclusion"><span class="tocnumber">7</span> <span class="toctext">Conclusion</span></a></li>
+</ul>
+</div>
+
+<p>The goal in this tutorial is to teach you the basics of using skeletal meshes in Matinee. You’ll learn how to connect and manipulate skeletal meshes &amp; make skeletal meshes animate. 
+</p>
+<h2><span class="mw-headline" id="Part_One:_So_What_Exactly_Is_A_Skeletal_Mesh.3F">Part One: So What Exactly Is A Skeletal Mesh?</span></h2>
+<p>In every day terms, a skeletal mesh is simply a class of mesh that can be animated.  The characters and weapons you see in cinematics are skeletal meshes.  Here is a slightly more technical definition:
+</p><p><i>Skeletal meshes are built up of two parts, a set of polygons composed to make up the surface of the skeletal mesh and a hierarchical set of interconnected bones which can be used to animate the polygons.</i>
+</p><p>Skeletal meshes are often used in Unreal Engine 4 to represent characters or other animating objects. The 3D models, rigging and animations are created in an external modeling and animation application (3DSMax, Maya, Softimage, etc), and are then imported into Unreal Engine 4 and saved into packages by using Unreal Editor's Content Browser.
+</p>
+<h2><span class="mw-headline" id="Part_Two:_How_to_Find_A_Skeletal_Mesh_In_The_Browser">Part Two: How to Find A Skeletal Mesh In The Browser</span></h2>
+<p>Create and open a Blank Project in UE4.  Use <i><b>Blueprint Third Person</b></i> for this tutorial.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:931px;"><a href="/File:NewBPThirdPerson.png" class="image"><img alt="NewBPThirdPerson.png" src="https://d26ilriwvtzlb.cloudfront.net/5/51/NewBPThirdPerson.png" width="929" height="733" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:NewBPThirdPerson.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>Go to the content browser Search Toolbar and type in '<i><b>SkeletalMesh'</b></i>.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:513px;"><a href="/File:SearchSkeletalMesh.png" class="image"><img alt="SearchSkeletalMesh.png" src="https://d26ilriwvtzlb.cloudfront.net/c/cb/SearchSkeletalMesh.png" width="511" height="377" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:SearchSkeletalMesh.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>You should now see the <i><b>HeroTPP</b></i> skeletal mesh appear in the content browser.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:513px;"><a href="/File:FindHeroTPP.png" class="image"><img alt="FindHeroTPP.png" src="https://d26ilriwvtzlb.cloudfront.net/c/ca/FindHeroTPP.png" width="511" height="377" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:FindHeroTPP.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<h2><span class="mw-headline" id="Part_Three:_How_To_Create_A_New_Skeletal_Mesh_Group_In_Matinee">Part Three:  How To Create A New Skeletal Mesh Group In Matinee</span></h2>
+<p>Creating a skeletal mesh group in Matinee is easy. However, hooking the skeletal mesh up to the skeletal mesh group can be handled two different ways. Let’s look at the most basic method first.
+</p><p>Start by creating a new matinee sequence. <i>If you need assistance creating a new sequence, take a look at the UE4 tutorial: <a href="/Matinee_Basics:_Creating_Your_First_Matinee_Sequence" title="Matinee Basics: Creating Your First Matinee Sequence">Matinee Basics: Creating Your First Matinee Sequence</a>.</i>
+</p><p>Next, drag or add skeletal Mesh HeroTPP into an editor viewport, preferably so that the character is near a ground plane.                 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:846px;"><a href="/File:InLevelHeroTPP.png" class="image"><img alt="InLevelHeroTPP.png" src="https://d26ilriwvtzlb.cloudfront.net/3/32/InLevelHeroTPP.png" width="844" height="667" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:InLevelHeroTPP.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>Open the matinee sequence. Make sure the skeletal mesh is still selected and highlighted when you created the new skeletal mesh group. If it is still selected then go to the Matinee and right click in the dark area just under the Track View tab.
+</p><p>A drop down menu should pop up. You have a selection of Groups to choose from. Select “<i><b>Add New Skeletal Group</b></i>”.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:921px;"><a href="/File:AddNewSkeletalGroupTrack.png" class="image"><img alt="AddNewSkeletalGroupTrack.png" src="https://d26ilriwvtzlb.cloudfront.net/1/19/AddNewSkeletalGroupTrack.png" width="919" height="329" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:AddNewSkeletalGroupTrack.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>You can also name your new Group here if you like – I left the group name <i><b>(NewSkeletalMeshGroup)</b></i> as is for now. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:678px;"><a href="/File:NameTheAddedGroup.png" class="image"><img alt="NameTheAddedGroup.png" src="https://d26ilriwvtzlb.cloudfront.net/8/81/NameTheAddedGroup.png" width="676" height="328" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:NameTheAddedGroup.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>When finished adding the new skeletal mesh group it should look like this:
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:962px;"><a href="/File:TrackWithAddedGroup.png" class="image"><img alt="TrackWithAddedGroup.png" src="https://d3ar1piqh1oeli.cloudfront.net/5/55/TrackWithAddedGroup.png/960px-TrackWithAddedGroup.png" width="960" height="261" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/5/55/TrackWithAddedGroup.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/5/55/TrackWithAddedGroup.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:TrackWithAddedGroup.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<h2><span class="mw-headline" id="Part_Four:_How_To_Clear_Or_Assign_A_Skeletal_Mesh_To_An_Existing_Skeletal_Mesh_Group.">Part Four: How To Clear Or Assign A Skeletal Mesh To An Existing Skeletal Mesh Group.</span></h2>
+<p>You just learned how to add a new skeletal mesh group in Matinee. The skeletal mesh you had selected was automatically assigned to the newly created group because you had the mesh selected on creation. Now you will learn how to remove the skeletal mesh from the group. 
+Right click on the skeletal mesh group <i><b>(NewSkeletalMeshGroup)</b></i> in the timeline and a drop down menu will appear with many track types listed. Select <i><b>“Actors”</b></i> from the list and you’ll see more options appear. <i><b>Select: HeroTPP(HeroTPP_3)</b></i> Then: <i><b>Remove Actor</b></i>.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:962px;"><a href="/File:RemoveSkeletalMeshActor.png" class="image"><img alt="RemoveSkeletalMeshActor.png" src="https://d3ar1piqh1oeli.cloudfront.net/c/ce/RemoveSkeletalMeshActor.png/960px-RemoveSkeletalMeshActor.png" width="960" height="488" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/c/ce/RemoveSkeletalMeshActor.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/c/ce/RemoveSkeletalMeshActor.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:RemoveSkeletalMeshActor.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>Once completed the skeletal mesh actor <i><b>HeroTPP</b></i> should no longer be associated with the skeletal mesh group. To add the skeletal mesh actor back to the group first select the skeletal mesh actor in the level so it becomes highlighted. Next, right click on the skeletal mesh group in the timeline and a drop down menu will appear with many track types listed. Select <b>“Actors”</b> from the list and you’ll see more options appear. Select: <i><b>Add Selected Actors</b></i>.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:962px;"><a href="/File:SelectedSkeletalMesh.png" class="image"><img alt="SelectedSkeletalMesh.png" src="https://d3ar1piqh1oeli.cloudfront.net/4/47/SelectedSkeletalMesh.png/960px-SelectedSkeletalMesh.png" width="960" height="488" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/4/47/SelectedSkeletalMesh.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/4/47/SelectedSkeletalMesh.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:SelectedSkeletalMesh.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>When completed correctly you should be able to click on the skeletal mesh group and see the actor become highlighted in the level. You can now <b>add</b> and <b>remove</b> skeletal mesh actors as needed to a matinee.
+</p><p>This knowledge becomes especially useful down the road when dealing with multiple skeletal meshes or updating the mesh you want Matinee referencing.
+</p>
+<h2><span class="mw-headline" id="Part_Five:_Positioning_A_Skeletal_Mesh">Part Five: Positioning A Skeletal Mesh</span></h2>
+<p>To manipulate the skeletal mesh in the level, you will need to manipulate its movement key frame. You can always add more key frames if more than one position is needed.
+</p><p>This key frame contains the positional data of the skeletal mesh (translation and rotation) where it currently sits in the level. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:962px;"><a href="/File:EnterKeyframe.png" class="image"><img alt="EnterKeyframe.png" src="https://d3ar1piqh1oeli.cloudfront.net/4/4d/EnterKeyframe.png/960px-EnterKeyframe.png" width="960" height="263" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/4/4d/EnterKeyframe.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/4/4d/EnterKeyframe.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:EnterKeyframe.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>Let’s start by manipulating the data of the first key frame in the movement track. Click on the first key frame in that track at <b>0.00</b>. Change the values of that key by manipulating the associated object in the world (HeroTPP). With the key frame selected go to the viewport and simply rotate the skeletal mesh so that it faces forward.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:895px;"><a href="/File:RotateHeroMatinee.png" class="image"><img alt="RotateHeroMatinee.png" src="https://d26ilriwvtzlb.cloudfront.net/e/e9/RotateHeroMatinee.png" width="893" height="643" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:RotateHeroMatinee.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p><b>Tip</b>: I suggest making each key frame you create have an interpolation mode of <i><b>constant</b></i> so that the character doesn’t slide (interpolate position) over time. The <i><b>constant</b></i> setting just means the character or object will not interpolate from its position until the matinee reaches a new key frame in the timeline. 
+</p><p>You might actually want the character to interpolate between positions on some occasions, but at least now you understand the role of the <i><b>constant</b></i> key. The shortcut for setting a movement key frame to constant is simply the <b>5</b> key
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:962px;"><a href="/File:InterpConstant.png" class="image"><img alt="InterpConstant.png" src="https://d3ar1piqh1oeli.cloudfront.net/f/f3/InterpConstant.png/960px-InterpConstant.png" width="960" height="263" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/f/f3/InterpConstant.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/f/f3/InterpConstant.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:InterpConstant.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<h2><span class="mw-headline" id="Part_Six:_Animating_A_Skeletal_Mesh">Part Six: Animating A Skeletal Mesh</span></h2>
+<p>To get your skeletal mesh <b>HeroTPP</b> character animating all you have to do is select the anim track under the new skeletal mesh group and hit the <i><b>Add Key</b></i> button. You can also just use the Enter key to add a key.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:799px;"><a href="/File:AddKeyButton.png" class="image"><img alt="AddKeyButton.png" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/AddKeyButton.png" width="797" height="149" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:AddKeyButton.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>A list of available animations will then appear. Note that the animation is added wherever the time bar is located. In our Example the time bar is at <b>0.00</b>.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:962px;"><a href="/File:AnimSequenceTrack.png" class="image"><img alt="AnimSequenceTrack.png" src="https://d3ar1piqh1oeli.cloudfront.net/e/ef/AnimSequenceTrack.png/960px-AnimSequenceTrack.png" width="960" height="491" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/e/ef/AnimSequenceTrack.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/e/ef/AnimSequenceTrack.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:AnimSequenceTrack.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>Choose the first animation in the list called <i><b>Idle</b></i> and left click.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:898px;"><a href="/File:SelectIdle.png" class="image"><img alt="SelectIdle.png" src="https://d26ilriwvtzlb.cloudfront.net/6/6e/SelectIdle.png" width="896" height="433" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:SelectIdle.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>The animation will then be added to your timeline.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:962px;"><a href="/File:IdleAnimationTrack.png" class="image"><img alt="IdleAnimationTrack.png" src="https://d3ar1piqh1oeli.cloudfront.net/b/b3/IdleAnimationTrack.png/960px-IdleAnimationTrack.png" width="960" height="171" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/b/b3/IdleAnimationTrack.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/b/b3/IdleAnimationTrack.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:IdleAnimationTrack.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>The blue bar represents the length of the animation from start to finish. The time bar is scrubbed to <i><b>1.00</b></i> seconds into the animation.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:962px;"><a href="/File:AnimationLength.png" class="image"><img alt="AnimationLength.png" src="https://d3ar1piqh1oeli.cloudfront.net/1/1c/AnimationLength.png/960px-AnimationLength.png" width="960" height="189" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/1/1c/AnimationLength.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/1/1c/AnimationLength.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:AnimationLength.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>When you scrub forward in time you will see the current time change from 1.00 seconds to <i><b>1.27</b></i> Seconds.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:962px;"><a href="/File:ScrubbedToTime.png" class="image"><img alt="ScrubbedToTime.png" src="https://d3ar1piqh1oeli.cloudfront.net/1/1e/ScrubbedToTime.png/960px-ScrubbedToTime.png" width="960" height="189" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/1/1e/ScrubbedToTime.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/1/1e/ScrubbedToTime.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:ScrubbedToTime.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>If you scrub the timeline back and forth you should now see the skeletal mesh <i><b>HeroTPP</b></i> animate in the world and he should no longer be in a T-pose.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:962px;"><a href="/File:FinalMatineeImage.png" class="image"><img alt="FinalMatineeImage.png" src="https://d3ar1piqh1oeli.cloudfront.net/f/f7/FinalMatineeImage.png/960px-FinalMatineeImage.png" width="960" height="1166" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/f/f7/FinalMatineeImage.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/f/f7/FinalMatineeImage.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:FinalMatineeImage.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<h2><span class="mw-headline" id="Conclusion">Conclusion</span></h2>
+<p>You should now have a better understanding of how we add, move and animate skeletal meshes through Matinee. I strongly suggest playing with the different character animations and moving the skeletal mesh around the level just to learn more about Matinee. I also suggest adding a camera to your matinee and actually filming the animated skeletal mesh to see what you can come up with. Good luck!
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.151 seconds
+Real time usage: 0.511 seconds
+Preprocessor visited node count: 46/1000000
+Preprocessor generated node count: 70/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:1268-0!*!0!!en!2!* and timestamp 20150908045515
+ -->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=Matinee_Basics:_Skeletal_Meshes&amp;oldid=6538">https://wiki.unrealengine.com/index.php?title=Matinee_Basics:_Skeletal_Meshes&amp;oldid=6538</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li><li><a href="/Category:Cinematic" title="Category:Cinematic">Cinematic</a></li><li><a href="/Category:Matinee" title="Category:Matinee">Matinee</a></li><li><a href="/Category:Epic_Created_Content" title="Category:Epic Created Content">Epic Created Content</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.064 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

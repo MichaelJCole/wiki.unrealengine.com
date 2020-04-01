@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>UE4 Transform Calculus - Part 2 - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"UE4_Transform_Calculus_-_Part_2","wgTitle":"UE4 Transform Calculus - Part 2","wgCurRevisionId":14457,"wgRevisionId":14457,"wgArticleId":3131,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Epic Created Content"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"UE4_Transform_Calculus_-_Part_2","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-UE4_Transform_Calculus_-_Part_2 skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head">
+		
+
+
+
+
+
+<input type="hidden" id="updateenable" value="true">
+
+    <script src="https://cdn1.unrealengine.com/2670222/unifiedHeaderBundle-c133cbefbece60d20fd29c5b1819fa39.js" defer></script>
+    <link rel="stylesheet" href="https://cdn1.unrealengine.com/2670222/unifiedHeader-dd083735d5017970978496baee5b916e.css">
+
+
+<header id="header" data-path="/" data-sitepath="https://www.unrealengine.com">
+<input type="hidden" id="isUnified" value="1" />
+    <input type="hidden" id="current_locale" value="en_US"/>
+    <input type="hidden" id="header-host" value="https://www.unrealengine.com" />
+    <nav class="main-menu">
+        <div class="menu-mobile">
+            <span class="menu-mobile-icon"></span>
+            <ul>
+
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">About</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Learn</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Community</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/blog">Blog</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Marketplace</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                    
+
+                        
+                            <li class="menu-mobile-sub">
+                                <a href="#" class="mobile-link">Academia</a>
+                                <ul>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/education">Education Program</a>
+                                            
+                                        </li>
+                                    
+                                        <li>
+                                            
+                                                <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                            
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+
+                    
+                
+                
+                <li class="btn-account ignore" style="display: none">
+                    <a href="https://www.unrealengine.com/dashboard">Account</a>
+                </li>
+                <li class="btn-signout ignore" style="display: none">
+                    <a class="sso-sign-out" href="">Log Out</a>
+                </li>
+                <li class="btn-signin ignore" style="display: none">
+                    <a class="sso-sign-in" href="">Sign in</a>
+                </li>
+            </ul>
+        </div>
+
+        <ul class="menu-items">
+            <li class="logo ignore">
+                
+                    <a href="https://www.unrealengine.com/blog"></a>
+                
+            </li>
+
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>About</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/what-is-unreal-engine-4">Overview</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unreal-engine-4">Features</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/vr-page">Virtual Reality</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/showcase">Showcase</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/49-release-notes-overview">What&#39;s New</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/faq">FAQ / EULA</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/previous-versions">Previous Versions</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Learn</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://docs.unrealengine.com/" target="_blank">Documentation</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Videos " target="_blank">Video Tutorials</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://wiki.unrealengine.com/Main_Page" target="_blank">Wiki</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Community</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/blog">Blog</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/" target="_blank">Forums</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://answers.unrealengine.com/" target="_blank">AnswerHub</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://trello.com/b/gHooNW9I/ue4-roadmap" target="_blank">Roadmap</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/unrealdevgrants">Unreal Dev Grants</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="http://www.unrealtournament.com/blog/" target="_blank">Unreal Tournament</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Marketplace</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/marketplace">Browse</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/faq" target="_blank">Business Terms</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/submission-guidelines" target="_blank">Submission Guidelines</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://publish.unrealengine.com/welcome" target="_blank">Submit Your Content</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://forums.unrealengine.com/forumdisplay.php?56-Marketplace" target="_blank">Marketplace Forums</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+                
+
+                    
+                        <li>
+                            
+                                <a>Academia</a>
+                            
+
+                            <ul>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/education">Education Program</a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="https://www.unrealengine.com/academic-partners">Academic Partners</a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </li>
+                    
+
+                
+            
+        </ul>
+
+
+        <div class="menu-download" data-sub="dl">
+            <a class="sso-register" href="">
+                <span class="isUpdateEnabled">Get Unreal</span>
+            </a>
+        </div>
+        
+
+        <div id="search" class="menu-search ignore">
+                <span></span>
+        </div>
+        
+        <div class="search-header">
+            <div class="input-search">
+                <div id="search-tips" class="search-tips-en_US">
+                    You may be unable to view the results of this search unless you connect to a VPN first.
+                </div>
+                <span></span>
+                <input type="text" name="search" value="" style="background:none !important" id="isearch" class="text" placeholder="Search..." />
+                <p class="search-btn">Search</p>
+            </div>
+        </div>
+
+        <ul class="menu-icons">
+            <li id="btn-account" class="ignore" data-sub="account" style="display: none">
+                <a href="/dashboard">Account</a>
+                <ul class="account-sub-menu">
+                    <li>
+                        <a href="/dashboard">Personal</a>
+                    </li>
+                    <li>
+                        <a href="https://publish.unrealengine.com/">Seller</a>
+                    </li>
+                </ul>
+            </li>
+            <li id="btn-signout" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-out last-border" href="">Log Out</a>
+            </li>
+            <li id="btn-signin" class="ignore" data-sub="account" style="display: none">
+                <a class="sso-sign-in last-border" href="">Sign in</a>
+            </li>
+        </ul>
+        
+    </nav>
+</header>
+
+		</div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a></li>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Videos"><a href="/Videos">Videos</a></li>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Code"><a href="/Category:Code">Code</a></li>
+			<li id="n-Games"><a href="/Category:Games">Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/UE4_Transform_Calculus_-_Part_2" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/UE4_Transform_Calculus_-_Part_2" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=UE4_Transform_Calculus_-_Part_2&amp;oldid=14457&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=UE4_Transform_Calculus_-_Part_2&amp;oldid=14457" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=UE4_Transform_Calculus_-_Part_2&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/UE4_Transform_Calculus_-_Part_2"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:UE4_Transform_Calculus_-_Part_2&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/UE4_Transform_Calculus_-_Part_2" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=UE4_Transform_Calculus_-_Part_2&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=UE4_Transform_Calculus_-_Part_2&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=UE4+Transform+Calculus+-+Part+2&amp;returntoquery=oldid%3D14457&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=UE4+Transform+Calculus+-+Part+2&amp;returntoquery=oldid%3D14457" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">UE4 Transform Calculus - Part 2</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"><div id="mw-revision-info">Revision as of 21:08, 3 June 2015 by <a href="/index.php?title=User:TO4life&amp;action=edit&amp;redlink=1" class="new mw-userlink" title="User:TO4life (page does not exist)">TO4life</a>  <span class="mw-usertoollinks">(<a href="/index.php?title=User_talk:TO4life&amp;action=edit&amp;redlink=1" class="new" title="User talk:TO4life (page does not exist)">Talk</a> | <a href="/Special:Contributions/TO4life" title="Special:Contributions/TO4life">contribs</a>)</span></div><br />
+				<div id="mw-revision-nav">(<a href="/index.php?title=UE4_Transform_Calculus_-_Part_2&amp;diff=prev&amp;oldid=14457" title="UE4 Transform Calculus - Part 2">diff</a>) <a href="/index.php?title=UE4_Transform_Calculus_-_Part_2&amp;direction=prev&amp;oldid=14457" title="UE4 Transform Calculus - Part 2">← Older revision</a> | Latest revision (diff) | Newer revision → (diff)</div></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#UE4_Transform_Calculus_-_Part_2"><span class="tocnumber">1</span> <span class="toctext">UE4 Transform Calculus - Part 2</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Recap"><span class="tocnumber">1.1</span> <span class="toctext">Recap</span></a></li>
+<li class="toclevel-2"><a href="#Implementing_Transform_Calculus_With_UE4_Types"><span class="tocnumber">1.2</span> <span class="toctext">Implementing Transform Calculus With UE4 Types</span></a>
+<ul>
+<li class="toclevel-3"><a href="#UE4_Vector_Types"><span class="tocnumber">1.2.1</span> <span class="toctext">UE4 Vector Types</span></a></li>
+<li class="toclevel-3"><a href="#UE4_Transform_Types"><span class="tocnumber">1.2.2</span> <span class="toctext">UE4 Transform Types</span></a></li>
+<li class="toclevel-3"><a href="#UE4_Type_Ambiguities"><span class="tocnumber">1.2.3</span> <span class="toctext">UE4 Type Ambiguities</span></a></li>
+<li class="toclevel-3"><a href="#Transformation_using_UE4_Types"><span class="tocnumber">1.2.4</span> <span class="toctext">Transformation using UE4 Types</span></a></li>
+<li class="toclevel-3"><a href="#Inversion_using_UE4_Types"><span class="tocnumber">1.2.5</span> <span class="toctext">Inversion using UE4 Types</span></a></li>
+<li class="toclevel-3"><a href="#Composition_using_UE4_Types"><span class="tocnumber">1.2.6</span> <span class="toctext">Composition using UE4 Types</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Concept_vs_Notation"><span class="tocnumber">1.3</span> <span class="toctext">Concept vs Notation</span></a></li>
+<li class="toclevel-2"><a href="#Examples_in_UE4"><span class="tocnumber">1.4</span> <span class="toctext">Examples in UE4</span></a></li>
+<li class="toclevel-2"><a href="#Sidebar:_FTransform_in_UE4"><span class="tocnumber">1.5</span> <span class="toctext">Sidebar: FTransform in UE4</span></a></li>
+<li class="toclevel-2"><a href="#Summary"><span class="tocnumber">1.6</span> <span class="toctext">Summary</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Footnotes:"><span class="tocnumber">1.6.1</span> <span class="toctext">Footnotes:</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="UE4_Transform_Calculus_-_Part_2">UE4 Transform Calculus - Part 2</span></h1>
+<h2><span class="mw-headline" id="Recap">Recap</span></h2>
+<div>
+<p>Last post I described a way of looking at a transformation as a vector function that changes from one coordinate system, or frame of reference, to another, along with a logical notation for manipulating them:</p>
+<p>Transform Calculus Operations
+</p>
+<table class="wikitable">
+
+<tr>
+<th> Transform Calculus Operations
+</th></tr>
+<tr>
+<td> Transformation </td>
+<td> T<sub>A-&gt;B</sub>(V) </td>
+<td> Evaluating T transforms V from frame A to frame B
+<ul>
+<li>Frame A is the “input frame”</li>
+<li>Frame B is the “output frame”</li>
+</ul>
+</td></tr>
+<tr>
+<td> Inversion </td>
+<td> T<sub>A-&gt;B</sub><sup>-1</sup> ⇒ T<sub>B-&gt;A</sub> </td>
+<td> T<sup>-1</sup> reverses the input and output frames, so A-&gt;B becomes B-&gt;A.
+</td></tr>
+<tr>
+<td> Composition (&#8853;) </td>
+<td> T<sub>A-&gt;B</sub> &#8853; T<sub>B-&gt;C</sub> ⇒ T<sub>A-&gt;C</sub> </td>
+<td> composition forms a “chain”, going from frame A to frame B to frame C.
+</td></tr></table>
+<p>In this post, we’ll discuss how those operations are implemented using several representations available in UE4. Additionally, we’ll discover how using a uniform notation like this can convey intent more clearly, particularly when multiple representations are involved.</p>
+</div>
+<h2><span class="mw-headline" id="Implementing_Transform_Calculus_With_UE4_Types">Implementing Transform Calculus With UE4 Types</span></h2>
+<p>To implement the transform calculus using types found in UE4, we must first understand the types available and how they can be interpreted in terms of vector space transformations. These types are found in the Math subdirectory of the Runtime/Core module. We’ll start by describing how these types can be interpreted, followed by how the transform calculus can be implemented for each of these interpretations.</p>
+<h3><span class="mw-headline" id="UE4_Vector_Types">UE4 Vector Types</span></h3>
+<table class="wikitable">
+
+<tr>
+<th> UE4 Type</th>
+<th> Possible Interpretations
+</th></tr>
+<tr>
+<td> FVector2D </td>
+<td> <ul>
+<li>2D point (implicit homogeneous 1)</li>
+<li>2D vector (implicit homogeneous 0)</li>
+</ul>
+</td></tr>
+<tr>
+<td> FVector </td>
+<td> <ul>
+<li>3D point (implicit homogeneous 1)</li>
+<li>3D vector (implicit homogeneous 0)</li>
+<li>2D homogeneous point/vector</li>
+</ul>
+</td></tr>
+<tr>
+<td> FVector4D </td>
+<td> <ul>
+<li>3D homogeneous point/vector</li>
+</ul>
+</td></tr></table>
+<p>For the most part, the differences in dimensionality of an FVector are immaterial and we’ll generally ignore it<sup>[1]</sup>. However, when an FVector represents a non-homogeneous vector, its interpretation as a point or vector is purely contextual and thus must be conveyed explicitly. For instance, FVector(0,0,1) could be a vector representing Z-axis, or point at &lt;0,0,1&gt;. It’s up to the code to specify.</p>
+<h3><span class="mw-headline" id="UE4_Transform_Types">UE4 Transform Types</span></h3>
+<table class="wikitable">
+
+<tr>
+<th> UE4 Type </th>
+<th> Possible Interpretations
+</th></tr>
+<tr>
+<td> FVector </td>
+<td> <ul>
+<li>3D Translation</li>
+<li>3D Non-uniform scale</li>
+</ul>
+</td></tr>
+<tr>
+<td> FVector2D </td>
+<td> <ul>
+<li>2D Translation</li>
+<li>2D Non-uniform scale</li>
+</ul>
+</td></tr>
+<tr>
+<td> FMatrix </td>
+<td> <ul>
+<li>3D affine transform</li>
+</ul>
+</td></tr>
+<tr>
+<td> FRotator </td>
+<td> <ul>
+<li>3D rotation</li>
+</ul>
+</td></tr>
+<tr>
+<td> FQuat </td>
+<td> <ul>
+<li>3D rotation</li>
+</ul>
+</td></tr>
+<tr>
+<td> float<sup>[2]</sup> </td>
+<td> <ul>
+<li>2D or 3D uniform scale</li>
+</ul>
+</td></tr></table>
+<h3><span class="mw-headline" id="UE4_Type_Ambiguities">UE4 Type Ambiguities</span></h3>
+<p>As can be seen in the previous tables, UE4 types can be interpreted in several ways with respect to transform calculus, and those interpretations are purely contextual, meaning there is no static typing to distinguish them. The following are the primary interpretation ambiguities in UE4 types:</p>
+<ul>
+<dl>
+<dd><li>row vectors vs column vectors</li>
+</dd>
+<dd><li>points vs vectors</li>
+</dd>
+<dd><li>homogeneous vs non-homogeneous vectors</li>
+</dd>
+<dd><li>FVectors as mathematical vectors vs transformations (translation or scale)</li>
+</dd>
+</dl>
+</ul>
+<p>Any implementation of transform calculus for UE4 must provide a way to disambiguate these interpretations. 
+</p>
+<h3><span class="mw-headline" id="Transformation_using_UE4_Types">Transformation using UE4 Types</span></h3>
+<p>The following table describes how to implement evaluation of T<sub>A-&gt;B</sub>(V) using UE4 types. Where type ambiguities matter, it will be called out:
+</p>
+<table class="wikitable">
+
+<tr>
+<th> TypeOf(T)</th>
+<th> TypeOf(V) </th>
+<th> Implementation (T<sub>A-&gt;B</sub>(V))
+</th></tr>
+<tr>
+<td> FMatrix </td>
+<td> FVector (row) </td>
+<td> V * M
+</td></tr>
+<tr>
+<td> FMatrix </td>
+<td> FVector (col) </td>
+<td> M * V
+</td></tr>
+<tr>
+<td> FQuat </td>
+<td> FVector </td>
+<td> Q.RotateVector(V)
+</td></tr>
+<tr>
+<td> FRotator </td>
+<td> FVector </td>
+<td> R.RotateVector(V)
+</td></tr>
+<tr>
+<td> FVector (translation) </td>
+<td> FVector (non-homogeneous vector) </td>
+<td> V<sup>[3]</sup>
+</td></tr>
+<tr>
+<td> FVector (translation) </td>
+<td> FVector (non-homogeneous point) </td>
+<td> T + V
+</td></tr>
+<tr>
+<td> FVector or float (scale) </td>
+<td> FVector </td>
+<td> S * V<sup>[4]</sup>
+</td></tr></table>
+<h3><span class="mw-headline" id="Inversion_using_UE4_Types">Inversion using UE4 Types</span></h3>
+<p>The following table describes how to implement the inverse, T<sub>A-&gt;B</sub><sup>-1</sup>, using UE4 types. Where type ambiguities matter, it will be called out:</p>
+<table class="wikitable">
+
+<tr>
+<th> TypeOf(T) </th>
+<th> Implementation (T<sub>A-&gt;B</sub><sup>-1</sup>)
+</th></tr>
+<tr>
+<td> FMatrix </td>
+<td> M.Inverse()
+</td></tr>
+<tr>
+<td> FQuat </td>
+<td> M.Inverse()
+</td></tr>
+<tr>
+<td> FRotator </td>
+<td> EulerAngles = R.Euler();
+<p>FRotator::MakeFromEuler(FVector(-EulerAngles.Z, -EulerAngles.Y, -EulerAngles.X));
+</p>
+</td></tr>
+<tr>
+<td> FVector (translation) </td>
+<td> -T
+</td></tr>
+<tr>
+<td> FVector (scale) </td>
+<td> FVector(1 / S.x, 1 / S.y, 1 / S.z)
+</td></tr>
+<tr>
+<td> float (scale) </td>
+<td> 1 / S
+</td></tr></table>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Composition_using_UE4_Types">Composition using UE4 Types</span></h3>
+<p>The following table describes how to implement composition, T<sub>A-&gt;B</sub> &#8853; T<sub>B-&gt;C</sub>, using UE4 types. Where type ambiguities matter, it will be called out:</p>
+<table class="wikitable">
+
+<tr>
+<th> TypeOf(T) </th>
+<th> Implementation (T<sub>A-&gt;B</sub> &#8853; T<sub>B-&gt;C</sub>)
+</th></tr>
+<tr>
+<td> FMatrix </td>
+<td> M1 * M2
+</td></tr>
+<tr>
+<td> FQuat </td>
+<td> Q2 * Q1 <sup>[5]</sup>
+</td></tr>
+<tr>
+<td> FRotator </td>
+<td> FRotator(FMatrix(M1) * FMatrix(M2))
+</td></tr>
+<tr>
+<td> FVector (translation) </td>
+<td> T1 + T2
+</td></tr>
+<tr>
+<td> FVector or float (scale) </td>
+<td> S1 * S2
+</td></tr></table>
+<h2><span class="mw-headline" id="Concept_vs_Notation">Concept vs Notation</span></h2>
+<p>At that point it should be clear why I am introducing a separate notation for transformation calculus -- depending on the type, the math required to express a particular transformational concept may differ (or not exist) in UE4. So we need a new way to uniformly express those concepts in UE4, and we’ll need to adapt the existing UE4 types to support it.</p>
+<p>Most of the type ambiguities in UE4 mentioned earlier are about the type’s conceptual use rather than ambiguities in the math<sup>[6]</sup>. This is because the UE4 FVector and FMatrix classes are math classes, and those mathematical notations are well-defined regardless of the object’s conceptual purpose. As a case in point, the FVector interface mixes different interpretations of itself throughout the API, which can lead to confusion and mistakes. Here are a few examples:</p>
+<table class="wikitable">
+
+<tr>
+<th> FVector Interpretation Ambiguities
+</th></tr>
+<tr>
+<th> FVector Method </th>
+<th> FVector Interpretation
+</th></tr>
+<tr>
+<td> FVector::Normalize()</td>
+<td> non-homogeneous vector
+</td></tr>
+<tr>
+<td> FVector::Dist() </td>
+<td> non-homogeneous point
+</td></tr>
+<tr>
+<td> FVector::Projection()</td>
+<td> 2D homogeneous vector
+</td></tr>
+<tr>
+<td> FVector::PointPlaneDist() </td>
+<td> non-homogeneous point AND vector
+</td></tr></table>
+<p>In cases like these, understanding the intent of a type is critical to readability. For instance, if V1 and V2 are FVectors, what does this expression do?</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">V1 <span class="sy2">+</span> V2</pre></div></div>
+<p>Mathematically, it means vector addition. Conceptually it’s ambiguous. It could be compositing two translations, transforming a vector by a translation, or simply adding two grouped scalars! Commutativity of addition makes this even more ambiguous. But by providing a distinct notation for transform calculus that wraps the math, we can clarify the conceptual use:</p>
+<dl>
+<dd>V1<sub>A-&gt;B</sub>(V2) 	⇒ transformation evaluation
+</dd>
+<dd>V1 &#8853; V2 	⇒ transformation composition
+</dd>
+<dd>V1 + V2 	⇒ mathematical addition
+</dd>
+</dl>
+<h2><span class="mw-headline" id="Examples_in_UE4">Examples in UE4</span></h2>
+<p>In isolation, these conceptual vs notational nuances may seem like hair-splitting, but in the context of a math-heavy bit of code, this becomes critically important to comprehension. By supplying a notation specifically for the use of transforming vectors between affine spaces, we can eliminate most or all of this conceptual ambiguity.</p>
+<p>For instance, the following was taken from real Slate code that existed in UE4 (see SFxWidget). What is it doing?</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw4">const</span> FVector2D CenteringAdjustment <span class="sy1">=</span> Geometry.<span class="me1">AbsoluteScale</span><span class="sy2">*</span>ScaleOrigin <span class="sy2">-</span> RenderScale<span class="sy2">*</span>ScaleOrigin<span class="sy2">*</span>Geometry.<span class="me1">AbsoluteScale</span><span class="sy4">;</span>
+<span class="kw4">const</span> FVector2D OffsetAdjustment <span class="sy1">=</span> Offset<span class="sy2">*</span>Geometry.<span class="me1">AbsoluteScale</span><span class="sy4">;</span>
+<span class="kw4">const</span> FVector2D NewPos <span class="sy1">=</span> Geometry.<span class="me1">AbsolutePosition</span> <span class="sy2">+</span> CenteringAdjustment <span class="sy2">+</span> OffsetAdjustment<span class="sy4">;</span>
+<span class="kw4">const</span> <span class="kw4">float</span> NewScale <span class="sy1">=</span> Geometry.<span class="me1">AbsoluteScale</span> <span class="sy2">*</span> RenderScale<span class="sy4">;</span>
+FGeometry ChildGeometry<span class="br0">&#40;</span>NewPos, Geometry.<span class="me1">Size</span>, NewScale<span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<p>Even if you have a good understanding of Slate’s FGeometry class, you would probably have to work pretty hard to decipher, much less debug this. For simplicity, think of FGeometry as a transform from a Slate widget’s local frame of reference to the desktop frame of reference, T<sub>Local-&gt;Desktop</sub>, along with an additional Size<sub>Local</sub> that determines the size of the widget. With transform calculus we can then express the code like:</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">FGeometry ChildGeometry <span class="sy1">=</span> ScaleOrigin<span class="sy3">^</span><span class="sy2">-</span><span class="nu0">1</span> ⊕ RenderScale ⊕ ScaleOrigin ⊕ Offset ⊕ Geometry<span class="sy4">;</span></pre></div></div>
+<p>If you understand transform calculus, that’s much easier. Although perhaps an even better expression of intent would be:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">FGeometry ChildGeometry <span class="sy1">=</span> ScaleAboutPoint<span class="br0">&#40;</span>RenderScale, ScaleOrigin<span class="br0">&#41;</span> ⊕ Offset ⊕ Geometry</pre></div></div>
+<p>We wrapped the higher notion of “scaling about a point” in another function. Code composition like this is generally discussed in terms of reducing duplication, but it also enhances readability!</p>
+<p>And that was relatively simple code. Here’s another UE4 Slate example (see STutorialContent):</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">FPaintGeometry ShadowGeometry<span class="br0">&#40;</span>
+	<span class="br0">&#40;</span>WidgetGeometry.<span class="me1">AbsolutePosition</span> <span class="sy2">-</span> FVector2D<span class="br0">&#40;</span>ShadowBrush<span class="sy2">-</span><span class="sy1">&gt;</span>Margin.<span class="me1">Left</span>, ShadowBrush<span class="sy2">-</span><span class="sy1">&gt;</span>Margin.<span class="me1">Top</span><span class="br0">&#41;</span> <span class="sy2">*</span> ShadowBrush<span class="sy2">-</span><span class="sy1">&gt;</span>ImageSize <span class="sy2">*</span> WidgetGeometry.<span class="me1">AbsoluteScale</span> <span class="sy2">*</span> TutorialConstants<span class="sy4">::</span><span class="me2">ShadowScale</span><span class="br0">&#41;</span> <span class="sy2">-</span> WindowPos,
+	<span class="br0">&#40;</span><span class="br0">&#40;</span>WidgetGeometry.<span class="me1">Size</span> <span class="sy2">*</span> WidgetGeometry.<span class="me1">AbsoluteScale</span><span class="br0">&#41;</span> <span class="sy2">+</span> <span class="br0">&#40;</span>FVector2D<span class="br0">&#40;</span>ShadowBrush<span class="sy2">-</span><span class="sy1">&gt;</span>Margin.<span class="me1">Right</span> <span class="sy2">*</span> <span class="nu17">2.0f</span>, ShadowBrush<span class="sy2">-</span><span class="sy1">&gt;</span>Margin.<span class="me1">Bottom</span> <span class="sy2">*</span> <span class="nu17">2.0f</span><span class="br0">&#41;</span> <span class="sy2">*</span> ShadowBrush<span class="sy2">-</span><span class="sy1">&gt;</span>ImageSize <span class="sy2">*</span>WidgetGeometry.<span class="me1">AbsoluteScale</span> <span class="sy2">*</span> <span class="sy4">::</span><span class="me2">TutorialConstants</span><span class="sy4">::</span><span class="me2">ShadowScale</span><span class="br0">&#41;</span><span class="br0">&#41;</span>,
+	WidgetGeometry.<span class="me1">AbsoluteScale</span> <span class="sy2">*</span> TutorialConstants<span class="sy4">::</span><span class="me2">ShadowScale</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<p>Again, if you are unfamiliar with FGeometry, you’ll have to take my word for it, but this code is intermingling some basic algebra with transformational logic. It is building a transform to apply a scale about the widget center, and using some simple algebra to determine the scale amount. As written it’s really hard to separate them! Also, the innocuous subtraction of the WindowPos in the middle of all that is technically an ADDITIONAL transformation to get from desktop to window space. That’s an important distinction that easily gets lost in all the raw math! Let’s break this code out into the pure algebra needed along with the actual transformations that are taking place:</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// This is the algebra</span>
+<span class="kw4">auto</span> Center <span class="sy1">=</span> WidgetGeometry.<span class="me1">GetRect</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">GetCenter</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="kw4">auto</span> Scale <span class="sy1">=</span> <span class="nu0">1</span> <span class="sy2">+</span> ShadowBrush<span class="sy2">-</span><span class="sy1">&gt;</span>Margin.<span class="me1">GetDesiredSize</span><span class="br0">&#40;</span><span class="br0">&#41;</span> 
+               <span class="sy2">*</span> ShadowBrush<span class="sy2">-</span><span class="sy1">&gt;</span>ImageSize 
+               <span class="sy2">*</span> TutorialConstants<span class="sy4">::</span><span class="me2">ShadowScale</span> 
+               <span class="sy2">/</span> WidgetGeometry.<span class="me1">Size</span><span class="sy4">;</span>
+<span class="co1">// This is the transformation calculus</span>
+FPaintGeometry <span class="sy1">=</span> ScaleAboutPoint<span class="br0">&#40;</span>Center, Scale<span class="br0">&#41;</span> ⊕ WidgetGeometry ⊕ WindowToDesktop<span class="sy3">^</span><span class="sy2">-</span><span class="nu0">1</span><span class="sy4">;</span></pre></div></div>
+<p>While there’s still room for improvement (the scale computation is difficult to figure out), the intent (and order of operations) of the code is much more clear. Also, if the transform from window to desktop space becomes more complex in the future (say it adds a scale), we can handle it without really changing the code.</p>
+<h2><span class="mw-headline" id="Sidebar:_FTransform_in_UE4">Sidebar: FTransform in UE4</span></h2>
+<p>UE4’s FTransform exists to efficiently represent a combination scale &#8853; rotate &#8853; translate by storing each separately. So can FTransform be adapted to work with our transform calculus? Unfortunately, no. Its support for non-uniform scale would impart a shear when inverted or composited, but much of FTransform’s efficiency is due to its representation not supporting shear. Luckily, FTransform is not used in situations where this would be a problem<sup>[7]</sup>, but is unsuitable with transform calculus without significant impact on its efficiency<sup>[8]</sup>.</p>
+<h2><span class="mw-headline" id="Summary">Summary</span></h2>
+<p>We’ve discussed how to implement our transform calculus using types found in UE4 and used this to motivate the need for a notation specific to transformations that abstracts the conceptual use from the underlying math, since the math often depends on the transformation representation being used (ie, matrix or quaternion). Finally, we used real-world examples from UE4 to illustrate how this distinct notation can improve code readability by distinguishing the transformation portion from other unrelated math. </p>
+<p>Next time I’ll present the actual Transform Calculus implementation in UE4, how to use it, how it adapts existing UE4 types, and how to implement your own custom transformation types. I’ll also discuss how the C++ framework supports efficient composition of mixed transform representations when possible. That discussion will be much more focused on C++ implementation details.</p>
+<p>Of course, if you just can’t wait until then, go check out the implementation (TransformCalculus*.h in Runtime/Core/Math and SlateLayoutTransform.h in Runtime/SlateCore/Rendering). I’d love to hear your feedback!</p>
+<div style="text-align:center;width:100%;border-right:1px solid #d0d0d0;">
+<p><a href="/UE4_Transform_Calculus_-_Part_1" title="UE4 Transform Calculus - Part 1"> &lt; Back to Part 1</a>
+</p>
+</div>
+<hr />
+<h4><span class="mw-headline" id="Footnotes:">Footnotes:</span></h4> 
+<dl>
+<dd><sup>1</sup>You can always subtract elements to project to the dimensionality you want.
+</dd>
+<dd><sup>2</sup>This is really a shorthand for a FVector where all elements are the same. However, since uniform scale is a very common concept in game engines, it’s often represented as a single float for efficiency.
+</dd>
+<dd><sup>3</sup>This is because a vector has no origin so cannot be translated. Think about the homogeneous math to prove it to yourself.
+</dd>
+<dd><sup>4</sup>I am able to lump FVector and float because the implementation of FVector-FVector multiply operator in UE4 is compatible (component-wise multiply). There is no notion of a component-wise vector-vector multiply in mathematics.
+</dd>
+<dd><sup>5</sup>Note this is backwards compared to the matrix multiply operator!
+</dd>
+<dd><sup>6</sup>row vs column vectors are the primary exception
+</dd>
+<dd><sup>7</sup>see FTransform’s version of composition, FTransform::Multiply.
+</dd>
+<dd><sup>8</sup><a rel="nofollow" class="external text" href="http://www.m-hikari.com/ija/ija-password-2008/ija-password17-20-2008/aristidouIJA17-20-2008.pdf">This paper</a> gives one way to represent such a decomposition, along with a very detailed proof of correctness. To do it, however, it resorts to a full matrix to support the non-uniform scale and potential shear, defeating most of such a decomposition’s efficiency goals. It's essentially using transformation concepts to compute a <a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/QR_decomposition">QR decomposition</a> (or RQ) of the upper-3x3 matrix, while representing Q is a unit quaternion.
+</dd>
+</dl>
+
+<!-- 
+NewPP limit report
+CPU time usage: 0.050 seconds
+Real time usage: 0.067 seconds
+Preprocessor visited node count: 20/1000000
+Preprocessor generated node count: 126/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:3131-0!*!0!!en!*!* and timestamp 20150919150706
+ -->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=UE4_Transform_Calculus_-_Part_2&amp;oldid=14457">https://wiki.unrealengine.com/index.php?title=UE4_Transform_Calculus_-_Part_2&amp;oldid=14457</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="/Category:Epic_Created_Content" title="Category:Epic Created Content">Epic Created Content</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.119 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		
