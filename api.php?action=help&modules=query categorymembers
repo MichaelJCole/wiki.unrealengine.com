@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>MediaWiki API</title>
+</head>
+<body>
+<pre>
+<span style="color:blue;">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span style="color:blue;">&lt;api&gt;</span>
+  <span style="color:blue;">&lt;help&gt;</span>
+    <span style="color:blue;">&lt;module&gt;</span><b>* list=categorymembers (cm) *</b>
+  List all pages in a given category
+  <a href="https://www.mediawiki.org/wiki/API:Categorymembers">https://www.mediawiki.org/wiki/API:Categorymembers</a>
+
+This module requires read rights
+Parameters:
+  cmtitle             - Which category to enumerate (required). Must include Category: prefix. Cannot be used together with cmpageid
+  cmpageid            - Page ID of the category to enumerate. Cannot be used together with cmtitle
+  cmprop              - What pieces of information to include
+                         ids           - Adds the page ID
+                         title         - Adds the title and namespace ID of the page
+                         sortkey       - Adds the sortkey used for sorting in the category (hexadecimal string)
+                         sortkeyprefix - Adds the sortkey prefix used for sorting in the category (human-readable part of the sortkey)
+                         type          - Adds the type that the page has been categorised as (page, subcat or file)
+                         timestamp     - Adds the timestamp of when the page was included
+                        Values (separate with '|'): ids, title, sortkey, sortkeyprefix, type, timestamp
+                        Default: ids|title
+  cmnamespace         - Only include pages in these namespaces
+                        Values (separate with '|'): 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Maximum number of values 50 (500 for bots)
+  cmtype              - What type of category members to include. Ignored when cmsort=timestamp is set
+                        Values (separate with '|'): page, subcat, file
+                        Default: page|subcat|file
+  cmcontinue          - For large categories, give the value returned from previous query
+  cmlimit             - The maximum number of pages to return.
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  cmsort              - Property to sort by
+                        One value: sortkey, timestamp
+                        Default: sortkey
+  cmdir               - In which direction to sort
+                        One value: asc, desc, ascending, descending, newer, older
+                        Default: ascending
+  cmstart             - Timestamp to start listing from. Can only be used with cmsort=timestamp
+  cmend               - Timestamp to end listing at. Can only be used with cmsort=timestamp
+  cmstartsortkey      - Sortkey to start listing from. Must be given in binary format. Can only be used with cmsort=sortkey
+  cmendsortkey        - Sortkey to end listing at. Must be given in binary format. Can only be used with cmsort=sortkey
+  cmstartsortkeyprefix - Sortkey prefix to start listing from. Can only be used with cmsort=sortkey. Overrides cmstartsortkey
+  cmendsortkeyprefix  - Sortkey prefix to end listing BEFORE (not at, if this value occurs it will not be included!). Can only be used with cmsort=sortkey. Overrides cmendsortkey
+Examples:
+  Get first 10 pages in [[Category:Physics]]:
+    <a href="api.php?action=query&amp;list=categorymembers&amp;cmtitle=Category:Physics">api.php?action=query&amp;list=categorymembers&amp;cmtitle=Category:Physics</a>
+  Get page info about first 10 pages in [[Category:Physics]]:
+    <a href="api.php?action=query&amp;generator=categorymembers&amp;gcmtitle=Category:Physics&amp;prop=info">api.php?action=query&amp;generator=categorymembers&amp;gcmtitle=Category:Physics&amp;prop=info</a>
+<span style="color:blue;">&lt;/module&gt;</span>
+  <span style="color:blue;">&lt;/help&gt;</span>
+<span style="color:blue;">&lt;/api&gt;</span>
+</pre>
+</body>
+</html>
+<!-- Served in 0.006 secs. -->

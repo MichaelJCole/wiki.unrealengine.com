@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>MediaWiki API</title>
+</head>
+<body>
+<pre>
+<span style="color:blue;">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span style="color:blue;">&lt;api&gt;</span>
+  <span style="color:blue;">&lt;help&gt;</span>
+    <span style="color:blue;">&lt;module&gt;</span><b>* action=protect *</b>
+  Change the protection level of a page
+  <a href="https://www.mediawiki.org/wiki/API:Protect">https://www.mediawiki.org/wiki/API:Protect</a>
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  title               - Title of the page you want to (un)protect. Cannot be used together with pageid
+  pageid              - ID of the page you want to (un)protect. Cannot be used together with title
+  token               - A protect token previously retrieved through prop=info
+                        This parameter is required
+  protections         - List of protection levels, formatted action=group (e.g. edit=sysop)
+                        This parameter is required
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  expiry              - Expiry timestamps. If only one timestamp is set, it'll be used for all protections.
+                        Use 'infinite', 'indefinite' or 'never', for a never-expiring protection.
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+                        Default: infinite
+  reason              - Reason for (un)protecting
+                        Default: 
+  cascade             - Enable cascading protection (i.e. protect pages included in this page)
+                        Ignored if not all protection levels are 'sysop' or 'protect'
+  watch               - DEPRECATED! If set, add the page being (un)protected to your watchlist
+  watchlist           - Unconditionally add or remove the page from your watchlist, use preferences or do not change watch
+                        One value: watch, unwatch, preferences, nochange
+                        Default: preferences
+Examples:
+  <a href="api.php?action=protect&amp;title=Main%20Page&amp;token=123ABC&amp;protections=edit=sysop|move=sysop&amp;cascade=&amp;expiry=20070901163000|never">api.php?action=protect&amp;title=Main%20Page&amp;token=123ABC&amp;protections=edit=sysop|move=sysop&amp;cascade=&amp;expiry=20070901163000|never</a>
+  <a href="api.php?action=protect&amp;title=Main%20Page&amp;token=123ABC&amp;protections=edit=all|move=all&amp;reason=Lifting%20restrictions">api.php?action=protect&amp;title=Main%20Page&amp;token=123ABC&amp;protections=edit=all|move=all&amp;reason=Lifting%20restrictions</a>
+<span style="color:blue;">&lt;/module&gt;</span>
+  <span style="color:blue;">&lt;/help&gt;</span>
+<span style="color:blue;">&lt;/api&gt;</span>
+</pre>
+</body>
+</html>
+<!-- Served in 0.005 secs. -->

@@ -1,0 +1,2785 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>MediaWiki API</title>
+</head>
+<body>
+<pre>
+<span style="color:blue;">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span style="color:blue;">&lt;api&gt;</span>
+  <span style="color:blue;">&lt;error code=&quot;siiinvalidsessiondata&quot; info=&quot;Bad path: key &amp;#039;124sd34rsdf567&amp;#039; is not in a proper format&quot; xml:space=&quot;preserve&quot;&gt;</span>
+  
+  
+  <b>**********************************************************************************************************</b>
+  <b>**                                                                                                      **</b>
+  <b>**                      This is an auto-generated MediaWiki API documentation page                      **</b>
+  <b>**                                                                                                      **</b>
+  <b>**                                     Documentation and Examples:                                      **</b>
+  <b>**                                  <a href="https://www.mediawiki.org/wiki/API">https://www.mediawiki.org/wiki/API</a>                                  **</b>
+  <b>**                                                                                                      **</b>
+  <b>**********************************************************************************************************</b>
+  
+  Status:                All features shown on this page should be working, but the API
+                         is still in active development, and may change at any time.
+                         Make sure to monitor our mailing list for any updates
+  
+  Erroneous requests:    When erroneous requests are sent to the API, a HTTP header will be sent
+                         with the key &quot;MediaWiki-API-Error&quot; and then both the value of the
+                         header and the error code sent back will be set to the same value
+  
+                         In the case of an invalid action being passed, these will have a value
+                         of &quot;unknown_action&quot;
+  
+                         For more information see <a href="https://www.mediawiki.org/wiki/API:Errors_and_warnings">https://www.mediawiki.org/wiki/API:Errors_and_warnings</a>
+  
+  Documentation:         <a href="https://www.mediawiki.org/wiki/API:Main_page">https://www.mediawiki.org/wiki/API:Main_page</a>
+  FAQ                    <a href="https://www.mediawiki.org/wiki/API:FAQ">https://www.mediawiki.org/wiki/API:FAQ</a>
+  Mailing list:          <a href="https://lists.wikimedia.org/mailman/listinfo/mediawiki-api">https://lists.wikimedia.org/mailman/listinfo/mediawiki-api</a>
+  Api Announcements:     <a href="https://lists.wikimedia.org/mailman/listinfo/mediawiki-api-announce">https://lists.wikimedia.org/mailman/listinfo/mediawiki-api-announce</a>
+  Bugs &amp; Requests:       <a href="https://bugzilla.wikimedia.org/buglist.cgi?component=API&amp;bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;order=bugs.delta_ts">https://bugzilla.wikimedia.org/buglist.cgi?component=API&amp;bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;order=bugs.delta_ts</a>
+  
+  
+  
+  
+  
+Parameters:
+  format              - The format of the output
+                        One value: json, jsonfm, php, phpfm, wddx, wddxfm, xml, xmlfm, yaml, yamlfm, rawfm, txt, txtfm, dbg, dbgfm,
+                            dump, dumpfm, none
+                        Default: xmlfm
+  action              - What action you would like to perform. See below for module help
+                        One value: login, logout, createaccount, query, expandtemplates, parse, opensearch, feedcontributions,
+                            feedwatchlist, help, paraminfo, rsd, compare, tokens, purge, setnotificationtimestamp, rollback,
+                            delete, undelete, protect, block, unblock, move, edit, upload, filerevert, emailuser, watch, patrol,
+                            import, userrights, options, imagerotate
+                        Default: help
+  maxlag              - Maximum lag can be used when MediaWiki is installed on a database replicated cluster.
+                        To save actions causing any more site replication lag, this parameter can make the client
+                        wait until the replication lag is less than the specified value.
+                        In case of a replag error, error code &quot;maxlag&quot; is returned, with the message like
+                        &quot;Waiting for $host: $lag seconds lagged\n&quot;.
+                        See <a href="https://www.mediawiki.org/wiki/Manual:Maxlag_parameter">https://www.mediawiki.org/wiki/Manual:Maxlag_parameter</a> for more information
+  smaxage             - Set the s-maxage header to this many seconds. Errors are never cached
+                        Default: 0
+  maxage              - Set the max-age header to this many seconds. Errors are never cached
+                        Default: 0
+  requestid           - Request ID to distinguish requests. This will just be output back to you
+  servedby            - Include the hostname that served the request in the results. Unconditionally shown on error
+  origin              - When accessing the API using a cross-domain AJAX request (CORS), set this to the originating domain.
+                        This must be included in any pre-flight request, and therefore must be part of the request URI (not the POST body).
+                        This must match one of the origins in the Origin: header exactly, so it has to be set to something like <a href="http://en.wikipedia.org">http://en.wikipedia.org</a> or <a href="https://meta.wikimedia.org">https://meta.wikimedia.org</a> .
+                        If this parameter does not match the Origin: header, a 403 response will be returned.
+                        If this parameter matches the Origin: header and the origin is whitelisted, an Access-Control-Allow-Origin header will be set.
+
+
+<b>*** *** *** *** *** *** *** *** *** *** *** *** *** ***  Modules  *** *** *** *** *** *** *** *** *** *** *** *** *** ***</b> 
+
+<b>* action=login (lg) *</b>
+  Log in and get the authentication tokens. 
+  In the event of a successful log-in, a cookie will be attached
+  to your session. In the event of a failed log-in, you will not 
+  be able to attempt another log-in through this method for 5 seconds.
+  This is to prevent password guessing by automated password crackers
+  <a href="https://www.mediawiki.org/wiki/API:Login">https://www.mediawiki.org/wiki/API:Login</a>
+
+This module only accepts POST requests
+Parameters:
+  lgname              - User Name
+  lgpassword          - Password
+  lgdomain            - Domain (optional)
+  lgtoken             - Login token obtained in first request
+Example:
+  <a href="api.php?action=login&amp;lgname=user&amp;lgpassword=password">api.php?action=login&amp;lgname=user&amp;lgpassword=password</a>
+
+<b>* action=logout *</b>
+  Log out and clear session data
+  <a href="https://www.mediawiki.org/wiki/API:Logout">https://www.mediawiki.org/wiki/API:Logout</a>
+Example:
+  Log the current user out:
+    <a href="api.php?action=logout">api.php?action=logout</a>
+
+<b>* action=createaccount *</b>
+  Create a new user account.
+  <a href="https://www.mediawiki.org/wiki/API:Account_creation">https://www.mediawiki.org/wiki/API:Account_creation</a>
+
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  name                - Username
+                        This parameter is required
+  password            - Password (ignored if mailpassword is set)
+  domain              - Domain for external authentication (optional)
+  token               - Account creation token obtained in first request
+  email               - Email address of user (optional)
+  realname            - Real name of user (optional)
+  mailpassword        - If set to any value, a random password will be emailed to the user
+  reason              - Optional reason for creating the account to be put in the logs
+  language            - Language code to set as default for the user (optional, defaults to content language)
+Examples:
+  <a href="api.php?action=createaccount&amp;name=testuser&amp;password=test123">api.php?action=createaccount&amp;name=testuser&amp;password=test123</a>
+  <a href="api.php?action=createaccount&amp;name=testmailuser&amp;mailpassword=true&amp;reason=MyReason">api.php?action=createaccount&amp;name=testmailuser&amp;mailpassword=true&amp;reason=MyReason</a>
+
+<b>* action=query *</b>
+  Query API module allows applications to get needed pieces of data from the MediaWiki databases,
+  and is loosely based on the old query.php interface.
+  All data modifications will first have to use query to acquire a token to prevent abuse from malicious sites
+  <a href="https://www.mediawiki.org/wiki/API:Query">https://www.mediawiki.org/wiki/API:Query</a>
+  <a href="https://www.mediawiki.org/wiki/API:Meta">https://www.mediawiki.org/wiki/API:Meta</a>
+  <a href="https://www.mediawiki.org/wiki/API:Properties">https://www.mediawiki.org/wiki/API:Properties</a>
+  <a href="https://www.mediawiki.org/wiki/API:Lists">https://www.mediawiki.org/wiki/API:Lists</a>
+
+This module requires read rights
+Parameters:
+  prop                - Which properties to get for the titles/revisions/pageids. Module help is available below
+                        Values (separate with '|'): categories, categoryinfo, duplicatefiles, extlinks, images, imageinfo, info, links, iwlinks,
+                            langlinks, pageprops, revisions, stashimageinfo, templates
+  list                - Which lists to get. Module help is available below
+                        Values (separate with '|'): allcategories, allfileusages, allimages, alllinks, allpages, alltransclusions, allusers, backlinks,
+                            blocks, categorymembers, deletedrevs, embeddedin, exturlusage, filearchive, imageusage, iwbacklinks,
+                            langbacklinks, logevents, pageswithprop, pagepropnames, protectedtitles, querypage, random,
+                            recentchanges, search, tags, usercontribs, users, watchlist, watchlistraw
+  meta                - Which metadata to get about the site. Module help is available below
+                        Values (separate with '|'): allmessages, siteinfo, userinfo, filerepoinfo
+  indexpageids        - Include an additional pageids section listing all returned page IDs
+  export              - Export the current revisions of all given or generated pages
+  exportnowrap        - Return the export XML without wrapping it in an XML result (same format as Special:Export). Can only be used with export
+  iwurl               - Whether to get the full URL if the title is an interwiki link
+  continue            - When present, formats query-continue as key-value pairs that should simply be merged into the original request.
+                        This parameter must be set to an empty string in the initial query.
+                        This parameter is recommended for all new development, and will be made default in the next API version.
+  titles              - A list of titles to work on
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  pageids             - A list of page IDs to work on
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  revids              - A list of revision IDs to work on
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  redirects           - Automatically resolve redirects
+  converttitles       - Convert titles to other variants if necessary. Only works if the wiki's content language supports variant conversion.
+                        Languages that support variant conversion include gan, iu, kk, ku, shi, sr, tg, uz, zh
+  generator           - Get the list of pages to work on by executing the specified query module.
+                        NOTE: generator parameter names must be prefixed with a 'g', see examples
+                        One value: allcategories, allfileusages, allimages, alllinks, allpages, alltransclusions, backlinks,
+                            categories, categorymembers, duplicatefiles, embeddedin, exturlusage, images, imageusage,
+                            iwbacklinks, langbacklinks, links, pageswithprop, protectedtitles, querypage, random, recentchanges,
+                            search, templates, watchlist, watchlistraw
+Examples:
+  <a href="api.php?action=query&amp;prop=revisions&amp;meta=siteinfo&amp;titles=Main%20Page&amp;rvprop=user|comment&amp;continue=">api.php?action=query&amp;prop=revisions&amp;meta=siteinfo&amp;titles=Main%20Page&amp;rvprop=user|comment&amp;continue=</a>
+  <a href="api.php?action=query&amp;generator=allpages&amp;gapprefix=API/&amp;prop=revisions&amp;continue=">api.php?action=query&amp;generator=allpages&amp;gapprefix=API/&amp;prop=revisions&amp;continue=</a>
+
+--- --- --- --- --- --- --- --- --- --- --- ---  Query: Prop  --- --- --- --- --- --- --- --- --- --- --- --- 
+
+<b>* prop=categories (cl) *</b>
+  List all categories the page(s) belong to
+  <a href="https://www.mediawiki.org/wiki/API:Properties#categories_.2F_cl">https://www.mediawiki.org/wiki/API:Properties#categories_.2F_cl</a>
+
+This module requires read rights
+Parameters:
+  clprop              - Which additional properties to get for each category
+                         sortkey    - Adds the sortkey (hexadecimal string) and sortkey prefix (human-readable part) for the category
+                         timestamp  - Adds timestamp of when the category was added
+                         hidden     - Tags categories that are hidden with __HIDDENCAT__
+                        Values (separate with '|'): sortkey, timestamp, hidden
+  clshow              - Which kind of categories to show
+                        Values (separate with '|'): hidden, !hidden
+  cllimit             - How many categories to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  clcontinue          - When more results are available, use this to continue
+  clcategories        - Only list these categories. Useful for checking whether a certain page is in a certain category
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  cldir               - The direction in which to list
+                        One value: ascending, descending
+                        Default: ascending
+Examples:
+  Get a list of categories [[Albert Einstein]] belongs to:
+    <a href="api.php?action=query&amp;prop=categories&amp;titles=Albert%20Einstein">api.php?action=query&amp;prop=categories&amp;titles=Albert%20Einstein</a>
+  Get information about all categories used in the [[Albert Einstein]]:
+    <a href="api.php?action=query&amp;generator=categories&amp;titles=Albert%20Einstein&amp;prop=info">api.php?action=query&amp;generator=categories&amp;titles=Albert%20Einstein&amp;prop=info</a>
+Generator:
+  This module may be used as a generator
+
+<b>* prop=categoryinfo (ci) *</b>
+  Returns information about the given categories
+  <a href="https://www.mediawiki.org/wiki/API:Properties#categoryinfo_.2F_ci">https://www.mediawiki.org/wiki/API:Properties#categoryinfo_.2F_ci</a>
+
+This module requires read rights
+Parameters:
+  cicontinue          - When more results are available, use this to continue
+Example:
+  <a href="api.php?action=query&amp;prop=categoryinfo&amp;titles=Category:Foo|Category:Bar">api.php?action=query&amp;prop=categoryinfo&amp;titles=Category:Foo|Category:Bar</a>
+
+<b>* prop=duplicatefiles (df) *</b>
+  List all files that are duplicates of the given file(s) based on hash values
+  <a href="https://www.mediawiki.org/wiki/API:Properties#duplicatefiles_.2F_df">https://www.mediawiki.org/wiki/API:Properties#duplicatefiles_.2F_df</a>
+
+This module requires read rights
+Parameters:
+  dflimit             - How many duplicate files to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  dfcontinue          - When more results are available, use this to continue
+  dfdir               - The direction in which to list
+                        One value: ascending, descending
+                        Default: ascending
+  dflocalonly         - Look only for files in the local repository
+Examples:
+  <a href="api.php?action=query&amp;titles=File:Albert_Einstein_Head.jpg&amp;prop=duplicatefiles">api.php?action=query&amp;titles=File:Albert_Einstein_Head.jpg&amp;prop=duplicatefiles</a>
+  <a href="api.php?action=query&amp;generator=allimages&amp;prop=duplicatefiles">api.php?action=query&amp;generator=allimages&amp;prop=duplicatefiles</a>
+Generator:
+  This module may be used as a generator
+
+<b>* prop=extlinks (el) *</b>
+  Returns all external URLs (not interwikis) from the given page(s)
+  <a href="https://www.mediawiki.org/wiki/API:Properties#extlinks_.2F_el">https://www.mediawiki.org/wiki/API:Properties#extlinks_.2F_el</a>
+
+This module requires read rights
+Parameters:
+  ellimit             - How many links to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  eloffset            - When more results are available, use this to continue
+  elprotocol          - Protocol of the URL. If empty and elquery set, the protocol is http.
+                        Leave both this and elquery empty to list all external links
+                        Can be empty, or One value: http, https, ftp, ftps, ssh, sftp, irc, ircs, xmpp, sip, sips, gopher, telnet, nntp, worldwind,
+                            mailto, tel, sms, news, svn, git, mms, bitcoin, magnet, urn, geo
+                        Default: 
+  elquery             - Search string without protocol. Useful for checking whether a certain page contains a certain external url
+  elexpandurl         - Expand protocol-relative URLs with the canonical protocol
+Example:
+  Get a list of external links on the [[Main Page]]:
+    <a href="api.php?action=query&amp;prop=extlinks&amp;titles=Main%20Page">api.php?action=query&amp;prop=extlinks&amp;titles=Main%20Page</a>
+
+<b>* prop=imageinfo (ii) *</b>
+  Returns image information and upload history
+  <a href="https://www.mediawiki.org/wiki/API:Properties#imageinfo_.2F_ii">https://www.mediawiki.org/wiki/API:Properties#imageinfo_.2F_ii</a>
+
+This module requires read rights
+Parameters:
+  iiprop              - What image information to get:
+                         timestamp     - Adds timestamp for the uploaded version
+                         user          - Adds the user who uploaded the image version
+                         userid        - Add the user ID that uploaded the image version
+                         comment       - Comment on the version
+                         parsedcomment - Parse the comment on the version
+                         url           - Gives URL to the image and the description page
+                         size          - Adds the size of the image in bytes and the height, width and page count (if applicable)
+                         dimensions    - Alias for size
+                         sha1          - Adds SHA-1 hash for the image
+                         mime          - Adds MIME type of the image
+                         thumbmime     - Adds MIME type of the image thumbnail (requires url and param iiurlwidth)
+                         mediatype     - Adds the media type of the image
+                         metadata      - Lists Exif metadata for the version of the image
+                         archivename   - Adds the file name of the archive version for non-latest versions
+                         bitdepth      - Adds the bit depth of the version
+                         uploadwarning - Used by the Special:Upload page to get information about an existing file. Not intended for use outside MediaWiki core
+                        Values (separate with '|'): timestamp, user, userid, comment, parsedcomment, url, size, dimensions, sha1, mime, thumbmime,
+                            mediatype, metadata, archivename, bitdepth, uploadwarning
+                        Default: timestamp|user
+  iilimit             - How many image revisions to return per image
+                        No more than 500 (5000 for bots) allowed
+                        Default: 1
+  iistart             - Timestamp to start listing from
+  iiend               - Timestamp to stop listing at
+  iiurlwidth          - If iiprop=url is set, a URL to an image scaled to this width will be returned.
+                        For performance reasons if this option is used, no more than 50 scaled images will be returned.
+                        Default: -1
+  iiurlheight         - Similar to iiurlwidth.
+                        Default: -1
+  iimetadataversion   - Version of metadata to use. if 'latest' is specified, use latest version.
+                        Defaults to '1' for backwards compatibility
+                        Default: 1
+  iiurlparam          - A handler specific parameter string. For example, pdf's 
+                        might use 'page15-100px'. iiurlwidth must be used and be consistent with iiurlparam
+                        Default: 
+  iicontinue          - If the query response includes a continue value, use it here to get another page of results
+  iilocalonly         - Look only for files in the local repository
+Examples:
+  <a href="api.php?action=query&amp;titles=File:Albert%20Einstein%20Head.jpg&amp;prop=imageinfo">api.php?action=query&amp;titles=File:Albert%20Einstein%20Head.jpg&amp;prop=imageinfo</a>
+  <a href="api.php?action=query&amp;titles=File:Test.jpg&amp;prop=imageinfo&amp;iilimit=50&amp;iiend=20071231235959&amp;iiprop=timestamp|user|url">api.php?action=query&amp;titles=File:Test.jpg&amp;prop=imageinfo&amp;iilimit=50&amp;iiend=20071231235959&amp;iiprop=timestamp|user|url</a>
+
+<b>* prop=images (im) *</b>
+  Returns all images contained on the given page(s)
+  <a href="https://www.mediawiki.org/wiki/API:Properties#images_.2F_im">https://www.mediawiki.org/wiki/API:Properties#images_.2F_im</a>
+
+This module requires read rights
+Parameters:
+  imlimit             - How many images to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  imcontinue          - When more results are available, use this to continue
+  imimages            - Only list these images. Useful for checking whether a certain page has a certain Image.
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  imdir               - The direction in which to list
+                        One value: ascending, descending
+                        Default: ascending
+Examples:
+  Get a list of images used in the [[Main Page]]:
+    <a href="api.php?action=query&amp;prop=images&amp;titles=Main%20Page">api.php?action=query&amp;prop=images&amp;titles=Main%20Page</a>
+  Get information about all images used in the [[Main Page]]:
+    <a href="api.php?action=query&amp;generator=images&amp;titles=Main%20Page&amp;prop=info">api.php?action=query&amp;generator=images&amp;titles=Main%20Page&amp;prop=info</a>
+Generator:
+  This module may be used as a generator
+
+<b>* prop=info (in) *</b>
+  Get basic page information such as namespace, title, last touched date, ...
+  <a href="https://www.mediawiki.org/wiki/API:Properties#info_.2F_in">https://www.mediawiki.org/wiki/API:Properties#info_.2F_in</a>
+
+This module requires read rights
+Parameters:
+  inprop              - Which additional properties to get:
+                         protection            - List the protection level of each page
+                         talkid                - The page ID of the talk page for each non-talk page
+                         watched               - List the watched status of each page
+                         watchers              - The number of watchers, if allowed
+                         notificationtimestamp - The watchlist notification timestamp of each page
+                         subjectid             - The page ID of the parent page for each talk page
+                         url                   - Gives a full URL to the page, and also an edit URL
+                         readable              - Whether the user can read this page
+                         preload               - Gives the text returned by EditFormPreloadText
+                         displaytitle          - Gives the way the page title is actually displayed
+                        Values (separate with '|'): protection, talkid, watched, watchers, notificationtimestamp, subjectid, url, readable, preload,
+                            displaytitle
+  intoken             - Request a token to perform a data-modifying action on a page
+                        Values (separate with '|'): edit, delete, protect, move, block, unblock, email, import, watch
+  incontinue          - When more results are available, use this to continue
+Examples:
+  <a href="api.php?action=query&amp;prop=info&amp;titles=Main%20Page">api.php?action=query&amp;prop=info&amp;titles=Main%20Page</a>
+  <a href="api.php?action=query&amp;prop=info&amp;inprop=protection&amp;titles=Main%20Page">api.php?action=query&amp;prop=info&amp;inprop=protection&amp;titles=Main%20Page</a>
+
+<b>* prop=iwlinks (iw) *</b>
+  Returns all interwiki links from the given page(s)
+  <a href="https://www.mediawiki.org/wiki/API:Iwlinks">https://www.mediawiki.org/wiki/API:Iwlinks</a>
+
+This module requires read rights
+Parameters:
+  iwurl               - Whether to get the full URL
+  iwlimit             - How many interwiki links to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  iwcontinue          - When more results are available, use this to continue
+  iwprefix            - Prefix for the interwiki
+  iwtitle             - Interwiki link to search for. Must be used with iwprefix
+  iwdir               - The direction in which to list
+                        One value: ascending, descending
+                        Default: ascending
+Example:
+  Get interwiki links from the [[Main Page]]:
+    <a href="api.php?action=query&amp;prop=iwlinks&amp;titles=Main%20Page">api.php?action=query&amp;prop=iwlinks&amp;titles=Main%20Page</a>
+
+<b>* prop=langlinks (ll) *</b>
+  Returns all interlanguage links from the given page(s)
+  <a href="https://www.mediawiki.org/wiki/API:Properties#langlinks_.2F_ll">https://www.mediawiki.org/wiki/API:Properties#langlinks_.2F_ll</a>
+
+This module requires read rights
+Parameters:
+  lllimit             - How many langlinks to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  llcontinue          - When more results are available, use this to continue
+  llurl               - Whether to get the full URL
+  lllang              - Language code
+  lltitle             - Link to search for. Must be used with lllang
+  lldir               - The direction in which to list
+                        One value: ascending, descending
+                        Default: ascending
+Example:
+  Get interlanguage links from the [[Main Page]]:
+    <a href="api.php?action=query&amp;prop=langlinks&amp;titles=Main%20Page&amp;redirects=">api.php?action=query&amp;prop=langlinks&amp;titles=Main%20Page&amp;redirects=</a>
+
+<b>* prop=links (pl) *</b>
+  Returns all links from the given page(s)
+  <a href="https://www.mediawiki.org/wiki/API:Properties#links_.2F_pl">https://www.mediawiki.org/wiki/API:Properties#links_.2F_pl</a>
+
+This module requires read rights
+Parameters:
+  plnamespace         - Show links in this namespace(s) only
+                        Values (separate with '|'): 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Maximum number of values 50 (500 for bots)
+  pllimit             - How many links to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  plcontinue          - When more results are available, use this to continue
+  pltitles            - Only list links to these titles. Useful for checking whether a certain page links to a certain title.
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  pldir               - The direction in which to list
+                        One value: ascending, descending
+                        Default: ascending
+Examples:
+  Get links from the [[Main Page]]:
+    <a href="api.php?action=query&amp;prop=links&amp;titles=Main%20Page">api.php?action=query&amp;prop=links&amp;titles=Main%20Page</a>
+  Get information about the link pages in the [[Main Page]]:
+    <a href="api.php?action=query&amp;generator=links&amp;titles=Main%20Page&amp;prop=info">api.php?action=query&amp;generator=links&amp;titles=Main%20Page&amp;prop=info</a>
+  Get links from the Main Page in the User and Template namespaces:
+    <a href="api.php?action=query&amp;prop=links&amp;titles=Main%20Page&amp;plnamespace=2|10">api.php?action=query&amp;prop=links&amp;titles=Main%20Page&amp;plnamespace=2|10</a>
+Generator:
+  This module may be used as a generator
+
+<b>* prop=pageprops (pp) *</b>
+  Get various properties defined in the page content
+  <a href="https://www.mediawiki.org/wiki/API:Properties#pageprops_.2F_pp">https://www.mediawiki.org/wiki/API:Properties#pageprops_.2F_pp</a>
+
+This module requires read rights
+Parameters:
+  ppcontinue          - When more results are available, use this to continue
+  ppprop              - Only list these props. Useful for checking whether a certain page uses a certain page prop
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+Example:
+  <a href="api.php?action=query&amp;prop=pageprops&amp;titles=Category:Foo">api.php?action=query&amp;prop=pageprops&amp;titles=Category:Foo</a>
+
+<b>* prop=revisions (rv) *</b>
+  Get revision information
+  May be used in several ways:
+   1) Get data about a set of pages (last revision), by setting titles or pageids parameter
+   2) Get revisions for one given page, by using titles/pageids with start/end/limit params
+   3) Get data about a set of revisions by setting their IDs with revids parameter
+  All parameters marked as (enum) may only be used with a single page (#2)
+  <a href="https://www.mediawiki.org/wiki/API:Properties#revisions_.2F_rv">https://www.mediawiki.org/wiki/API:Properties#revisions_.2F_rv</a>
+
+This module requires read rights
+Parameters:
+  rvprop              - Which properties to get for each revision:
+                         ids            - The ID of the revision
+                         flags          - Revision flags (minor)
+                         timestamp      - The timestamp of the revision
+                         user           - User that made the revision
+                         userid         - User id of revision creator
+                         size           - Length (bytes) of the revision
+                         sha1           - SHA-1 (base 16) of the revision
+                         contentmodel   - Content model id
+                         comment        - Comment by the user for revision
+                         parsedcomment  - Parsed comment by the user for the revision
+                         content        - Text of the revision
+                         tags           - Tags for the revision
+                        Values (separate with '|'): ids, flags, timestamp, user, userid, size, sha1, contentmodel, comment, parsedcomment, content, tags
+                        Default: ids|timestamp|flags|comment|user
+  rvlimit             - Limit how many revisions will be returned (enum)
+                        No more than 500 (5000 for bots) allowed
+  rvstartid           - From which revision id to start enumeration (enum)
+  rvendid             - Stop revision enumeration on this revid (enum)
+  rvstart             - From which revision timestamp to start enumeration (enum)
+  rvend               - Enumerate up to this timestamp (enum)
+  rvdir               - In which direction to enumerate (enum)
+                         newer          - List oldest first. Note: rvstart has to be before rvend.
+                         older          - List newest first (default). Note: rvstart has to be later than rvend.
+                        One value: newer, older
+                        Default: older
+  rvuser              - Only include revisions made by user (enum)
+  rvexcludeuser       - Exclude revisions made by user (enum)
+  rvtag               - Only list revisions tagged with this tag
+  rvexpandtemplates   - Expand templates in revision content (requires rvprop=content)
+  rvgeneratexml       - Generate XML parse tree for revision content (requires rvprop=content)
+  rvparse             - Parse revision content (requires rvprop=content).
+                        For performance reasons if this option is used, rvlimit is enforced to 1.
+  rvsection           - Only retrieve the content of this section number
+  rvtoken             - Which tokens to obtain for each revision
+                        Values (separate with '|'): rollback
+  rvcontinue          - When more results are available, use this to continue
+  rvdiffto            - Revision ID to diff each revision to.
+                        Use &quot;prev&quot;, &quot;next&quot; and &quot;cur&quot; for the previous, next and current revision respectively
+  rvdifftotext        - Text to diff each revision to. Only diffs a limited number of revisions.
+                        Overrides rvdiffto. If rvsection is set, only that section will be diffed against this text
+  rvcontentformat     - Serialization format used for difftotext and expected for output of content
+                        One value: text/x-wiki, text/javascript, text/css, text/plain
+Examples:
+  Get data with content for the last revision of titles &quot;API&quot; and &quot;Main Page&quot;
+    <a href="api.php?action=query&amp;prop=revisions&amp;titles=API|Main%20Page&amp;rvprop=timestamp|user|comment|content">api.php?action=query&amp;prop=revisions&amp;titles=API|Main%20Page&amp;rvprop=timestamp|user|comment|content</a>
+  Get last 5 revisions of the &quot;Main Page&quot;
+    <a href="api.php?action=query&amp;prop=revisions&amp;titles=Main%20Page&amp;rvlimit=5&amp;rvprop=timestamp|user|comment">api.php?action=query&amp;prop=revisions&amp;titles=Main%20Page&amp;rvlimit=5&amp;rvprop=timestamp|user|comment</a>
+  Get first 5 revisions of the &quot;Main Page&quot;
+    <a href="api.php?action=query&amp;prop=revisions&amp;titles=Main%20Page&amp;rvlimit=5&amp;rvprop=timestamp|user|comment&amp;rvdir=newer">api.php?action=query&amp;prop=revisions&amp;titles=Main%20Page&amp;rvlimit=5&amp;rvprop=timestamp|user|comment&amp;rvdir=newer</a>
+  Get first 5 revisions of the &quot;Main Page&quot; made after 2006-05-01
+    <a href="api.php?action=query&amp;prop=revisions&amp;titles=Main%20Page&amp;rvlimit=5&amp;rvprop=timestamp|user|comment&amp;rvdir=newer&amp;rvstart=20060501000000">api.php?action=query&amp;prop=revisions&amp;titles=Main%20Page&amp;rvlimit=5&amp;rvprop=timestamp|user|comment&amp;rvdir=newer&amp;rvstart=20060501000000</a>
+  Get first 5 revisions of the &quot;Main Page&quot; that were not made made by anonymous user &quot;127.0.0.1&quot;
+    <a href="api.php?action=query&amp;prop=revisions&amp;titles=Main%20Page&amp;rvlimit=5&amp;rvprop=timestamp|user|comment&amp;rvexcludeuser=127.0.0.1">api.php?action=query&amp;prop=revisions&amp;titles=Main%20Page&amp;rvlimit=5&amp;rvprop=timestamp|user|comment&amp;rvexcludeuser=127.0.0.1</a>
+  Get first 5 revisions of the &quot;Main Page&quot; that were made by the user &quot;MediaWiki default&quot;
+    <a href="api.php?action=query&amp;prop=revisions&amp;titles=Main%20Page&amp;rvlimit=5&amp;rvprop=timestamp|user|comment&amp;rvuser=MediaWiki%20default">api.php?action=query&amp;prop=revisions&amp;titles=Main%20Page&amp;rvlimit=5&amp;rvprop=timestamp|user|comment&amp;rvuser=MediaWiki%20default</a>
+
+<b>* prop=stashimageinfo (sii) *</b>
+  Returns image information for stashed images
+  <a href="https://www.mediawiki.org/wiki/API:Properties#imageinfo_.2F_ii">https://www.mediawiki.org/wiki/API:Properties#imageinfo_.2F_ii</a>
+
+This module requires read rights
+Parameters:
+  siifilekey          - Key that identifies a previous upload that was stashed temporarily.
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  siisessionkey       - DEPRECATED! Alias for filekey, for backward compatibility.
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  siiprop             - What image information to get:
+                         timestamp     - Adds timestamp for the uploaded version
+                         url           - Gives URL to the image and the description page
+                         size          - Adds the size of the image in bytes and the height, width and page count (if applicable)
+                         dimensions    - Alias for size
+                         sha1          - Adds SHA-1 hash for the image
+                         mime          - Adds MIME type of the image
+                         thumbmime     - Adds MIME type of the image thumbnail (requires url and param siiurlwidth)
+                         metadata      - Lists Exif metadata for the version of the image
+                         bitdepth      - Adds the bit depth of the version
+                         uploadwarning - Used by the Special:Upload page to get information about an existing file. Not intended for use outside MediaWiki core
+                        Values (separate with '|'): timestamp, url, size, dimensions, sha1, mime, thumbmime, metadata, bitdepth, uploadwarning
+                        Default: timestamp|url
+  siiurlwidth         - If siiprop=url is set, a URL to an image scaled to this width will be returned.
+                        Default: -1
+  siiurlheight        - Similar to siiurlwidth. Cannot be used without siiurlwidth
+                        Default: -1
+  siiurlparam         - A handler specific parameter string. For example, pdf's 
+                        might use 'page15-100px'. siiurlwidth must be used and be consistent with siiurlparam
+                        Default: 
+Examples:
+  <a href="api.php?action=query&amp;prop=stashimageinfo&amp;siifilekey=124sd34rsdf567">api.php?action=query&amp;prop=stashimageinfo&amp;siifilekey=124sd34rsdf567</a>
+  <a href="api.php?action=query&amp;prop=stashimageinfo&amp;siifilekey=b34edoe3|bceffd4&amp;siiurlwidth=120&amp;siiprop=url">api.php?action=query&amp;prop=stashimageinfo&amp;siifilekey=b34edoe3|bceffd4&amp;siiurlwidth=120&amp;siiprop=url</a>
+
+<b>* prop=templates (tl) *</b>
+  Returns all templates from the given page(s)
+  <a href="https://www.mediawiki.org/wiki/API:Properties#templates_.2F_tl">https://www.mediawiki.org/wiki/API:Properties#templates_.2F_tl</a>
+
+This module requires read rights
+Parameters:
+  tlnamespace         - Show templates in this namespace(s) only
+                        Values (separate with '|'): 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Maximum number of values 50 (500 for bots)
+  tllimit             - How many templates to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  tlcontinue          - When more results are available, use this to continue
+  tltemplates         - Only list these templates. Useful for checking whether a certain page uses a certain template.
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  tldir               - The direction in which to list
+                        One value: ascending, descending
+                        Default: ascending
+Examples:
+  Get templates from the [[Main Page]]:
+    <a href="api.php?action=query&amp;prop=templates&amp;titles=Main%20Page">api.php?action=query&amp;prop=templates&amp;titles=Main%20Page</a>
+  Get information about the template pages in the [[Main Page]]:
+    <a href="api.php?action=query&amp;generator=templates&amp;titles=Main%20Page&amp;prop=info">api.php?action=query&amp;generator=templates&amp;titles=Main%20Page&amp;prop=info</a>
+  Get templates from the Main Page in the User and Template namespaces:
+    <a href="api.php?action=query&amp;prop=templates&amp;titles=Main%20Page&amp;tlnamespace=2|10">api.php?action=query&amp;prop=templates&amp;titles=Main%20Page&amp;tlnamespace=2|10</a>
+Generator:
+  This module may be used as a generator
+
+--- --- --- --- --- --- --- --- --- --- --- ---  Query: List  --- --- --- --- --- --- --- --- --- --- --- --- 
+
+<b>* list=allcategories (ac) *</b>
+  Enumerate all categories
+  <a href="https://www.mediawiki.org/wiki/API:Allcategories">https://www.mediawiki.org/wiki/API:Allcategories</a>
+
+This module requires read rights
+Parameters:
+  acfrom              - The category to start enumerating from
+  accontinue          - When more results are available, use this to continue
+  acto                - The category to stop enumerating at
+  acprefix            - Search for all category titles that begin with this value
+  acdir               - Direction to sort in
+                        One value: ascending, descending
+                        Default: ascending
+  acmin               - Minimum number of category members
+  acmax               - Maximum number of category members
+  aclimit             - How many categories to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  acprop              - Which properties to get
+                         size    - Adds number of pages in the category
+                         hidden  - Tags categories that are hidden with __HIDDENCAT__
+                        Values (separate with '|'): size, hidden
+                        Default: 
+Examples:
+  <a href="api.php?action=query&amp;list=allcategories&amp;acprop=size">api.php?action=query&amp;list=allcategories&amp;acprop=size</a>
+  <a href="api.php?action=query&amp;generator=allcategories&amp;gacprefix=List&amp;prop=info">api.php?action=query&amp;generator=allcategories&amp;gacprefix=List&amp;prop=info</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=allfileusages (af) *</b>
+  List all file usages, including non-existing
+  <a href="https://www.mediawiki.org/wiki/API:Allfileusages">https://www.mediawiki.org/wiki/API:Allfileusages</a>
+
+This module requires read rights
+Parameters:
+  afcontinue          - When more results are available, use this to continue
+  affrom              - The title of the file to start enumerating from
+  afto                - The title of the file to stop enumerating at
+  afprefix            - Search for all file titles that begin with this value
+  afunique            - Only show distinct file titles. Cannot be used with afprop=ids.
+                        When used as a generator, yields target pages instead of source pages.
+  afprop              - What pieces of information to include
+                         ids    - Adds the pageid of the using page (Cannot be used with afunique)
+                         title  - Adds the title of the file
+                        Values (separate with '|'): ids, title
+                        Default: title
+  aflimit             - How many total items to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  afdir               - The direction in which to list
+                        One value: ascending, descending
+                        Default: ascending
+Examples:
+  List file titles with page ids they are from, including missing ones. Start at B:
+    <a href="api.php?action=query&amp;list=allfileusages&amp;affrom=B&amp;afprop=ids|title">api.php?action=query&amp;list=allfileusages&amp;affrom=B&amp;afprop=ids|title</a>
+  List unique file titles:
+    <a href="api.php?action=query&amp;list=allfileusages&amp;afunique=&amp;affrom=B">api.php?action=query&amp;list=allfileusages&amp;afunique=&amp;affrom=B</a>
+  Gets all file titles, marking the missing ones:
+    <a href="api.php?action=query&amp;generator=allfileusages&amp;gafunique=&amp;gaffrom=B">api.php?action=query&amp;generator=allfileusages&amp;gafunique=&amp;gaffrom=B</a>
+  Gets pages containing the files:
+    <a href="api.php?action=query&amp;generator=allfileusages&amp;gaffrom=B">api.php?action=query&amp;generator=allfileusages&amp;gaffrom=B</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=allimages (ai) *</b>
+  Enumerate all images sequentially
+  <a href="https://www.mediawiki.org/wiki/API:Allimages">https://www.mediawiki.org/wiki/API:Allimages</a>
+
+This module requires read rights
+Parameters:
+  aisort              - Property to sort by
+                        One value: name, timestamp
+                        Default: name
+  aidir               - The direction in which to list
+                        One value: ascending, descending, newer, older
+                        Default: ascending
+  aifrom              - The image title to start enumerating from. Can only be used with aisort=name
+  aito                - The image title to stop enumerating at. Can only be used with aisort=name
+  aicontinue          - When more results are available, use this to continue
+  aistart             - The timestamp to start enumerating from. Can only be used with aisort=timestamp
+  aiend               - The timestamp to end enumerating. Can only be used with aisort=timestamp
+  aiprop              - What image information to get:
+                         timestamp     - Adds timestamp for the uploaded version
+                         user          - Adds the user who uploaded the image version
+                         userid        - Add the user ID that uploaded the image version
+                         comment       - Comment on the version
+                         parsedcomment - Parse the comment on the version
+                         url           - Gives URL to the image and the description page
+                         size          - Adds the size of the image in bytes and the height, width and page count (if applicable)
+                         dimensions    - Alias for size
+                         sha1          - Adds SHA-1 hash for the image
+                         mime          - Adds MIME type of the image
+                         mediatype     - Adds the media type of the image
+                         metadata      - Lists Exif metadata for the version of the image
+                         bitdepth      - Adds the bit depth of the version
+                         uploadwarning - Used by the Special:Upload page to get information about an existing file. Not intended for use outside MediaWiki core
+                        Values (separate with '|'): timestamp, user, userid, comment, parsedcomment, url, size, dimensions, sha1, mime, mediatype,
+                            metadata, bitdepth, uploadwarning
+                        Default: timestamp|url
+  aiprefix            - Search for all image titles that begin with this value. Can only be used with aisort=name
+  aiminsize           - Limit to images with at least this many bytes
+  aimaxsize           - Limit to images with at most this many bytes
+  aisha1              - SHA1 hash of image. Overrides aisha1base36
+  aisha1base36        - SHA1 hash of image in base 36 (used in MediaWiki)
+  aiuser              - Only return files uploaded by this user. Can only be used with aisort=timestamp. Cannot be used together with aifilterbots
+  aifilterbots        - How to filter files uploaded by bots. Can only be used with aisort=timestamp. Cannot be used together with aiuser
+                        One value: all, bots, nobots
+                        Default: all
+  aimime              - What MIME type to search for. e.g. image/jpeg. Disabled in Miser Mode
+  ailimit             - How many images in total to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+Examples:
+  Simple Use
+  Show a list of files starting at the letter &quot;B&quot;:
+    <a href="api.php?action=query&amp;list=allimages&amp;aifrom=B">api.php?action=query&amp;list=allimages&amp;aifrom=B</a>
+  Simple Use
+  Show a list of recently uploaded files similar to Special:NewFiles:
+    <a href="api.php?action=query&amp;list=allimages&amp;aiprop=user|timestamp|url&amp;aisort=timestamp&amp;aidir=older">api.php?action=query&amp;list=allimages&amp;aiprop=user|timestamp|url&amp;aisort=timestamp&amp;aidir=older</a>
+  Using as Generator
+  Show info about 4 files starting at the letter &quot;T&quot;:
+    <a href="api.php?action=query&amp;generator=allimages&amp;gailimit=4&amp;gaifrom=T&amp;prop=imageinfo">api.php?action=query&amp;generator=allimages&amp;gailimit=4&amp;gaifrom=T&amp;prop=imageinfo</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=alllinks (al) *</b>
+  Enumerate all links that point to a given namespace
+  <a href="https://www.mediawiki.org/wiki/API:Alllinks">https://www.mediawiki.org/wiki/API:Alllinks</a>
+
+This module requires read rights
+Parameters:
+  alcontinue          - When more results are available, use this to continue
+  alfrom              - The title of the link to start enumerating from
+  alto                - The title of the link to stop enumerating at
+  alprefix            - Search for all linked titles that begin with this value
+  alunique            - Only show distinct linked titles. Cannot be used with alprop=ids.
+                        When used as a generator, yields target pages instead of source pages.
+  alprop              - What pieces of information to include
+                         ids    - Adds the pageid of the linking page (Cannot be used with alunique)
+                         title  - Adds the title of the link
+                        Values (separate with '|'): ids, title
+                        Default: title
+  alnamespace         - The namespace to enumerate
+                        One value: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Default: 0
+  allimit             - How many total items to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  aldir               - The direction in which to list
+                        One value: ascending, descending
+                        Default: ascending
+Examples:
+  List linked titles with page ids they are from, including missing ones. Start at B:
+    <a href="api.php?action=query&amp;list=alllinks&amp;alfrom=B&amp;alprop=ids|title">api.php?action=query&amp;list=alllinks&amp;alfrom=B&amp;alprop=ids|title</a>
+  List unique linked titles:
+    <a href="api.php?action=query&amp;list=alllinks&amp;alunique=&amp;alfrom=B">api.php?action=query&amp;list=alllinks&amp;alunique=&amp;alfrom=B</a>
+  Gets all linked titles, marking the missing ones:
+    <a href="api.php?action=query&amp;generator=alllinks&amp;galunique=&amp;galfrom=B">api.php?action=query&amp;generator=alllinks&amp;galunique=&amp;galfrom=B</a>
+  Gets pages containing the links:
+    <a href="api.php?action=query&amp;generator=alllinks&amp;galfrom=B">api.php?action=query&amp;generator=alllinks&amp;galfrom=B</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=allpages (ap) *</b>
+  Enumerate all pages sequentially in a given namespace
+  <a href="https://www.mediawiki.org/wiki/API:Allpages">https://www.mediawiki.org/wiki/API:Allpages</a>
+
+This module requires read rights
+Parameters:
+  apfrom              - The page title to start enumerating from
+  apcontinue          - When more results are available, use this to continue
+  apto                - The page title to stop enumerating at
+  apprefix            - Search for all page titles that begin with this value
+  apnamespace         - The namespace to enumerate
+                        One value: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Default: 0
+  apfilterredir       - Which pages to list
+                        One value: all, redirects, nonredirects
+                        Default: all
+  apminsize           - Limit to pages with at least this many bytes
+  apmaxsize           - Limit to pages with at most this many bytes
+  apprtype            - Limit to protected pages only
+                        Values (separate with '|'): edit, move, upload
+  apprlevel           - The protection level (must be used with apprtype= parameter)
+                        Can be empty, or Values (separate with '|'): autoconfirmed, sysop
+  apprfiltercascade   - Filter protections based on cascadingness (ignored when apprtype isn't set)
+                        One value: cascading, noncascading, all
+                        Default: all
+  aplimit             - How many total pages to return.
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  apdir               - The direction in which to list
+                        One value: ascending, descending
+                        Default: ascending
+  apfilterlanglinks   - Filter based on whether a page has langlinks
+                        Note that this may not consider langlinks added by extensions.
+                        One value: withlanglinks, withoutlanglinks, all
+                        Default: all
+  apprexpiry          - Which protection expiry to filter the page on
+                         indefinite - Get only pages with indefinite protection expiry
+                         definite - Get only pages with a definite (specific) protection expiry
+                         all - Get pages with any protections expiry
+                        One value: indefinite, definite, all
+                        Default: all
+Examples:
+  Simple Use
+  Show a list of pages starting at the letter &quot;B&quot;:
+    <a href="api.php?action=query&amp;list=allpages&amp;apfrom=B">api.php?action=query&amp;list=allpages&amp;apfrom=B</a>
+  Using as Generator
+  Show info about 4 pages starting at the letter &quot;T&quot;:
+    <a href="api.php?action=query&amp;generator=allpages&amp;gaplimit=4&amp;gapfrom=T&amp;prop=info">api.php?action=query&amp;generator=allpages&amp;gaplimit=4&amp;gapfrom=T&amp;prop=info</a>
+  Show content of first 2 non-redirect pages beginning at &quot;Re&quot;:
+    <a href="api.php?action=query&amp;generator=allpages&amp;gaplimit=2&amp;gapfilterredir=nonredirects&amp;gapfrom=Re&amp;prop=revisions&amp;rvprop=content">api.php?action=query&amp;generator=allpages&amp;gaplimit=2&amp;gapfilterredir=nonredirects&amp;gapfrom=Re&amp;prop=revisions&amp;rvprop=content</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=alltransclusions (at) *</b>
+  List all transclusions (pages embedded using {{x}}), including non-existing
+  <a href="https://www.mediawiki.org/wiki/API:Alltransclusions">https://www.mediawiki.org/wiki/API:Alltransclusions</a>
+
+This module requires read rights
+Parameters:
+  atcontinue          - When more results are available, use this to continue
+  atfrom              - The title of the transclusion to start enumerating from
+  atto                - The title of the transclusion to stop enumerating at
+  atprefix            - Search for all transcluded titles that begin with this value
+  atunique            - Only show distinct transcluded titles. Cannot be used with atprop=ids.
+                        When used as a generator, yields target pages instead of source pages.
+  atprop              - What pieces of information to include
+                         ids    - Adds the pageid of the transcluding page (Cannot be used with atunique)
+                         title  - Adds the title of the transclusion
+                        Values (separate with '|'): ids, title
+                        Default: title
+  atnamespace         - The namespace to enumerate
+                        One value: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Default: 10
+  atlimit             - How many total items to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  atdir               - The direction in which to list
+                        One value: ascending, descending
+                        Default: ascending
+Examples:
+  List transcluded titles with page ids they are from, including missing ones. Start at B:
+    <a href="api.php?action=query&amp;list=alltransclusions&amp;atfrom=B&amp;atprop=ids|title">api.php?action=query&amp;list=alltransclusions&amp;atfrom=B&amp;atprop=ids|title</a>
+  List unique transcluded titles:
+    <a href="api.php?action=query&amp;list=alltransclusions&amp;atunique=&amp;atfrom=B">api.php?action=query&amp;list=alltransclusions&amp;atunique=&amp;atfrom=B</a>
+  Gets all transcluded titles, marking the missing ones:
+    <a href="api.php?action=query&amp;generator=alltransclusions&amp;gatunique=&amp;gatfrom=B">api.php?action=query&amp;generator=alltransclusions&amp;gatunique=&amp;gatfrom=B</a>
+  Gets pages containing the transclusions:
+    <a href="api.php?action=query&amp;generator=alltransclusions&amp;gatfrom=B">api.php?action=query&amp;generator=alltransclusions&amp;gatfrom=B</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=allusers (au) *</b>
+  Enumerate all registered users
+  <a href="https://www.mediawiki.org/wiki/API:Allusers">https://www.mediawiki.org/wiki/API:Allusers</a>
+
+This module requires read rights
+Parameters:
+  aufrom              - The user name to start enumerating from
+  auto                - The user name to stop enumerating at
+  auprefix            - Search for all users that begin with this value
+  audir               - Direction to sort in
+                        One value: ascending, descending
+                        Default: ascending
+  augroup             - Limit users to given group name(s)
+                        Values (separate with '|'): bot, sysop, bureaucrat
+  auexcludegroup      - Exclude users in given group name(s)
+                        Values (separate with '|'): bot, sysop, bureaucrat
+  aurights            - Limit users to given right(s) (does not include rights granted by implicit or auto-promoted groups like *, user, or autoconfirmed)
+                        Values (separate with '|'): apihighlimits, autoconfirmed, autopatrol, bigdelete, block, blockemail, bot, browsearchive,
+                            createaccount, createpage, createtalk, delete, deletedhistory, deletedtext, deletelogentry,
+                            deleterevision, edit, editinterface, editprotected, editmyoptions, editmyprivateinfo, editmyusercss,
+                            editmyuserjs, editmywatchlist, editsemiprotected, editusercssjs, editusercss, edituserjs, hideuser,
+                            import, importupload, ipblock-exempt, markbotedits, mergehistory, minoredit, move, movefile,
+                            move-rootuserpages, move-subpages, nominornewtalk, noratelimit, override-export-depth,
+                            passwordreset, patrol, patrolmarks, protect, proxyunbannable, purge, read, reupload, reupload-own,
+                            reupload-shared, rollback, sendemail, siteadmin, suppressionlog, suppressredirect, suppressrevision,
+                            unblockself, undelete, unwatchedpages, upload, upload_by_url, userrights, userrights-interwiki,
+                            viewmyprivateinfo, viewmywatchlist, writeapi, vote
+                        Maximum number of values 50 (500 for bots)
+  auprop              - What pieces of information to include.
+                         blockinfo      - Adds the information about a current block on the user
+                         groups         - Lists groups that the user is in. This uses more server resources and may return fewer results than the limit
+                         implicitgroups - Lists all the groups the user is automatically in
+                         rights         - Lists rights that the user has
+                         editcount      - Adds the edit count of the user
+                         registration   - Adds the timestamp of when the user registered if available (may be blank)
+                        Values (separate with '|'): blockinfo, groups, implicitgroups, rights, editcount, registration
+  aulimit             - How many total user names to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  auwitheditsonly     - Only list users who have made edits
+  auactiveusers       - Only list users active in the last 30 days(s)
+Example:
+  <a href="api.php?action=query&amp;list=allusers&amp;aufrom=Y">api.php?action=query&amp;list=allusers&amp;aufrom=Y</a>
+
+<b>* list=backlinks (bl) *</b>
+  Find all pages that link to the given page
+  <a href="https://www.mediawiki.org/wiki/API:Backlinks">https://www.mediawiki.org/wiki/API:Backlinks</a>
+
+This module requires read rights
+Parameters:
+  bltitle             - Title to search. Cannot be used together with blpageid
+  blpageid            - Pageid to search. Cannot be used together with bltitle
+  blcontinue          - When more results are available, use this to continue
+  blnamespace         - The namespace to enumerate
+                        Values (separate with '|'): 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Maximum number of values 50 (500 for bots)
+  bldir               - The direction in which to list
+                        One value: ascending, descending
+                        Default: ascending
+  blfilterredir       - How to filter for redirects. If set to nonredirects when blredirect is enabled, this is only applied to the second level
+                        One value: all, redirects, nonredirects
+                        Default: all
+  bllimit             - How many total pages to return. If blredirect is enabled, limit applies to each level separately (which means you may get up to 2 * limit results).
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  blredirect          - If linking page is a redirect, find all pages that link to that redirect as well. Maximum limit is halved.
+Examples:
+  <a href="api.php?action=query&amp;list=backlinks&amp;bltitle=Main%20Page">api.php?action=query&amp;list=backlinks&amp;bltitle=Main%20Page</a>
+  <a href="api.php?action=query&amp;generator=backlinks&amp;gbltitle=Main%20Page&amp;prop=info">api.php?action=query&amp;generator=backlinks&amp;gbltitle=Main%20Page&amp;prop=info</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=blocks (bk) *</b>
+  List all blocked users and IP addresses
+  <a href="https://www.mediawiki.org/wiki/API:Blocks">https://www.mediawiki.org/wiki/API:Blocks</a>
+
+This module requires read rights
+Parameters:
+  bkstart             - The timestamp to start enumerating from
+  bkend               - The timestamp to stop enumerating at
+  bkdir               - In which direction to enumerate
+                         newer          - List oldest first. Note: bkstart has to be before bkend.
+                         older          - List newest first (default). Note: bkstart has to be later than bkend.
+                        One value: newer, older
+                        Default: older
+  bkids               - List of block IDs to list (optional)
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  bkusers             - List of users to search for (optional)
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  bkip                - Get all blocks applying to this IP or CIDR range, including range blocks.
+                        Cannot be used together with bkusers. CIDR ranges broader than IPv4/16 or IPv6/19 are not accepted
+  bklimit             - The maximum amount of blocks to list
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  bkprop              - Which properties to get
+                         id         - Adds the ID of the block
+                         user       - Adds the username of the blocked user
+                         userid     - Adds the user ID of the blocked user
+                         by         - Adds the username of the blocking user
+                         byid       - Adds the user ID of the blocking user
+                         timestamp  - Adds the timestamp of when the block was given
+                         expiry     - Adds the timestamp of when the block expires
+                         reason     - Adds the reason given for the block
+                         range      - Adds the range of IPs affected by the block
+                         flags      - Tags the ban with (autoblock, anononly, etc)
+                        Values (separate with '|'): id, user, userid, by, byid, timestamp, expiry, reason, range, flags
+                        Default: id|user|by|timestamp|expiry|reason|flags
+  bkshow              - Show only items that meet this criteria.
+                        For example, to see only indefinite blocks on IPs, set bkshow=ip|!temp
+                        Values (separate with '|'): account, !account, temp, !temp, ip, !ip, range, !range
+Examples:
+  <a href="api.php?action=query&amp;list=blocks">api.php?action=query&amp;list=blocks</a>
+  <a href="api.php?action=query&amp;list=blocks&amp;bkusers=Alice|Bob">api.php?action=query&amp;list=blocks&amp;bkusers=Alice|Bob</a>
+
+<b>* list=categorymembers (cm) *</b>
+  List all pages in a given category
+  <a href="https://www.mediawiki.org/wiki/API:Categorymembers">https://www.mediawiki.org/wiki/API:Categorymembers</a>
+
+This module requires read rights
+Parameters:
+  cmtitle             - Which category to enumerate (required). Must include Category: prefix. Cannot be used together with cmpageid
+  cmpageid            - Page ID of the category to enumerate. Cannot be used together with cmtitle
+  cmprop              - What pieces of information to include
+                         ids           - Adds the page ID
+                         title         - Adds the title and namespace ID of the page
+                         sortkey       - Adds the sortkey used for sorting in the category (hexadecimal string)
+                         sortkeyprefix - Adds the sortkey prefix used for sorting in the category (human-readable part of the sortkey)
+                         type          - Adds the type that the page has been categorised as (page, subcat or file)
+                         timestamp     - Adds the timestamp of when the page was included
+                        Values (separate with '|'): ids, title, sortkey, sortkeyprefix, type, timestamp
+                        Default: ids|title
+  cmnamespace         - Only include pages in these namespaces
+                        Values (separate with '|'): 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Maximum number of values 50 (500 for bots)
+  cmtype              - What type of category members to include. Ignored when cmsort=timestamp is set
+                        Values (separate with '|'): page, subcat, file
+                        Default: page|subcat|file
+  cmcontinue          - For large categories, give the value returned from previous query
+  cmlimit             - The maximum number of pages to return.
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  cmsort              - Property to sort by
+                        One value: sortkey, timestamp
+                        Default: sortkey
+  cmdir               - In which direction to sort
+                        One value: asc, desc, ascending, descending, newer, older
+                        Default: ascending
+  cmstart             - Timestamp to start listing from. Can only be used with cmsort=timestamp
+  cmend               - Timestamp to end listing at. Can only be used with cmsort=timestamp
+  cmstartsortkey      - Sortkey to start listing from. Must be given in binary format. Can only be used with cmsort=sortkey
+  cmendsortkey        - Sortkey to end listing at. Must be given in binary format. Can only be used with cmsort=sortkey
+  cmstartsortkeyprefix - Sortkey prefix to start listing from. Can only be used with cmsort=sortkey. Overrides cmstartsortkey
+  cmendsortkeyprefix  - Sortkey prefix to end listing BEFORE (not at, if this value occurs it will not be included!). Can only be used with cmsort=sortkey. Overrides cmendsortkey
+Examples:
+  Get first 10 pages in [[Category:Physics]]:
+    <a href="api.php?action=query&amp;list=categorymembers&amp;cmtitle=Category:Physics">api.php?action=query&amp;list=categorymembers&amp;cmtitle=Category:Physics</a>
+  Get page info about first 10 pages in [[Category:Physics]]:
+    <a href="api.php?action=query&amp;generator=categorymembers&amp;gcmtitle=Category:Physics&amp;prop=info">api.php?action=query&amp;generator=categorymembers&amp;gcmtitle=Category:Physics&amp;prop=info</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=deletedrevs (dr) *</b>
+  List deleted revisions.
+  Operates in three modes:
+   1) List deleted revisions for the given title(s), sorted by timestamp
+   2) List deleted contributions for the given user, sorted by timestamp (no titles specified)
+   3) List all deleted revisions in the given namespace, sorted by title and timestamp (no titles specified, druser not set)
+  Certain parameters only apply to some modes and are ignored in others.
+  For instance, a parameter marked (1) only applies to mode 1 and is ignored in modes 2 and 3
+  <a href="https://www.mediawiki.org/wiki/API:Deletedrevs">https://www.mediawiki.org/wiki/API:Deletedrevs</a>
+
+This module requires read rights
+Parameters:
+  drstart             - The timestamp to start enumerating from (1, 2)
+  drend               - The timestamp to stop enumerating at (1, 2)
+  drdir               - In which direction to enumerate (1, 3)
+                         newer          - List oldest first. Note: drstart has to be before drend.
+                         older          - List newest first (default). Note: drstart has to be later than drend.
+                        One value: newer, older
+                        Default: older
+  drfrom              - Start listing at this title (3)
+  drto                - Stop listing at this title (3)
+  drprefix            - Search for all page titles that begin with this value (3)
+  drcontinue          - When more results are available, use this to continue (1, 3)
+  drunique            - List only one revision for each page (3)
+  druser              - Only list revisions by this user
+  drexcludeuser       - Don't list revisions by this user
+  drnamespace         - Only list pages in this namespace (3)
+                        One value: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Default: 0
+  drlimit             - The maximum amount of revisions to list
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  drprop              - Which properties to get
+                         revid          - Adds the revision ID of the deleted revision
+                         parentid       - Adds the revision ID of the previous revision to the page
+                         user           - Adds the user who made the revision
+                         userid         - Adds the user ID whom made the revision
+                         comment        - Adds the comment of the revision
+                         parsedcomment  - Adds the parsed comment of the revision
+                         minor          - Tags if the revision is minor
+                         len            - Adds the length (bytes) of the revision
+                         sha1           - Adds the SHA-1 (base 16) of the revision
+                         content        - Adds the content of the revision
+                         token          - Gives the edit token
+                        Values (separate with '|'): revid, parentid, user, userid, comment, parsedcomment, minor, len, sha1, content, token
+                        Default: user|comment
+Examples:
+  List the last deleted revisions of Main Page and Talk:Main Page, with content (mode 1):
+    <a href="api.php?action=query&amp;list=deletedrevs&amp;titles=Main%20Page|Talk:Main%20Page&amp;drprop=user|comment|content">api.php?action=query&amp;list=deletedrevs&amp;titles=Main%20Page|Talk:Main%20Page&amp;drprop=user|comment|content</a>
+  List the last 50 deleted contributions by Bob (mode 2):
+    <a href="api.php?action=query&amp;list=deletedrevs&amp;druser=Bob&amp;drlimit=50">api.php?action=query&amp;list=deletedrevs&amp;druser=Bob&amp;drlimit=50</a>
+  List the first 50 deleted revisions in the main namespace (mode 3):
+    <a href="api.php?action=query&amp;list=deletedrevs&amp;drdir=newer&amp;drlimit=50">api.php?action=query&amp;list=deletedrevs&amp;drdir=newer&amp;drlimit=50</a>
+  List the first 50 deleted pages in the Talk namespace (mode 3)::
+    <a href="api.php?action=query&amp;list=deletedrevs&amp;drdir=newer&amp;drlimit=50&amp;drnamespace=1&amp;drunique=">api.php?action=query&amp;list=deletedrevs&amp;drdir=newer&amp;drlimit=50&amp;drnamespace=1&amp;drunique=</a>
+
+<b>* list=embeddedin (ei) *</b>
+  Find all pages that embed (transclude) the given title
+  <a href="https://www.mediawiki.org/wiki/API:Embeddedin">https://www.mediawiki.org/wiki/API:Embeddedin</a>
+
+This module requires read rights
+Parameters:
+  eititle             - Title to search. Cannot be used together with eipageid
+  eipageid            - Pageid to search. Cannot be used together with eititle
+  eicontinue          - When more results are available, use this to continue
+  einamespace         - The namespace to enumerate
+                        Values (separate with '|'): 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Maximum number of values 50 (500 for bots)
+  eidir               - The direction in which to list
+                        One value: ascending, descending
+                        Default: ascending
+  eifilterredir       - How to filter for redirects
+                        One value: all, redirects, nonredirects
+                        Default: all
+  eilimit             - How many total pages to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+Examples:
+  <a href="api.php?action=query&amp;list=embeddedin&amp;eititle=Template:Stub">api.php?action=query&amp;list=embeddedin&amp;eititle=Template:Stub</a>
+  <a href="api.php?action=query&amp;generator=embeddedin&amp;geititle=Template:Stub&amp;prop=info">api.php?action=query&amp;generator=embeddedin&amp;geititle=Template:Stub&amp;prop=info</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=exturlusage (eu) *</b>
+  Enumerate pages that contain a given URL
+  <a href="https://www.mediawiki.org/wiki/API:Exturlusage">https://www.mediawiki.org/wiki/API:Exturlusage</a>
+
+This module requires read rights
+Parameters:
+  euprop              - What pieces of information to include
+                         ids    - Adds the ID of page
+                         title  - Adds the title and namespace ID of the page
+                         url    - Adds the URL used in the page
+                        Values (separate with '|'): ids, title, url
+                        Default: ids|title|url
+  euoffset            - Used for paging. Use the value returned for &quot;continue&quot;
+  euprotocol          - Protocol of the URL. If empty and euquery set, the protocol is http.
+                        Leave both this and euquery empty to list all external links
+                        Can be empty, or One value: http, https, ftp, ftps, ssh, sftp, irc, ircs, xmpp, sip, sips, gopher, telnet, nntp, worldwind,
+                            mailto, tel, sms, news, svn, git, mms, bitcoin, magnet, urn, geo
+                        Default: 
+  euquery             - Search string without protocol. See [[Special:LinkSearch]]. Leave empty to list all external links
+  eunamespace         - The page namespace(s) to enumerate.
+                        Values (separate with '|'): 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Maximum number of values 50 (500 for bots)
+  eulimit             - How many pages to return.
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  euexpandurl         - Expand protocol-relative URLs with the canonical protocol
+Example:
+  <a href="api.php?action=query&amp;list=exturlusage&amp;euquery=www.mediawiki.org">api.php?action=query&amp;list=exturlusage&amp;euquery=www.mediawiki.org</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=filearchive (fa) *</b>
+  Enumerate all deleted files sequentially
+  <a href="https://www.mediawiki.org/wiki/API:Filearchive">https://www.mediawiki.org/wiki/API:Filearchive</a>
+
+This module requires read rights
+Parameters:
+  fafrom              - The image title to start enumerating from
+  facontinue          - When more results are available, use this to continue
+  fato                - The image title to stop enumerating at
+  faprefix            - Search for all image titles that begin with this value
+  falimit             - How many images to return in total
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  fadir               - The direction in which to list
+                        One value: ascending, descending
+                        Default: ascending
+  fasha1              - SHA1 hash of image. Overrides fasha1base36
+  fasha1base36        - SHA1 hash of image in base 36 (used in MediaWiki)
+  faprop              - What image information to get:
+                         sha1              - Adds SHA-1 hash for the image
+                         timestamp         - Adds timestamp for the uploaded version
+                         user              - Adds user who uploaded the image version
+                         size              - Adds the size of the image in bytes and the height, width and page count (if applicable)
+                         dimensions        - Alias for size
+                         description       - Adds description the image version
+                         parseddescription - Parse the description on the version
+                         mime              - Adds MIME of the image
+                         mediatype         - Adds the media type of the image
+                         metadata          - Lists Exif metadata for the version of the image
+                         bitdepth          - Adds the bit depth of the version
+                         archivename       - Adds the file name of the archive version for non-latest versions
+                        Values (separate with '|'): sha1, timestamp, user, size, dimensions, description, parseddescription, mime, mediatype, metadata,
+                            bitdepth, archivename
+                        Default: timestamp
+Example:
+  Simple Use
+  Show a list of all deleted files:
+    <a href="api.php?action=query&amp;list=filearchive">api.php?action=query&amp;list=filearchive</a>
+
+<b>* list=imageusage (iu) *</b>
+  Find all pages that use the given image title.
+  <a href="https://www.mediawiki.org/wiki/API:Imageusage">https://www.mediawiki.org/wiki/API:Imageusage</a>
+
+This module requires read rights
+Parameters:
+  iutitle             - Title to search. Cannot be used together with iupageid
+  iupageid            - Pageid to search. Cannot be used together with iutitle
+  iucontinue          - When more results are available, use this to continue
+  iunamespace         - The namespace to enumerate
+                        Values (separate with '|'): 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Maximum number of values 50 (500 for bots)
+  iudir               - The direction in which to list
+                        One value: ascending, descending
+                        Default: ascending
+  iufilterredir       - How to filter for redirects. If set to nonredirects when iuredirect is enabled, this is only applied to the second level
+                        One value: all, redirects, nonredirects
+                        Default: all
+  iulimit             - How many total pages to return. If iuredirect is enabled, limit applies to each level separately (which means you may get up to 2 * limit results).
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  iuredirect          - If linking page is a redirect, find all pages that link to that redirect as well. Maximum limit is halved.
+Examples:
+  <a href="api.php?action=query&amp;list=imageusage&amp;iutitle=File:Albert%20Einstein%20Head.jpg">api.php?action=query&amp;list=imageusage&amp;iutitle=File:Albert%20Einstein%20Head.jpg</a>
+  <a href="api.php?action=query&amp;generator=imageusage&amp;giutitle=File:Albert%20Einstein%20Head.jpg&amp;prop=info">api.php?action=query&amp;generator=imageusage&amp;giutitle=File:Albert%20Einstein%20Head.jpg&amp;prop=info</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=iwbacklinks (iwbl) *</b>
+  Find all pages that link to the given interwiki link.
+  Can be used to find all links with a prefix, or
+  all links to a title (with a given prefix).
+  Using neither parameter is effectively &quot;All IW Links&quot;
+  <a href="https://www.mediawiki.org/wiki/API:Iwbacklinks">https://www.mediawiki.org/wiki/API:Iwbacklinks</a>
+
+This module requires read rights
+Parameters:
+  iwblprefix          - Prefix for the interwiki
+  iwbltitle           - Interwiki link to search for. Must be used with iwblprefix
+  iwblcontinue        - When more results are available, use this to continue
+  iwbllimit           - How many total pages to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  iwblprop            - Which properties to get
+                         iwprefix       - Adds the prefix of the interwiki
+                         iwtitle        - Adds the title of the interwiki
+                        Values (separate with '|'): iwprefix, iwtitle
+                        Default: 
+  iwbldir             - The direction in which to list
+                        One value: ascending, descending
+                        Default: ascending
+Examples:
+  <a href="api.php?action=query&amp;list=iwbacklinks&amp;iwbltitle=Test&amp;iwblprefix=wikibooks">api.php?action=query&amp;list=iwbacklinks&amp;iwbltitle=Test&amp;iwblprefix=wikibooks</a>
+  <a href="api.php?action=query&amp;generator=iwbacklinks&amp;giwbltitle=Test&amp;giwblprefix=wikibooks&amp;prop=info">api.php?action=query&amp;generator=iwbacklinks&amp;giwbltitle=Test&amp;giwblprefix=wikibooks&amp;prop=info</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=langbacklinks (lbl) *</b>
+  Find all pages that link to the given language link.
+  Can be used to find all links with a language code, or
+  all links to a title (with a given language).
+  Using neither parameter is effectively &quot;All Language Links&quot;.
+  Note that this may not consider language links added by extensions.
+  <a href="https://www.mediawiki.org/wiki/API:Langbacklinks">https://www.mediawiki.org/wiki/API:Langbacklinks</a>
+
+This module requires read rights
+Parameters:
+  lbllang             - Language for the language link
+  lbltitle            - Language link to search for. Must be used with lbllang
+  lblcontinue         - When more results are available, use this to continue
+  lbllimit            - How many total pages to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  lblprop             - Which properties to get
+                         lllang         - Adds the language code of the language link
+                         lltitle        - Adds the title of the language link
+                        Values (separate with '|'): lllang, lltitle
+                        Default: 
+  lbldir              - The direction in which to list
+                        One value: ascending, descending
+                        Default: ascending
+Examples:
+  <a href="api.php?action=query&amp;list=langbacklinks&amp;lbltitle=Test&amp;lbllang=fr">api.php?action=query&amp;list=langbacklinks&amp;lbltitle=Test&amp;lbllang=fr</a>
+  <a href="api.php?action=query&amp;generator=langbacklinks&amp;glbltitle=Test&amp;glbllang=fr&amp;prop=info">api.php?action=query&amp;generator=langbacklinks&amp;glbltitle=Test&amp;glbllang=fr&amp;prop=info</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=logevents (le) *</b>
+  Get events from logs
+  <a href="https://www.mediawiki.org/wiki/API:Logevents">https://www.mediawiki.org/wiki/API:Logevents</a>
+
+This module requires read rights
+Parameters:
+  leprop              - Which properties to get
+                         ids            - Adds the ID of the log event
+                         title          - Adds the title of the page for the log event
+                         type           - Adds the type of log event
+                         user           - Adds the user responsible for the log event
+                         userid         - Adds the user ID who was responsible for the log event
+                         timestamp      - Adds the timestamp for the event
+                         comment        - Adds the comment of the event
+                         parsedcomment  - Adds the parsed comment of the event
+                         details        - Lists additional details about the event
+                         tags           - Lists tags for the event
+                        Values (separate with '|'): ids, title, type, user, userid, timestamp, comment, parsedcomment, details, tags
+                        Default: ids|title|type|user|timestamp|comment|details
+  letype              - Filter log entries to only this type
+                        Can be empty, or One value: block, protect, rights, delete, upload, move, import, patrol, merge, suppress, newusers
+  leaction            - Filter log actions to only this type. Overrides letype
+                        One value: block/block, block/unblock, block/reblock, protect/protect, protect/modify, protect/unprotect,
+                            protect/move_prot, upload/upload, upload/overwrite, upload/revert, import/upload, import/interwiki,
+                            merge/merge, suppress/block, suppress/reblock, move/move, move/move_redir, delete/delete,
+                            delete/restore, delete/revision, delete/event, suppress/revision, suppress/event, suppress/delete,
+                            patrol/patrol, rights/rights, rights/autopromote, newusers/newusers, newusers/create,
+                            newusers/create2, newusers/byemail, newusers/autocreate
+  lestart             - The timestamp to start enumerating from
+  leend               - The timestamp to end enumerating
+  ledir               - In which direction to enumerate
+                         newer          - List oldest first. Note: lestart has to be before leend.
+                         older          - List newest first (default). Note: lestart has to be later than leend.
+                        One value: newer, older
+                        Default: older
+  leuser              - Filter entries to those made by the given user
+  letitle             - Filter entries to those related to a page
+  leprefix            - Filter entries that start with this prefix. Disabled in Miser Mode
+  letag               - Only list event entries tagged with this tag
+  lelimit             - How many total event entries to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+Example:
+  <a href="api.php?action=query&amp;list=logevents">api.php?action=query&amp;list=logevents</a>
+
+<b>* list=pagepropnames (ppn) *</b>
+  List all page prop names in use on the wiki
+  <a href="https://www.mediawiki.org/wiki/API:Pagepropnames">https://www.mediawiki.org/wiki/API:Pagepropnames</a>
+
+This module requires read rights
+Parameters:
+  ppncontinue         - When more results are available, use this to continue
+  ppnlimit            - The maximum number of pages to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+Example:
+  Get first 10 prop names:
+    <a href="api.php?action=query&amp;list=pagepropnames">api.php?action=query&amp;list=pagepropnames</a>
+
+<b>* list=pageswithprop (pwp) *</b>
+  List all pages using a given page prop
+  <a href="https://www.mediawiki.org/wiki/API:Pageswithprop">https://www.mediawiki.org/wiki/API:Pageswithprop</a>
+
+This module requires read rights
+Parameters:
+  pwppropname         - Page prop for which to enumerate pages
+                        This parameter is required
+  pwpprop             - What pieces of information to include
+                         ids   - Adds the page ID
+                         title - Adds the title and namespace ID of the page
+                         value - Adds the value of the page prop
+                        Values (separate with '|'): ids, title, value
+                        Default: ids|title
+  pwpcontinue         - When more results are available, use this to continue
+  pwplimit            - The maximum number of pages to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  pwpdir              - In which direction to sort
+                        One value: ascending, descending
+                        Default: ascending
+Examples:
+  Get first 10 pages using {{DISPLAYTITLE:}}:
+    <a href="api.php?action=query&amp;list=pageswithprop&amp;pwppropname=displaytitle&amp;pwpprop=ids|title|value">api.php?action=query&amp;list=pageswithprop&amp;pwppropname=displaytitle&amp;pwpprop=ids|title|value</a>
+  Get page info about first 10 pages using __NOTOC__:
+    <a href="api.php?action=query&amp;generator=pageswithprop&amp;gpwppropname=notoc&amp;prop=info">api.php?action=query&amp;generator=pageswithprop&amp;gpwppropname=notoc&amp;prop=info</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=protectedtitles (pt) *</b>
+  List all titles protected from creation
+  <a href="https://www.mediawiki.org/wiki/API:Protectedtitles">https://www.mediawiki.org/wiki/API:Protectedtitles</a>
+
+This module requires read rights
+Parameters:
+  ptnamespace         - Only list titles in these namespaces
+                        Values (separate with '|'): 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Maximum number of values 50 (500 for bots)
+  ptlevel             - Only list titles with these protection levels
+                        Values (separate with '|'): autoconfirmed, sysop
+  ptlimit             - How many total pages to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  ptdir               - In which direction to enumerate
+                         newer          - List oldest first. Note: ptstart has to be before ptend.
+                         older          - List newest first (default). Note: ptstart has to be later than ptend.
+                        One value: newer, older
+                        Default: older
+  ptstart             - Start listing at this protection timestamp
+  ptend               - Stop listing at this protection timestamp
+  ptprop              - Which properties to get
+                         timestamp      - Adds the timestamp of when protection was added
+                         user           - Adds the user that added the protection
+                         userid         - Adds the user id that added the protection
+                         comment        - Adds the comment for the protection
+                         parsedcomment  - Adds the parsed comment for the protection
+                         expiry         - Adds the timestamp of when the protection will be lifted
+                         level          - Adds the protection level
+                        Values (separate with '|'): timestamp, user, userid, comment, parsedcomment, expiry, level
+                        Default: timestamp|level
+Example:
+  <a href="api.php?action=query&amp;list=protectedtitles">api.php?action=query&amp;list=protectedtitles</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=querypage (qp) *</b>
+  Get a list provided by a QueryPage-based special page
+  <a href="https://www.mediawiki.org/wiki/API:Querypage">https://www.mediawiki.org/wiki/API:Querypage</a>
+
+This module requires read rights
+Parameters:
+  qppage              - The name of the special page. Note, this is case sensitive
+                        This parameter is required
+                        One value: Ancientpages, BrokenRedirects, Deadendpages, DoubleRedirects, Listredirects, Lonelypages, Longpages,
+                            Mostcategories, Mostimages, Mostinterwikis, Mostlinkedcategories, Mostlinkedtemplates, Mostlinked,
+                            Mostrevisions, Fewestrevisions, Shortpages, Uncategorizedcategories, Uncategorizedpages,
+                            Uncategorizedimages, Uncategorizedtemplates, Unusedcategories, Unusedimages, Wantedcategories,
+                            Wantedfiles, Wantedpages, Wantedtemplates, Unwatchedpages, Unusedtemplates, Withoutinterwiki
+  qpoffset            - When more results are available, use this to continue
+                        Default: 0
+  qplimit             - Number of results to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+Example:
+  <a href="api.php?action=query&amp;list=querypage&amp;qppage=Ancientpages">api.php?action=query&amp;list=querypage&amp;qppage=Ancientpages</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=random (rn) *</b>
+  Get a set of random pages
+  NOTE: Pages are listed in a fixed sequence, only the starting point is random. This means that if, for example, &quot;Main Page&quot; is the first 
+        random page on your list, &quot;List of fictional monkeys&quot; will <b>*always*</b> be second, &quot;List of people on stamps of Vanuatu&quot; third, etc
+  NOTE: If the number of pages in the namespace is lower than rnlimit, you will get fewer pages. You will not get the same page twice
+  <a href="https://www.mediawiki.org/wiki/API:Random">https://www.mediawiki.org/wiki/API:Random</a>
+
+This module requires read rights
+Parameters:
+  rnnamespace         - Return pages in these namespaces only
+                        Values (separate with '|'): 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Maximum number of values 50 (500 for bots)
+  rnlimit             - Limit how many random pages will be returned
+                        No more than 10 (20 for bots) allowed
+                        Default: 1
+  rnredirect          - Load a random redirect instead of a random page
+Example:
+  <a href="api.php?action=query&amp;list=random&amp;rnnamespace=0&amp;rnlimit=2">api.php?action=query&amp;list=random&amp;rnnamespace=0&amp;rnlimit=2</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=recentchanges (rc) *</b>
+  Enumerate recent changes
+  <a href="https://www.mediawiki.org/wiki/API:Recentchanges">https://www.mediawiki.org/wiki/API:Recentchanges</a>
+
+This module requires read rights
+Parameters:
+  rcstart             - The timestamp to start enumerating from
+  rcend               - The timestamp to end enumerating
+  rcdir               - In which direction to enumerate
+                         newer          - List oldest first. Note: rcstart has to be before rcend.
+                         older          - List newest first (default). Note: rcstart has to be later than rcend.
+                        One value: newer, older
+                        Default: older
+  rcnamespace         - Filter log entries to only this namespace(s)
+                        Values (separate with '|'): 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Maximum number of values 50 (500 for bots)
+  rcuser              - Only list changes by this user
+  rcexcludeuser       - Don't list changes by this user
+  rctag               - Only list changes tagged with this tag
+  rcprop              - Include additional pieces of information
+                         user           - Adds the user responsible for the edit and tags if they are an IP
+                         userid         - Adds the user id responsible for the edit
+                         comment        - Adds the comment for the edit
+                         parsedcomment  - Adds the parsed comment for the edit
+                         flags          - Adds flags for the edit
+                         timestamp      - Adds timestamp of the edit
+                         title          - Adds the page title of the edit
+                         ids            - Adds the page ID, recent changes ID and the new and old revision ID
+                         sizes          - Adds the new and old page length in bytes
+                         redirect       - Tags edit if page is a redirect
+                         patrolled      - Tags edits that have been patrolled
+                         loginfo        - Adds log information (logid, logtype, etc) to log entries
+                         tags           - Lists tags for the entry
+                         sha1           - Adds the content checksum for entries associated with a revision
+                        Values (separate with '|'): user, userid, comment, parsedcomment, flags, timestamp, title, ids, sizes, redirect, patrolled,
+                            loginfo, tags, sha1
+                        Default: title|timestamp|ids
+  rctoken             - Which tokens to obtain for each change
+                        Values (separate with '|'): patrol
+  rcshow              - Show only items that meet this criteria.
+                        For example, to see only minor edits done by logged-in users, set rcshow=minor|!anon
+                        Values (separate with '|'): minor, !minor, bot, !bot, anon, !anon, redirect, !redirect, patrolled, !patrolled
+  rclimit             - How many total changes to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  rctype              - Which types of changes to show
+                        Values (separate with '|'): edit, external, new, log
+  rctoponly           - Only list changes which are the latest revision
+  rccontinue          - When more results are available, use this to continue
+Example:
+  <a href="api.php?action=query&amp;list=recentchanges">api.php?action=query&amp;list=recentchanges</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=search (sr) *</b>
+  Perform a full text search
+  <a href="https://www.mediawiki.org/wiki/API:Search">https://www.mediawiki.org/wiki/API:Search</a>
+
+This module requires read rights
+Parameters:
+  srsearch            - Search for all page titles (or content) that has this value
+                        This parameter is required
+  srnamespace         - The namespace(s) to enumerate
+                        Values (separate with '|'): 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Maximum number of values 50 (500 for bots)
+                        Default: 0
+  srwhat              - Search inside the text or titles
+                        One value: title, text, nearmatch
+  srinfo              - What metadata to return
+                        Values (separate with '|'): totalhits, suggestion
+                        Default: totalhits|suggestion
+  srprop              - What properties to return
+                         size             - Adds the size of the page in bytes
+                         wordcount        - Adds the word count of the page
+                         timestamp        - Adds the timestamp of when the page was last edited
+                         score            - Adds the score (if any) from the search engine
+                         snippet          - Adds a parsed snippet of the page
+                         titlesnippet     - Adds a parsed snippet of the page title
+                         redirectsnippet  - Adds a parsed snippet of the redirect title
+                         redirecttitle    - Adds the title of the matching redirect
+                         sectionsnippet   - Adds a parsed snippet of the matching section title
+                         sectiontitle     - Adds the title of the matching section
+                         hasrelated       - Indicates whether a related search is available
+                        Values (separate with '|'): size, wordcount, timestamp, score, snippet, titlesnippet, redirecttitle, redirectsnippet,
+                            sectiontitle, sectionsnippet, hasrelated
+                        Default: size|wordcount|timestamp|snippet
+  srredirects         - Include redirect pages in the search
+  sroffset            - Use this value to continue paging (return by query)
+                        Default: 0
+  srlimit             - How many total pages to return
+                        No more than 50 (500 for bots) allowed
+                        Default: 10
+Examples:
+  <a href="api.php?action=query&amp;list=search&amp;srsearch=meaning">api.php?action=query&amp;list=search&amp;srsearch=meaning</a>
+  <a href="api.php?action=query&amp;list=search&amp;srwhat=text&amp;srsearch=meaning">api.php?action=query&amp;list=search&amp;srwhat=text&amp;srsearch=meaning</a>
+  <a href="api.php?action=query&amp;generator=search&amp;gsrsearch=meaning&amp;prop=info">api.php?action=query&amp;generator=search&amp;gsrsearch=meaning&amp;prop=info</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=tags (tg) *</b>
+  List change tags
+  <a href="https://www.mediawiki.org/wiki/API:Tags">https://www.mediawiki.org/wiki/API:Tags</a>
+
+This module requires read rights
+Parameters:
+  tgcontinue          - When more results are available, use this to continue
+  tglimit             - The maximum number of tags to list
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  tgprop              - Which properties to get
+                         name         - Adds name of tag
+                         displayname  - Adds system message for the tag
+                         description  - Adds description of the tag
+                         hitcount     - Adds the amount of revisions that have this tag
+                        Values (separate with '|'): name, displayname, description, hitcount
+                        Default: name
+Example:
+  <a href="api.php?action=query&amp;list=tags&amp;tgprop=displayname|description|hitcount">api.php?action=query&amp;list=tags&amp;tgprop=displayname|description|hitcount</a>
+
+<b>* list=usercontribs (uc) *</b>
+  Get all edits by a user
+  <a href="https://www.mediawiki.org/wiki/API:Usercontribs">https://www.mediawiki.org/wiki/API:Usercontribs</a>
+
+This module requires read rights
+Parameters:
+  uclimit             - The maximum number of contributions to return
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  ucstart             - The start timestamp to return from
+  ucend               - The end timestamp to return to
+  uccontinue          - When more results are available, use this to continue
+  ucuser              - The users to retrieve contributions for
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  ucuserprefix        - Retrieve contributions for all users whose names begin with this value. Overrides ucuser
+  ucdir               - In which direction to enumerate
+                         newer          - List oldest first. Note: ucstart has to be before ucend.
+                         older          - List newest first (default). Note: ucstart has to be later than ucend.
+                        One value: newer, older
+                        Default: older
+  ucnamespace         - Only list contributions in these namespaces
+                        Values (separate with '|'): 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Maximum number of values 50 (500 for bots)
+  ucprop              - Include additional pieces of information
+                         ids            - Adds the page ID and revision ID
+                         title          - Adds the title and namespace ID of the page
+                         timestamp      - Adds the timestamp of the edit
+                         comment        - Adds the comment of the edit
+                         parsedcomment  - Adds the parsed comment of the edit
+                         size           - Adds the new size of the edit
+                         sizediff       - Adds the size delta of the edit against its parent
+                         flags          - Adds flags of the edit
+                         patrolled      - Tags patrolled edits
+                         tags           - Lists tags for the edit
+                        Values (separate with '|'): ids, title, timestamp, comment, parsedcomment, size, sizediff, flags, patrolled, tags
+                        Default: ids|title|timestamp|comment|size|flags
+  ucshow              - Show only items that meet this criteria, e.g. non minor edits only: ucshow=!minor
+                        NOTE: if ucshow=patrolled or ucshow=!patrolled is set, revisions older than $wgRCMaxAge (7862400) won't be shown
+                        Values (separate with '|'): minor, !minor, patrolled, !patrolled
+  uctag               - Only list revisions tagged with this tag
+  uctoponly           - Only list changes which are the latest revision
+Examples:
+  <a href="api.php?action=query&amp;list=usercontribs&amp;ucuser=YurikBot">api.php?action=query&amp;list=usercontribs&amp;ucuser=YurikBot</a>
+  <a href="api.php?action=query&amp;list=usercontribs&amp;ucuserprefix=217.121.114.">api.php?action=query&amp;list=usercontribs&amp;ucuserprefix=217.121.114.</a>
+
+<b>* list=users (us) *</b>
+  Get information about a list of users
+  <a href="https://www.mediawiki.org/wiki/API:Users">https://www.mediawiki.org/wiki/API:Users</a>
+
+This module requires read rights
+Parameters:
+  usprop              - What pieces of information to include
+                          blockinfo      - Tags if the user is blocked, by whom, and for what reason
+                          groups         - Lists all the groups the user(s) belongs to
+                          implicitgroups - Lists all the groups a user is automatically a member of
+                          rights         - Lists all the rights the user(s) has
+                          editcount      - Adds the user's edit count
+                          registration   - Adds the user's registration timestamp
+                          emailable      - Tags if the user can and wants to receive email through [[Special:Emailuser]]
+                          gender         - Tags the gender of the user. Returns &quot;male&quot;, &quot;female&quot;, or &quot;unknown&quot;
+                        Values (separate with '|'): blockinfo, groups, implicitgroups, rights, editcount, registration, emailable, gender
+  ususers             - A list of users to obtain the same information for
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  ustoken             - Which tokens to obtain for each user
+                        Values (separate with '|'): userrights
+Example:
+  <a href="api.php?action=query&amp;list=users&amp;ususers=brion|TimStarling&amp;usprop=groups|editcount|gender">api.php?action=query&amp;list=users&amp;ususers=brion|TimStarling&amp;usprop=groups|editcount|gender</a>
+
+<b>* list=watchlist (wl) *</b>
+  Get all recent changes to pages in the logged in user's watchlist
+  <a href="https://www.mediawiki.org/wiki/API:Watchlist">https://www.mediawiki.org/wiki/API:Watchlist</a>
+
+This module requires read rights
+Parameters:
+  wlallrev            - Include multiple revisions of the same page within given timeframe
+  wlstart             - The timestamp to start enumerating from
+  wlend               - The timestamp to end enumerating
+  wlnamespace         - Filter changes to only the given namespace(s)
+                        Values (separate with '|'): 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Maximum number of values 50 (500 for bots)
+  wluser              - Only list changes by this user
+  wlexcludeuser       - Don't list changes by this user
+  wldir               - In which direction to enumerate
+                         newer          - List oldest first. Note: wlstart has to be before wlend.
+                         older          - List newest first (default). Note: wlstart has to be later than wlend.
+                        One value: newer, older
+                        Default: older
+  wllimit             - How many total results to return per request
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  wlprop              - Which additional items to get (non-generator mode only).
+                         ids                    - Adds revision ids and page ids
+                         title                  - Adds title of the page
+                         flags                  - Adds flags for the edit
+                         user                   - Adds the user who made the edit
+                         userid                 - Adds user id of whom made the edit
+                         comment                - Adds comment of the edit
+                         parsedcomment          - Adds parsed comment of the edit
+                         timestamp              - Adds timestamp of the edit
+                         patrol                 - Tags edits that are patrolled
+                         sizes                  - Adds the old and new lengths of the page
+                         notificationtimestamp  - Adds timestamp of when the user was last notified about the edit
+                         loginfo                - Adds log information where appropriate
+                        Values (separate with '|'): ids, title, flags, user, userid, comment, parsedcomment, timestamp, patrol, sizes,
+                            notificationtimestamp, loginfo
+                        Default: ids|title|flags
+  wlshow              - Show only items that meet this criteria.
+                        For example, to see only minor edits done by logged-in users, set wlshow=minor|!anon
+                        Values (separate with '|'): minor, !minor, bot, !bot, anon, !anon, patrolled, !patrolled
+  wltype              - Which types of changes to show
+                         edit           - Regular page edits
+                         external       - External changes
+                         new            - Page creations
+                         log            - Log entries
+                        Values (separate with '|'): edit, external, new, log
+  wlowner             - The name of the user whose watchlist you'd like to access
+  wltoken             - Give a security token (settable in preferences) to allow access to another user's watchlist
+Examples:
+  <a href="api.php?action=query&amp;list=watchlist">api.php?action=query&amp;list=watchlist</a>
+  <a href="api.php?action=query&amp;list=watchlist&amp;wlprop=ids|title|timestamp|user|comment">api.php?action=query&amp;list=watchlist&amp;wlprop=ids|title|timestamp|user|comment</a>
+  <a href="api.php?action=query&amp;list=watchlist&amp;wlallrev=&amp;wlprop=ids|title|timestamp|user|comment">api.php?action=query&amp;list=watchlist&amp;wlallrev=&amp;wlprop=ids|title|timestamp|user|comment</a>
+  <a href="api.php?action=query&amp;generator=watchlist&amp;prop=info">api.php?action=query&amp;generator=watchlist&amp;prop=info</a>
+  <a href="api.php?action=query&amp;generator=watchlist&amp;gwlallrev=&amp;prop=revisions&amp;rvprop=timestamp|user">api.php?action=query&amp;generator=watchlist&amp;gwlallrev=&amp;prop=revisions&amp;rvprop=timestamp|user</a>
+  <a href="api.php?action=query&amp;list=watchlist&amp;wlowner=Bob_Smith&amp;wltoken=123ABC">api.php?action=query&amp;list=watchlist&amp;wlowner=Bob_Smith&amp;wltoken=123ABC</a>
+Generator:
+  This module may be used as a generator
+
+<b>* list=watchlistraw (wr) *</b>
+  Get all pages on the logged in user's watchlist
+  <a href="https://www.mediawiki.org/wiki/API:Watchlistraw">https://www.mediawiki.org/wiki/API:Watchlistraw</a>
+
+This module requires read rights
+Parameters:
+  wrcontinue          - When more results are available, use this to continue
+  wrnamespace         - Only list pages in the given namespace(s)
+                        Values (separate with '|'): 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Maximum number of values 50 (500 for bots)
+  wrlimit             - How many total results to return per request
+                        No more than 500 (5000 for bots) allowed
+                        Default: 10
+  wrprop              - Which additional properties to get (non-generator mode only)
+                         changed  - Adds timestamp of when the user was last notified about the edit
+                        Values (separate with '|'): changed
+  wrshow              - Only list items that meet these criteria
+                        Values (separate with '|'): changed, !changed
+  wrowner             - The name of the user whose watchlist you'd like to access
+  wrtoken             - Give a security token (settable in preferences) to allow access to another user's watchlist
+  wrdir               - Direction to sort the titles and namespaces in
+                        One value: ascending, descending
+                        Default: ascending
+Examples:
+  <a href="api.php?action=query&amp;list=watchlistraw">api.php?action=query&amp;list=watchlistraw</a>
+  <a href="api.php?action=query&amp;generator=watchlistraw&amp;gwrshow=changed&amp;prop=revisions">api.php?action=query&amp;generator=watchlistraw&amp;gwrshow=changed&amp;prop=revisions</a>
+Generator:
+  This module may be used as a generator
+
+--- --- --- --- --- --- --- --- --- --- --- ---  Query: Meta  --- --- --- --- --- --- --- --- --- --- --- --- 
+
+<b>* meta=allmessages (am) *</b>
+  Return messages from this site
+  <a href="https://www.mediawiki.org/wiki/API:Meta#allmessages_.2F_am">https://www.mediawiki.org/wiki/API:Meta#allmessages_.2F_am</a>
+
+This module requires read rights
+Parameters:
+  ammessages          - Which messages to output. &quot;*&quot; (default) means all messages
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+                        Default: *
+  amprop              - Which properties to get
+                        Values (separate with '|'): default
+  amenableparser      - Set to enable parser, will preprocess the wikitext of message
+                        Will substitute magic words, handle templates etc.
+  amnocontent         - If set, do not include the content of the messages in the output.
+  amincludelocal      - Also include local messages, i.e. messages that don't exist in the software but do exist as a MediaWiki: page.
+                        This lists all MediaWiki: pages, so it will also list those that aren't 'really' messages such as Common.js
+  amargs              - Arguments to be substituted into message
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  amfilter            - Return only messages with names that contain this string
+  amcustomised        - Return only messages in this customisation state
+                        One value: all, modified, unmodified
+                        Default: all
+  amlang              - Return messages in this language
+  amfrom              - Return messages starting at this message
+  amto                - Return messages ending at this message
+  amtitle             - Page name to use as context when parsing message (for enableparser option)
+  amprefix            - Return messages with this prefix
+Examples:
+  <a href="api.php?action=query&amp;meta=allmessages&amp;amprefix=ipb-">api.php?action=query&amp;meta=allmessages&amp;amprefix=ipb-</a>
+  <a href="api.php?action=query&amp;meta=allmessages&amp;ammessages=august|mainpage&amp;amlang=de">api.php?action=query&amp;meta=allmessages&amp;ammessages=august|mainpage&amp;amlang=de</a>
+
+<b>* meta=filerepoinfo (fri) *</b>
+  Return meta information about image repositories configured on the wiki.
+
+This module requires read rights
+Parameters:
+  friprop             - Which repository properties to get (there may be more available on some wikis):
+                         apiurl      - URL to the repository API - helpful for getting image info from the host.
+                         name        - The key of the repository - used in e.g. $wgForeignFileRepos and imageinfo return values.
+                         displayname - The human-readable name of the repository wiki.
+                         rooturl     - Root URL for image paths.
+                         local       - Whether that repository is the local one or not.
+                        Values (separate with '|'): name, displayname, rootUrl, local
+                        Default: name|displayname|rootUrl|local
+Example:
+  <a href="api.php?action=query&amp;meta=filerepoinfo&amp;friprop=apiurl|name|displayname">api.php?action=query&amp;meta=filerepoinfo&amp;friprop=apiurl|name|displayname</a>
+
+<b>* meta=siteinfo (si) *</b>
+  Return general information about the site
+  <a href="https://www.mediawiki.org/wiki/API:Meta#siteinfo_.2F_si">https://www.mediawiki.org/wiki/API:Meta#siteinfo_.2F_si</a>
+
+This module requires read rights
+Parameters:
+  siprop              - Which sysinfo properties to get:
+                         general               - Overall system information
+                         namespaces            - List of registered namespaces and their canonical names
+                         namespacealiases      - List of registered namespace aliases
+                         specialpagealiases    - List of special page aliases
+                         magicwords            - List of magic words and their aliases
+                         statistics            - Returns site statistics
+                         interwikimap          - Returns interwiki map (optionally filtered, (optionally localised by using siinlanguagecode))
+                         dbrepllag             - Returns database server with the highest replication lag
+                         usergroups            - Returns user groups and the associated permissions
+                         extensions            - Returns extensions installed on the wiki
+                         fileextensions        - Returns list of file extensions allowed to be uploaded
+                         rightsinfo            - Returns wiki rights (license) information if available
+                         languages             - Returns a list of languages MediaWiki supports(optionally localised by using siinlanguagecode)
+                         skins                 - Returns a list of all enabled skins
+                         extensiontags         - Returns a list of parser extension tags
+                         functionhooks         - Returns a list of parser function hooks
+                         showhooks             - Returns a list of all subscribed hooks (contents of $wgHooks)
+                         variables             - Returns a list of variable IDs
+                         protocols             - Returns a list of protocols that are allowed in external links.
+                        Values (separate with '|'): general, namespaces, namespacealiases, specialpagealiases, magicwords, interwikimap, dbrepllag,
+                            statistics, usergroups, extensions, fileextensions, rightsinfo, languages, skins, extensiontags,
+                            functionhooks, showhooks, variables, protocols
+                        Default: general
+  sifilteriw          - Return only local or only nonlocal entries of the interwiki map
+                        One value: local, !local
+  sishowalldb         - List all database servers, not just the one lagging the most
+  sinumberingroup     - Lists the number of users in user groups
+  siinlanguagecode    - Language code for localised language names (best effort, use CLDR extension)
+Examples:
+  <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=general|namespaces|namespacealiases|statistics">api.php?action=query&amp;meta=siteinfo&amp;siprop=general|namespaces|namespacealiases|statistics</a>
+  <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=interwikimap&amp;sifilteriw=local">api.php?action=query&amp;meta=siteinfo&amp;siprop=interwikimap&amp;sifilteriw=local</a>
+  <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=dbrepllag&amp;sishowalldb=">api.php?action=query&amp;meta=siteinfo&amp;siprop=dbrepllag&amp;sishowalldb=</a>
+
+<b>* meta=userinfo (ui) *</b>
+  Get information about the current user
+  <a href="https://www.mediawiki.org/wiki/API:Meta#userinfo_.2F_ui">https://www.mediawiki.org/wiki/API:Meta#userinfo_.2F_ui</a>
+
+This module requires read rights
+Parameters:
+  uiprop              - What pieces of information to include
+                          blockinfo        - Tags if the current user is blocked, by whom, and for what reason
+                          hasmsg           - Adds a tag &quot;message&quot; if the current user has pending messages
+                          groups           - Lists all the groups the current user belongs to
+                          implicitgroups   - Lists all the groups the current user is automatically a member of
+                          rights           - Lists all the rights the current user has
+                          changeablegroups - Lists the groups the current user can add to and remove from
+                          options          - Lists all preferences the current user has set
+                          preferencestoken - Get a token to change current user's preferences
+                          editcount        - Adds the current user's edit count
+                          ratelimits       - Lists all rate limits applying to the current user
+                          realname         - Adds the user's real name
+                          email            - Adds the user's email address and email authentication date
+                          acceptlang       - Echoes the Accept-Language header sent by the client in a structured format
+                          registrationdate - Adds the user's registration date
+                        Values (separate with '|'): blockinfo, hasmsg, groups, implicitgroups, rights, changeablegroups, options, preferencestoken,
+                            editcount, ratelimits, email, realname, acceptlang, registrationdate
+Examples:
+  <a href="api.php?action=query&amp;meta=userinfo">api.php?action=query&amp;meta=userinfo</a>
+  <a href="api.php?action=query&amp;meta=userinfo&amp;uiprop=blockinfo|groups|rights|hasmsg">api.php?action=query&amp;meta=userinfo&amp;uiprop=blockinfo|groups|rights|hasmsg</a>
+
+
+<b>*** *** *** *** *** *** *** *** *** *** *** *** *** ***  Modules: continuation  *** *** *** *** *** *** *** *** *** *** *** *** *** ***</b> 
+
+
+<b>* action=expandtemplates *</b>
+  Expands all templates in wikitext
+  <a href="https://www.mediawiki.org/wiki/API:Parsing_wikitext#expandtemplates">https://www.mediawiki.org/wiki/API:Parsing_wikitext#expandtemplates</a>
+
+This module requires read rights
+Parameters:
+  title               - Title of page
+                        Default: API
+  text                - Wikitext to convert
+                        This parameter is required
+  generatexml         - Generate XML parse tree
+  includecomments     - Whether to include HTML comments in the output
+Example:
+  <a href="api.php?action=expandtemplates&amp;text={{Project:Sandbox}}">api.php?action=expandtemplates&amp;text={{Project:Sandbox}}</a>
+
+<b>* action=parse *</b>
+  Parses content and returns parser output
+  See the various prop-Modules of action=query to get information from the current version of a page
+  There are several ways to specify the text to parse:
+  1) Specify a page or revision, using page, pageid, or oldid.
+  2) Specify content explicitly, using text, title, and contentmodel.
+  3) Specify only a summary to parse. prop should be given an empty value.
+  <a href="https://www.mediawiki.org/wiki/API:Parsing_wikitext#parse">https://www.mediawiki.org/wiki/API:Parsing_wikitext#parse</a>
+
+This module requires read rights
+Parameters:
+  title               - Title of page the text belongs to. If omitted, &quot;API&quot; is used as the title with content model wikitext
+  text                - Text to parse. Use title or contentmodel to control the content model
+  summary             - Summary to parse
+  page                - Parse the content of this page. Cannot be used together with text and title
+  pageid              - Parse the content of this page. Overrides page
+  redirects           - If the page or the pageid parameter is set to a redirect, resolve it
+  oldid               - Parse the content of this revision. Overrides page and pageid
+  prop                - Which pieces of information to get
+                         text           - Gives the parsed text of the wikitext
+                         langlinks      - Gives the language links in the parsed wikitext
+                         categories     - Gives the categories in the parsed wikitext
+                         categorieshtml - Gives the HTML version of the categories
+                         languageshtml  - Gives the HTML version of the language links
+                         links          - Gives the internal links in the parsed wikitext
+                         templates      - Gives the templates in the parsed wikitext
+                         images         - Gives the images in the parsed wikitext
+                         externallinks  - Gives the external links in the parsed wikitext
+                         sections       - Gives the sections in the parsed wikitext
+                         revid          - Adds the revision ID of the parsed page
+                         displaytitle   - Adds the title of the parsed wikitext
+                         headitems      - Gives items to put in the &lt;head&gt; of the page
+                         headhtml       - Gives parsed &lt;head&gt; of the page
+                         iwlinks        - Gives interwiki links in the parsed wikitext
+                         wikitext       - Gives the original wikitext that was parsed
+                         properties     - Gives various properties defined in the parsed wikitext
+                        Values (separate with '|'): text, langlinks, languageshtml, categories, categorieshtml, links, templates, images, externallinks,
+                            sections, revid, displaytitle, headitems, headhtml, iwlinks, wikitext, properties
+                        Default: text|langlinks|categories|links|templates|images|externallinks|sections|revid|displaytitle|iwlinks|properties
+  pst                 - Do a pre-save transform on the input before parsing it
+                        Only valid when used with text
+  onlypst             - Do a pre-save transform (PST) on the input, but don't parse it
+                        Returns the same wikitext, after a PST has been applied.
+                        Only valid when used with text
+  effectivelanglinks  - Includes language links supplied by extensions
+                        (for use with prop=langlinks|languageshtml)
+  uselang             - Which language to parse the request in
+  section             - Only retrieve the content of this section number
+  disablepp           - Disable the PP Report from the parser output
+  generatexml         - Generate XML parse tree (requires contentmodel=wikitext)
+  preview             - Parse in preview mode
+  sectionpreview      - Parse in section preview mode (enables preview mode too)
+  contentformat       - Content serialization format used for the input text
+                        Only valid when used with text
+                        One value: text/x-wiki, text/javascript, text/css, text/plain
+  contentmodel        - Content model of the input text. Default is the model of the specified title, or wikitext if title is not specified
+                        Only valid when used with text
+                        One value: wikitext, javascript, css, text
+Examples:
+  Parse a page:
+    <a href="api.php?action=parse&amp;page=Project:Sandbox">api.php?action=parse&amp;page=Project:Sandbox</a>
+  Parse wikitext:
+    <a href="api.php?action=parse&amp;text={{Project:Sandbox}}">api.php?action=parse&amp;text={{Project:Sandbox}}</a>
+  Parse wikitext, specifying the page title:
+    <a href="api.php?action=parse&amp;text={{PAGENAME}}&amp;title=Test">api.php?action=parse&amp;text={{PAGENAME}}&amp;title=Test</a>
+  Parse a summary:
+    <a href="api.php?action=parse&amp;summary=Some+[[link]]&amp;prop=">api.php?action=parse&amp;summary=Some+[[link]]&amp;prop=</a>
+
+<b>* action=opensearch *</b>
+  Search the wiki using the OpenSearch protocol
+  <a href="https://www.mediawiki.org/wiki/API:Opensearch">https://www.mediawiki.org/wiki/API:Opensearch</a>
+
+This module requires read rights
+Parameters:
+  search              - Search string
+  limit               - Maximum amount of results to return
+                        No more than 100 (100 for bots) allowed
+                        Default: 10
+  namespace           - Namespaces to search
+                        Values (separate with '|'): 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+                        Maximum number of values 50 (500 for bots)
+                        Default: 0
+  suggest             - Do nothing if $wgEnableOpenSearchSuggest is false
+  format              - The format of the output
+                        One value: json, jsonfm
+                        Default: json
+Example:
+  <a href="api.php?action=opensearch&amp;search=Te">api.php?action=opensearch&amp;search=Te</a>
+
+<b>* action=feedcontributions *</b>
+  Returns a user contributions feed
+
+This module requires read rights
+Parameters:
+  feedformat          - The format of the feed
+                        One value: rss, atom
+                        Default: rss
+  user                - What users to get the contributions for
+                        This parameter is required
+  namespace           - What namespace to filter the contributions by
+                        One value: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+  year                - From year (and earlier)
+  month               - From month (and earlier)
+  tagfilter           - Filter contributions that have these tags
+                        Values (separate with '|'): 
+                        Default: 
+  deletedonly         - Show only deleted contributions
+  toponly             - Only show edits that are latest revisions
+  showsizediff        - Show the size difference between revisions. Disabled in Miser Mode
+Example:
+  <a href="api.php?action=feedcontributions&amp;user=Reedy">api.php?action=feedcontributions&amp;user=Reedy</a>
+
+<b>* action=feedwatchlist *</b>
+  Returns a watchlist feed
+  <a href="https://www.mediawiki.org/wiki/API:Watchlist_feed">https://www.mediawiki.org/wiki/API:Watchlist_feed</a>
+
+This module requires read rights
+Parameters:
+  feedformat          - The format of the feed
+                        One value: rss, atom
+                        Default: rss
+  hours               - List pages modified within this many hours from now
+                        The value must be between 1 and 72
+                        Default: 24
+  linktodiffs         - Link to change differences instead of article pages
+  linktosections      - Link directly to changed sections if possible
+  allrev              - Include multiple revisions of the same page within given timeframe
+  wlowner             - The name of the user whose watchlist you'd like to access
+  wltoken             - Give a security token (settable in preferences) to allow access to another user's watchlist
+  wlshow              - Show only items that meet this criteria.
+                        For example, to see only minor edits done by logged-in users, set wlshow=minor|!anon
+                        Values (separate with '|'): minor, !minor, bot, !bot, anon, !anon, patrolled, !patrolled
+  wltype              - Which types of changes to show
+                         edit           - Regular page edits
+                         external       - External changes
+                         new            - Page creations
+                         log            - Log entries
+                        Values (separate with '|'): edit, external, new, log
+  wlexcludeuser       - Don't list changes by this user
+Examples:
+  <a href="api.php?action=feedwatchlist">api.php?action=feedwatchlist</a>
+  <a href="api.php?action=feedwatchlist&amp;allrev=&amp;linktodiffs=&amp;hours=6">api.php?action=feedwatchlist&amp;allrev=&amp;linktodiffs=&amp;hours=6</a>
+
+<b>* action=help *</b>
+  Display this help screen. Or the help screen for the specified module
+  <a href="https://www.mediawiki.org/wiki/API:Main_page">https://www.mediawiki.org/wiki/API:Main_page</a>
+  <a href="https://www.mediawiki.org/wiki/API:FAQ">https://www.mediawiki.org/wiki/API:FAQ</a>
+  <a href="https://www.mediawiki.org/wiki/API:Quick_start_guide">https://www.mediawiki.org/wiki/API:Quick_start_guide</a>
+Parameters:
+  modules             - List of module names (value of the action= parameter). Can specify submodules with a '+'
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  querymodules        - DEPRECATED! Use modules=query+value instead. List of query module names (value of prop=, meta= or list= parameter)
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+Examples:
+  Whole help page:
+    <a href="api.php?action=help">api.php?action=help</a>
+  Module (action) help page:
+    <a href="api.php?action=help&amp;modules=protect">api.php?action=help&amp;modules=protect</a>
+  Help for the query/categorymembers module:
+    <a href="api.php?action=help&amp;modules=query+categorymembers">api.php?action=help&amp;modules=query+categorymembers</a>
+  Help for the login and query/info modules:
+    <a href="api.php?action=help&amp;modules=login|query+info">api.php?action=help&amp;modules=login|query+info</a>
+
+<b>* action=paraminfo *</b>
+  Obtain information about certain API parameters and errors
+  <a href="https://www.mediawiki.org/wiki/API:Parameter_information">https://www.mediawiki.org/wiki/API:Parameter_information</a>
+Parameters:
+  modules             - List of module names (value of the action= parameter)
+                        Values (separate with '|'): block, compare, createaccount, delete, edit, emailuser, expandtemplates, feedcontributions,
+                            feedwatchlist, filerevert, help, imagerotate, import, login, logout, move, opensearch, options,
+                            paraminfo, parse, patrol, protect, purge, query, rollback, rsd, setnotificationtimestamp, tokens,
+                            unblock, undelete, upload, userrights, watch
+  querymodules        - List of query module names (value of prop=, meta= or list= parameter)
+                        Values (separate with '|'): allcategories, allfileusages, allimages, alllinks, allmessages, allpages, alltransclusions,
+                            allusers, backlinks, blocks, categories, categoryinfo, categorymembers, deletedrevs, duplicatefiles,
+                            embeddedin, extlinks, exturlusage, filearchive, filerepoinfo, imageinfo, images, imageusage, info,
+                            iwbacklinks, iwlinks, langbacklinks, langlinks, links, logevents, pagepropnames, pageprops,
+                            pageswithprop, protectedtitles, querypage, random, recentchanges, revisions, search, siteinfo,
+                            stashimageinfo, tags, templates, usercontribs, userinfo, users, watchlist, watchlistraw
+  mainmodule          - Get information about the main (top-level) module as well
+  pagesetmodule       - Get information about the pageset module (providing titles= and friends) as well
+  formatmodules       - List of format module names (value of format= parameter)
+                        Values (separate with '|'): dbg, dbgfm, dump, dumpfm, json, jsonfm, none, php, phpfm, rawfm, txt, txtfm, wddx, wddxfm, xml,
+                            xmlfm, yaml, yamlfm
+Example:
+  <a href="api.php?action=paraminfo&amp;modules=parse&amp;querymodules=allpages|siteinfo">api.php?action=paraminfo&amp;modules=parse&amp;querymodules=allpages|siteinfo</a>
+
+<b>* action=rsd *</b>
+  Export an RSD (Really Simple Discovery) schema
+
+This module requires read rights
+Example:
+  <a href="api.php?action=rsd">api.php?action=rsd</a>
+
+<b>* action=compare *</b>
+  Get the difference between 2 pages
+  You must pass a revision number or a page title or a page ID id for each part (1 and 2)
+
+This module requires read rights
+Parameters:
+  fromtitle           - First title to compare
+  fromid              - First page ID to compare
+  fromrev             - First revision to compare
+  totitle             - Second title to compare
+  toid                - Second page ID to compare
+  torev               - Second revision to compare
+Example:
+  Create a diff between revision 1 and 2:
+    <a href="api.php?action=compare&amp;fromrev=1&amp;torev=2">api.php?action=compare&amp;fromrev=1&amp;torev=2</a>
+
+<b>* action=tokens *</b>
+  Gets tokens for data-modifying actions
+
+This module requires read rights
+Parameters:
+  type                - Type of token(s) to request
+                        Values (separate with '|'): block, delete, edit, email, import, move, options, patrol, protect, unblock, watch
+                        Default: edit
+Examples:
+  Retrieve an edit token (the default):
+    <a href="api.php?action=tokens">api.php?action=tokens</a>
+  Retrieve an email token and a move token:
+    <a href="api.php?action=tokens&amp;type=email|move">api.php?action=tokens&amp;type=email|move</a>
+
+<b>* action=purge *</b>
+  Purge the cache for the given titles.
+  Requires a POST request if the user is not logged in.
+  <a href="https://www.mediawiki.org/wiki/API:Purge">https://www.mediawiki.org/wiki/API:Purge</a>
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  forcelinkupdate     - Update the links tables
+  forcerecursivelinkupdate - Update the links table, and update the links tables for any page that uses this page as a template
+  titles              - A list of titles to work on
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  pageids             - A list of page IDs to work on
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  revids              - A list of revision IDs to work on
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  redirects           - Automatically resolve redirects
+  converttitles       - Convert titles to other variants if necessary. Only works if the wiki's content language supports variant conversion.
+                        Languages that support variant conversion include gan, iu, kk, ku, shi, sr, tg, uz, zh
+  generator           - Get the list of pages to work on by executing the specified query module.
+                        NOTE: generator parameter names must be prefixed with a 'g', see examples
+                        One value: allcategories, allfileusages, allimages, alllinks, allpages, alltransclusions, backlinks,
+                            categories, categorymembers, duplicatefiles, embeddedin, exturlusage, images, imageusage,
+                            iwbacklinks, langbacklinks, links, pageswithprop, protectedtitles, querypage, random, recentchanges,
+                            search, templates, watchlist, watchlistraw
+Example:
+  Purge the &quot;Main Page&quot; and the &quot;API&quot; page:
+    <a href="api.php?action=purge&amp;titles=Main_Page|API">api.php?action=purge&amp;titles=Main_Page|API</a>
+
+<b>* action=setnotificationtimestamp *</b>
+  Update the notification timestamp for watched pages.
+  This affects the highlighting of changed pages in the watchlist and history,
+  and the sending of email when the &quot;Email me when a page on my watchlist is
+  changed&quot; preference is enabled.
+  <a href="https://www.mediawiki.org/wiki/API:SetNotificationTimestamp">https://www.mediawiki.org/wiki/API:SetNotificationTimestamp</a>
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  entirewatchlist     - Work on all watched pages
+  token               - A token previously acquired via prop=info
+  timestamp           - Timestamp to which to set the notification timestamp
+  torevid             - Revision to set the notification timestamp to (one page only)
+  newerthanrevid      - Revision to set the notification timestamp newer than (one page only)
+  titles              - A list of titles to work on
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  pageids             - A list of page IDs to work on
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  revids              - A list of revision IDs to work on
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  redirects           - Automatically resolve redirects
+  converttitles       - Convert titles to other variants if necessary. Only works if the wiki's content language supports variant conversion.
+                        Languages that support variant conversion include gan, iu, kk, ku, shi, sr, tg, uz, zh
+  generator           - Get the list of pages to work on by executing the specified query module.
+                        NOTE: generator parameter names must be prefixed with a 'g', see examples
+                        One value: allcategories, allfileusages, allimages, alllinks, allpages, alltransclusions, backlinks,
+                            categories, categorymembers, duplicatefiles, embeddedin, exturlusage, images, imageusage,
+                            iwbacklinks, langbacklinks, links, pageswithprop, protectedtitles, querypage, random, recentchanges,
+                            search, templates, watchlist, watchlistraw
+Examples:
+  Reset the notification status for the entire watchlist:
+    <a href="api.php?action=setnotificationtimestamp&amp;entirewatchlist=&amp;token=123ABC">api.php?action=setnotificationtimestamp&amp;entirewatchlist=&amp;token=123ABC</a>
+  Reset the notification status for &quot;Main page&quot;:
+    <a href="api.php?action=setnotificationtimestamp&amp;titles=Main_page&amp;token=123ABC">api.php?action=setnotificationtimestamp&amp;titles=Main_page&amp;token=123ABC</a>
+  Set the notification timestamp for &quot;Main page&quot; so all edits since 1 January 2012 are unviewed:
+    <a href="api.php?action=setnotificationtimestamp&amp;titles=Main_page&amp;timestamp=2012-01-01T00:00:00Z&amp;token=123ABC">api.php?action=setnotificationtimestamp&amp;titles=Main_page&amp;timestamp=2012-01-01T00:00:00Z&amp;token=123ABC</a>
+
+<b>* action=rollback *</b>
+  Undo the last edit to the page. If the last user who edited the page made multiple edits in a row,
+  they will all be rolled back
+  <a href="https://www.mediawiki.org/wiki/API:Rollback">https://www.mediawiki.org/wiki/API:Rollback</a>
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  title               - Title of the page you want to rollback.
+                        This parameter is required
+  user                - Name of the user whose edits are to be rolled back. If set incorrectly, you'll get a badtoken error.
+                        This parameter is required
+  token               - A rollback token previously retrieved through prop=revisions
+                        This parameter is required
+  summary             - Custom edit summary. If empty, default summary will be used
+                        Default: 
+  markbot             - Mark the reverted edits and the revert as bot edits
+  watchlist           - Unconditionally add or remove the page from your watchlist, use preferences or do not change watch
+                        One value: watch, unwatch, preferences, nochange
+                        Default: preferences
+Examples:
+  <a href="api.php?action=rollback&amp;title=Main%20Page&amp;user=Catrope&amp;token=123ABC">api.php?action=rollback&amp;title=Main%20Page&amp;user=Catrope&amp;token=123ABC</a>
+  <a href="api.php?action=rollback&amp;title=Main%20Page&amp;user=217.121.114.116&amp;token=123ABC&amp;summary=Reverting%20vandalism&amp;markbot=1">api.php?action=rollback&amp;title=Main%20Page&amp;user=217.121.114.116&amp;token=123ABC&amp;summary=Reverting%20vandalism&amp;markbot=1</a>
+
+<b>* action=delete *</b>
+  Delete a page
+  <a href="https://www.mediawiki.org/wiki/API:Delete">https://www.mediawiki.org/wiki/API:Delete</a>
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  title               - Title of the page you want to delete. Cannot be used together with pageid
+  pageid              - Page ID of the page you want to delete. Cannot be used together with title
+  token               - A delete token previously retrieved through prop=info
+                        This parameter is required
+  reason              - Reason for the deletion. If not set, an automatically generated reason will be used
+  watch               - DEPRECATED! Add the page to your watchlist
+  watchlist           - Unconditionally add or remove the page from your watchlist, use preferences or do not change watch
+                        One value: watch, unwatch, preferences, nochange
+                        Default: preferences
+  unwatch             - DEPRECATED! Remove the page from your watchlist
+  oldimage            - The name of the old image to delete as provided by iiprop=archivename
+Examples:
+  Delete the Main Page:
+    <a href="api.php?action=delete&amp;title=Main%20Page&amp;token=123ABC">api.php?action=delete&amp;title=Main%20Page&amp;token=123ABC</a>
+  Delete the Main Page with the reason &quot;Preparing for move&quot;:
+    <a href="api.php?action=delete&amp;title=Main%20Page&amp;token=123ABC&amp;reason=Preparing%20for%20move">api.php?action=delete&amp;title=Main%20Page&amp;token=123ABC&amp;reason=Preparing%20for%20move</a>
+
+<b>* action=undelete *</b>
+  Restore certain revisions of a deleted page. A list of deleted revisions (including timestamps) can be
+  retrieved through list=deletedrevs
+  <a href="https://www.mediawiki.org/wiki/API:Undelete">https://www.mediawiki.org/wiki/API:Undelete</a>
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  title               - Title of the page you want to restore
+                        This parameter is required
+  token               - An undelete token previously retrieved through list=deletedrevs
+                        This parameter is required
+  reason              - Reason for restoring
+                        Default: 
+  timestamps          - Timestamps of the revisions to restore. If not set, all revisions will be restored.
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  watchlist           - Unconditionally add or remove the page from your watchlist, use preferences or do not change watch
+                        One value: watch, unwatch, preferences, nochange
+                        Default: preferences
+Examples:
+  <a href="api.php?action=undelete&amp;title=Main%20Page&amp;token=123ABC&amp;reason=Restoring%20main%20page">api.php?action=undelete&amp;title=Main%20Page&amp;token=123ABC&amp;reason=Restoring%20main%20page</a>
+  <a href="api.php?action=undelete&amp;title=Main%20Page&amp;token=123ABC&amp;timestamps=20070703220045|20070702194856">api.php?action=undelete&amp;title=Main%20Page&amp;token=123ABC&amp;timestamps=20070703220045|20070702194856</a>
+
+<b>* action=protect *</b>
+  Change the protection level of a page
+  <a href="https://www.mediawiki.org/wiki/API:Protect">https://www.mediawiki.org/wiki/API:Protect</a>
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  title               - Title of the page you want to (un)protect. Cannot be used together with pageid
+  pageid              - ID of the page you want to (un)protect. Cannot be used together with title
+  token               - A protect token previously retrieved through prop=info
+                        This parameter is required
+  protections         - List of protection levels, formatted action=group (e.g. edit=sysop)
+                        This parameter is required
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  expiry              - Expiry timestamps. If only one timestamp is set, it'll be used for all protections.
+                        Use 'infinite', 'indefinite' or 'never', for a never-expiring protection.
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+                        Default: infinite
+  reason              - Reason for (un)protecting
+                        Default: 
+  cascade             - Enable cascading protection (i.e. protect pages included in this page)
+                        Ignored if not all protection levels are 'sysop' or 'protect'
+  watch               - DEPRECATED! If set, add the page being (un)protected to your watchlist
+  watchlist           - Unconditionally add or remove the page from your watchlist, use preferences or do not change watch
+                        One value: watch, unwatch, preferences, nochange
+                        Default: preferences
+Examples:
+  <a href="api.php?action=protect&amp;title=Main%20Page&amp;token=123ABC&amp;protections=edit=sysop|move=sysop&amp;cascade=&amp;expiry=20070901163000|never">api.php?action=protect&amp;title=Main%20Page&amp;token=123ABC&amp;protections=edit=sysop|move=sysop&amp;cascade=&amp;expiry=20070901163000|never</a>
+  <a href="api.php?action=protect&amp;title=Main%20Page&amp;token=123ABC&amp;protections=edit=all|move=all&amp;reason=Lifting%20restrictions">api.php?action=protect&amp;title=Main%20Page&amp;token=123ABC&amp;protections=edit=all|move=all&amp;reason=Lifting%20restrictions</a>
+
+<b>* action=block *</b>
+  Block a user
+  <a href="https://www.mediawiki.org/wiki/API:Block">https://www.mediawiki.org/wiki/API:Block</a>
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  user                - Username, IP address or IP range you want to block
+                        This parameter is required
+  token               - A block token previously obtained through prop=info
+  expiry              - Relative expiry time, e.g. '5 months' or '2 weeks'. If set to 'infinite', 'indefinite' or 'never', the block will never expire.
+                        Default: never
+  reason              - Reason for block
+                        Default: 
+  anononly            - Block anonymous users only (i.e. disable anonymous edits for this IP)
+  nocreate            - Prevent account creation
+  autoblock           - Automatically block the last used IP address, and any subsequent IP addresses they try to login from
+  noemail             - Prevent user from sending email through the wiki. (Requires the &quot;blockemail&quot; right.)
+  hidename            - Hide the username from the block log. (Requires the &quot;hideuser&quot; right.)
+  allowusertalk       - Allow the user to edit their own talk page (depends on $wgBlockAllowsUTEdit)
+  reblock             - If the user is already blocked, overwrite the existing block
+  watchuser           - Watch the user/IP's user and talk pages
+Examples:
+  <a href="api.php?action=block&amp;user=123.5.5.12&amp;expiry=3%20days&amp;reason=First%20strike">api.php?action=block&amp;user=123.5.5.12&amp;expiry=3%20days&amp;reason=First%20strike</a>
+  <a href="api.php?action=block&amp;user=Vandal&amp;expiry=never&amp;reason=Vandalism&amp;nocreate=&amp;autoblock=&amp;noemail=">api.php?action=block&amp;user=Vandal&amp;expiry=never&amp;reason=Vandalism&amp;nocreate=&amp;autoblock=&amp;noemail=</a>
+
+<b>* action=unblock *</b>
+  Unblock a user
+  <a href="https://www.mediawiki.org/wiki/API:Block">https://www.mediawiki.org/wiki/API:Block</a>
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  id                  - ID of the block you want to unblock (obtained through list=blocks). Cannot be used together with user
+  user                - Username, IP address or IP range you want to unblock. Cannot be used together with id
+  token               - An unblock token previously obtained through prop=info
+  reason              - Reason for unblock
+                        Default: 
+Examples:
+  <a href="api.php?action=unblock&amp;id=105">api.php?action=unblock&amp;id=105</a>
+  <a href="api.php?action=unblock&amp;user=Bob&amp;reason=Sorry%20Bob">api.php?action=unblock&amp;user=Bob&amp;reason=Sorry%20Bob</a>
+
+<b>* action=move *</b>
+  Move a page
+  <a href="https://www.mediawiki.org/wiki/API:Move">https://www.mediawiki.org/wiki/API:Move</a>
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  from                - Title of the page you want to move. Cannot be used together with fromid
+  fromid              - Page ID of the page you want to move. Cannot be used together with from
+  to                  - Title you want to rename the page to
+                        This parameter is required
+  token               - A move token previously retrieved through prop=info
+                        This parameter is required
+  reason              - Reason for the move
+                        Default: 
+  movetalk            - Move the talk page, if it exists
+  movesubpages        - Move subpages, if applicable
+  noredirect          - Don't create a redirect
+  watch               - DEPRECATED! Add the page and the redirect to your watchlist
+  unwatch             - DEPRECATED! Remove the page and the redirect from your watchlist
+  watchlist           - Unconditionally add or remove the page from your watchlist, use preferences or do not change watch
+                        One value: watch, unwatch, preferences, nochange
+                        Default: preferences
+  ignorewarnings      - Ignore any warnings
+Example:
+  <a href="api.php?action=move&amp;from=Badtitle&amp;to=Goodtitle&amp;token=123ABC&amp;reason=Misspelled%20title&amp;movetalk=&amp;noredirect=">api.php?action=move&amp;from=Badtitle&amp;to=Goodtitle&amp;token=123ABC&amp;reason=Misspelled%20title&amp;movetalk=&amp;noredirect=</a>
+
+<b>* action=edit *</b>
+  Create and edit pages.
+  <a href="https://www.mediawiki.org/wiki/API:Edit">https://www.mediawiki.org/wiki/API:Edit</a>
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  title               - Title of the page you want to edit. Cannot be used together with pageid
+  pageid              - Page ID of the page you want to edit. Cannot be used together with title
+  section             - Section number. 0 for the top section, 'new' for a new section
+  sectiontitle        - The title for a new section
+  text                - Page content
+  token               - Edit token. You can get one of these through prop=info.
+                        The token should always be sent as the last parameter, or at least, after the text parameter
+                        This parameter is required
+  summary             - Edit summary. Also section title when section=new and sectiontitle is not set
+  minor               - Minor edit
+  notminor            - Non-minor edit
+  bot                 - Mark this edit as bot
+  basetimestamp       - Timestamp of the base revision (obtained through prop=revisions&amp;rvprop=timestamp).
+                        Used to detect edit conflicts; leave unset to ignore conflicts
+  starttimestamp      - Timestamp when you obtained the edit token.
+                        Used to detect edit conflicts; leave unset to ignore conflicts
+  recreate            - Override any errors about the article having been deleted in the meantime
+  createonly          - Don't edit the page if it exists already
+  nocreate            - Throw an error if the page doesn't exist
+  watch               - DEPRECATED! Add the page to your watchlist
+  unwatch             - DEPRECATED! Remove the page from your watchlist
+  watchlist           - Unconditionally add or remove the page from your watchlist, use preferences or do not change watch
+                        One value: watch, unwatch, preferences, nochange
+                        Default: preferences
+  md5                 - The MD5 hash of the text parameter, or the prependtext and appendtext parameters concatenated.
+                        If set, the edit won't be done unless the hash is correct
+  prependtext         - Add this text to the beginning of the page. Overrides text
+  appendtext          - Add this text to the end of the page. Overrides text.
+                        Use section=new to append a new section
+  undo                - Undo this revision. Overrides text, prependtext and appendtext
+  undoafter           - Undo all revisions from undo to this one. If not set, just undo one revision
+  redirect            - Automatically resolve redirects
+  contentformat       - Content serialization format used for the input text
+                        One value: text/x-wiki, text/javascript, text/css, text/plain
+  contentmodel        - Content model of the new content
+                        One value: wikitext, javascript, css, text
+Examples:
+  Edit a page (anonymous user):
+    <a href="api.php?action=edit&amp;title=Test&amp;summary=test%20summary&amp;text=article%20content&amp;basetimestamp=20070824123454&amp;token=%2B\">api.php?action=edit&amp;title=Test&amp;summary=test%20summary&amp;text=article%20content&amp;basetimestamp=20070824123454&amp;token=%2B\</a>
+  Prepend __NOTOC__ to a page (anonymous user):
+    <a href="api.php?action=edit&amp;title=Test&amp;summary=NOTOC&amp;minor=&amp;prependtext=__NOTOC__%0A&amp;basetimestamp=20070824123454&amp;token=%2B\">api.php?action=edit&amp;title=Test&amp;summary=NOTOC&amp;minor=&amp;prependtext=__NOTOC__%0A&amp;basetimestamp=20070824123454&amp;token=%2B\</a>
+  Undo r13579 through r13585 with autosummary (anonymous user):
+    <a href="api.php?action=edit&amp;title=Test&amp;undo=13585&amp;undoafter=13579&amp;basetimestamp=20070824123454&amp;token=%2B\">api.php?action=edit&amp;title=Test&amp;undo=13585&amp;undoafter=13579&amp;basetimestamp=20070824123454&amp;token=%2B\</a>
+
+<b>* action=upload *</b>
+  Upload a file, or get the status of pending uploads. Several methods are available:
+   * Upload file contents directly, using the &quot;file&quot; parameter
+   * Have the MediaWiki server fetch a file from a URL, using the &quot;url&quot; parameter
+   * Complete an earlier upload that failed due to warnings, using the &quot;filekey&quot; parameter
+  Note that the HTTP POST must be done as a file upload (i.e. using multipart/form-data) when
+  sending the &quot;file&quot;. Also you must get and send an edit token before doing any upload stuff
+  <a href="https://www.mediawiki.org/wiki/API:Upload">https://www.mediawiki.org/wiki/API:Upload</a>
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  filename            - Target filename
+  comment             - Upload comment. Also used as the initial page text for new files if &quot;text&quot; is not specified
+                        Default: 
+  text                - Initial page text for new files
+  token               - Edit token. You can get one of these through prop=info
+                        This parameter is required
+  watch               - DEPRECATED! Watch the page
+  watchlist           - Unconditionally add or remove the page from your watchlist, use preferences or do not change watch
+                        One value: watch, preferences, nochange
+                        Default: preferences
+  ignorewarnings      - Ignore any warnings
+  file                - File contents
+                        Must be posted as a file upload using multipart/form-data
+  url                 - URL to fetch the file from
+  filekey             - Key that identifies a previous upload that was stashed temporarily.
+  sessionkey          - DEPRECATED! Same as filekey, maintained for backward compatibility.
+  stash               - If set, the server will not add the file to the repository and stash it temporarily.
+  filesize            - Filesize of entire upload
+  offset              - Offset of chunk in bytes
+  chunk               - Chunk contents
+                        Must be posted as a file upload using multipart/form-data
+  async               - Make potentially large file operations asynchronous when possible
+  asyncdownload       - Make fetching a URL asynchronous
+  leavemessage        - If asyncdownload is used, leave a message on the user talk page if finished
+  statuskey           - Fetch the upload status for this file key (upload by URL)
+  checkstatus         - Only fetch the upload status for the given file key
+Examples:
+  Upload from a URL:
+    <a href="api.php?action=upload&amp;filename=Wiki.png&amp;url=http%3A//upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png">api.php?action=upload&amp;filename=Wiki.png&amp;url=http%3A//upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png</a>
+  Complete an upload that failed due to warnings:
+    <a href="api.php?action=upload&amp;filename=Wiki.png&amp;filekey=filekey&amp;ignorewarnings=1">api.php?action=upload&amp;filename=Wiki.png&amp;filekey=filekey&amp;ignorewarnings=1</a>
+
+<b>* action=filerevert *</b>
+  Revert a file to an old version
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  filename            - Target filename without the File: prefix
+                        This parameter is required
+  comment             - Upload comment
+                        Default: 
+  archivename         - Archive name of the revision to revert to
+                        This parameter is required
+  token               - Edit token. You can get one of these through prop=info
+                        This parameter is required
+Example:
+  Revert Wiki.png to the version of 20110305152740:
+    <a href="api.php?action=filerevert&amp;filename=Wiki.png&amp;comment=Revert&amp;archivename=20110305152740!Wiki.png&amp;token=123ABC">api.php?action=filerevert&amp;filename=Wiki.png&amp;comment=Revert&amp;archivename=20110305152740!Wiki.png&amp;token=123ABC</a>
+
+<b>* action=emailuser *</b>
+  Email a user.
+  <a href="https://www.mediawiki.org/wiki/API:Email">https://www.mediawiki.org/wiki/API:Email</a>
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  target              - User to send email to
+                        This parameter is required
+  subject             - Subject header
+  text                - Mail body
+                        This parameter is required
+  token               - A token previously acquired via prop=info
+                        This parameter is required
+  ccme                - Send a copy of this mail to me
+Example:
+  Send an email to the User &quot;WikiSysop&quot; with the text &quot;Content&quot;:
+    <a href="api.php?action=emailuser&amp;target=WikiSysop&amp;text=Content">api.php?action=emailuser&amp;target=WikiSysop&amp;text=Content</a>
+
+<b>* action=watch *</b>
+  Add or remove a page from/to the current user's watchlist
+  <a href="https://www.mediawiki.org/wiki/API:Watch">https://www.mediawiki.org/wiki/API:Watch</a>
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  title               - The page to (un)watch
+                        This parameter is required
+  unwatch             - If set the page will be unwatched rather than watched
+  uselang             - Language to show the message in
+  token               - A token previously acquired via prop=info
+                        This parameter is required
+Examples:
+  Watch the page &quot;Main Page&quot;:
+    <a href="api.php?action=watch&amp;title=Main_Page">api.php?action=watch&amp;title=Main_Page</a>
+  Unwatch the page &quot;Main Page&quot;:
+    <a href="api.php?action=watch&amp;title=Main_Page&amp;unwatch=">api.php?action=watch&amp;title=Main_Page&amp;unwatch=</a>
+
+<b>* action=patrol *</b>
+  Patrol a page or revision
+  <a href="https://www.mediawiki.org/wiki/API:Patrol">https://www.mediawiki.org/wiki/API:Patrol</a>
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  token               - Patrol token obtained from list=recentchanges
+                        This parameter is required
+  rcid                - Recentchanges ID to patrol
+  revid               - Revision ID to patrol
+Examples:
+  <a href="api.php?action=patrol&amp;token=123abc&amp;rcid=230672766">api.php?action=patrol&amp;token=123abc&amp;rcid=230672766</a>
+  <a href="api.php?action=patrol&amp;token=123abc&amp;revid=230672766">api.php?action=patrol&amp;token=123abc&amp;revid=230672766</a>
+
+<b>* action=import *</b>
+  Import a page from another wiki, or an XML file.
+  Note that the HTTP POST must be done as a file upload (i.e. using multipart/form-data) when
+  sending a file for the &quot;xml&quot; parameter.
+  <a href="https://www.mediawiki.org/wiki/API:Import">https://www.mediawiki.org/wiki/API:Import</a>
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  token               - Import token obtained through prop=info
+                        This parameter is required
+  summary             - Import summary
+  xml                 - Uploaded XML file
+                        Must be posted as a file upload using multipart/form-data
+  interwikisource     - For interwiki imports: wiki to import from
+                        One value: 
+  interwikipage       - For interwiki imports: page to import
+  fullhistory         - For interwiki imports: import the full history, not just the current version
+  templates           - For interwiki imports: import all included templates as well
+  namespace           - For interwiki imports: import to this namespace
+                        One value: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+  rootpage            - Import as subpage of this page
+Example:
+  Import [[meta:Help:Parserfunctions]] to namespace 100 with full history:
+    <a href="api.php?action=import&amp;interwikisource=meta&amp;interwikipage=Help:ParserFunctions&amp;namespace=100&amp;fullhistory=&amp;token=123ABC">api.php?action=import&amp;interwikisource=meta&amp;interwikipage=Help:ParserFunctions&amp;namespace=100&amp;fullhistory=&amp;token=123ABC</a>
+
+<b>* action=userrights *</b>
+  Add/remove a user to/from groups
+  <a href="https://www.mediawiki.org/wiki/API:User_group_membership">https://www.mediawiki.org/wiki/API:User_group_membership</a>
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  user                - User name
+                        This parameter is required
+  add                 - Add the user to these groups
+                        Values (separate with '|'): bot, sysop, bureaucrat
+  remove              - Remove the user from these groups
+                        Values (separate with '|'): bot, sysop, bureaucrat
+  token               - A userrights token previously retrieved through list=users
+                        This parameter is required
+  reason              - Reason for the change
+                        Default: 
+Example:
+  <a href="api.php?action=userrights&amp;user=FooBot&amp;add=bot&amp;remove=sysop|bureaucrat&amp;token=123ABC">api.php?action=userrights&amp;user=FooBot&amp;add=bot&amp;remove=sysop|bureaucrat&amp;token=123ABC</a>
+
+<b>* action=options *</b>
+  Change preferences of the current user
+  Only options which are registered in core or in one of installed extensions,
+  or as options with keys prefixed with 'userjs-' (intended to be used by user scripts), can be set.
+  <a href="https://www.mediawiki.org/wiki/API:Options">https://www.mediawiki.org/wiki/API:Options</a>
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  token               - An options token previously obtained through the action=tokens
+                        This parameter is required
+  reset               - Resets preferences to the site defaults
+  resetkinds          - List of types of options to reset when the &quot;reset&quot; option is set
+                        Values (separate with '|'): registered, registered-multiselect, registered-checkmatrix, userjs, unused, all
+                        Default: all
+  change              - List of changes, formatted name=value (e.g. skin=vector), value cannot contain pipe characters. If no value is given (not even an equals sign), e.g., optionname|otheroption|..., the option will be reset to its default value
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  optionname          - A name of a option which should have an optionvalue set
+  optionvalue         - A value of the option specified by the optionname, can contain pipe characters
+Examples:
+  <a href="api.php?action=options&amp;reset=&amp;token=123ABC">api.php?action=options&amp;reset=&amp;token=123ABC</a>
+  <a href="api.php?action=options&amp;change=skin=vector|hideminor=1&amp;token=123ABC">api.php?action=options&amp;change=skin=vector|hideminor=1&amp;token=123ABC</a>
+  <a href="api.php?action=options&amp;reset=&amp;change=skin=monobook&amp;optionname=nickname&amp;optionvalue=[[User:Beau|Beau]]%20([[User_talk:Beau|talk]])&amp;token=123ABC">api.php?action=options&amp;reset=&amp;change=skin=monobook&amp;optionname=nickname&amp;optionvalue=[[User:Beau|Beau]]%20([[User_talk:Beau|talk]])&amp;token=123ABC</a>
+
+<b>* action=imagerotate *</b>
+  Rotate one or more images
+
+This module requires read rights
+This module requires write rights
+This module only accepts POST requests
+Parameters:
+  rotation            - Degrees to rotate image clockwise
+                        This parameter is required
+                        One value: 90, 180, 270
+  token               - Edit token. You can get one of these through action=tokens
+                        This parameter is required
+  titles              - A list of titles to work on
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  pageids             - A list of page IDs to work on
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  revids              - A list of revision IDs to work on
+                        Separate values with '|'
+                        Maximum number of values 50 (500 for bots)
+  redirects           - Automatically resolve redirects
+  converttitles       - Convert titles to other variants if necessary. Only works if the wiki's content language supports variant conversion.
+                        Languages that support variant conversion include gan, iu, kk, ku, shi, sr, tg, uz, zh
+  generator           - Get the list of pages to work on by executing the specified query module.
+                        NOTE: generator parameter names must be prefixed with a 'g', see examples
+                        One value: allcategories, allfileusages, allimages, alllinks, allpages, alltransclusions, backlinks,
+                            categories, categorymembers, duplicatefiles, embeddedin, exturlusage, images, imageusage,
+                            iwbacklinks, langbacklinks, links, pageswithprop, protectedtitles, querypage, random, recentchanges,
+                            search, templates, watchlist, watchlistraw
+Example:
+  <a href="api.php?action=imagerotate&amp;titles=Example.jpg&amp;rotation=90&amp;token=123ABC">api.php?action=imagerotate&amp;titles=Example.jpg&amp;rotation=90&amp;token=123ABC</a>
+
+
+<b>*** *** *** *** *** *** *** *** *** *** *** *** *** ***  Permissions *** *** *** *** *** *** *** *** *** *** *** *** *** ***</b> 
+
+<b>* writeapi *</b>
+  Use of the write API
+Granted to:
+  all, user, bot
+
+<b>* apihighlimits *</b>
+  Use higher limits in API queries (Slow queries: 500 results; Fast queries: 5000 results). The limits for slow queries also apply to multivalue parameters.
+Granted to:
+  bot, sysop
+
+
+<b>*** *** *** *** *** *** *** *** *** *** *** *** *** ***  Formats  *** *** *** *** *** *** *** *** *** *** *** *** *** ***</b> 
+
+<b>* format=json *</b>
+  Output data in JSON format
+  <a href="https://www.mediawiki.org/wiki/API:Data_formats">https://www.mediawiki.org/wiki/API:Data_formats</a>
+
+This module requires read rights
+Parameters:
+  callback            - If specified, wraps the output into a given function call. For safety, all user-specific data will be restricted.
+  utf8                - If specified, encodes most (but not all) non-ASCII characters as UTF-8 instead of replacing them with hexadecimal escape sequences.
+Example:
+  Format the query result in the json format:
+    <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=json">api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=json</a>
+
+<b>* format=jsonfm *</b>
+  Output data in JSON format (pretty-print in HTML)
+  <a href="https://www.mediawiki.org/wiki/API:Data_formats">https://www.mediawiki.org/wiki/API:Data_formats</a>
+
+This module requires read rights
+Parameters:
+  callback            - If specified, wraps the output into a given function call. For safety, all user-specific data will be restricted.
+  utf8                - If specified, encodes most (but not all) non-ASCII characters as UTF-8 instead of replacing them with hexadecimal escape sequences.
+Example:
+  Format the query result in the jsonfm format:
+    <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=jsonfm">api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=jsonfm</a>
+
+<b>* format=php *</b>
+  Output data in serialized PHP format
+  <a href="https://www.mediawiki.org/wiki/API:Data_formats">https://www.mediawiki.org/wiki/API:Data_formats</a>
+
+This module requires read rights
+Example:
+  Format the query result in the php format:
+    <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=php">api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=php</a>
+
+<b>* format=phpfm *</b>
+  Output data in serialized PHP format (pretty-print in HTML)
+  <a href="https://www.mediawiki.org/wiki/API:Data_formats">https://www.mediawiki.org/wiki/API:Data_formats</a>
+
+This module requires read rights
+Example:
+  Format the query result in the phpfm format:
+    <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=phpfm">api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=phpfm</a>
+
+<b>* format=wddx *</b>
+  Output data in WDDX format
+  <a href="https://www.mediawiki.org/wiki/API:Data_formats">https://www.mediawiki.org/wiki/API:Data_formats</a>
+
+This module requires read rights
+Example:
+  Format the query result in the wddx format:
+    <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=wddx">api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=wddx</a>
+
+<b>* format=wddxfm *</b>
+  Output data in WDDX format (pretty-print in HTML)
+  <a href="https://www.mediawiki.org/wiki/API:Data_formats">https://www.mediawiki.org/wiki/API:Data_formats</a>
+
+This module requires read rights
+Example:
+  Format the query result in the wddxfm format:
+    <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=wddxfm">api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=wddxfm</a>
+
+<b>* format=xml *</b>
+  Output data in XML format
+  <a href="https://www.mediawiki.org/wiki/API:Data_formats">https://www.mediawiki.org/wiki/API:Data_formats</a>
+
+This module requires read rights
+Parameters:
+  xslt                - If specified, adds &lt;xslt&gt; as stylesheet. This should be a wiki page in the MediaWiki namespace whose page name ends with &quot;.xsl&quot;
+  includexmlnamespace - If specified, adds an XML namespace
+Example:
+  Format the query result in the xml format:
+    <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=xml">api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=xml</a>
+
+<b>* format=xmlfm *</b>
+  Output data in XML format (pretty-print in HTML)
+  <a href="https://www.mediawiki.org/wiki/API:Data_formats">https://www.mediawiki.org/wiki/API:Data_formats</a>
+
+This module requires read rights
+Parameters:
+  xslt                - If specified, adds &lt;xslt&gt; as stylesheet. This should be a wiki page in the MediaWiki namespace whose page name ends with &quot;.xsl&quot;
+  includexmlnamespace - If specified, adds an XML namespace
+Example:
+  Format the query result in the xmlfm format:
+    <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=xmlfm">api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=xmlfm</a>
+
+<b>* format=yaml *</b>
+  Output data in YAML format
+  <a href="https://www.mediawiki.org/wiki/API:Data_formats">https://www.mediawiki.org/wiki/API:Data_formats</a>
+
+This module requires read rights
+Parameters:
+  callback            - If specified, wraps the output into a given function call. For safety, all user-specific data will be restricted.
+  utf8                - If specified, encodes most (but not all) non-ASCII characters as UTF-8 instead of replacing them with hexadecimal escape sequences.
+Example:
+  Format the query result in the yaml format:
+    <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=yaml">api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=yaml</a>
+
+<b>* format=yamlfm *</b>
+  Output data in YAML format (pretty-print in HTML)
+  <a href="https://www.mediawiki.org/wiki/API:Data_formats">https://www.mediawiki.org/wiki/API:Data_formats</a>
+
+This module requires read rights
+Parameters:
+  callback            - If specified, wraps the output into a given function call. For safety, all user-specific data will be restricted.
+  utf8                - If specified, encodes most (but not all) non-ASCII characters as UTF-8 instead of replacing them with hexadecimal escape sequences.
+Example:
+  Format the query result in the yamlfm format:
+    <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=yamlfm">api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=yamlfm</a>
+
+<b>* format=rawfm *</b>
+  Output data with the debugging elements in JSON format (pretty-print in HTML)
+  <a href="https://www.mediawiki.org/wiki/API:Data_formats">https://www.mediawiki.org/wiki/API:Data_formats</a>
+
+This module requires read rights
+Parameters:
+  callback            - If specified, wraps the output into a given function call. For safety, all user-specific data will be restricted.
+  utf8                - If specified, encodes most (but not all) non-ASCII characters as UTF-8 instead of replacing them with hexadecimal escape sequences.
+Example:
+  Format the query result in the rawfm format:
+    <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=rawfm">api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=rawfm</a>
+
+<b>* format=txt *</b>
+  Output data in PHP's print_r() format
+  <a href="https://www.mediawiki.org/wiki/API:Data_formats">https://www.mediawiki.org/wiki/API:Data_formats</a>
+
+This module requires read rights
+Example:
+  Format the query result in the txt format:
+    <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=txt">api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=txt</a>
+
+<b>* format=txtfm *</b>
+  Output data in PHP's print_r() format (pretty-print in HTML)
+  <a href="https://www.mediawiki.org/wiki/API:Data_formats">https://www.mediawiki.org/wiki/API:Data_formats</a>
+
+This module requires read rights
+Example:
+  Format the query result in the txtfm format:
+    <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=txtfm">api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=txtfm</a>
+
+<b>* format=dbg *</b>
+  Output data in PHP's var_export() format
+  <a href="https://www.mediawiki.org/wiki/API:Data_formats">https://www.mediawiki.org/wiki/API:Data_formats</a>
+
+This module requires read rights
+Example:
+  Format the query result in the dbg format:
+    <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=dbg">api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=dbg</a>
+
+<b>* format=dbgfm *</b>
+  Output data in PHP's var_export() format (pretty-print in HTML)
+  <a href="https://www.mediawiki.org/wiki/API:Data_formats">https://www.mediawiki.org/wiki/API:Data_formats</a>
+
+This module requires read rights
+Example:
+  Format the query result in the dbgfm format:
+    <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=dbgfm">api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=dbgfm</a>
+
+<b>* format=dump *</b>
+  Output data in PHP's var_dump() format
+  <a href="https://www.mediawiki.org/wiki/API:Data_formats">https://www.mediawiki.org/wiki/API:Data_formats</a>
+
+This module requires read rights
+Example:
+  Format the query result in the dump format:
+    <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=dump">api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=dump</a>
+
+<b>* format=dumpfm *</b>
+  Output data in PHP's var_dump() format (pretty-print in HTML)
+  <a href="https://www.mediawiki.org/wiki/API:Data_formats">https://www.mediawiki.org/wiki/API:Data_formats</a>
+
+This module requires read rights
+Example:
+  Format the query result in the dumpfm format:
+    <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=dumpfm">api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=dumpfm</a>
+
+<b>* format=none *</b>
+  Output nothing
+  <a href="https://www.mediawiki.org/wiki/API:Data_formats">https://www.mediawiki.org/wiki/API:Data_formats</a>
+
+This module requires read rights
+Example:
+  Format the query result in the none format:
+    <a href="api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=none">api.php?action=query&amp;meta=siteinfo&amp;siprop=namespaces&amp;format=none</a>
+
+
+<b>*** Credits: ***</b>
+   API developers:
+       Roan Kattouw &quot;&lt;Firstname&gt;.&lt;Lastname&gt;@gmail.com&quot; (lead developer Sep 2007-2009)
+       Victor Vasiliev - vasilvv @ gmail . com
+       Bryan Tong Minh - bryan . tongminh @ gmail . com
+       Sam Reed - sam @ reedyboy . net
+       Yuri Astrakhan &quot;&lt;Firstname&gt;&lt;Lastname&gt;@gmail.com&quot; (creator, lead developer Sep 2006-Sep 2007, 2012-present)
+   
+   Please send your comments, suggestions and questions to mediawiki-api@lists.wikimedia.org
+   or file a bug report at <a href="https://bugzilla.wikimedia.org/">https://bugzilla.wikimedia.org/</a>
+<span style="color:blue;">&lt;/error&gt;</span>
+<span style="color:blue;">&lt;/api&gt;</span>
+</pre>
+</body>
+</html>
+<!-- Served in 0.098 secs. -->

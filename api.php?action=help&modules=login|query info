@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>MediaWiki API</title>
+</head>
+<body>
+<pre>
+<span style="color:blue;">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span style="color:blue;">&lt;api&gt;</span>
+  <span style="color:blue;">&lt;help&gt;</span>
+    <span style="color:blue;">&lt;module&gt;</span><b>* action=login (lg) *</b>
+  Log in and get the authentication tokens. 
+  In the event of a successful log-in, a cookie will be attached
+  to your session. In the event of a failed log-in, you will not 
+  be able to attempt another log-in through this method for 5 seconds.
+  This is to prevent password guessing by automated password crackers
+  <a href="https://www.mediawiki.org/wiki/API:Login">https://www.mediawiki.org/wiki/API:Login</a>
+
+This module only accepts POST requests
+Parameters:
+  lgname              - User Name
+  lgpassword          - Password
+  lgdomain            - Domain (optional)
+  lgtoken             - Login token obtained in first request
+Example:
+  <a href="api.php?action=login&amp;lgname=user&amp;lgpassword=password">api.php?action=login&amp;lgname=user&amp;lgpassword=password</a>
+<span style="color:blue;">&lt;/module&gt;</span>
+    <span style="color:blue;">&lt;module&gt;</span><b>* prop=info (in) *</b>
+  Get basic page information such as namespace, title, last touched date, ...
+  <a href="https://www.mediawiki.org/wiki/API:Properties#info_.2F_in">https://www.mediawiki.org/wiki/API:Properties#info_.2F_in</a>
+
+This module requires read rights
+Parameters:
+  inprop              - Which additional properties to get:
+                         protection            - List the protection level of each page
+                         talkid                - The page ID of the talk page for each non-talk page
+                         watched               - List the watched status of each page
+                         watchers              - The number of watchers, if allowed
+                         notificationtimestamp - The watchlist notification timestamp of each page
+                         subjectid             - The page ID of the parent page for each talk page
+                         url                   - Gives a full URL to the page, and also an edit URL
+                         readable              - Whether the user can read this page
+                         preload               - Gives the text returned by EditFormPreloadText
+                         displaytitle          - Gives the way the page title is actually displayed
+                        Values (separate with '|'): protection, talkid, watched, watchers, notificationtimestamp, subjectid, url, readable, preload,
+                            displaytitle
+  intoken             - Request a token to perform a data-modifying action on a page
+                        Values (separate with '|'): edit, delete, protect, move, block, unblock, email, import, watch
+  incontinue          - When more results are available, use this to continue
+Examples:
+  <a href="api.php?action=query&amp;prop=info&amp;titles=Main%20Page">api.php?action=query&amp;prop=info&amp;titles=Main%20Page</a>
+  <a href="api.php?action=query&amp;prop=info&amp;inprop=protection&amp;titles=Main%20Page">api.php?action=query&amp;prop=info&amp;inprop=protection&amp;titles=Main%20Page</a>
+<span style="color:blue;">&lt;/module&gt;</span>
+  <span style="color:blue;">&lt;/help&gt;</span>
+<span style="color:blue;">&lt;/api&gt;</span>
+</pre>
+</body>
+</html>
+<!-- Served in 0.006 secs. -->

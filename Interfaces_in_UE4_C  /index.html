@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Interfaces in C++ - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="canonical" href="/Interfaces_in_C%2B%2B" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=vector&amp;*" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=vector&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Interfaces_in_C++","wgTitle":"Interfaces in C++","wgCurRevisionId":8283,"wgRevisionId":8283,"wgArticleId":595,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Code","Community Created Content"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Interfaces_in_C++","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgRedirectedFrom":"Interfaces_in_UE4_C++","wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:27249162ef7002415c3792ce5dfd2a9a */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["ext.voteNY","mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Interfaces_in_C skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Interfaces in C++</span></h1>
+			<div id="bodyContent">
+								<div id="siteSub">From Epic Wiki</div>
+								<div id="contentSub">(Redirected from <a href="/index.php?title=Interfaces_in_UE4_C%2B%2B&amp;redirect=no" title="Interfaces in UE4 C++">Interfaces in UE4 C++</a>)</div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-navigation">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="tip">
+<div>
+<b>Rate this Article:</b> <div id="rating_"><div class="rating-score"><div class="voteboxrate">3.00</div></div><div class="rating-section"><img class="vote-rating-star" data-vote-the-vote="1" data-vote-id="" data-vote-action="3" data-vote-rating="3.00" data-vote-voted="0" id="rating__1" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="2" data-vote-id="" data-vote-action="3" data-vote-rating="3.00" data-vote-voted="0" id="rating__2" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="3" data-vote-id="" data-vote-action="3" data-vote-rating="3.00" data-vote-voted="0" id="rating__3" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="4" data-vote-id="" data-vote-action="3" data-vote-rating="3.00" data-vote-voted="0" id="rating__4" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="5" data-vote-id="" data-vote-action="3" data-vote-rating="3.00" data-vote-voted="0" id="rating__5" src="/extensions/VoteNY/images/star_off.gif" alt="" /> <span class="rating-total">(one vote)</span></div>
+				<div class="rating-clear">
+			</div></div>
+</div>
+<div>
+<p>Approved for Versions:(please verify)
+</p>
+</div>
+</div>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#The_Interface"><span class="tocnumber">2</span> <span class="toctext">The Interface</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#IToStringInterface::"><span class="tocnumber">2.1</span> <span class="toctext">IToStringInterface::</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Multiple_Class_Inheritance"><span class="tocnumber">3</span> <span class="toctext">Multiple Class Inheritance</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#InterfaceCast"><span class="tocnumber">4</span> <span class="toctext">InterfaceCast</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Determining_If_a_Given_Actor_Has_The_Interface"><span class="tocnumber">4.1</span> <span class="toctext">Determining If a Given Actor Has The Interface</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#The_Magic_of_InterfaceCast_and_UE4_C.2B.2B_Interfaces"><span class="tocnumber">4.2</span> <span class="toctext">The Magic of InterfaceCast and UE4 C++ Interfaces</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Creating_Global_Events"><span class="tocnumber">5</span> <span class="toctext">Creating Global Events</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Object_Iterator_Vs_Actor_Iterator"><span class="tocnumber">5.1</span> <span class="toctext">Object Iterator Vs Actor Iterator</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Object_Iterator_to_Trigger_Global_Event"><span class="tocnumber">5.2</span> <span class="toctext">Object Iterator to Trigger Global Event</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Actor_Iterator_to_Trigger_Global_Event"><span class="tocnumber">5.3</span> <span class="toctext">Actor Iterator to Trigger Global Event</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Minimizing_Iterator_Time"><span class="tocnumber">5.4</span> <span class="toctext">Minimizing Iterator Time</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#Narrowed_Actor_Iterator_Search"><span class="tocnumber">6</span> <span class="toctext">Narrowed Actor Iterator Search</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#Narrowed_Object_Iterator_Search"><span class="tocnumber">7</span> <span class="toctext">Narrowed Object Iterator Search</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#Summary"><span class="tocnumber">8</span> <span class="toctext">Summary</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p><i>Original Author</i> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)
+</p><p>Dear Community,
+</p><p>Here's a tutorial on using <b>UE4 C++ Interfaces</b> to trigger global custom game events directly in C++ or via the level blueprint (or anywhere really).
+</p><p>This tutorial enables you to have a custom event like TheSunReachedHighNoon, and have a bunch of actors respond to this event differently, each with their own implementation of the event.
+</p><p>So flowers could override TheSunReachedHighNoon to open blossoms completely,
+</p><p>frogs could use override TheSunReachedHighNoon to hide under rocks
+</p><p>etc etc
+</p><p>And you can trigger the event via a blueprintcallable function used in a static blueprint library if you want!
+</p><p>This means you can trigger global actor events from your level blueprint and ask actors to do specific things,
+</p><p>without having to iterate over the actors in the level blueprint itself.
+</p><p>I also show you how you can <b>easily determine whether any given actor has the interface or not.</b>
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="The_Interface">The Interface</span></h2>
+<p>As a really simple example, I wrote a ToString() interface. 
+</p><p>I will discuss how to turn this into a global event below.
+</p><p>In the overall theme of making a global event you'd replace ToString() with TheSunReachedHighNoon()
+</p><p>but to make sure you can actually test the code I am using ToString() instead.
+</p><p>.h
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Copyright 1998-2013 Epic Games, Inc. All Rights Reserved.</span>
+&#160;
+<span class="co2">#pragma once</span>
+&#160;
+<span class="co2">#include &quot;ToStringInterface.generated.h&quot;</span>
+&#160;
+<span class="coMULTI">/** Class needed to support InterfaceCast&lt;IToStringInterface&gt;(Object) */</span>
+UINTERFACE<span class="br0">&#40;</span>MinimalAPI<span class="br0">&#41;</span>
+<span class="kw2">class</span> UToStringInterface <span class="sy4">:</span> <span class="kw2">public</span> UInterface
+<span class="br0">&#123;</span>
+	GENERATED_UINTERFACE_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span>
+&#160;
+<span class="kw2">class</span> IToStringInterface
+<span class="br0">&#123;</span>
+	GENERATED_IINTERFACE_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+	<span class="kw2">virtual</span> FString ToString<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<p>.cpp
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Copyright 1998-2013 Epic Games, Inc. All Rights Reserved.</span>
+&#160;
+<span class="co2">#include &quot;VictoryGame.h&quot;</span>
+&#160;
+<span class="co1">//////////////////////////////////////////////////////////////////////////</span>
+<span class="co1">// ToStringInterface</span>
+&#160;
+UToStringInterface<span class="sy4">::</span><span class="me2">UToStringInterface</span><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw2">class</span> FPostConstructInitializeProperties<span class="sy3">&amp;</span> PCIP<span class="br0">&#41;</span>
+	<span class="sy4">:</span> Super<span class="br0">&#40;</span>PCIP<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+&#160;
+<span class="br0">&#125;</span>
+&#160;
+<span class="co1">//This is required for compiling, would also let you know if somehow you called</span>
+<span class="co1">//the base event/function rather than the over-rided version</span>
+FString IToStringInterface<span class="sy4">::</span><span class="me2">ToString</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">return</span> <span class="st0">&quot;IToStringInterface::ToString()&quot;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h3><span class="mw-headline" id="IToStringInterface::">IToStringInterface::</span></h3>
+<p>note that it is IToStringInterface::ToString(), not UToStringInterface::ToString()
+</p>
+<h2><span class="mw-headline" id="Multiple_Class_Inheritance">Multiple Class Inheritance</span></h2>
+<p>You have to use <b>multiple inheritance</b>, and only the IToStringInterface part.
+</p><p>The first inherited class will be anything you want, relative to your project, I just used ASkeletalMeshActor as an example.
+</p><p>.h
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">UCLASS<span class="br0">&#40;</span>placeable<span class="br0">&#41;</span>
+<span class="kw2">class</span> AFlower <span class="sy4">:</span> <span class="kw2">public</span> ASkeletalMeshActor,  <span class="kw2">public</span> IToStringInterface
+<span class="br0">&#123;</span>
+	GENERATED_UCLASS_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+	FLinearColor FlowerColor<span class="sy4">;</span>
+&#160;
+	FVector FlowerScale3D<span class="sy4">;</span>
+&#160;
+	<span class="kw4">void</span> OpenBlossom<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="kw4">void</span> CloseUpForTheNight<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="co1">//IToStringInterface</span>
+<span class="kw2">public</span><span class="sy4">:</span>
+&#160;
+	<span class="kw2">virtual</span> FString ToString<span class="br0">&#40;</span><span class="br0">&#41;</span> OVERRIDE<span class="sy4">;</span>
+&#160;
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<p>.cpp
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">//other flower code</span>
+&#160;
+<span class="co1">//IToStringInterface</span>
+FString AFlower<span class="sy4">::</span><span class="me2">ToString</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">return</span> <span class="st0">&quot;Flower!&quot;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p><br />
+</p><p>Any number of classes can implement this Event now, using similar format
+</p><p>.h
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">UCLASS<span class="br0">&#40;</span>placeable<span class="br0">&#41;</span>
+<span class="kw2">class</span> AFrog <span class="sy4">:</span> <span class="kw2">public</span> ACharacter,  <span class="kw2">public</span> IToStringInterface
+<span class="br0">&#123;</span>
+	GENERATED_UCLASS_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+	FLinearColor FrogBaseColor<span class="sy4">;</span>
+&#160;
+	FVector FrogScale3D<span class="sy4">;</span>
+&#160;
+	<span class="kw4">void</span> HopAround<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="kw4">void</span> HideUnderRockCauseSunIsTooHot<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="co1">//IToStringInterface</span>
+<span class="kw2">public</span><span class="sy4">:</span>
+&#160;
+	<span class="kw2">virtual</span> FString ToString<span class="br0">&#40;</span><span class="br0">&#41;</span> OVERRIDE<span class="sy4">;</span>
+&#160;
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<p>.cpp
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">//other Frog code</span>
+&#160;
+<span class="co1">//IToStringInterface</span>
+FString AFrog<span class="sy4">::</span><span class="me2">ToString</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">return</span> <span class="st0">&quot;Frog!!!!&quot;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="InterfaceCast">InterfaceCast</span></h2>
+<h3><span class="mw-headline" id="Determining_If_a_Given_Actor_Has_The_Interface">Determining If a Given Actor Has The Interface</span></h3>
+<p><b>NOTE: Using C++ interfaces in Blueprint objects requires a different approach. <a rel="nofollow" class="external free" href="https://wiki.unrealengine.com/Interfaces_And_Blueprints">https://wiki.unrealengine.com/Interfaces_And_Blueprints</a></b>
+</p><p>You use InterfaceCast to determine if a object is using your interface, if it returns NULL then the object is not using it.
+</p><p>If the InterfaceCast returns your Interface type, then calling it's function will use the subclassed version specific to the object you called it on.
+</p><p>See below for what I mean, it's really really cool actually&#160;:)
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">//Example: somewhere in your Player Controller class code you have instances of a frog and a flower and a tree</span>
+&#160;
+<span class="co1">//spawned and set somewhere in player controller code (for use of ClientMessage)</span>
+<span class="co1">//can really do this anywhere you want, this is just a test you can easily do</span>
+AFrog<span class="sy2">*</span> MyFrog<span class="sy4">;</span>
+AFlower<span class="sy2">*</span> MyFlower<span class="sy4">;</span>
+ATree<span class="sy2">*</span> HappyTree<span class="sy4">;</span>
+&#160;
+<span class="co1">//....</span>
+&#160;
+<span class="co1">//Check Frog</span>
+IToStringInterface<span class="sy2">*</span> TheInterface <span class="sy1">=</span> InterfaceCast<span class="sy1">&lt;</span>IToStringInterface<span class="sy1">&gt;</span><span class="br0">&#40;</span>MyFrog<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="kw1">if</span><span class="br0">&#40;</span>TheInterface<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	ClientMessage<span class="br0">&#40;</span><span class="st0">&quot;Frog Uses Interface&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	ClientMessage<span class="br0">&#40;</span>TheInterface<span class="sy2">-</span><span class="sy1">&gt;</span>ToString<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="co1">//Check Flower</span>
+TheInterface <span class="sy1">=</span> InterfaceCast<span class="sy1">&lt;</span>IToStringInterface<span class="sy1">&gt;</span><span class="br0">&#40;</span>MyFlower<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="kw1">if</span><span class="br0">&#40;</span>TheInterface<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	ClientMessage<span class="br0">&#40;</span><span class="st0">&quot;Flower Uses Interface&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	ClientMessage<span class="br0">&#40;</span>TheInterface<span class="sy2">-</span><span class="sy1">&gt;</span>ToString<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="co1">//Check HappyTree</span>
+TheInterface <span class="sy1">=</span> InterfaceCast<span class="sy1">&lt;</span>IToStringInterface<span class="sy1">&gt;</span><span class="br0">&#40;</span>HappyTree<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="kw1">if</span><span class="br0">&#40;</span>TheInterface<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	ClientMessage<span class="br0">&#40;</span><span class="st0">&quot;Flower Uses Interface&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	ClientMessage<span class="br0">&#40;</span>TheInterface<span class="sy2">-</span><span class="sy1">&gt;</span>ToString<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+<span class="kw1">else</span> ClientMessage<span class="br0">&#40;</span><span class="st0">&quot;HappyTree Does Not Use Interface&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="co1">//end of code segment</span></pre></div></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="The_Magic_of_InterfaceCast_and_UE4_C.2B.2B_Interfaces">The Magic of InterfaceCast and UE4 C++ Interfaces</span></h3>
+<p>From the above code you can see that I am always calling
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">TheInterface<span class="sy2">-</span><span class="sy1">&gt;</span>ToString<span class="br0">&#40;</span><span class="br0">&#41;</span></pre></div></div>
+<p>and the type of TheInterface never changes, it is always IToStringInterface* and I only create it once at the very top.
+</p><p>So why would calling
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">TheInterface<span class="sy2">-</span><span class="sy1">&gt;</span>ToString<span class="br0">&#40;</span><span class="br0">&#41;</span></pre></div></div>
+<p>produce different results for each use of TheInterface with different Objects?
+</p><p>Because C++ fundamentals include a feature called "polymorphism", that's why&#160;:)
+</p><p>InterfaceCasting each type of object returns the subclassed version of the ToString() function!
+</p>
+<h2><span class="mw-headline" id="Creating_Global_Events">Creating Global Events</span></h2>
+<p>Now you have all the tools you need to create a global event!
+</p><p>Whenever you want to create a global event, simply
+</p><p>1. iterate over all actors in the world
+</p><p>2. check if that actor implements your custom event interface
+</p><p>3. run the custom event for that actor.
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Object_Iterator_Vs_Actor_Iterator">Object Iterator Vs Actor Iterator</span></h3>
+<p>If you are wanting to use a blueprintcallable function in a custom blueprint library,
+</p><p>you must use the Object Iterator, not the Actor Iterator, since static classes can't use GetWorld() (as far as I know)
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Object_Iterator_to_Trigger_Global_Event">Object Iterator to Trigger Global Event</span></h3>
+<p>You can use this anywhere, but in PIE it will detect objects in the pre-PIE world as well as the game world, in an unspecified order.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">IToStringInterface<span class="sy2">*</span> TheInterface <span class="sy1">=</span> <span class="kw2">NULL</span><span class="sy4">;</span>
+<span class="kw1">for</span> <span class="br0">&#40;</span> TObjectIterator<span class="sy1">&lt;</span>AActor<span class="sy1">&gt;</span> It<span class="sy4">;</span> It<span class="sy4">;</span> <span class="sy2">++</span>It <span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="co1">//Try InterFaceCasting</span>
+	TheInterface <span class="sy1">=</span> InterfaceCast<span class="sy1">&lt;</span>IToStringInterface<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="sy2">*</span>It<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//Run the Event specific to the actor, if the actor has the interface</span>
+	<span class="kw1">if</span><span class="br0">&#40;</span>TheInterface<span class="br0">&#41;</span> ClientMessage<span class="br0">&#40;</span>TheInterface<span class="sy2">-</span><span class="sy1">&gt;</span>ToString<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>Again in this simple case, the "Event" is just the ToString() function, but I wanted something you could try out before doing fancier things and get fast feedback via ClientMessage in as non-project-specific a way as possible
+</p>
+<h3><span class="mw-headline" id="Actor_Iterator_to_Trigger_Global_Event">Actor Iterator to Trigger Global Event</span></h3>
+<p>If you dont need to trigger the event from a static function in a blueprint library,
+</p><p>and can call the function with a blueprintcallable or regular function somewhere else in an Actor class.
+</p><p>Then you can use the actor iterator (My personal favorite!)
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">IToStringInterface<span class="sy2">*</span> TheInterface <span class="sy1">=</span> <span class="kw2">NULL</span><span class="sy4">;</span>
+TActorIterator<span class="sy1">&lt;</span> AActor <span class="sy1">&gt;</span> ActorItr<span class="br0">&#40;</span>GetWorld<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="kw1">while</span> <span class="br0">&#40;</span>ActorItr<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="co1">//Try InterFaceCasting</span>
+	TheInterface <span class="sy1">=</span> InterfaceCast<span class="sy1">&lt;</span>IToStringInterface<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="sy2">*</span>ActorItr<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//Run the Event specific to the actor, if the actor has the interface</span>
+	<span class="kw1">if</span><span class="br0">&#40;</span>TheInterface<span class="br0">&#41;</span> ClientMessage<span class="br0">&#40;</span>TheInterface<span class="sy2">-</span><span class="sy1">&gt;</span>ToString<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//</span>
+	<span class="sy2">++</span>ActorItr<span class="sy4">;</span>  <span class="co1">//dont forget this or game will hang due to while loop</span>
+                           <span class="co1">//could use a for loop instead</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h3><span class="mw-headline" id="Minimizing_Iterator_Time">Minimizing Iterator Time</span></h3>
+<p>If you know only certain subclasses of Actor have any chance of using your event
+</p><p>like only StaticMeshActors or only Characters, than you can specify a different class for the Actor or Object Iterator
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Narrowed_Actor_Iterator_Search">Narrowed Actor Iterator Search</span></h2>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">IToStringInterface<span class="sy2">*</span> TheInterface <span class="sy1">=</span> <span class="kw2">NULL</span><span class="sy4">;</span>
+TActorIterator<span class="sy1">&lt;</span> AStaticMeshActor <span class="sy1">&gt;</span> ActorItr<span class="br0">&#40;</span>GetWorld<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="kw1">while</span> <span class="br0">&#40;</span>ActorItr<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="co1">//Try InterFaceCasting</span>
+	TheInterface <span class="sy1">=</span> InterfaceCast<span class="sy1">&lt;</span>IToStringInterface<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="sy2">*</span>ActorItr<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//Run the Event specific to the actor, if the actor has the interface</span>
+	<span class="kw1">if</span><span class="br0">&#40;</span>TheInterface<span class="br0">&#41;</span> ClientMessage<span class="br0">&#40;</span>TheInterface<span class="sy2">-</span><span class="sy1">&gt;</span>ToString<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//</span>
+	<span class="sy2">++</span>ActorItr<span class="sy4">;</span>  <span class="co1">//dont forget this or game will hang due to while loop</span>
+					<span class="co1">//could use a for loop instead</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Narrowed_Object_Iterator_Search">Narrowed Object Iterator Search</span></h2>
+<p>(You can use this anywhere, but in PIE it will detect all sorts of things)
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">IToStringInterface<span class="sy2">*</span> TheInterface <span class="sy1">=</span> <span class="kw2">NULL</span><span class="sy4">;</span>
+<span class="kw1">for</span> <span class="br0">&#40;</span> TObjectIterator<span class="sy1">&lt;</span>ACharacter<span class="sy1">&gt;</span> It<span class="sy4">;</span> It<span class="sy4">;</span> <span class="sy2">++</span>It <span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="co1">//Try InterFaceCasting</span>
+	TheInterface <span class="sy1">=</span> InterfaceCast<span class="sy1">&lt;</span>IToStringInterface<span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="sy2">*</span>It<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//Run the Event specific to the actor, if the actor has the interface</span>
+	<span class="kw1">if</span><span class="br0">&#40;</span>TheInterface<span class="br0">&#41;</span> ClientMessage<span class="br0">&#40;</span>TheInterface<span class="sy2">-</span><span class="sy1">&gt;</span>ToString<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h2><span class="mw-headline" id="Summary">Summary</span></h2>
+<p>Now you can trigger global events that only certain actors will respond to, and you can have each actor respond in their own unique way, while keeping the code very simple!
+</p><p>Yay!
+</p><p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.079 seconds
+Real time usage: 0.082 seconds
+Preprocessor visited node count: 188/1000000
+Preprocessor generated node count: 374/1000000
+Post‐expand include size: 155/2097152 bytes
+Template argument size: 22/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+</div>								<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=Interfaces_in_C%2B%2B&amp;oldid=8283">https://wiki.unrealengine.com/index.php?title=Interfaces_in_C%2B%2B&amp;oldid=8283</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li><li><a href="/Category:Code" title="Category:Code">Code</a></li><li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Interfaces+in+C%2B%2B&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Interfaces+in+C%2B%2B" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Interfaces_in_C%2B%2B"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk"><span><a href="/Talk:Interfaces_in_C%2B%2B"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Interfaces_in_C%2B%2B" >Read</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Interfaces_in_C%2B%2B&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Interfaces_in_C%2B%2B&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="/index.php" id="searchform">
+				<div id="simpleSearch">
+						<input name="search" placeholder="Search" title="Search Epic Wiki [f]" accesskey="f" id="searchInput" />						<button type="submit" name="button" title="Search the pages for this text" id="searchButton"><img src="/skins/vector/images/search-ltr.png?303" alt="Search" width="12" height="13" /></button>								<input type='hidden' name="title" value="Special:Search"/>
+		</div>
+	</form>
+</div>
+				</div>
+			</div>
+			<div id="mw-panel">
+					<div id="p-logo" role="banner"><a style="background-image: url(/images/WikiLogo_uev2.png);" href="/Main_Page"  title="Visit the main page"></a></div>
+				<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a></li>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Videos"><a href="/Videos">Videos</a></li>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Code"><a href="/Category:Code">Code</a></li>
+			<li id="n-Games"><a href="/Category:Games">Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Interfaces_in_C%2B%2B" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Interfaces_in_C%2B%2B" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=Interfaces_in_C%2B%2B&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Interfaces_in_C%2B%2B&amp;oldid=8283" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Interfaces_in_C%2B%2B&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+			</div>
+		</div>
+		<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<!-- Served in 0.131 secs. -->
+	</body>
+</html>

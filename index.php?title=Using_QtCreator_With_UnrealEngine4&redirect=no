@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Using QtCreator With UnrealEngine4 - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=vector&amp;*" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=vector&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Using_QtCreator_With_UnrealEngine4","wgTitle":"Using QtCreator With UnrealEngine4","wgCurRevisionId":8326,"wgRevisionId":8326,"wgArticleId":1868,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Code","Community Created Content"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Using_QtCreator_With_UnrealEngine4","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:27249162ef7002415c3792ce5dfd2a9a */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["ext.voteNY","mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-bash {line-height: normal;}
+.source-bash li, .source-bash pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for bash
+ * CSS class: source-bash, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.bash.source-bash .de1, .bash.source-bash .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.bash.source-bash  {font-family:monospace;}
+.bash.source-bash .imp {font-weight: bold; color: red;}
+.bash.source-bash li, .bash.source-bash .li1 {font-weight: normal; vertical-align:top;}
+.bash.source-bash .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.bash.source-bash .li2 {font-weight: bold; vertical-align:top;}
+.bash.source-bash .kw1 {color: #000000; font-weight: bold;}
+.bash.source-bash .kw2 {color: #c20cb9; font-weight: bold;}
+.bash.source-bash .kw3 {color: #7a0874; font-weight: bold;}
+.bash.source-bash .co0 {color: #666666; font-style: italic;}
+.bash.source-bash .co1 {color: #800000;}
+.bash.source-bash .co2 {color: #cc0000; font-style: italic;}
+.bash.source-bash .co3 {color: #000000; font-weight: bold;}
+.bash.source-bash .co4 {color: #666666;}
+.bash.source-bash .es1 {color: #000099; font-weight: bold;}
+.bash.source-bash .es2 {color: #007800;}
+.bash.source-bash .es3 {color: #007800;}
+.bash.source-bash .es4 {color: #007800;}
+.bash.source-bash .es5 {color: #780078;}
+.bash.source-bash .es_h {color: #000099; font-weight: bold;}
+.bash.source-bash .br0 {color: #7a0874; font-weight: bold;}
+.bash.source-bash .sy0 {color: #000000; font-weight: bold;}
+.bash.source-bash .st0 {color: #ff0000;}
+.bash.source-bash .st_h {color: #ff0000;}
+.bash.source-bash .nu0 {color: #000000;}
+.bash.source-bash .re0 {color: #007800;}
+.bash.source-bash .re1 {color: #007800;}
+.bash.source-bash .re2 {color: #007800;}
+.bash.source-bash .re4 {color: #007800;}
+.bash.source-bash .re5 {color: #660033;}
+.bash.source-bash .ln-xtra, .bash.source-bash li.ln-xtra, .bash.source-bash div.ln-xtra {background-color: #ffc;}
+.bash.source-bash span.xtra { display:block; }
+
+/*]]>*/
+</style><style type="text/css">/*<![CDATA[*/
+.source-dos {line-height: normal;}
+.source-dos li, .source-dos pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for dos
+ * CSS class: source-dos, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.dos.source-dos .de1, .dos.source-dos .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.dos.source-dos  {font-family:monospace;}
+.dos.source-dos .imp {font-weight: bold; color: red;}
+.dos.source-dos li, .dos.source-dos .li1 {font-weight: normal; vertical-align:top;}
+.dos.source-dos .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.dos.source-dos .li2 {font-weight: bold; vertical-align:top;}
+.dos.source-dos .kw1 {color: #00b100; font-weight: bold;}
+.dos.source-dos .kw2 {color: #000000; font-weight: bold;}
+.dos.source-dos .kw3 {color: #b1b100; font-weight: bold;}
+.dos.source-dos .kw4 {color: #0000ff; font-weight: bold;}
+.dos.source-dos .co1 {color: #808080; font-style: italic;}
+.dos.source-dos .co2 {color: #b100b1; font-style: italic;}
+.dos.source-dos .co3 {color: #33cc33;}
+.dos.source-dos .es0 {color: #ff0000; font-weight: bold;}
+.dos.source-dos .br0 {color: #66cc66;}
+.dos.source-dos .sy0 {color: #33cc33;}
+.dos.source-dos .sy1 {color: #33cc33;}
+.dos.source-dos .st0 {color: #ff0000;}
+.dos.source-dos .nu0 {color: #cc66cc;}
+.dos.source-dos .re0 {color: #b100b1; font-weight: bold;}
+.dos.source-dos .re1 {color: #448844;}
+.dos.source-dos .re2 {color: #448888;}
+.dos.source-dos .re3 {color: #448888;}
+.dos.source-dos .ln-xtra, .dos.source-dos li.ln-xtra, .dos.source-dos div.ln-xtra {background-color: #ffc;}
+.dos.source-dos span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Using_QtCreator_With_UnrealEngine4 skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Using QtCreator With UnrealEngine4</span></h1>
+			<div id="bodyContent">
+								<div id="siteSub">From Epic Wiki</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-navigation">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="tip">
+<div>
+<b>Rate this Article:</b> <div id="rating_"><div class="rating-score"><div class="voteboxrate">0.00</div></div><div class="rating-section"><img class="vote-rating-star" data-vote-the-vote="1" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__1" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="2" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__2" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="3" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__3" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="4" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__4" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="5" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__5" src="/extensions/VoteNY/images/star_off.gif" alt="" /></div>
+				<div class="rating-clear">
+			</div></div>
+</div>
+<div>
+<p>Approved for Versions:(please verify)
+</p>
+</div>
+</div>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Make_intellisense_work"><span class="tocnumber">2</span> <span class="toctext">Make intellisense work</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Build_from_QtCreator"><span class="tocnumber">3</span> <span class="toctext">Build from QtCreator</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Run_from_QtCreator"><span class="tocnumber">4</span> <span class="toctext">Run from QtCreator</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Extra_Video_Qt_Setup_Walk-through"><span class="tocnumber">5</span> <span class="toctext">Extra Video Qt Setup Walk-through</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p>Greeting Community&#160;!
+</p><p>I want to share with you how to use QtCreator with yours Unreal Engine 4 projects&#160;!
+</p><p>First, you may ask&#160;: Why just keeping VS Express 2013&#160;?
+</p><p>Here is some point&#160;:
+</p>
+<ul>
+<li> QtCreator is realy fast
+</li>
+<li> QtCreator intellisense works 1000% better than Visual C++
+</li>
+<li> QtCreator have a lot of refactoring options
+</li>
+<li> QtCreator have a lot of usefull shortcut like F4 to switch header source, F2 to go to definition (instantly) ... etc
+</li>
+</ul>
+<p>At the end of the guide you will be able to&#160;:
+</p>
+<ul>
+<li> Use QtCreator with full intellisense support
+</li>
+<li> Build with QtCreator your Unreal Engine 4 Project
+</li>
+<li> Run with QtCreator your Unreal Engine 4 Project
+</li>
+</ul>
+<p>So this guide assume that you have installed Qt with QtCreator like with this link&#160;:
+<a rel="nofollow" class="external text" href="http://download.qt-project.org/official_releases/qt/5.3/5.3.0/qt-opensource-windows-x86-mingw482_opengl-5.3.0.exe">Qt with QtCreator</a>
+</p><p>Then to make it work we have to create our own .pro file wich is the project extension for QtCreator.
+</p><p>We gonna call our project YourProject as an example
+</p>
+<h2><span class="mw-headline" id="Make_intellisense_work">Make intellisense work</span></h2>
+<p>1./ Create a file YourProject.pro in your root project directory (next to your uproject file) and copy this into&#160;:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">TEMPLATE = app
+CONFIG += console
+CONFIG -= app_bundle
+CONFIG -= qt
+&#160;
+<span class="co0"># Declare and assign specific variable, you may change this path to work (do not add \ at the end of path&#160;!)</span>
+UNREAL_PATH = C:\Program Files\Unreal Engine
+VISUAL_PATH = C:\Program Files <span class="br0">&#40;</span>x86<span class="br0">&#41;</span>\Microsoft Visual Studio <span class="nu0">12.0</span>
+&#160;
+<span class="co0"># Will define all unreal defines</span>
+include<span class="br0">&#40;</span>defines.pri<span class="br0">&#41;</span>
+&#160;
+<span class="co0"># Project source path (you may complete this)</span>
+HEADERS += Source\YourProject\<span class="sy0">*</span>.h
+SOURCES += Source\YourProject\<span class="sy0">*</span>.cpp
+&#160;
+<span class="co0"># Project include path (you also may complete this)</span>
+INCLUDEPATH += Source\YourProject
+&#160;
+<span class="co0"># include path for generated files</span>
+INCLUDEPATH += Intermediate\Build\Win64\Inc\YourProject
+&#160;
+<span class="co0"># Will add all unreal include path </span>
+include<span class="br0">&#40;</span>includes.pri<span class="br0">&#41;</span></pre></div></div>
+<p>2./ Create a file defines.pri next to YourProject.pro and copy this into&#160;:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1">DEFINES += <span class="st0">&quot;<span class="es4">$(NMakePreprocessorDefinitions)</span>&quot;</span>
+DEFINES += <span class="st0">&quot;UE_GAME=1&quot;</span>
+DEFINES += <span class="st0">&quot;IS_PROGRAM=0&quot;</span>
+DEFINES += <span class="st0">&quot;UE_ROCKET=1&quot;</span>
+DEFINES += <span class="st0">&quot;UNICODE&quot;</span>
+DEFINES += <span class="st0">&quot;_UNICODE&quot;</span>
+DEFINES += <span class="st0">&quot;__UNREAL__&quot;</span>
+DEFINES += <span class="st0">&quot;IS_MONOLITHIC=1&quot;</span>
+DEFINES += <span class="st0">&quot;WITH_ENGINE=1&quot;</span>
+DEFINES += <span class="st0">&quot;WITH_UNREAL_DEVELOPER_TOOLS=1&quot;</span>
+DEFINES += <span class="st0">&quot;WITH_COREUOBJECT=1&quot;</span>
+DEFINES += <span class="st0">&quot;USE_STATS_WITHOUT_ENGINE=0&quot;</span>
+DEFINES += <span class="st0">&quot;WITH_PLUGIN_SUPPORT=0&quot;</span>
+DEFINES += <span class="st0">&quot;USE_LOGGING_IN_SHIPPING=0&quot;</span>
+DEFINES += <span class="st0">&quot;UE_BUILD_MINIMAL=1&quot;</span>
+DEFINES += <span class="st0">&quot;WITH_EDITOR=1&quot;</span>
+DEFINES += <span class="st0">&quot;WITH_EDITORONLY_DATA=0&quot;</span>
+DEFINES += <span class="st0">&quot;WITH_SERVER_CODE=1&quot;</span>
+DEFINES += <span class="st0">&quot;UBT_COMPILED_PLATFORM=Win64&quot;</span>
+DEFINES += <span class="st0">&quot;WIN32=1&quot;</span>
+DEFINES += <span class="st0">&quot;_WIN32_WINNT=0x0600&quot;</span>
+DEFINES += <span class="st0">&quot;WINVER=0x0600&quot;</span>
+DEFINES += <span class="st0">&quot;PLATFORM_WINDOWS=1&quot;</span>
+DEFINES += <span class="st0">&quot;NDEBUG=1&quot;</span>
+DEFINES += <span class="st0">&quot;UE_BUILD_DEVELOPMENT=1&quot;</span>
+DEFINES += <span class="st0">&quot;UE_ENGINE_DIRECTORY=$<span class="es2">$UNREAL_PATH</span>/4.3/Engine/&quot;</span>
+DEFINES += <span class="st0">&quot;ORIGINAL_FILE_NAME=&quot;</span>YourProject.exe<span class="st0">&quot;&quot;</span>
+DEFINES += <span class="st0">&quot;YourProject_API=&quot;</span>
+DEFINES += <span class="st0">&quot;UE_ENABLE_ICU=1&quot;</span>
+DEFINES += <span class="st0">&quot;WITH_STEAMWORKS=0&quot;</span>
+DEFINES += <span class="st0">&quot;WITH_DIRECTXMATH=0&quot;</span>
+DEFINES += <span class="st0">&quot;CORE_API=&quot;</span>
+DEFINES += <span class="st0">&quot;COREUOBJECT_API=&quot;</span>
+DEFINES += <span class="st0">&quot;WITH_PHYSX=1&quot;</span>
+DEFINES += <span class="st0">&quot;WITH_APEX=1&quot;</span>
+DEFINES += <span class="st0">&quot;WITH_RECAST=1&quot;</span>
+DEFINES += <span class="st0">&quot;WITH_SPEEDTREE=0&quot;</span>
+DEFINES += <span class="st0">&quot;ENGINE_API=&quot;</span>
+DEFINES += <span class="st0">&quot;SLATE_API=&quot;</span>
+DEFINES += <span class="st0">&quot;INPUTCORE_API=&quot;</span>
+DEFINES += <span class="st0">&quot;SLATECORE_API=&quot;</span>
+DEFINES += <span class="st0">&quot;MESSAGING_API=&quot;</span>
+DEFINES += <span class="st0">&quot;RENDERCORE_API=&quot;</span>
+DEFINES += <span class="st0">&quot;RHI_API=&quot;</span>
+DEFINES += <span class="st0">&quot;SHADERCORE_API=&quot;</span>
+DEFINES += <span class="st0">&quot;ASSETREGISTRY_API=&quot;</span>
+DEFINES += <span class="st0">&quot;ENGINEMESSAGES_API=&quot;</span>
+DEFINES += <span class="st0">&quot;ENGINESETTINGS_API=&quot;</span>
+DEFINES += <span class="st0">&quot;SYNTHBENCHMARK_API=&quot;</span>
+DEFINES += <span class="st0">&quot;RENDERER_API=&quot;</span>
+DEFINES += <span class="st0">&quot;UE_EDITOR=1&quot;</span>
+DEFINES += <span class="st0">&quot;GITSOURCECONTROL_API=&quot;</span>
+DEFINES += <span class="st0">&quot;EDITORSTYLE_API=&quot;</span>
+DEFINES += <span class="st0">&quot;SOURCECONTROL_API=&quot;</span>
+DEFINES += <span class="st0">&quot;USE_NETWORK_PROFILER=1&quot;</span>
+DEFINES += <span class="st0">&quot;WITH_SIMPLYGON=0&quot;</span>
+DEFINES += <span class="st0">&quot;UNREALED_API=&quot;</span>
+DEFINES += <span class="st0">&quot;BSPMODE_API=&quot;</span>
+DEFINES += <span class="st0">&quot;DOCUMENTATION_API=&quot;</span>
+DEFINES += <span class="st0">&quot;PROJECTS_API=&quot;</span>
+DEFINES += <span class="st0">&quot;SANDBOXFILE_API=&quot;</span>
+DEFINES += <span class="st0">&quot;UNREALEDMESSAGES_API=&quot;</span>
+DEFINES += <span class="st0">&quot;BLUEPRINTGRAPH_API=&quot;</span>
+DEFINES += <span class="st0">&quot;XAUDIO2_API=&quot;</span>
+DEFINES += <span class="st0">&quot;USERFEEDBACK_API=&quot;</span>
+DEFINES += <span class="st0">&quot;COLLECTIONMANAGER_API=&quot;</span></pre></div></div>
+<p>3./ Create a file includes.pri next to YourProject.pro and copy this into&#160;:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="bash source-bash"><pre class="de1"><span class="co0"># Engine include path</span>
+INCLUDEPATH += <span class="st0">&quot;<span class="es4">$(NMakeIncludeSearchPath)</span>&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public\Internationalization&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public\Async&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public\Concurrency&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public\Containers&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public\Delegates&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public\GenericPlatform&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public\HAL&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public\Math&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public\Misc&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public\Modules&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public\Modules\Boilerplate&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public\ProfilingDebugging&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public\Serialization&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public\Serialization\Json&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public\Stats&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public<span class="es1">\T</span>emplates&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public\UObject&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Core\Public\Windows&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\CoreUObject\Classes&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\CoreUObject&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\CoreUObject\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\CoreUObject\Public\Blueprint&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\CoreUObject\Public\Misc&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\CoreUObject\Public\Serialization&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\CoreUObject\Public<span class="es1">\T</span>emplates&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\CoreUObject\Public\UObject&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Engine\Classes&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\Engine&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Engine\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Engine\Public\AI&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Engine\Public\Landscape&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Engine\Public<span class="es1">\N</span>et&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Engine\Public\Slate&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Engine\Public<span class="es1">\T</span>ests&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\Slate&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public<span class="es1">\F</span>ramework&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public\Widgets&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public<span class="es1">\F</span>ramework\Application&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public<span class="es1">\F</span>ramework\Commands&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public<span class="es1">\F</span>ramework\Docking&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public<span class="es1">\F</span>ramework\Layout&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public<span class="es1">\F</span>ramework\MultiBox&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public<span class="es1">\F</span>ramework<span class="es1">\N</span>otifications&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public<span class="es1">\F</span>ramework\Styling&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public<span class="es1">\F</span>ramework<span class="es1">\T</span>ext&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public<span class="es1">\F</span>ramework<span class="es1">\V</span>iews&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public\Widgets\Colors&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public\Widgets\Docking&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public\Widgets\Images&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public\Widgets\Input&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public\Widgets\Layout&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public\Widgets<span class="es1">\N</span>avigation&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public\Widgets<span class="es1">\N</span>otifications&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public\Widgets<span class="es1">\T</span>esting&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public\Widgets<span class="es1">\T</span>ext&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public\Widgets<span class="es1">\T</span>utorials&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Slate\Public\Widgets<span class="es1">\V</span>iews&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\InputCore\Classes&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\InputCore&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\InputCore\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\SlateCore&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\SlateCore\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\SlateCore\Public\Animation&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\SlateCore\Public\Application&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\SlateCore\Public\Brushes&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\SlateCore\Public<span class="es1">\F</span>onts&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\SlateCore\Public\Input&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\SlateCore\Public\Layout&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\SlateCore\Public\Logging&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\SlateCore\Public<span class="es1">\R</span>endering&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\SlateCore\Public\Sound&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\SlateCore\Public\Styling&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\SlateCore\Public<span class="es1">\T</span>extures&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\SlateCore\Public<span class="es1">\T</span>ypes&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\SlateCore\Public\Widgets&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\Messaging&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Messaging\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Messaging\Public\Common&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Messaging\Public\Interfaces&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc<span class="es1">\R</span>enderCore&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime<span class="es1">\R</span>enderCore\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc<span class="es1">\R</span>HI&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime<span class="es1">\R</span>HI\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\ShaderCore&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\ShaderCore\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\AssetRegistry&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\AssetRegistry\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\EngineMessages\Classes&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\EngineMessages&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\EngineMessages\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\EngineSettings\Classes&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\EngineSettings&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\EngineSettings\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\SynthBenchmark&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Developer\SynthBenchmark\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc<span class="es1">\R</span>enderer&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime<span class="es1">\R</span>enderer\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\EditorStyle&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\EditorStyle\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\EditorStyle\Public\Classes&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\EditorStyle\Public\Interfaces&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\SourceControl&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Developer\SourceControl\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Programs\UnrealLightmass\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\UnrealEd\Classes&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\UnrealEd&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\UnrealEd\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\UnrealEd\Public\Commandlets&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\UnrealEd\Public\Dialogs&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\UnrealEd\Public\DragAndDrop&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\UnrealEd\Public<span class="es1">\F</span>eatures&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\UnrealEd\Public\Kismet2&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\UnrealEd\Public\Layers&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\UnrealEd\Public<span class="es1">\T</span>oolkits&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\BspMode&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\BspMode\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\Documentation&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\Documentation\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\Projects&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Projects\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Projects\Public\Interfaces&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\SandboxFile&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\SandboxFile\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\UnrealEdMessages\Classes&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\UnrealEdMessages&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\UnrealEdMessages\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\BlueprintGraph\Classes&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\BlueprintGraph&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\BlueprintGraph\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\XAudio2&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source<span class="es1">\R</span>untime\Windows\XAudio2\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\UserFeedback&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Editor\UserFeedback\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Intermediate\Build\Win64\Inc\CollectionManager&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$UNREAL_PATH</span>\4.3\Engine\Source\Developer\CollectionManager\Public&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;$<span class="es2">$VISUAL_PATH</span><span class="es1">\V</span>C\INCLUDE&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;C:\Program Files (x86)\Windows Kits\8.1\include\shared&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;C:\Program Files (x86)\Windows Kits\8.1\include\um&quot;</span>
+INCLUDEPATH += <span class="st0">&quot;C:\Program Files (x86)\Windows Kits\8.1\include\winrt&quot;</span></pre></div></div>
+<p>Basically the defines.pri and includes.pri will store specific include and define that can be found into Visual C++ project.
+</p><p>Once you have done that you can already open YourProject.pro with QtCreator and have full intellisense support&#160;!
+</p>
+<h2><span class="mw-headline" id="Build_from_QtCreator">Build from QtCreator</span></h2>
+<p>Now we are gonna do some stuff allowing you to build outside of VS Express
+</p><p>1./ Add your C:\Program Files\Unreal Engine\4.3\Engine\Binaries\DotNET equivalent to your windows PATH (search on internet how to add something to Windows path if you don't know how to do it)
+</p><p>2./ Close and relaunch your windows explorer to refresh your PATH&#160;! (if you don't do it, it will not find UnrealBuildTool.exe)
+</p><p>3./ Create a file BUILD_DLL.bat and copy this into&#160;:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="dos source-dos"><pre class="de1">UnrealBuildTool.exe YourProjectEditor Win64 Development &quot;<span class="sy0">%</span><span class="re3">CD</span><span class="sy0">%</span>\YourProject.uproject&quot; -rocket</pre></div></div>
+<p>4./ In QtCreator you must go into your project settings in Build and remove all compilations steps, then add a Custom Process Step and set Command to BUILD_DLL.bat and Working Directory to your root project directory
+</p><p>Now when you hit build button (the hammer) or press CTRL + B QtCreator will run the BUILD_DLL.bat and build your project =)
+</p>
+<h2><span class="mw-headline" id="Run_from_QtCreator">Run from QtCreator</span></h2>
+<p>The last step is the execution
+</p><p>1./ Add your C:\Program Files\Unreal Engine\4.3\Engine\Binaries\Win64 equivalent to your windows PATH (search on internet how to add something to Windows path if you don't know how to do it)
+</p><p>2./ Close and relaunch your windows explorer to refresh your PATH&#160;! (if you don't do it, it will not find UE4Editor.exe)
+</p><p>3./ Create a file LaunchSolo.bat and copy this into&#160;:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="dos source-dos"><pre class="de1">START UE4Editor.exe &quot;<span class="sy0">%</span><span class="re3">CD</span><span class="sy0">%</span>\YourProject.uproject&quot; Your_Map?game=YourProject -game -ResX=1280 -ResY=720
+<span class="kw1">EXIT</span></pre></div></div>
+<p>4./ In QtCreator you must go into your project settings in Run and add a Custom Executable and set Executable to LaunchSolo.bat and Working Directory to your root project directory
+</p><p>Now when your hit the play button or press CTRL + R QtCreator will run LaunchSolo.bat and launch your project =)
+</p><p>Your are now ready to develop using QtCreator&#160;! (Congratulation&#160;!)
+</p><p>This guide could be use with other IDE like Eclipse as well&#160;;)
+</p><p><br />
+I realy hope this will help you&#160;!
+</p><p>Bests
+</p><p>PS: If you have questions, first re-read the guide to make sure you don't forgot anything and then ask it&#160;!
+</p><p><a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?11883-Guide-to-use-QtCreator-for-Unreal-Engine-4-!">Original forum thread</a>
+</p>
+<h2><span class="mw-headline" id="Extra_Video_Qt_Setup_Walk-through">Extra Video Qt Setup Walk-through</span></h2>
+<p><a rel="nofollow" class="external free" href="https://drive.google.com/file/d/0B0eV5r9stGxaMGpkQ2ZsTmh2REU/edit?usp=sharing">https://drive.google.com/file/d/0B0eV5r9stGxaMGpkQ2ZsTmh2REU/edit?usp=sharing</a>
+</p><p>Note: Best viewed in 1920 x 1080 resolution.
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.086 seconds
+Real time usage: 0.089 seconds
+Preprocessor visited node count: 76/1000000
+Preprocessor generated node count: 174/1000000
+Post‐expand include size: 155/2097152 bytes
+Template argument size: 22/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+</div>								<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=Using_QtCreator_With_UnrealEngine4&amp;oldid=8326">https://wiki.unrealengine.com/index.php?title=Using_QtCreator_With_UnrealEngine4&amp;oldid=8326</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li><li><a href="/Category:Code" title="Category:Code">Code</a></li><li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Using+QtCreator+With+UnrealEngine4&amp;returntoquery=redirect%3Dno&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Using+QtCreator+With+UnrealEngine4&amp;returntoquery=redirect%3Dno" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Using_QtCreator_With_UnrealEngine4"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Using_QtCreator_With_UnrealEngine4&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Using_QtCreator_With_UnrealEngine4" >Read</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Using_QtCreator_With_UnrealEngine4&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Using_QtCreator_With_UnrealEngine4&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="/index.php" id="searchform">
+				<div id="simpleSearch">
+						<input name="search" placeholder="Search" title="Search Epic Wiki [f]" accesskey="f" id="searchInput" />						<button type="submit" name="button" title="Search the pages for this text" id="searchButton"><img src="/skins/vector/images/search-ltr.png?303" alt="Search" width="12" height="13" /></button>								<input type='hidden' name="title" value="Special:Search"/>
+		</div>
+	</form>
+</div>
+				</div>
+			</div>
+			<div id="mw-panel">
+					<div id="p-logo" role="banner"><a style="background-image: url(/images/WikiLogo_uev2.png);" href="/Main_Page"  title="Visit the main page"></a></div>
+				<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a></li>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Videos"><a href="/Videos">Videos</a></li>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Code"><a href="/Category:Code">Code</a></li>
+			<li id="n-Games"><a href="/Category:Games">Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Using_QtCreator_With_UnrealEngine4" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Using_QtCreator_With_UnrealEngine4" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=Using_QtCreator_With_UnrealEngine4&amp;redirect=no&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Using_QtCreator_With_UnrealEngine4&amp;oldid=8326" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Using_QtCreator_With_UnrealEngine4&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+			</div>
+		</div>
+		<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<!-- Served in 0.129 secs. -->
+	</body>
+</html>
