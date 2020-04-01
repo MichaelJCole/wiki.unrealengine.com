@@ -48,4 +48,11 @@ Gitbook is no longer in active development after a pivot to Saa: https://github.
    4) Manual Cleanup (not yet, wait till 1,2,3 are done)
 1) Look us up on Discord for how to help and submit a PR
 
+# The Plan
+
+x Create `transcode.sh` 
+x process every `original/**/*.html`
+- transcode from html to markdown
+- copy assets
+
 
