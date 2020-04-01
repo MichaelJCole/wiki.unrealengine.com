@@ -10,4 +10,3 @@ The images didn't make it through the internet archive, and some article titles 
 
 The site was built in a fury using [VuePress](https://vuepress.vuejs.org/guide/#how-it-works) in about 10 hours of work from concept to this page.
 
-[[toc]]
