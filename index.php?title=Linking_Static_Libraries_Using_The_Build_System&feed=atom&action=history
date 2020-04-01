@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+		<id>https://wiki.unrealengine.com/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;feed=atom&amp;action=history</id>
+		<title>Linking Static Libraries Using The Build System - Revision history</title>
+		<link rel="self" type="application/atom+xml" href="https://wiki.unrealengine.com/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;feed=atom&amp;action=history"/>
+		<link rel="alternate" type="text/html" href="https://wiki.unrealengine.com/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;action=history"/>
+		<updated>2018-12-30T16:13:39Z</updated>
+		<subtitle>Revision history for this page on the wiki</subtitle>
+		<generator>MediaWiki 1.30.0</generator>
+
+	<entry>
+		<id>https://wiki.unrealengine.com/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;diff=73&amp;oldid=prev</id>
+		<title>Admin: 1 revision imported</title>
+		<link rel="alternate" type="text/html" href="https://wiki.unrealengine.com/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;diff=73&amp;oldid=prev"/>
+				<updated>2018-06-28T17:52:37Z</updated>
+		
+		<summary type="html">&lt;p&gt;1 revision imported&lt;/p&gt;
+&lt;table class=&quot;diff diff-contentalign-left&quot; data-mw=&quot;interface&quot;&gt;
+				&lt;tr style=&quot;vertical-align: top;&quot; lang=&quot;en&quot;&gt;
+				&lt;td colspan=&quot;1&quot; style=&quot;background-color: white; color:black; text-align: center;&quot;&gt;← Older revision&lt;/td&gt;
+				&lt;td colspan=&quot;1&quot; style=&quot;background-color: white; color:black; text-align: center;&quot;&gt;Revision as of 17:52, 28 June 2018&lt;/td&gt;
+				&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;2&quot; style=&quot;text-align: center;&quot; lang=&quot;en&quot;&gt;&lt;div class=&quot;mw-diff-empty&quot;&gt;(No difference)&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</summary>
+		<author><name>Admin</name></author>	</entry>
+
+	<entry>
+		<id>https://wiki.unrealengine.com/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;diff=72&amp;oldid=prev</id>
+		<title>Graphics Dev at 18:22, 5 June 2017</title>
+		<link rel="alternate" type="text/html" href="https://wiki.unrealengine.com/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;diff=72&amp;oldid=prev"/>
+				<updated>2017-06-05T18:22:45Z</updated>
+		
+		<summary type="html">&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;New page&lt;/b&gt;&lt;/p&gt;&lt;div&gt;{{Rating|Type=Article|Versions=4.1, 4.2, 4.3, 4.4, 4.13}}&lt;br /&gt;
+{| align=&amp;quot;right&amp;quot;&lt;br /&gt;
+| __TOC__&lt;br /&gt;
+|}&lt;br /&gt;
+=Overview=&lt;br /&gt;
+The goal of this tutorial is to show you how to link a ''static library'' into UE4 using the '''Build System'''. This is primarily targeted at developers that are not intending to make engine level modification, but still want to extend the capabilities of UE4 with a library that provides such capabilities. &lt;br /&gt;
+&lt;br /&gt;
+For examples sake, I will be creating a library called '''BobsMagic''' and linking into a UE4 project called '''UE4Magic'''.&lt;br /&gt;
+&lt;br /&gt;
+==Scope &amp;amp; Notes==&lt;br /&gt;
+* You will be able to link in a library of your own design by the end&lt;br /&gt;
+* I will not go too deeply into exposing functions or defining any API&lt;br /&gt;
+* I expect you to have, at the very least, a more than cursory level of knowledge about C++, C# and MS Visual Studio 2013&lt;br /&gt;
+* All Code paths provided are from the UE4 Project's base directory.&lt;br /&gt;
+&lt;br /&gt;
+=Visual Studio 2013/2015 - Library Configuration=&lt;br /&gt;
+&lt;br /&gt;
+''It is important that you compile out your static libraries with the same version of MS Visual Studio as you are using to work with UE4. This is because each edition of Visual Studio comes with a different compiler, leading to incompatibilities in the binaries. Rest assured if you cross into this realm you will get a warning when you attempt to compile the library in.''&lt;br /&gt;
+&lt;br /&gt;
+==Creating the project==&lt;br /&gt;
+Please go to the [http://msdn.microsoft.com/en-us/library/ms235627.aspx#BKMK_CreateLibProject MSDN] and follow the steps there in order to create a new Static library. Once you have finished, please return, as we have to make a couple of modifications to be able to get things working.&lt;br /&gt;
+&lt;br /&gt;
+==Updating another Project==&lt;br /&gt;
+When you open up a project with Project or solution files targeted at an earlier edition of Visual Studio you are asked to upgrade. Allowing this to proceed will address the point at the beginning of this section. If you missed that dialog, or by chance it was not shown to you, it is possible to upgrade by going to the menu bar Project &amp;gt; Update VC++ project when it is selected in your solution explorer.&lt;br /&gt;
+&lt;br /&gt;
+==Customizations for Targeting UE4 Modules==&lt;br /&gt;
+&lt;br /&gt;
+We will need to make a few other modifications to ensure that our libraries are able to be linked in easily.&lt;br /&gt;
+&lt;br /&gt;
+===Targeting 64 bit platforms ===&lt;br /&gt;
+&lt;br /&gt;
+With a standard Static Library project we will be targeting x86 (32 bit) machines, which wont work for the UE4 toolset.&lt;br /&gt;
+&lt;br /&gt;
+# Open the Project Properties page.&lt;br /&gt;
+# Choose Configuration Manager&lt;br /&gt;
+# Open the '''Active Solution Platform''' drop down list and select '''&amp;lt;New...&amp;gt;'''&lt;br /&gt;
+# Type in or select '''x64''' if it is there&lt;br /&gt;
+# Save it by clicking OK&lt;br /&gt;
+&lt;br /&gt;
+You should be able to close out your project at this point. You should see it in the drop down at the top of Visual Studio.&lt;br /&gt;
+&lt;br /&gt;
+[http://msdn.microsoft.com/en-us/library/h2k70f3s.aspx More Info on targeting x64]&lt;br /&gt;
+&lt;br /&gt;
+===Multi Threaded DLL===&lt;br /&gt;
+&lt;br /&gt;
+The unreal build system expects you to be providing a static library that is then linked into a DLL, so we have to ensure that our project does this as well.&lt;br /&gt;
+&lt;br /&gt;
+# Open the Project Properties Page&lt;br /&gt;
+# Filter through to Configuration Properties &amp;gt; C/C++ &amp;gt; Code Generation &amp;gt; Runtime Library&lt;br /&gt;
+# From the drop down list select Multi-threaded DLL (/MD)&lt;br /&gt;
+# Save it by clicking OK&lt;br /&gt;
+&lt;br /&gt;
+==Third Party Directory==&lt;br /&gt;
+[[File:UnrealDLL_Builds.jpg |thumb|right|200px|sample directory layout]]&lt;br /&gt;
+&lt;br /&gt;
+Build your project and note the location that the libraries are output to. Your lib file(s) should be in /bin/Debug or /bin/Release depending on the mode you built your project with, unless you changed them before hand. We will be moving them from here into our UE4 project directory, for ease of reference and later packaging.&lt;br /&gt;
+&lt;br /&gt;
+Open up a new explorer window and navigate to your Project directory. Once there, create a new path for your library - '''/ThirdParty/BobsMagic'''&lt;br /&gt;
+&lt;br /&gt;
+You will want to follow this step for each library you wish to reference, if I were to be adding in the V8 library I would create /ThirdParty/V8&lt;br /&gt;
+&lt;br /&gt;
+Within this directory we will be adding two new folders - Libraries and Includes - to house their respective files. Includes are the header files that come with your library, used to define the API (Application Programming Interface) for you to reference in UE4. You should copy your *.lib file(s) into the Libraries directory.&lt;br /&gt;
+&lt;br /&gt;
+'''Note''': This is an arbitrary directory. It is only important to note its path so you can reference it in the build system later.&lt;br /&gt;
+&lt;br /&gt;
+=UE4 - Build System=&lt;br /&gt;
+&lt;br /&gt;
+Now we are going to step into the UnrealEngine and actually address the binding of our library to the engine.&lt;br /&gt;
+&lt;br /&gt;
+The build system requires some C# code, but you shouldn't fret. Our example is going to be pretty simple and so you should be alright to copy and paste the majority of the following code.&lt;br /&gt;
+&lt;br /&gt;
+===Extending the Base ModuleRules class===&lt;br /&gt;
+&lt;br /&gt;
+For anyone doing this as more than a one off you can, and probably should, add in a couple of properties to the ModuleRules class. The two I will be noting here are convenience properties to ensure that we always know where our Module and ThirdParty directories are. These two properties will leverage the System.IO namespace, to utilize a couple of the Path static methods.&lt;br /&gt;
+&lt;br /&gt;
+inside '''/Source/UE4Magic/UE4Magic.Build.cs'''&lt;br /&gt;
+&amp;lt;syntaxhighlight lang=&amp;quot;csharp&amp;quot;&amp;gt;&lt;br /&gt;
+using System.IO;&lt;br /&gt;
+using UnrealBuildTool;&lt;br /&gt;
+&lt;br /&gt;
+public class UE4Magic : ModuleRules&lt;br /&gt;
+{&lt;br /&gt;
+    private string ModulePath&lt;br /&gt;
+    {&lt;br /&gt;
+        get { return ModuleDirectory; }&lt;br /&gt;
+    }&lt;br /&gt;
+&lt;br /&gt;
+    private string ThirdPartyPath&lt;br /&gt;
+    {&lt;br /&gt;
+        get { return Path.GetFullPath( Path.Combine( ModulePath, &amp;quot;../../ThirdParty/&amp;quot; ) ); }&lt;br /&gt;
+    }&lt;br /&gt;
+&lt;br /&gt;
+    [Constructor]&lt;br /&gt;
+}&lt;br /&gt;
+&amp;lt;/syntaxhighlight&amp;gt;&lt;br /&gt;
+&lt;br /&gt;
+===Loading Our Libraries===&lt;br /&gt;
+&lt;br /&gt;
+Next we will dive into our modules constructor, where we will create a new method to be called to configure the build system to load our libraries.&lt;br /&gt;
+&lt;br /&gt;
+inside '''/Source/UE4Magic/UE4Magic.Build.cs'''&lt;br /&gt;
+&amp;lt;syntaxhighlight lang=&amp;quot;csharp&amp;quot;&amp;gt;&lt;br /&gt;
+public class UE4Magic : ModuleRules&lt;br /&gt;
+{&lt;br /&gt;
+    [Convenience Properties]&lt;br /&gt;
+&lt;br /&gt;
+    public UE4Magic(TargetInfo Target)&lt;br /&gt;
+    {&lt;br /&gt;
+        [Standard Module Initialization]&lt;br /&gt;
+&lt;br /&gt;
+        LoadBobsMagic(Target);&lt;br /&gt;
+    }&lt;br /&gt;
+&lt;br /&gt;
+}&lt;br /&gt;
+&amp;lt;/syntaxhighlight&amp;gt;&lt;br /&gt;
+&lt;br /&gt;
+LoadBobsMagic accepts a TargetInfo object, which holds a number of configuration elements for the build system, allowing you to customize the build at compilation time. It is passed in to allow us to load in the libs for windows targeting, and can be used later to target other platforms. It also allows you to see if 64 or 32 bit platforms are being targeted, which is gold for our circumstances. If you remember, above I mentioned that we will be targeting x64 machines, but you can use this opportunity to compile out 32bit (x86) libraries as well.&lt;br /&gt;
+&lt;br /&gt;
+Next we will define a constant to be passed in with the name of the library to link.&lt;br /&gt;
+&lt;br /&gt;
+inside '''/Source/UE4Magic/UE4Magic.Build.cs'''&lt;br /&gt;
+&amp;lt;syntaxhighlight lang=&amp;quot;csharp&amp;quot;&amp;gt;&lt;br /&gt;
+public class UE4Magic : ModuleRules&lt;br /&gt;
+{&lt;br /&gt;
+    [Convenience Properties]&lt;br /&gt;
+&lt;br /&gt;
+    [Constructor]&lt;br /&gt;
+&lt;br /&gt;
+    public bool LoadBobsMagic(TargetInfo Target)&lt;br /&gt;
+    {&lt;br /&gt;
+        bool isLibrarySupported = false;&lt;br /&gt;
+&lt;br /&gt;
+        if ((Target.Platform == UnrealTargetPlatform.Win64) || (Target.Platform == UnrealTargetPlatform.Win32))&lt;br /&gt;
+        {&lt;br /&gt;
+            isLibrarySupported = true;&lt;br /&gt;
+&lt;br /&gt;
+            string PlatformString = (Target.Platform == UnrealTargetPlatform.Win64) ? &amp;quot;x64&amp;quot; : &amp;quot;x86&amp;quot;;&lt;br /&gt;
+            string LibrariesPath = Path.Combine(ThirdPartyPath, &amp;quot;BobsMagic&amp;quot;, &amp;quot;Libraries&amp;quot;);&lt;br /&gt;
+&lt;br /&gt;
+            /*&lt;br /&gt;
+            test your path with:&lt;br /&gt;
+            using System; // Console.WriteLine(&amp;quot;&amp;quot;);&lt;br /&gt;
+            Console.WriteLine(&amp;quot;... LibrariesPath -&amp;gt; &amp;quot; + LibrariesPath);&lt;br /&gt;
+            */&lt;br /&gt;
+&lt;br /&gt;
+            PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, &amp;quot;BobsMagic.&amp;quot; + PlatformString + &amp;quot;.lib&amp;quot;)); &lt;br /&gt;
+        }&lt;br /&gt;
+&lt;br /&gt;
+        if (isLibrarySupported)&lt;br /&gt;
+        {&lt;br /&gt;
+            // Include path&lt;br /&gt;
+            PublicIncludePaths.Add( Path.Combine( ThirdPartyPath, &amp;quot;BobsMagic&amp;quot;, &amp;quot;Includes&amp;quot; ) );&lt;br /&gt;
+        }&lt;br /&gt;
+&lt;br /&gt;
+        Definitions.Add(string.Format( &amp;quot;WITH_BOBS_MAGIC_BINDING={0}&amp;quot;, isLibrarySupported ? 1 : 0 ) );&lt;br /&gt;
+&lt;br /&gt;
+        return isLibrarySupported;&lt;br /&gt;
+    }&lt;br /&gt;
+&lt;br /&gt;
+}&lt;br /&gt;
+&amp;lt;/syntaxhighlight&amp;gt;&lt;br /&gt;
+&lt;br /&gt;
+This is an exceptionally straight forward setup, and not likely to be representative of a fully cross platform build. What we have done is to create the constant WITH_BOBS_MAGIC_BINDING to be passed in at compile time, it is set to 1 (or true).&lt;br /&gt;
+&lt;br /&gt;
+=Visual Studio 2013/2015 - Linking Our Library=&lt;br /&gt;
+&lt;br /&gt;
+All of the UE4 goodies are taken care of at this point. You can now include your header files and start executing code.&lt;br /&gt;
+&lt;br /&gt;
+==Startup Module==&lt;br /&gt;
+&lt;br /&gt;
+A little known detail of working with unreal is that you can overwrite the default game implementation and get access to a method executed when your module is started/shutdown, similar to loaded/unloaded. This is not exactly build system related but a common thing that plugin deveopers are likely to be looking for is an initialization point. &lt;br /&gt;
+&lt;br /&gt;
+inside '''/Source/UE4Magic/UE4Magic.cpp'''&lt;br /&gt;
+&amp;lt;syntaxhighlight lang=&amp;quot;cpp&amp;quot;&amp;gt;&lt;br /&gt;
+[Header Comment]&lt;br /&gt;
+&lt;br /&gt;
+#include &amp;quot;Welcome/to/bobsmagic.h&amp;quot;&lt;br /&gt;
+&lt;br /&gt;
+[Standard Includes]&lt;br /&gt;
+&lt;br /&gt;
+class FUE4MagicGameModule : public FDefaultGameModuleImpl&lt;br /&gt;
+{&lt;br /&gt;
+    BobsMagic::MagicalBob *PointerToBobsMagic;&lt;br /&gt;
+    &lt;br /&gt;
+    /**&lt;br /&gt;
+    * Called right after the module DLL has been loaded and the module object has been created&lt;br /&gt;
+    */&lt;br /&gt;
+    virtual void StartupModule() override&lt;br /&gt;
+    {&lt;br /&gt;
+        PointerToBobsMagic = new BobsMagic::MagicalBob();&lt;br /&gt;
+&lt;br /&gt;
+        PointerToBobsMagic-&amp;gt;ThankEveryoneForReading();&lt;br /&gt;
+    }&lt;br /&gt;
+&lt;br /&gt;
+    /**&lt;br /&gt;
+    * Called before the module is unloaded, right before the module object is destroyed.&lt;br /&gt;
+    */&lt;br /&gt;
+    virtual void ShutdownModule()&lt;br /&gt;
+    {&lt;br /&gt;
+        PointerToBobsMagic-&amp;gt;Dispose();&lt;br /&gt;
+        PointerToBobsMagic = NULL;&lt;br /&gt;
+    }&lt;br /&gt;
+};&lt;br /&gt;
+&lt;br /&gt;
+// Override the default implementation with ours implementation =)&lt;br /&gt;
+IMPLEMENT_PRIMARY_GAME_MODULE(FUE4MagicGameModule, UE4Magic, &amp;quot;UE4Magic&amp;quot;);&lt;br /&gt;
+&amp;lt;/syntaxhighlight&amp;gt;&lt;br /&gt;
+&lt;br /&gt;
+You can start the Visual Studio Debugger at this point and step through your code, even into the library you compiled, if you linked to a debug build. It will load in the header file from ThirdParty/BobsMagic/Includes/Welcome/to and allow the Libraries to execute as we all expect.&lt;br /&gt;
+&lt;br /&gt;
+==Marshalling==&lt;br /&gt;
+As you will likely find out quickly, your Library wont be using the same types as in UE4. It is important that you marshall your data between these two in a meaningful and well thought out way. Changing it later may lead to complications.&lt;br /&gt;
+&lt;br /&gt;
+When binding V8 into UE4 I uncovered a couple of macros in '''StringConv.h''' that are used in converting between, Wide Character, Unicode, Strings and C style Character Strings and I recommend you look around for other useful conversions. You may also end up having to create Wrapper objects.&lt;br /&gt;
+&lt;br /&gt;
+=More Information=&lt;br /&gt;
+I have successfully linked V8 into UE4 and am authoring a module allowing you to use JavaScript as a scripting language to use in your own projects. You can follow development on the [https://forums.unrealengine.com/showthread.php?254-Linking-V8-(JavaScript)-to-UE4 forums].&lt;br /&gt;
+&lt;br /&gt;
+If you are interested in doing something similar I would recommend you look at the [https://developers.google.com/v8/embed V8 Embedders Guide] or the source for [https://github.com/joyent/node Node.js].&lt;br /&gt;
+&lt;br /&gt;
+You can read more about me on my [[User:Bob_Gneu|User Page]]&lt;br /&gt;
+&lt;br /&gt;
+[[Category:Tutorials]]&lt;br /&gt;
+[[Category:Code]]&lt;br /&gt;
+[[Category:Community Created Content]]&lt;/div&gt;</summary>
+		<author><name>Graphics Dev</name></author>	</entry>
+
+	</feed>

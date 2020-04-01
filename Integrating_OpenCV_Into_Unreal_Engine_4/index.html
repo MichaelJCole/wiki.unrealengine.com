@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(){}function o(e,t,n){return function(){return i(e,[f.now()].concat(u(arguments)),t?null:this,n),t?void 0:this}}var i=e("handle"),a=e(2),u=e(3),c=e("ee").get("tracer"),f=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,t){s[t]=o(d+t,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),t.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,t){var n={},r=this,o="function"==typeof t;return i(l+"tracer",[f.now(),e,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return t.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],n),e}finally{c.emit("fn-end",[f.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){m[t]=o(l+t)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,f.now()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(o<0?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],4:[function(e,t,n){t.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?c(e,u,i):i()}function n(n,r,o,i){if(!d.aborted||i){e&&e(n,r,o);for(var a=t(o),u=m(n),c=u.length,f=0;f<c;f++)u[f].apply(a,r);var p=s[y[n]];return p&&p.push([b,n,r,a]),a}}function l(e,t){v[e]=m(e).concat(t)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(n)}function g(e,t){f(e,function(e,n){t=t||"feature",y[n]=t,t in s||(s[t]=[])})}var v={},y={},b={on:l,emit:n,get:w,listeners:m,context:t,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",c=e("gos"),f=e(2),s={},p={},d=t.exports=o();d.backlog=s},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!x++){var e=h.info=NREUM.info,t=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return s.abort();f(y,function(t,n){e[t]||(e[t]=n)}),c("mark",["onload",a()+h.offset],null,"api");var n=d.createElement("script");n.src="https://"+e.agent,t.parentNode.insertBefore(n,t)}}function o(){"complete"===d.readyState&&i()}function i(){c("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),c=e("handle"),f=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1071.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=t.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+<title>Integrating OpenCV Into Unreal Engine 4 - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Integrating_OpenCV_Into_Unreal_Engine_4","wgTitle":"Integrating OpenCV Into Unreal Engine 4","wgCurRevisionId":151,"wgRevisionId":151,"wgArticleId":75,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Code","Tutorials"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Integrating_OpenCV_Into_Unreal_Engine_4","wgRelevantArticleId":75,"wgRequestId":"598c4a07e4148b575429cf04","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@1xxwts3",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Integrating_OpenCV_Into_Unreal_Engine_4 rootpage-Integrating_OpenCV_Into_Unreal_Engine_4 skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-00f7fdb47766f2f80"><meta name="worker" content="68"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"hideShieldDownload":false,"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"alert":{"msg":"","_type":"Epic Header Alert","id":"","type":"info","statusHref":""},"_activeDate":"2018-08-06T09:11:04.633Z","links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://academy.unrealengine.com/","title":"Video Tutorials","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/unrealdevgrants","title":"Unreal Dev Grants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_currentVersion":"1.37.2.100","_type":"Epic Games Nav","hideSignIn":true,"pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"_futureVersion":"none","downloadLink":{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":""},"_created":"2017-08-21T08:59:33.648Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"hideShieldDropdown":false,"properties":[{"propertyKey":"paragon","_type":"Epic Games Property","egDisabled":true,"egSkip":true}],"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.7960915dddd3d03dc648.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.7960915dddd3d03dc648.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Integrating+OpenCV+Into+Unreal+Engine+4" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=Integrating_OpenCV_Into_Unreal_Engine_4" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Integrating_OpenCV_Into_Unreal_Engine_4&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=Integrating_OpenCV_Into_Unreal_Engine_4">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=Integrating_OpenCV_Into_Unreal_Engine_4&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Integrating_OpenCV_Into_Unreal_Engine_4&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Integrating OpenCV Into Unreal Engine 4</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><a href="/index.php?title=Template:Rating&amp;action=edit&amp;redlink=1" class="new" title="Template:Rating (page does not exist)">Template:Rating</a>
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Why_OpenCV.3F"><span class="tocnumber">1.1</span> <span class="toctext">Why OpenCV?</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Using_the_Plugin"><span class="tocnumber">1.2</span> <span class="toctext">Using the Plugin</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Linking_OpenCV_in_Visual_Studios"><span class="tocnumber">2</span> <span class="toctext">Linking OpenCV in Visual Studios</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Copying_the_OpenCV_Files"><span class="tocnumber">2.1</span> <span class="toctext">Copying the OpenCV Files</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Adding_OpenCV_Dependencies"><span class="tocnumber">2.2</span> <span class="toctext">Adding OpenCV Dependencies</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Copying_the_DLL.27s_to_the_Build"><span class="tocnumber">2.3</span> <span class="toctext">Copying the DLL's to the Build</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Fixing_Library_Collisions"><span class="tocnumber">2.4</span> <span class="toctext">Fixing Library Collisions</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Adding_a_WebcamReader_Class"><span class="tocnumber">3</span> <span class="toctext">Adding a WebcamReader Class</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Header"><span class="tocnumber">3.1</span> <span class="toctext">Header</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Source"><span class="tocnumber">3.2</span> <span class="toctext">Source</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#Moving_to_Blueprints"><span class="tocnumber">4</span> <span class="toctext">Moving to Blueprints</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Adding_the_WebcamBillboard_Actor"><span class="tocnumber">4.1</span> <span class="toctext">Adding the WebcamBillboard Actor</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Adding_the_WebcamBillboard_to_a_Level"><span class="tocnumber">4.2</span> <span class="toctext">Adding the WebcamBillboard to a Level</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="#Final_Notes"><span class="tocnumber">5</span> <span class="toctext">Final Notes</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p><i>Original Author:</i> <a href="/index.php?title=User:Ginku&amp;action=edit&amp;redlink=1" class="new" title="User:Ginku (page does not exist)">Ginku</a> (<a href="/index.php?title=User_talk:Ginku" title="User talk:Ginku">talk</a>)
+</p><p>Hello all! This is my first wiki tutorial, I hope it can be of help to someone!
+</p><p>I am making this tutorial in response to a few requests.  This will be a detailed, step-by-step guide to linking OpenCV 3.2 to Unreal Engine 4 using the Unreal Build Tool. You can find a general tutorial on linking any static library to unreal <a rel="nofollow" class="external text" href="https://wiki.unrealengine.com/Linking_Static_Libraries_Using_The_Build_System">here.</a> I recommend reading it in addition to this tutorial, as it is what this tutorial is based on.
+</p><p>This tutorial focuses on the windows OS for simplicity. Note that the same process works for other OS, but you might need to build OpenCV from source.
+</p>
+<h3><span class="mw-headline" id="Why_OpenCV.3F">Why OpenCV?</span></h3>
+<p>OpenCV is a powerful open-source computer vision library, and once included into any unreal engine 4 project it will allow for the use of the engine in many non-traditional ways. Including OpenCV in a project as a dependency will allow developers to create state-of-the-art environments with either augmented reality components, virtual reality environments that resemble the user’s surroundings, or any mixture of the two. In this tutorial I will show you how to quickly and painlessly include OpenCV in any unreal engine 4 project with the Windows OS, and then I will guide you through displaying a webcam in a level.
+</p>
+<h3><span class="mw-headline" id="Using_the_Plugin">Using the Plugin</span></h3>
+<p>I have created a plugin that does all the OpenCV library linking, which can be found on its <a rel="nofollow" class="external text" href="https://github.com/Brandon-Wilson/OpenCV-Plugin">github.</a> Installation instructions are inside the README file. With this plugin, you can skip to the <a href="/index.php?title=Integrating_OpenCV_Into_Unreal_Engine_4#Moving_to_Blueprints" title="Integrating OpenCV Into Unreal Engine 4">Moving to Blueprints</a> section of this tutorial. If you do so, be sure to enable the Computer Vision &gt; OpenCV plugin inside the editor's Edit &gt; Plugins menu.
+</p><p>Note: after installation, be sure to regenerate project files. For visual studios, right click your project (.uasset) file and select 'generate visual studio project files' after deleting your previous visual studios file.
+</p>
+<h2><span class="mw-headline" id="Linking_OpenCV_in_Visual_Studios">Linking OpenCV in Visual Studios</span></h2>
+<p>Before you continue, make sure you are starting from a code project, or have added code to your project with the editor!
+</p>
+<h3><span class="mw-headline" id="Copying_the_OpenCV_Files">Copying the OpenCV Files</span></h3>
+<p>In order to begin, all of OpenCV’s include and library files will need to be added to your project’s ‘/ThirdParty’ directory. To begin, install OpenCV 3.2 or locate your installation of OpenCV 3.2 and do the following:
+</p>
+<ul><li> Inside the OpenCV install directory you will find the ‘/build/include’ directory. Copy all of the contents of this directory into the ‘[ProjectRootDirectory]/ThirdParty/OpenCV/Includes’ directory. </li></ul>
+<ul><li> Next, copy the 'opencv_world320.dll' and 'opencv_ffmpeg320_64.dll' files in the ‘/build/x64/vc14/bin’ folder and the 'opencv_world320.lib', files in the ‘/build/x64/vc14/lib’ folder to the ‘[ProjectRootDirectory]/ThirdParty/OpenCV/Libraries/Win64/’ directory. </li></ul>
+<p>Note: This process is similar for any version of OpenCV or any third party library. You only need the runtime libraries (not the debug ones with a 'd' appended, such as 'opencv_world320d.dll' unless you need the debug versions).
+</p>
+<h3><span class="mw-headline" id="Adding_OpenCV_Dependencies">Adding OpenCV Dependencies</span></h3>
+<p>Locate and open your projects module rules file, which should be in your projects ‘Source/[Project Name]’ directory. (It will be in the format of ‘ProjectName.Build.cs’) In this file, we will add the necessary code so that the unreal build tool will include all of the necessary dependencies during build time.
+</p><p>First, be sure to add the following include at the top of the file:
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+using System.IO;
+&lt;/syntaxhighlight&gt;
+</p><p>This lets you use the Path helper class, which is very useful for assembling directory paths!
+</p><p>Inside your ModuleRules class and before the constructor, add the following getter:
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+private string ThirdPartyPath
+{ 
+</p>
+<pre>   get { return Path.GetFullPath(Path.Combine(ModuleDirectory, "../../ThirdParty/")); } 
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p><p>This is a helpful little function for retrieving the /ThirdParty/ path, and can be very convenient when including more than one third party dependency to a project. Now, add the following function after the constructor:
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+public bool LoadOpenCV(TargetInfo Target)
+{
+</p>
+<pre>   // Start OpenCV linking here!
+   bool isLibrarySupported = false;
+</pre>
+<pre>   // Create OpenCV Path 
+   string OpenCVPath = Path.Combine(ThirdPartyPath, "OpenCV");
+</pre>
+<pre>   // Get Library Path 
+   string LibPath = "";
+   bool isdebug = Target.Configuration == UnrealTargetConfiguration.Debug &amp;&amp; BuildConfiguration.bDebugBuildsActuallyUseDebugCRT;
+   if (Target.Platform == UnrealTargetPlatform.Win64)
+   {
+       LibPath = Path.Combine(OpenCVPath, "Libraries", "Win64");
+       isLibrarySupported = true;
+   }
+   else
+   {
+       string Err = string.Format("{0} dedicated server is made to depend on {1}. We want to avoid this, please correct module dependencies.", Target.Platform.ToString(), this.ToString()); System.Console.WriteLine(Err);
+   }
+</pre>
+<pre>   if (isLibrarySupported)
+   {
+       //Add Include path 
+       PublicIncludePaths.AddRange(new string[] { Path.Combine(OpenCVPath, "Includes") });
+</pre>
+<pre>       // Add Library Path 
+       PublicLibraryPaths.Add(LibPath);
+</pre>
+<pre>       //Add Static Libraries
+       PublicAdditionalLibraries.Add("opencv_world320.lib");
+</pre>
+<pre>       //Add Dynamic Libraries
+       PublicDelayLoadDLLs.Add("opencv_world320.dll");
+       PublicDelayLoadDLLs.Add("opencv_ffmpeg320_64.dll");
+   }
+</pre>
+<pre>   Definitions.Add(string.Format("WITH_OPENCV_BINDING={0}", isLibrarySupported&#160;? 1&#160;: 0));
+</pre>
+<pre>   return isLibrarySupported;
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p><p>This function includes all of the required includes and libraries for OpenCV. Now, simply call this function inside your project constructor after the standard public modules:
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "RHI", "RenderCore", "ShaderCore" });
+</p><p>LoadOpenCV(Target);
+&lt;/syntaxhighlight&gt;
+</p><p>Be sure to add the InputCore, RHI, and RenderCore engine modules to the public dependency list, we will use these later to create a dynamic texture from the camera feed. The PrivateIncludePaths will allow you to include the OpenCV header files without full paths.
+</p><p>Now, your project should successfully compile with OpenCV included within the engine build! However, there is one more thing that needs to be included before you can launch an instance of your project’s editor.
+</p>
+<h3><span class="mw-headline" id="Copying_the_DLL.27s_to_the_Build">Copying the DLL's to the Build</span></h3>
+<p>Before your project will run with any OpenCV code, you will first need to add all of the dynamically linked library (.dll) files that you use to your editor’s bin folder. Your editor will typically be a 64-bit application, so copy all of the .dll files (opencv_world320.dll and opencv_ffmpeg320_64.dll) from the OpenCV’s 64 bit bin folder (full directory shown above) and paste them inside the ‘[ProjectRootDirectory]/Binaries/Win64’ directory.  
+</p><p>Note: These DLL's should also be included with any distributions of the project (such as when packaging your game/project), by including them in the same directory as the project's executable (MY_PROJECT.exe).
+</p>
+<h3><span class="mw-headline" id="Fixing_Library_Collisions">Fixing Library Collisions</span></h3>
+<p>There is a collision between the OpenCV3 library and UE4.  To fix this, comment out lines ~51 to ~55 and line ~852 of the utility.hpp header file in the '[ProjectRootDirectory]\ThirdParty\OpenCV\Includes\opencv2\core' directory.
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+// NOTE: The OpenCV 'check' function has been commented out, as it conflicts with UE4 check - see line ~852
+//#if defined(check)
+//#  warning Detected Apple 'check' macro definition, it can cause build conflicts. Please, include this header before any Apple headers.
+//#endif
+</p><p>...
+</p><p>//bool check() const;
+&lt;/syntaxhighlight&gt;
+</p>
+<h2><span class="mw-headline" id="Adding_a_WebcamReader_Class">Adding a WebcamReader Class</span></h2>
+<p>You are now ready to launch an instance of your editor and start using OpenCV! Right click the project name in your solution explorer, and select Debug &gt; Start new instance. If you get an error about the os being unable to load your dll, check out the discussion page. Once the editor loads, select File &gt; New C++ Class… and select the ‘Actor’ parent class. Press Next, name the actor ‘WebcamReader’ and press Create Class. Once Unreal has finished adding the new actor, the new header and source files will be opened inside Visual Studios. Add the following code to each of them:
+</p>
+<h3><span class="mw-headline" id="Header">Header</span></h3>
+<p>&lt;syntaxhighlight lang="cpp"&gt;
+// A simple webcam reader using the OpenCV library
+// Author: The UE4 community
+</p>
+<ol><li>pragma once</li></ol>
+<ol><li>include "opencv2/core.hpp"</li>
+<li>include "opencv2/highgui.hpp"	</li>
+<li>include "opencv2/imgproc.hpp"</li>
+<li>include "opencv2/videoio.hpp"</li>
+<li>include "GameFramework/Actor.h"</li>
+<li>include "Runtime/Engine/Classes/Engine/Texture2D.h"</li>
+<li>include "WebcamReader.generated.h"</li></ol>
+<p>UCLASS()
+class YOURPROJECT_API AWebcamReader&#160;: public AActor
+{
+	GENERATED_BODY()
+</p><p>public:	
+	// Sets default values for this actor's properties
+	AWebcamReader();
+</p><p>	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+</p><p>	// Called every frame
+	virtual void Tick( float DeltaSeconds ) override;
+</p><p>	// The device ID opened by the Video Stream
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Webcam)
+	int32 CameraID;
+</p><p>	// If the webcam images should be resized every frame
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Webcam)
+	bool ShouldResize;
+</p><p>	// The targeted resize width and height (width, height)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Webcam)
+	FVector2D ResizeDeminsions;
+</p><p>	// The rate at which the color data array and video texture is updated (in frames per second)
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Webcam)
+	float RefreshRate;
+</p><p>	// The refresh timer
+	UPROPERTY(BlueprintReadWrite, Category = Webcam)
+	float RefreshTimer;
+</p><p>	// Blueprint Event called every time the video frame is updated
+	UFUNCTION(BlueprintImplementableEvent, Category = Webcam)
+	void OnNextVideoFrame();
+</p><p>	// OpenCV fields
+	cv::Mat frame;
+	cv::VideoCapture stream;
+	cv::Size size;
+</p><p>	// OpenCV prototypes
+	void UpdateFrame();
+	void DoProcessing();
+	void UpdateTexture();
+</p><p>	// If the stream has succesfully opened yet
+	UPROPERTY(BlueprintReadOnly, Category = Webcam)
+	bool isStreamOpen;
+</p><p>	// The videos width and height (width, height)
+	UPROPERTY(BlueprintReadWrite, Category = Webcam)
+	FVector2D VideoSize;
+</p><p>	// The current video frame's corresponding texture
+	UPROPERTY(BlueprintReadOnly, Category = Webcam)
+	UTexture2D* VideoTexture;
+</p><p>	// The current data array
+	UPROPERTY(BlueprintReadOnly, Category = Webcam)
+	TArray&lt;FColor&gt; Data;
+</p><p>protected:
+</p><p>	// Use this function to update the texture rects you want to change:
+	// NOTE: There is a method called UpdateTextureRegions in UTexture2D but it is compiled WITH_EDITOR and is not marked as ENGINE_API so it cannot be linked
+	// from plugins.
+	// FROM: <a rel="nofollow" class="external free" href="https://wiki.unrealengine.com/Dynamic_Textures">https://wiki.unrealengine.com/Dynamic_Textures</a>
+	void UpdateTextureRegions(UTexture2D* Texture, int32 MipIndex, uint32 NumRegions, FUpdateTextureRegion2D* Regions, uint32 SrcPitch, uint32 SrcBpp, uint8* SrcData, bool bFreeData);
+</p><p>	// Pointer to update texture region 2D struct
+	FUpdateTextureRegion2D* VideoUpdateTextureRegion;
+};
+</p><p>&lt;/syntaxhighlight&gt;
+</p>
+<h3><span class="mw-headline" id="Source">Source</span></h3>
+<p>&lt;syntaxhighlight lang="cpp"&gt;
+// A simple webcam reader using the OpenCV library
+// Author: The UE4 community
+</p>
+<ol><li>include "YOURPROJECT.h"</li>
+<li>include "WebcamReader.h"</li></ol>
+<p>// Sets default values
+AWebcamReader::AWebcamReader()
+{
+</p>
+<pre>	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+</pre>
+<p>	PrimaryActorTick.bCanEverTick = true;
+</p><p>	// Initialize OpenCV and webcam properties
+	CameraID = 0;
+	RefreshRate = 15;
+	isStreamOpen = false;
+	VideoSize = FVector2D(0, 0);
+	ShouldResize = false;
+	ResizeDeminsions = FVector2D(320, 240);
+	RefreshTimer = 0.0f;
+	stream = cv::VideoCapture();
+	frame = cv::Mat();
+}
+</p><p>// Called when the game starts or when spawned
+void AWebcamReader::BeginPlay()
+{
+	Super::BeginPlay();
+</p><p>	// Open the stream
+	stream.open(CameraID);
+	if (stream.isOpened())
+	{
+		// Initialize stream
+		isStreamOpen = true;
+		UpdateFrame();
+		VideoSize = FVector2D(frame.cols, frame.rows);
+		size = cv::Size(ResizeDeminsions.X, ResizeDeminsions.Y);
+		VideoTexture = UTexture2D::CreateTransient(VideoSize.X, VideoSize.Y);
+		VideoTexture-&gt;UpdateResource();
+		VideoUpdateTextureRegion = new FUpdateTextureRegion2D(0, 0, 0, 0, VideoSize.X, VideoSize.Y);
+</p><p>		// Initialize data array
+		Data.Init(FColor(0, 0, 0, 255), VideoSize.X * VideoSize.Y);
+</p><p>		// Do first frame
+		DoProcessing();
+		UpdateTexture();
+		OnNextVideoFrame();
+	}
+</p><p>}
+</p><p>// Called every frame
+void AWebcamReader::Tick( float DeltaTime )
+{
+	Super::Tick( DeltaTime );
+</p><p>	RefreshTimer += DeltaTime;
+	if (isStreamOpen &amp;&amp; RefreshTimer &gt;= 1.0f / RefreshRate)
+	{
+		RefreshTimer -= 1.0f / RefreshRate;
+		UpdateFrame();
+		DoProcessing();
+		UpdateTexture();
+		OnNextVideoFrame();
+	}
+}
+</p><p>void AWebcamReader::UpdateFrame()
+{
+	if (stream.isOpened())
+	{
+		stream.read(frame);
+		if (ShouldResize)
+		{
+			cv::resize(frame, frame, size);
+		}
+	}
+	else {
+		isStreamOpen = false;
+	}
+}
+</p><p>void AWebcamReader::DoProcessing()
+{
+	// TODO: Do any processing here!
+}
+</p><p>void AWebcamReader::UpdateTexture()
+{
+	if (isStreamOpen &amp;&amp; frame.data)
+	{
+		// Copy Mat data to Data array
+		for (int y = 0; y &lt; VideoSize.Y; y++)
+		{
+			for (int x = 0; x &lt; VideoSize.X; x++)
+			{
+				int i = x + (y * VideoSize.X);
+				Data[i].B = frame.data[i * 3 + 0];
+				Data[i].G = frame.data[i * 3 + 1];
+				Data[i].R = frame.data[i * 3 + 2];
+			}
+		}
+</p><p>		// Update texture 2D
+		UpdateTextureRegions(VideoTexture, (int32)0, (uint32)1, VideoUpdateTextureRegion, (uint32)(4 * VideoSize.X), (uint32)4, (uint8*)Data.GetData(), false);
+	}
+}
+</p><p>void AWebcamReader::UpdateTextureRegions(UTexture2D* Texture, int32 MipIndex, uint32 NumRegions, FUpdateTextureRegion2D* Regions, uint32 SrcPitch, uint32 SrcBpp, uint8* SrcData, bool bFreeData)
+{
+	if (Texture-&gt;Resource)
+	{
+		struct FUpdateTextureRegionsData
+		{
+			FTexture2DResource* Texture2DResource;
+			int32 MipIndex;
+			uint32 NumRegions;
+			FUpdateTextureRegion2D* Regions;
+			uint32 SrcPitch;
+			uint32 SrcBpp;
+			uint8* SrcData;
+		};
+</p><p>		FUpdateTextureRegionsData* RegionData = new FUpdateTextureRegionsData;
+</p><p>		RegionData-&gt;Texture2DResource = (FTexture2DResource*)Texture-&gt;Resource;
+		RegionData-&gt;MipIndex = MipIndex;
+		RegionData-&gt;NumRegions = NumRegions;
+		RegionData-&gt;Regions = Regions;
+		RegionData-&gt;SrcPitch = SrcPitch;
+		RegionData-&gt;SrcBpp = SrcBpp;
+		RegionData-&gt;SrcData = SrcData;
+</p><p>		ENQUEUE_UNIQUE_RENDER_COMMAND_TWOPARAMETER(
+			UpdateTextureRegionsData,
+			FUpdateTextureRegionsData*, RegionData, RegionData,
+			bool, bFreeData, bFreeData,
+			{
+			for (uint32 RegionIndex = 0; RegionIndex &lt; RegionData-&gt;NumRegions; ++RegionIndex)
+			{
+				int32 CurrentFirstMip = RegionData-&gt;Texture2DResource-&gt;GetCurrentFirstMip();
+				if (RegionData-&gt;MipIndex &gt;= CurrentFirstMip)
+				{
+					RHIUpdateTexture2D(
+						RegionData-&gt;Texture2DResource-&gt;GetTexture2DRHI(),
+						RegionData-&gt;MipIndex - CurrentFirstMip,
+						RegionData-&gt;Regions[RegionIndex],
+						RegionData-&gt;SrcPitch,
+						RegionData-&gt;SrcData
+						+ RegionData-&gt;Regions[RegionIndex].SrcY * RegionData-&gt;SrcPitch
+						+ RegionData-&gt;Regions[RegionIndex].SrcX * RegionData-&gt;SrcBpp
+						);
+				}
+			}
+			if (bFreeData)
+			{
+				FMemory::Free(RegionData-&gt;Regions);
+				FMemory::Free(RegionData-&gt;SrcData);
+			}
+			delete RegionData;
+		});
+	}
+}
+&lt;/syntaxhighlight&gt;
+</p><p>Note: you need to change YOURPROJECT in the class definition of the header file and the project include in the source file with the correct version, which is based on your project's name.
+</p><p>This class is used as a wrapper for a future unreal blueprint class. It allows you to specify the device ID, target resolution and framerate of the camera, as well as providing a dynamic texture and FColor array of the current frame's pixels and a blueprint native event that is called whenever the next webcam frame is available!
+</p>
+<h2><span class="mw-headline" id="Moving_to_Blueprints">Moving to Blueprints</span></h2>
+<p>You can now access your webcam feed in blueprints. From this point forward we will be working in the editor.
+</p>
+<h3><span class="mw-headline" id="Adding_the_WebcamBillboard_Actor">Adding the WebcamBillboard Actor</span></h3>
+<p>Now that all the code has been included for accessing your webcams, I will now show you how to use the dynamic texture from the WebcamReader actor in a new WebcamBillboard subclass. This time, the code will be implemented in unreal blueprints! Launch the editor again with Debug &gt; Start new instance. In your choice of directory, right click and add a new blueprint class. At the bottom of the new window, expand ‘All Classes’ and search ‘AWebcamReader’ and select it as the parent class. Name the new blueprint ‘BP_WebcamBillboard’ and open it.
+</p><p>Within the viewport, add a cube static mesh component, and name it ‘Billboard.’ This will be the component that the texture is rendered to. At the beginning of the game, we will want to create a dynamic material instance and set it to the billboard mesh. Under Variables, click the + button to add a new Material Instance Dynamic called ‘DynamicMaterial.’ Drag the Billboard component onto the Event Graph, and create a getter node. Drag out from this new getter and create a Create Dynamic Material Instance node and connect the white execution wire to the transparent BeginPlay event (or create one). This creates an special unreal material instance that can be altered at runtime. However, we have not created this unreal material!
+</p><p>Go back to your content browser, right click and create a new material. Call this material ‘M_Webcam’ and open it. Click on the M_Webcam node and set the Shading Mode to Unlit. Hold ‘T’ and left click anywhere in the new graph to create a texture node. You will have to set the default texture to anything (I used T_Ceramic_Tile_M). Right click this node and convert it to a parameter. Call this parameter ‘Texture’ and connect its white Float3 pin to the Emissive Color pin on the M_Webcam node. Make sure the save the material!
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/index.php?title=File:Webcam_Material_with_Parameter.png" class="image"><img alt="Webcam Material with Parameter.png" src="https://d3ar1piqh1oeli.cloudfront.net/a/a5/Webcam_Material_with_Parameter.png/180px-Webcam_Material_with_Parameter.png" width="180" height="205" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/a/a5/Webcam_Material_with_Parameter.png/270px-Webcam_Material_with_Parameter.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/a/a5/Webcam_Material_with_Parameter.png/360px-Webcam_Material_with_Parameter.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Webcam_Material_with_Parameter.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p>Now, back in the BP_WebcamBillboard blueprint, select the M_Webcam as the Source Material for the Create Dynamic Material Instance node, and make sure the Element Index is set to 0. Drag out from the original billboard getter and create a Set Material node. Set the Material pin to the output of the Create Dynamic Material Instance node, and again make sure the Element Index is set to 0. Finally, drag out the DynamicMaterial variable we created earlier and create a setter. Connect the output of the Create Dynamic Material Instance node to the DynamicMaterial input pin to save a reference of this special material for later use.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/index.php?title=File:WebcamBillboard_event_graph.png" class="image"><img alt="WebcamBillboard event graph.png" src="https://d3ar1piqh1oeli.cloudfront.net/2/2a/WebcamBillboard_event_graph.png/180px-WebcamBillboard_event_graph.png" width="180" height="99" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/2/2a/WebcamBillboard_event_graph.png/270px-WebcamBillboard_event_graph.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/2/2a/WebcamBillboard_event_graph.png/360px-WebcamBillboard_event_graph.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:WebcamBillboard_event_graph.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p>We have dynamically set the material of our Billboard mesh, and now we need to update its texture parameter each time a new frame is received. To do this, right click on the Event Graph and create a OnNextVideoFrame event. This event is called in the WebcamReader actor whenever a new frame is read. Drag out the DynamicMaterial variable and create a getter underneath the new event. Drag out from the getter and create a Set Texture Parameter Value node. Set the Parameter Name to ‘Texture’ (the name of the texture parameter in the M_Webcam material). Right click on the Event Graph and type ‘VideoTexture’ to retrieve a reference to the webcam texture provided by the WebcamReader parent class. Connect the output pin of this VideoTexture reference to the Value pin of the Set Texture Parameter Value node. With that, the BP_WebcamBillboard is ready for use!
+</p>
+<h3><span class="mw-headline" id="Adding_the_WebcamBillboard_to_a_Level">Adding the WebcamBillboard to a Level</span></h3>
+<p>Drag the BP_WebcamBillboard blueprint from the content browser into your level. Orientate and position it however you like, and scale it to a similar scale of your images resolution (about 6.4, 4.8, and 0.5 for my webcam). Now, set the Webcam properties in the detail panel. (I used a Camera ID of 0, Should Resize to false, and Refresh Rate of 2.0) Your Camera ID will determine the camera that renders, it should be 0 unless you have more than one webcam. In the case of a laptop, 0 will probably be the integrated laptop, and 1+ will be any additional webcams. You can now press play to see the results!
+</p><p><a href="/index.php?title=File:Webcam_Billboard_in_Unreal_Engine_4.png" class="image"><img alt="Webcam Billboard in Unreal Engine 4.png" src="https://d26ilriwvtzlb.cloudfront.net/3/35/Webcam_Billboard_in_Unreal_Engine_4.png" width="1279" height="719" /></a>
+</p><p>You can hold alt and move the object to duplicate it. Change its Camera ID to render a second webcam!
+</p><p><a href="/index.php?title=File:Two_Webcam_Billboard_in_Unreal_Engine_4.png" class="image"><img alt="Two Webcam Billboard in Unreal Engine 4.png" src="https://d26ilriwvtzlb.cloudfront.net/f/f6/Two_Webcam_Billboard_in_Unreal_Engine_4.png" width="1275" height="715" /></a>
+</p><p>Good luck with your OpenCV / UE4 Projects!&#160;:)
+</p><p><a href="/index.php?title=User:Ginku&amp;action=edit&amp;redlink=1" class="new" title="User:Ginku (page does not exist)">Ginku</a> (<a href="/index.php?title=User_talk:Ginku" title="User talk:Ginku">talk</a>)
+</p>
+<h2><span class="mw-headline" id="Final_Notes">Final Notes</span></h2>
+<p>For packaged versions of your OpenCV projects, be sure that the executable has access to the dll's. For a windows build, this can be done by coppying the opencv_world320.dll and opencv_ffmpeg320_64.dll into the WindowsNoEditor/YOURPROJECT directory.  (There are 2 executables for windows builds, but the one in the YOURPROJECT directory is the one that needs access to the dll's, regardless of which one you use to launch your project!)
+</p><p>UE4 and the C++ standard library do not play well together.  This can cause annoying crashes, such as with the cv::findContours function (often during the std::vector destructors). Members of the community have gotten around this by wrapping findContour calls in a separate library, and including that in their UE4 projects with steps similar to the ones to include the OpenCV library in this tutorial.
+</p><p>The webcam reader shown in this tutorial is designed to be simple and easy to follow.  However, it isn't very efficient, as all of the OpenCV reading code and UE4 dynamic texture code occurs on the game thread, potentially per-tick with high refresh rates! I would recommend separating these parts into another thread to increase performance. <a rel="nofollow" class="external text" href="https://wiki.unrealengine.com/Multi-Threading:_How_to_Create_Threads_in_UE4">Rama's tutorial</a> on multi-threading is a good start if you are unfamiliar with UE4 threads.
+</p><p>If any of these points are confusing, feel free to say so on my <a href="/index.php?title=User_talk:Ginku" title="User talk:Ginku">talk</a> page and when I get the chance I will add an in-depth section to this tutorial!&#160;:)
+</p><p>-Ginku
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20180926134807
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.084 seconds
+Real time usage: 0.619 seconds
+Preprocessor visited node count: 61/1000000
+Preprocessor generated node count: 96/1000000
+Post‐expand include size: 20/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    3.097      1 -total
+100.00%    3.097      1 Template:Rating
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:75-0!canonical and timestamp 20180926134806 and revision id 151
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=Integrating_OpenCV_Into_Unreal_Engine_4&amp;oldid=151">https://wiki.unrealengine.com/index.php?title=Integrating_OpenCV_Into_Unreal_Engine_4&amp;oldid=151</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/index.php?title=Category:Code" title="Category:Code">Code</a></li><li><a href="/index.php?title=Category:Tutorials&amp;action=edit&amp;redlink=1" class="new" title="Category:Tutorials (page does not exist)">Tutorials</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0a137bf8b82e8a632"><meta name="worker" content="119"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.31","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/gHooNW9I/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Edit the global content type","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.7960915dddd3d03dc648.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.7960915dddd3d03dc648.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.084","walltime":"0.619","ppvisitednodes":{"value":61,"limit":1000000},"ppgeneratednodes":{"value":96,"limit":1000000},"postexpandincludesize":{"value":20,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    3.097      1 -total","100.00%    3.097      1 Template:Rating"]},"cachereport":{"timestamp":"20180926134807","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":158});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":210,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

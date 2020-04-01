@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Creating a Skeletal Mesh in Blender - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,follow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;printable=1&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;printable=1&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;printable=1&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Creating_a_Skeletal_Mesh_in_Blender","wgTitle":"Creating a Skeletal Mesh in Blender","wgCurRevisionId":14652,"wgRevisionId":14652,"wgArticleId":2127,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Community Created Content","Templates"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Creating_a_Skeletal_Mesh_in_Blender","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;printable=1&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["ext.voteNY","mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Creating_a_Skeletal_Mesh_in_Blender skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head"></div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-recentchanges"><a href="/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Community' aria-labelledby='p-Community-label'>
+	<h3 id='p-Community-label'>Community</h3>
+	<div class="body">
+		<ul>
+			<li id="n-UE4-Games"><a href="/Category:Games">UE4 Games</a></li>
+			<li id="n-Dev-Blogs"><a href="/Developer_Blogs">Dev Blogs</a></li>
+			<li id="n-Dev-Livestreams"><a href="/Developer_Livestreams">Dev Livestreams</a></li>
+			<li id="n-Code-Sharing-Hub"><a href="/GitHub_Sharing_Hub">Code Sharing Hub</a></li>
+			<li id="n-UE-User-Groups"><a href="/User_Group_Map">UE User Groups</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Learning_Resources' aria-labelledby='p-Learning_Resources-label'>
+	<h3 id='p-Learning_Resources-label'>Learning Resources</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Example-Projects"><a href="/Category:Example_Projects">Example Projects</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Software_and_Tools' aria-labelledby='p-Software_and_Tools-label'>
+	<h3 id='p-Software_and_Tools-label'>Software and Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Art:-3D"><a href="/3D_Art_Resources">Art: 3D</a></li>
+			<li id="n-Art:-2D"><a href="/2D_Art_Resources">Art: 2D</a></li>
+			<li id="n-Audio"><a href="/Audio_Resources">Audio</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Modding' aria-labelledby='p-Modding-label'>
+	<h3 id='p-Modding-label'>Modding</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Modding-Resources"><a href="/Category:Modding_Resources">Modding Resources</a></li>
+			<li id="n-Moddable-Games"><a href="/Category:Moddable_Games">Moddable Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Epic_Official' aria-labelledby='p-Epic_Official-label'>
+	<h3 id='p-Epic_Official-label'>Epic Official</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Website"><a href="https://www.unrealengine.com" rel="nofollow">Website</a></li>
+			<li id="n-Learning-Resources"><a href="https://docs.unrealengine.com/latest/INT/" rel="nofollow">Learning Resources</a></li>
+			<li id="n-Forums"><a href="https://forums.unrealengine.com/" rel="nofollow">Forums</a></li>
+			<li id="n-Blog"><a href="https://www.unrealengine.com/blog" rel="nofollow">Blog</a></li>
+			<li id="n-YouTube"><a href="https://www.youtube.com/UnrealEngine" rel="nofollow">YouTube</a></li>
+			<li id="n-Twitch"><a href="http://www.twitch.tv/unrealengine" rel="nofollow">Twitch</a></li>
+			<li id="n-Twitter"><a href="https://twitter.com/UnrealEngine" rel="nofollow">Twitter</a></li>
+			<li id="n-Facebook"><a href="https://www.facebook.com/UnrealEngine" rel="nofollow">Facebook</a></li>
+			<li id="n-Instagram"><a href="https://instagram.com/unrealengine/" rel="nofollow">Instagram</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Creating_a_Skeletal_Mesh_in_Blender" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Creating_a_Skeletal_Mesh_in_Blender" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Creating_a_Skeletal_Mesh_in_Blender&amp;oldid=14652" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Creating_a_Skeletal_Mesh_in_Blender&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Creating_a_Skeletal_Mesh_in_Blender"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Creating_a_Skeletal_Mesh_in_Blender&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Creating_a_Skeletal_Mesh_in_Blender" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Creating_a_Skeletal_Mesh_in_Blender&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Creating_a_Skeletal_Mesh_in_Blender&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Creating+a+Skeletal+Mesh+in+Blender&amp;returntoquery=printable%3Dyes&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Creating+a+Skeletal+Mesh+in+Blender&amp;returntoquery=printable%3Dyes" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Creating a Skeletal Mesh in Blender</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="aux">
+<div>
+<b>Rate this Article:</b> <div id="rating_"><div class="rating-score"><div class="voteboxrate">0.00</div></div><div class="rating-section"><img class="vote-rating-star" data-vote-the-vote="1" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__1" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="2" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__2" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="3" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__3" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="4" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__4" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="5" data-vote-id="" data-vote-action="3" data-vote-rating="0.00" data-vote-voted="0" id="rating__5" src="/extensions/VoteNY/images/star_off.gif" alt="" /></div>
+				<div class="rating-clear">
+			</div></div>
+</div>
+<div>
+<p>Approved for Versions:(please verify)
+</p>
+</div>
+</div>
+<div style="background-color: #F0F0E7; border: 1px solid #C93; border-left: 5px solid #C93; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" style="vertical-align: top" /> <b>This tutorial is still a rough draft.</b><br />
+While I have checked the steps of the tutorial they are still written in a terse style that may make them hard to follow.<br />
+Still I am posting this draft in the hope that even in its rough form it can prove helpful to other UE4 users.<br />
+I plan to plan to edit the prose for clarity and add diagrams in the near future.
+</p>
+</div>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Caveats"><span class="tocnumber">2</span> <span class="toctext">Caveats</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Versions"><span class="tocnumber">3</span> <span class="toctext">Versions</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Assets"><span class="tocnumber">4</span> <span class="toctext">Assets</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#TL.3BDR._Just_Give_me_Some_Pointers"><span class="tocnumber">5</span> <span class="toctext">TL;DR. Just Give me Some Pointers</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Creating_a_Skeletal_Mesh.2C_Step-by-Step"><span class="tocnumber">6</span> <span class="toctext">Creating a Skeletal Mesh, Step-by-Step</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Creating_a_New_Scene"><span class="tocnumber">6.1</span> <span class="toctext">Creating a New Scene</span></a>
+<ul>
+<li class="toclevel-3 tocsection-8"><a href="#Create_a_new_Project"><span class="tocnumber">6.1.1</span> <span class="toctext">Create a new Project</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#Move_Default_Light_.26_Camera_to_own_Layer"><span class="tocnumber">6.1.2</span> <span class="toctext">Move Default Light &amp; Camera to own Layer</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#Set_Scene_Scale_to_match_Unreal_Units"><span class="tocnumber">6.1.3</span> <span class="toctext">Set Scene Scale to match Unreal Units</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#Rename_.26_Scale_Cube"><span class="tocnumber">6.1.4</span> <span class="toctext">Rename &amp; Scale Cube</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-12"><a href="#Creating_your_Model"><span class="tocnumber">6.2</span> <span class="toctext">Creating your Model</span></a>
+<ul>
+<li class="toclevel-3 tocsection-13"><a href="#Preparing_to_Model"><span class="tocnumber">6.2.1</span> <span class="toctext">Preparing to Model</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#Model_Arm"><span class="tocnumber">6.2.2</span> <span class="toctext">Model Arm</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#Model_Leg"><span class="tocnumber">6.2.3</span> <span class="toctext">Model Leg</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#Mirror_to_Create_Body"><span class="tocnumber">6.2.4</span> <span class="toctext">Mirror to Create Body</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#Model_Head"><span class="tocnumber">6.2.5</span> <span class="toctext">Model Head</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="#Subdivision_and_Smoothing"><span class="tocnumber">6.2.6</span> <span class="toctext">Subdivision and Smoothing</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="#Thin-out_Model"><span class="tocnumber">6.2.7</span> <span class="toctext">Thin-out Model</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="#Preparing_to_Make_Face"><span class="tocnumber">6.2.8</span> <span class="toctext">Preparing to Make Face</span></a></li>
+<li class="toclevel-3 tocsection-21"><a href="#Make_the_Left_Eye"><span class="tocnumber">6.2.9</span> <span class="toctext">Make the Left Eye</span></a></li>
+<li class="toclevel-3 tocsection-22"><a href="#Mirror_the_Right_Eye"><span class="tocnumber">6.2.10</span> <span class="toctext">Mirror the Right Eye</span></a></li>
+<li class="toclevel-3 tocsection-23"><a href="#Make_a_Mouth"><span class="tocnumber">6.2.11</span> <span class="toctext">Make a Mouth</span></a></li>
+<li class="toclevel-3 tocsection-24"><a href="#Make_Buttons"><span class="tocnumber">6.2.12</span> <span class="toctext">Make Buttons</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-25"><a href="#Texturing_your_Model"><span class="tocnumber">6.3</span> <span class="toctext">Texturing your Model</span></a>
+<ul>
+<li class="toclevel-3 tocsection-26"><a href="#Getting_ready_to_Texture_Map"><span class="tocnumber">6.3.1</span> <span class="toctext">Getting ready to Texture Map</span></a></li>
+<li class="toclevel-3 tocsection-27"><a href="#Apply_the_Cookie_Texture"><span class="tocnumber">6.3.2</span> <span class="toctext">Apply the Cookie Texture</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="#Apply_the_Candy_Texture"><span class="tocnumber">6.3.3</span> <span class="toctext">Apply the Candy Texture</span></a></li>
+<li class="toclevel-3 tocsection-29"><a href="#Getting_Ready_to_Create_Lightmap_UVs"><span class="tocnumber">6.3.4</span> <span class="toctext">Getting Ready to Create Lightmap UVs</span></a></li>
+<li class="toclevel-3 tocsection-30"><a href="#Add_Lightmap_UVs"><span class="tocnumber">6.3.5</span> <span class="toctext">Add Lightmap UVs</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-31"><a href="#Exporting_a_Static_Mesh_.28Optional.29"><span class="tocnumber">6.4</span> <span class="toctext">Exporting a Static Mesh (Optional)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-32"><a href="#Export_Mesh_FBX"><span class="tocnumber">6.4.1</span> <span class="toctext">Export Mesh FBX</span></a></li>
+<li class="toclevel-3 tocsection-33"><a href="#Importing_into_UE4"><span class="tocnumber">6.4.2</span> <span class="toctext">Importing into UE4</span></a></li>
+<li class="toclevel-3 tocsection-34"><a href="#Creating_Materials_and_Assigning_Them"><span class="tocnumber">6.4.3</span> <span class="toctext">Creating Materials and Assigning Them</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-35"><a href="#Rigging_your_Model"><span class="tocnumber">6.5</span> <span class="toctext">Rigging your Model</span></a>
+<ul>
+<li class="toclevel-3 tocsection-36"><a href="#Preparing_to_Rig"><span class="tocnumber">6.5.1</span> <span class="toctext">Preparing to Rig</span></a></li>
+<li class="toclevel-3 tocsection-37"><a href="#Creating_the_Rig"><span class="tocnumber">6.5.2</span> <span class="toctext">Creating the Rig</span></a></li>
+<li class="toclevel-3 tocsection-38"><a href="#Skinning_the_Mesh_with_the_Rig"><span class="tocnumber">6.5.3</span> <span class="toctext">Skinning the Mesh with the Rig</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-39"><a href="#Animating_your_Model"><span class="tocnumber">6.6</span> <span class="toctext">Animating your Model</span></a>
+<ul>
+<li class="toclevel-3 tocsection-40"><a href="#Preparing_to_Animate"><span class="tocnumber">6.6.1</span> <span class="toctext">Preparing to Animate</span></a></li>
+<li class="toclevel-3 tocsection-41"><a href="#Your_First_Animation"><span class="tocnumber">6.6.2</span> <span class="toctext">Your First Animation</span></a></li>
+<li class="toclevel-3 tocsection-42"><a href="#Your_Second_Animation"><span class="tocnumber">6.6.3</span> <span class="toctext">Your Second Animation</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-43"><a href="#Exporting_a_Skeletal_Mesh"><span class="tocnumber">6.7</span> <span class="toctext">Exporting a Skeletal Mesh</span></a>
+<ul>
+<li class="toclevel-3 tocsection-44"><a href="#Export_Skeletal_Mesh"><span class="tocnumber">6.7.1</span> <span class="toctext">Export Skeletal Mesh</span></a></li>
+<li class="toclevel-3 tocsection-45"><a href="#Import_Skeletal_Mesh"><span class="tocnumber">6.7.2</span> <span class="toctext">Import Skeletal Mesh</span></a></li>
+<li class="toclevel-3 tocsection-46"><a href="#Creating_Materials_and_Assigning_Them_2"><span class="tocnumber">6.7.3</span> <span class="toctext">Creating Materials and Assigning Them</span></a></li>
+<li class="toclevel-3 tocsection-47"><a href="#Import_Animations"><span class="tocnumber">6.7.4</span> <span class="toctext">Import Animations</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-48"><a href="#Troubleshooting"><span class="tocnumber">7</span> <span class="toctext">Troubleshooting</span></a>
+<ul>
+<li class="toclevel-2 tocsection-49"><a href="#Help.21_Skeletal_Mesh_Import_Never_Ends.21"><span class="tocnumber">7.1</span> <span class="toctext">Help! Skeletal Mesh Import Never Ends!</span></a></li>
+<li class="toclevel-2 tocsection-50"><a href="#Help.21_My_Skeletal_Mesh_is_All_Spikey.21"><span class="tocnumber">7.2</span> <span class="toctext">Help! My Skeletal Mesh is All Spikey!</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-51"><a href="#Who_Wrote_this.3F"><span class="tocnumber">8</span> <span class="toctext">Who Wrote this?</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p>This tutorial is geared toward users who are new to Blender.  It is a step-by-step guide that will walk you through the steps needed to create a simple model and armature that can be imported into UE4 as an animated skeletal mesh.  I’m assuming some basic knowledge of UE4’s content browser and material setup.
+</p><p>This tutorial is based on the Gus the Gingebread man animation tutorial (<a rel="nofollow" class="external autonumber" href="http://wiki.blender.org/index.php/Doc:2.6/Manual/Your_First_Animation">[1]</a>) from the Blender Wiki. I’ve modified various parts of the tutorial to make the resulting model more UE4-friendly.
+</p><p>There is also a Video tutorial created by EPIC employee Kevin Vassey <a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=Ayp1lof0RJU">https://www.youtube.com/watch?v=Ayp1lof0RJU</a>
+</p>
+<h2><span class="mw-headline" id="Caveats">Caveats</span></h2>
+<p>I’m not a Blender expert, nor a 3D modeler/animator.  I’m a Programmer/Game Designer by trade, so don’t expect great art or an ideal workflow.  The best I can offer is making something that works.  Making it beautiful will have to be up to you!
+</p>
+<h2><span class="mw-headline" id="Versions">Versions</span></h2>
+<p>I last tested this tutorial with Blender 2.70a and Unreal Engine 4.2.1.
+</p>
+<h2><span class="mw-headline" id="Assets">Assets</span></h2>
+<p>You can download the Blender project file as well as the textures used in this tutorial here: 
+<a href="https://d26ilriwvtzlb.cloudfront.net/c/ce/UE4SkeletalMeshFromBlender.zip" class="internal" title="UE4SkeletalMeshFromBlender.zip">Media:UE4SkeletalMeshFromBlender.zip</a>
+</p>
+<h1><span class="mw-headline" id="TL.3BDR._Just_Give_me_Some_Pointers">TL;DR. Just Give me Some Pointers</span></h1>
+<p>Already know how to use Blender and just want some tips to have your model behave better in UE4? Well here you go:
+</p>
+<ul>
+<li> Use the Scene Property tab, set your Units to Metric and Scale to 0.01. This will better match Blender Units to Unreal Units.
+</li>
+<li> Add a 2nd UV map to your model to serve as lightmap UVs in Unreal. Make sure UVs don’t overlap in the 2nd UV map. (They can overlap in your 1st UV map just fine.)
+</li>
+<li> You should have a single armature in your FBX that parents your mesh
+</li>
+<li> The armature should have one root bone from which all other bones are hierarchically connected
+</li>
+<li> You can use the Action Editor to organize multiple animations in one project
+</li>
+<li> You can use the F button to Force a reference to exist on an action in the Action Editor so it doesn’t disappear when closing your Blender project
+</li>
+<li> When exporting your FBX, select Armature &amp; Mesh and deselect the “Include Default Take” option
+</li>
+<li> When importing the FBX, you import into Unreal twice. First, you import the skeleton. Next, you import the animations and apply them to the skeleton you created.
+</li>
+</ul>
+<h1><span class="mw-headline" id="Creating_a_Skeletal_Mesh.2C_Step-by-Step">Creating a Skeletal Mesh, Step-by-Step</span></h1>
+<div style="background-color: #F0F0E7; border: 1px solid #C93; border-left: 5px solid #C93; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" style="vertical-align: top" /> Abbreviations<br />
+LMB mean Left Mouse Button<br />
+RMB means Right Mouse Button
+</p>
+</div>
+<h2><span class="mw-headline" id="Creating_a_New_Scene">Creating a New Scene</span></h2>
+<h3><span class="mw-headline" id="Create_a_new_Project">Create a new Project</span></h3>
+<ul>
+<li> With Blender open, press Ctrl+N then Enter to create a new project
+</li>
+<li> You should have a new scene with a light, a camera, and a cube
+</li>
+</ul>
+<h3><span class="mw-headline" id="Move_Default_Light_.26_Camera_to_own_Layer">Move Default Light &amp; Camera to own Layer</span></h3>
+<ul>
+<li> Select the Camera using RMB
+</li>
+<li> Use SHIFT + RMB to add the LIght to the selection
+</li>
+<li> Press M to bring up the Layer menu
+</li>
+<li> LMB on a layer on the right side of the pop-up menu
+</li>
+<li> Press enter to close the Layer menu
+</li>
+</ul>
+<h3><span class="mw-headline" id="Set_Scene_Scale_to_match_Unreal_Units">Set Scene Scale to match Unreal Units</span></h3>
+<ul>
+<li> Select the Scene Property tab with LMB
+</li>
+<li> Set Units to Metric
+</li>
+<li> Set Scale to 0.01
+</li>
+</ul>
+<h3><span class="mw-headline" id="Rename_.26_Scale_Cube">Rename &amp; Scale Cube</span></h3>
+<ul>
+<li> Select Cube with RMB
+</li>
+<li> Select Object Info Tab with LMB
+</li>
+<li> Rename "Cube" to "CookieMan"
+</li>
+<li> Select View -&gt; Front (or Numpad 1) to set camera to Front Ortho
+</li>
+<li> Use Mousewheel to zoom camera way out (until text below Front Ortho reads Meters)
+</li>
+<li> Press S to enter scaling mode
+</li>
+<li> Hold CTRL while moving mouse to scale cube by 100
+</li>
+<li> Once scale is 100, LMB to apply change
+</li>
+<li> Press CTRL + A to bring up Apply menu and select Scale
+</li>
+</ul>
+<h2><span class="mw-headline" id="Creating_your_Model">Creating your Model</span></h2>
+<h3><span class="mw-headline" id="Preparing_to_Model">Preparing to Model</span></h3>
+<ul>
+<li> Press TAB while mousing over 3D Window to switch to edit mode
+</li>
+<li> Select 'Subdivide' from Mesh Tools
+</li>
+<li> Press A to Unselect all vertices
+</li>
+<li> Toggle off "Limit selection to visible"
+</li>
+<li> Select all vertices on left with border select (B -&gt; drag-box -&gt; LMB)
+</li>
+<li> Delete vertices by pressing DEL then selecting Vertices from pop-up menu
+</li>
+</ul>
+<h3><span class="mw-headline" id="Model_Arm">Model Arm</span></h3>
+<ul>
+<li> B to border select, select upper 2 vertices on right side
+</li>
+<li> Press E to extrude
+</li>
+<li> Drag left 1 meter, hold CTRL to snap to grid borders, click LMB to apply
+</li>
+<li> Zoom in to 10 Centimeters distance
+</li>
+<li> E to extrude
+</li>
+<li> Drag left 50 cm, hold CTRL to snap, LMB to apply
+</li>
+<li> Press A to deselect
+</li>
+</ul>
+<h3><span class="mw-headline" id="Model_Leg">Model Leg</span></h3>
+<ul>
+<li> B to border select, select bottom 2 vertices
+</li>
+<li> E to extrude, click MMB to disable axis-lock
+</li>
+<li> Drag 1 meter down, 40 cm to right, hold CTRL to snap, LMB to apply
+</li>
+<li> E to extrude, click MMB to disable axis-lock
+</li>
+<li> Drag 80 cm down, 40 cm to right, hold CTRL to snap, LMB to apply
+</li>
+<li> E to extrude, click MMB to disable axis-lock
+</li>
+<li> Drag 20 cm down, 10 cm to right, hold CTRL to snap, LMB to apply
+</li>
+</ul>
+<h3><span class="mw-headline" id="Mirror_to_Create_Body">Mirror to Create Body</span></h3>
+<ul>
+<li> Tab in 3D window to return to Object Mode
+</li>
+<li> Select Modifier Tab
+</li>
+<li> Select Mirror modifier from Generate column
+</li>
+<li> Body should be mirrored nicely
+</li>
+</ul>
+<h3><span class="mw-headline" id="Model_Head">Model Head</span></h3>
+<ul>
+<li> Tab in 3D window to go to Edit Mode
+</li>
+<li> Press SHIFT + A to bring up add menu.  Select Cube from the pop-up menu
+</li>
+<li> Press G to 'grab' cube, press Z to lock to z-axis
+</li>
+<li> Move the cube up 180 cm, LMB to lock into position
+</li>
+</ul>
+<h3><span class="mw-headline" id="Subdivision_and_Smoothing">Subdivision and Smoothing</span></h3>
+<ul>
+<li> Tab in 3D window to go back to Object mode
+</li>
+<li> Select Modifier Tab
+</li>
+<li> Select Subdivision Surface modifier from Generate column
+</li>
+<li> Set View &amp; Render to 2
+</li>
+<li> Tab into Edit Mode
+</li>
+<li> Press A to de-select, then Press A to select all
+</li>
+<li> Press CTRL-F the Faces menu.  Select Shade Smooth
+</li>
+<li> Tab back to Object Mode
+</li>
+</ul>
+<h3><span class="mw-headline" id="Thin-out_Model">Thin-out Model</span></h3>
+<ul>
+<li> Hold MMB to rotate view and see model from various angles, notice that he's too fat depth-wise
+</li>
+<li> Press 'S' to scale, 'Y' to lock to y-axis
+</li>
+<li> Hold CTRL and move mouse to scale down to 0.4 on the Y axis
+</li>
+<li> Press CTRL + A to bring up Apply menu and select Scale
+</li>
+</ul>
+<h3><span class="mw-headline" id="Preparing_to_Make_Face">Preparing to Make Face</span></h3>
+<ul>
+<li> Create 2nd 3D Window by dragging from handle on corner of 3D Window
+</li>
+<li> View -&gt; Front to set one 3D Window to Front Ortho view
+</li>
+<li> Set Viewport shading to wireframe
+</li>
+<li> View -&gt; Right to set other 3D Window to Right Ortho view
+</li>
+<li> Set Viewport shading to wireframe
+</li>
+<li> Use SHIFT+RMB and Mousewheel to zoom &amp; center face in each of the views
+</li>
+<li> Probably useful to have one more view, so drag off the handle of a 3D window for a third window
+</li>
+<li> Use hold MMB and drag to rotate the perspective camera
+</li>
+<li> Set Viewport shading to Solid
+</li>
+</ul>
+<h3><span class="mw-headline" id="Make_the_Left_Eye">Make the Left Eye</span></h3>
+<ul>
+<li> LMB to place cursor in-between where the eyes will go on the head
+</li>
+<li> Press SHIFT + S to open the Snap menu. Select Cursor to Grid to align cursor
+</li>
+<li> Press SHIFT + A to open Add menu, select Mesh -&gt; UV Sphere
+</li>
+<li> Press F6 and set segments to 16, Press ESC to close the pop-up menu
+</li>
+<li> Tab in a 3D Window to go to Edit mode
+</li>
+<li> Press A to unselect all vertices
+</li>
+<li> Press B to and drag a box to boundary select the rear vertices of the sphere
+</li>
+<li> Tab back to Object Mode
+</li>
+<li> Press S then hold CTRL while moving the mouse to scale the sphere down to 0.2, left-click to apply
+</li>
+<li> In the Front viewport, press G to enter 'grab' mode, then X to lock to the X-axis
+</li>
+<li> Move the eye to the left of the face. Left-click to apply
+</li>
+<li> In the Right viewport, press G to enter 'grab' mode, then Y to lock to the Y-axis
+</li>
+<li> Move the eye to until it's properly embedded in the head. Left-click to apply
+</li>
+</ul>
+<h3><span class="mw-headline" id="Mirror_the_Right_Eye">Mirror the Right Eye</span></h3>
+<ul>
+<li> Tab to enter Edit mode
+</li>
+<li> Set the pivot point to 3D Cursor
+</li>
+<li> Press A to select all verts
+</li>
+<li> Press SHIFT+D to duplicate these verts. You will automatically be in 'grab' mode, so press ESC to leave 'grab' mode
+</li>
+<li> Press CTRL+M to start mirroring the duplicated verts, 
+</li>
+<li> Press X to apply the mirror along the X-axis. Press Enter to apply the mirror operation
+</li>
+<li> Press A to unselect verts, press A again to select both the original and duplicated verts
+</li>
+<li> Press CTRL+F then select Smooth Shading
+</li>
+<li> Press CTRL+N to make normals consistent
+</li>
+</ul>
+<h3><span class="mw-headline" id="Make_a_Mouth">Make a Mouth</span></h3>
+<ul>
+<li> Tab back to Object Mode
+</li>
+<li> Left-click then SHIFT+S to place the 3D Cursor on the center of the face
+</li>
+<li> SHIFT+A, Mesh-&gt;UV Sphere
+</li>
+<li> Tab in a 3D Window to go to Edit mode
+</li>
+<li> Press S then hold CTRL while moving the mouse to scale the sphere down to 0.1, left-click to apply
+</li>
+<li> Press G to enter 'grab' mode and position the sphere to form the corner of the mouth
+</li>
+<li> Do the same in the Right viewport to make sure the depth of the sphere is correct
+</li>
+<li> Tab to Edit mode
+</li>
+<li> Press A to make sure all verts of the mouth sphere are selected
+</li>
+<li> Press ALT+R to apply the Spin tool
+</li>
+<li> In the Spin tool window, change Steps to 3
+</li>
+<li> Press A to unselect all vertices
+</li>
+<li> Press B to and drag a box to boundary select the rear vertices of the sphere
+</li>
+<li> Delete the rear vertices
+</li>
+<li> Press A to select all remaining vertices
+</li>
+<li> Press CTRL+F then select Smooth Shading
+</li>
+<li> CTRL+N to make normals consistent
+</li>
+</ul>
+<h3><span class="mw-headline" id="Make_Buttons">Make Buttons</span></h3>
+<ul>
+<li> SHIFT+A, Mesh-&gt;UV Sphere to create the first button
+</li>
+<li> Press S then hold CTRL while moving the mouse to scale the sphere down to 0.2, left-click to apply
+</li>
+<li> From the Front view, Press G, then Z to move the sphere down to the CookieMan's chest
+</li>
+<li> From the Right view, Press G, then Y to move the sphere into the CookieMan's chest
+</li>
+<li> Press A to unselect all vertices
+</li>
+<li> Press B to and drag a box to boundary select the rear vertices of the sphere
+</li>
+<li> Delete the rear vertices
+</li>
+<li> Press A to select all remaining vertices
+</li>
+<li> SHIFT+D to duplicate the verts, then Z to lock to the Z-axis
+</li>
+<li> Move the button down the CookieMan's body
+</li>
+<li> Do the same for one more button
+</li>
+<li> Press A then A again to select all remaining vertices
+</li>
+<li> Press CTRL+F then select Smooth Shading
+</li>
+<li> CTRL+N to make normals consistent
+</li>
+</ul>
+<h2><span class="mw-headline" id="Texturing_your_Model">Texturing your Model</span></h2>
+<h3><span class="mw-headline" id="Getting_ready_to_Texture_Map">Getting ready to Texture Map</span></h3>
+<ul>
+<li> Tab back to Object Mode
+</li>
+<li> Drag the handle of one of the 3D Windows up to the 3D Window above it, an arror should appear. The two windows will merge leaving only one.
+</li>
+<li> Set one 3D Window to Viewport Shading to Texture
+</li>
+<li> Set the other window to UV/Image Editor
+</li>
+<li> RMB to select CookieMan's body
+</li>
+<li> Select the Modifier Info tab
+</li>
+<li> Click the Apply button for the Subdivision and Mirror modifiers
+</li>
+</ul>
+<h3><span class="mw-headline" id="Apply_the_Cookie_Texture">Apply the Cookie Texture</span></h3>
+<ul>
+<li> Select the Texture Info Tab
+</li>
+<li> There should be a default texture entry, set the type to Image or Movie
+</li>
+<li> Open Cookie512.tga from the Image section of the Texture Info tab
+</li>
+<li> Under Mapping, set Coordinate to UV
+</li>
+<li> With the mouse over the 3D Window, press Tab to enter Edit mode
+</li>
+<li> RMB to select CookieMan's body
+</li>
+<li> Tab to Enter Edit Mode
+</li>
+<li> Press A to select all vertices
+</li>
+<li> Press U to open the Unwrap menu
+</li>
+<li> Select Smart UV Project then click OK to accept the default values
+</li>
+<li> In the UV/Image Editor, set the Image pulldown to Cookie512.tga
+</li>
+<li> Tab in the 3D Window to return to Object Mode
+</li>
+</ul>
+<h3><span class="mw-headline" id="Apply_the_Candy_Texture">Apply the Candy Texture</span></h3>
+<ul>
+<li> RMB to select the Eyes
+</li>
+<li> Go to the texture panel and create a texture entry if one doesn't already exist by clicking on the +New button
+</li>
+<li> Set the texture type to Image or Movie, then open Candy512.tga
+</li>
+<li> With the mouse over the 3D Window, press Tab to enter Edit mode
+</li>
+<li> Press A to select all vertices
+</li>
+<li> Press U to open the Unwrap menu
+</li>
+<li> Select Smart UV Project then click OK to accept the default values
+</li>
+<li> In the UV/Image Editor, set the Image pulldown to Candy512.tga
+</li>
+<li> In the image editor, select all the vertices by pressing A
+</li>
+<li> Press S then use the mouse to scale the faces and G to position them so they fit within the black square of the texture
+</li>
+<li> With the mouse over the 3D Window, press Tab to leave Edit Mode
+</li>
+<li> Select the Mouth mesh, tab to enter Edit mode, then repeat the above mapping process only using a white square this time
+</li>
+<li> Once the Mouth is mapped, it is time to do the same for the buttons
+</li>
+<li> This time, enter Edit mode first, press B and use boundary select to choose just the vertices of the top button
+</li>
+<li> Press U then Smart UV Project to set UV coordinates for just that button
+</li>
+<li> In the UV/Image editor, set Candy512.tga as before then scale/translate the coords to the red part of the texture
+</li>
+<li> Do the same for the middle and bottom buttons, placing them on the blue and green parts of the texture respectively
+</li>
+</ul>
+<h3><span class="mw-headline" id="Getting_Ready_to_Create_Lightmap_UVs">Getting Ready to Create Lightmap UVs</span></h3>
+<ul>
+<li> In the 3D Window, Tab to Object Mode
+</li>
+<li> RMB to select the Eyes, then SHIFT + RMB to add the CookieMan's body to the selection
+</li>
+<li> Press CTRL+J to merge the Eyes into the CookieMan mesh.  They are now the same object
+</li>
+<li> Press A to clear the selection
+</li>
+<li> RMB to select the Mouth, then SHIFT + RMB to add the CookieMan's body to the selection
+</li>
+<li> Press CTRL+J to merge the Mouth into the CookieMan mesh.
+</li>
+<li> Press A to clear the selection
+</li>
+<li> RMB to select the Buttons, then SHIFT + RMB to add the CookieMan's body to the selection
+</li>
+<li> Press CTRL+J to merge the Buttons into the CookieMan mesh.
+</li>
+<li> CookieMan should now consist of one mesh
+</li>
+</ul>
+<h3><span class="mw-headline" id="Add_Lightmap_UVs">Add Lightmap UVs</span></h3>
+<ul>
+<li> With CookieMan selected, click on the Object Data panel (little mesh triangle icon)
+</li>
+<li> Under the UV Maps tab, press the plus icon on the right to add a new UV map
+</li>
+<li> Name the new UV map "Lightmap"
+</li>
+<li> Make sure the new "Lightmap" UV Map is selected
+</li>
+<li> In the 3D Window, tab to Edit mode
+</li>
+<li> Press A to select all the vertices of Cookie map
+</li>
+<li> Press U, then select Smart UV Project
+</li>
+<li> In the UV/Image editor press CTRL+A, then CTRL+P to minimize overlap
+</li>
+<li> You should now have non-overlapping UV coordinates, you can change which UVs are displayed by selecting them in the Object Data panel's UV Maps section
+</li>
+</ul>
+<h2><span class="mw-headline" id="Exporting_a_Static_Mesh_.28Optional.29">Exporting a Static Mesh (Optional)</span></h2>
+<h3><span class="mw-headline" id="Export_Mesh_FBX">Export Mesh FBX</span></h3>
+<ul>
+<li> Select File-&gt;Export-&gt;Autodesk FBX
+</li>
+<li> In the Export FBX section, select Mesh only
+</li>
+<li> Click "Export FBX"
+</li>
+</ul>
+<h3><span class="mw-headline" id="Importing_into_UE4">Importing into UE4</span></h3>
+<ul>
+<li> Drag FBX into Content Browser
+</li>
+<li> Select Static Mesh
+</li>
+</ul>
+<h3><span class="mw-headline" id="Creating_Materials_and_Assigning_Them">Creating Materials and Assigning Them</span></h3>
+<ul>
+<li> Create Material
+</li>
+<li> Assign Textures
+</li>
+</ul>
+<h2><span class="mw-headline" id="Rigging_your_Model">Rigging your Model</span></h2>
+<h3><span class="mw-headline" id="Preparing_to_Rig">Preparing to Rig</span></h3>
+<ul>
+<li> Set one window to 3D View with Right Ortho View
+</li>
+<li> Set another window to 3D View with Front Orth View
+</li>
+<li> Shift + C to center 3D Cursor
+</li>
+<li> In Object mode with Gus selected, press G to go into Grab mode
+</li>
+<li> Press Z to lock to the Z-axis
+</li>
+<li> Hold Ctrl while moving mouse up to position feet at 0 on the Z-axis
+</li>
+</ul>
+<h3><span class="mw-headline" id="Creating_the_Rig">Creating the Rig</span></h3>
+<ul>
+<li> In Object Mode, Shift+A to open Add menu.  Select Armature-&gt;Single Bone
+</li>
+<li> (With armature selected) Tab into Edit Mode, press G to enter Grab mode. End of newly-added bone is selected
+</li>
+<li> Hold Shift to lock axis while moving the bone end up to Gus's hip. LMB to apply
+</li>
+<li> With bone end still selected, CTRL+LMB to create Gus's left hip bone
+</li>
+<li> CTRL+LMB again to create his knee bone
+</li>
+<li> CTRL+LMB again to creat his foot bone (See picture)
+</li>
+<li> RMB on the end of the first bone again
+</li>
+<li> With bone end still selected, CTRL+LMB to create Gus's right hip bone
+</li>
+<li> CTRL+LMB again to create his knee bone
+</li>
+<li> CTRL+LMB again to creat his foot bone
+</li>
+<li> RMB on the end of the first bone again
+</li>
+<li> CTRL+LMB to create a spine bone up to the middle button
+</li>
+<li> CTRL+LMB to create a spine bone up to just above the top button (See picture)
+</li>
+<li> CTRL+LMB to create right shoulder bone
+</li>
+<li> CTRL+LMB to create right arm bone
+</li>
+<li> RMB on top spine bone
+</li>
+<li> CTRL+LMB to create left shoulder bone
+</li>
+<li> CTRL+LMB to create left arm bone
+</li>
+<li> RMB on top spine bone
+</li>
+<li> CTRL+LMB to create head bone
+</li>
+<li> In the Object Data tab, check Names in the Display selection
+</li>
+<li> Click the Bone tab and rename the selected bone to "Head"
+</li>
+<li> Using RMB to select and the Bone tab, rename the bones as seen in the picture
+</li>
+</ul>
+<h3><span class="mw-headline" id="Skinning_the_Mesh_with_the_Rig">Skinning the Mesh with the Rig</span></h3>
+<ul>
+<li> Tab to Object Mode
+</li>
+<li> Press A until nothing is selected
+</li>
+<li> Select Gus's mesh with RMB
+</li>
+<li> Then SHIFT+RMB to select the Armature
+</li>
+<li> CTRL+P to parent mesh to the Armature. Select Armature Deform -&gt; With Automatic Weights
+</li>
+<li> If missing some verts from bones, you can select and assign them from Vertex Groups area
+</li>
+</ul>
+<h2><span class="mw-headline" id="Animating_your_Model">Animating your Model</span></h2>
+<h3><span class="mw-headline" id="Preparing_to_Animate">Preparing to Animate</span></h3>
+<ul>
+<li> Left-click drag handle of left window to create new window
+</li>
+<li> Set lower window to Dope Sheet
+</li>
+<li> Set mode to Action Editor, this window will help you organize multiple animations in one Blender project
+</li>
+<li> Left-click drag handle of right window down to create a new window
+</li>
+<li> Drag this window around to get a decent perspective view of Gus
+</li>
+<li> In the Object Data tab, check Names in the Display selection to hide bone names
+</li>
+</ul>
+<h3><span class="mw-headline" id="Your_First_Animation">Your First Animation</span></h3>
+<ul>
+<li> Click + button to create new action
+</li>
+<li> Rename 'Action' to 'Idle'
+</li>
+<li> Click F button to Force a reference
+</li>
+<li> Select Armature in Object Mode
+</li>
+<li> Tab into Edit Mode
+</li>
+<li> Set mode to Pose Mode
+</li>
+<li> Press A to select all bones
+</li>
+<li> Press I to bring up Insert Keyframe menu.  Select Rotation.
+</li>
+<li> Scrub to Frame 30.  Press I and keyframe Rotations
+</li>
+<li> Scrub to 10
+</li>
+<li> Select bones with RMB, press R to rotate, LMB to apply rotations.  Pose like so.
+</li>
+<li> Press A until all bones are selected.  Press I then select Rotations.
+</li>
+<li> Scrub to 20
+</li>
+<li> ALT+R to clear rotations
+</li>
+<li> Select bones with RMB, press R to rotate, LMB to apply rotations.  Pose like so.
+</li>
+</ul>
+<h3><span class="mw-headline" id="Your_Second_Animation">Your Second Animation</span></h3>
+<ul>
+<li> Repeat the above to create as many animations as you need
+</li>
+</ul>
+<h2><span class="mw-headline" id="Exporting_a_Skeletal_Mesh">Exporting a Skeletal Mesh</span></h2>
+<h3><span class="mw-headline" id="Export_Skeletal_Mesh">Export Skeletal Mesh</span></h3>
+<ul>
+<li> Select File-&gt;Export-&gt;Autodesk FBX
+</li>
+<li> In the Export FBX section, select Mesh and Armature
+</li>
+<li> Deselect "Include Default Take"
+</li>
+<li> Click "Export FBX"
+</li>
+</ul>
+<p>Video example (Blender 2.75, UE 4.8.1): <a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=kiJHNjRpwrY">https://www.youtube.com/watch?v=kiJHNjRpwrY</a>
+</p>
+<h3><span class="mw-headline" id="Import_Skeletal_Mesh">Import Skeletal Mesh</span></h3>
+<ul>
+<li> Drag into UE4
+</li>
+<li> Select Skeletal Mesh and click Import
+</li>
+</ul>
+<h3><span class="mw-headline" id="Creating_Materials_and_Assigning_Them_2">Creating Materials and Assigning Them</span></h3>
+<ul>
+<li> Create Material
+</li>
+<li> Assign Textures
+</li>
+</ul>
+<h3><span class="mw-headline" id="Import_Animations">Import Animations</span></h3>
+<ul>
+<li> Drag into UE4
+</li>
+<li> Select Animation
+</li>
+<li> Select the Skeletal Mesh you imported from the dropdown list
+</li>
+<li> Click Import
+</li>
+</ul>
+<h1><span class="mw-headline" id="Troubleshooting">Troubleshooting</span></h1>
+<h2><span class="mw-headline" id="Help.21_Skeletal_Mesh_Import_Never_Ends.21">Help! Skeletal Mesh Import Never Ends!</span></h2>
+<p>Check your armature in your Blender project.  Make sure you only have one armature. Also, make sure that all the bones in the armature are hierarchically linked to a single root bone.
+</p>
+<h2><span class="mw-headline" id="Help.21_My_Skeletal_Mesh_is_All_Spikey.21">Help! My Skeletal Mesh is All Spikey!</span></h2>
+<p>You probably have some vertices that aren’t assigned to a bone. Look at the Vertex Groups of your mesh in Edit mode and make sure the spiking vertices are assigned to a vertex group.
+</p>
+<h1><span class="mw-headline" id="Who_Wrote_this.3F">Who Wrote this?</span></h1>
+<p>Original Version by <a href="/User:NobunagaOta" title="User:NobunagaOta">NobunagaOta</a>
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.074 seconds
+Real time usage: 0.145 seconds
+Preprocessor visited node count: 231/1000000
+Preprocessor generated node count: 306/1000000
+Post‐expand include size: 1089/2097152 bytes
+Template argument size: 475/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=Creating_a_Skeletal_Mesh_in_Blender&amp;oldid=14652">https://wiki.unrealengine.com/index.php?title=Creating_a_Skeletal_Mesh_in_Blender&amp;oldid=14652</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li><li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;printable=1&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.212 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

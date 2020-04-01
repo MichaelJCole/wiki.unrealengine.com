@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(){}function o(e,t,n){return function(){return i(e,[f.now()].concat(u(arguments)),t?null:this,n),t?void 0:this}}var i=e("handle"),a=e(2),u=e(3),c=e("ee").get("tracer"),f=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,t){s[t]=o(d+t,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),t.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,t){var n={},r=this,o="function"==typeof t;return i(l+"tracer",[f.now(),e,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return t.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],n),e}finally{c.emit("fn-end",[f.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){m[t]=o(l+t)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,f.now()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(o<0?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],4:[function(e,t,n){t.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?c(e,u,i):i()}function n(n,r,o,i){if(!d.aborted||i){e&&e(n,r,o);for(var a=t(o),u=m(n),c=u.length,f=0;f<c;f++)u[f].apply(a,r);var p=s[y[n]];return p&&p.push([b,n,r,a]),a}}function l(e,t){v[e]=m(e).concat(t)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(n)}function g(e,t){f(e,function(e,n){t=t||"feature",y[n]=t,t in s||(s[t]=[])})}var v={},y={},b={on:l,emit:n,get:w,listeners:m,context:t,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",c=e("gos"),f=e(2),s={},p={},d=t.exports=o();d.backlog=s},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!x++){var e=h.info=NREUM.info,t=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return s.abort();f(y,function(t,n){e[t]||(e[t]=n)}),c("mark",["onload",a()+h.offset],null,"api");var n=d.createElement("script");n.src="https://"+e.agent,t.parentNode.insertBefore(n,t)}}function o(){"complete"===d.readyState&&i()}function i(){c("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),c=e("handle"),f=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1071.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=t.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+<title>Replication - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Replication","wgTitle":"Replication","wgCurRevisionId":39,"wgRevisionId":39,"wgArticleId":19,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Code"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Replication","wgRelevantArticleId":19,"wgRequestId":"6dadd962e5ba5e08b11cc4de","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@1xxwts3",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Replication rootpage-Replication skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-09a9d3c24f8e543fe"><meta name="worker" content="79"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"hideShieldDownload":false,"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"alert":{"msg":"","_type":"Epic Header Alert","id":"","type":"info","statusHref":""},"_activeDate":"2018-08-06T09:11:04.633Z","links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://academy.unrealengine.com/","title":"Video Tutorials","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/unrealdevgrants","title":"Unreal Dev Grants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_currentVersion":"1.37.2.100","_type":"Epic Games Nav","hideSignIn":true,"pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"_futureVersion":"none","downloadLink":{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":""},"_created":"2017-08-21T08:59:33.648Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"hideShieldDropdown":false,"properties":[{"propertyKey":"paragon","_type":"Epic Games Property","egDisabled":true,"egSkip":true}],"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.7960915dddd3d03dc648.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.7960915dddd3d03dc648.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Replication" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=Replication" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Replication&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=Replication">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=Replication&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Replication&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Replication</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>Networking is one of the many areas where Unreal Engine 4 shines. For those of you who have switched from Unity to Unreal Engine 4, or for those of you who are considering it: you are in for a pleasant surprise. UE4's network replication system is a master class in how to be awesome.
+</p><p>This article will explain the details of object replication and make you a UE4 networking pro!
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Terminology"><span class="tocnumber">2</span> <span class="toctext">Terminology</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Concepts"><span class="tocnumber">3</span> <span class="toctext">Concepts</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#A_Guide_To_Network_Roles"><span class="tocnumber">4</span> <span class="toctext">A Guide To Network Roles</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Spawning_Rule"><span class="tocnumber">4.1</span> <span class="toctext">Spawning Rule</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#UPROPERTY_Replication_Rule"><span class="tocnumber">4.2</span> <span class="toctext">UPROPERTY Replication Rule</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Rules_For_Calling_Functions"><span class="tocnumber">4.3</span> <span class="toctext">Rules For Calling Functions</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Basic_Actor_Replication"><span class="tocnumber">5</span> <span class="toctext">Basic Actor Replication</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#When_Is_An_Actor_Replicated.3F"><span class="tocnumber">6</span> <span class="toctext">When Is An Actor Replicated?</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Actor_Property_Replication"><span class="tocnumber">7</span> <span class="toctext">Actor Property Replication</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Getting_An_Event_When_Your_Property_Is_Replicated"><span class="tocnumber">7.1</span> <span class="toctext">Getting An Event When Your Property Is Replicated</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#Function_Call_Replication"><span class="tocnumber">8</span> <span class="toctext">Function Call Replication</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Types_of_remote_function_calls"><span class="tocnumber">8.1</span> <span class="toctext">Types of remote function calls</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Quick_Review_Of_Roles"><span class="tocnumber">8.2</span> <span class="toctext">Quick Review Of Roles</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Reliable_vs_Unreliable_Function_Call_Replication"><span class="tocnumber">8.3</span> <span class="toctext">Reliable vs Unreliable Function Call Replication</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Remote_Function_Call_Examples"><span class="tocnumber">8.4</span> <span class="toctext">Remote Function Call Examples</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Tips_For_Bandwidth_and_Robustness"><span class="tocnumber">8.5</span> <span class="toctext">Tips For Bandwidth and Robustness</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-18"><a href="#Replication_of_Actor_Components_and_Subobjects"><span class="tocnumber">9</span> <span class="toctext">Replication of Actor Components and Subobjects</span></a></li>
+<li class="toclevel-1 tocsection-19"><a href="#Advanced:_Generic_replication_of_Actor_Subobjects"><span class="tocnumber">10</span> <span class="toctext">Advanced: Generic replication of Actor Subobjects</span></a>
+<ul>
+<li class="toclevel-2 tocsection-20"><a href="#ReplicatedSubobject_Class"><span class="tocnumber">10.1</span> <span class="toctext">ReplicatedSubobject Class</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#Actor_Code_For_Subobject_Support"><span class="tocnumber">10.2</span> <span class="toctext">Actor Code For Subobject Support</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#Notes"><span class="tocnumber">10.3</span> <span class="toctext">Notes</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="#Detailed_Explanation"><span class="tocnumber">10.4</span> <span class="toctext">Detailed Explanation</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="#Unreal.27s_Type_System"><span class="tocnumber">10.5</span> <span class="toctext">Unreal's Type System</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-25"><a href="#Related_Wiki_Tutorials"><span class="tocnumber">11</span> <span class="toctext">Related Wiki Tutorials</span></a></li>
+<li class="toclevel-1 tocsection-26"><a href="#Epic_Tutorials"><span class="tocnumber">12</span> <span class="toctext">Epic Tutorials</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<ul><li> Unreal's network replication is extremely fast and bandwidth efficient.</li>
+<li> The networking model is authoritative server/client.</li>
+<li> Character and Vehicle based motion, physics, and prediction "just work" out of the box.</li>
+<li> Unreal will replicate properties, structs, and references to other objects automatically over the network.</li>
+<li> You can call functions on objects "across the network" (Remote Procedure Calls).</li></ul>
+<h2><span class="mw-headline" id="Terminology">Terminology</span></h2>
+<ol><li> Objects, Game Objects, Actors, Pawns, Characters - These are all UObject derived classes.</li>
+<li> Server - The computer process with an instance of a UWorld that contains Actors that are replicated to clients. The state of the world contained here is considered to be the "real" or "correct" one.</li>
+<li> Client - The computer process with an instance of a UWorld that contains Actors that were received from a Server over a network connection. The state of a client is an approximation of the state of the Server. It is not considered to be accurate or correct.</li></ol>
+<h2><span class="mw-headline" id="Concepts">Concepts</span></h2>
+<p>At a high level Unreal's networking is designed to efficiently transmit (replicate) all relevant AActors contained in a UWorld from the authoritative state contained in a server to all of its connected clients. Unreal's networking is considered to be what's called "Authoritative Server/Client" because the state of the world contained in the server process is considered to be the true state of the world, while at any given time the state of the world on a client will, at best, approximate that to some degree of precision. 
+</p><p>Although not without their downsides authoritative networking models, in theory, are immune to cheating. If done correctly, the entire state of the world is simulated on the server with clients restricted to issuing "input" to the server (conceptually: move forward, backwards, left, right, switch weapons) making it impossible for clients to "spoof" game state like their velocity because client calculations about their motion and velocity are entirely meaningless and never leave the clients computer. Instead clients receive the results of their "input" to the server at some later time.
+</p>
+<h2><span class="mw-headline" id="A_Guide_To_Network_Roles">A Guide To Network Roles</span></h2>
+<p>A key concept to understand Unreal's networking is the concept of a network role. Although not totally obvious at first, networking roles are really the rules that control how information flows between Server and Client. For the most part Unreal's networking is automatic and hidden out of sight: simply changing the value of a member on a field on the Server may cause that new value to be replicated to clients. Why and how that happens is because of the rules governing network roles.
+</p>
+<h3><span class="mw-headline" id="Spawning_Rule">Spawning Rule</span></h3>
+<p>The first rule of networking in Unreal is that only servers can spawn Actors that will replicate to clients. If a client spawns an Actor that actor will only ever exist on the client that created it.
+</p>
+<h3><span class="mw-headline" id="UPROPERTY_Replication_Rule">UPROPERTY Replication Rule</span></h3>
+<p>Only the changes made to replicated properties in the server will be replicated to clients. If a client changes the value of a replicated variable locally then it will stay that way until the next time the server changes it (after which it will be replicated and overwritten on the client). In this sense you should consider a UPROPERTY that is tagged with Replicated to be owned/controlled by the server.
+</p>
+<h3><span class="mw-headline" id="Rules_For_Calling_Functions">Rules For Calling Functions</span></h3>
+<p>One of the most powerful features of Unreal networking is the ability to call functions on objects on the server version or client version of objects. Consider an example of a game with a server and two clients and a single actor in the world. In this example there are 3 copies of the actor, one on the server, and one on each client. Let's call them Actor_Server, Actor_Client1, Actor_Client2.
+</p><p>At this point we must now start talking about network roles. There are four roles <i><b>(* see technical note below)</b></i>:
+</p>
+<ul><li> <b>ROLE_None</b></li></ul>
+<p>The object has no networking role and isn't replicated.
+</p>
+<ul><li> <b>ROLE_SimulatedProxy</b></li></ul>
+<p>The object locally simulates the state of the object on the server (i.e. it tries to look and act like the server version). It has no authority to change the state of the object or call a function on the object that executes remotely.
+</p>
+<ul><li> <b>ROLE_AutonomousProxy</b></li></ul>
+<p>Identical to ROLE_SimulatedProxy in that this object also locally simulates the state of the object on the server, but with the ability to execute function calls on this object that execute on the server. In this sense an object with ROLE_AutomousProxy is allowed to make authoritative decisions over what the Actor does, by executing functions on the object that run on the server and therefore change its state.
+</p><p>The choice of what functions can be replicated on the server are critical in preventing cheating. For example, a replicated function that runs on the server which takes the position of an object and moves it to that location is potentially a vector for cheating, since a player could modify their code to call that function with any values they desired. A more secure design would be to have server replicated functions transmit high level commands like ServerMoveForward(), ServerMoveBackwards(), ServerFireWeapon() etc.
+</p>
+<ul><li> <b>ROLE_Authority</b></li></ul>
+<p>An object with ROLE_Authority is the authoritative version of the object and its state represents what is considered to be the only "real" state of the object. Versions of this object on clients with ROLE_AutonomousProxy can call functions on this version of the object.
+</p><p>An object with ROLE_Authority can execute function calls on any object on the server. Those functions can be marked to replicate to clients and they will be executed on the ROLE_SimulatedProxy and ROLE_AutonomousProxy instances of those objects on the specified clients.
+</p><p>Finally an object with ROLE_Authority will also replicate any changes to UPROPERTY fields to any client versions of the object.
+</p><p>In the example above with Actor_Server, Actor_Client1, and Actor_Client2, the likely networking role allocation would be:
+</p>
+<ul><li> Actor_Server - ROLE_Authority</li>
+<li> Actor_Client1 - ROLE_AutonomousProxy (if the actor is a PlayerController and Client1 controls that player) or ROLE_SimulatedProxy</li>
+<li> Actor_Client2 - ROLE_AutonomousProxy (if the actor is a PlayerController and Client2 controls that player) or ROLE_SimulatedProxy</li></ul>
+<p>Actor_Server:
+</p><p>Will have role ROLE_Authority and changes to any UPROPERTY on the Actor_Server instance will get replicated to both Actor_Client1 and Actor_Client2 automatically, and any UFUNCTION() methods that are replicated as Client or NetMulticast that are called on Actor_Server by the server will execute on Client1 (in the case of Client) or both Client1 and Client2 in the case of NetMulticast.
+</p><p>Actor_Client1:
+</p><p>For the sake of argument assuming Client1 owns the Actor then Client1 will have network role ROLE_AutonomousProxy, and any calls to UFUNCTION() methods marked as Server will execute on Actor_Server.
+</p><p>Actor_Client2 (and any other clients):
+</p><p>Will have role ROLE_SimulatedProxy (assuming as said before that Client1 owns the actor) and any calls to replicated functions will be ignore. This object can only receive replicated information in the form of property updates and function calls.
+</p><p><i><b>*TECHNICAL NOTE: You should be aware that Unreal does not necessarily enforce "rules" regarding networking roles, and roles don't really have privileges or authority over objects. Rather, roles serve as a way for you to know how an object should behave with respect to the network, and roles are assigned in a way that reflects the architecture of UE4 networking. For example technically a ROLE_SimulatedProxy object can invoke a Server RPC if it is owned by a PlayerController (or if it is a child of a PlayerController through a hierarchy of objects). In unmodified Unreal an Actor can invoke a Server RPC if there is a UNetConnection (i.e. a Player) in its owner hierarchy, therefore ONLY a Player or an object owned by a Player or its children (PlayerController, etc) can invoke a Server RPC.</b></i>
+</p>
+<h2><span class="mw-headline" id="Basic_Actor_Replication">Basic Actor Replication</span></h2>
+<p>Any object derived from AActor can be a candidate for network replication by setting bReplicates to true inside your constructor:
+</p><p>ReplicatedActor.h:
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>pragma once</li>
+<li>include "Core.h"</li>
+<li>include "AReplicatedActor.generated.h"</li></ol>
+<p>UCLASS()
+class AReplicatedActor&#160;: public AActor
+{
+</p>
+<pre>   GENERATED_BODY()
+</pre>
+<pre>   AReplicatedActor(const FObjectInitializer&amp; ObjectInitializer);
+</pre>
+<p>};
+&lt;/syntaxhighlight&gt;
+</p><p>ReplicatedActor.cpp:
+&lt;syntaxhighlight lang="cpp"&gt;
+AReplicatedActor::AReplicatedActor(const FObjectInitializer&amp; ObjectInitializer)
+</p>
+<dl><dd> Super(ObjectInitializer)</dd></dl>
+<p>{
+</p>
+<pre>   bReplicates = true;
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p>
+<h2><span class="mw-headline" id="When_Is_An_Actor_Replicated.3F">When Is An Actor Replicated?</span></h2>
+<p>An Actor is replicated to a client when it is considered to be "network relevant". There are a number of ways to control this. By default Unreal replicates an Actor when it is within range of a client (AActor::NetCullDistanceSquared controls the culling distance). Here are a list of the base AActor flags you can set in your constructor to control some basic relevancy semantics:
+</p>
+<ul><li> <b>bReplicates</b>&#160;: Must be true for an Actor to replicate anything. An actor that is spawned dynamically on a server will be replicated (and spawn) on Client ONLY if this flag is set.</li>
+<li> <b>bAlwaysRelevant</b>&#160;: Actor is always relevant to all clients and will always be replicated.</li>
+<li> <b>bOnlyRelevantToOwner</b>&#160;: Actor is only relevant to its owner. Unreal's concept of ownership for network relevancy purposes is limited to a player's APlayerController or a player's APawn. An actor's owner must be either a PlayerController or Pawn controlled by a PlayerController in order for bOnlyRelevantToOwner to function. When set it means that the actor will only replicate to the player represented by the owning Pawn or PlayerController.</li>
+<li> <b>bNetLoadOnClient</b>&#160;: If true the Actor will load from a level file on a network client. This should be set to true for Actors you place in a map that you want to exist on a client (typically most Actors want this).</li>
+<li> <b>bTearOff</b>&#160;: If the Server sets this to true all clients will take authoritative control of their locally replicated versions of the actor and changes and function calls on the actor will no longer be replicated over the network. It will be as though it was a locally spawned actor.</li>
+<li> <b>bReplicateMovement</b>&#160;: Set to true if you want to be able to move the Actor and have its position be updated on clients automatically. Pawns have this on by default.</li></ul>
+<p>If the default network relevancy by distance isn't adequate you can customize relevancy per-player by implementing an override for AActor::IsNetRelevantFor():
+&lt;syntaxhighlight lang="cpp"&gt;
+bool AActor::IsNetRelevantFor(const AActor* RealViewer, const AActor* ViewTarget, const FVector&amp; SrcLocation)
+&lt;/syntaxhighlight&gt;
+</p>
+<h2><span class="mw-headline" id="Actor_Property_Replication">Actor Property Replication</span></h2>
+<p>Unreal will automatically replicate any UPROPERTY declared properties by declaring that they are Replicated and implementing UObject::GetLifetimeReplicatedProps(). Warning: It is vitally important that you do not conditionally replicate values inside GetLifetimeReplicatedProps (i.e. do not use any of your objects instance state to conditionally wrap DOREPLIFETIME). Doing this will not do what you think (internally Unreal only ever calls GetLifetimeReplicatedProps() on the first instance of an object of a given class and <i>it expects to be given the replication layout for that class, not for an instance of that class</i>. That replication layout is shared by all instances of that class for the lifetime of the UNetDriver).
+</p><p>Look here for more on GetReplicatedLifetimeProps(): <a rel="nofollow" class="external free" href="https://www.unrealengine.com/blog/network-tips-and-tricks">https://www.unrealengine.com/blog/network-tips-and-tricks</a>
+</p><p>ReplicatedActor.h:
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>pragma once</li>
+<li>include "Core.h"</li>
+<li>include "AReplicatedActor.generated.h"</li></ol>
+<p>UCLASS()
+class AReplicatedActor&#160;: public AActor
+{
+</p>
+<pre>   GENERATED_UCLASS_BODY()
+</pre>
+<p>public:
+</p>
+<pre>   /** A Replicated Boolean Flag */
+   UPROPERTY(Replicated)
+   uint32 bFlag:1;
+</pre>
+<pre>   /** A Replicated Array Of Integers */
+   UPROPERTY(Replicated)
+   TArray&lt;uint32&gt; IntegerArray;
+</pre>
+<p>};
+&lt;/syntaxhighlight&gt;
+</p><p>ReplicatedActor.cpp:
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>include "ReplicatedActor.h"</li>
+<li>include "UnrealNetwork.h"</li></ol>
+<p>AReplicatedActor::AReplicatedActor(const class FPostConstructInitializeProperties&amp; PCIP)
+</p>
+<dl><dd> Super(PCIP)</dd></dl>
+<p>{
+</p>
+<pre>   bReplicates = true;
+</pre>
+<p>}
+</p><p>void AReplicatedActor::GetLifetimeReplicatedProps(TArray&lt; FLifetimeProperty &gt; &amp; OutLifetimeProps) const
+{
+</p>
+<pre>   Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+</pre>
+<pre>   DOREPLIFETIME(AReplicatedActor, bFlag);
+   DOREPLIFETIME(AReplicatedActor, IntegerArray);
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p>
+<h3><span class="mw-headline" id="Getting_An_Event_When_Your_Property_Is_Replicated">Getting An Event When Your Property Is Replicated</span></h3>
+<p>If you need to know when you get an update to the value of a property from the server you can use ReplicatedUsing. NOTE: The event is not triggered on the server. The example code handles this case:
+</p><p>ReplicatedActor.h
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>pragma once</li>
+<li>include "Core.h"</li>
+<li>include "ReplicatedActor.generated.h"</li></ol>
+<p>UCLASS()
+class AReplicatedActor&#160;: public AActor
+{
+</p>
+<pre>   GENERATED_UCLASS_BODY()
+</pre>
+<p>public:
+</p>
+<pre>   void ServerSetFlag();
+</pre>
+<pre>   /** A Replicated Boolean Flag */
+   UPROPERTY(ReplicatedUsing=OnRep_Flag)
+   uint32 bFlag:1;
+</pre>
+<pre>   /** A Replicated Array Of Integers */
+   UPROPERTY(Replicated)
+   TArray&lt;uint32&gt; IntegerArray;
+</pre>
+<p>private:
+</p>
+<pre>   UFUNCTION()
+   void OnRep_Flag();
+</pre>
+<p>};
+&lt;/syntaxhighlight&gt;
+</p><p>ReplicatedActor.cpp:
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>include "ReplicatedActor.h"</li>
+<li>include "UnrealNetwork.h"</li></ol>
+<p>AReplicatedActor::AReplicatedActor(const class FPostConstructInitializeProperties&amp; PCIP)
+</p>
+<dl><dd> Super(PCIP)</dd></dl>
+<p>{
+</p>
+<pre>   bReplicates = true;
+</pre>
+<p>}
+</p><p>void AReplicatedActor::ServerSetFlag()
+{
+</p>
+<pre>   if (HasAuthority() &amp;&amp;&#160;!bFlag) // Ensure Role == ROLE_Authority
+   {
+       bFlag = true;
+       OnRep_Flag(); // Run locally since we are the server this won't be called automatically.
+   }
+</pre>
+<p>}
+</p><p>void AReplicatedActor::OnRep_Flag()
+{
+</p>
+<pre>   // When this is called, bFlag already contains the new value. This
+   // just notifies you when it changes.
+</pre>
+<p>}
+</p><p>void AReplicatedActor::GetLifetimeReplicatedProps(TArray&lt; FLifetimeProperty &gt; &amp; OutLifetimeProps) const
+{
+</p>
+<pre>   Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+</pre>
+<pre>   DOREPLIFETIME(AReplicatedActor, bFlag);
+   DOREPLIFETIME(AReplicatedActor, IntegerArray);
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p>
+<h2><span class="mw-headline" id="Function_Call_Replication">Function Call Replication</span></h2>
+<p>One of the most powerful features of Unreal networking is the ability to call functions remotely. Any UFUNCTION() decorated method can be set to replicate and execute on client or server instances of the object. It is important to understand networking roles because they define the semantics by which remote function calls work.
+</p>
+<h3><span class="mw-headline" id="Types_of_remote_function_calls">Types of remote function calls</span></h3>
+<ul><li> Server - The function will execute on the server version of the object ONLY. An object must have ROLE_Authority or ROLE_AutonomousProxy to execute this method. An object with any other networking role won't do anything. NOTE: Functions marked as Server must also be marked as WithValidation and implement a validate function. This lets you do cheat prevention if desired, otherwise an empty method that just returns true is typical.</li>
+<li> Client - The function will execute on the client that has a version of the object with ROLE_AutonomousProxy (which is another way of saying whatever Client has a version of this object is allowed to call Server methods on the object, and is typically known as the client that "Owns" this object). The only ROLE_AutonomousProxy objects that exist in Unreal are client instances of PlayerControllers.</li>
+<li> NetMulticast - The function will execute on all clients that have an instance of the object. Only an object with ROLE_Authority can execute this function, any other networking role won't do anything.</li></ul>
+<h3><span class="mw-headline" id="Quick_Review_Of_Roles">Quick Review Of Roles</span></h3>
+<ul><li> ROLE_Authority - An object with ROLE_Authority (HasAuthority() will return true) is considered the authoritative state of an object. When it calls UFUNCTION() decorated methods that are marked to execute as Server, Client, or Multicast those functions will be replicated accordinly.</li>
+<li> ROLE_AutonomousProxy - An object with this role can call UFUNCTION() decorated methods that are marked as Server.</li></ul>
+<p>An object with a role other than ROLE_Authority or ROLE_AutonomousProxy cannot call replicated methods (if they do they will be ignored).
+</p>
+<h3><span class="mw-headline" id="Reliable_vs_Unreliable_Function_Call_Replication">Reliable vs Unreliable Function Call Replication</span></h3>
+<p>A replicated UFUNCTION() can replicate reliably or unreliably. This simply means that an unreliable method call may not be executed under severe network stress. Don't mark things as unreliable that have to happen, but this is a good idea to do for non-critical effects since it theoretically might make the game play better under network stress.
+</p>
+<h3><span class="mw-headline" id="Remote_Function_Call_Examples">Remote Function Call Examples</span></h3>
+<p>ReplicatedActor.h
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>pragma once</li>
+<li>include "Core.h"</li>
+<li>include "ReplicatedActor.generated.h"</li></ol>
+<p>UCLASS()
+class AReplicatedActor&#160;: public AActor
+{
+</p>
+<pre>   GENERATED_UCLASS_BODY()
+</pre>
+<p>public:
+</p><p>// NOTE: all functions can have arguments, they will be replicated automatically over the network.
+// NOTE: UObject based classes (or derivatives) should be passed by pointer (*) and will correctly
+// address the version of that object on the receiving client or server (unless that object is not
+// replicated, in which case the pointer will be NULL).
+</p>
+<pre>   UFUNCTION(Server, Reliable, WithValidation)
+   void Server_ReliableFunctionCallThatRunsOnServer();
+</pre>
+<pre>   UFUNCTION(Client, Reliable)
+   void Client_ReliableFunctionCallThatRunsOnOwningClientOnly();
+</pre>
+<pre>   UFUNCTION(NetMulticast, Unreliable)
+   void Client_UnreliableFunctionCallThatRunsOnAllClients();
+</pre>
+<p>};
+&lt;/syntaxhighlight&gt;
+</p><p>ReplicatedActor.cpp:
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>include "ReplicatedActor.h"</li>
+<li>include "UnrealNetwork.h"</li></ol>
+<p>AReplicatedActor::AReplicatedActor(const class FPostConstructInitializeProperties&amp; PCIP)
+</p>
+<dl><dd> Super(PCIP)</dd></dl>
+<p>{
+</p>
+<pre>   bReplicates = true;
+</pre>
+<p>}
+</p><p>void AReplicatedActor::Server_ReliableFunctionCallThatRunsOnServer_Implementation()
+{
+</p>
+<pre>   // Do something here that modifies game state.
+</pre>
+<p>}
+</p><p>bool AReplicatedActor::Server_ReliableFunctionCallThatRunsOnServer_Validate()
+{
+</p>
+<pre>  // Optionally validate the request and return false if the function should not be run.
+  return true;
+</pre>
+<p>}
+</p><p>void AReplicatedActor::Client_ReliableFunctionCallThatRunsOnOwningClientOnly()
+{
+</p>
+<pre>  // Do something here to affect the client. This method was called by the server ONLY.
+</pre>
+<p>}
+</p><p>void AReplicatedActor::Client_UnreliableFunctionCallThatRunsOnAllClients_Implementation()
+{
+</p>
+<pre>  // Do something here to affect the client. This method was called by the server ONLY.
+</pre>
+<p>}
+</p><p>&lt;/syntaxhighlight&gt;
+</p>
+<h3><span class="mw-headline" id="Tips_For_Bandwidth_and_Robustness">Tips For Bandwidth and Robustness</span></h3>
+<p>There is a lot of flexibility when it comes to what you replicate and how you replicate it.
+</p>
+<ul><li> When possible use an event concept to replicate lots of state to clients with a single replicated method call. For example, instead of setting replicated properties and calling multiple functions to tell a client to set the position of an effect, spawn an explosion, and then play a sound (conceptually three different things) you can encapsulate all of this as one method call: Client_ProcessExplosion(const FVector&amp; Location) that can be written to spawn explosion actors locally.</li>
+<li> Going along with the previous tip, don't replicate objects that don't need to be. Explosions, sounds, ragdolls, and particle effects don't need to be marked as replicated, instead have a single replicated method that tells clients to Spawn() those Actors locally since they don't modify game state when an event happens.</li>
+<li> Use Unreal's concepts of network roles to your advantage. This usually means only your player's PlayerController can call Server functions. Be careful about what you send. Instead of letting a player tell the server their position explicitly, consider having the PlayerController send player commands (like move left, up, down) and simulate that state on both client and server and let the server update the player's position as a replicated property. This avoids an entire class of cheats (like speed hacks etc).</li>
+<li> Remember all replicated properties are sent reliably.</li></ul>
+<h2><span class="mw-headline" id="Replication_of_Actor_Components_and_Subobjects">Replication of Actor Components and Subobjects</span></h2>
+<p>The Actor class provides built-in support for replicating components (classes derived from UActorComponent). If you want a component on your actor to replicate you should call SetReplicates(true) on the specific component in your class constructor after calling PCIP.CreateDefaultSubobject() to create the component.
+</p>
+<h2><span class="mw-headline" id="Advanced:_Generic_replication_of_Actor_Subobjects">Advanced: Generic replication of Actor Subobjects</span></h2>
+<p>Unreal can also replicate arbitrary UObject's that you have in your actor and it's surprisingly easy to do so:
+</p><p>First create the object class that you want to replicate over the network. It should override UObject::IsSupportedForNetworking(). Just like any normal object it should also contain some replicated properties or functions, and implement GetLifetimeReplicatedProps():
+</p>
+<h3><span class="mw-headline" id="ReplicatedSubobject_Class">ReplicatedSubobject Class</span></h3>
+<p>ReplicatedSubobject.h
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>pragma once</li>
+<li>include "Core.h"</li>
+<li>include "ReplicatedSubobject.generated.h"</li></ol>
+<p>UCLASS()
+class UReplicatedSubobject&#160;: public UObject
+{
+</p>
+<pre>   GENERATED_UCLASS_BODY()
+</pre>
+<p>public:
+</p>
+<pre>   UPROPERTY(Replicated)
+   uint32 bReplicatedFlag:1;
+</pre>
+<pre>   virtual bool IsSupportedForNetworking() const override
+   {
+       return true;
+   }
+</pre>
+<p>};
+&lt;/syntaxhighlight&gt;
+</p><p>ReplicatedSubobject.cpp:
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>include "UnrealNetwork.h"</li></ol>
+<p>UReplicatedSubobject::UReplicatedSubobject(const class FPostConstructInitializeProperties&amp; PCIP)
+</p>
+<dl><dd> Super(PCIP)</dd></dl>
+<p>{
+}
+</p><p>void UReplicatedSubobject::GetLifetimeReplicatedProps(TArray&lt; FLifetimeProperty &gt; &amp; OutLifetimeProps) const
+{
+</p>
+<pre>   Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+</pre>
+<pre>   DOREPLIFETIME(UReplicatedSubobject, bReplicatedFlag);
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p>
+<h3><span class="mw-headline" id="Actor_Code_For_Subobject_Support">Actor Code For Subobject Support</span></h3>
+<p>On the Actor side we need to implement AActor::ReplicateSubobjects() and if we want to, we can store our custom object in a UPROPERTY just like any other object! The only "gotcha" here is that the object must be contained within the Actor (i.e. when it is constructed the new objects Outer must be the Actor).
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>pragma once</li>
+<li>include "Core.h"</li>
+<li>include "ReplicatedSubobject.h"</li>
+<li>include "AReplicatedActor.generated.h"</li></ol>
+<p>UCLASS()
+class AReplicatedActor&#160;: public AActor
+{
+</p>
+<pre>   GENERATED_UCLASS_BODY()
+</pre>
+<p>public:
+</p>
+<pre>   virtual void PostInitializeComponents() override;
+   virtual bool ReplicateSubobjects(class UActorChannel *Channel, class FOutBunch *Bunch, FReplicationFlags *RepFlags) override;
+</pre>
+<pre>   /** A Replicated Subobject */
+   UPROPERTY(Replicated)
+   UReplicatedSubobject* Subobject;
+</pre>
+<p>private:
+};
+&lt;/syntaxhighlight&gt;
+</p><p>AReplicatedActor.cpp:
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>include "ReplicatedActor.h"</li>
+<li>include "UnrealNetwork.h"</li>
+<li>include "Engine/ActorChannel.h"</li></ol>
+<p>AReplicatedActor::AReplicatedActor(const class FPostConstructInitializeProperties&amp; PCIP)
+</p>
+<dl><dd> Super(PCIP)</dd></dl>
+<p>{
+</p>
+<pre>   bReplicates = true;
+</pre>
+<p>}
+</p><p>void AReplicatedActor::PostInitializeComponents()
+{
+</p>
+<pre>   Super::PostInitializeComponents();
+</pre>
+<pre>   if (HasAuthority())
+   {
+       // Objects only replicate from server to client. If we didn't guard this
+       // the client would create the object just fine but it would get replaced
+       // by the server version (more accurately the property would be replaced to
+       // point to the version from the server. The one the client allocated would
+       // eventually be garbage collected.
+       Subobject = NewObject&lt;UReplicatedObject&gt;(this); // NOTE: Very important, objects Outer must be our Actor!
+   }
+</pre>
+<p>}
+</p><p>bool AReplicatedActor::ReplicateSubobjects(class UActorChannel *Channel, class FOutBunch *Bunch, FReplicationFlags *RepFlags)
+{
+</p>
+<pre>   bool WroteSomething = Super::ReplicateSubobjects(Channel, Bunch, RepFlags);
+   
+   if (Subobject&#160;!= nullptr)
+   {
+       WroteSomething |= Channel-&gt;ReplicateSubobject(Subobject, *Bunch, *RepFlags);
+   }
+</pre>
+<pre>   return WroteSomething;
+</pre>
+<p>}
+</p><p>void AReplicatedActor::GetLifetimeReplicatedProps(TArray&lt; FLifetimeProperty &gt; &amp; OutLifetimeProps) const
+{
+</p>
+<pre>   Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+</pre>
+<pre>   DOREPLIFETIME(AReplicatedActor, Subobject);
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p>
+<h3><span class="mw-headline" id="Notes">Notes</span></h3>
+<p>As if by magic, on clients their Subobject UPROPERTY will contain a valid pointer to the newly replicated object after it is received from the server. The UObject derived class can contain replicated functions and properties just like any other object (and can implement GetLifetimeReplicatedProps)
+</p>
+<h3><span class="mw-headline" id="Detailed_Explanation">Detailed Explanation</span></h3>
+<p>There is some awesomeness that is going on here that is worth peeking into to get an idea of the wizardry at work here.
+</p><p>Unreal networking is built around a few key classes and concepts. The first is an ActorChannel which is the connection to the server or client for transmitting data about the replication of an actor. The next piece is an FRepLayout contained inside the NetDriver. When Unreal calls your GetLifetimeReplicatedProps it does so only on the first replicated object of an instance of a specific UClass! The call to GetLifetimeReplicatedProps populates an FRepLayout object with the specific member fields that must be replicated for a particular UClass. This is why it's important not to have any conditionals in your GetLifetimeReplicatedProps that are based on object state.
+</p><p>Another part of the puzzle here is network GUIDs. Unreal generates a GUID for an instance of an object and stores objects in a replication map based on GUID. Objects are sent with a GUID identifier over the network. When Unreal replicates the value of a UPROPERTY that is a UObject* it is really replicating the GUID of that object, not the pointer address.
+</p><p>So what's happening here is that Unreal replicates your actor and then your subobject over the wire. On the client side they are received and your subobject is constructed with the replicated data. Then your actor property is received with the GUID of your newly constructed subobject and the property is filled in with the address of your subobject. Neat!
+</p>
+<h3><span class="mw-headline" id="Unreal.27s_Type_System">Unreal's Type System</span></h3>
+<p>The real magic that happens with Unreal's network replication is enabled because it is able to generate reflection meta-data for all of your objects which allows them to get the types and sizes of the fields you want replicated as if by "magic".
+</p><p>Unreal's type system is built from a custom C++ pre-processor (the UnrealHeaderTool) which scans your C++ codebase and generates reflection meta-data. For those uninitiated in the concept of language reflection (a feature common in C# and Java) it is the ability for code written in a language to perform "introspection" on itself and other types. This means that you can write code that programmatically discovers types, functions, function-parameters, variables, properties and other meta-data. This is not the same as polymorphism. Polymorphism depends on the compiler knowing what the base-type is at compile time (i.e. statically). With reflection your code never has to know anything about the types it is working with at compile time.
+</p>
+<h2><span class="mw-headline" id="Related_Wiki_Tutorials">Related Wiki Tutorials</span></h2>
+<p><a href="/index.php?title=Network_Replication,_Using_ReplicatedUsing_/_RepNotify_vars" title="Network Replication, Using ReplicatedUsing / RepNotify vars"> Network Replication, Using RepNotify Vars</a>
+</p><p><a href="/index.php?title=Networking/Replication" title="Networking/Replication"> Networking/Replication</a>
+</p>
+<h2><span class="mw-headline" id="Epic_Tutorials">Epic Tutorials</span></h2>
+<p><a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Gameplay/Networking/Replication/index.html">Replication</a>
+</p><p><a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Gameplay/Networking/Replication/Components/index.html">Component Replication</a>
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20180927090603
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.028 seconds
+Real time usage: 0.034 seconds
+Preprocessor visited node count: 103/1000000
+Preprocessor generated node count: 108/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:19-0!canonical and timestamp 20180927090603 and revision id 39
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=Replication&amp;oldid=39">https://wiki.unrealengine.com/index.php?title=Replication&amp;oldid=39</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="/index.php?title=Category:Code" title="Category:Code">Code</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-02a815c95fb568b8b"><meta name="worker" content="88"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.31","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/gHooNW9I/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Edit the global content type","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.7960915dddd3d03dc648.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.7960915dddd3d03dc648.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.028","walltime":"0.034","ppvisitednodes":{"value":103,"limit":1000000},"ppgeneratednodes":{"value":108,"limit":1000000},"postexpandincludesize":{"value":0,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.000      1 -total"]},"cachereport":{"timestamp":"20180927090603","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":189});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":236,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

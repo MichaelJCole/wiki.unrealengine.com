@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(3),u=e(4),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}catch(e){throw f.emit("fn-err",[arguments,this,e],t),e}finally{f.emit("fn-end",[c.now()],t)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e,n){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now(),!1,n])}},{}],2:[function(e,n,t){function r(e,n){if(!o)return!1;if(e!==o)return!1;if(!n)return!0;if(!i)return!1;for(var t=i.split("."),r=n.split("."),a=0;a<r.length;a++)if(r[a]!==t[a])return!1;return!0}var o=null,i=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var u=navigator.userAgent,f=u.match(a);f&&u.indexOf("Chrome")===-1&&u.indexOf("Chromium")===-1&&(o="Safari",i=f[1])}n.exports={agent:o,version:i,match:r}},{}],3:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],4:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],5:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=v(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){h[e]=v(e).concat(n)}function m(e,n){var t=h[e];if(t)for(var r=0;r<t.length;r++)t[r]===n&&t.splice(r,1)}function v(e){return h[e]||[]}function g(e){return p[e]=p[e]||o(t)}function w(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var h={},y={},b={on:l,addEventListener:l,removeEventListener:m,emit:t,get:g,listeners:v,context:n,buffer:w,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(3),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!E++){var e=x.info=NREUM.info,n=l.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+x.offset],null,"api");var t=l.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===l.readyState&&i()}function i(){f("mark",["domContent",a()+x.offset],null,"api")}function a(){return O.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-x.offset}var u=(new Date).getTime(),f=e("handle"),c=e(3),s=e("ee"),p=e(2),d=window,l=d.document,m="addEventListener",v="attachEvent",g=d.XMLHttpRequest,w=g&&g.prototype;NREUM.o={ST:setTimeout,SI:d.setImmediate,CT:clearTimeout,XHR:g,REQ:d.Request,EV:d.Event,PR:d.Promise,MO:d.MutationObserver};var h=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1118.min.js"},b=g&&w&&w[m]&&!/CriOS/.test(navigator.userAgent),x=n.exports={offset:u,now:a,origin:h,features:{},xhrWrappable:b,userAgent:p};e(1),l[m]?(l[m]("DOMContentLoaded",i,!1),d[m]("load",r,!1)):(l[v]("onreadystatechange",o),d[v]("onload",r)),f("mark",["firstbyte",u],null,"api");var E=0,O=e(5)},{}]},{},["loader"]);</script>
+<title>First Person Shooter C++ Tutorial - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"First_Person_Shooter_C++_Tutorial","wgTitle":"First Person Shooter C++ Tutorial","wgCurRevisionId":41,"wgRevisionId":41,"wgArticleId":20,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Code","Epic Created Content"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"First_Person_Shooter_C++_Tutorial","wgRelevantArticleId":20,"wgRequestId":"d74e3f9f8c8511f52594a2c0","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","ext.pygments":"ready","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@0s4gmng",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=ext.pygments%7Cmediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-First_Person_Shooter_C_Tutorial rootpage-First_Person_Shooter_C_Tutorial skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-08a23efcd19f60be7"><meta name="worker" content="75"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"_currentVersion":"1.37.2.101.41","_type":"Epic Games Nav","hideSignIn":true,"epicPropertyName":"unreal_engine","pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_createdBy":"tony.rossi","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"_futureVersion":"none","_created":"2017-08-21T08:59:33.648Z","_activeDate":"2019-05-13T15:00:00.000Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/academy","title":"Online Learning","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/megagrants","title":"MegaGrants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/twinmotion","title":"Twinmotion"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/industries","title":"Industries"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.61382c4136278d626703.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.61382c4136278d626703.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=First+Person+Shooter+C%2B%2B+Tutorial" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we're working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=First_Person_Shooter_C%2B%2B_Tutorial" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk"><span><a href="/index.php?title=Talk:First_Person_Shooter_C%2B%2B_Tutorial" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=First_Person_Shooter_C%2B%2B_Tutorial">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=First_Person_Shooter_C%2B%2B_Tutorial&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=First_Person_Shooter_C%2B%2B_Tutorial&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">First Person Shooter C++ Tutorial</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><br />
+<b>Warning:</b> This tutorial is outdated for newer versions of Unreal Engine and requires an update.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Starting_a_New_Project"><span class="tocnumber">2</span> <span class="toctext">Starting a New Project</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Creating_a_GameMode"><span class="tocnumber">3</span> <span class="toctext">Creating a GameMode</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Making_a_Character"><span class="tocnumber">4</span> <span class="toctext">Making a Character</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#WASD_Movement"><span class="tocnumber">5</span> <span class="toctext">WASD Movement</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Axis_Mappings"><span class="tocnumber">5.1</span> <span class="toctext">Axis Mappings</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#UFUNCTION.28.29_Macro"><span class="tocnumber">5.2</span> <span class="toctext">UFUNCTION() Macro</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Mouse_Camera_Control"><span class="tocnumber">6</span> <span class="toctext">Mouse Camera Control</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Jumping"><span class="tocnumber">7</span> <span class="toctext">Jumping</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#ActionMappings"><span class="tocnumber">7.1</span> <span class="toctext">ActionMappings</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Adding_a_mesh_to_your_Character"><span class="tocnumber">8</span> <span class="toctext">Adding a mesh to your Character</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Changing_the_Camera_View"><span class="tocnumber">9</span> <span class="toctext">Changing the Camera View</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Adding_a_First_Person_Mesh"><span class="tocnumber">10</span> <span class="toctext">Adding a First Person Mesh</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#Adding_Projectiles_and_Shooting"><span class="tocnumber">11</span> <span class="toctext">Adding Projectiles and Shooting</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#Projectile_Collision_and_Lifetime"><span class="tocnumber">12</span> <span class="toctext">Projectile Collision and Lifetime</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#Projectiles_Interacting_with_the_World"><span class="tocnumber">13</span> <span class="toctext">Projectiles Interacting with the World</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="#Adding_Crosshairs"><span class="tocnumber">14</span> <span class="toctext">Adding Crosshairs</span></a></li>
+<li class="toclevel-1 tocsection-18"><a href="#Animating_Your_Character"><span class="tocnumber">15</span> <span class="toctext">Animating Your Character</span></a>
+<ul>
+<li class="toclevel-2 tocsection-19"><a href="#EventGraph"><span class="tocnumber">15.1</span> <span class="toctext">EventGraph</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#AnimGraph"><span class="tocnumber">15.2</span> <span class="toctext">AnimGraph</span></a>
+<ul>
+<li class="toclevel-3 tocsection-21"><a href="#Add_State_Machine"><span class="tocnumber">15.2.1</span> <span class="toctext">Add State Machine</span></a></li>
+<li class="toclevel-3 tocsection-22"><a href="#Add_States"><span class="tocnumber">15.2.2</span> <span class="toctext">Add States</span></a></li>
+<li class="toclevel-3 tocsection-23"><a href="#Add_the_Idle_to.2Ffrom_Run_Transitions"><span class="tocnumber">15.2.3</span> <span class="toctext">Add the Idle to/from Run Transitions</span></a></li>
+<li class="toclevel-3 tocsection-24"><a href="#Add_the_Idle_to_JumpStart_Transition"><span class="tocnumber">15.2.4</span> <span class="toctext">Add the Idle to JumpStart Transition</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="#Add_the_Run_to_JumpStart_Transition"><span class="tocnumber">15.2.5</span> <span class="toctext">Add the Run to JumpStart Transition</span></a></li>
+<li class="toclevel-3 tocsection-26"><a href="#Add_the_JumpStart_to_JumpLoop_Transition"><span class="tocnumber">15.2.6</span> <span class="toctext">Add the JumpStart to JumpLoop Transition</span></a></li>
+<li class="toclevel-3 tocsection-27"><a href="#Add_the_JumpLoop_to_JumpEnd_Transition"><span class="tocnumber">15.2.7</span> <span class="toctext">Add the JumpLoop to JumpEnd Transition</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="#Add_the_JumpEnd_to_Idle_Transition"><span class="tocnumber">15.2.8</span> <span class="toctext">Add the JumpEnd to Idle Transition</span></a></li>
+<li class="toclevel-3 tocsection-29"><a href="#Associate_the_Animation_Blueprint_with_the_Character_Blueprint"><span class="tocnumber">15.2.9</span> <span class="toctext">Associate the Animation Blueprint with the Character Blueprint</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p>Over the course of this tutorial, you will transform a blank project template into the beginnings of a first-person shooter, with a character that moves and strafes, camera control, and projectiles you can fire at the environment. Using C++, you will create a GameMode, Character and HUD.
+</p>
+<h2><span class="mw-headline" id="Starting_a_New_Project">Starting a New Project</span></h2>
+<p>We will create a blank project as the starting point for our FPS game, using Unreal Engine 4's Project Browser.
+</p><p>1. Open Unreal Editor. 
+</p><p>2. In the <b>Project Browser</b>, click on the <b>New Project</b> tab. 
+</p><p>3. Select the Blank project. 
+</p><p>4. Name the project FPSProject and uncheck the <b>Copy starter content into new project?</b> checkbox. (Uncheck "Include starter content checkbox" for UE 4.2.0)
+</p>
+<div class="floatleft"><a href="/index.php?title=File:NewFPSProject.png" class="image"><img alt="NewFPSProject.png" src="https://d3ar1piqh1oeli.cloudfront.net/c/ca/NewFPSProject.png/940px-NewFPSProject.png" width="940" height="549" srcset="https://d26ilriwvtzlb.cloudfront.net/c/ca/NewFPSProject.png 1.5x" /></a></div>
+<p><br clear="all" />
+</p><p>Note that some of the code samples provided in this tutorial will require alteration if the project's name is different, and we will make note of that at the appropriate step. 
+</p><p>5. Click on <b>Create</b>. 
+</p><p>6. Your project is now open in Unreal Editor. You can play in the starting level by clicking on the <b>Play In</b> button in the Level Editor Toolbar. The WASD keys will allow you to fly around within the level, and the mouse will aim your camera. Press <b>Escape</b> when you are ready to exit Play in Editor (PIE) mode. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:New_level_in_editor.png" class="image"><img alt="New level in editor.png" src="https://d3ar1piqh1oeli.cloudfront.net/4/45/New_level_in_editor.png/940px-New_level_in_editor.png" width="940" height="832" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/4/45/New_level_in_editor.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:New_level_in_editor.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>7. Create a Maps folder within the Content folder. 
+</p><p>8. In the <b>File</b> menu, select <b>Save as...</b> to save your map as FPSMap within the Maps folder.
+</p><p>9. In the <b>Edit</b> menu, click on <b>Project Settings</b>. 
+</p><p>10. Under the <b>Game</b> heading on the left side of the <b>Project Settings</b> tab, click on <b>Maps &amp; Modes</b>. 
+</p><p>11. Using the dropdown, select <b>FPSMap</b> as the <b>Editor Startup Map</b>. Now, whenever you re-open your project in the editor, you will automatically load this map. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Editor_startup_map.png" class="image"><img alt="Editor startup map.png" src="https://d3ar1piqh1oeli.cloudfront.net/5/5e/Editor_startup_map.png/940px-Editor_startup_map.png" width="940" height="567" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/5/5e/Editor_startup_map.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Editor_startup_map.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" /> 
+</p><p>12. Close the Project Settings menu.
+</p>
+<h2><span class="mw-headline" id="Creating_a_GameMode">Creating a GameMode</span></h2>
+<p>Let's create a GameMode. A GameMode contains the definition of the game itself, such as game rules, win conditions, etc. It also sets the default classes to use for some basic gameplay framework types, including Pawn, PlayerController, and HUD. Before we set up our FPS character, we need to create the GameMode that will reference it. 
+</p><p>First, we are going to use the C++ Class Wizard to add a new class to our project. 
+</p><p>1.In the File menu, select <b>Add Code to Project</b>. 
+</p><p>2. Scroll down and select GameMode as the parent class. Click Next. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Choose_gamemode.png" class="image"><img alt="Choose gamemode.png" src="https://d3ar1piqh1oeli.cloudfront.net/d/de/Choose_gamemode.png/940px-Choose_gamemode.png" width="940" height="566" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/d/de/Choose_gamemode.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Choose_gamemode.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" /> 
+</p><p>3. Name the new class <b>FPSGameMode</b>, then click <b>Create</b>. 
+</p><p>4. Click on Yes to open the class in Visual Studio or XCode for editing. 
+</p><p>Since this is the first code we've added to the project, the wizard will also create the initial files needed to compile and run our project. 
+</p><p>We will add a log message to the FPSGameMode, so that when we start playing in our level, we can see that we are actually using our new GameMode. We will add code to FPSGameMode's constructor, so that it will run when gameplay begins. 
+</p><p>1. Your code IDE will open. 
+</p><p>2. In the Solution Explorer, expand <b>FPSProject &gt; Source &gt; FPSProject</b>. 
+</p><p>3. Here, you will see the header file for your new <b>FPSGameMode</b> class, FPSGameMode.h. Double-click it to open it for editing. 
+</p><p>4. Find the class declaration, which looks like:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">UCLASS</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">FPSPROJECT_API</span> <span class="nl">AFPSGameMode</span> <span class="p">:</span> <span class="k">public</span> <span class="n">AGameMode</span>
+<span class="p">{</span>
+<span class="n">GENERATED_BODY</span><span class="p">()</span>
+<span class="p">};</span>
+</pre></div>
+<p>5. Under <code>GENERATED_BODY()</code>, add the following lines then save the file.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="k">virtual</span> <span class="kt">void</span> <span class="nf">StartPlay</span><span class="p">()</span> <span class="k">override</span><span class="p">;</span> <span class="c1">// Note that engine version 4.3 changed this method&#39;s name to StartPlay(), because of this engine versions before 4.3, or older tutorials, use BeginPlay()</span>
+</pre></div>
+<p>This function declaration will allow you to override the StartPlay() function inherited from the `AActor` class, so that you can print a message to the screen when gameplay begins.
+</p><p>Note: 4.6 needs below line to be included (before or after StartPlay(). This is the definition of constructor whose signature is also different from older versions.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">AFPSGameMode</span><span class="p">(</span><span class="k">const</span> <span class="n">FObjectInitializer</span><span class="o">&amp;</span> <span class="n">ObjectInitializer</span><span class="p">);</span>
+</pre></div>
+<p>6. Open FPSGameMode.cpp. It is located in <b>FPSProject &gt; Source &gt; FPSProject</b> as well.
+</p>
+<blockquote>If your project has a different name, your code will be located in <b>[ProjectName] &gt; Source &gt; [ModuleName]</b>. The module name is the same as your project name because you used the <b>C++ Class Wizard</b>.</blockquote>
+<p>First, at the top of the file, add the following line under the other #include lines: 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;Engine.h&quot; //for version 4.4+</span><span class="cp"></span>
+<span class="c1">// Note that this may no longer be necessary as this file will likely already include [ProjectName].h, which, by default, will include &quot;Engine.h&quot; itself</span>
+</pre></div>
+<p>7. Find FPSGameMode's constructor. It looks like:
+</p><p>Note: In 4.6 this is no longer correct as the procedure for constructors has changed, you will not find this code. <b>You will need to write the following line of code in if it is not present</b> For users of previous versions, FPostConstructInitializeProperties is replaced with FObjectInitializer and variable name PCIP with ObjectInitializer (though variable name can be anything, its recommended to change as a good practice)
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">AFPSGameMode</span><span class="o">::</span><span class="n">AFPSGameMode</span><span class="p">(</span><span class="k">const</span> <span class="n">FObjectInitializer</span><span class="o">&amp;</span> <span class="n">ObjectInitializer</span><span class="p">)</span>
+    <span class="o">:</span> <span class="n">Super</span><span class="p">(</span><span class="n">ObjectInitializer</span><span class="p">)</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+</pre></div>
+<blockquote>The prefixed name of FPSGameMode is AFPSGameMode, because it derives from a class which eventually derives from the Actor class.</blockquote>
+<p>8. After the constructor, add the following lines, then save the file.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1">// Note that engine version 4.3 changed the method&#39;s name to StartPlay(), because of this engine versions before 4.3, or older tutorials, use BeginPlay()</span>
+<span class="kt">void</span> <span class="n">AFPSGameMode</span><span class="o">::</span><span class="n">StartPlay</span><span class="p">()</span> 
+<span class="p">{</span>
+      <span class="n">Super</span><span class="o">::</span><span class="n">StartPlay</span><span class="p">();</span>
+
+      <span class="n">StartMatch</span><span class="p">();</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="n">GEngine</span><span class="p">)</span>
+      <span class="p">{</span>
+            <span class="n">GEngine</span><span class="o">-&gt;</span><span class="n">AddOnScreenDebugMessage</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">5.f</span><span class="p">,</span> <span class="n">FColor</span><span class="o">::</span><span class="n">Yellow</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;HELLO WORLD&quot;</span><span class="p">));</span>
+      <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>This function definition will print "HELLO WORLD" to the screen in yellow text when gameplay begins. 
+</p><p>We will now compile our project, so that we can see our code changes reflected in the game. If you are using Unreal 4.6 or below, you need to close the editor, compile, and then reopen the project in the editor to reload the game module. 
+</p><p>1. If you are using Visual Studio, make sure that you have set up Visual Studio for compiling with Unreal Engine. 
+</p><p>2. Close Unreal Editor. (Not required in 4.7)
+</p><p>3. <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/QuickStart/3/index.html">Compile</a>. 
+</p><p>4. After the build finishes, open Unreal Editor, and then open <b>FPSProject</b>. 
+</p><p>We need to set the project to use FPSGameMode as the default GameMode.
+</p><p>1. In the <b>Edit</b> menu, click on <b>Project Settings</b>. 
+</p><p>2. Under the <b>Game</b> heading on the left side of the <b>Project Settings</b> tab, click on <b>Maps &amp; Modes</b>. 
+</p><p>3. Select <b>FPSGameMode</b> in the Default GameMode dropdown. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:FPSGameMode.png" class="image"><img alt="FPSGameMode.png" src="https://d3ar1piqh1oeli.cloudfront.net/6/6a/FPSGameMode.png/940px-FPSGameMode.png" width="940" height="567" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/6/6a/FPSGameMode.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:FPSGameMode.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>4. Close the Project Settings menu.
+</p><p>5. Click on the <b>Play In</b> button in the Level Editor Toolbar. "HELLO WORLD" should be displayed in the upper left corner of the viewport. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:HelloWorldGameMode.png" class="image"><img alt="HelloWorldGameMode.png" src="https://d3ar1piqh1oeli.cloudfront.net/4/44/HelloWorldGameMode.png/940px-HelloWorldGameMode.png" width="940" height="872" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/4/44/HelloWorldGameMode.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:HelloWorldGameMode.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<blockquote>You can also look in the <b>Scene Outliner</b> while your game is running to see <b>FPSGameMode</b> listed.</blockquote>
+<p>6. Press <b>Escape</b> to exit Play in Editor (PIE) mode.
+</p>
+<h2><span class="mw-headline" id="Making_a_Character">Making a Character</span></h2>
+<p>The engine has a built-in class called DefaultPawn which is a Pawn with some simple disembodied flying movement. We want to have a human-like avatar walking on the ground, so let's create our own Pawn to control. The engine includes a class for this called Character, which derives from Pawn but has built in functionality for bipedal movement like walking, running, and jumping. We will use Character as the base class for our FPS Pawn. 
+</p><p>Again, we will use the C++ Class Wizard to add this new class to our project. It is possible to manually add the *.h and *.cpp files to your Visual Studio solution to add new classes, but the C++ Class Wizard fills in header and source templates which set up the Unreal-specific macros for us, which simplifies the process.
+</p><p>1. In the File menu, select <b>Add Code to Project</b>. 
+</p><p>2. Scroll down and select <b>Character</b> as the parent class. Click <b>Next</b>. 
+</p><p>3. Name the new class <i>FPSCharacter</i>, then click <b>Create</b>. 
+</p><p>4. Click on <b>Yes</b> to open the class in Visual Studio for editing. 
+</p><p>5. Visual Studio will prompt you asking to reload the project, since the <b>C++ Class Wizard</b> modified it. Select <b>Reload</b>. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:664px;"><a href="/index.php?title=File:Fps_reload_project.png" class="image"><img alt="Fps reload project.png" src="https://d26ilriwvtzlb.cloudfront.net/1/1b/Fps_reload_project.png" width="662" height="196" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Fps_reload_project.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>First, we will edit our <b>GameMode</b>, so that FPSCharacter is the default Pawn used when starting gameplay.
+</p><p>1. First go to FPSGameMode.h. Below GENERATED_BODY() we will now add a constructor for the class, the following will be what our class looks like now (Engine Version 4.6).
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">UCLASS</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">FPSPROJECT_API</span> <span class="nl">AFPSGameMode</span> <span class="p">:</span> <span class="k">public</span> <span class="n">AGameMode</span>
+<span class="p">{</span>
+	<span class="n">GENERATED_BODY</span><span class="p">()</span>
+	
+	<span class="n">AFPSGameMode</span><span class="p">(</span><span class="k">const</span> <span class="n">FObjectInitializer</span><span class="o">&amp;</span> <span class="n">ObjectInitializer</span><span class="p">);</span>  <span class="c1">// Our added constructor</span>
+
+	<span class="k">virtual</span> <span class="kt">void</span> <span class="nf">StartPlay</span><span class="p">()</span> <span class="k">override</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<p>2. Return to FPSGameMode.cpp. First, at the top of the file, add the following line under the other #include lines: 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;FPSCharacter.h&quot;</span><span class="cp"></span>
+</pre></div>
+<p>3. Then, we will find the constructor we previously added in FPSGameMode.cpp:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">AFPSGameMode</span><span class="o">::</span><span class="n">AFPSGameMode</span><span class="p">(</span><span class="k">const</span> <span class="k">class</span> <span class="nc">FObjectInitializer</span><span class="o">&amp;</span> <span class="n">ObjectInitializer</span><span class="p">)</span>
+	<span class="o">:</span> <span class="n">Super</span><span class="p">(</span><span class="n">ObjectInitializer</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<p>4. And following that we add the following line to the constructor: 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">DefaultPawnClass</span> <span class="o">=</span> <span class="n">AFPSCharacter</span><span class="o">::</span><span class="n">StaticClass</span><span class="p">();</span>
+</pre></div>
+<p>This tells the GameMode which type of Pawn to spawn for the player when starting the game. 
+</p><p>The constructor for FPSGameMode will now look like: 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">AFPSGameMode</span><span class="o">::</span><span class="n">AFPSGameMode</span><span class="p">(</span><span class="k">const</span> <span class="k">class</span> <span class="nc">FObjectInitializer</span><span class="o">&amp;</span> <span class="n">ObjectInitializer</span><span class="p">)</span>
+	<span class="o">:</span> <span class="n">Super</span><span class="p">(</span><span class="n">ObjectInitializer</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">DefaultPawnClass</span> <span class="o">=</span> <span class="n">AFPSCharacter</span><span class="o">::</span><span class="n">StaticClass</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>Now, save the files.
+</p><p>Let's also add an on-screen message to FPSCharacter, so we can be sure our new class is being used properly.
+</p><p>1. Open FPSCharacter.h. It is located in FPSProject &gt; Source &gt; FPSProject. 
+</p><p>If your project has a different name, your code will be located in [ProjectName] &gt; Source &gt; [ModuleName]. The module name is the same as your project name because you used the C++ Class Wizard. 
+</p><p>2. Find the class declaration, which looks like: 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="k">class</span> <span class="nc">FPSPROJECT_API</span> <span class="nl">AFPSCharacter</span> <span class="p">:</span> <span class="k">public</span> <span class="n">ACharacter</span>
+<span class="p">{</span>
+	<span class="n">GENERATED_BODY</span><span class="p">()</span>
+	
+<span class="p">};</span>
+</pre></div>
+<p>3. Under <code>GENERATED_BODY()</code>, add the following line, then save the file. 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="k">virtual</span> <span class="kt">void</span> <span class="nf">BeginPlay</span><span class="p">()</span> <span class="k">override</span><span class="p">;</span>
+</pre></div>
+<p>This function declaration will allow you to override the BeginPlay() function inherited from the AActor class, so that you can print a message to the screen when gameplay begins. 
+</p><p>4. Now open FPSCharacter.cpp and add the following lines, then save the file.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="kt">void</span> <span class="n">AFPSCharacter</span><span class="o">::</span><span class="n">BeginPlay</span><span class="p">()</span>
+<span class="p">{</span>
+      <span class="n">Super</span><span class="o">::</span><span class="n">BeginPlay</span><span class="p">();</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="n">GEngine</span><span class="p">)</span>
+      <span class="p">{</span>
+            <span class="n">GEngine</span><span class="o">-&gt;</span><span class="n">AddOnScreenDebugMessage</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">5.f</span><span class="p">,</span> <span class="n">FColor</span><span class="o">::</span><span class="n">Blue</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;We are using FPSCharacter!&quot;</span><span class="p">));</span>
+      <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>This function definition will print "We are using FPSCharacter!" to the screen in blue text when gameplay begins. 
+</p><p>We will again close the editor and compile our project, so that we can see our code changes reflected in the game. (Note that you should be able to hot-reload if you are using the latest engine version, which means you can compile without closing the Unreal Editor.)
+</p><p>1. Close Unreal Editor. 
+</p><p>2. <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/QuickStart/6/index.html">Compile</a>. 
+</p><p>3. After the build finishes, open Unreal Editor, and then open FPSProject. 
+</p><p>4. Click on the Play In button in the Level Editor Toolbar. Your new Character does not have any movement controls yet, so you will not be able to move around in the level. So, if you are stuck and unable to move, you are using the FPSCharacter as your Pawn correctly! Your log message should also be displayed on the screen. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Logmessage_character.png" class="image"><img alt="Logmessage character.png" src="https://d3ar1piqh1oeli.cloudfront.net/8/89/Logmessage_character.png/940px-Logmessage_character.png" width="940" height="881" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/8/89/Logmessage_character.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Logmessage_character.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<blockquote>You can also look in the <b>Scene Outliner</b> while your game is running to see <b>FPSCharacter</b> listed.</blockquote>
+<p>5. Press <b>Escape</b> to exit Play in Editor (PIE) mode.
+</p>
+<h2><span class="mw-headline" id="WASD_Movement">WASD Movement</span></h2>
+<p>Let's get our new Character moving around. 
+</p><p>We will go through specifics of input processing in the next several steps, but you may also find the general overview of input framework useful to refer to. 
+</p><p>The input controls for walking around in the world, such as WASD or arrow keys, are usually set up with axis mappings.
+</p>
+<hr />
+<h3><span class="mw-headline" id="Axis_Mappings">Axis Mappings</span></h3>
+<blockquote>Map keyboard, controller, or mouse inputs to a "friendly name" that will later be bound to continuous game behavior, such as movement. The inputs mapped in AxisMappings are continuously polled, even if they are just reporting that their input value is currently zero. This allows for smooth transitions in movement or other game behavior, rather than the discrete game events triggered by inputs in ActionMappings.
+Hardware axes, such as controller joysticks, provide degrees of input, rather than discrete 1 (pressed) or 0 (not pressed) input. That is, they can be moved to a small degree or a large degree, and your character's movement can vary accordingly. While these input methods are ideal for providing scalable amounts of movement input, AxisMappings can also map common movement keys, like WASD or Up, Down, Left, Right, to continuously-polled game behavior.</blockquote>
+<hr />
+<p>First, we will set up axis mappings for the W, A, S, and D keys. 
+</p>
+<ol><li>In the <b>Edit</b> menu, click on <b>Project Settings</b>. </li>
+<li>Under the <b>Engine</b> heading on the left side of the <b>Project Settings</b> tab, click on <b>Input</b>. </li>
+<li>Under <b>Bindings</b>, click on the plus sign next to <b>Axis Mappings</b> (If nothing appears, click the arrow to the left of Axis Mappings). </li>
+<li>Type "MoveForward" into the text field that appears, then click on the arrow to the left of the text box to expand the axis binding options. </li>
+<li>In the dropdown menu, select <b>W</b>. Your input settings should now look like the following:</li></ol>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Input_wasd_settings.png" class="image"><img alt="Input wasd settings.png" src="https://d3ar1piqh1oeli.cloudfront.net/4/42/Input_wasd_settings.png/940px-Input_wasd_settings.png" width="940" height="567" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/4/42/Input_wasd_settings.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Input_wasd_settings.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>6. Now, click on the plus sign next to <b>MoveForward</b>
+</p><p>7. In the second dropdown menu, select <b>S</b>. Type "-1" in the <b>Scale</b> field. Your input settings should now look like the following:
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Input_wasd_settings_2.png" class="image"><img alt="Input wasd settings 2.png" src="https://d3ar1piqh1oeli.cloudfront.net/8/84/Input_wasd_settings_2.png/940px-Input_wasd_settings_2.png" width="940" height="567" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/8/84/Input_wasd_settings_2.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Input_wasd_settings_2.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>8. Under <b>Bindings</b>, click on the plus sign next to <b>Axis Mappings</b>. 
+</p><p>9. Type "MoveRight" into the text field that appears, then click on the arrow to the left of the text box to expand the axis binding options. 
+</p><p>10. In the dropdown menu, select <b>D</b>. Your input settings should now look like the following: 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Input_wasd_settings_3.png" class="image"><img alt="Input wasd settings 3.png" src="https://d3ar1piqh1oeli.cloudfront.net/2/24/Input_wasd_settings_3.png/940px-Input_wasd_settings_3.png" width="940" height="567" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/2/24/Input_wasd_settings_3.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Input_wasd_settings_3.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>11. Under <b>Bindings</b>, click on the plus sign next to <b>MoveRight</b>. 
+</p><p>12. In the second dropdown menu, select <b>A</b>. Type "-1" in the <b>Scale</b> field. Your input settings should now look like the following: 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Input_wasd_settings_4.png" class="image"><img alt="Input wasd settings 4.png" src="https://d3ar1piqh1oeli.cloudfront.net/4/47/Input_wasd_settings_4.png/940px-Input_wasd_settings_4.png" width="940" height="567" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/4/47/Input_wasd_settings_4.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Input_wasd_settings_4.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>13. Close the Project Settings menu. 
+</p><p>14. Switch to your project in Visual Studio. 
+</p><p>15. The Character class has a function called SetupPlayerInputComponent that is called when the PlayerController possesses the Character. We will override this function to bind our own handlers for the MoveForward and MoveRight axis mappings. 
+</p><p>16. In <code>FPSCharacter.h</code>, add the following declaration under <code>virtual void BeginPlay() override;</code>: 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="k">protected</span><span class="o">:</span>
+        <span class="k">virtual</span> <span class="kt">void</span> <span class="n">SetupPlayerInputComponent</span><span class="p">(</span><span class="k">class</span> <span class="nc">UInputComponent</span><span class="o">*</span> <span class="n">InputComponent</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+</pre></div>
+<p>17. We also want to declare our handler functions, so add these lines under the <code>SetupPlayerInputComponent</code> declaration in <code>FPSCharacter.h</code> and save the file. 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="c1">//handles moving forward/backward</span>
+    <span class="n">UFUNCTION</span><span class="p">()</span>
+    <span class="kt">void</span> <span class="n">MoveForward</span><span class="p">(</span><span class="kt">float</span> <span class="n">Val</span><span class="p">);</span>
+    <span class="c1">//handles strafing</span>
+    <span class="n">UFUNCTION</span><span class="p">()</span>
+    <span class="kt">void</span> <span class="n">MoveRight</span><span class="p">(</span><span class="kt">float</span> <span class="n">Val</span><span class="p">);</span>
+</pre></div>
+<h3><span class="mw-headline" id="UFUNCTION.28.29_Macro">UFUNCTION() Macro</span></h3>
+<blockquote>The UFUNCTION macro is used above each of these functions. By itself, the UFUNCTION macro makes the engine aware of these functions, so that they can be included in serialization, optimization, and other engine functionality. You may also have noticed the UCLASS macro above your new FPSGameMode and FPSCharacter class declarations, which does the same thing but for classes, and there is also a UPROPERTY macro for properties. There are a number of specifiers you can supply to these macros to change the function, class, and property behaviors in the engine, which can be found in ObjectBase.h.</blockquote>
+<p>After setting up our function declarations, we will implement them in <code>FPSCharacter.cpp</code>.
+</p><p>1. First, we will define <code>SetupPlayerInputComponent</code>. The following lines set up the gameplay key bindings. Add them below the constructor in <code>FPSCharacter.cpp</code>.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="kt">void</span> <span class="n">AFPSCharacter</span><span class="o">::</span><span class="n">SetupPlayerInputComponent</span><span class="p">(</span><span class="n">UInputComponent</span><span class="o">*</span> <span class="n">InputComponent</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// set up gameplay key bindings</span>
+        <span class="n">InputComponent</span><span class="o">-&gt;</span><span class="n">BindAxis</span><span class="p">(</span><span class="s">&quot;MoveForward&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">AFPSCharacter</span><span class="o">::</span><span class="n">MoveForward</span><span class="p">);</span>
+        <span class="n">InputComponent</span><span class="o">-&gt;</span><span class="n">BindAxis</span><span class="p">(</span><span class="s">&quot;MoveRight&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">AFPSCharacter</span><span class="o">::</span><span class="n">MoveRight</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre></div>
+<p>An InputComponent is a component that defines how to handle input data and can be attached to an actor that wants to receive input. 
+</p><p>We also need to implement our <code>MoveForward</code> and <code>MoveRight</code> functions. In a typical FPS control scheme, the movement axes are camera-relative. That is, "forward" means "direction the camera is pointing", right means "to the right of the direction the camera is pointing", and so on.
+We will get the control rotation from the PlayerController. Also, since we want to move along the ground even while we are looking up or down (as opposed to trying to push into the ground), our <code>MoveForward</code> function will ignore the pitch component of the control rotation and restrict our input to the XY plane. 
+</p><p>2. Add the following function to <code>FPSCharacter.cpp</code>:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="kt">void</span> <span class="n">AFPSCharacter</span><span class="o">::</span><span class="n">MoveForward</span><span class="p">(</span><span class="kt">float</span> <span class="n">Value</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="p">(</span><span class="n">Controller</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">Value</span> <span class="o">!=</span> <span class="mf">0.0f</span><span class="p">)</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// find out which way is forward</span>
+            <span class="n">FRotator</span> <span class="n">Rotation</span> <span class="o">=</span> <span class="n">Controller</span><span class="o">-&gt;</span><span class="n">GetControlRotation</span><span class="p">();</span>
+            <span class="c1">// Limit pitch when walking or falling</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">GetCharacterMovement</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">IsMovingOnGround</span><span class="p">()</span> <span class="o">||</span> <span class="n">GetCharacterMovement</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">IsFalling</span><span class="p">()</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">Rotation</span><span class="p">.</span><span class="n">Pitch</span> <span class="o">=</span> <span class="mf">0.0f</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="c1">// add movement in that direction</span>
+            <span class="k">const</span> <span class="n">FVector</span> <span class="n">Direction</span> <span class="o">=</span> <span class="n">FRotationMatrix</span><span class="p">(</span><span class="n">Rotation</span><span class="p">).</span><span class="n">GetScaledAxis</span><span class="p">(</span><span class="n">EAxis</span><span class="o">::</span><span class="n">X</span><span class="p">);</span>
+            <span class="n">AddMovementInput</span><span class="p">(</span><span class="n">Direction</span><span class="p">,</span> <span class="n">Value</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+<p>Our code for <code>MoveRight</code> is very similar, except we will move along a different axis of our control rotation. We also don't need to worry about zeroing the pitch in this case because pitching doesn't affect the Y direction vector.
+</p><p>3. Add the following function to <code>FPSCharacter.cpp</code>:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="kt">void</span> <span class="n">AFPSCharacter</span><span class="o">::</span><span class="n">MoveRight</span><span class="p">(</span><span class="kt">float</span> <span class="n">Value</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="p">(</span><span class="n">Controller</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">Value</span> <span class="o">!=</span> <span class="mf">0.0f</span><span class="p">)</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// find out which way is right</span>
+            <span class="k">const</span> <span class="n">FRotator</span> <span class="n">Rotation</span> <span class="o">=</span> <span class="n">Controller</span><span class="o">-&gt;</span><span class="n">GetControlRotation</span><span class="p">();</span>
+            <span class="k">const</span> <span class="n">FVector</span> <span class="n">Direction</span> <span class="o">=</span> <span class="n">FRotationMatrix</span><span class="p">(</span><span class="n">Rotation</span><span class="p">).</span><span class="n">GetScaledAxis</span><span class="p">(</span><span class="n">EAxis</span><span class="o">::</span><span class="n">Y</span><span class="p">);</span>
+            <span class="c1">// add movement in that direction</span>
+            <span class="n">AddMovementInput</span><span class="p">(</span><span class="n">Direction</span><span class="p">,</span> <span class="n">Value</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+<p>Let's test out the Character now, and see how we can move throughout the level. 
+</p><p>1. Close Unreal Editor. 
+</p><p>2. <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/QuickStart/6/index.html">Compile</a>
+</p><p>3. After the build finishes, open Unreal Editor, and then open <b>FPSProject</b>.
+</p><p>4. Click on the <b>Play In button</b> in the <b>Level Editor Toolbar</b>. You should be able to move and strafe throughout the level, although your camera will be fixed in place.
+</p><p>5. Press <b>Escape</b> to exit Play in Editor (PIE) mode.
+</p>
+<h2><span class="mw-headline" id="Mouse_Camera_Control">Mouse Camera Control</span></h2>
+<p>Let's add the ability to look around and steer with the mouse. 
+</p><p>First, let's set up axis mappings for <b>Turn</b> and <b>LookUp</b>.
+</p><p>1. In the <b>Edit</b> menu, click on <b>Project Settings</b>. 
+</p><p>2. Under the Engine heading on the left side of the Project Settings tab, click on Input. 
+</p><p>3. Under Bindings, click on the plus sign next to Axis Mappings. 
+</p><p>4. Type "Turn" into the text field that appears, then click on the arrow to the left of the text box to expand the axis binding options. 
+</p><p>5. In the dropdown menu, select <b>MouseX</b>. 
+</p><p>6. Under <b>Bindings</b>, click on the plus sign next to <b>Axis Mappings</b>. 
+</p><p>7. Type "LookUp" into the text field that appears, then click on the arrow to the left of the text box to expand the axis binding options. 
+</p><p>8. In the dropdown menu, select <b>MouseY</b> and enter "-1" for <b>Scale</b>. Your input settings should now look like the following: 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Input_mouse_settings.png" class="image"><img alt="Input mouse settings.png" src="https://d3ar1piqh1oeli.cloudfront.net/4/42/Input_mouse_settings.png/940px-Input_mouse_settings.png" width="940" height="567" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/4/42/Input_mouse_settings.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Input_mouse_settings.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>9. Close the Project Settings menu.
+</p><p>Now, let's add some code to handle those inputs. 
+</p><p>The Character class defines the two necessary functions for us: <code>AddYawInput</code> and <code>AddPitchInput</code>.
+</p><p>If we wanted to do additional processing, such as adding support for sensitivity or axis inversion, we could provide our own functions to adjust the values before passing them to these functions, but in this case let's bind our inputs directly to them.
+</p><p>1. Add the following lines to SetupPlayerInputComponent in FPSCharacter.cpp: 
+</p>
+<pre>   InputComponent-&gt;BindAxis("Turn", this, &amp;AFPSCharacter::AddControllerYawInput);
+   InputComponent-&gt;BindAxis("LookUp", this, &amp;AFPSCharacter::AddControllerPitchInput);
+</pre>
+<p>Because we only changed an existing function instead of making a new function, we can compile within the editor.
+</p><p>1. Switch back to Unreal Editor, and click on the <b>Compile</b> button. 
+</p><p>2. The <b>Compiling C++ Code</b> notification will pop up in the bottom right of the screen. Wait for it to finish - it will say <b>Compile Complete</b> and then fade out. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:448px;"><a href="/index.php?title=File:Compiling_in_editor.png" class="image"><img alt="Compiling in editor.png" src="https://d26ilriwvtzlb.cloudfront.net/8/88/Compiling_in_editor.png" width="446" height="56" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Compiling_in_editor.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>3. Click on the Play In button in the Level Editor Toolbar. Now, you can control the camera direction with your mouse. 
+</p><p>4. Press <b>Escape</b> to exit Play in Editor (PIE) mode.
+</p>
+<h2><span class="mw-headline" id="Jumping">Jumping</span></h2>
+<p>Now, let's add jumping to our movement abilities. Our movement and camera control steps used axis mappings, which handle continuous inputs needed for those types of controls. There are also action mappings, which deal with inputs for discrete events. 
+</p>
+<hr />
+<h3><span class="mw-headline" id="ActionMappings">ActionMappings</span></h3>
+<blockquote>Map a discrete button or key press to a "friendly name" that will later be bound to event-driven behavior. The end effect is that pressing (and/or releasing) a key, mouse button, or keypad button directly triggers some game behavior.</blockquote>
+<hr />
+<p>Let's add a new action mapping called Jump in the editor.
+</p><p>1. In the Edit menu, click on Project Settings. 
+</p><p>2. Under the Engine heading on the left side of the Project Settings tab, click on Input. 
+</p><p>3. Under Bindings, click on the plus sign next to Action Mappings. 
+</p><p>4. Click on the arrow to the left of Action Mappings to expand the Action Mappings settings. 
+</p><p>5. Type "Jump" in the text field. 
+</p><p>6. Expand the dropdown, and select Space Bar.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Actionmapping_jump.png" class="image"><img alt="Actionmapping jump.png" src="https://d3ar1piqh1oeli.cloudfront.net/a/ab/Actionmapping_jump.png/940px-Actionmapping_jump.png" width="940" height="567" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/a/ab/Actionmapping_jump.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Actionmapping_jump.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>7. Close the Project Settings menu.
+</p><p>Now we want to bind this action to some code that will cause our character to jump. 
+</p><p>If we look at Character.h, we can see there is jump support built in, tied to the bPressedJump variable. So all we need to do is set that flag to 1 when the jump action is pressed, and 0 when it is released. We need two functions to accomplish this.
+</p><p>1. In FPSCharacter.h, add the following public function declarations: 
+</p>
+<pre>   //sets jump flag when key is pressed
+   UFUNCTION()
+   void OnStartJump();
+   //clears jump flag when key is released
+   UFUNCTION()
+   void OnStopJump();
+</pre>
+<p>2. In FPSCharacter.cpp, we can implement them very simply: 
+</p>
+<pre>   void AFPSCharacter::OnStartJump()
+   {
+       bPressedJump = true;
+   }
+   void AFPSCharacter::OnStopJump()
+   {
+       bPressedJump = false;
+   }
+</pre>
+<p>Finally, we need to bind the Jump action to our new functions. 
+</p><p>3. In <code>SetupPlayerInputComponent</code>, add the following: 
+</p>
+<pre>   InputComponent-&gt;BindAction("Jump", IE_Pressed, this, &amp;AFPSCharacter::OnStartJump);
+   InputComponent-&gt;BindAction("Jump", IE_Released, this, &amp;AFPSCharacter::OnStopJump);
+</pre>
+<p>Because we added new functions instead of just altering existing functions like in the previous step, we need to compile in Visual Studio instead of in the editor.
+</p><p>1. Close Unreal Editor. 
+</p><p>2. <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/QuickStart/6/index.html">Compile</a>. 
+</p><p>3. After the build finishes, open Unreal Editor, and then open FPSProject. 
+</p><p>4. Click on the Play In button in the Level Editor Toolbar. 
+</p><p>5. Press Spacebar to jump! You should now have a good set of starting movement controls, with WASD moving and strafing, camera control with the mouse, and jumping. 
+</p><p>6. Press Escape to exit Play in Editor (PIE) mode.
+</p>
+<h2><span class="mw-headline" id="Adding_a_mesh_to_your_Character">Adding a mesh to your Character</span></h2>
+<p>Now let's give ourselves a body in the world. The Character class creates a SkeletalMeshComponent object for us by default, so all it needs to know is which SkeletalMesh asset to use. Let's make a Blueprint of our <code>FPSCharacter</code> class so we can easily set this asset and manipulate any future components we might want to add. We'll start by importing a third person Skeletal Mesh. Eventually, we will set it up so that there is one mesh that the player sees, and one mesh that other players would see in a multiplayer mode. 
+</p><p>1. Download the following zip file, and unzip it to get the third person mesh file. 
+</p><p><a href="https://d26ilriwvtzlb.cloudfront.net/1/10/GenericMale.zip" class="internal" title="GenericMale.zip">Generic Male</a>
+</p><p>2. Open Unreal Editor. 
+</p><p>3. Right-click in the Content Browser, and select <b>Import to /Game</b> in the menu that appears. 
+</p><p>4. Navigate to wherever you saved the FBX file, then select it and click Open. 
+</p><p>5. Open the <b>Advanced</b> dropdown and check <b>Import Materials</b>, then click on <b>Import</b>. 
+</p><p>6. Click on the <b>Save</b> icon in the <b>Content Browser</b> to save your new Skeletal Mesh and its associated assets. 
+</p><p>Now, we can create a Blueprint of our FPSCharacter class and assign this new Skeletal Mesh to the SkeletalMeshComponent.
+</p><p>1. Right-click in the <b>Content Browser</b> and select <b>New Folder</b>. Name this new folder <i>Blueprints</i>. 
+</p><p>2. Double-click on the folder to open it. 
+</p><p>3. Click on the <b>New</b> dropdown, and select <b>Blueprint</b>.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:190px;"><a href="/index.php?title=File:New_asset_bp.png" class="image"><img alt="New asset bp.png" src="https://d26ilriwvtzlb.cloudfront.net/a/a4/New_asset_bp.png" width="188" height="401" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:New_asset_bp.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>4. Expand the <b>Custom Class</b> dropdown, and type "FPSCharacter" into the search box.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:515px;"><a href="/index.php?title=File:Custom_bp_fpschar.png" class="image"><img alt="Custom bp fpschar.png" src="https://d26ilriwvtzlb.cloudfront.net/a/a7/Custom_bp_fpschar.png" width="513" height="498" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Custom_bp_fpschar.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>5. Click on <b>FPSCharacter</b> to select it as the parent class for your new Blueprint and then click on Select.
+</p><p>6. Name this new Blueprint <i>BP_FPSCharacter</i>, then double-click its icon to open it. 
+</p><p>The Blueprint Editor will open in Components Mode, so we will be able to easily set our third-person mesh.
+</p><p>1. Click on the Mesh component in the Components tab.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:384px;"><a href="/index.php?title=File:Components_tab.png" class="image"><img alt="Components tab.png" src="https://d26ilriwvtzlb.cloudfront.net/d/d4/Components_tab.png" width="382" height="392" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Components_tab.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>2. In the Details tab, scroll down to the Mesh section. Click on the dropdown that says None, then select your recently imported Skeletal Mesh asset. You may have to resize the Details tab to see this menu. 
+</p><p>3. Align the SkeletalMeshComponent to the CapsuleComponent by setting its Z location to -88 in the <b>Details</b> tab.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:539px;"><a href="/index.php?title=File:Mesh_move_down.png" class="image"><img alt="Mesh move down.png" src="https://d26ilriwvtzlb.cloudfront.net/5/55/Mesh_move_down.png" width="537" height="659" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Mesh_move_down.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<blockquote>
+<p>When using your own Skeletal Mesh assets, you may need to adjust them differently, but the overall goal is always to have the mesh contained within the CapsuleComponent, and facing the same direction that the ArrowComponent is pointing. This will ensure that your Character moves correctly through the world. You can also move components around with widgets in the Preview Viewport, rather than setting values in the Details tab.
+</p>
+</blockquote>
+<p>4. Compile and save your Blueprint, then close the <b>Blueprint Editor</b>.
+</p><p>Now we need to tell our GameMode to use our Blueprint class for the player pawn, instead of the FPSCharacter class we set earlier.
+</p><p>1. Switch to Visual Studio.
+</p><p>2. Go to the FPSGameMode constructor in FPSGameMode.cpp, and replace the existing DefaultPawnClass assignment:
+</p>
+<pre>   DefaultPawnClass = AFPSCharacter::StaticClass();
+</pre>
+<p>with the following code:
+</p>
+<pre>   // set default pawn class to our Blueprinted character
+   static ConstructorHelpers::FClassFinder&lt;APawn&gt; PlayerPawnObject(TEXT("Pawn'/Game/Blueprints/BP_FPSCharacter.BP_FPSCharacter_C'"));
+   if (PlayerPawnObject.Class&#160;!= NULL)
+   {
+       DefaultPawnClass = PlayerPawnObject.Class;
+   }
+</pre>
+<p>This code will find the class generated by your blueprint and assign it as your default pawn class. (Note the "_C" suffix in the asset path, this is what distinguishes the actual class used by the game from the Blueprint asset, which is an editor-only concept.) At this point, you could also remove the #include "FPSCharacter.h" from the top of FPSGameMode.cpp, since you are no longer referring to the FPSCharacter C++ class. 
+</p>
+<blockquote>
+<p>Note that if you put your Blueprint in a different folder in the asset tree, you can get the full path by right-clicking on it in the Content Browser and selecting "Copy Reference". The full path will be placed on your clipboard for handy pasting. 
+</p>
+</blockquote>
+<p>1. Switch back to Unreal Editor, and click on the Compile button. 
+</p><p>2. The Compiling C++ Code notification will pop up in the bottom right of the screen. Wait for it to finish - it will say Compile Complete and then fade out.
+</p><p>3. Click on the Play In button in the Level Editor Toolbar. If you move the camera around, you should be able to see your character's shadow. 
+</p><p>4. Press <b>Shift+F1</b> to regain your mouse cursor, then click on <b>Eject</b> in the toolbar. You are no longer possessing the character, so you can move the camera around freely and see your character's mesh. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Step7_ejected.png" class="image"><img alt="Step7 ejected.png" src="https://d3ar1piqh1oeli.cloudfront.net/1/17/Step7_ejected.png/940px-Step7_ejected.png" width="940" height="727" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/1/17/Step7_ejected.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Step7_ejected.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>5. Click on <b>Stop</b> to exit Play in Editor (PIE) mode.
+</p>
+<h2><span class="mw-headline" id="Changing_the_Camera_View">Changing the Camera View</span></h2>
+<p>At the end of the previous step, the default camera is positioned inside the mesh's neck.
+Let's set up a proper camera that we can use to adjust the camera's properties such as location and field of view. We're going to do this by adding a CameraComponent to our FPSCharacter. First, let's add a property to the FPSCharacter to hold a reference to our CameraComponent. 
+</p><p>1. Go to <code>FPSCharacter.h</code> in Visual Studio and add the following to create a public property: 
+</p>
+<pre>   /** First person camera */
+   UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
+   UCameraComponent* FirstPersonCameraComponent;
+</pre>
+<p>Note: 4.18.2 You need to include "Camera/CameraComponent.h".
+</p><p>We will also need to add a constructor to our <code>FPSCharacter.h</code> file.
+</p>
+<pre>   // Constructor for AFPSCharacter
+   AFPSCharacter(const FObjectInitializer&amp; ObjectInitializer);
+</pre>
+<p>We will create the actual component in the FPSCharacter constructor. 
+</p><p>2. Add the following code in FPSCharacter.cpp to create the CameraComponent and attach it to the CapsuleComponent. 
+</p>
+<pre>   AFPSCharacter::AFPSCharacter(const FObjectInitializer&amp; ObjectInitializer)
+      &#160;: Super(ObjectInitializer)
+   {
+       // Create a CameraComponent 
+       FirstPersonCameraComponent = ObjectInitializer.CreateDefaultSubobject&lt;UCameraComponent&gt;(this, TEXT("FirstPersonCamera"));
+       FirstPersonCameraComponent-&gt;AttachParent = CapsuleComponent;
+   }
+   
+</pre>
+<p>Note: 4.11.2 CapsuleComponent not accessible, use GetCapsuleComponent() instead
+</p><p>Note: 4.13 AttachParent is now private. Use AttachTo()
+</p><p>Finally, let's adjust the camera's position to be a little above the character's eye location.
+</p><p>3. Add this to the constructor, after the component is created. You can tweak the camera's position in the <b>BP_FPSCharacter</b> Blueprint later as well, but this gives a good starting location for the CameraComponent. Also, you will only set the CameraComponent's location, not its rotation, because our earlier Turn and LookUp functions will control the camera's orientation.
+</p>
+<pre>   // Position the camera a bit above the eyes
+   FirstPersonCameraComponent-&gt;RelativeLocation = FVector(0, 0, 50.0f + BaseEyeHeight);
+   // Allow the pawn to control rotation.
+   FirstPersonCameraComponent-&gt;bUsePawnControlRotation = true;
+</pre>
+<p>Because we added a new property, we need to compile in Visual Studio instead of in the editor. 
+</p><p>1. Close Unreal Editor. 
+</p><p>2. <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/QuickStart/6/index.html">Compile</a>.
+</p><p>3. After the build finishes, open Unreal Editor, and then open <b>FPSProject</b>. 
+</p><p>4. Click on the Play In button in the Level Editor Toolbar. 
+</p><p>5. Your camera should be above the character's head now, and if you look down, you will be able to see the top of your character's head. 
+</p><p>6. Press <b>Escape</b> to exit Play in Editor (PIE) mode.
+</p>
+<h2><span class="mw-headline" id="Adding_a_First_Person_Mesh">Adding a First Person Mesh</span></h2>
+<p>A common FPS approach is to use 2 separate meshes.
+One is the normal full-body mesh, used when seeing the character from third person but hidden when in first person. The second is a "weapon and hands" mesh that is attached to the camera and is visible only to the player when the player is in a first person perspective. 
+</p><p>To implement this, we'll keep the existing component named Mesh as our third person mesh and make a new <code>SkeletalMeshComponent</code> to be our first person mesh.
+</p><p>1. First add a public variable to <code>FPSCharacter.h</code> to keep a reference to this new mesh: 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="cm">/** Pawn mesh: 1st person view (arms; seen only by self) */</span>
+    <span class="n">UPROPERTY</span><span class="p">(</span><span class="n">VisibleDefaultsOnly</span><span class="p">,</span> <span class="n">Category</span><span class="o">=</span><span class="n">Mesh</span><span class="p">)</span>
+    <span class="n">USkeletalMeshComponent</span><span class="o">*</span> <span class="n">FirstPersonMesh</span><span class="p">;</span>
+</pre></div>
+<p>2. Then, in the constructor for FPSCharacter.cpp, we'll add code to create and configure this mesh after our code that configures the FirstPersonCameraComponent:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="c1">// Create a mesh component that will be used when being viewed from a &#39;1st person&#39; view (when controlling this pawn)</span>
+    <span class="n">FirstPersonMesh</span> <span class="o">=</span> <span class="n">ObjectInitializer</span><span class="p">.</span><span class="n">CreateDefaultSubobject</span><span class="o">&lt;</span><span class="n">USkeletalMeshComponent</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;FirstPersonMesh&quot;</span><span class="p">));</span>
+    <span class="n">FirstPersonMesh</span><span class="o">-&gt;</span><span class="n">SetOnlyOwnerSee</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>         <span class="c1">// only the owning player will see this mesh</span>
+    <span class="n">FirstPersonMesh</span><span class="o">-&gt;</span><span class="n">AttachParent</span> <span class="o">=</span> <span class="n">FirstPersonCameraComponent</span><span class="p">;</span>
+    <span class="n">FirstPersonMesh</span><span class="o">-&gt;</span><span class="n">bCastDynamicShadow</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="n">FirstPersonMesh</span><span class="o">-&gt;</span><span class="n">CastShadow</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+</pre></div>
+<p>Note: 4.13 AttachParent is now private. Use the AttachTo() function. <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Components/USceneComponent/AttachTo/index.html">(Api Reference)</a>
+</p><p>We are using <code>SetOnlyOwnerSee</code> here to indicate that this mesh is only visible to the "owning" player, in this case the PlayerController who has possessed this Character. We also set the mesh to be attached to the camera. Finally, we disable some environmental shadowing since seeing shadows of these camera-attached arms would look odd and destroy the illusion. 
+</p><p>3. Finally, we have to change the settings for Mesh, the existing third person SkeletalMeshComponent. Add the following lines to the constructor to set its visibility so it is hidden from the owning player. 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="c1">// everyone but the owner can see the regular body mesh</span>
+    <span class="n">Mesh</span><span class="o">-&gt;</span><span class="n">SetOwnerNoSee</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+<p>As before, we will set the mesh asset in the Blueprint, so let's compile and run the editor.
+</p><p>1. Close Unreal Editor. 
+</p><p>2. <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/QuickStart/6/index.html">Compile</a>.
+</p><p>3. After the build finishes, open Unreal Editor, and then open <b>FPSProject</b>. 
+</p><p>4. Download this zip file and unzip it to receive the first person mesh FBX file, which contains a SkeletalMesh with just arms. 
+</p><p><a href="https://d26ilriwvtzlb.cloudfront.net/1/15/HeroFPP.zip" class="internal" title="HeroFPP.zip">First Person Skeletal Mesh</a>
+</p><p>5. Navigate to the <b>Game</b> folder in the <b>Content Browser</b>. 
+</p><p>6. Right-click in the <b>Content Browser</b>, and select <b>Import to /Game</b> in the menu that appears. 
+</p><p>7. Navigate to wherever you saved the FBX file, then select it and click <b>Open</b>. 
+</p><p>8. Open the <b>Advanced</b> dropdown and make sure <b>Import Materials</b> is checked, then click on Import. 
+</p>
+<blockquote>
+<p>If you receive an error about smoothing groups, you can disregard it. This mesh will still work to illustrate the first person mesh setup, and will work with the animations set up in a later step. 
+</p>
+</blockquote>
+<p>1. Click on <b>Save</b> in the <b>Content Browser</b> to save your new Skeletal Mesh and its associated assets. 
+</p><p>2. Navigate back to the <b>Blueprints</b> folder in the <b>Content Browser</b>. 
+</p><p>3. Open <b>BP_FPSCharacter</b> and switch to <b>Components Mode</b>. 
+</p><p><b>(NOTE: There is an additional step required as a workaround to an current issue we are looking into. To be able to find the FirstPersonMesh in the component list, you will need to delete the BP_FPSCharacter blueprint and recreate it.  After doing this you can continue with step 4.)</b>
+</p><p>4. Find the new <b>FirstPersonMesh</b> we added. Notice that it is a child of the <b>FirstPersonCameraComponent</b>, so it will always be attached to the camera. You may have to expand the FirstPersonCameraComponent dropdown.
+</p>
+<blockquote>You may encounter an issue where the new <b>FirstPersonMesh</b> and <b>FirstPersonCameraComponent</b> do not appear in your blueprint.  If this happens to you, you can remove the blueprint BP_FPSCharacter and create it again as described above, and the new properties will appear.</blockquote>
+<div class="thumb tleft"><div class="thumbinner" style="width:422px;"><a href="/index.php?title=File:Component_listing.png" class="image"><img alt="Component listing.png" src="https://d26ilriwvtzlb.cloudfront.net/8/8f/Component_listing.png" width="420" height="305" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Component_listing.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>5. Click on the <b>FirstPersonMesh</b> component in the <b>Components</b> tab. 
+</p><p>6. In the <b>Details</b> tab, scroll down to the <b>Mesh</b> section. Click on the dropdown that says <b>None</b>, then select your recently imported Skeletal Mesh asset. You may have to resize the <b>Details</b> tab to see this menu. Now, the arms should appear in the <b>Viewport</b>, although you may have to zoom out to see them.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:327px;"><a href="/index.php?title=File:Arms_just_added.png" class="image"><img alt="Arms just added.png" src="https://d26ilriwvtzlb.cloudfront.net/2/20/Arms_just_added.png" width="325" height="485" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Arms_just_added.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>7. To adjust the relative transform so the arms appear on the camera, set the Location to {240,0,35} and the Rotation to {-180, 50, -180}. You will readjust this position after the arms are animated, but for now, this position lets you see that you are using this first person mesh when playing.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:478px;"><a href="/index.php?title=File:Arms_adjusted.png" class="image"><img alt="Arms adjusted.png" src="https://d26ilriwvtzlb.cloudfront.net/f/fc/Arms_adjusted.png" width="476" height="376" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Arms_adjusted.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>8. <b>Compile</b> and <b>Save</b> your Blueprint, then close the <b>Blueprint Editor</b>. 
+</p><p>9. Click on the <b>Play In button</b> in the Level Editor Toolbar. 
+</p><p>10. At this point, you will no longer be able to see the third person SkeletalMesh, but you will be able to see the disembodied arms of the first person SkeletalMesh. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Step9_arms.png" class="image"><img alt="Step9 arms.png" src="https://d3ar1piqh1oeli.cloudfront.net/8/81/Step9_arms.png/940px-Step9_arms.png" width="940" height="731" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/8/81/Step9_arms.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Step9_arms.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>11. Press <b>Shift+F1</b> to regain your mouse cursor, then click on <b>Eject</b> in the toolbar. You are no longer possessing the character, so you can move the camera around freely and see both the third person and the first person meshes. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Step9_ejected.png" class="image"><img alt="Step9 ejected.png" src="https://d3ar1piqh1oeli.cloudfront.net/7/71/Step9_ejected.png/940px-Step9_ejected.png" width="940" height="735" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/7/71/Step9_ejected.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Step9_ejected.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>12. Press <b>Escape</b> to exit Play in Editor (PIE) mode.
+</p>
+<h2><span class="mw-headline" id="Adding_Projectiles_and_Shooting">Adding Projectiles and Shooting</span></h2>
+<p>Now that the character is set up, let's implement a simple projectile weapon - when you fire, a simple grenade-like projectile will shoot from the center of the screen and fly until it hits the world. While we have the editor open, let's add an input and create a new code class for our projectile.
+</p><p>1. In the Edit menu, click on <b>Project Settings</b>. 
+</p><p>2. Under the Engine heading on the left side of the <b>Project Settings</b> tab, click on <b>Input</b>. 
+</p><p>3. Under <b>Bindings</b>, click on the <b>+</b> next to <b>Action Mappings</b>. 
+</p><p>4. Click on the arrow to the left of <b>Action Mappings</b> to expand the Action Mappings settings. 
+</p><p>5. Type "Fire" in the text field. 
+</p><p>6. Expand the dropdown, and select <b>Left Mouse</b> Button. 
+</p><p>7. Close the Project Settings menu. 
+</p><p>Now let's create the projectile class.
+</p><p>1. Go to <b>File &gt; Add Code to Project</b>.
+</p><p>2. Choose <b>Actor</b>, then click <b>Next</b>.
+</p><p>3. Name your new class <i>FPSProjectile</i>, then click on Create.
+</p><p>4. Click on Yes to open the class in Visual Studio for editing. 
+</p><p>5. Visual Studio will prompt you asking to reload the project, since the C++ Class Wizard modified it. Select Reload. 
+</p><p>First, we should decide on a simplified physical representation to use for collision and simulation. For our case, let's use a USphereComponent.
+</p><p>1. Add a reference to this component in your FPSProjectile class declaration in FPSProjectile.h. 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="cm">/** Sphere collision component */</span>
+    <span class="n">UPROPERTY</span><span class="p">(</span><span class="n">VisibleDefaultsOnly</span><span class="p">,</span> <span class="n">Category</span><span class="o">=</span><span class="n">Projectile</span><span class="p">)</span>
+    <span class="n">USphereComponent</span><span class="o">*</span> <span class="n">CollisionComp</span><span class="p">;</span>
+</pre></div>
+<p>2. Add a constructor to <code>FPSProjectile.h</code>.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="n">AFPSProjectile</span><span class="p">(</span><span class="k">const</span> <span class="n">FObjectInitializer</span><span class="o">&amp;</span> <span class="n">ObjectInitializer</span><span class="p">);</span>
+</pre></div>
+<p>3. Create the component in the FPSProjectile constructor in FPSProjectile.cpp. We'll make it the root component since the simulation will drive it, and we can attach visual components to it later in a Blueprint.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="n">AFPSProjectile</span><span class="o">::</span><span class="n">AFPSProjectile</span><span class="p">(</span><span class="k">const</span> <span class="n">FObjectInitializer</span><span class="o">&amp;</span> <span class="n">ObjectInitializer</span><span class="p">)</span>
+        <span class="o">:</span> <span class="n">Super</span><span class="p">(</span><span class="n">ObjectInitializer</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Use a sphere as a simple collision representation</span>
+        <span class="n">CollisionComp</span> <span class="o">=</span> <span class="n">ObjectInitializer</span><span class="p">.</span><span class="n">CreateDefaultSubobject</span><span class="o">&lt;</span><span class="n">USphereComponent</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;SphereComp&quot;</span><span class="p">));</span>
+        <span class="n">CollisionComp</span><span class="o">-&gt;</span><span class="n">InitSphereRadius</span><span class="p">(</span><span class="mf">15.0f</span><span class="p">);</span>
+        <span class="n">RootComponent</span> <span class="o">=</span> <span class="n">CollisionComp</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></div>
+<p>UE4 comes with a ProjectileMovementComponent that can be used to easily do simple ballistic-style movement, so let's add that to FPSProjectile.
+</p><p>1. First, add a public reference in your FPSProjectile class declaration in FPSProjectile.h. 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="cm">/** Projectile movement component */</span>
+    <span class="n">UPROPERTY</span><span class="p">(</span><span class="n">VisibleAnywhere</span><span class="p">,</span> <span class="n">BlueprintReadOnly</span><span class="p">,</span> <span class="n">Category</span><span class="o">=</span><span class="n">Movement</span><span class="p">)</span>
+    <span class="n">UProjectileMovementComponent</span><span class="o">*</span> <span class="n">ProjectileMovement</span><span class="p">;</span>
+</pre></div>
+<p>2. Then, add the following lines to the FPSProjectile constructor in FPSProjectile.cpp to create this component:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="c1">// Use a ProjectileMovementComponent to govern this projectile&#39;s movement</span>
+    <span class="n">ProjectileMovement</span> <span class="o">=</span> <span class="n">ObjectInitializer</span><span class="p">.</span><span class="n">CreateDefaultSubobject</span><span class="o">&lt;</span><span class="n">UProjectileMovementComponent</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;ProjectileComp&quot;</span><span class="p">));</span>
+    <span class="n">ProjectileMovement</span><span class="o">-&gt;</span><span class="n">UpdatedComponent</span> <span class="o">=</span> <span class="n">CollisionComp</span><span class="p">;</span>
+    <span class="n">ProjectileMovement</span><span class="o">-&gt;</span><span class="n">InitialSpeed</span> <span class="o">=</span> <span class="mf">3000.f</span><span class="p">;</span>
+    <span class="n">ProjectileMovement</span><span class="o">-&gt;</span><span class="n">MaxSpeed</span> <span class="o">=</span> <span class="mf">3000.f</span><span class="p">;</span>
+    <span class="n">ProjectileMovement</span><span class="o">-&gt;</span><span class="n">bRotationFollowsVelocity</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="n">ProjectileMovement</span><span class="o">-&gt;</span><span class="n">bShouldBounce</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="n">ProjectileMovement</span><span class="o">-&gt;</span><span class="n">Bounciness</span>  <span class="o">=</span> <span class="mf">0.3f</span><span class="p">;</span>
+</pre></div>
+<p>We've also set a few properties here to influence the simulation, the most important of which is the UpdatedComponent. 
+</p><p>Looking ahead, we're also going to want a function to "launch" our projectile by setting its initial velocity. 
+</p><p>1. Declare a public function in the FPSProjectile class declaration in FPSProjectile.h: 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="cm">/** inits velocity of the projectile in the shoot direction */</span>
+    <span class="kt">void</span> <span class="nf">InitVelocity</span><span class="p">(</span><span class="k">const</span> <span class="n">FVector</span><span class="o">&amp;</span> <span class="n">ShootDirection</span><span class="p">);</span>
+</pre></div>
+<p>2. Implement the function in FPSProjectile.cpp by adding the following definition after the constructor. 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="kt">void</span> <span class="n">AFPSProjectile</span><span class="o">::</span><span class="n">InitVelocity</span><span class="p">(</span><span class="k">const</span> <span class="n">FVector</span><span class="o">&amp;</span> <span class="n">ShootDirection</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ProjectileMovement</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// set the projectile&#39;s velocity to the desired direction</span>
+            <span class="n">ProjectileMovement</span><span class="o">-&gt;</span><span class="n">Velocity</span> <span class="o">=</span> <span class="n">ShootDirection</span> <span class="o">*</span> <span class="n">ProjectileMovement</span><span class="o">-&gt;</span><span class="n">InitialSpeed</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+<p>Note that our projectile's speed is defined in the ProjectileMovementComponent, so we only need to supply a launch direction. 
+</p><p>Finally, we will add code to the FPSCharacter so that when the Fire input is pressed, it will launch a projectile. As before, we will declare a public function called OnFire that we will bind to the Fire input we defined earlier. 
+</p><p>1. In FPSCharacter.h, add this function to the class declaration: 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="c1">//handles firing</span>
+    <span class="n">UFUNCTION</span><span class="p">()</span>
+    <span class="kt">void</span> <span class="n">OnFire</span><span class="p">();</span>
+</pre></div>
+<p>2. In the FPSCharacter.cpp, add the following to SetupPlayerIputComponent to bind the Fire action to our new OnFire function.
+</p>
+<pre>   InputComponent-&gt;BindAction("Fire", IE_Pressed, this, &amp;AFPSCharacter::OnFire);
+</pre>
+<p>There are two points to consider for the OnFire implementation. We know we want to spawn an FPSProjectile actor, so we have to define: 
+</p>
+<ul><li>Where to spawn the projectile </li></ul>
+<ul><li>The projectile class so the FPSCharacter (and its derived Blueprint) will know what projectile to spawn. </li></ul>
+<p><br />
+To determine a spawn location, we'll use a camera-space offset vector as an editable parameter, so we can set and tweak it in our BP_FPSCharacter Blueprint.
+We can then calculate an initial location for the projectile based on this data.
+</p><p>1. Add the following to the FPSCharacter class declaration in FPSCharacter.h:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="cm">/** Gun muzzle&#39;s offset from the camera location */</span>
+    <span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">,</span> <span class="n">BlueprintReadWrite</span><span class="p">,</span> <span class="n">Category</span><span class="o">=</span><span class="n">Gameplay</span><span class="p">)</span>
+    <span class="n">FVector</span> <span class="n">MuzzleOffset</span><span class="p">;</span>
+</pre></div>
+<p>The EditAnywhere specifier allows you to change the value of the muzzle offset either within the Defaults mode of the Blueprint Editor, or within the Details tab for any instance of the character. The BlueprintReadWrite specifier allows you to both get and set the value of the muzzle offset within a Blueprint. 
+</p><p>Let's also introduce a projectile class as an editable parameter. This will allow us to later specify a Blueprint derived from FPSProjectile as the projectile we want to spawn.
+</p><p>1. Add the following to the FPSCharacter class declaration in FPSCharacter.h as well: 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="cm">/** Projectile class to spawn */</span>
+    <span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditDefaultsOnly</span><span class="p">,</span> <span class="n">Category</span><span class="o">=</span><span class="n">Projectile</span><span class="p">)</span>
+    <span class="n">TSubclassOf</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">AFPSProjectile</span><span class="o">&gt;</span> <span class="n">ProjectileClass</span><span class="p">;</span>
+</pre></div>
+<p>Here, we use the EditDefaultsOnly specifier, which means that you will only be able to set the projectile class as a default on the Blueprint, not on each instance of the Blueprint. 
+</p><p>Our OnFire function will involve several steps.
+</p>
+<ul><li>Since our projectile spawn location is derived in camera space, we find the camera transform before calculating the spawn location. </li></ul>
+<ul><li>We attempt to spawn the projectile. </li></ul>
+<ul><li>Finally, we give it an initial velocity using the function we defined. </li></ul>
+<p>1. Add the following function to <code>FPSCharacter.cpp</code>: 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="kt">void</span> <span class="n">AFPSCharacter</span><span class="o">::</span><span class="n">OnFire</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// try and fire a projectile</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ProjectileClass</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// Get the camera transform</span>
+            <span class="n">FVector</span> <span class="n">CameraLoc</span><span class="p">;</span>
+            <span class="n">FRotator</span> <span class="n">CameraRot</span><span class="p">;</span>
+            <span class="n">GetActorEyesViewPoint</span><span class="p">(</span><span class="n">CameraLoc</span><span class="p">,</span> <span class="n">CameraRot</span><span class="p">);</span>
+            <span class="c1">// MuzzleOffset is in camera space, so transform it to world space before offsetting from the camera to find the final muzzle position</span>
+            <span class="n">FVector</span> <span class="k">const</span> <span class="n">MuzzleLocation</span> <span class="o">=</span> <span class="n">CameraLoc</span> <span class="o">+</span> <span class="n">FTransform</span><span class="p">(</span><span class="n">CameraRot</span><span class="p">).</span><span class="n">TransformVector</span><span class="p">(</span><span class="n">MuzzleOffset</span><span class="p">);</span>
+            <span class="n">FRotator</span> <span class="n">MuzzleRotation</span> <span class="o">=</span> <span class="n">CameraRot</span><span class="p">;</span>
+            <span class="n">MuzzleRotation</span><span class="p">.</span><span class="n">Pitch</span> <span class="o">+=</span> <span class="mf">10.0f</span><span class="p">;</span>          <span class="c1">// skew the aim upwards a bit</span>
+            <span class="n">UWorld</span><span class="o">*</span> <span class="k">const</span> <span class="n">World</span> <span class="o">=</span> <span class="n">GetWorld</span><span class="p">();</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">World</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">FActorSpawnParameters</span> <span class="n">SpawnParams</span><span class="p">;</span>
+                <span class="n">SpawnParams</span><span class="p">.</span><span class="n">Owner</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+                <span class="n">SpawnParams</span><span class="p">.</span><span class="n">Instigator</span> <span class="o">=</span> <span class="n">Instigator</span><span class="p">;</span>
+                <span class="c1">// spawn the projectile at the muzzle</span>
+                <span class="n">AFPSProjectile</span><span class="o">*</span> <span class="k">const</span> <span class="n">Projectile</span> <span class="o">=</span> <span class="n">World</span><span class="o">-&gt;</span><span class="n">SpawnActor</span><span class="o">&lt;</span><span class="n">AFPSProjectile</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ProjectileClass</span><span class="p">,</span> <span class="n">MuzzleLocation</span><span class="p">,</span> <span class="n">MuzzleRotation</span><span class="p">,</span> <span class="n">SpawnParams</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">Projectile</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="c1">// find launch direction</span>
+                    <span class="n">FVector</span> <span class="k">const</span> <span class="n">LaunchDir</span> <span class="o">=</span> <span class="n">MuzzleRotation</span><span class="p">.</span><span class="n">Vector</span><span class="p">();</span>
+                    <span class="n">Projectile</span><span class="o">-&gt;</span><span class="n">InitVelocity</span><span class="p">(</span><span class="n">LaunchDir</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+<p>2. Add an #include at the top of FPSCharacter.cpp, since we're using FPSProjectile from within FPSCharacter.
+</p>
+<pre>   #include "FPSProjectile.h"
+</pre>
+<p>3. Close Unreal Editor. 
+</p><p>4. Compile. 
+</p><p>5. After the build finishes, open Unreal Editor, and then open FPSProject. 
+</p><p>Now let's finalize our projectile by creating a Blueprint and adding a mesh so we can see the effect of shooting our projectile. 
+</p><p>6. Download this zip file and unzip it to receive the sphere FBX file, which contains the StaticMesh you will use for your projectile. 
+</p><p><a href="https://d26ilriwvtzlb.cloudfront.net/7/7e/Sphere.zip" class="internal" title="Sphere.zip">Sphere Mesh</a>
+</p><p>7. Navigate to the <b>Game</b> folder in the <b>Content Browser</b>. 
+</p><p>8. Right-click in the <b>Content Browser</b>, and select <b>Import to /Game</b> in the menu that appears. 
+</p><p>9. Navigate to wherever you saved the FBX file, then select it and click Open. 
+</p><p>10. Open the <b>Advanced</b> dropdown and make sure <b>Import Materials</b> is checked, then click on Import. 
+</p>
+<blockquote>If you receive an error about smoothing groups, you can disregard it. This mesh will still work to illustrate the first person mesh setup, and will work with the animations set up in a later step. </blockquote>
+<p>11. Click on <b>Save</b> in the <b>Content Browser</b> to save your new StaticMesh. 
+</p><p>12. Navigate back to the <b>Blueprints</b> folder in the <b>Content Browser</b>, then right-click in the <b>Content Browser</b> and create a new Blueprint. 
+</p><p>13. Expand the <b>Custom Classes</b> dropdown and search for <b>FPSProjectile</b>, then select that as the parent class for your Blueprint. 
+</p><p>14. Name your new Blueprint <i>BP_FPSProjectile</i>, then double-click it to open it in the Blueprint Editor. 
+</p><p>15. To add a child StaticMeshComponent to the root SphereComponent, click on <b>CollisionComp</b> in the <b>Components</b> tab, then select <b>Static Mesh</b> from the <b>Add Component</b> dropdown. 
+</p><p>16. Name this new component <i>ProjectileMesh</i>.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:346px;"><a href="/index.php?title=File:Projectile_components.png" class="image"><img alt="Projectile components.png" src="https://d26ilriwvtzlb.cloudfront.net/0/03/Projectile_components.png" width="344" height="301" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Projectile_components.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>17. Set its Static Mesh asset to your sphere StaticMesh using the dropdown menu under <b>Mesh</b> in the <b>Details</b> panel. 
+</p>
+<blockquote> Note that if you are making a multiplayer game, that you must also uncheck "Initial Velocity in Local Space" in the "MovementComp" Component in order for this projectile to replicate correctly over a server. </blockquote>
+<p>18. Set the scale to 0.09 in X, Y, and Z. 
+</p>
+<blockquote>Clicking on the the lock icon locks all three axes so they preserve their relative scale.</blockquote>
+<p>19. Set the <b>ProjectileMesh's Collision Presets</b> value to <b>NoCollision</b>, since we're using the SphereComponent for collision and not this <b>Static Mesh</b>. 
+</p><p>20. <b>Compile</b> and <b>Save</b> your Blueprint, then close the <b>Blueprint Editor</b>. 
+</p><p>21. Now open <b>BP_FPSCharacter</b> for editing, and open <b>Defaults Mode</b>.
+</p><p>22. Find the <b>Projectile Class</b> property and set it to <b>BP_FPSProjectile</b>.
+</p><p>23. Set the <b>MuzzleOffset</b> property to {100, 0, 0} in order to spawn the projectile slightly in front of the camera.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Defaults-Muzzle-Projectile.png" class="image"><img alt="Defaults-Muzzle-Projectile.png" src="https://d3ar1piqh1oeli.cloudfront.net/9/99/Defaults-Muzzle-Projectile.png/940px-Defaults-Muzzle-Projectile.png" width="940" height="216" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/9/99/Defaults-Muzzle-Projectile.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Defaults-Muzzle-Projectile.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>24. <b>Compile</b> and <b>Save</b> your Blueprint, then close the <b>Blueprint Editor</b>.
+</p><p>25. Click on the <b>Play In</b> button in the Level Editor Toolbar.
+</p><p>26. <b>Left-click</b> to fire your projectiles
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Projectiles_pie.png" class="image"><img alt="Projectiles pie.png" src="https://d3ar1piqh1oeli.cloudfront.net/e/ed/Projectiles_pie.png/940px-Projectiles_pie.png" width="940" height="726" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/e/ed/Projectiles_pie.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Projectiles_pie.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>27. Press <b>Escape</b> to exit Play in Editor (PIE) mode.
+</p>
+<h2><span class="mw-headline" id="Projectile_Collision_and_Lifetime">Projectile Collision and Lifetime</span></h2>
+<p>After adding our projectiles, there are two interesting things to notice that we should address. 
+</p>
+<ul><li>The projectiles live forever, as evidenced by the fact that they stay forever in the Scene Outliner. </li></ul>
+<ul><li>The projectiles don't collide with anything. </li></ul>
+<p>Fortunately, all Actors in UE4 can have a limited lifespan, controlled by the InitialLifeSpan property.
+</p><p>1. Add the following lines to the FPSProjectile constructor to set the projectile's lifespan. You could also modify the <b>Initial Life Span</b> default in the <b>BP_FPSProjectile</b> Blueprint. 
+</p>
+<pre>   // Die after 3 seconds by default
+   InitialLifeSpan = 3.0f;
+</pre>
+<div class="thumb tleft"><div class="thumbinner" style="width:769px;"><a href="/index.php?title=File:Life_span_default.png" class="image"><img alt="Life span default.png" src="https://d26ilriwvtzlb.cloudfront.net/0/07/Life_span_default.png" width="767" height="373" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Life_span_default.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>UE4 comes with several useful collision channels, but also provides several customizable channels that game projects can use.
+Let's define a custom channel for projectiles, so everything can explicitly choose how to interact with a projectile in our game. 
+</p><p>1. To customize a channel, open the Project Settings and select Collision. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Collision-Settings.png" class="image"><img alt="Collision-Settings.png" src="https://d3ar1piqh1oeli.cloudfront.net/8/8f/Collision-Settings.png/940px-Collision-Settings.png" width="940" height="704" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/8/8f/Collision-Settings.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Collision-Settings.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>2. Select <b>New Object Channel...</b> to make a new collision channel. Name this <b>Projectile</b> and be sure the Default Response is set to Block
+</p><p>3. Now select <b>New...</b>under Preset. Name this one Projectile as well. Set the settings for this collision preset as shown in the image below.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:467px;"><a href="/index.php?title=File:Preset-Collision-Settings.png" class="image"><img alt="Preset-Collision-Settings.png" src="https://d26ilriwvtzlb.cloudfront.net/4/4a/Preset-Collision-Settings.png" width="465" height="861" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Preset-Collision-Settings.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>This profile means that the projectile will be blocked by Static Actors, Pawns, Dynamic Actors, Actors simulating Physics, Vehicles, and Destructible Actors.
+</p><p>Now we'll set our projectile to use this profile.
+</p><p>1. In the <code>FPSProjectile</code> constructor in <code>FPSProjectile.cpp</code>, add the following line after the creation of <code>CollisionComp</code>. 
+</p>
+<pre>   CollisionComp-&gt;BodyInstance.SetCollisionProfileName("Projectile");
+</pre>
+<p>2. Close Unreal Editor. 
+</p><p>3. Compile. 
+</p><p>In the next step, we will set up how the projectile interacts with objects that it collides with.
+</p>
+<h2><span class="mw-headline" id="Projectiles_Interacting_with_the_World">Projectiles Interacting with the World</span></h2>
+<p>Now that we can detect our projectile's collision interactions, we can determine how to respond to them. In our projectile collision settings, we've set our interactions to be Blocks, so let's add a function to FPSProjectile called OnHit to respond to these events. 
+</p><p>1. In the <code>FPSProjectile</code> class definition, add the following function declaration: 
+</p>
+<pre>   /** called when projectile hits something */
+   UFUNCTION()
+   void OnHit(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult&amp; Hit);
+</pre>
+<p>Now, we will implement OnHit with functionality to add a physics impulse to whatever the projectile hits.
+</p><p>1. Add the following to FPSProjectile.cpp: 
+</p>
+<pre>   void AFPSProjectile::OnHit(AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult&amp; Hit)
+   {
+       if ( OtherActor &amp;&amp; (OtherActor&#160;!= this) &amp;&amp; OtherComp )
+       {
+           OtherComp-&gt;AddImpulseAtLocation(ProjectileMovement-&gt;Velocity * 100.0f, Hit.ImpactPoint);
+       }
+   }
+</pre>
+<p>Lastly, we need to hook this function to the projectile's <code>SphereComponent's OnComponentBeginOverlap</code> delegate. 
+</p><p>1. In the <code>FPSProjectile</code> constructor, add the following after <code>CollisionComp</code> is created. 
+</p>
+<pre>   CollisionComp-&gt;OnComponentHit.AddDynamic(this, &amp;AFPSProjectile::OnHit);
+</pre>
+<p>2. Compile. 
+</p><p>3. After the build finishes, open Unreal Editor, and then open FPSProject. 
+</p><p>4. Select the <b>SM_Template_Map_Floor</b> floor StaticMesh. 
+</p><p>5. Copy and paste the floor mesh, then rescale the copy to {0.2, 0.2, 3.0}. 
+</p><p>6. Position the mesh copy at {-230, 0, 160}. 
+</p><p>7. Scroll down to the <b>Physics</b> section and check <b>Simulate Physics</b>. 
+</p><p>8. Save your map. 
+</p><p>9. Click on the <b>Play In</b> button in the Level Editor Toolbar. 
+</p><p>10. <b>Left-click</b> to fire your projectiles and move the cube around your level. Your projectiles are now complete! 
+</p>
+<div class="floatleft"><a href="/index.php?title=File:Projectile_box.png" class="image"><img alt="Projectile box.png" src="https://d3ar1piqh1oeli.cloudfront.net/6/63/Projectile_box.png/940px-Projectile_box.png" width="940" height="716" srcset="https://d26ilriwvtzlb.cloudfront.net/6/63/Projectile_box.png 1.5x" /></a></div>
+<p><br clear="all" />
+</p><p>11. Press <b>Escape</b> to exit Play in Editor (PIE) mode.
+</p>
+<h2><span class="mw-headline" id="Adding_Crosshairs">Adding Crosshairs</span></h2>
+<p>Now that you are able to shoot projectiles while playing your game, let's add a HUD with crosshairs to show where you are aiming. 
+</p><p>1. Download the following file, and unzip it to get the crosshair image crosshair.TGA. 
+</p><p><a href="https://d26ilriwvtzlb.cloudfront.net/f/fe/Crosshair_fps_tutorial.zip" class="internal" title="Crosshair fps tutorial.zip">Crosshair</a>
+</p><p>2. In Unreal Editor, navigate to the <b>Game</b> folder in the <b>Content Browser</b>. 
+</p><p>3. Right-click in the <b>Content Browser</b>, and select <b>Import to /Game</b> in the menu that appears. 
+</p><p>4. Navigate to wherever you unzipped the crosshair.TGA file, then select it and click <b>Open</b>. 
+</p><p>5. Click on <b>Save</b> in the <b>Content Browser</b> to save your new asset.  
+</p><p>UE4 comes with a basic HUD class we can extend, so let's add a new class derived from that.
+</p><p>1. Go to <b>File &gt; Add Code</b> to Project.
+</p><p>2. Select <b>HUD</b> as the parent class for your new class, and click <b>Next</b>.
+</p><p>3. Name your new class <i>FPSHUD</i>, then click on <b>Create</b>.
+</p><p>4. Click on <b>Yes</b> to open the class in Visual Studio for editing. 
+</p><p>5. Visual Studio will prompt you asking to reload the project, since the <b>C++ Class Wizard</b> modified it. Select <b>Reload</b>. 
+</p><p>What we want to do here is to draw a crosshair icon on the center of the screen. First, we need a reference to our texture asset.
+</p><p>1. First we must set up the constructor for this new class. Place the following code in FPSHUD.h, under GENERATED_BODY().
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="n">AFPSHUD</span><span class="p">(</span><span class="k">const</span> <span class="n">FObjectInitializer</span><span class="o">&amp;</span> <span class="n">ObjectInitializer</span><span class="p">);</span>
+</pre></div>
+<p>2. Next we need to implement the constructor. Place the following code in FPSHUD.cpp.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="n">AFPSHUD</span><span class="o">::</span><span class="n">AFPSHUD</span><span class="p">(</span><span class="k">const</span> <span class="n">FObjectInitializer</span><span class="o">&amp;</span> <span class="n">ObjectInitializer</span><span class="p">)</span>
+    <span class="o">:</span><span class="n">Super</span><span class="p">(</span><span class="n">ObjectInitializer</span><span class="p">)</span>
+</pre></div>
+<p>3. Add the following to the FPSHUD class definition in FPSHUD.h. We're only going to use this internally to this class, so let's make it private. 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="k">private</span><span class="o">:</span>
+    <span class="cm">/** Crosshair asset pointer */</span>
+    <span class="n">UTexture2D</span><span class="o">*</span> <span class="n">CrosshairTex</span><span class="p">;</span>
+</pre></div>
+<p>4. We can then get a reference to our desired asset in the FPSHUD constructor.
+</p><p>As a reminder, you can get the asset path to your texture in the editor by right clicking the asset in the Content Browser and selecting Copy Reference. 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">AFPSHUD</span><span class="o">::</span><span class="n">AFPSHUD</span><span class="p">(</span><span class="k">const</span> <span class="n">FObjectInitializer</span><span class="o">&amp;</span> <span class="n">ObjectInitializer</span><span class="p">)</span>
+<span class="o">:</span><span class="n">Super</span><span class="p">(</span><span class="n">ObjectInitializer</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Set the crosshair texture</span>
+    <span class="k">static</span> <span class="n">ConstructorHelpers</span><span class="o">::</span><span class="n">FObjectFinder</span><span class="o">&lt;</span><span class="n">UTexture2D</span><span class="o">&gt;</span> <span class="n">CrosshairTexObj</span><span class="p">(</span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Texture2D&#39;/Game/crosshair.crosshair&#39;&quot;</span><span class="p">));</span>
+    <span class="n">CrosshairTex</span> <span class="o">=</span> <span class="n">CrosshairTexObj</span><span class="p">.</span><span class="n">Object</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>The HUD base class has a virtual function called DrawHUD that we can override to add our custom drawing code and draw the crosshairs on the screen.
+</p><p>1. Add a function declaration to the FPSHUD class declaration, below GENERATED_UCLASS_BODY(): 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="cm">/** Primary draw call for the HUD */</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">DrawHUD</span><span class="p">()</span> <span class="n">OVERRIDE</span><span class="p">;</span>
+</pre></div>
+<p>2. Implement the DrawHUD override in FPSHUD.cpp. 
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="kt">void</span> <span class="n">AFPSHUD</span><span class="o">::</span><span class="n">DrawHUD</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Super</span><span class="o">::</span><span class="n">DrawHUD</span><span class="p">();</span>
+        <span class="c1">// Draw very simple crosshair</span>
+        <span class="c1">// find center of the Canvas</span>
+        <span class="k">const</span> <span class="n">FVector2D</span> <span class="nf">Center</span><span class="p">(</span><span class="n">Canvas</span><span class="o">-&gt;</span><span class="n">ClipX</span> <span class="o">*</span> <span class="mf">0.5f</span><span class="p">,</span> <span class="n">Canvas</span><span class="o">-&gt;</span><span class="n">ClipY</span> <span class="o">*</span> <span class="mf">0.5f</span><span class="p">);</span>
+        <span class="c1">// offset by half the texture&#39;s dimensions so that the center of the texture aligns with the center of the Canvas</span>
+        <span class="k">const</span> <span class="n">FVector2D</span> <span class="nf">CrosshairDrawPosition</span><span class="p">(</span> <span class="p">(</span><span class="n">Center</span><span class="p">.</span><span class="n">X</span> <span class="o">-</span> <span class="p">(</span><span class="n">CrosshairTex</span><span class="o">-&gt;</span><span class="n">GetSurfaceWidth</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)),</span>
+            <span class="p">(</span><span class="n">Center</span><span class="p">.</span><span class="n">Y</span> <span class="o">-</span> <span class="p">(</span><span class="n">CrosshairTex</span><span class="o">-&gt;</span><span class="n">GetSurfaceHeight</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.5f</span><span class="p">))</span> <span class="p">);</span>
+        <span class="c1">// draw the crosshair</span>
+        <span class="n">FCanvasTileItem</span> <span class="nf">TileItem</span><span class="p">(</span> <span class="n">CrosshairDrawPosition</span><span class="p">,</span> <span class="n">CrosshairTex</span><span class="o">-&gt;</span><span class="n">Resource</span><span class="p">,</span> <span class="n">FLinearColor</span><span class="o">::</span><span class="n">White</span><span class="p">);</span>
+        <span class="n">TileItem</span><span class="p">.</span><span class="n">BlendMode</span> <span class="o">=</span> <span class="n">SE_BLEND_Translucent</span><span class="p">;</span>
+        <span class="n">Canvas</span><span class="o">-&gt;</span><span class="n">DrawItem</span><span class="p">(</span> <span class="n">TileItem</span> <span class="p">);</span>
+    <span class="p">}</span>
+</pre></div>
+<p>Finally, we need to tell our GameMode to use our custom HUD class when creating players.
+</p><p>1. In The FPSGameMode constructor, add:
+</p>
+ <div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>    <span class="n">HUDClass</span> <span class="o">=</span> <span class="n">AFPSHUD</span><span class="o">::</span><span class="n">StaticClass</span><span class="p">();</span>
+</pre></div>
+<p>2. Add an include statement at the top of FPSGameMode.cpp. 
+</p>
+<pre>   #include "FPSHUD.h"
+</pre>
+<p>3. Close the editor, build FPSProject, and open the editor with <b>FPSProject</b> one more time. This is the last step of the tutorial that utilizes Visual Studio, so you can close it now. 
+</p><p>4. Play your game in the editor. At this stage, you can move around, jump, control the camera, and shoot projectiles that interact with physics objects! 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Step13_crosshairs.png" class="image"><img alt="Step13 crosshairs.png" src="https://d3ar1piqh1oeli.cloudfront.net/a/a8/Step13_crosshairs.png/940px-Step13_crosshairs.png" width="940" height="721" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/a/a8/Step13_crosshairs.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Step13_crosshairs.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<h2><span class="mw-headline" id="Animating_Your_Character">Animating Your Character</span></h2>
+<p>Now let's get some animation into our game, by animating the first person arms we added a few steps back. 
+</p><p>1. Download the following file, and unzip it to get the five animations we will be working with in this step. 
+</p><p><a href="https://d26ilriwvtzlb.cloudfront.net/a/a2/FPP_Animations.zip" class="internal" title="FPP Animations.zip">Animations</a>
+</p><p>2. Back in the editor, navigate to the Game folder in the <b>Content Browser</b>. Right-click in the <b>Content Browser</b> and create a new folder called <b>Animations</b>. 
+</p><p>3. Open the <b>Animations</b> folder, then right-click and select <b>Import to /Game/Animations</b>. 
+</p><p>4. Navigate to the location you saved the five animations to, select all five, and then click on <b>Open</b>. 
+</p><p>5. Select HeroFPP_Skeleton under the Select Skeleton heading, then click on Import. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:317px;"><a href="/index.php?title=File:Anim_import.png" class="image"><img alt="Anim import.png" src="https://d26ilriwvtzlb.cloudfront.net/f/fc/Anim_import.png" width="315" height="244" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Anim_import.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>6. Repeat for the other four <b>FBX Import Options</b> prompts. 
+</p><p>7. Click on <b>Save</b> in the <b>Content Browser</b> to save your new assets. 
+</p><p>Now that we have our assets imported, we need to create an Animation Blueprint.
+</p><p>1. Right click and select <b>Animation &gt; Animation Blueprint</b>. 
+</p><p>2. Choose <b>AnimInstance</b> as the <b>Parent Class</b> and choose <b>/Game/HeroFPP_Skeleton</b> as the <b>Target Skeleton</b>.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:483px;"><a href="/index.php?title=File:Create_animation_bp_fps_tutorial.png" class="image"><img alt="Create animation bp fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/0/05/Create_animation_bp_fps_tutorial.png" width="481" height="146" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Create_animation_bp_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>3. Name it Arms_AnimBP and open it for edit. 
+</p><p>Looking at our animation data, we have 5 animations to hook up: 
+</p>
+<ul><li>Idle: When standing still </li></ul>
+<ul><li>Run: When running on the ground </li></ul>
+<ul><li>JumpStart: play once when jumping, then play JumpLoop </li></ul>
+<ul><li>JumpLoop: play while in the air </li></ul>
+<ul><li>JumpEnd: play once when landing, then back to Idle </li></ul>
+<p>We'll use a state machine to set up these animation states and their transitions. But first, thinking about how to drive this state machine, we are going to need 2 pieces of data - whether the pawn is walking (versus standing still), and whether the pawn is airborne (versus on the ground). Let's add 2 variables to the Blueprint to store this information. For an overview of variable creation, see the Blueprint Variables documentation.
+</p><p>1. In the <b>My Blueprint</b> tab, click on the <b>New Variable</b> button.
+</p><p>2. Make the variable a Boolean called <i>IsRunning</i>.
+</p><p>3. Click on the <b>New Variable</b> button again and add a boolean called <i>IsFalling</i>.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:342px;"><a href="/index.php?title=File:New_anim_vars_fps_tutorial.png" class="image"><img alt="New anim vars fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/7/76/New_anim_vars_fps_tutorial.png" width="340" height="299" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:New_anim_vars_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<h3><span class="mw-headline" id="EventGraph">EventGraph</span></h3>
+<p>To set these variables properly while the game is running, we'll edit the Event Graph.
+</p><p>1. Open the EventGraph by double-clicking on <b>EventGraph</b> in the <b>My Blueprint</b> tab.
+</p><p>2. Right-click in the graph to bring up the context menu. 
+</p><p>3. Type <i>Update</i> in the context menu search, then click on <b>Event Blueprint Update Animation</b> to add that node.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:416px;"><a href="/index.php?title=File:Event_kismet_update_animation_fps_tutorial.png" class="image"><img alt="Event kismet update animation fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/1/1f/Event_kismet_update_animation_fps_tutorial.png" width="414" height="123" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Event_kismet_update_animation_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>The <b>Event Blueprint Update Animation</b> node will allow us to update our state variables every time the Animation updates, so they are always in sync with the game state.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:280px;"><a href="/index.php?title=File:Event_kismet_node_fps_tutorial.png" class="image"><img alt="Event kismet node fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/a/a7/Event_kismet_node_fps_tutorial.png" width="278" height="136" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Event_kismet_node_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>We can find the proper values for our variables by querying the character's CharacterMovementComponent. To get this, we must first get a reference to the animation's owning Character.
+</p><p>1. Right-click in the graph to bring up the context menu. 
+</p><p>2. Type <i>Owner</i> in the context menu search, then click on <b>Try Get Pawn Owner</b> to add that node. 
+</p><p>3. Drag off the output pin and select <b>Cast to Character</b> from the context menu.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:787px;"><a href="/index.php?title=File:Cast_to_character_fps_tutorial.png" class="image"><img alt="Cast to character fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/c/cc/Cast_to_character_fps_tutorial.png" width="785" height="230" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Cast_to_character_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>4. Wire the output execution pin on <b>Event Blueprint Update Animation</b> to the input execution pin on <b>Cast to Character</b>. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:702px;"><a href="/index.php?title=File:Event_to_cast_fps_tutorial.png" class="image"><img alt="Event to cast fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/d/da/Event_to_cast_fps_tutorial.png" width="700" height="306" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Event_to_cast_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>5. Drag off the <b>As Character</b> output pin and select <b>Get Character Movement</b>. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Get_character_movement.png" class="image"><img alt="Get character movement.png" src="https://d3ar1piqh1oeli.cloudfront.net/5/5b/Get_character_movement.png/940px-Get_character_movement.png" width="940" height="287" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/5/5b/Get_character_movement.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Get_character_movement.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>6. Drag off the <b>Character Movement</b> output pin and select <b>Get Movement Mode</b>. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Get_movement_mode_fps_tutorial.png" class="image"><img alt="Get movement mode fps tutorial.png" src="https://d3ar1piqh1oeli.cloudfront.net/e/ed/Get_movement_mode_fps_tutorial.png/940px-Get_movement_mode_fps_tutorial.png" width="940" height="258" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/e/ed/Get_movement_mode_fps_tutorial.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Get_movement_mode_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>Now we can query the CharacterMovementComponent's MovementMode and set IsFalling to true if we're in the falling state, or false otherwise. 
+</p><p>1. Drag off the <b>Movement Mode</b> output pin and select <b>Equal (Enum)</b>. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:719px;"><a href="/index.php?title=File:Equal_enum_fps_tutorial.png" class="image"><img alt="Equal enum fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/c/c2/Equal_enum_fps_tutorial.png" width="717" height="163" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Equal_enum_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>2. Set the dropdown value on the <b>Equal (Enum)</b> node to <b>Falling</b>.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:515px;"><a href="/index.php?title=File:Equal_falling_fps_tutorial.png" class="image"><img alt="Equal falling fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/d/dc/Equal_falling_fps_tutorial.png" width="513" height="176" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Equal_falling_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>3. Alt-click on <b>IsFalling</b> in the My Blueprint tab and drag into the graph to create a <b>Set Is Falling</b> node. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:213px;"><a href="/index.php?title=File:Set_isFalling_fps_tutorial.png" class="image"><img alt="Set isFalling fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/3/3c/Set_isFalling_fps_tutorial.png" width="211" height="114" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Set_isFalling_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>4.Connect the unlabeled output execution pin of the <b>Cast to Character</b> node to the input execution pin of the <b>Set Is Falling</b> node, and connect the output Boolean data pin of the <b>Equal (Enum)</b> node to the input Boolean data pin of the <b>Set Is Falling</b> node. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Complete_isfalling_fps_tutorial.png" class="image"><img alt="Complete isfalling fps tutorial.png" src="https://d3ar1piqh1oeli.cloudfront.net/8/8a/Complete_isfalling_fps_tutorial.png/940px-Complete_isfalling_fps_tutorial.png" width="940" height="211" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/8/8a/Complete_isfalling_fps_tutorial.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Complete_isfalling_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>Then, to determine if we're running or standing still, we can get the character's velocity and set IsRunning to true if the magnitude is &gt;0, or false otherwise.
+</p><p>1. Go back to the Cast To Character node and drag off the As Character pin again. This time, select the Get Velocity node. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:679px;"><a href="/index.php?title=File:Get_velocity_fps_tutorial.png" class="image"><img alt="Get velocity fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/e/e7/Get_velocity_fps_tutorial.png" width="677" height="329" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Get_velocity_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>2. If the character is not standing still, the length of its velocity vector will be &gt;0. So, drag off the Return Value vector output pin, and select Vector Length to add that node to the graph. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:768px;"><a href="/index.php?title=File:Vector_length_fps_tutorial.png" class="image"><img alt="Vector length fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/9/9c/Vector_length_fps_tutorial.png" width="766" height="211" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Vector_length_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>3.Drag off the <b>Return Value</b> float output pin, and select the <b>&gt; (float)</b> node.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:676px;"><a href="/index.php?title=File:Greater_than_float_fps_tutorial.png" class="image"><img alt="Greater than float fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/7/74/Greater_than_float_fps_tutorial.png" width="674" height="148" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Greater_than_float_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>4. Alt-click on <b>IsRunning</b> in the <b>My Blueprint</b> tab and drag into the graph to create a <b>Set Is Running</b> node. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:251px;"><a href="/index.php?title=File:Set_isRunning_fps_tutorial.png" class="image"><img alt="Set isRunning fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/1/18/Set_isRunning_fps_tutorial.png" width="249" height="148" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Set_isRunning_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>5. Connect the output execution pin of the <b>Set Is Falling</b> node to the input execution pin of the <b>Set Is Running</b> node, and connect the output Boolean pin of the <b>&gt; (float)</b> node to the input Boolean pin of the <b>Set Is Running</b> node.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:642px;"><a href="/index.php?title=File:Final_set_falling_fps_tutorial.png" class="image"><img alt="Final set falling fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/f/f3/Final_set_falling_fps_tutorial.png" width="640" height="375" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Final_set_falling_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<h3><span class="mw-headline" id="AnimGraph">AnimGraph</span></h3>
+<p>Now that our variables are being set properly, we can put together our state machine.
+</p>
+<h4><span class="mw-headline" id="Add_State_Machine">Add State Machine</span></h4>
+<p>1. Double-click on <b>AnimGraph</b> in the <b>My Blueprint</b> tab to open it.
+</p><p>2. Right-click the graph and select <b>State Machines &gt;Add New State Machine...</b> in the context menu.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:289px;"><a href="/index.php?title=File:NewStateMachine_fps_tutorial.png" class="image"><img alt="NewStateMachine fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/2/2a/NewStateMachine_fps_tutorial.png" width="287" height="228" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:NewStateMachine_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>3. Right-click on <b>New State Machine</b> in the <b>My Blueprint</b> tab, and rename the state machine to <i>Arms State Machine</i>. 
+</p><p>4. Connect the output execution pin on the <b>Arms State Machine</b> node to the <b>Result</b> input execution pin on the <b>Final Animation Pose</b> node.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:850px;"><a href="/index.php?title=File:ArmsStateMachine_fps_tutorial.png" class="image"><img alt="ArmsStateMachine fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/d/d2/ArmsStateMachine_fps_tutorial.png" width="848" height="426" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ArmsStateMachine_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>5. Double-click the <b>Arms State Machine</b> node to open its graph for editing. 
+</p><p>We need to add our 5 states to this graph.
+</p>
+<h4><span class="mw-headline" id="Add_States">Add States</span></h4>
+<p>1. Right-click in the graph and select <b>Add State...</b> from the context menu.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:416px;"><a href="/index.php?title=File:Add_state_fps_tutorial.png" class="image"><img alt="Add state fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/2/2a/Add_state_fps_tutorial.png" width="414" height="74" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Add_state_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>2. Name the state <i>Idle</i>. 
+</p><p>3. Double click the state to edit it. 
+</p><p>4. Right-click in the graph, and search for "Idle" in the context menu. Click on <b>Play FPP_Idle</b> to insert that node. 
+</p><p>5. Connect the output execution pin of the <b>Play FPP_Idle</b> node to the <b>Result</b> input execution pin of the <b>Final Animation Pose</b> node
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:850px;"><a href="/index.php?title=File:ArmsStateMachine_fps_tutorial.png" class="image"><img alt="ArmsStateMachine fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/d/d2/ArmsStateMachine_fps_tutorial.png" width="848" height="426" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ArmsStateMachine_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>6. Repeat steps 1-5 for each of the other 4 states: 
+</p>
+<ul><li>Run </li></ul>
+<ul><li>JumpStart </li></ul>
+<ul><li>JumpEnd </li></ul>
+<ul><li>JumpLoop </li></ul>
+<p>When you are done, the <b>Arms State Machine</b> graph should look like the below image. Each state should contain the appropriate <b>Play</b> node connected to the <b>Final Animation Pose</b> node. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:States_done_fps_tutorial.png" class="image"><img alt="States done fps tutorial.png" src="https://d3ar1piqh1oeli.cloudfront.net/f/f6/States_done_fps_tutorial.png/940px-States_done_fps_tutorial.png" width="940" height="425" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/f/f6/States_done_fps_tutorial.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:States_done_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>Now, we will wire up the transitions between our states.
+Start by dragging a wire from the <b>Entry</b> node to <b>Idle</b> state.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:466px;"><a href="/index.php?title=File:Entry_to_idle_fps_tutorial.png" class="image"><img alt="Entry to idle fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/1/14/Entry_to_idle_fps_tutorial.png" width="464" height="296" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Entry_to_idle_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<h4><span class="mw-headline" id="Add_the_Idle_to.2Ffrom_Run_Transitions">Add the Idle to/from Run Transitions</span></h4>
+<p>When our character starts moving the state machine should transition from the <b>Idle</b> to the <b>Run</b> state.
+</p><p>1. Drag a wire from the <b>Idle</b> state to the <b>Run</b> state to create a transition. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:413px;"><a href="/index.php?title=File:Idle_to_run_fps_tutorial.png" class="image"><img alt="Idle to run fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/e/e7/Idle_to_run_fps_tutorial.png" width="411" height="443" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Idle_to_run_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>2. Double click the transition to edit it. Control-click on <b>IsRunning</b> in the <b>My Blueprint</b> tab and drag into the graph to create a <b>Get Is Running</b> node.
+</p><p>3. Connect the output pin on the <b>Get Is Running</b> node to the input <b>Can Enter Transition</b> pin on the <b>Result</b> node. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:405px;"><a href="/index.php?title=File:IdleToRunCanEnterTransition_FPSTutorial.PNG" class="image"><img alt="IdleToRunCanEnterTransition FPSTutorial.PNG" src="https://d26ilriwvtzlb.cloudfront.net/b/bc/IdleToRunCanEnterTransition_FPSTutorial.PNG" width="403" height="100" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:IdleToRunCanEnterTransition_FPSTutorial.PNG" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" /> 
+</p><p>When our character stops moving the state machine should transition from the <b>Run</b> state to the <b>Idle</b> state.
+</p><p>1. Return to the <b>Arms State Machine</b> graph, and drag a wire from the <b>Run</b> state to the <b>Idle</b> state.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:437px;"><a href="/index.php?title=File:RunToIdleTransition_FPSTutorial.PNG" class="image"><img alt="RunToIdleTransition FPSTutorial.PNG" src="https://d26ilriwvtzlb.cloudfront.net/6/66/RunToIdleTransition_FPSTutorial.PNG" width="435" height="401" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:RunToIdleTransition_FPSTutorial.PNG" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" /> 
+</p><p>2. Double click the transition to edit it. Control-click on <b>IsRunning</b> in the <b>My Blueprint</b> tab and drag into the graph to create a <b>Get Is Running</b> node.
+</p><p>3. Drag off the output Boolean pin on the <b>Get Is Running</b> node and create a <b>Not Boolean</b> node.
+</p><p>4. Connect the output pin on the <b>Not Boolean</b> node to the input <b>Can Enter Transition</b> pin on the <b>Result</b> node.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:732px;"><a href="/index.php?title=File:Is_not_running_can_enter_fps_tutorial.png" class="image"><img alt="Is not running can enter fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/6/6a/Is_not_running_can_enter_fps_tutorial.png" width="730" height="215" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Is_not_running_can_enter_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" /> 
+</p>
+<h4><span class="mw-headline" id="Add_the_Idle_to_JumpStart_Transition">Add the Idle to JumpStart Transition</span></h4>
+<p>1. Return to the <b>Arms State Machine</b> graph, and drag a wire from the <b>Idle</b> state to the <b>JumpStart</b> state. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:779px;"><a href="/index.php?title=File:Idle_to_jumpstart_fps_tutorial.png" class="image"><img alt="Idle to jumpstart fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/b/b5/Idle_to_jumpstart_fps_tutorial.png" width="777" height="469" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Idle_to_jumpstart_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>2. Double click the transition to edit it. Control-click on <b>IsFalling</b> in the My Blueprint tab and drag into the graph to create a <b>Get Is Falling</b> node. 
+</p><p>3. Connect the output Boolean pin on the <b>Get Is Falling</b> node to the input Boolean <b>Can Enter Transition</b> pin on the <b>Result</b> node.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:447px;"><a href="/index.php?title=File:Is_falling_can_enter_fps_tutorial.png" class="image"><img alt="Is falling can enter fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/b/ba/Is_falling_can_enter_fps_tutorial.png" width="445" height="125" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Is_falling_can_enter_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<h4><span class="mw-headline" id="Add_the_Run_to_JumpStart_Transition">Add the Run to JumpStart Transition</span></h4>
+<p>1. Return to the <b>Arms State Machine</b> graph, and drag a wire from the <b>Run</b> state to the <b>JumpStart</b> state.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:779px;"><a href="/index.php?title=File:Run_to_jumpstart_fps_tutorial.png" class="image"><img alt="Run to jumpstart fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/5/52/Run_to_jumpstart_fps_tutorial.png" width="777" height="462" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Run_to_jumpstart_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>2. Double click the transition to edit it. Control-click on <b>IsFalling</b> in the <b>My Blueprint</b> tab and drag into the graph to create a <b>Get Is Falling</b> node. 
+</p><p>3. Connect the output Boolean pin on the <b>Get Is Falling</b> node to the input Boolean <b>Can Enter Transition</b> pin on the <b>Result</b> node.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:447px;"><a href="/index.php?title=File:Is_falling_can_enter_fps_tutorial.png" class="image"><img alt="Is falling can enter fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/b/ba/Is_falling_can_enter_fps_tutorial.png" width="445" height="125" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Is_falling_can_enter_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<h4><span class="mw-headline" id="Add_the_JumpStart_to_JumpLoop_Transition">Add the JumpStart to JumpLoop Transition</span></h4>
+<p>1. Return to the <b>Arms State Machine</b> graph, and drag a wire from the <b>JumpStart</b> state to the <b>JumpLoop</b> state. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Jumpstart_to_jumploop_fps_tutorial.png" class="image"><img alt="Jumpstart to jumploop fps tutorial.png" src="https://d3ar1piqh1oeli.cloudfront.net/2/2f/Jumpstart_to_jumploop_fps_tutorial.png/940px-Jumpstart_to_jumploop_fps_tutorial.png" width="940" height="442" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/2/2f/Jumpstart_to_jumploop_fps_tutorial.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Jumpstart_to_jumploop_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>2. Double click the transition to edit it. For this transition, we want it to happen when the <b>JumpStart</b> animation is nearly finished. Right-click in the graph, then search for and select the <b>TimeRemaining for 'FPP_JumpStart' </b> node. 
+</p><p>3. Drag off of the <b>Time Remaining</b> output pin, and add a <b>&lt;= (float)</b> node using the context menu. 
+</p><p>4. Enter 0.1 in the other input field on the <b>&lt;= (float)</b> node, and then wire the Boolean output pin from that node to the <b>Can Enter Transition</b> input pin on the <b>Result</b> node.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:724px;"><a href="/index.php?title=File:Jumpend_time_canenter_fps_tutorial.png" class="image"><img alt="Jumpend time canenter fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/a/a6/Jumpend_time_canenter_fps_tutorial.png" width="722" height="221" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Jumpend_time_canenter_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<h4><span class="mw-headline" id="Add_the_JumpLoop_to_JumpEnd_Transition">Add the JumpLoop to JumpEnd Transition</span></h4>
+<p>1. Return to the <b>Arms State Machine</b> graph, and drag a wire from the <b>JumpLoop</b> state to the <b>JumpEnd</b> state. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Jumploop_to_jumpend_fps_tutorial.png" class="image"><img alt="Jumploop to jumpend fps tutorial.png" src="https://d3ar1piqh1oeli.cloudfront.net/5/50/Jumploop_to_jumpend_fps_tutorial.png/940px-Jumploop_to_jumpend_fps_tutorial.png" width="940" height="432" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/5/50/Jumploop_to_jumpend_fps_tutorial.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Jumploop_to_jumpend_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>2. Double click the transition to edit it. Control-click on <b>IsFalling</b> in the <b>My Blueprint</b> tab and drag into the graph to create a <b>Get Is Falling</b> node. 
+</p><p>3. Drag off the output Boolean pin on the <b>Get Is Falling</b> node and create a <b>Not Boolean</b> node. Connect the output Boolean pin on the <b>Not Boolean</b> node to the input Boolean <b>Can Enter Transition</b> pin on the <b>Result</b> node. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:630px;"><a href="/index.php?title=File:JumpLoopToJumpEndCanEnterTransition_FPSTutorial.PNG" class="image"><img alt="JumpLoopToJumpEndCanEnterTransition FPSTutorial.PNG" src="https://d26ilriwvtzlb.cloudfront.net/2/26/JumpLoopToJumpEndCanEnterTransition_FPSTutorial.PNG" width="628" height="96" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:JumpLoopToJumpEndCanEnterTransition_FPSTutorial.PNG" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<h4><span class="mw-headline" id="Add_the_JumpEnd_to_Idle_Transition">Add the JumpEnd to Idle Transition</span></h4>
+<p>1. Return to the <b>Arms State Machine</b> graph, and drag a wire from the <b>JumpEnd</b> state to the <b>Idle</b> state.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:Jumpend_to_idle_fps_tutorial.png" class="image"><img alt="Jumpend to idle fps tutorial.png" src="https://d3ar1piqh1oeli.cloudfront.net/a/a3/Jumpend_to_idle_fps_tutorial.png/940px-Jumpend_to_idle_fps_tutorial.png" width="940" height="438" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/a/a3/Jumpend_to_idle_fps_tutorial.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Jumpend_to_idle_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p><p>2. Double click the transition to edit it. For this transition, we want it to happen when the <b>JumpEnd</b> animation is nearly finished. Right-click in the graph, then search for and select the <b>TimeRemaining for 'FPP_JumpEnd' </b> node. 
+</p><p>3. Drag off of the <b>Time Remaining</b> output pin, and add a <b>&lt;= (float)</b> node using the context menu. 
+</p><p>4. Enter 0.1 in the other input field on the <b>&lt;= (float)</b> node, and then wire the Boolean output pin from that node to the <b>Can Enter Transition</b> input pin on the <b>Result</b> node. 
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:724px;"><a href="/index.php?title=File:Jumpend_time_canenter_fps_tutorial.png" class="image"><img alt="Jumpend time canenter fps tutorial.png" src="https://d26ilriwvtzlb.cloudfront.net/a/a6/Jumpend_time_canenter_fps_tutorial.png" width="722" height="221" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Jumpend_time_canenter_fps_tutorial.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p><br clear="all" />
+</p>
+<h4><span class="mw-headline" id="Associate_the_Animation_Blueprint_with_the_Character_Blueprint">Associate the Animation Blueprint with the Character Blueprint</span></h4>
+<p>1. Compile and save the <b>Arms_AnimBP</b> Animation Blueprint, then close it. 
+</p><p>2. Navigate to the <b>Blueprints</b> folder in the <b>Content Browser</b>, then open the <b>BP_FPSCharacter</b> Blueprint. 
+</p><p>3. In <b>Defaults</b> mode, find the <b>Animation</b> section, and then the <b>FirstPersonMesh</b> subsection. Set the <b>AnimationBlueprint</b> for the <b>FirstPersonMesh</b> to the <b>Arms_AnimBP</b> Animation Blueprint we just made.
+</p><p>4. Also in <b>Defaults</b> mode, change the <b>FirstPersonMesh</b> transform to {0,0,-150} for translation and {0,0,0} for rotation. 
+</p><p>5. Compile and save the Blueprint, then close it. 
+</p><p>6. Play your game in the editor. Your arms will be animated, and will transition through their animations as you play. You have completed the FPS tutorial!
+</p>
+<dl><dd><b>Note</b>: Please make sure that you have play in selected viewport checked instead of simulate before pressing the play button. More information can be found <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Engine/UI/LevelEditor/InEditorTesting/index.html">here</a></dd></dl>
+
+<!-- 
+NewPP limit report
+Cached time: 20190607105145
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.672 seconds
+Real time usage: 5.668 seconds
+Preprocessor visited node count: 546/1000000
+Preprocessor generated node count: 1062/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:20-0!canonical and timestamp 20190607105140 and revision id 41
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=First_Person_Shooter_C%2B%2B_Tutorial&amp;oldid=41">https://wiki.unrealengine.com/index.php?title=First_Person_Shooter_C%2B%2B_Tutorial&amp;oldid=41</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/index.php?title=Category:Tutorials&amp;action=edit&amp;redlink=1" class="new" title="Category:Tutorials (page does not exist)">Tutorials</a></li><li><a href="/index.php?title=Category:Code" title="Category:Code">Code</a></li><li><a href="/index.php?title=Category:Epic_Created_Content" title="Category:Epic Created Content">Epic Created Content</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0e33288c51e7947d3"><meta name="worker" content="171"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.75","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"legalTags":[],"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners-apply","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://dev.epicgames.com","title":"Online Services"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"melissa.robinson"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.61382c4136278d626703.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.61382c4136278d626703.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.672","walltime":"5.668","ppvisitednodes":{"value":546,"limit":1000000},"ppgeneratednodes":{"value":1062,"limit":1000000},"postexpandincludesize":{"value":0,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.000      1 -total"]},"cachereport":{"timestamp":"20190607105145","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":83});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":118,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

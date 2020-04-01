@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(3),u=e(4),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}catch(e){throw f.emit("fn-err",[arguments,this,e],t),e}finally{f.emit("fn-end",[c.now()],t)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e,n){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now(),!1,n])}},{}],2:[function(e,n,t){function r(e,n){if(!o)return!1;if(e!==o)return!1;if(!n)return!0;if(!i)return!1;for(var t=i.split("."),r=n.split("."),a=0;a<r.length;a++)if(r[a]!==t[a])return!1;return!0}var o=null,i=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var u=navigator.userAgent,f=u.match(a);f&&u.indexOf("Chrome")===-1&&u.indexOf("Chromium")===-1&&(o="Safari",i=f[1])}n.exports={agent:o,version:i,match:r}},{}],3:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],4:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],5:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=v(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){h[e]=v(e).concat(n)}function m(e,n){var t=h[e];if(t)for(var r=0;r<t.length;r++)t[r]===n&&t.splice(r,1)}function v(e){return h[e]||[]}function g(e){return p[e]=p[e]||o(t)}function w(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var h={},y={},b={on:l,addEventListener:l,removeEventListener:m,emit:t,get:g,listeners:v,context:n,buffer:w,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(3),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!E++){var e=x.info=NREUM.info,n=l.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+x.offset],null,"api");var t=l.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===l.readyState&&i()}function i(){f("mark",["domContent",a()+x.offset],null,"api")}function a(){return O.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-x.offset}var u=(new Date).getTime(),f=e("handle"),c=e(3),s=e("ee"),p=e(2),d=window,l=d.document,m="addEventListener",v="attachEvent",g=d.XMLHttpRequest,w=g&&g.prototype;NREUM.o={ST:setTimeout,SI:d.setImmediate,CT:clearTimeout,XHR:g,REQ:d.Request,EV:d.Event,PR:d.Promise,MO:d.MutationObserver};var h=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1130.min.js"},b=g&&w&&w[m]&&!/CriOS/.test(navigator.userAgent),x=n.exports={offset:u,now:a,origin:h,features:{},xhrWrappable:b,userAgent:p};e(1),l[m]?(l[m]("DOMContentLoaded",i,!1),d[m]("load",r,!1)):(l[v]("onreadystatechange",o),d[v]("onload",r)),f("mark",["firstbyte",u],null,"api");var E=0,O=e(5)},{}]},{},["loader"]);</script>
+<title>The Easy Way Of Translating Your Game - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"The_Easy_Way_Of_Translating_Your_Game","wgTitle":"The Easy Way Of Translating Your Game","wgCurRevisionId":247,"wgRevisionId":247,"wgArticleId":123,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"The_Easy_Way_Of_Translating_Your_Game","wgRelevantArticleId":123,"wgRequestId":"391ee5104a01ee68830644c2","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","ext.pygments":"ready","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@0s4gmng",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=ext.pygments%7Cmediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-The_Easy_Way_Of_Translating_Your_Game rootpage-The_Easy_Way_Of_Translating_Your_Game skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0b48461a8a6519d83"><meta name="worker" content="123"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"_currentVersion":"1.37.2.101.41","_type":"Epic Games Nav","hideSignIn":true,"epicPropertyName":"unreal_engine","pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_createdBy":"tony.rossi","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"_futureVersion":"none","_created":"2017-08-21T08:59:33.648Z","_activeDate":"2019-05-13T15:00:00.000Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/academy","title":"Online Learning","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/megagrants","title":"MegaGrants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/twinmotion","title":"Twinmotion"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/industries","title":"Industries"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.f90e9898e9d2f7faa1a3.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.f90e9898e9d2f7faa1a3.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=The+Easy+Way+Of+Translating+Your+Game" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we're working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=The_Easy_Way_Of_Translating_Your_Game" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:The_Easy_Way_Of_Translating_Your_Game&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=The_Easy_Way_Of_Translating_Your_Game">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=The_Easy_Way_Of_Translating_Your_Game&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=The_Easy_Way_Of_Translating_Your_Game&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">The Easy Way Of Translating Your Game</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Requirements"><span class="tocnumber">2</span> <span class="toctext">Requirements</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#The_Localization_Dashboard"><span class="tocnumber">3</span> <span class="toctext">The Localization Dashboard</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Standard_Interactions"><span class="tocnumber">4</span> <span class="toctext">Standard Interactions</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Setting_up_the_native_language"><span class="tocnumber">5</span> <span class="toctext">Setting up the native language</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Adding_the_new_language"><span class="tocnumber">6</span> <span class="toctext">Adding the new language</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Translating"><span class="tocnumber">7</span> <span class="toctext">Translating</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Compiling"><span class="tocnumber">8</span> <span class="toctext">Compiling</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Changing_languages_from_within_the_game"><span class="tocnumber">9</span> <span class="toctext">Changing languages from within the game</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#End"><span class="tocnumber">10</span> <span class="toctext">End</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p>Hey guys to my second wiki page&#160;:) Today I'm explaining how to create translations for your game, which is pretty easy with the new, but still experimental toolset you can use out-of-the-box.
+</p>
+<h2><span class="mw-headline" id="Requirements">Requirements</span></h2>
+<p>To use the features we are using below, you need to enable an experimental feature. As of my current version (4.10.2) you do this by opening the <b>Editor Preferences</b>, go to the category <b>Experimental</b>, and check the entry <b>Localization Dashboard</b>. You don't even need to restart the editor! After this, you can find it under the <b>Window</b> menu on the top bar. Another requirement: all the elements you want to translate (for example in an UMG widget) need to be variables of the type <b>Text (FText)</b>. Strings cannot be translated.
+</p>
+<h2><span class="mw-headline" id="The_Localization_Dashboard">The Localization Dashboard</span></h2>
+<p>Lets have a look at the Localization Dashboard first! If you open it, it should look like this:
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:LocalizationDashboard1.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/e/ef/LocalizationDashboard1.png/940px-LocalizationDashboard1.png" width="940" height="105" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/e/ef/LocalizationDashboard1.png/1410px-LocalizationDashboard1.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/e/ef/LocalizationDashboard1.png/1880px-LocalizationDashboard1.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:LocalizationDashboard1.png" class="internal" title="Enlarge"></a></div>Localization Dashboard</div></div></div>
+<p>The first entry, the Localization Service Provider can be ignored for now. More down you see the <b>Targets</b> section. In here, you'll set up the localizations for different targets (e.g. Game or Editor). You see the five buttons <b>Gather All</b>, <b>Import All</b>, <b>Export All</b>, <b>Count Words All</b> and <b>Compile All</b>. Those are the basic interactions for interacting with localizations. A brief explanation of them is below! Then you can see the first target: <b>Game</b>. The conflict status displays if yuo have any conflicts with other targets. In your case, it should be an orange exclamation mark. Cultures shows which languages you implement, Word count displays how many words you have translated, and Actions mirrors the standard interactions, but only for this entry (= not all, like the big buttons above).
+</p>
+<h2><span class="mw-headline" id="Standard_Interactions">Standard Interactions</span></h2>
+<ul><li> Gather:
+<ul><li> Gathering is another word for "Finding all words". Clicking this will force the engine to search for all words in assets you specify (more below!)</li></ul></li>
+<li> Import:
+<ul><li> You can import/export translations via a handy file with the extension .po. Importing files will cause the current translation to overwrite.</li></ul></li>
+<li> Export:
+<ul><li> Should be safe-explaining! You export with this your current translation. This is helpful if you want anyone else to translate your work. There are handy editors (Google Translator Toolbox has this too!) for editing this.</li></ul></li>
+<li> Count Words:
+<ul><li> Safe-explaining aswell. It basicially counts the words.</li></ul></li>
+<li> Compile:
+<ul><li> Compiling is the final step when you finished the translation. It basicially puts them in a binary format so the engine can read it.</li></ul></li></ul>
+<h2><span class="mw-headline" id="Setting_up_the_native_language">Setting up the native language</span></h2>
+<p>So first, you click on the underlined Game target. This should expand the screen and you have more options below. The relevant category we need to take a look at first is <b>Gather</b>. Here we basicially specify how and where we want to find Texts which can be translated. Since we only want to translate Variables - for now - we make a check on the entry <b>Gather from Packages</b>. Then, you expand it, and add one entry to the value <b>Include Path Wildcards</b>. Then you basicially specify the folder your assets are in which you want to translate. If you want to translate the whole game (which is mostly unnessecary), you just put in your Content/ folder. In my case, I only want to translate my UIs, so I put in the folder where my UMG widgets are in. Now, you should see an culture entry already, this should be <b>English</b>. We need to set it to be native, so those are the translations you use originally (= no translation = the value you type in in the UMG editor for example). So, to do that, simply click on the not filled radio button in the "Native" slot. It'll ask you to confirm that, because changes could be lost. After doing this, you are ready to Gather, so just click the Gather or Gather all button! After a short processing time, you can click "Okay". Now the word count progress bar should have updated with an actual word count (don't be afraid if this value is too freaking high!). This language now contains the standard values of your Text variables, so you won't need to change anything there.
+</p>
+<h2><span class="mw-headline" id="Adding_the_new_language">Adding the new language</span></h2>
+<p>Okay, after all that stuff, lets get to the new language. In my case, I wan't to add german. Click on the fat <b>Add new Culture</b> button, and select the language you want (in my case its "German (Germany)"). It'll add a new culture slot there, and the word count is set to zero. You can now gather here aswell, but from my tests, this is currently bugged, because it moves everything into the "Untranslated" category, and I'm not sure how to mark this as translated, so we will use a little but good workaround. However, we need to gather first, so it generates the locale folder for you, so you just click the big <b>Gather</b> button or <b>Gather All</b>. After that, you find the word count bar at your new language still empty. You then need to export the native language to an file! To do this, click on the little <b>Export</b> button in the native language's Actions slot. Select an directory and name it something like "native.po". After the exporting, you import this to your new language's slot. Same here, click on the little <b>Import</b> button in the Actions slot. Select the exported file from the native language, and let it proceed. It should work without errors, and your word count bar should be full orange after this!
+</p>
+<h2><span class="mw-headline" id="Translating">Translating</span></h2>
+<p>Now, because you just imported the native's file, this will have the same translations as before. To edit them, you click the little <b>Edit Translations</b> button in the Actions slot. You'll see new window coming up, containing all words and the translations. The <b>Preview</b> tab can be closed, since I think this is unnessecary. You'll see the big list, on the left the original names (= the values you typed in in UMG for example) and on the right the translation. Now, you can start from the top and edit the values so they fit to what you want to have there. Pressing enter will automaticially bring you to the next line, so you can stay in the flow. Once your done, don't forget to hit the Save button in the toolbar!
+</p>
+<h2><span class="mw-headline" id="Compiling">Compiling</span></h2>
+<p>Okay, your translations are done, now you only need them to be in the game. To do that, just hit the big <b>Compile All</b> button in the Targets section in your Localization Dashboard. It should run without errors!
+</p>
+<h2><span class="mw-headline" id="Changing_languages_from_within_the_game">Changing languages from within the game</span></h2>
+<p>Fine, we got translations and shit, but how do we want to change the languages inside the game? There's currently no built-in blueprint node, but I'll show you how to do this with simple C++. To add Blueprint nodes, you go to <b>File -&gt; New C++ class</b> and choose the parent class to be a <b>Blueprint Function Library</b>. Give it a filename, set it to public, and click Create Class. Will take some time, generate Visual Studio project files (yes, you need VS for it!), and after VS is done doing things, you can proceed writing a bit of code.
+In the header file (.h), we declare the new function as the following:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span>	<span class="cm">/* Change Localization at Runtime. */</span>
+	<span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="p">(</span><span class="n">DisplayName</span> <span class="o">=</span> <span class="s">&quot;Change Localization&quot;</span><span class="p">),</span> <span class="n">Category</span> <span class="o">=</span> <span class="s">&quot;Locale&quot;</span><span class="p">)</span>
+	<span class="k">static</span> <span class="kt">void</span> <span class="n">changeLocalization</span><span class="p">(</span><span class="n">FString</span> <span class="n">target</span><span class="p">);</span>
+</pre></div>
+<p>So the whole file looks like this (without the includes):
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">UCLASS</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">UNIVERSE_API</span> <span class="nl">UBlueprintFunctions</span> <span class="p">:</span> <span class="k">public</span> <span class="n">UBlueprintFunctionLibrary</span>
+<span class="p">{</span>
+	<span class="n">GENERATED_BODY</span><span class="p">()</span>
+
+<span class="k">public</span><span class="o">:</span>
+	<span class="cm">/* Change Localization at Runtime. */</span>
+	<span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="p">(</span><span class="n">DisplayName</span> <span class="o">=</span> <span class="s">&quot;Change Localization&quot;</span><span class="p">),</span> <span class="n">Category</span> <span class="o">=</span> <span class="s">&quot;Locale&quot;</span><span class="p">)</span>
+	<span class="k">static</span> <span class="kt">void</span> <span class="n">changeLocalization</span><span class="p">(</span><span class="n">FString</span> <span class="n">target</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+<p>Ok, lets proceed to the .cpp file and write the implementation. It's simple:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="kt">void</span> <span class="n">UBlueprintFunctions</span><span class="o">::</span><span class="n">changeLocalization</span><span class="p">(</span><span class="n">FString</span> <span class="n">target</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">FInternationalization</span><span class="o">::</span><span class="n">Get</span><span class="p">().</span><span class="n">SetCurrentCulture</span><span class="p">(</span><span class="n">target</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>You see it sets the current culture to a different, depending on a string you input. I'll get to that later. Once you wrote all the code, jump back into the Unreal Editor and hit the big <b>Compile</b> button. It should compile your code, and when it is succeeded, you can use the new Blueprint node!
+I just hook the node up to an InputAction event for the letter 'G', so if I press it, the language will change to german. Now let's get to the string we need to input. It actually takes up the iso-standard namings of the different languages + regions. An example: german is de-DE (de = language; DE = region). To get the name of your culture, simple hover over it in the localization dashboard. Now, it's time to try it out! In my case, I have a main menu with texts which are going to be translated. 
+<a href="/index.php?title=Template:Note&amp;action=edit&amp;redlink=1" class="new" title="Template:Note (page does not exist)">Template:Note</a>
+See the final result here:
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:802px;"><a href="/index.php?title=File:LocalizationFinal.gif" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/e/e6/LocalizationFinal.gif" width="800" height="448" class="thumbimage" /></a>  <div class="thumbcaption">Localization works!</div></div></div>
+<h2><span class="mw-headline" id="End">End</span></h2>
+<p>I hope you enjoyed this wiki entry! If you have questions, errors or want to thank me, please to this <a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?99689-Localization-Tutorial&amp;p=467445#post467445">here</a>. Thanks&#160;:)
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20191031234409
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.064 seconds
+Real time usage: 0.403 seconds
+Preprocessor visited node count: 69/1000000
+Preprocessor generated node count: 122/1000000
+Post‐expand include size: 18/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    1.528      1 -total
+100.00%    1.528      1 Template:Note
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:123-0!canonical and timestamp 20191031234408 and revision id 247
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=The_Easy_Way_Of_Translating_Your_Game&amp;oldid=247">https://wiki.unrealengine.com/index.php?title=The_Easy_Way_Of_Translating_Your_Game&amp;oldid=247</a>"						</div>
+					<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0b971c4e90a55eae6"><meta name="worker" content="92"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.89","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"legalTags":[],"_type":"Epic Games Footer","newLineCopyrights":false,"_lastModifiedBy":"atiq.rahman","epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue","href":"https://unrealengine.com"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners-apply","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://dev.epicgames.com","title":"Online Services"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/training-partners","title":"Training Partners"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://www.epicgames.com/site/community-rules","title":"Community Rules"}],"hideDefaultTermsPolicy":false,"_lastModified":"2019-10-21T22:40:15.934Z","_version":{"_comment":"Publish The Common Content Type to server UnrealEngine.com (Production)","_createdBy":"atiq.rahman"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.f90e9898e9d2f7faa1a3.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.f90e9898e9d2f7faa1a3.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.064","walltime":"0.403","ppvisitednodes":{"value":69,"limit":1000000},"ppgeneratednodes":{"value":122,"limit":1000000},"postexpandincludesize":{"value":18,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    1.528      1 -total","100.00%    1.528      1 Template:Note"]},"cachereport":{"timestamp":"20191031234409","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":81});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":115,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

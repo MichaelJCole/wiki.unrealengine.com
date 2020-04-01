@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(3),u=e(4),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}catch(e){throw f.emit("fn-err",[arguments,this,e],t),e}finally{f.emit("fn-end",[c.now()],t)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e,n){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now(),!1,n])}},{}],2:[function(e,n,t){function r(e,n){if(!o)return!1;if(e!==o)return!1;if(!n)return!0;if(!i)return!1;for(var t=i.split("."),r=n.split("."),a=0;a<r.length;a++)if(r[a]!==t[a])return!1;return!0}var o=null,i=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var u=navigator.userAgent,f=u.match(a);f&&u.indexOf("Chrome")===-1&&u.indexOf("Chromium")===-1&&(o="Safari",i=f[1])}n.exports={agent:o,version:i,match:r}},{}],3:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],4:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],5:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=v(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){h[e]=v(e).concat(n)}function m(e,n){var t=h[e];if(t)for(var r=0;r<t.length;r++)t[r]===n&&t.splice(r,1)}function v(e){return h[e]||[]}function g(e){return p[e]=p[e]||o(t)}function w(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var h={},y={},b={on:l,addEventListener:l,removeEventListener:m,emit:t,get:g,listeners:v,context:n,buffer:w,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(3),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!E++){var e=x.info=NREUM.info,n=l.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+x.offset],null,"api");var t=l.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===l.readyState&&i()}function i(){f("mark",["domContent",a()+x.offset],null,"api")}function a(){return O.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-x.offset}var u=(new Date).getTime(),f=e("handle"),c=e(3),s=e("ee"),p=e(2),d=window,l=d.document,m="addEventListener",v="attachEvent",g=d.XMLHttpRequest,w=g&&g.prototype;NREUM.o={ST:setTimeout,SI:d.setImmediate,CT:clearTimeout,XHR:g,REQ:d.Request,EV:d.Event,PR:d.Promise,MO:d.MutationObserver};var h=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1130.min.js"},b=g&&w&&w[m]&&!/CriOS/.test(navigator.userAgent),x=n.exports={offset:u,now:a,origin:h,features:{},xhrWrappable:b,userAgent:p};e(1),l[m]?(l[m]("DOMContentLoaded",i,!1),d[m]("load",r,!1)):(l[v]("onreadystatechange",o),d[v]("onload",r)),f("mark",["firstbyte",u],null,"api");var E=0,O=e(5)},{}]},{},["loader"]);</script>
+<title>Blueprints, Creating C++ Functions as new Blueprint Nodes - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Blueprints,_Creating_C++_Functions_as_new_Blueprint_Nodes","wgTitle":"Blueprints, Creating C++ Functions as new Blueprint Nodes","wgCurRevisionId":57,"wgRevisionId":57,"wgArticleId":28,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Code"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Blueprints,_Creating_C++_Functions_as_new_Blueprint_Nodes","wgRelevantArticleId":28,"wgRequestId":"a3435b05694e7bf4f12385d6","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","ext.pygments":"ready","mediawiki.page.gallery.styles":"ready","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@0s4gmng",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=ext.pygments%7Cmediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.page.gallery.styles%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Blueprints_Creating_C_Functions_as_new_Blueprint_Nodes rootpage-Blueprints_Creating_C_Functions_as_new_Blueprint_Nodes skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0d0405fab30c4bd94"><meta name="worker" content="107"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"_currentVersion":"1.37.2.101.41","_type":"Epic Games Nav","hideSignIn":true,"epicPropertyName":"unreal_engine","pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_createdBy":"tony.rossi","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"_futureVersion":"none","_created":"2017-08-21T08:59:33.648Z","_activeDate":"2019-05-13T15:00:00.000Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/academy","title":"Online Learning","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/megagrants","title":"MegaGrants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/twinmotion","title":"Twinmotion"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/industries","title":"Industries"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.fbe47c9706dd6c7f2331.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.fbe47c9706dd6c7f2331.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Blueprints%2C+Creating+C%2B%2B+Functions+as+new+Blueprint+Nodes" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we're working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=Blueprints,_Creating_C%2B%2B_Functions_as_new_Blueprint_Nodes" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Blueprints,_Creating_C%2B%2B_Functions_as_new_Blueprint_Nodes&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=Blueprints,_Creating_C%2B%2B_Functions_as_new_Blueprint_Nodes">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=Blueprints,_Creating_C%2B%2B_Functions_as_new_Blueprint_Nodes&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Blueprints,_Creating_C%2B%2B_Functions_as_new_Blueprint_Nodes&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Blueprints, Creating C++ Functions as new Blueprint Nodes</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#BlueprintCallable"><span class="tocnumber">2</span> <span class="toctext">BlueprintCallable</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#BlueprintPure"><span class="tocnumber">3</span> <span class="toctext">BlueprintPure</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Static"><span class="tocnumber">4</span> <span class="toctext">Static</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Static_With_World_Context"><span class="tocnumber">4.1</span> <span class="toctext">Static With World Context</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Creating_Interface_for_BP_Users_To_Access_New_C.2B.2B_Systems"><span class="tocnumber">5</span> <span class="toctext">Creating Interface for BP Users To Access New C++ Systems</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Activating_your_new_Blueprint"><span class="tocnumber">6</span> <span class="toctext">Activating your new Blueprint</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#The_Power_of_Blueprints"><span class="tocnumber">7</span> <span class="toctext">The Power of Blueprints</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Advanced_Display_.28How_to_Hide_Parameters.29"><span class="tocnumber">8</span> <span class="toctext">Advanced Display (How to Hide Parameters)</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Conclusion"><span class="tocnumber">9</span> <span class="toctext">Conclusion</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Advanced_C.2B.2B_Blueprints"><span class="tocnumber">10</span> <span class="toctext">Advanced C++ Blueprints</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#Sequence"><span class="tocnumber">10.1</span> <span class="toctext">Sequence</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Copying_Core_Code"><span class="tocnumber">10.2</span> <span class="toctext">Copying Core Code</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Settings"><span class="tocnumber">10.3</span> <span class="toctext">Settings</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Returning_Data"><span class="tocnumber">10.4</span> <span class="toctext">Returning Data</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p><i>Original Author:</i> <a href="/index.php?title=User:Rama" title="User:Rama">Rama</a> (<a href="/index.php?title=User_talk:Rama" title="User talk:Rama">talk</a>)
+</p><p>Dear Community,
+</p><p>This is an explanation of the syntax for a C++ function that you want to also run from blueprints!
+</p>
+<h2><span class="mw-headline" id="BlueprintCallable">BlueprintCallable</span></h2>
+<p>A BlueprintCallable function will have execution pins so that you can chain your C++ functions together in UE4 Blueprints.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="cm">/** Activate Fancy New Project-Specific System Created in C++! */</span>
+<span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span> <span class="n">Category</span><span class="o">=</span><span class="s">&quot;SunShine&quot;</span><span class="p">)</span>
+<span class="kt">void</span> <span class="n">ActivateSunShine</span><span class="p">();</span>
+</pre></div>
+<p><a href="/index.php?title=File:Sunshine.jpg" class="image"><img alt="Sunshine.jpg" src="https://d26ilriwvtzlb.cloudfront.net/f/f9/Sunshine.jpg" width="439" height="303" /></a>
+</p>
+<h2><span class="mw-headline" id="BlueprintPure">BlueprintPure</span></h2>
+<p>A great efficiency for blueprint users is to be able to access data from your C++ system without having to run the exec chain through it. If a function does not modify the game state, which requires a certain ordering for the rest of Blueprint logic and game logic to occurr correctly, then you can use Blueprint pure!
+</p><p>A simple test for BlueprintPure is to use it for <b>accessor functions</b>, which are not modifying any variable data at all.
+</p><p>So if you are wondering if you can make a function BlueprintPure, just ask yourself.
+</p><p><b>"Is this function entirely just an accessor for data, or doing calculations which have no bearing on the rest of the game state?"</b>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="cm">/** What is the current Sun Shine Rotation? ! */</span>
+<span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintPure</span><span class="p">,</span> <span class="n">Category</span><span class="o">=</span><span class="s">&quot;SunShine&quot;</span><span class="p">)</span>
+<span class="n">FRotator</span> <span class="n">GetSunShineRotation</span><span class="p">();</span>
+</pre></div>
+<p><a href="/index.php?title=File:Newbpnodes.jpg" class="image"><img alt="Newbpnodes.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/3/33/Newbpnodes.jpg/800px-Newbpnodes.jpg" width="800" height="498" srcset="https://d26ilriwvtzlb.cloudfront.net/3/33/Newbpnodes.jpg 1.5x" /></a>
+</p>
+<h2><span class="mw-headline" id="Static">Static</span></h2>
+<p>If your functionality is not for a specific actor, or the functionality relates to a specific actor class but does not use member variables, then you can make the function static so that the BP node will show up anywhere in any BP graph:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="cm">/** Log sunshine status from any BP in your entire game code! */</span>
+<span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span> <span class="n">Category</span><span class="o">=</span><span class="s">&quot;SunShine&quot;</span><span class="p">)</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="n">LogSunShineStatus</span><span class="p">();</span>
+</pre></div>
+<h3><span class="mw-headline" id="Static_With_World_Context">Static With World Context</span></h3>
+<p>If you want to use a static BP node anywhere in the game code, but your C++ function wants to modify the state of the game world by creating objects or actors, or performing an action on any instanced data within the game world, then you can pass along a world context object which is an invisible input parameter:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="cm">/** Make sure to save off the return value as a global variable in one of your BPs or else it will get garbage collected! */</span>
+<span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span> <span class="n">Category</span> <span class="o">=</span> <span class="s">&quot;Victory BP Library&quot;</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="p">(</span><span class="n">WorldContext</span> <span class="o">=</span> <span class="s">&quot;WorldContextObject&quot;</span><span class="p">))</span>
+<span class="k">static</span> <span class="n">UPrimitiveComponent</span><span class="o">*</span> <span class="n">CreatePrimitiveComponent</span><span class="p">(</span><span class="n">UObject</span><span class="o">*</span> <span class="n">WorldContextObject</span><span class="p">,</span> <span class="n">TSubclassOf</span><span class="o">&lt;</span><span class="n">UPrimitiveComponent</span><span class="o">&gt;</span> <span class="n">CompClass</span><span class="p">,</span> <span class="n">FName</span> <span class="n">Name</span><span class="p">,</span> <span class="n">FVector</span> <span class="n">Location</span><span class="p">,</span> <span class="n">FRotator</span> <span class="n">Rotation</span><span class="p">);</span>
+</pre></div>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">UPrimitiveComponent</span><span class="o">*</span> <span class="n">UVictoryBPFunctionLibrary</span><span class="o">::</span><span class="n">CreatePrimitiveComponent</span><span class="p">(</span>
+        <span class="n">UObject</span><span class="o">*</span> <span class="n">WorldContextObject</span><span class="p">,</span> 
+	<span class="n">TSubclassOf</span><span class="o">&lt;</span><span class="n">UPrimitiveComponent</span><span class="o">&gt;</span> <span class="n">CompClass</span><span class="p">,</span> 
+	<span class="n">FName</span> <span class="n">Name</span><span class="p">,</span>
+	<span class="n">FVector</span> <span class="n">Location</span><span class="p">,</span> 
+	<span class="n">FRotator</span> <span class="n">Rotation</span>
+<span class="p">){</span>
+	<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">CompClass</span><span class="p">)</span> 
+	<span class="p">{</span>
+		<span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="c1">//~~~~~~~~~~~~~~~~~</span>
+	
+	<span class="c1">//using a context object to get the world!</span>
+        <span class="n">UWorld</span><span class="o">*</span> <span class="k">const</span> <span class="n">World</span> <span class="o">=</span> <span class="n">GEngine</span><span class="o">-&gt;</span><span class="n">GetWorldFromContextObject</span><span class="p">(</span><span class="n">WorldContextObject</span><span class="p">);</span>
+	<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">World</span><span class="p">)</span> 
+	<span class="p">{</span>
+		<span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="c1">//~~~~~~~~~~~</span>
+	 
+	<span class="n">UPrimitiveComponent</span><span class="o">*</span> <span class="n">NewComp</span> <span class="o">=</span> <span class="n">NewObject</span><span class="o">&lt;</span><span class="n">UPrimitiveComponent</span><span class="o">&gt;</span><span class="p">(</span><span class="n">World</span><span class="p">,</span> <span class="n">Name</span><span class="p">);</span>
+	<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">NewComp</span><span class="p">)</span> 
+	<span class="p">{</span>
+		<span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="c1">//~~~~~~~~~~~~~</span>
+	 
+	<span class="n">NewComp</span><span class="o">-&gt;</span><span class="n">SetWorldLocation</span><span class="p">(</span><span class="n">Location</span><span class="p">);</span>
+	<span class="n">NewComp</span><span class="o">-&gt;</span><span class="n">SetWorldRotation</span><span class="p">(</span><span class="n">Rotation</span><span class="p">);</span>
+	<span class="n">NewComp</span><span class="o">-&gt;</span><span class="n">RegisterComponentWithWorld</span><span class="p">(</span><span class="n">World</span><span class="p">);</span>
+	
+	<span class="k">return</span> <span class="n">NewComp</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h2><span class="mw-headline" id="Creating_Interface_for_BP_Users_To_Access_New_C.2B.2B_Systems">Creating Interface for BP Users To Access New C++ Systems</span></h2>
+<p>This is how you can create the interface in c++ for blueprint users to access your C++ systems!
+</p><p>You can write all the core code in c++, and then give the rest of your team the power to access, modify, and utilize your awesome new C++ system!
+</p>
+<h2><span class="mw-headline" id="Activating_your_new_Blueprint">Activating your new Blueprint</span></h2>
+<p>Just adding the code is not enough to have it show in the editor. You need to go to your main project and click on the Compile icon.
+</p><p><a href="/index.php?title=File:Compile.png" class="image"><img alt="Compile.png" src="https://d3ar1piqh1oeli.cloudfront.net/7/7a/Compile.png/178px-Compile.png" width="178" height="97" srcset="https://d3ar1piqh1oeli.cloudfront.net/7/7a/Compile.png/267px-Compile.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/7/7a/Compile.png/355px-Compile.png 2x" /></a>
+</p><p>After this you can just right-click in an empty spot in any graph window and type the name of the function, it will show up!
+</p><p>If you don't see the function in the list be sure you have deactivated the "Context Sensitive" option.
+</p><p><a href="/index.php?title=File:Context_sensitive.png" class="image"><img alt="Context sensitive.png" src="https://d26ilriwvtzlb.cloudfront.net/c/c3/Context_sensitive.png" width="485" height="169" /></a>
+</p>
+<h2><span class="mw-headline" id="The_Power_of_Blueprints">The Power of Blueprints</span></h2>
+<p>This for me is the real power of blueprints, you are giving your whole team the power of robust new C++ systems, and the ability to use these new systems with the graphical convenience and fast iteration times of blueprints.
+</p>
+<h2><span class="mw-headline" id="Advanced_Display_.28How_to_Hide_Parameters.29">Advanced Display (How to Hide Parameters)</span></h2>
+<p>How to make hidden parameters:
+</p><p>If you want some parameters to only show if you click the arrow to expand the node (like with the UE4 print string node), then use this!
+</p><p>Here 2 means parameter at index 2 in a list of the function parameters that starts with 0.
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">UFUNCTION</span><span class="p">(</span><span class="n">BlueprintCallable</span><span class="p">,</span> <span class="n">Category</span><span class="o">=</span><span class="s">&quot;Fun&quot;</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="p">(</span><span class="n">AdvancedDisplay</span> <span class="o">=</span> <span class="s">&quot;2&quot;</span><span class="p">))</span>
+<span class="kt">void</span> <span class="n">PerformFunAction</span><span class="p">(</span><span class="n">FString</span> <span class="n">Name</span><span class="p">,</span> <span class="n">int32</span> <span class="n">Count</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">DebugMode</span><span class="o">=</span><span class="nb">false</span><span class="p">);</span>
+</pre></div>
+<p>Advanced options should generally have a proper default value as the user may never expand the node to see what the other options are. That's why I am using DebugMode<b>=false</b>
+</p><p>Enjoy!
+</p>
+<h2><span class="mw-headline" id="Conclusion">Conclusion</span></h2>
+<p>Now you know how to make new blueprint nodes!
+</p><p>Enjoy!
+</p><p><a href="/index.php?title=User:Rama" title="User:Rama">Rama</a> (<a href="/index.php?title=User_talk:Rama" title="User talk:Rama">talk</a>)
+</p>
+<hr />
+<h2><span class="mw-headline" id="Advanced_C.2B.2B_Blueprints">Advanced C++ Blueprints</span></h2>
+<p>This section is for those that wish to do more advanced blueprints like what are in the core engine.  Our incentive for doing this was to make a custom Session set of nodes.  We did this by copying the code from the core for the Create Session blueprint node and then changing it.
+</p><p>Of course, you need to decide if making a custom node set is even a good idea.  For example a custom session node set is available at <a rel="nofollow" class="external free" href="https://forums.unrealengine.com/showthread.php?69901-Advanced-Sessions-Plugin">https://forums.unrealengine.com/showthread.php?69901-Advanced-Sessions-Plugin</a> and might be more suitable for your purposes than making a custom session your self.
+</p><p>(You do have a copy of the core code from GitHub, right? <a rel="nofollow" class="external free" href="https://www.unrealengine.com/ue4-on-github">https://www.unrealengine.com/ue4-on-github</a>)
+</p><p>If you want to find where blueprint nodes are implemented in the core code you look for "CallbackProxy" and "UOnlineBlueprintCallProxyBase".  If looking for the blueprint C++ implementation for CreateSession it is in UnrealEngine/Engine/Source/Runtime/Online/OnlineSubsystemUtils/Classes/CreateSessionCallbackProxy.h
+</p>
+<dl><dd>Also BlueprintAsyncActionBase is important.  If you are curious about the core blueprint node code, try looking in UnrealEngine/Engine/Source/Runtime/Engine/Classes/Kismet/ and there are the files for things like KismetMathLibrary and the Sqrt blueprint node. Most of those are simple static blueprint calls. I like the headings on these as they show how to do aliases for searching and such...</dd>
+<dd></dd>
+<dd>/* Returns square root of A*/</dd>
+<dd></dd>
+<dd>UFUNCTION(BlueprintPure, Category="Math|Float", meta=(Keywords = "square root", CompactNodeTitle = "SQRT"))</dd>
+<dd></dd>
+<dd>static float Sqrt(float A);</dd></dl>
+<p>The previous section explained how to do static function single call nodes.  Here we describe how to customize nodes that have multiple outputs (like Success and Fail) and wait for results.  Network operations and disk read operations can take time and you don't want to stop the game to wait.  So instead you start the operation (e.g. the Online subsystem CreateSession call) and then return immediately.  Some while later the action is done or fails and you get a Callback to a function saying "hey, it's done" and then your blueprint node can return results and continue on the to the next blueprint node.
+</p>
+<ul class="gallery mw-gallery-traditional">
+		<li class="gallerybox" style="width: 155px"><div style="width: 155px">
+			<div class="thumb" style="width: 150px;"><div style="margin:39.5px auto;"><a href="/index.php?title=File:CreateSessionNode.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/e/e2/CreateSessionNode.png/120px-CreateSessionNode.png" width="120" height="71" srcset="https://d3ar1piqh1oeli.cloudfront.net/e/e2/CreateSessionNode.png/180px-CreateSessionNode.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/e/e2/CreateSessionNode.png/240px-CreateSessionNode.png 2x" /></a></div></div>
+			<div class="gallerytext">
+<p>A Node that waits...
+</p>
+			</div>
+		</div></li>
+</ul>
+<h3><span class="mw-headline" id="Sequence">Sequence</span></h3>
+<p>The sequence in the core CreateSession code is like this...  
+</p>
+<ul><li> The node gets created when the blueprint loads into memory. UCreateSessionCallbackProxy::UCreateSessionCallbackProxy(const FObjectInitializer&amp; ObjectInitializer)</li>
+<li> Some time later your blueprint hits the node with a 'bead' flowing along the white line, and calls the function: CreateSession(UObject* WorldContextObject, class APlayerController* PlayerController, int32 PublicConnections, bool bUseLAN)</li>
+<li> Then the Activate function gets called, and kicks off the session creation. (In our case this is a call to the Online subsystem, which calls the Steam session creation.)</li>
+<li> Some time later Steam responds and OnCreateCompleted gets called, which starts the session</li>
+<li> Some time later again the start gets done and OnStartCompleted gets called.</li>
+<li> OnStartCompleted then decides if you had success of failure and any other data to put on the outputs of the blueprint node. If all is ok then we call OnSuccess.Broadcast(); to "fire a bead" out on the Success white line in the blueprint.</li></ul>
+<p>Luckily all the little details all already work in the core code so you don't have to do much.
+</p>
+<h3><span class="mw-headline" id="Copying_Core_Code">Copying Core Code</span></h3>
+<p>When you copy the code out of the core code, you have to do some renaming of the .cpp and .h files and some class names..  We changed the name from CreateSession to CreateCustomSession.  That change is both to the file names, and in the files to the class names. Note that the core engine divides files by Public, Private, and Classes so you have to look around a bit.
+</p><p>Another problem we found was that FOnlineSubsystemBPCallHelper is internal and private so you can't get at it (it is in UnrealEngine/Engine/Source/Runtime/Online/OnlineSubsystemUtils/Private/OnlineSubsystemUtilsPrivatePCH.h)
+</p><p>So we copied that into our project and renamed it so we can play with it.
+</p>
+<h3><span class="mw-headline" id="Settings">Settings</span></h3>
+<p>The whole purpose of making our custom session was to add a password, currentMap and settable lobby name and some other settings.
+Settings in a session are a key-value pair, such as "password":"supersecret" and always have a FName key, and the value can be string, integer and several other things.  We made a SetCustomSessionSetting and a GetCustomSessionSetting blueprint nodes.
+</p><p>In CreateSessionCallbackProxy the code looks like Settings.NumPublicConnections = NumPublicConnections; which then is converted to session setting set calls.  We want to add our own so we do calls like Settings.Set(FName("password"), ourpassword, EOnlineDataAdvertisementType::ViaOnlineServer);  That ViaOnlineServer is very important.  It means that the session setting will get sent to all clients looking at the session.
+</p>
+<h3><span class="mw-headline" id="Returning_Data">Returning Data</span></h3>
+<p>Sometimes the blueprint node needs to have output, like FindSessions has an array of sessions it found.
+</p><p>You declare the delegate like this...
+</p><p>DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FBlueprintFindSessionsResultDelegate, const TArray&lt;FBlueprintSessionResult&gt;&amp;, Results);
+</p><p>and then...
+</p><p>In UnrealEngine/Engine/Source/Runtime/Online/OnlineSubsystemUtils/Private/FindSessionsCallbackProxy.cpp
+you will see that OnComplete has return values like 
+<code>
+</p>
+<pre>
+	if (bSuccess &amp;&amp; SearchObject.IsValid())
+	{
+		for (auto&amp; Result&#160;: SearchObject-&gt;SearchResults)
+		{
+			FBlueprintSessionResult BPResult;
+			BPResult.OnlineResult = Result;
+			Results.Add(BPResult);
+		}
+
+		OnSuccess.Broadcast(Results);
+	}
+	else
+	{
+		OnFailure.Broadcast(Results);
+	}
+</pre>
+<p></code>
+</p><p><br />
+<a href="/index.php?title=User:SND_R_Keene&amp;action=edit&amp;redlink=1" class="new" title="User:SND R Keene (page does not exist)">SND R Keene</a> (<a href="/index.php?title=User_talk:SND_R_Keene&amp;action=edit&amp;redlink=1" class="new" title="User talk:SND R Keene (page does not exist)">talk</a>) 20:04, 7 June 2016 (UTC) (Advanced C++ Blueprints Section)
+</p><p><a href="/index.php?title=User:Rama" title="User:Rama">Rama</a> (<a href="/index.php?title=User_talk:Rama" title="User talk:Rama">talk</a>) (Initial Article and Basic Blueprints Section)
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20191014234200
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.080 seconds
+Real time usage: 0.606 seconds
+Preprocessor visited node count: 125/1000000
+Preprocessor generated node count: 228/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:28-0!canonical and timestamp 20191014234159 and revision id 57
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=Blueprints,_Creating_C%2B%2B_Functions_as_new_Blueprint_Nodes&amp;oldid=57">https://wiki.unrealengine.com/index.php?title=Blueprints,_Creating_C%2B%2B_Functions_as_new_Blueprint_Nodes&amp;oldid=57</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="/index.php?title=Category:Code" title="Category:Code">Code</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0e33288c51e7947d3"><meta name="worker" content="203"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.81","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"legalTags":[],"_type":"Epic Games Footer","newLineCopyrights":false,"_lastModifiedBy":"tony.rossi","epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue","href":"https://unrealengine.com"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners-apply","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://dev.epicgames.com","title":"Online Services"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/training-partners","title":"Training Partners"}],"hideDefaultTermsPolicy":false,"_lastModified":"2019-08-26T21:25:50.020Z","_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.fbe47c9706dd6c7f2331.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.fbe47c9706dd6c7f2331.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.080","walltime":"0.606","ppvisitednodes":{"value":125,"limit":1000000},"ppgeneratednodes":{"value":228,"limit":1000000},"postexpandincludesize":{"value":0,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.000      1 -total"]},"cachereport":{"timestamp":"20191014234200","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":98});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":181,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

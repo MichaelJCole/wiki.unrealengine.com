@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(){}function o(e,t,n){return function(){return i(e,[f.now()].concat(u(arguments)),t?null:this,n),t?void 0:this}}var i=e("handle"),a=e(2),u=e(3),c=e("ee").get("tracer"),f=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,t){s[t]=o(d+t,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),t.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,t){var n={},r=this,o="function"==typeof t;return i(l+"tracer",[f.now(),e,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return t.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],n),e}finally{c.emit("fn-end",[f.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){m[t]=o(l+t)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,f.now()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(o<0?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],4:[function(e,t,n){t.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?c(e,u,i):i()}function n(n,r,o,i){if(!d.aborted||i){e&&e(n,r,o);for(var a=t(o),u=m(n),c=u.length,f=0;f<c;f++)u[f].apply(a,r);var p=s[y[n]];return p&&p.push([b,n,r,a]),a}}function l(e,t){v[e]=m(e).concat(t)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(n)}function g(e,t){f(e,function(e,n){t=t||"feature",y[n]=t,t in s||(s[t]=[])})}var v={},y={},b={on:l,emit:n,get:w,listeners:m,context:t,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",c=e("gos"),f=e(2),s={},p={},d=t.exports=o();d.backlog=s},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!x++){var e=h.info=NREUM.info,t=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return s.abort();f(y,function(t,n){e[t]||(e[t]=n)}),c("mark",["onload",a()+h.offset],null,"api");var n=d.createElement("script");n.src="https://"+e.agent,t.parentNode.insertBefore(n,t)}}function o(){"complete"===d.readyState&&i()}function i(){c("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),c=e("handle"),f=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1071.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=t.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+<title>Physical Water Surface - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Physical_Water_Surface","wgTitle":"Physical Water Surface","wgCurRevisionId":107,"wgRevisionId":107,"wgArticleId":53,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Community Created Content","Material","Blueprint"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Physical_Water_Surface","wgRelevantArticleId":53,"wgRequestId":"99c824925637dc7f36ff5e41","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.page.gallery.styles":"ready","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@1xxwts3",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["mediawiki.page.gallery","site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.page.gallery.styles%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Physical_Water_Surface rootpage-Physical_Water_Surface skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-09a9d3c24f8e543fe"><meta name="worker" content="68"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"hideShieldDownload":false,"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"alert":{"msg":"","_type":"Epic Header Alert","id":"","type":"info","statusHref":""},"_activeDate":"2018-08-06T09:11:04.633Z","links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://academy.unrealengine.com/","title":"Video Tutorials","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/unrealdevgrants","title":"Unreal Dev Grants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"}]}],"hideSearch":false,"_version":{"_comment":"Common content type reverted to 1.37.2.100 version by tony.rossi","_createdBy":"tony.rossi"},"_currentVersion":"1.37.2.101.0","_type":"Epic Games Nav","hideSignIn":true,"pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"_futureVersion":"none","downloadLink":{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":""},"_created":"2017-08-21T08:59:33.648Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"hideShieldDropdown":false,"properties":[{"propertyKey":"paragon","_type":"Epic Games Property","egDisabled":true,"egSkip":true}],"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.100bcb10fc821c7c23f8.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.100bcb10fc821c7c23f8.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Physical+Water+Surface" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=Physical_Water_Surface" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Physical_Water_Surface&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=Physical_Water_Surface">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=Physical_Water_Surface&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Physical_Water_Surface&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Physical Water Surface</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><a href="/index.php?title=Template:Rating&amp;action=edit&amp;redlink=1" class="new" title="Template:Rating (page does not exist)">Template:Rating</a>
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Video_Gallery"><span class="tocnumber">2</span> <span class="toctext">Video Gallery</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Getting_Started"><span class="tocnumber">3</span> <span class="toctext">Getting Started</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#How_To_Add_Water_To_A_Map"><span class="tocnumber">3.1</span> <span class="toctext">How To Add Water To A Map</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Lighting_The_Water_Surface"><span class="tocnumber">3.2</span> <span class="toctext">Lighting The Water Surface</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Making_An_Object_Float_With_The_Buoyancy_Component"><span class="tocnumber">3.3</span> <span class="toctext">Making An Object Float With The Buoyancy Component</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Seamless_Sea_State_Transitions"><span class="tocnumber">3.4</span> <span class="toctext">Seamless Sea State Transitions</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Setting_Up_A_Player_Controlled_Boat"><span class="tocnumber">3.5</span> <span class="toctext">Setting Up A Player Controlled Boat</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Querying_The_Wave_Height_From_Blueprint"><span class="tocnumber">3.6</span> <span class="toctext">Querying The Wave Height From Blueprint</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Hiding_water_inside_of_boats"><span class="tocnumber">3.7</span> <span class="toctext">Hiding water inside of boats</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Network_Replication"><span class="tocnumber">3.8</span> <span class="toctext">Network Replication</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Compatibility_with_Orbit_Weather_and_Seasons"><span class="tocnumber">3.9</span> <span class="toctext">Compatibility with Orbit Weather and Seasons</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#Blueprint_Documentation"><span class="tocnumber">4</span> <span class="toctext">Blueprint Documentation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="#WaterSettings_Blueprint"><span class="tocnumber">4.1</span> <span class="toctext">WaterSettings Blueprint</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#WaterPlane_Blueprint"><span class="tocnumber">4.2</span> <span class="toctext">WaterPlane Blueprint</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Buoyancy_Component_Blueprint"><span class="tocnumber">4.3</span> <span class="toctext">Buoyancy Component Blueprint</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17"><a href="#Material_Documentation"><span class="tocnumber">5</span> <span class="toctext">Material Documentation</span></a></li>
+<li class="toclevel-1 tocsection-18"><a href="#Tutorials"><span class="tocnumber">6</span> <span class="toctext">Tutorials</span></a>
+<ul>
+<li class="toclevel-2 tocsection-19"><a href="#Improving_an_existing_water_material_with_Physical_Water_Surface"><span class="tocnumber">6.1</span> <span class="toctext">Improving an existing water material with Physical Water Surface</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="#FAQ"><span class="tocnumber">7</span> <span class="toctext">FAQ</span></a>
+<ul>
+<li class="toclevel-2 tocsection-21"><a href="#Which_engine_versions_are_compatible.3F"><span class="tocnumber">7.1</span> <span class="toctext">Which engine versions are compatible?</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#The_water_surface_looks_blurry_when_I_use_Temporal_AA"><span class="tocnumber">7.2</span> <span class="toctext">The water surface looks blurry when I use Temporal AA</span></a></li>
+<li class="toclevel-2 tocsection-23"><a href="#The_water_surface_is_gray_and_is_not_moving_in_engine_version_4.17"><span class="tocnumber">7.3</span> <span class="toctext">The water surface is gray and is not moving in engine version 4.17</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="#Can_I_scale_the_water_plane_to_adjust_the_size_of_the_waves_to_the_scale_of_my_game.3F"><span class="tocnumber">7.4</span> <span class="toctext">Can I scale the water plane to adjust the size of the waves to the scale of my game?</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="#Floating_objects_are_not_lit_correctly"><span class="tocnumber">7.5</span> <span class="toctext">Floating objects are not lit correctly</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="#I_see_flickering_or_artifacts_on_the_water_surface"><span class="tocnumber">7.6</span> <span class="toctext">I see flickering or artifacts on the water surface</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="#If_I_place_a_ThirdPersonCharacter_Blueprint_in_the_map.2C_it_starts_to_move_horizontally_at_very_high_speed"><span class="tocnumber">7.7</span> <span class="toctext">If I place a ThirdPersonCharacter Blueprint in the map, it starts to move horizontally at very high speed</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="#When_the_game_starts.2C_objects_that_have_buoyancy_enabled_are_shot_upwards_into_the_sky._This_happens_if_the_Water_Plane_is_placed_at_a_position_with_the_Z_coordinate_not_equal_to_zero"><span class="tocnumber">7.8</span> <span class="toctext">When the game starts, objects that have buoyancy enabled are shot upwards into the sky. This happens if the Water Plane is placed at a position with the Z coordinate not equal to zero</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="#How_do_I_enable_SSR.3F"><span class="tocnumber">7.9</span> <span class="toctext">How do I enable SSR?</span></a></li>
+<li class="toclevel-2 tocsection-30"><a href="#How_is_the_performance.3F"><span class="tocnumber">7.10</span> <span class="toctext">How is the performance?</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="#Does_it_contain_C.2B.2B_code.3F"><span class="tocnumber">7.11</span> <span class="toctext">Does it contain C++ code?</span></a></li>
+<li class="toclevel-2 tocsection-32"><a href="#Can_I_use_the_Nativize_Blueprint_Assets_option_when_packaging_to_convert_all_Blueprints_to_C.2B.2B_code.3F"><span class="tocnumber">7.12</span> <span class="toctext">Can I use the Nativize Blueprint Assets option when packaging to convert all Blueprints to C++ code?</span></a></li>
+<li class="toclevel-2 tocsection-33"><a href="#I_get_an_error_when_packaging_with_the_Nativize_Blueprint_Assets_option_enabled"><span class="tocnumber">7.13</span> <span class="toctext">I get an error when packaging with the Nativize Blueprint Assets option enabled</span></a></li>
+<li class="toclevel-2 tocsection-34"><a href="#How_can_I_make_the_water_transparent.3F"><span class="tocnumber">7.14</span> <span class="toctext">How can I make the water transparent?</span></a></li>
+<li class="toclevel-2 tocsection-35"><a href="#Is_the_water_motion_deterministic.3F"><span class="tocnumber">7.15</span> <span class="toctext">Is the water motion deterministic?</span></a></li>
+<li class="toclevel-2 tocsection-36"><a href="#Can_I_use_NavMesh_to_create_an_AI_controlled_boat.3F"><span class="tocnumber">7.16</span> <span class="toctext">Can I use NavMesh to create an AI controlled boat?</span></a></li>
+<li class="toclevel-2 tocsection-37"><a href="#Does_Physical_Water_Surface_work_in_VR.3F"><span class="tocnumber">7.17</span> <span class="toctext">Does Physical Water Surface work in VR?</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-38"><a href="#Release_Notes"><span class="tocnumber">8</span> <span class="toctext">Release Notes</span></a>
+<ul>
+<li class="toclevel-2 tocsection-39"><a href="#Initial_Release:_May_11.2C_2016"><span class="tocnumber">8.1</span> <span class="toctext">Initial Release: May 11, 2016</span></a></li>
+<li class="toclevel-2 tocsection-40"><a href="#Update_1:_June_21.2C_2016"><span class="tocnumber">8.2</span> <span class="toctext">Update 1: June 21, 2016</span></a></li>
+<li class="toclevel-2 tocsection-41"><a href="#Update_2:_February_7.2C_2017"><span class="tocnumber">8.3</span> <span class="toctext">Update 2: February 7, 2017</span></a></li>
+<li class="toclevel-2 tocsection-42"><a href="#Update_3:_February_9.2C_2018"><span class="tocnumber">8.4</span> <span class="toctext">Update 3: February 9, 2018</span></a></li>
+<li class="toclevel-2 tocsection-43"><a href="#Update_4:_April_5.2C_2018"><span class="tocnumber">8.5</span> <span class="toctext">Update 4: April 5, 2018</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p><b>Physical Water Surface</b> is an easy to use and physically correct water shader for Unreal Engine 4 with great performance. It features a large database of wave spectra for different sea states, an automatic buoyancy system, seamless sea state transitions and extensive documentation.
+</p><p>Physical Water Surface is available <b><a rel="nofollow" class="external text" href="https://www.unrealengine.com/marketplace/physical-water-surface">here on the UE4 Marketplace</a></b>
+</p><p><a href="/index.php?title=File:PhysicalWaterSurface_DemoMap.gif" class="image"><img alt="PhysicalWaterSurface DemoMap.gif" src="https://d26ilriwvtzlb.cloudfront.net/d/d0/PhysicalWaterSurface_DemoMap.gif" width="512" height="288" /></a>
+</p>
+<ul><li> <b>Realistic water motion:</b> A Gerstner Waves implementation using physically correct wave spectra </li>
+<li> <b>Adaptive sea state:</b> Water motion adapts to selected wind speed (1 m/s to 35 m/s) and fetch length (50 km to 1500 km)</li>
+<li> <b>Seamless Stea State Transitions:</b> Beautiful and completely smooth transitions between different sea states and wind directions</li>
+<li> <b>High quality buoyancy system:</b> Physically accurate buoyancy that sets up automatically. Floating objects can fully interact with the UE4 physics system</li>
+<li> <b>Great performance:</b> Buoyancy is implemented in Blueprint and can be automatically nativized to C++ code (verified to work with 4.14 and higher)</li>
+<li> <b>Masking out water inside of boats:</b> A method is provided to hide water inside of boats</li>
+<li> <b>Infinite Ocean System:</b> The water plane translates and scales with the camera, creating the impression of an infinite ocean</li>
+<li> <b>Water Material tiles infinitely:</b> Use the supplied water plane mesh, or apply the water material to your own mesh</li>
+<li> <b>Eight example maps are included</b> that show how all the different features work, making your first steps easy</li>
+<li> <b>A player controlled boat is included</b> to get you started</li>
+<li> <b>NavMesh is supported</b> and builds on the water plane</li>
+<li> <b>Compatible with <a rel="nofollow" class="external text" href="https://www.unrealengine.com/marketplace/orbit-weather-and-seasons">Orbit Weather and Seasons</a></b></li>
+<li> <b>Complete and and extensive documentation</b> available online before purchase (on this page)</li></ul>
+<div style="background-color: #F0F0E7; border: 1px solid #C93; border-left: 5px solid #C93; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" style="vertical-align: top" /> Please don't forget to rate Physical Water Surface <a rel="nofollow" class="external text" href="https://www.unrealengine.com/marketplace/physical-water-surface">on the Marketplace page</a>, your feedback is very appreciated!
+</p>
+</div>
+<p><a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?110442-Physical-Water-Surface">Link to support thread in the forum</a>
+</p>
+<h2><span class="mw-headline" id="Video_Gallery">Video Gallery</span></h2>
+<p>Watch all videos on my <a rel="nofollow" class="external text" href="https://www.youtube.com/channel/UCKCvPFgQoADOoNdjmZOKPcA">YouTube channel!</a>
+</p>
+<div align="center">
+<p>&lt;youtube&gt;<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=Wwyw_Uw26DQ">https://www.youtube.com/watch?v=Wwyw_Uw26DQ</a>&lt;/youtube&gt;
+&lt;youtube&gt;<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=wI-bdmQCFN8">https://www.youtube.com/watch?v=wI-bdmQCFN8</a>&lt;/youtube&gt;
+&lt;youtube&gt;<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=80B0-GpPV2s">https://www.youtube.com/watch?v=80B0-GpPV2s</a>&lt;/youtube&gt;
+</p>
+</div>
+<ul class="gallery mw-gallery-packed">
+		<li class="gallerybox" style="width: 350px"><div style="width: 350px">
+			<div class="thumb" style="width: 348px;"><div style="margin:0px auto;"><a href="http://gfycat.com/ReliableWarlikeGull"><img alt="Physical Water Surface Demo Map.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/1/13/Physical_Water_Surface_Demo_Map.jpg/522px-Physical_Water_Surface_Demo_Map.jpg" width="348" height="200" srcset="https://d26ilriwvtzlb.cloudfront.net/1/13/Physical_Water_Surface_Demo_Map.jpg 1.5x" /></a></div></div>
+			<div class="gallerytext">
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 350px"><div style="width: 350px">
+			<div class="thumb" style="width: 348px;"><div style="margin:0px auto;"><a href="http://gfycat.com/SnivelingDeliciousAnteater"><img alt="Physical Water Surface Floating Box.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/d/d4/Physical_Water_Surface_Floating_Box.jpg/522px-Physical_Water_Surface_Floating_Box.jpg" width="348" height="200" srcset="https://d26ilriwvtzlb.cloudfront.net/d/d4/Physical_Water_Surface_Floating_Box.jpg 1.5x" /></a></div></div>
+			<div class="gallerytext">
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 350px"><div style="width: 350px">
+			<div class="thumb" style="width: 348px;"><div style="margin:0px auto;"><a href="http://gfycat.com/RepulsiveFriendlyKestrel"><img alt="Physical Water Surface Vehicle Game.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/5/5f/Physical_Water_Surface_Vehicle_Game.jpg/522px-Physical_Water_Surface_Vehicle_Game.jpg" width="348" height="200" srcset="https://d26ilriwvtzlb.cloudfront.net/5/5f/Physical_Water_Surface_Vehicle_Game.jpg 1.5x" /></a></div></div>
+			<div class="gallerytext">
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 350px"><div style="width: 350px">
+			<div class="thumb" style="width: 348px;"><div style="margin:0px auto;"><a href="http://gfycat.com/ParallelIckyHarpyeagle"><img alt="Physical Water Surface Foam.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/f/f3/Physical_Water_Surface_Foam.jpg/522px-Physical_Water_Surface_Foam.jpg" width="348" height="200" srcset="https://d26ilriwvtzlb.cloudfront.net/f/f3/Physical_Water_Surface_Foam.jpg 1.5x" /></a></div></div>
+			<div class="gallerytext">
+			</div>
+		</div></li>
+</ul>
+<h2><span class="mw-headline" id="Getting_Started">Getting Started</span></h2>
+<div class="floatright"><a href="https://www.youtube.com/watch?v=Wwyw_Uw26DQ" rel="nofollow"><img alt="Physical Water Surface 200px play.jpg" src="https://d26ilriwvtzlb.cloudfront.net/5/58/Physical_Water_Surface_200px_play.jpg" width="200" height="113" /></a></div>
+<p>Watch <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=Wwyw_Uw26DQ">this short video</a> to get started with Physical Water Surface. The video shows:
+</p>
+<ul><li> How to add the water surface to an empty level</li>
+<li> How to add a mesh from the Content Browser and make it float</li>
+<li> How to change wind speed and fetch length</li></ul>
+<p>Check out the demo maps that are included in the pack:
+</p>
+<ul><li> <b>DemoMap</b> is the scene from <a rel="nofollow" class="external text" href="http://gfycat.com/ReliableWarlikeGull">this video</a> demonstrating buoyancy for simple and complex objects</li>
+<li> <b>AltArtStyle</b> is the scene from <a rel="nofollow" class="external text" href="http://gfycat.com/SnivelingDeliciousAnteater">this video</a> featuring a different water look with SSR, a quiet ocean and a floating box</li>
+<li> <b>SeaStateTransitionsDemo</b> is the scene from <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=wI-bdmQCFN8">this video</a> showing seamless transitions between different sea states</li>
+<li> <b>WindSpeedsDemo</b> is the scene from <a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=Woik6p983BE">this video</a> showing different sea states depending on the selected wind speed and fetch length</li>
+<li> <b>WindDirectionTransition:</b> In this map, a wind direction transition is demonstrated.</li>
+<li> <b>SteerableBoat</b> is a map  that shows how to set up a player controlled boat. The boat is controlled with the WASD keys, the space bar can be used to jump out of the water. The boat can interact with other objects that have simulate physics enabled.</li>
+<li> <b>ManualPoints:</b> This map demonstrates the use of the Buoyancy Mode "Manual Points" that allows manually defining the points for buoyancy calculation.</li>
+<li> <b>MaskedWater:</b> This map shows how to hide water inside of a boat.</li></ul>
+<p>Physical Water Surface comes with a ready to use <b>WaterPlane Blueprint</b> and a <b>Buoyancy Component</b> that makes objects float. The WaterSettings Blueprint controls the look of the waves.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:731px;"><a href="/index.php?title=File:PWS_Blueprints.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/3/34/PWS_Blueprints.png" width="729" height="273" class="thumbimage" /></a>  <div class="thumbcaption">Blueprints and Buoyancy Component</div></div></div>
+<h3><span class="mw-headline" id="How_To_Add_Water_To_A_Map">How To Add Water To A Map</span></h3>
+<div class="thumb tleft"><div class="thumbinner" style="width:276px;"><a href="/index.php?title=File:WaterSettings3.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/3/38/WaterSettings3.png" width="274" height="306" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:WaterSettings3.png" class="internal" title="Enlarge"></a></div>WaterSettings Blueprint Details Panel</div></div></div>
+<p>First, add a <b>WaterSettings</b> Blueprint to your level. This Blueprint manages the database of wave spectra and automatically writes the material parameters to the water material. You always need exactly one WaterSettings Blueprint in your level.
+</p><p>Next, add one or multiple <b>WaterPlane</b> Blueprints. You now have a working water surface! If you started with the default empty level, you should also add a SkyLight and a <b>PostProcessVolume</b> with FXAA enabled and Unbound set to true.  If you are using 4.14 or higher, you need to manually select FXAA under <b>Project Settings</b> → <b>Rendering</b> → <b>Anti-Aliasing Method</b>.
+</p><p>By default, the sea state is set to a <b>Wind Speed</b> of 10 m/s and a <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Fetch_%28geography%29"><b>Fetch Length</b></a> of 50 km. To change the sea state, just select different values in the Details panel of the WaterSettings Blueprint. Of course, you can also change these values from another Blueprint.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;"><a href="/index.php?title=File:WaterPlane.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/3/37/WaterPlane.png/300px-WaterPlane.png" width="300" height="330" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/3/37/WaterPlane.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:WaterPlane.png" class="internal" title="Enlarge"></a></div>WaterPlane Blueprint Details Panel</div></div></div>
+<p>If the <b>Follow Camera</b> option in the WaterPlane Blueprint Details panel is set to true, the WaterPlane is automatically translated and scaled to create the impression of an infinite ocean. If you are creating a lake it's better to turn this option off and to create a custom water plane mesh with exactly the right size. If you enable this option, it's a good idea to check in Wireframe view mode if the automated scaling of the water plane works as intended.
+</p><p>Physical Water Surface comes with three different Material Instances that derive from the Water material:
+</p>
+<ul><li> <b>WaterInstance</b></li>
+<li> <b>WaterInstanceShiny</b></li>
+<li> <b>WaterInstanceAlternative</b></li></ul>
+<p>To change the water material, select a different Material Instance in the <a rel="nofollow" class="external text" href="https://wiki.unrealengine.com/File:WaterPlane.png">Details panel</a> of the WaterPlane Blueprint in your level. To tweak the look of the water surface, change the parameters of the Material Instance.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:637px;"><a href="/index.php?title=File:PWS_Materials.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/b/b1/PWS_Materials.png" width="635" height="279" class="thumbimage" /></a>  <div class="thumbcaption">Water Material and Material Instances</div></div></div>
+<h3><span class="mw-headline" id="Lighting_The_Water_Surface">Lighting The Water Surface</span></h3>
+<p>The look of the water surface is heavily influenced by the surroundings, be it a sky sphere for an infinite ocean or the adjacent landscape of a lake. This is particularly true if you have a very reflective water material. In most of my demo videos there ist just a sky sphere and no other surrounding geometry, so I enabled the foam texture and the detail normal map to make the water surface look more interesting. A different approach is to make the water surface more reflective and to add <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Resources/Showcases/Reflections/#reflectioncaptureactors">Reflection Capture Actors</a> and have the look of the water be dominated by reflections. A good example for this water look is the Vehicle Game example from Epic (see also the tutorial below).
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;"><a href="/index.php?title=File:WaterLighting.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/6/65/WaterLighting.png/300px-WaterLighting.png" width="300" height="507" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/6/65/WaterLighting.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:WaterLighting.png" class="internal" title="Enlarge"></a></div>Basic Lighting Setup</div></div></div>
+<p>To get started with lighting, check out the demo Maps that are included. Here's the basic lighting setup that is used:
+</p>
+<ul><li> Use the <b>Sky Sphere</b> and <b>Light Source</b> from the Default empty map.</li>
+<li> Change the Sun Brightness and the rotation of the directional Light Source to your liking.</li>
+<li> Add a <b>Sky Light</b> with Source Type <b>SLS Captured Scene</b>. This will light the water surface and the floating objects from all directions.</li>
+<li> Add a <b>Lightmass Importance Volume</b> and scale it up, for example by factor 50. In the Viewport, use the <b>Show</b> → <b>Vizualize</b> → <b>Volume Lighting Samples</b> option to make sure you have more than one sample in the volume. Lighting Samples usually are created in great number only above static surfaces, but the water surface is set to movable because of the Infinite Ocean System. When we make the Lightmass Importance Volume large enough, the engine will create some Lighting Samples scattered in the Volume. These are enough to light objects that are floating on the surface, even outside the bounds of the Volume.</li></ul>
+<h3><span class="mw-headline" id="Making_An_Object_Float_With_The_Buoyancy_Component">Making An Object Float With The Buoyancy Component</span></h3>
+<p>Buoyancy is implemented as a <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Engine/Blueprints/UserGuide/Components/">Blueprint Component</a> that can be added to any Static or Skeletal Mesh. To use it, follow these steps:
+</p>
+<ol><li> Set the Mobility of the Mesh to <b>Movable</b>. Dont skip this step!</li>
+<li> Click the <b>Add Component</b> button in the Details panel of your mesh and select the <b>Buoyancy Component</b>. The Buoycancy Component will appear in the Details panel.</li>
+<li> Click the Buoyancy Component in the Details panel and choose a <b>Buoyancy Mode</b>: <b>Single Points</b>,  <b>Auto Points</b> and <b>Manual Points</b> are available. If you're using <b>Auto Points</b>, you can use the additional settings below to tweak the buoyancy motion. </li>
+<li> Hit <b>Play</b> to view the Buoyancy in action. If you click Simulate, the floating objects and the water surface will appear to be out of sync because the time nodes in the material and in Blueprint give different values in this case.</li></ol>
+<div class="thumb tright"><div class="thumbinner" style="width:267px;"><a href="/index.php?title=File:BuoyancyComponent2.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/8/88/BuoyancyComponent2.png" width="265" height="767" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:BuoyancyComponent2.png" class="internal" title="Enlarge"></a></div>Buoyancy Component settings for a cube</div></div></div>
+<p>In <b>SinglePoint Mode</b>, the floating object will be fixed to a single point on the water surface. The translation and rotation of the object are directly taken from the output of the Gerstner equations, so all the other settings on the Buyancy Component have no effect. As a result, the object will just move with the water surface and rotate according to the local normal vector of the point on the water surface where it is located. This buoyancy mode is relatively cheap to calculate because the Gerstner equations need only to be evaluated at one point for each tick. However, the motion of the object will only be realistic for small objects, for example leaves or rubber ducks floating on the surface. For large objects like boats, you should use AutoPoints mode.
+</p><p>In <b>AutoPoints</b> mode, a <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Engine/Physics/">Physics Simulation</a> is performed. The buyant force on a number of points on the object is calculated and applied. The magnitude of the buoyant force depends on the depth of immersion of each point. The counteracting force is gravity that is automatically applied by the engine. The Buoyancy Component will automatically generate the coordinates for the points in <b>rectangular</b> or <b>elliptical</b> shape, taking into account the dimensions of the object. With the N <b>Points X</b> and <b>N Points Y</b> you can control the number of points that are generated. In elliptical mode, <b>N Points X</b> is the number of points in radial direction and <b>N Points Y</b> is the number of points in tangential direction. The buoyant force is scaled so that at a certain depth of immersion, an equilibrium exists. You can change how deep an object is submerged with the <b>Float Factor</b> parameter.
+</p><p>In the image on the right you can see the Buoyancy settings used for the large floating cubes in the <a rel="nofollow" class="external text" href="http://gfycat.com/ReliableWarlikeGull">DemoMap</a> that is included in the Physical Water Surface package. Rectangular Buoyancy Mode is obviously a good choice for cubes. Setting the number of points in X and Y direction to two will generate four points at the corners of the box.
+</p>
+<div class="thumb tleft"><div class="thumbinner" style="width:437px;"><a href="/index.php?title=File:BuoyancyVisualization.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/9/99/BuoyancyVisualization.png/435px-BuoyancyVisualization.png" width="435" height="282" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/9/99/BuoyancyVisualization.png/653px-BuoyancyVisualization.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/9/99/BuoyancyVisualization.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:BuoyancyVisualization.png" class="internal" title="Enlarge"></a></div>Buoyant Force Debug Visualization on a Boat</div></div></div>
+<p>To check the location of the calculated points, you can enable the <b>Draw Debug</b> option. In this mode, a small sphere is drawn at the coordinates of each points, and the length of the vertical arrows is proportional to the buoyant force. Use this mode to make sure that the number and shape of the generated points is as intended.
+</p><p>If you set up Buoyancy for large objects that need to move in a certain way, you will probably need to tweak the parameters a bit to get the desired result. As an example, have a look at the parameters used for the boat in the DemoMap. With the <b>PointsScale</b> parameter (by default set to 0.8) you can scale the coordinates of the generated points inwards so that no points are located directly at the bounds of the object. This is usually desirable.
+</p><p>For the cubes, we have generated only four points. With PointsScale set to 1, these four points would be located exactly at the corners of the cube. This way, the buoyant force that exists at the center of the cube would be neglected completely. By scaling the points inwards a bit, we move them closer to the center. The hull of boats is usually bent, and with <b>PointsScale</b> set to 1 the outmost generated points would end up outside of the hull, where no buoyant force exists. It may also be necessary to adjust the <b>Linear Damping</b> and <b>Angular Damping</b> parameters, especially of you're dealing with very large or very small objects.
+</p>
+<div style="background-color: #F0F0E7; border: 1px solid #C93; border-left: 5px solid #C93; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" style="vertical-align: top" /> Make sure to enable the <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Engine/Blueprints/TechnicalGuide/NativizingBlueprints/">Nativize Blueprint Assets</a> option that converts all Blueprints to C++. If you get an error while packaging, <a rel="nofollow" class="external text" href="https://wiki.unrealengine.com/index.php?title=Physical_Water_Surface#I_get_an_error_when_packaging_with_the_Nativize_Blueprint_Assets_option_enabled">please read this answer</a>
+</p>
+</div>
+<p>The Buoyancy calculations are done in Blueprint on the CPU, so it is important to <a rel="nofollow" class="external text" href="https://www.unrealengine.com/blog/how-to-improve-game-thread-cpu-performance">keep an eye on CPU performance</a>. You can use the <b>N Points Per Frame</b> and <b>N Frames Pause</b> parameters on the Buoyancy Component to improve performance. With the <b>N Points Per Frame</b> parameter you can limit the number of points that are updated each tick with the Gerstner equations. For the remaining points, the depth is updated with linear extrapolation from the last known values, which is much cheaper to calculate. To update all points each Tick with Gerstner equations, set <b>N Points Per Frame</b> to (N Points X) * (N Points Y). With <b>N Frames Pause</b> set to 1, Gerstner calculations will only be performed every other Tick, if you set it to 2 only every third Tick and so on. To disable the pausing, set <b>N Frames Pause</b> to 0.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:366px;"><a href="/index.php?title=File:ManualPoints.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/1/14/ManualPoints.png/364px-ManualPoints.png" width="364" height="305" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/1/14/ManualPoints.png/546px-ManualPoints.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/1/14/ManualPoints.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ManualPoints.png" class="internal" title="Enlarge"></a></div>Points in 3D space defined with Manual Points mode</div></div></div>
+<p><b>Manual Points</b> mode allows to manually define the points used for buoyancy calculation. The automatically created points in Auto Points Mode are always generated in a plane. This prevents the floating object from flipping upside down in most cases. However, sometimes you want an object to rotate freely, for example a floating box that is smashed around by the waves.
+</p><p>In <b>Manual Points</b> Buoyancy mode you can define the coordinates of the points that are used for the buoyancy calculation yourself. You can set the values in the Details panel, or from another Blueprint. Enter the coordinates in local object space. For an example, have a look at the demo map <b>ManualPoints</b> that is included with Physical Water Surface.
+</p>
+<h3><span class="mw-headline" id="Seamless_Sea_State_Transitions">Seamless Sea State Transitions</span></h3>
+<p>Physical Water Surface can do <b>seamless sea state changes</b>. This means that while the game is running, the wave parameters are manipulated in such a way that a seamless transition to a new sea state (defined by a new wind speed, new fetch length and new wind direction) is achieved in a given time. Watch this video to get an impression how the transitions look like:
+</p>
+<div align="center">&lt;youtube&gt;<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=wI-bdmQCFN8">https://www.youtube.com/watch?v=wI-bdmQCFN8</a>&lt;/youtube&gt;</div>
+<p>The map that was used to create this video is included with Physical Water Surface, it is named <b>SeaStateTransitionsDemo</b>. Have a look in the Blueprint <b>BP_TransitionsDemo</b> in this map to see how the sea state transitions are triggered. The map <b>WindDirectionTransition</b> shows how to trigger a wind direction transition (See the <b>BP_WindDirectionDemo</b> Blueprint for details).
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:449px;"><a href="/index.php?title=File:ChangeSeaState2.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/8/89/ChangeSeaState2.png" width="447" height="374" class="thumbimage" /></a>  <div class="thumbcaption">Triggering a seamless sea state transition</div></div></div>
+<p>To trigger a sea state transition, call the <b>ChangeSeaState</b> function of the WaterSettings Blueprint. The input arguments are:
+</p>
+<ul><li> New Wind Speed (in m/s)</li>
+<li> New Fetch Length (in km)</li>
+<li> New Wind Direction (in degrees)</li>
+<li> Transition Time (in seconds)</li>
+<li> Transition Quality</li></ul>
+<p>If the new values for wind speed and fetch length are very different, it is advisable to to get there with multiple small steps, meaning multiple consecutive calls to the <b>ChangeSeaState</b> function that each change the sea state just a bit. This way the transition will look more natural because the algorithm only needs to figure out a good transition for values that are not too different.
+</p><p>The minimum <b>TransitionTime</b> that should be used depends on how much wind speed and fetch length are changing. As you can see in the video above, in some cases 10 seconds are enough to get a nice-looking transition. However if you can, you should use higher values to make the transition look more natural. If you change the Wind Direction by a large amount, make sure that the Transition Time is long enough.
+</p><p>With Update 4 of Physical Water Surface, the performance of sea state transitions was improved. If you need to improve the performance further, you can select a lower <b>Transition Quality</b>. If you use a lower quality setting, the transition calculation will run at a lower frame rate than the game. When using a lower quality, you might see a judder in the water motion during the transition.
+</p><p>If you want to delay execution of the subsequent code until the transition has finished, add a delay node after the Change Sea State node.
+</p>
+<h3><span class="mw-headline" id="Setting_Up_A_Player_Controlled_Boat">Setting Up A Player Controlled Boat</span></h3>
+<p>The <b>SteerableBoat</b> map  that is included with Physical Water Surface shows how to set up a player controlled boat. The boat is controlled with the WASD keys, the space bar can be used to jump out of the water. The boat can interact with other objects that have <b>simulate physics</b> and <b>collision</b> enabled. Everything is set up in the <b>PawnBoat</b> Blueprint. You can use this Blueprint as a starting point for your player controlled boat. Never try to set the location or rotation of the boat directly. Instead, use the <b>Add Force/Torque/Impulse at Location</b> Blueprint nodes.
+</p>
+<div align="center">&lt;youtube&gt;<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=80B0-GpPV2s">https://www.youtube.com/watch?v=80B0-GpPV2s</a>&lt;/youtube&gt;</div>
+<h3><span class="mw-headline" id="Querying_The_Wave_Height_From_Blueprint">Querying The Wave Height From Blueprint</span></h3>
+<p>If you turn to the right in the DemoMap, you will discover three small Blueprints floating in the water. These are example Blueprints that show you how to query the height and speed of the water surface.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:481px;"><a href="/index.php?title=File:WaterLocation2.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/3/3b/WaterLocation2.png/479px-WaterLocation2.png" width="479" height="254" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/3/3b/WaterLocation2.png/719px-WaterLocation2.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/3/3b/WaterLocation2.png/958px-WaterLocation2.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:WaterLocation2.png" class="internal" title="Enlarge"></a></div>Querying the location of a point on the water surface</div></div></div>
+<p>The <b>WaterLocation</b> Blueprint shows how to query the location of a point on the water surface, given the coordinates (X,Y) of the initial position. Just call the function <b>Calculate Delta Only</b> of the WaterSettings Blueprint with (X,Y) as input, and the 3D delta vector with the shift is returned. If you also need the normal vector calculated, call the function <b>Calculate Delta Normal</b> instead.
+</p><p>The <b>WaterHeight</b> blueprint calculates the wave height at a fixed point (X,Y). In this case, it is necessary to store the Delta value from the last tick in a variable.
+</p><p>The <b>WaterSpeed</b> Blueprint calculates the vertical speed of the water surface at a point (X,Y) and displays an arrow proportional to the speed.
+</p>
+<h3><span class="mw-headline" id="Hiding_water_inside_of_boats">Hiding water inside of boats</span></h3>
+<div class="thumb tleft"><div class="thumbinner" style="width:352px;"><a href="/index.php?title=File:MaskedWater.jpg" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/b/bc/MaskedWater.jpg" width="350" height="318" class="thumbimage" /></a>  <div class="thumbcaption">Water is hidden inside of a boat</div></div></div>
+<p>If no special measures are taken, water will also appear inside of boats. The water material of Physical Water Surface is set to Blend Mode <i>Masked</i>, and is already prepared in such a way that water <b>can be easily masked inside of floating objects</b>.
+</p><p>This method makes use of <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/en-US/Engine/Rendering/LightingAndShadows/MeshDistanceFields">Mesh Distance Fields</a>. Specifically, we use the the fact that the DistanceToNearestSurface material node returns a negative distance inside of a mesh. The water material detects this and masks the water accordingly.  To see this effect in action, have a look at the Map <b>MaskedWater</b> that comes with Physical Water Surface. After enabling Mesh Distance Fields, you should see that the water inside the boat disappears. The image on the left shows how the effect looks like.
+</p><p>To make use of Mesh Distance Fields, you need to enable the option "Generate Mesh Distance Fields" the Project Settings first. See <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/en-US/Engine/Rendering/LightingAndShadows/MeshDistanceFields#EnablingDistanceFields">here for a guide how to do this.</a>
+</p><p><big>Here is a step by step guide how to mask out water inside of boats:</big>
+</p><p>1. Enable <b>Generate Mesh Distance Fields</b> in the Project Settings, then restart the Editor.
+</p><p>2. You need to <b>create another mesh</b> that has the same size as the boat, but that is <i>not</i> hollow. This mesh will be used to generate the Mesh Distance Fields. The image below shows the example meshes that come with Physical Water Surface. The boat on the left is not hollow, <b>all water inside this mesh will be masked</b>. The mesh on the right is the one that will be visible.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:774px;"><a href="/index.php?title=File:BoatMeshes.jpg" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/1/18/BoatMeshes.jpg" width="772" height="289" class="thumbimage" /></a>  <div class="thumbcaption">Distance Field Replacement Mesh (left) and visible mesh (right)</div></div></div></div>
+<p><br />
+3. In the Details Panel of the original boat mesh, choose the boat mesh that is <i>not</i> hollow as <b>Distance Field Replacement Mesh</b>. The image below shows the setup.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:774px;"><a href="/index.php?title=File:ReplacementMesh.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/e/e9/ReplacementMesh.png/772px-ReplacementMesh.png" width="772" height="616" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/e/e9/ReplacementMesh.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplacementMesh.png" class="internal" title="Enlarge"></a></div>Selecting a Distance Field Replacement Mesh that is not hollow</div></div></div></div>
+<p><br />
+4. Make sure that <b>Affect Distance Field Lighting</b> is enabled on the boat. You can disable this option on all other StaticMeshes to improve performance.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:462px;"><a href="/index.php?title=File:MeshDistanceFields.jpg" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/0/0c/MeshDistanceFields.jpg/460px-MeshDistanceFields.jpg" width="460" height="269" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/0/0c/MeshDistanceFields.jpg 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:MeshDistanceFields.jpg" class="internal" title="Enlarge"></a></div>Mesh Distance Fields of a boat</div></div></div>
+<p>5. Use the <b>Show → Visualize → Mesh Distance Fields</b> option in the Viewport to check that the boat does not appear to be hollow. The image on the right shows how the Mesh Distance Fields should look like.
+</p><p>After completing these steps, the water inside of the boat will be masked out automatically by the water material.
+</p><p>In some cases it is possible that some water is still visible inside the boat, especially if the hull of the boat is very thin. This happens when the resolution of the Global Distance Field is not fine enough to capture the hull of the ship accurately. If you have this problem, you can try to use the console command r.AOGlobalDFResolution to increase the Global Distance Field Resolution (<a rel="nofollow" class="external text" href="https://forums.unrealengine.com/development-discussion/rendering/91831-distance-field-resolution-change-not-working">see here</a>).
+</p>
+<h3><span class="mw-headline" id="Network_Replication">Network Replication</span></h3>
+<p>This section provides a guideline how to implement Network Replication with Physical Water Surface. The water material already comes with a Material Parameter <b>TimeOffset</b> which is needed for Network Replication of the water motion. Several users of Physical Water Surface have successfully used Network Replication in their projects.
+</p><p><b>Wave Parameters</b> are material parameters that are written to a Material Parameter Collection, and are read by the water material. These parameters are constant (unless a sea state transition is going on), so normally they are just written once to the Material Parameter Collection On Begin Play.
+</p><p>The state of the water motion (World Position Offset of the water material) depends on the Wave Parameters and on the time. To be precise, on the time output of the <b>Time</b> node in the GerstnerWaveCum Material Function.
+For buoyancy, the Gerstner equations are evaluated also in Blueprint, using the time from the <b>Get Game Time in Seconds</b> Blueprint node. When the game is running, this node outputs the same time as the <b>Time</b> material node, so water motion and buoyancy are synchronized.
+</p><p>To replicate the water motion, we need to make sure that all clients use the same Time value in the GerstnerWaveCum Material Function. To make this happen, the GerstnerWaveCum Material function contains a Material Parameter <b>TimeOffset</b> (that defaults to 0) which is added to the output of the <b>Time</b> node. When the game starts, you need to calculate the offset between server time and client time and write the difference to the Material Parameter TimeOffset (in the Material Parameter Collection <b>WaveParameters</b>). From time to time you should recalculate the time offset and update the TimeOffset parameter, to make sure that there is no time drift.
+</p><p>If you use Buoyancy, a good strategy is to calculate the motion of floating objects on the server, this way it is ensured that the motion is identical on all clients.
+</p>
+<h3><span class="mw-headline" id="Compatibility_with_Orbit_Weather_and_Seasons">Compatibility with Orbit Weather and Seasons</span></h3>
+<p>I've collaborated with the developer of <a rel="nofollow" class="external text" href="https://www.unrealengine.com/marketplace/orbit-weather-and-seasons">Orbit Weather and Seasons</a> to make his weather system and Physical Water Surface compatible. With this compatibility, changing the cloud density will automatically also trigger a sea state transition if you use both systems together. <a href="/index.php?title=Orbit_Weather_%26_Seasons_Physical_Water_Surface_Compatibility_Tutorial&amp;action=edit&amp;redlink=1" class="new" title="Orbit Weather &amp; Seasons Physical Water Surface Compatibility Tutorial (page does not exist)">For detailed information, see this separate wiki page.</a>
+</p>
+<h2><span class="mw-headline" id="Blueprint_Documentation">Blueprint Documentation</span></h2>
+<div style="background-color: #F0F0E7; border: 1px solid #C93; border-left: 5px solid #C93; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" style="vertical-align: top" /> Make sure to enable the <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Engine/Blueprints/TechnicalGuide/NativizingBlueprints/">Nativize Blueprint Assets</a> option that converts all Blueprints to C++. If you get an error while packaging, <a rel="nofollow" class="external text" href="https://wiki.unrealengine.com/index.php?title=Physical_Water_Surface#I_get_an_error_when_packaging_with_the_Nativize_Blueprint_Assets_option_enabled">please read this answer</a>
+</p>
+</div>
+<h3><span class="mw-headline" id="WaterSettings_Blueprint">WaterSettings Blueprint</span></h3>
+<div class="thumb tright"><div class="thumbinner" style="width:276px;"><a href="/index.php?title=File:WaterSettings3.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/3/38/WaterSettings3.png" width="274" height="306" class="thumbimage" /></a>  <div class="thumbcaption">WaterSettings Blueprint Parameters</div></div></div>
+<p>The <b>WaterSettings Blueprint</b> manages the database of wave spectra and automatically writes the material parameters to the water material instances. You always need exactly one WaterSettings Blueprint in your level.
+</p><p><b>Wind Speed:</b> Select the wind speed you want (in m/s) and the corresponding wave spectrum will be applied automatically. Possible values are 1, 2, 3, 4, 5, 6, 7, 10, 15, 20, 25, 30 and 35 m/s. 
+</p><p><b>Fetch Length:</b> Select the <a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Fetch_%28geography%29">fetch length</a> you want (in km) and the corresponding wave spectrum will be applied automatically. Possible values are 50, 100, 300, 500, 750, 1000 and 1500 km. 
+</p><p><b>Random Phase Seed:</b> <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Engine/Blueprints/UserGuide/RandomStreams/#initialseed">Random Seed</a> for the water motion. Change this value to get a different random water motion when the game starts.
+</p><p><a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=Woik6p983BE">Watch this video</a> to see some of the different sea states that are possible.
+</p><p><b>Debug:</b> Draw debug messages on screen.
+</p><p><b>Wind Direction:</b> Wind direction in degrees. To change the wind direction while the game is running don't set this parameter. Instead, use the <a href="/index.php?title=Physical_Water_Surface#Seamless_Sea_State_Transitions" title="Physical Water Surface">ChangeSeaState Function.</a>
+</p>
+<h3><span class="mw-headline" id="WaterPlane_Blueprint">WaterPlane Blueprint</span></h3>
+<div class="thumb tright"><div class="thumbinner" style="width:394px;"><a href="/index.php?title=File:WaterPlane.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/3/37/WaterPlane.png" width="392" height="431" class="thumbimage" /></a>  <div class="thumbcaption">WaterPlane Blueprint Parameters</div></div></div>
+<p>You can add one or multiple <b>WaterPlane Blueprints</b> to your level. The WaterSettings Blueprint will find them automatically and write the Gerstner Wave Material Parameters to the <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Engine/Rendering/Materials/MaterialInstances/#materialinstancedynamic">Dynamic Material Instances</a> of the WaterPlanes.
+</p><p><b>Material Instance:</b> Here you can change the Water Material Instance that is used. By default it is set to WaterInstanceShiny.
+</p><p><b>RefreshMaterial:</b> Clicking this checkbox just causes the Construction Script of the Blueprint to be executed again. This sometimes helps if the water material does not update for some reason.
+</p><p><b>Follow Camera:</b> Enables or disables the Infinite Ocean System. If set to true, the water plane is translated and scaled to create the impression of an infinite ocean. For lakes or other small water surfaces, it is better to set this to false and to create a water plane mesh that matches the shape of the lake.
+</p><p><b>Height Zoom Factor:</b> If the Infinite Ocean System is enabled, the water plane is scaled up when the camera moves upwards. This factor influences how fast the plane is scaled up.
+</p><p><b>MinimumHeight:</b> Minimum height of the camera above water plane assumed in the calculations of the Infinite Ocean System. Prevents scaling down the water plane too much when the camera is very close to the water surface.
+</p>
+<h3><span class="mw-headline" id="Buoyancy_Component_Blueprint">Buoyancy Component Blueprint</span></h3>
+<div class="thumb tright"><div class="thumbinner" style="width:267px;"><a href="/index.php?title=File:BuoyancyComponent2.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/8/88/BuoyancyComponent2.png" width="265" height="767" class="thumbimage" /></a>  <div class="thumbcaption">Buoyancy Component Parameters</div></div></div>
+<p>Add this <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Engine/Blueprints/UserGuide/Components/">Component</a> to any Static Mesh or Skeletal Mesh to make it float in a WaterPlane Blueprint. Don't forget to set the Mobility of the Mesh to Movable!
+</p><p><b>Buoyancy Mode:</b> In <b>Single Point</b> mode the floating object is fixed to a single point on the water surface. Location and Rotation are taken directly from the  coordinates and normal calculated with the Gerstner equations. This mode only looks good for small objects, but is relatively cheap to calculate. In <b>Auto Points</b> mode a <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Engine/Physics/">Physics Simulation</a> is performed. The buoyant force on a number of automatically generated points on the object is calculated and applied. The magnitude of the buoyant force depends on the depth of immersion of each point. The counteracting gravity force is automatically applied by the engine. In <b>Manual Points</b> mode, you can define the <b>Points</b> array yourself. Enter the coordinates either manually in the Details panel, or set the values from another Blueprint.
+</p><p><i>Note: the following settings only have an effect in <b>Auto Points</b> and <b>Manual Points</b> mode:</i>
+</p><p><b>Points Shape:</b> Defines the shape of the automatically generated points to be <b>rectangular</b> or <b>elliptical</b>. The point generation automatically takes into account the size of the mesh.
+</p><p><b>Points Scale:</b> With this parameter (by default set to 0.8) you can scale the coordinates of the generated points inwards so that no points are located directly at the bounds of the object. For boats with a curved hull this parameters usually needs to be smaller than one to prevent points outside of the hull.
+</p><p><b>N Points X</b> and <b>N Points Y:</b> Number of points that will be generated in X (or radial) and Y (or tangential) direction.
+</p><p><b>Float Height:</b> Applies an offset to the Z coordinate of the generated points.
+</p><p><b>Points:</b> In <b>Auto Points</b> mode, the coordinates of the points are set automatically. In <b>Manual Points</b> mode, you need to set them manually. Enter coordinates of the points in local object space, either manually in the Details panel or set the values from another Blueprint.
+</p><p><b>Draw Debug:</b> Enables the debug visualization. The generated points visualized as points, and arrows are drawn proportional to the buoyant force.
+</p><p><b>N Points Per Frame:</b> With this parameter you can limit the number of points that are updated each tick with the Gerstner equations. For the remaining points, the depth is updated with linear extrapolation from the last known values, which is much cheaper to calculate. To update all points each Tick with Gerstner equations, set <b>N Points Per Frame</b> to (N Points X) * (N Points Y) if you're using PointsShape Rectangle and to (N Points X) * (N Points Y) + 1 if you're using PointsShape Ellipse.
+</p><p><b>N Frames Pause:</b> If this parameter is set to 1, the Gerstner calculations to update the points will only be performed every other Tick, if you set it to 2 only every third Tick and so on. To disable the pausing, set <b>N Frames Pause</b> to 0.
+</p><p><b>Float Factor:</b> This parameter changes how how deep the floating object is submerged in the water.
+</p><p><b>Linear Damping</b> and <b>Angular Damping:</b> The damping usually needs to be adjusted a bit for very large or very small objects.
+</p><p><b>Drag Multiplier:</b> Floating objects also perform a subtle horizontal motion depending on the local horizontal water speed. Use this parameter to influence the horizontal drag force.
+</p><p><b>Enable Buoyancy:</b> Enable and disable the buoyancy completely. To save CPU performance, it is a good idea to disable the buoyancy of objects that are not visible or far away. If you don't want to disable buoyancy completely, switching these objects to Single Point mode will also save some CPU performance.
+</p><p><b>Points Offset:</b> Use this Vector2D to apply a horizontal offset to the automatically generated points.
+</p>
+<h2><span class="mw-headline" id="Material_Documentation">Material Documentation</span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:328px;"><a href="/index.php?title=File:WaterMaterialParameters.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/f/fa/WaterMaterialParameters.png" width="326" height="712" class="thumbimage" /></a>  <div class="thumbcaption">Material Instance Parameters</div></div></div>
+<p><b>BlendOutNormals:</b> If enabled, the normals are gradually lerped to be vertical at large distance. This reduces flickering that otherwise would be visible in the distance on the water surface.
+</p><p><b>FoamNoise:</b> If enabled, the foam texture is modulated randomly so that it is not repeating any more. Enable this only if you need it, as it costs some performance.
+</p><p><b>GerstnerWaves:</b> Here you can disable the Gerstner waves. Useful for debugging. 
+</p><p><b>NoiseInvert:</b> Inverts the noise that is used for the foam modulation. Can be useful for debugging.
+</p><p><b>DetaiNormalMapMultiplier:</b> Scales the UVs of the detail normal map.
+</p><p><b>DetailNormalSpeed:</b> Changes the speed of the detail normal map animation.
+</p><p><b>DetailNormalStrength:</b> Modifies the intensity of the detail normal map. Set to 0.0 to disable the detail normal map and to get get a smooth water surface.
+</p><p><b>FoamBlendRadius:</b> Distance at which the foam is blended out.
+</p><p><b>FoamIntensity:</b> Influences how much foam is visible. Set to 0.0 to disable foam.
+</p><p><b>FoamMultiplier:</b> Scales the UVs of the foam texture.
+</p><p><b>FoamSpeed:</b> Changes the speed of the foam animation.
+</p><p><b>FresnelExponent:</b> Exponent of the Fresnel node that is used for Base Color.
+</p><p><b>Metallic:</b> Metallic Material Input
+</p><p><b>NoiseRotation:</b> For foam modulation, two foam textures are scaled, rotated, and blended together. This paremeter sets the rotation angle (0-1).
+</p><p><b>NoiseSize:</b> Influences the size of the noise that is used for modulation of the foam texture.
+</p><p><b>NormalsBlendRadius:</b> Distance at which the normals are blended out.
+</p><p><b>NormalsStrengthDistance:</b> This is the alpha value for blending out the value. 0.5 means that the strength of the normals is reduced by factor 0.5
+</p><p><b>RoughnessBlendRadius:</b> Distance at which the change in Roughness occurs.
+</p><p><b>RoughnessMax and RoughnessMin:</b> Foam has a higher roughness than water. Use these parameters to set the maximum and minimal roughness values.
+</p><p><b>SecondTextureScale:</b> For foam modulation, two foam textures are scaled, rotated, and blended together. This parameter defines the scale of the second texture.
+</p><p><b>ColorBright and ColorDark:</b> Changes the base color of the water surface.
+</p><p><b>FarFoamColor:</b> When the foam is blended out, it is replaced with this color.
+</p>
+<h2><span class="mw-headline" id="Tutorials">Tutorials</span></h2>
+<h3><span class="mw-headline" id="Improving_an_existing_water_material_with_Physical_Water_Surface">Improving an existing water material with Physical Water Surface</span></h3>
+<p>In this tutorial, we take the existing water material in the <b>Vehicle Game</b> example (available for free in the Launcher) and modify it so that the water motion is calculated with Physical Water Surface. Adding Physical Water Surface to your own project would follow a similar approach.
+</p>
+<ul class="gallery mw-gallery-packed">
+		<li class="gallerybox" style="width: 350px"><div style="width: 350px">
+			<div class="thumb" style="width: 348px;"><div style="margin:0px auto;"><a href="http://gfycat.com/GrotesqueUnhappyAsiaticlesserfreshwaterclam"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/b/b3/Vehicle_Game_Original.jpg/522px-Vehicle_Game_Original.jpg" width="348" height="200" srcset="https://d26ilriwvtzlb.cloudfront.net/b/b3/Vehicle_Game_Original.jpg 1.5x" /></a></div></div>
+			<div class="gallerytext">
+<p>Original Water Material in Vehicle Game
+</p>
+			</div>
+		</div></li>
+		<li class="gallerybox" style="width: 350px"><div style="width: 350px">
+			<div class="thumb" style="width: 348px;"><div style="margin:0px auto;"><a href="http://gfycat.com/RepulsiveFriendlyKestrel"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/5/5f/Physical_Water_Surface_Vehicle_Game.jpg/522px-Physical_Water_Surface_Vehicle_Game.jpg" width="348" height="200" srcset="https://d26ilriwvtzlb.cloudfront.net/5/5f/Physical_Water_Surface_Vehicle_Game.jpg 1.5x" /></a></div></div>
+			<div class="gallerytext">
+<p>Enhanced with Physical Water Surface
+</p>
+			</div>
+		</div></li>
+</ul>
+<ol><li> Create a new <b>Vehicle Game</b> project and add <b>Physical Water Surface</b>.</li>
+<li> Go to <b>Project Settings</b> → <b>Maps &amp; Modes</b> → <b>Default Modes</b> and set <b>Default Pawn Class</b> and <b>HUD Class</b> both to <b>None</b>.</li>
+<li> Create a new Camera somewhere above the water surface and set <b>Auto Activate for Player</b> to <b>Player 0</b> in the Camera settings.</li>
+<li> Hit <b>Play</b> to make sure that the Camera activates and you can see the water surface.</li>
+<li> Click on the <b>Lake Static Mesh</b> and write down the <b>Z Location</b> (18110.822266 cm), then <b>delete</b> it from the level.</li>
+<li> Add the <b>WaterSettings</b> Blueprint from the Physical Water Surface folder to the level.</li>
+<li> Add the <b>WaterPlane</b> Blueprint from the Physical Water Surface folder to the level. In the Details panel, set the <b>Z Location</b> to 18110.822266 cm and set <b>Follow Camera</b> to false.</li>
+<li> Enable Wireframe view mode and move WaterPlane in X and Y direction until the high resolution center area of the plane is close to the camera. </li>
+<li> In the Details panel of the <b>WaterSettings</b> Blueprint, set <b>Wind Speed</b> to 1 (m/s) and <b>Fetch Length</b> to 50 (km).</li>
+<li> Open the <b>M_Water_01</b> material that comes with Vehicle Game. Select all material nodes that are connected to the <b>Base Color</b>, <b>Metallic</b> and <b>Roughness</b> inputs and copy them to the clipboard (Ctrl+C).</li>
+<li> Open the <b>Water</b> material that comes with Physical Water Surface. Paste the nodes from the clipboard (Ctrl+V). Connect the pasted nodes to the <b>Base Color</b>, <b>Metallic</b> and <b>Roughness</b> inputs of the Water material, replacing the original inputs. Leave the <b>Normal</b> and <b>World Position Offset</b> connected. Save the modified Water material.</li>
+<li> Open the <b>WaterInstanceShiny</b> Material Instance in the Physical Water Surface folder and set <b>DetailNormalStrength</b> to 0.0 to get a smooth water surface.</li>
+<li> Since we have pasted the <b>Vertex Coloer</b> material node, you can <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Engine/UI/LevelEditor/Modes/MeshPaintMode/VertexColor/PaintingOnMeshes/">paint foam</a> on the water surface.</li>
+<li> You're done! You now have a water surface with the original look, but with the water motion of Physical Water Surface.</li></ol>
+<div class="thumb tnone"><div class="thumbinner" style="width:365px;"><a href="/index.php?title=File:VehicleGameMaterialInputs.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/8/8a/VehicleGameMaterialInputs.png" width="363" height="495" class="thumbimage" /></a>  <div class="thumbcaption">Inputs of the modified Water material</div></div></div>
+<h2><span class="mw-headline" id="FAQ">FAQ</span></h2>
+<h5><span class="mw-headline" id="Which_engine_versions_are_compatible.3F">Which engine versions are compatible?</span></h5>
+<p>Currently Physical Water Surface is developed in 4.10 and has been tested successfully with versions 4.10 to 4.19. If you are using 4.14 or higher, please make sure to read the information about Temporal AA below. If your water plane is gray after updating to 4.17 you can read below how to fix it.
+</p>
+<h5><span class="mw-headline" id="The_water_surface_looks_blurry_when_I_use_Temporal_AA">The water surface looks blurry when I use Temporal AA</span></h5>
+<p>If you have fine detail on the water surface, for example a fine normal map or a foam texture, FXAA tends to look better than Temporal AA. For this reason, most of my demo videos were created using FXAA. If you want to use Temporal AA, you should set <b>Project Settings</b> → <b>Engine</b> → <b>Rendering</b> → <b>Accurate velocities from Vertex Deformation</b> to true. This way, the water surface displacement will be properly taken into account for Temporal AA.
+If you are using an engine version between 4.10 and 4.13, you will find that FXAA is enabled in the <b>PostProcessVolume</b> that comes with the demo maps. If you are using 4.14 or higher, you need to manually select FXAA under <b>Project Settings</b> → <b>Rendering</b> → <b>Anti-Aliasing Method</b>. Beginning in 4.14, the Anti-Aliasing Method setting is no longer part of the <b>PostProcessVolume</b> settings, so it will be Temporal AA by default. Also, keep in mind that the Anti-Aliasing Method can change to Temporal AA when you update your project to 4.14.
+</p>
+<h5><span class="mw-headline" id="The_water_surface_is_gray_and_is_not_moving_in_engine_version_4.17">The water surface is gray and is not moving in engine version 4.17</span></h5>
+<p>If you encounter this behavior after updating your project to 4.17, here is how to easily fix it. Open the <b>Construction Script</b> of the <b>WaterPlane Blueprint</b> and add a <b>Make Literal Bool</b> node that is set to <b>True</b> and connect it to the <b>Update Wave Parameters</b> node. After compiling and saving this Blueprint, the water will be visible again. It seems that there is a bug in 4.17 that changes the default value from True to False, and adding the Make Literal Bool node fixes that.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:598px;"><a href="/index.php?title=File:LiteralBool.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/b/b1/LiteralBool.png" width="596" height="272" class="thumbimage" /></a>  <div class="thumbcaption">Add a <b>Make Literal Bool</b> node like this</div></div></div></div>
+<p><b>Please note:</b> With <a href="/index.php?title=Physical_Water_Surface#Update_4:_April_5.2C_2018" title="Physical Water Surface">Update 4 of Physical Water Surface</a> this function was removed from the construction script and the problem should not occur any more.
+</p>
+<h5><span class="mw-headline" id="Can_I_scale_the_water_plane_to_adjust_the_size_of_the_waves_to_the_scale_of_my_game.3F">Can I scale the water plane to adjust the size of the waves to the scale of my game?</span></h5>
+<p>The water equations are implemented under the assumption that one Unreal Unit (UU) is equal to one centimeter. If the objects in your game have a different scale, the size and speed of the waves will not be correct. You can't just scale the water plane because the shape of the waves is determined by equations, independent of the object scaling. In fact, the Infinite Ocean System (if enabled) is constantly scaling the water plane up and down depending on the camera height.
+</p>
+<h5><span class="mw-headline" id="Floating_objects_are_not_lit_correctly">Floating objects are not lit correctly</span></h5>
+<p>Since floating objects are moving, they can only be lit by dynamic lighting. Make sure you have a <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Engine/Rendering/LightingAndShadows/Lightmass/Basics/index.html#lightmassimportancevolume">Lightmass Importance Volume</a> that is large enough so that multiple Volume Lighting Samples are created inside the volume. It's a good idea to use the <b>Show</b> → <b>Vizualize</b> → <b>Volume Lighting Samples</b> option in the Viewport to make sure you have more than one sample in the volume.
+</p><p>In my tests, one Volume Lighting Sample inside a small Lightmass Importance Volume caused incorrect lighting. When I increased the size of the volume so that multiple samples appeared the lighting was correct. You don't need the Lightmass Importance Volume to cover the whole ocean because it will extrapolate the lighting outside of the volume.
+</p>
+<h5><span class="mw-headline" id="I_see_flickering_or_artifacts_on_the_water_surface">I see flickering or artifacts on the water surface</span></h5>
+<p>This is known to happen when World Position Offset is used to move the vertices of an object outside of the object bounds. The problem is that for a flat water plane mesh, the engine assumes that the bounds have close to zero vertical thickness. When World Position Offset is used to create waves, the vertices are moved far outside the bounds, leading to visual artifacts in some cases.
+</p><p>The solution is to increase the <b>Rendering</b> → <b>Bounds Scale</b> value in the options of the water plane Static Mesh until the artifacts disappear as <a rel="nofollow" class="external text" href="https://answers.unrealengine.com/questions/121635/pillars-flickering-after-level-creation-tutorial.html">described here</a>. For a completely flat plane, you will need to put in a very high value. For this reason, the water plane Static Mesh that is included has a single out of plane face so that the engine calculates a higher thickness for the Static Mesh. With this Static Mesh, setting the Bounds Scale value to 10 is sufficient to prevent any artifacts.
+</p><p>In the demo maps that are included, this is all set up correctly and no visual artifacts should appear. If you create your own water plane Static Mesh, take care to set the Bounds Scale option to a high enough value. Enable the <b>Show</b> → <b>Advanced</b> → <b>Bounds</b> option to make sure the bounds are large enough to contain the waves.
+</p>
+<h5><span class="mw-headline" id="If_I_place_a_ThirdPersonCharacter_Blueprint_in_the_map.2C_it_starts_to_move_horizontally_at_very_high_speed">If I place a ThirdPersonCharacter Blueprint in the map, it starts to move horizontally at very high speed</span></h5>
+<p>To prevent this from happening, edit the WaterPlane Blueprint. Click on the WaterPlane StaticMeshComponent in the Blueprint Editor, and set the CollisionPreset to NoCollision.
+</p>
+<h5><span class="mw-headline" id="When_the_game_starts.2C_objects_that_have_buoyancy_enabled_are_shot_upwards_into_the_sky._This_happens_if_the_Water_Plane_is_placed_at_a_position_with_the_Z_coordinate_not_equal_to_zero">When the game starts, objects that have buoyancy enabled are shot upwards into the sky. This happens if the Water Plane is placed at a position with the Z coordinate not equal to zero</span></h5>
+<p>This bug was fixed in <a href="/index.php?title=Physical_Water_Surface#Update_3:_February_9.2C_2018" title="Physical Water Surface">Update 3 of Physical Water Surface</a>. Please update the Buoyancy Blueprint to the newest version.
+</p>
+<h5><span class="mw-headline" id="How_do_I_enable_SSR.3F">How do I enable SSR?</span></h5>
+<p>Actually, SSR are enabled by default, but Depending on the settings in the Water Material Instance and the lighting conditions, the SSR might not be visible. Check out the <a rel="nofollow" class="external text" href="http://gfycat.com/SnivelingDeliciousAnteater">AltArtStyle demo map</a> where the SSR are clearly visible.
+</p>
+<h5><span class="mw-headline" id="How_is_the_performance.3F">How is the performance?</span></h5>
+<p>I did performance tests on an AMD HD 6870 graphics card with the <a rel="nofollow" class="external text" href="http://gfycat.com/ReliableWarlikeGull">DemoMap</a> as Standalone Game with Smooth Frame Rate disabled, in fullscreen (Full HD) and Epic Scalability Settings. Here are the results:
+</p>
+<ul><li> DemoMap with 9 floating objects: 180 fps</li>
+<li> DemoMap without floating objects: &gt;300 fps</li></ul>
+<p>For this test, the Buoyancy Blueprints were not <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Engine/Blueprints/TechnicalGuide/NativizingBlueprints/">converted to C++ code</a> (which would increase CPU performance).
+</p><p>The material stats are:
+</p>
+<ul><li> Info Base pass shader with static lighting: 1624 instructions</li>
+<li> Info Base pass shader with only dynamic lighting: 1592 instructions</li>
+<li> Info Vertex shader: 1237 instructions</li>
+<li> Info Texture samplers: 10/16</li></ul>
+<h5><span class="mw-headline" id="Does_it_contain_C.2B.2B_code.3F">Does it contain C++ code?</span></h5>
+<p>No, everything is done in Blueprint.
+</p>
+<h5><span class="mw-headline" id="Can_I_use_the_Nativize_Blueprint_Assets_option_when_packaging_to_convert_all_Blueprints_to_C.2B.2B_code.3F">Can I use the Nativize Blueprint Assets option when packaging to convert all Blueprints to C++ code?</span></h5>
+<p>Yes, this is supported and has been verified to work with engine version 4.14 and higher. You should enable this option when packaging your project for a significant increase in buoyancy performance. If you get an error when packaging with this option enabled, please see the next question.
+</p>
+<h5><span class="mw-headline" id="I_get_an_error_when_packaging_with_the_Nativize_Blueprint_Assets_option_enabled">I get an error when packaging with the Nativize Blueprint Assets option enabled</span></h5>
+<p><a href="/index.php?title=Physical_Water_Surface#Update_2:_February_7.2C_2017" title="Physical Water Surface">Update 2 of Physical Water Surface</a> fixed a small bug that prevented successful packaging with Blueprint Nativization enabled. If you need to apply this bugfix to your project, here is how:
+</p><p>Open the WaterPlane Blueprint and search for the "Clamp (float)" Node. Change the Max value from 1e100000 to 1e10.
+</p>
+<h5><span class="mw-headline" id="How_can_I_make_the_water_transparent.3F">How can I make the water transparent?</span></h5>
+<p>Currently, the water material is not transparent. This is planned for a future update of Physical Water Surface.
+</p>
+<h5><span class="mw-headline" id="Is_the_water_motion_deterministic.3F">Is the water motion deterministic?</span></h5>
+<p>By default, the water motion is identical every time the game starts. To get a different water motion every time the game starts, set the <b>Random Phase Seed</b> variable of the <b>WaterSettings</b> Blueprint to a random value when the game starts.
+</p>
+<h5><span class="mw-headline" id="Can_I_use_NavMesh_to_create_an_AI_controlled_boat.3F">Can I use NavMesh to create an AI controlled boat?</span></h5>
+<p>Yes, the WaterPlane Blueprint that comes with Physical Water Surface supports NavMesh. If you place a Nav Mesh Bounds Volume in the map, NavMesh will build on the water surface. Implementing AI for a boat is very similar to AI for a car, so <a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?25073-UPDATED-12-20-A-I-Templates-Bot-Car-amp-Flying-AI">this tutorial can be helpful.</a>
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:582px;"><a href="/index.php?title=File:WaterNavMesh.jpg" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/1/14/WaterNavMesh.jpg/580px-WaterNavMesh.jpg" width="580" height="322" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/1/14/WaterNavMesh.jpg/870px-WaterNavMesh.jpg 1.5x, https://d26ilriwvtzlb.cloudfront.net/1/14/WaterNavMesh.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:WaterNavMesh.jpg" class="internal" title="Enlarge"></a></div>NavMesh building on the water surface</div></div></div></div>
+<h5><span class="mw-headline" id="Does_Physical_Water_Surface_work_in_VR.3F">Does Physical Water Surface work in VR?</span></h5>
+<p>I've tested Physical Water Surface in VR using an Oculus Rift. Everything worked fine, the water motion looks great in VR. I suggest you try out the DemoMap using the VR Preview in the editor.
+</p>
+<h2><span class="mw-headline" id="Release_Notes">Release Notes</span></h2>
+<h5><span class="mw-headline" id="Initial_Release:_May_11.2C_2016">Initial Release: May 11, 2016</span></h5>
+<h5><span class="mw-headline" id="Update_1:_June_21.2C_2016">Update 1: June 21, 2016</span></h5>
+<p><b>Fixed Problem: Water Surface looks noisy/shimmering far away</b>
+</p><p>The left picture shows the old look, the right picture shows the updated version:
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:760px;"><a href="/index.php?title=File:FoamNoiseComparison.jpg" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/a/aa/FoamNoiseComparison.jpg" width="758" height="279" class="thumbimage" /></a>  <div class="thumbcaption">Original look (left) and improved look (right)</div></div></div></div>
+<p><br />
+<b>Fixed Problem: Repeating foam texture visible when camera is far away</b>
+</p><p>The foam texture is now modulated randomly so that it is not repeating any more. Also, the foam can be faded out at a certain distance. The left picture shows the old look, the right picture shows the updated version:
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:760px;"><a href="/index.php?title=File:FoamMudulationComparison.jpg" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/f/f4/FoamMudulationComparison.jpg" width="758" height="740" class="thumbimage" /></a>  <div class="thumbcaption">Original look (top) and improved look (bottom)</div></div></div></div>
+<p><br />
+<b>New example map is included that shows how to set up a player controlled boat</b>
+</p><p>The boat is controlled witht the WASD keys, the space bar can be used to jump out of the water. The boat can interact with other objects that have simulate physics enabled.
+</p>
+<div align="center">&lt;youtube&gt;<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=80B0-GpPV2s">https://www.youtube.com/watch?v=80B0-GpPV2s</a>&lt;/youtube&gt;</div>
+<p><br />
+<b>New Buoyancy Mode "Manual Points" that allows manually defining the points for buoyancy calculation</b>
+</p><p>The automatically created points in Auto Points Mode are always generated in a plane. This prevents the floating object from flipping upside down in most cases. However, sometimes you want an object to rotate freely, for example a floating box that is smashed around by the waves. In the new Manual Points Buoyancy mode you can define the coordinates of the points that are used for the buoyancy calculation yourself. You can set the values in the Details panel, or from another Blueprint.
+A new example map <b>ManualPoints</b> is included with a box that has manually defined buoyancy points: 
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:729px;"><a href="/index.php?title=File:ManualPoints.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/1/14/ManualPoints.png" width="727" height="610" class="thumbimage" /></a>  <div class="thumbcaption">Manual definition of Buoyancy Points</div></div></div></div>
+<h5><span class="mw-headline" id="Update_2:_February_7.2C_2017">Update 2: February 7, 2017</span></h5>
+<p><b>Seamless Sea State Transitions</b>
+</p><p>It took some time to implement, but I think the results speak for themselves. With the new ChangeSeaState function of the WaterSettings Blueprint you can trigger completely smooth transitions between different sea states within a given transition time. Check out this video to see what the transitions look like:
+</p>
+<div align="center">&lt;youtube&gt;<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=wI-bdmQCFN8">https://www.youtube.com/watch?v=wI-bdmQCFN8</a>&lt;/youtube&gt;</div>
+<p>All that is needed to trigger a sea state transition is this Blueprint code:
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:449px;"><a href="/index.php?title=File:ChangeSeaState2.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/8/89/ChangeSeaState2.png" width="447" height="374" class="thumbimage" /></a>  <div class="thumbcaption">Triggering a seamless sea state transition</div></div></div></div>
+<p><br />
+<b>Support for Blueprint Nativization to C++</b>
+</p><p>This update fixes a bug that prevented successful packaging with <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/en-us/Engine/Blueprints/TechnicalGuide/NativizingBlueprints">Nativize Blueprint Assets</a> enabled. I've verified that Blueprint Nativization works now with engine versions 4.14 and 4.15.  <a href="/index.php?title=Physical_Water_Surface#Can_I_use_the_Nativize_Blueprint_Assets_option_when_packaging_to_convert_all_Blueprints_to_C.2B.2B_code.3F" title="Physical Water Surface">For more information see here</a>.
+</p><p><br />
+<b>Support for NavMesh</b>
+The WaterPlane Blueprint that comes with Physical Water Surface now supports NavMesh. If you place a Nav Mesh Bounds Volume in the map, NavMesh will build on the water surface.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:582px;"><a href="/index.php?title=File:WaterNavMesh.jpg" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/1/14/WaterNavMesh.jpg/580px-WaterNavMesh.jpg" width="580" height="322" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/1/14/WaterNavMesh.jpg/870px-WaterNavMesh.jpg 1.5x, https://d26ilriwvtzlb.cloudfront.net/1/14/WaterNavMesh.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:WaterNavMesh.jpg" class="internal" title="Enlarge"></a></div>NavMesh building on the water surface</div></div></div></div>
+<p><br />
+<b>Bugfixes</b>
+</p>
+<ul><li> Buoyancy Blueprint: PointsOffset was only applied for PointsShape Ellipse, not for PointsShape Rectangular</li>
+<li> Buoyancy Blueprint: Debug visualization doesn't show an arrow pointing down any more when a point is above the water surface</li>
+<li> Buoyancy Blueprint: Fixed a bug that caused an error message in the output log each frame</li></ul>
+<p><br />
+<b>Improvements</b>
+</p>
+<ul><li> Performance improvements of Buoyancy Component Blueprint</li>
+<li> Improved steering when going backwards with the player controlled boat in the example map SteerableBoat</li>
+<li> Normals of the water material can be faded out in the distance, reducing flickering on the water surface far away. This can be controlled with the new Material Parameters NormalsBlendRadius and NormalsStrengthDistance</li>
+<li> Increased default movement speed of detail normals to make the water look more fluid</li>
+<li> Wave parameters have been updated to be more random, resulting in a more natural water motion</li></ul>
+<h5><span class="mw-headline" id="Update_3:_February_9.2C_2018">Update 3: February 9, 2018</span></h5>
+<p><b>Bugfix for the Buoyancy Blueprint</b>
+</p><p>This update fixes the following bug: When the water plane was placed at a height different from Z=0, it could occur that the floating objects wrongly received a large vertical acceleration during the first tick of the game and were sent flying upwards into the sky. Now, the Buoyancy Blueprint performs a special check to make sure this does not happen any more.
+</p>
+<h5><span class="mw-headline" id="Update_4:_April_5.2C_2018">Update 4: April 5, 2018</span></h5>
+<p><b>Performance Improvements</b>
+</p><p><a rel="nofollow" class="external text" href="http://gfycat.com/ReliableWarlikeGull">The DemoMap with 9 floating objects</a> now runs at a frame rate of 180 FPS. Without any floating objects, the water surface runs at over 300 FPS. <a href="/index.php?title=Physical_Water_Surface#How_is_the_performance.3F" title="Physical Water Surface">Details about the performance benchmark can be found here.</a>
+</p><p><br />
+<b>Hiding Water inside of Boats</b>
+</p><p>A method is provided to mask out water inside of boats, making use of <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/en-us/Engine/Rendering/LightingAndShadows/MeshDistanceFields">Mesh Distance Fields</a> (Blend Mode Masked). A new Map MaskedWater is included that demonstrates the setup.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:352px;"><a href="/index.php?title=File:MaskedWater.jpg" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/b/bc/MaskedWater.jpg" width="350" height="318" class="thumbimage" /></a>  <div class="thumbcaption">Water is hidden inside of a boat</div></div></div></div>
+<p><br />
+<b>Sea State Transitions Performance Improvements</b>
+</p><p>​​​​​​​The code for sea state transitions has been optimized. The impact on performance while a Sea State Transition is running has been reduced a lot.
+Additionally, the ChangeSeaState function now has a new input TransitionQuality, where a lower transition quality can be selected to improve the performance even more. A lower transition quality means that the transition calculation (not the game) runs at a lower frame rate.
+</p><p><br />
+<b>Wind Direction Transitions</b>
+</p><p>The wind direction can now be changed while the game is running. Use the the input NewWindDirectionDegrees of the ChangeSeaState function to trigger a wind direction transition. To set the initial wind direction use the Wind Direction variable of the WaterSettings Blueprint.
+The new map WindDirectionTransition demonstrates how a wind direction transition is performed.
+<a href="/index.php?title=Physical_Water_Surface#Seamless_Sea_State_Transitions" title="Physical Water Surface">For details see the documentation about sea state transitions.</a>
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:449px;"><a href="/index.php?title=File:ChangeSeaState2.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/8/89/ChangeSeaState2.png" width="447" height="374" class="thumbimage" /></a>  <div class="thumbcaption">Triggering a seamless sea state transition</div></div></div></div>
+<p><br />
+<b>Material Parameter Collection is used for Wave Parameters</b>
+</p><p>The architecture of Physical Water Surface has been updated to make use of a Material Parameter Collection to store the wave parameters that drive the WaterMotion material function. This change simplifies a lot of things, for example it is now easier to use the WaterMotion material function in other materials.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:183px;"><a href="/index.php?title=File:WaterMotion.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/5/56/WaterMotion.png" width="181" height="121" class="thumbimage" /></a>  <div class="thumbcaption">WaterMotion Material Function</div></div></div></div>
+<p><br />
+<b>Network Replication: New Wiki Chapter and TimeOffset Material Parameter </b>
+This new material parameter is needed when Physical Water Surface is used with Networking and the water motion needs to be replicated.
+<a href="/index.php?title=Physical_Water_Surface#Network_Replication" title="Physical Water Surface">A new section in the wiki about networking</a> explains how to use this parameter.
+</p><p><br />
+<b>Events when entering and leaving the Water</b>
+</p><p>Two events HasEnteredWater and HasLeftWater are provided in the Buoyancy Blueprint that are triggered when a a floating objects enters or leave the water.
+</p><p><br />
+<b>Improvement of WaterHeight, WaterLocation and WaterSpeed Blueprints</b>
+</p><p>The three Blueprints WaterHeight, WaterLocation and WaterSpeed (that demonstrate how to query the position and speed of the water surface) have been improved. Now, these Blueprints also detect the Z coordinate of the water surface and are always displayed correctly on the water surface.
+</p><p><br />
+<b>Water Plane Collision Settings</b>
+</p><p>The collision settings of the WaterPlane Blueprint have been adjusted. Collision responses are now disabled for everything except Vehicle (otherwise Nav Mesh doesn't build on the water surface). This prevents problems in some cases, for example when a ThirdPersonCharacter was placed in the map the old collision setting caused problems.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20181009024248
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.320 seconds
+Real time usage: 1.883 seconds
+Preprocessor visited node count: 205/1000000
+Preprocessor generated node count: 288/1000000
+Post‐expand include size: 20/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    3.156      1 -total
+100.00%    3.156      1 Template:Rating
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:53-0!canonical and timestamp 20181009024247 and revision id 107
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=Physical_Water_Surface&amp;oldid=107">https://wiki.unrealengine.com/index.php?title=Physical_Water_Surface&amp;oldid=107</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/index.php?title=Category:Tutorials&amp;action=edit&amp;redlink=1" class="new" title="Category:Tutorials (page does not exist)">Tutorials</a></li><li><a href="/index.php?title=Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li><li><a href="/index.php?title=Category:Material" title="Category:Material">Material</a></li><li><a href="/index.php?title=Category:Blueprint" title="Category:Blueprint">Blueprint</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0a137bf8b82e8a632"><meta name="worker" content="119"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.31","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/gHooNW9I/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Edit the global content type","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.100bcb10fc821c7c23f8.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.100bcb10fc821c7c23f8.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.320","walltime":"1.883","ppvisitednodes":{"value":205,"limit":1000000},"ppgeneratednodes":{"value":288,"limit":1000000},"postexpandincludesize":{"value":20,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    3.156      1 -total","100.00%    3.156      1 Template:Rating"]},"cachereport":{"timestamp":"20181009024249","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":196});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":243,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

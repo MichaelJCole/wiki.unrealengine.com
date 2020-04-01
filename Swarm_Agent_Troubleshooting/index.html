@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(){}function o(e,t,n){return function(){return i(e,[f.now()].concat(u(arguments)),t?null:this,n),t?void 0:this}}var i=e("handle"),a=e(2),u=e(3),c=e("ee").get("tracer"),f=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,t){s[t]=o(d+t,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),t.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,t){var n={},r=this,o="function"==typeof t;return i(l+"tracer",[f.now(),e,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return t.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],n),e}finally{c.emit("fn-end",[f.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){m[t]=o(l+t)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,f.now()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(o<0?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],4:[function(e,t,n){t.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?c(e,u,i):i()}function n(n,r,o,i){if(!d.aborted||i){e&&e(n,r,o);for(var a=t(o),u=m(n),c=u.length,f=0;f<c;f++)u[f].apply(a,r);var p=s[y[n]];return p&&p.push([b,n,r,a]),a}}function l(e,t){v[e]=m(e).concat(t)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(n)}function g(e,t){f(e,function(e,n){t=t||"feature",y[n]=t,t in s||(s[t]=[])})}var v={},y={},b={on:l,emit:n,get:w,listeners:m,context:t,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",c=e("gos"),f=e(2),s={},p={},d=t.exports=o();d.backlog=s},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!x++){var e=h.info=NREUM.info,t=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return s.abort();f(y,function(t,n){e[t]||(e[t]=n)}),c("mark",["onload",a()+h.offset],null,"api");var n=d.createElement("script");n.src="https://"+e.agent,t.parentNode.insertBefore(n,t)}}function o(){"complete"===d.readyState&&i()}function i(){c("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),c=e("handle"),f=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1071.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=t.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+<title>Swarm Agent Troubleshooting - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Swarm_Agent_Troubleshooting","wgTitle":"Swarm Agent Troubleshooting","wgCurRevisionId":55,"wgRevisionId":55,"wgArticleId":27,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Lighting","Epic Created Content","Troubleshooting"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Swarm_Agent_Troubleshooting","wgRelevantArticleId":27,"wgRequestId":"d5e57cf50107f1ef619c1704","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.page.gallery.styles":"ready","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@1xxwts3",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["mediawiki.page.gallery","site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.page.gallery.styles%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Swarm_Agent_Troubleshooting rootpage-Swarm_Agent_Troubleshooting skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-09a9d3c24f8e543fe"><meta name="worker" content="148"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"hideShieldDownload":false,"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"alert":{"msg":"","_type":"Epic Header Alert","id":"","type":"info","statusHref":""},"_activeDate":"2018-08-06T09:11:04.633Z","links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://academy.unrealengine.com/","title":"Video Tutorials","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/unrealdevgrants","title":"Unreal Dev Grants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"}]}],"hideSearch":false,"_version":{"_comment":"Common content type reverted to 1.37.2.100 version by tony.rossi","_createdBy":"tony.rossi"},"_currentVersion":"1.37.2.101.0","_type":"Epic Games Nav","hideSignIn":true,"pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"_futureVersion":"none","downloadLink":{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":""},"_created":"2017-08-21T08:59:33.648Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"hideShieldDropdown":false,"properties":[{"propertyKey":"paragon","_type":"Epic Games Property","egDisabled":true,"egSkip":true}],"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.100bcb10fc821c7c23f8.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.100bcb10fc821c7c23f8.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Swarm+Agent+Troubleshooting" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=Swarm_Agent_Troubleshooting" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Swarm_Agent_Troubleshooting&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=Swarm_Agent_Troubleshooting">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=Swarm_Agent_Troubleshooting&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Swarm_Agent_Troubleshooting&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Swarm Agent Troubleshooting</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#About_This_Guide"><span class="tocnumber">1</span> <span class="toctext"><b>About This Guide</b></span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Swarm_Agent_Documentation_and_Other_Links"><span class="tocnumber">1.1</span> <span class="toctext">Swarm Agent Documentation and Other Links</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Recommendations_and_Tips"><span class="tocnumber">2</span> <span class="toctext"><b>Recommendations and Tips</b></span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#General_Tips_for_using_Lightmass_in_Unreal_Engine_4"><span class="tocnumber">2.1</span> <span class="toctext">General Tips for using Lightmass in Unreal Engine 4</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="#Reducing_Build_Times"><span class="tocnumber">2.1.1</span> <span class="toctext">Reducing Build Times</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="#Building_Large_Worlds"><span class="tocnumber">2.1.2</span> <span class="toctext">Building Large Worlds</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Frequently_Asked_Questions"><span class="tocnumber">3</span> <span class="toctext"><b>Frequently Asked Questions</b></span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#.22Lightmass_Crashed.22_common_error_messages"><span class="tocnumber">3.1</span> <span class="toctext">"Lightmass Crashed" common error messages</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="#.22Ran_out_of_Memory.22"><span class="tocnumber">3.1.1</span> <span class="toctext">"Ran out of Memory"</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#.22Assertion_Failed:_.28Index.3E.3D0.29.26.28Index.3CArrayNum.29.29.22"><span class="tocnumber">3.1.2</span> <span class="toctext">"Assertion Failed: (Index&gt;=0)&amp;(Index&lt;ArrayNum))"</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-11"><a href="#Why_is_my_light_build_stuck_at_.5BX.5D.25.2C_or_Why_does_building_lighting_take_so_long.3F"><span class="tocnumber">3.2</span> <span class="toctext">Why is my light build stuck at [X]%, or Why does building lighting take so long?</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Why_Swarm_Agent_use_100.25_of_my_CPU_when_building_lighting.3F"><span class="tocnumber">3.3</span> <span class="toctext">Why Swarm Agent use 100% of my CPU when building lighting?</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Why_isn.27t_Swarm_Agent_being_used_if_my_lights_are_set_to_Movable.2FDynamic.3F"><span class="tocnumber">3.4</span> <span class="toctext">Why isn't Swarm Agent being used if my lights are set to Movable/Dynamic?</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#How_can_I_use_my_GPU_to_build_lights.3F_Or_Why_isn.27t_my_GPU_used_when_building_lighting.3F"><span class="tocnumber">3.5</span> <span class="toctext">How can I use my GPU to build lights? Or Why isn't my GPU used when building lighting?</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#How_do_I_get_or_check_my_Logs_for_Swarm_Agent.3F"><span class="tocnumber">3.6</span> <span class="toctext">How do I get or check my Logs for Swarm Agent?</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#How_do_I_.22Clean.22_and_.22Validate.22_my_Swarm_Agent"><span class="tocnumber">3.7</span> <span class="toctext">How do I "Clean" and "Validate" my Swarm Agent</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Where_is_my_Swarm_Data_Cache_stored.2C_and_Can_I_change_its_location.3F"><span class="tocnumber">3.8</span> <span class="toctext">Where is my Swarm Data Cache stored, and Can I change its location?</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#What_does_.22Light_build_failed._Swarm_Agent_failed_to_kick_off.22_mean.2C_and_How_can_I_fix_it.3F"><span class="tocnumber">3.9</span> <span class="toctext">What does "Light build failed. Swarm Agent failed to kick off" mean, and How can I fix it?</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#How_do_I_set_Swarm_Agent_to_be_the_Highest_Priority.3F"><span class="tocnumber">3.10</span> <span class="toctext">How do I set Swarm Agent to be the Highest Priority?</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#Why_is_Swarm_Agent_not_launching.2C_or_What_does_.22UnrealLightmass.exe-Application_Error....22_mean.3F"><span class="tocnumber">3.11</span> <span class="toctext">Why is Swarm Agent not launching, or What does "UnrealLightmass.exe-Application Error..." mean?</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#Swarm_Agent_Fails_with_IOException_Error"><span class="tocnumber">3.12</span> <span class="toctext">Swarm Agent Fails with IOException Error</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#Swarm_Log:_System.Net.Socket_Error.2FSwarm_Agent.2FCoordinator_Port_Used_By_Another_Process"><span class="tocnumber">3.13</span> <span class="toctext">Swarm Log: System.Net.Socket Error/Swarm Agent/Coordinator Port Used By Another Process</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="About_This_Guide"><b>About This Guide</b></span></h2>
+<pre>.
+</pre>
+<p>This guide is intended to go over some best practices when using Lightmass to build static lighting in Unreal Engine 4 and to address some of the more common issues that can arise with Swarm Agent while doing so. This guide is in no way meant to be comprehensive and is a living document that can be updated along with engine releases. 
+</p><p>Swarm Agent is a program that is used to process Unreal's Lightmass calculations for a single system or it can distribute its workload across a network to other computers through Swarm Coordinator. Largely, Swarm Agent will go unnoticed to most who are not using network distribution for light builds since it will startup, perform its tasks, and shut down once the light build has finished. 
+</p>
+<h3><span class="mw-headline" id="Swarm_Agent_Documentation_and_Other_Links">Swarm Agent Documentation and Other Links</span></h3>
+<ul><li><a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Engine/Rendering/LightingAndShadows/Lightmass/index.html">Lightmass Global Illumination</a></li>
+<li><a rel="nofollow" class="external text" href="http://udn.epicgames.com/Three/Swarm.html">Swarm Agent Documentation</a></li>
+<li><a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=WY2z8p6-kg8">UDK-Networking Swarm Agent</a></li>
+<li><a rel="nofollow" class="external text" href="https://iamsparky.wordpress.com/2010/08/24/tutorial-setting-up-swarm-for-multiple-machines/">Brian Goodsell's Tutorial: Setting Up Swarm for Multiple Machines</a></li></ul>
+<p>_________________________________________________________________________________________________
+</p>
+<h2><span class="mw-headline" id="Recommendations_and_Tips"><b>Recommendations and Tips</b></span></h2>
+<p>_________________________________________________________________________________________________
+</p>
+<h3><span class="mw-headline" id="General_Tips_for_using_Lightmass_in_Unreal_Engine_4">General Tips for using Lightmass in Unreal Engine 4</span></h3>
+<h4><span class="mw-headline" id="Reducing_Build_Times">Reducing Build Times</span></h4>
+<ul><li><b>Lightmass Importance Volume:</b> </li></ul>
+<p>When using Lightmass Importance Volumes it’s important to know and understand that you can use as many of these as you like. You are not limited to a single instance in your level. The idea behind these volumes is to focus photons in a single area where higher quality lighting is needed where the player is. Anything outside of these volumes will only get a single bounce of lighting and will not look as high quality as the lighting generated within the volume.By using these volumes you can reduce the amount of calculation that is needed for the scene and this will help increase light builds. It’s important to also note that these volumes are not meant to be scaled to extreme sizes. This defeats their use and purpose. 
+</p><p>For more information have a look at the documentation here: <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Engine/Rendering/LightingAndShadows/Lightmass/Basics/index.html#lightmassimportancevolume">Lightmass Basics</a>
+</p>
+<ul><li><b>Lightmap Resolutions:</b></li></ul>
+<p>These resolutions play a big part in how long it can take for Swarm Agent to build a scene. The higher the lightmap resolutions for your meshes the more time it can take to calculate and generate these textures. It is best to use the lowest possible resolution that still gives the results you are happy with.
+</p><p>It is not recommended to set all static meshes to higher resolutions. If you are finding that you have to set a mesh to a significantly higher resolution you may want to look at breaking the mesh into smaller pieces so that the Lightmap UV can be more effectively used, or you may simply need reorganize the Lightmap UV to get better results by using the 0,1 UV space better. 
+</p>
+<ul><li><b>Foliage Tool: Lightmap Resolutions:</b></li></ul>
+<p>For instanced static meshes placed with the Foliage Tool these assets will use the default set Lightmap Resolution of the static mesh. This will likely generate a warning when you build lighting. It’s best to go into the Foliage Tool’s Instance Settings and enable Lightmap Resolution with a lower value of 4 or 8. With instanced static meshes this should be sufficient depending on the number of static mesh instances that have been painted into the scene. These will be clustered together into a single lightmap based on cluster size.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="/index.php?title=File:Foliage_Tool_LMResolution.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/1/13/Foliage_Tool_LMResolution.png/300px-Foliage_Tool_LMResolution.png" width="300" height="456" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/1/13/Foliage_Tool_LMResolution.png/450px-Foliage_Tool_LMResolution.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/1/13/Foliage_Tool_LMResolution.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Foliage_Tool_LMResolution.png" class="internal" title="Enlarge"></a></div>Foliage Tool: Light Map Resolution</div></div></div>
+<ul><li><b>Number of Assets and Lights:</b></li></ul>
+<p>The number of assets that cast shadows and the number of shadow casting lights in the scene that are Stationary or Static will also add to the number of calculations that need to be done when using Lightmass. These calculations can directly affect how much Swarm Agent needs to process and essentially how long the light build will take.
+</p>
+<ul><li><b>System Specs:</b></li></ul>
+<p>Swarm Agent is a very CPU intensive process that requires a lot of calculations. Depending on your system specs this can speed up or slow down the process or even cause Lightmass to crash. A fast CPU can help improve calculation speed. The amount of RAM needed is dependent upon the size of the scene, number of lights, and assets being calculated. Lightmass will Crash if it runs out of memory. This is often reported as a bug, but it is simply a limitation of your system setup. See the other tips above to help reduce the chance of this happening or increase your systems RAM. 
+_________________________________________________________________________________________________
+</p>
+<h4><span class="mw-headline" id="Building_Large_Worlds">Building Large Worlds</span></h4>
+<p>If your project is going to use a larger world or even a fully open world with thousands of assets, instanced foliage, etc it is generally not recommended to use Lightmass to build lighting for these types of worlds. 
+</p><p>One may argue that it has been preached that “Static lighting is better for performance and looks better.” Yes, this is a true statement, but within certain restrictions. This is not to say that static lighting cannot be used for larger worlds, it is just not an ideal use due to the memory it would take to store all the generated lightmap textures and the amount of memory it would take to build the level in the first place. 
+</p><p>Larger worlds and open worlds will generally use dynamic lighting. This may seem counter-intuitive when thinking about how static lighting has zero overhead at run-time compared to dynamic lighting. This again is true, but instead of calculating shadows you will have to worry about the lightmap textures having to load for all those meshes. It’s better to focus on using dynamic lighting and then optimizing your games by gauging the performance by profiling the CPU and GPU for any bottlenecks that may come up.
+</p><p>For more information about profiling have a look at the following documentation and YouTube Support stream: 
+</p>
+<ul><li><a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Engine/Performance/Profiler/index.html">Documentation: Profiler</a></li>
+<li><a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Engine/Performance/index.html">Documentation: Performance and Profiling</a></li>
+<li><a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Engine/Performance/GPU/">Documentation: GPU Profiling</a></li>
+<li><a rel="nofollow" class="external text" href="https://www.youtube.com/watch?v=-csRxRj_zcw">Support Stream Video: Rendering Best Practices</a></li></ul>
+<p>_________________________________________________________________________________________________
+</p>
+<h2><span class="mw-headline" id="Frequently_Asked_Questions"><b>Frequently Asked Questions</b></span></h2>
+<p>_________________________________________________________________________________________________
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id=".22Lightmass_Crashed.22_common_error_messages">"Lightmass Crashed" common error messages</span></h3>
+<h4><span class="mw-headline" id=".22Ran_out_of_Memory.22">"Ran out of Memory"</span></h4>
+<p><a href="/index.php?title=File:SA_RanOutOfMemory.png" class="image" title="Lightmass Crash: Ran out of memory"><img alt="Lightmass Crash: Ran out of memory" src="https://d26ilriwvtzlb.cloudfront.net/4/48/SA_RanOutOfMemory.png" width="1260" height="761" /></a>
+</p><p>Just as the explanation suggests, this crash is because there was not enough memory to build lighting for the scene as is. 
+</p><p><b>Steps to try:</b>
+</p>
+<ul><li>Add a Lightmass Importance Volume(s) around your playable areas. (See the Tips section above for more information) </li>
+<li>Lower the number of meshes in the scene</li>
+<li>Lower the Lightmap Resolution for meshes that do not need higher quality shadows. </li>
+<li>If using the Foliage Tool, use lightmap resolutions starting with 4 or 8, since meshes will be clustered together into a texture atlas.</li>
+<li>Clean and Validate cache</li>
+<li>Increase the amount of Virtual Memory that is available. Think of this as an overflow when RAM is running low. Do not rely on this over adding additional RAM though.</li>
+<li>Add additional RAM to your system.</li></ul>
+<p><br />
+</p>
+<h4><span class="mw-headline" id=".22Assertion_Failed:_.28Index.3E.3D0.29.26.28Index.3CArrayNum.29.29.22">"Assertion Failed: (Index&gt;=0)&amp;(Index&lt;ArrayNum))"</span></h4>
+<p><a href="/index.php?title=File:SA_ArrayIndexOutOfBounds.png" class="image"><img alt="SA ArrayIndexOutOfBounds.png" src="https://d26ilriwvtzlb.cloudfront.net/2/2d/SA_ArrayIndexOutOfBounds.png" width="1178" height="600" /></a>
+</p><p><b>Steps to try:</b>
+</p>
+<ul><li>Clean and Validate Swarm Agent Cache</li></ul>
+<p><br />
+_________________________________________________________________________________________________
+</p>
+<h3><span class="mw-headline" id="Why_is_my_light_build_stuck_at_.5BX.5D.25.2C_or_Why_does_building_lighting_take_so_long.3F">Why is my light build stuck at [X]%, or Why does building lighting take so long?</span></h3>
+<p>If you ever see that lighting is taking a long time to build or if you are not sure if the light build process has frozen you can simply open Swarm Agent program to see what exactly is going on. 
+</p><p>Once you have Swarm Agent open you can check the “Swarm Status” tab. Here you can check the progress for the light build processing and a percentage bar for where the light build is currently at in its process.
+</p><p><a href="/index.php?title=File:Swarm_Agent_Status.png" class="image"><img alt="Swarm Agent Status.png" src="https://d26ilriwvtzlb.cloudfront.net/1/1f/Swarm_Agent_Status.png" width="964" height="523" /></a>
+</p><p><b>Steps to try:</b> 
+</p>
+<ul><li> Reduce the number of meshes and/or lights in the scene</li>
+<li> Use Lightmass Importance Volume(s)</li>
+<li> Lower the Lightmap resolutions of your meshes</li>
+<li> Use multiple computers to distribute light builds using Swarm Agent and Coordinator</li>
+<li> Use a recommended or more powerful CPU</li></ul>
+<p>_________________________________________________________________________________________________
+</p>
+<h3><span class="mw-headline" id="Why_Swarm_Agent_use_100.25_of_my_CPU_when_building_lighting.3F">Why Swarm Agent use 100% of my CPU when building lighting?</span></h3>
+<p>The process of building lighting with Swarm Agent and Lightmass is a very CPU intensive process. Depending on the number of objects in the scene, size of the world, the Lighting Quality, lightmap resolutions, and a number of other other processes going on this can add to how much CPU power is needed to build the lighting. 
+</p><p>You can adjust the number of processors being used for local and remote jobs by doing the following: 
+</p><p>In the <b>Settings</b> tab of Swarm Agent, locate the option for <b>ShowDeveloperMenu</b> and set this to <b>True</b>.
+</p>
+<div class="floatnone"><a href="/index.php?title=File:SA_Settings.png" class="image" title="Settings Tab"><img alt="Settings Tab" src="https://d26ilriwvtzlb.cloudfront.net/2/27/SA_Settings.png" width="1112" height="651" /></a></div>
+<p><br />
+Once that has been enabled you will see a new tab named <b>DeveloperSettings</b>. In here you can change <b>LocalJobDefaultProcessorCount</b> or <b>RemoveJobDefaultProcessorCount</b>.
+</p>
+<div class="floatnone"><a href="/index.php?title=File:SA_DevSettings.png" class="image" title="DeveloperSettings Tab"><img alt="DeveloperSettings Tab" src="https://d26ilriwvtzlb.cloudfront.net/e/eb/SA_DevSettings.png" width="1112" height="651" /></a></div>
+<p>_________________________________________________________________________________________________
+</p>
+<h3><span class="mw-headline" id="Why_isn.27t_Swarm_Agent_being_used_if_my_lights_are_set_to_Movable.2FDynamic.3F">Why isn't Swarm Agent being used if my lights are set to Movable/Dynamic?</span></h3>
+<p>It is a common misconception that all lighting in Unreal Engine 4 needs to be built. This isn't really the case though. This may stem from thinking that the <b>Build</b> button in the tool bar is only associated with building lighting when, in-fact, there are a number of other things going on like building geometry, nav meshes, and a number of other things. So if you're concerned that you're seeing some form of action here it is good to know that this handles more than just building lighting.
+</p><p>Swarm Agent is used by Lightmass when needing to use baked/pre-computed lighting which is why it will only work with Static/Stationary light mobilities.  
+</p><p><b>Note:</b>
+If you've made the decision to use only Movable/Dynamic lighting in your game,  it's best to go ahead and disable pre-computed lighting in one of two ways. 
+</p>
+<ol><li> You can disable on a per-map basis by going to <b>World Settings</b> &gt; <b>Lightmass</b> &gt; <b>Force No Precomputed Lighting</b> is checked.</li>
+<li> You can disable Static Lighting entirely for the project by going to <b>Menu</b> &gt; <b>Window</b> &gt; <b>Project Settings</b> &gt; <b>Rendering</b> &gt; <b>Lighting</b> &gt; <b>Allow Static Lighting</b> set to unchecked.</li></ol>
+<ul class="gallery mw-gallery-packed-hover">
+		<li class="gallerybox" style="width: 262px"><div style="width: 262px">
+			<div class="thumb" style="width: 260px;"><div style="margin:0px auto;"><a href="/index.php?title=File:WorldSettings_Force_No_Precomputed.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/4/49/WorldSettings_Force_No_Precomputed.png/390px-WorldSettings_Force_No_Precomputed.png" width="260" height="400" srcset="https://d26ilriwvtzlb.cloudfront.net/4/49/WorldSettings_Force_No_Precomputed.png 1.5x" /></a></div></div>
+			<div class="gallerytextwrapper" style="width: 240px"><div class="gallerytext">
+<p><a href="/index.php?title=Force_No_Precomputed&amp;action=edit&amp;redlink=1" class="new" title="Force No Precomputed (page does not exist)">Force No Precomputed</a>
+</p>
+			</div></div>
+		</div></li>
+		<li class="gallerybox" style="width: 438px"><div style="width: 438px">
+			<div class="thumb" style="width: 436px;"><div style="margin:0px auto;"><a href="/index.php?title=File:ProjectSettings_StaticLighting.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/1/10/ProjectSettings_StaticLighting.png/654px-ProjectSettings_StaticLighting.png" width="436" height="400" srcset="https://d26ilriwvtzlb.cloudfront.net/1/10/ProjectSettings_StaticLighting.png 1.5x" /></a></div></div>
+			<div class="gallerytextwrapper" style="width: 416px"><div class="gallerytext">
+<p><a href="/index.php?title=Allow_Static_Lighting&amp;action=edit&amp;redlink=1" class="new" title="Allow Static Lighting (page does not exist)">Allow Static Lighting</a>
+</p>
+			</div></div>
+		</div></li>
+</ul>
+<p>________________________________________________________
+</p>
+<h3><span class="mw-headline" id="How_can_I_use_my_GPU_to_build_lights.3F_Or_Why_isn.27t_my_GPU_used_when_building_lighting.3F">How can I use my GPU to build lights? Or Why isn't my GPU used when building lighting?</span></h3>
+<p>Building lighting uses the CPU mostly, while only using the GPU when exporting the processes.
+</p><p>While it wouldn't be impossible to use Lightmass calculations with the GPU, but this is not currently being worked on or planned in the near future. The ideal solution is a lighting algorithm which renders real-time using the GPU when you are previewing, but then can be baked down into a lightmap using that same algorithm when you are a ready build. However, there are some challenges with this though. It would be hard to make the editor scale down, all of the current GI methods would have to be re-written, it would not be able to get as high of quality of end results, and it could make the editor much less stable due to the load put on GPUs. GPU's are known to be notoriously unstable with heavy loads. 
+</p><p>_________________________________________________________________________________________________
+</p>
+<h3><span class="mw-headline" id="How_do_I_get_or_check_my_Logs_for_Swarm_Agent.3F">How do I get or check my Logs for Swarm Agent?</span></h3>
+<p>You can locate your Logs for Swarm Agent by going to the <b>Log</b> tab. 
+</p><p>When you open the Log tab you should see something like the image below. If you see a blank log then likely indicates you have not previously built lighting for any Static/Stationary lights that require Lightmass calculations. The log will can potentially point to any issues with the light build. 
+</p><p>For previous light build logs you can check the location of your <a href="/index.php?title=Swarm_Agent_Troubleshooting#Where_is_my_Swarm_Data_Cache_stored.2C_and_Can_I_change_its_location.3F" title="Swarm Agent Troubleshooting">Swarm Cache</a>.
+</p><p><br />
+If there is not enough information in the log to come to a conclusion try changing the log's Verbosity. This can be changed in the <b>Settings</b> tab &gt; <b>Verbosity</b>.  This will change how much information is sent to the log. 
+</p><p>You have the options of:
+</p>
+<ul><li> Silent</li>
+<li> Critical</li>
+<li> Simple </li>
+<li> Informative (Default)</li>
+<li> Complex </li>
+<li> Verbose</li>
+<li> Extra Verbose</li>
+<li> Super Verbose</li></ul>
+<div class="floatnone"><a href="/index.php?title=File:SA_Verbosity.png" class="image" title="Settings: Log Verbosity"><img alt="Settings: Log Verbosity" src="https://d26ilriwvtzlb.cloudfront.net/1/18/SA_Verbosity.png" width="1112" height="651" /></a></div>
+<p>_________________________________________________________________________________________________
+</p>
+<h3><span class="mw-headline" id="How_do_I_.22Clean.22_and_.22Validate.22_my_Swarm_Agent">How do I "Clean" and "Validate" my Swarm Agent</span></h3>
+<p>There are two options located Swarm Agent's Menu for in the <b>Cache</b> drop down for <b>Clean</b> and one for <b>Validate</b> (See image below).
+</p>
+<ul><li> <b>Clean:</b> This will clear out the cache at users request.</li>
+<li> <b>Validate:</b> This will validate all cache entries and hashes to make sure they are up to date.</li></ul>
+<p><b>Note:</b> Cleaning and Validating the Cache can sometimes resolve any issues that Swarm Agent may be running into while building lights. 
+</p><p><br />
+</p>
+<div class="floatnone"><a href="/index.php?title=File:SA_CacheCleanValidate.png" class="image" title="Menu: Cache"><img alt="Menu: Cache" src="https://d26ilriwvtzlb.cloudfront.net/0/03/SA_CacheCleanValidate.png" width="274" height="268" /></a></div>
+<p>_________________________________________________________________________________________________
+</p>
+<h3><span class="mw-headline" id="Where_is_my_Swarm_Data_Cache_stored.2C_and_Can_I_change_its_location.3F">Where is my Swarm Data Cache stored, and Can I change its location?</span></h3>
+<p>You can view and change the location of where your Swarm Cache is saved by opening Swarm Agent and going to the <b>Settings</b> tab. Under the <b>Cache Settings</b> drop down you will see the <b>CacheFolder</b>. (See image below) 
+</p><p>You can change the file path on the right side to any location you would like. You, also, have the option to change the settings for the maximum size of the cache. This is measured in gigabytes. There is another settings for the maximum number of jobs to keep output logs for as well. 
+</p>
+<div class="floatnone"><a href="/index.php?title=File:SA_CacheSettings.png" class="image" title="Data Cache Settings"><img alt="Data Cache Settings" src="https://d26ilriwvtzlb.cloudfront.net/d/d5/SA_CacheSettings.png" width="1011" height="571" /></a></div>
+<p>_________________________________________________________________________________________________
+</p>
+<h3><span class="mw-headline" id="What_does_.22Light_build_failed._Swarm_Agent_failed_to_kick_off.22_mean.2C_and_How_can_I_fix_it.3F">What does "Light build failed. Swarm Agent failed to kick off" mean, and How can I fix it?</span></h3>
+<p><a href="/index.php?title=File:Swarm_FailedToKickOff.jpg" class="image"><img alt="Swarm FailedToKickOff.jpg" src="https://d26ilriwvtzlb.cloudfront.net/e/e1/Swarm_FailedToKickOff.jpg" width="550" height="54" /></a>
+</p><p>If you are seeing this issue there are a couple of things that could be causing Swarm Agent to not initialize. 
+</p><p><b>Possible reasons Swarm fails to kick off:</b>
+</p>
+<ul><li> Having multiple instances of Swarm Agent open</li>
+<li> Open your Task Manager and make sure there are not multiple Swarm Agent processes running</li>
+<li> Corrupt levels and/or assets</li>
+<li> Turn off your Firewall/Anti-Virus software</li>
+<li> Restart the editor</li>
+<li> Hard Drive space</li>
+<li> Installation or corruption issue with the engine</li>
+<li> Source Build issue with UnrealLightmass</li></ul>
+<p><b>Steps to try:</b>
+</p>
+<ol><li> Try restarting Unreal Engine 4 and/or your computer.</li>
+<li> Check Task Bar and/or Task Manager for multiple instances of Swarm Agent running. Close all or more than a single instance. </li>
+<li> Disable Firewall and/or Anti-Virus software. If this works, make sure to add an exception for SwarmAgent.exe</li>
+<li> Systematically go through and remove meshes from the level to see if one of these is causing the failure. This is a brute-force method and should be used as a last attempt when narrowing down something like this. </li>
+<li> Test building lighting in known levels with assets that work, like the Default Level from Starter Content or one of the Template maps.</li>
+<li> Verify the engine by going to the Epic Games Launcher &gt; Library &gt; Select Engine Version &gt; Verify (see image below)   <div class="floatnone"><a href="/index.php?title=File:VerifyEngine.png" class="image"><img alt="VerifyEngine.png" src="https://d26ilriwvtzlb.cloudfront.net/0/04/VerifyEngine.png" width="275" height="219" /></a></div></li></ol>
+<ol><li> Re-install the engine</li></ol>
+<p><b>If Building from Source Code</b>
+</p>
+<ol><li> Rebuild UnrealLightmass solution</li></ol>
+<p>If you have tried these steps and are still experiencing the issue please post a question on <a rel="nofollow" class="external text" href="Http://answers.unrealengine.com">AnswerHub</a> with the steps you've tried and adequate steps to reproduce the issue. 
+</p><p><br />
+_________________________________________________________________________________________________
+</p>
+<h3><span class="mw-headline" id="How_do_I_set_Swarm_Agent_to_be_the_Highest_Priority.3F">How do I set Swarm Agent to be the Highest Priority?</span></h3>
+<p>If you were to open up Swarm Agent and see that it takes a little bit before Swarm kicks in for processing you can change this to make it start the process more quickly by adjusting the following settings.
+</p>
+<ol><li> Open Swarm Agent &gt; Settings tab</li>
+<li> Set <b>ShowDeveloperMenu</b> to <b>True</b> </li>
+<li> There will now be a new tab named "DeveloperSettings"</li>
+<li> Change the <b>LocalJobsDefaultProcessPriority</b> to <b>BelowNormal</b></li>
+<li> Change the <b>RemoteJobsDefaultProcessPriority</b> to <b>Idle</b></li></ol>
+<ul class="gallery mw-gallery-packed-hover">
+		<li class="gallerybox" style="width: 429.33333333333px"><div style="width: 429.33333333333px">
+			<div class="thumb" style="width: 427.33333333333px;"><div style="margin:0px auto;"><a href="/index.php?title=File:SA_Settings.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/2/27/SA_Settings.png/641px-SA_Settings.png" width="428" height="250" srcset="https://d3ar1piqh1oeli.cloudfront.net/2/27/SA_Settings.png/962px-SA_Settings.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/2/27/SA_Settings.png 2x" /></a></div></div>
+			<div class="gallerytextwrapper" style="width: 408px"><div class="gallerytext">
+<p><a href="/index.php?title=DeveloperSettings&amp;action=edit&amp;redlink=1" class="new" title="DeveloperSettings (page does not exist)">DeveloperSettings</a>
+</p>
+			</div></div>
+		</div></li>
+		<li class="gallerybox" style="width: 429.33333333333px"><div style="width: 429.33333333333px">
+			<div class="thumb" style="width: 427.33333333333px;"><div style="margin:0px auto;"><a href="/index.php?title=File:SwarmAgent_Priorities.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/c/ca/SwarmAgent_Priorities.png/641px-SwarmAgent_Priorities.png" width="428" height="250" srcset="https://d3ar1piqh1oeli.cloudfront.net/c/ca/SwarmAgent_Priorities.png/962px-SwarmAgent_Priorities.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/c/ca/SwarmAgent_Priorities.png 2x" /></a></div></div>
+			<div class="gallerytextwrapper" style="width: 408px"><div class="gallerytext">
+<p><a href="/index.php?title=Setting_Priorities&amp;action=edit&amp;redlink=1" class="new" title="Setting Priorities (page does not exist)">Setting Priorities</a>
+</p>
+			</div></div>
+		</div></li>
+</ul>
+<p>_________________________________________________________________________________________________
+</p>
+<h3><span class="mw-headline" id="Why_is_Swarm_Agent_not_launching.2C_or_What_does_.22UnrealLightmass.exe-Application_Error....22_mean.3F">Why is Swarm Agent not launching, or What does "UnrealLightmass.exe-Application Error..." mean?</span></h3>
+<div class="floatnone"><a href="/index.php?title=File:UnrealLightmass.exe_ApplicationError.png" class="image"><img alt="UnrealLightmass.exe ApplicationError.png" src="https://d26ilriwvtzlb.cloudfront.net/b/b5/UnrealLightmass.exe_ApplicationError.png" width="483" height="167" /></a></div>
+<p>If you are seeing this issue pop up this means that there is something that is preventing the application from opening in Windows and is not directly a cause of Unreal Engine 4. 
+</p><p>If you're using 4.9 or earlier make sure that you have the latest VS2013 dependencies installed and uninstall any dependencies that may no longer be needed. 
+</p><p>If you're using 4.10 or later you will need to have the VS2015 dependencies installed.
+</p><p>You can download the Visual Studio Dependencies from Microsoft's website: 
+</p><p>VS2013: <a rel="nofollow" class="external free" href="http://www.microsoft.com/en-us/download/details.aspx?id=40784">http://www.microsoft.com/en-us/download/details.aspx?id=40784</a>
+</p><p>VS2015: <a rel="nofollow" class="external free" href="https://www.microsoft.com/en-us/download/details.aspx?id=48145">https://www.microsoft.com/en-us/download/details.aspx?id=48145</a>
+</p><p>If you’re still having issues with this try using the free application Dependency Walker to troubleshoot any DLL issues that may be preventing UnrealLightmass.exe from loading. 
+</p><p>You can download Dependency Walker from their website here:  <a rel="nofollow" class="external free" href="http://www.dependencywalker.com/">http://www.dependencywalker.com/</a>
+</p><p>_________________________________________________________________________________________________
+</p>
+<h3><span class="mw-headline" id="Swarm_Agent_Fails_with_IOException_Error">Swarm Agent Fails with IOException Error</span></h3>
+<p>When seeing this error you may need to check your Swarm Agent log for any additional details. 
+</p><p>Steps to possibly correct this issue: 
+</p><p>- Check your level where lighting will not build for any NULL assets. These would be assets that have no reference. You can see these in your World Outliner and when you select the asset there you will see that no asset is assigned in the Details panel. 
+</p><p>_________________________________________________________________________________________________
+</p>
+<h3><span class="mw-headline" id="Swarm_Log:_System.Net.Socket_Error.2FSwarm_Agent.2FCoordinator_Port_Used_By_Another_Process">Swarm Log: System.Net.Socket Error/Swarm Agent/Coordinator Port Used By Another Process</span></h3>
+<p>There are some occasions where Swarm Agent will fail to kickoff or distribute a build because the ports that are needed for Swarm Agent and Swarm Coordinator, 8008 and 8009, are in use by another process. 
+</p><p><i>Note: </i>
+The steps below will help you identify the problem but not necessarily solve the problem since this is out of the purview of troubleshooting Swarm Agent/Coordinator and is in-line with solving a port assignment issue within Windows.<i>  </i>
+</p><p>Common error seen in Swarm Agent logs: 
+</p>
+<ul><li> Exception details: System.Net.Sockets.SocketException (0x80004005): No connection could be made because the target machine actively refused it 192.168.1.34:8009</li></ul>
+<p>You can download the free app TCPView to be able to quickly identify which ports are being used by what processes. You can download it from here: <a rel="nofollow" class="external free" href="https://technet.microsoft.com/en-us/sysinternals/tcpview.aspx">https://technet.microsoft.com/en-us/sysinternals/tcpview.aspx</a>
+</p>
+<div class="floatnone"><a href="/index.php?title=File:TCPView.jpg" class="image"><img alt="TCPView.jpg" src="https://d26ilriwvtzlb.cloudfront.net/f/f9/TCPView.jpg" width="420" height="218" /></a></div>
+<ol><li> When you open TCPView you’ll want to click on the tab for Local Port so that they are lined up in numerical order. </li>
+<li> Then click on View in the menu bar and set the Update Speed to 5 seconds or Paused. This will make it easier to see without the ports and processes being used updating rapidly.</li>
+<li> Now scroll down and see what applications are being used by Port 8008 and 8009. </li></ol>
+<p>Now that you’ve identified the processes that are using the ports and they are potentially not Swarm Agent/Coordinator you’ll need to research how to reassign port addresses so that these ports can be used by Swarm Agent/Coordinator instead of these other programs. 
+</p><p>If you find that Swarm Agent/Coordinator is using these ports then you may want to try the following: 
+</p>
+<ul><li> Checking the Log while in super verbose mode to see if any issues are presented.</li>
+<li> Re-installing the latest .NET framework</li></ul>
+
+<!-- 
+NewPP limit report
+Cached time: 20181021071448
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.164 seconds
+Real time usage: 1.747 seconds
+Preprocessor visited node count: 186/1000000
+Preprocessor generated node count: 384/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:27-0!canonical and timestamp 20181021071447 and revision id 55
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=Swarm_Agent_Troubleshooting&amp;oldid=55">https://wiki.unrealengine.com/index.php?title=Swarm_Agent_Troubleshooting&amp;oldid=55</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/index.php?title=Category:Tutorials&amp;action=edit&amp;redlink=1" class="new" title="Category:Tutorials (page does not exist)">Tutorials</a></li><li><a href="/index.php?title=Category:Lighting" title="Category:Lighting">Lighting</a></li><li><a href="/index.php?title=Category:Epic_Created_Content" title="Category:Epic Created Content">Epic Created Content</a></li><li><a href="/index.php?title=Category:Troubleshooting" title="Category:Troubleshooting">Troubleshooting</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-00f7fdb47766f2f80"><meta name="worker" content="109"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.31","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/gHooNW9I/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Edit the global content type","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.100bcb10fc821c7c23f8.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.100bcb10fc821c7c23f8.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.164","walltime":"1.747","ppvisitednodes":{"value":186,"limit":1000000},"ppgeneratednodes":{"value":384,"limit":1000000},"postexpandincludesize":{"value":0,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.000      1 -total"]},"cachereport":{"timestamp":"20181021071448","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":191});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":233,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

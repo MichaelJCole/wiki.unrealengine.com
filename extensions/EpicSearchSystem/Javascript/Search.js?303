@@ -1,0 +1,113 @@
+$(document).ready(function(){
+	if(typeof isSearch !== 'undefined')
+	{
+		if(isSearch)
+		{
+			google.load('search', '1', {  });
+			var searchQuery = "";
+			google.setOnLoadCallback(function () {
+				var urlParams = parseParamsFromUrl();
+				var customSearchOptions = {};
+				var orderByOptions = {};
+				orderByOptions['keys'] = [{ label: 'Relevance', key: '' }, { label: 'Date', key: 'date' }];
+				customSearchOptions['enableOrderBy'] = true;
+				customSearchOptions['orderByOptions'] = orderByOptions;
+				if (urlParams['filter']) {
+					customSearchOptions['defaultToRefinement'] = urlParams['filter'];
+				}
+				var googleAnalyticsOptions = {};
+				googleAnalyticsOptions['queryParameter'] = 'q';
+				customSearchOptions['googleAnalyticsOptions'] = googleAnalyticsOptions;
+				//var customSearchControl = new google.search.CustomSearchControl('009868829633250020713:y7tfd8hlcgg', customSearchOptions);
+				// March 30, 2017 - Andrew Dietz
+				// Switched to new, temporary custom search ID. Google is deprecating this service and we will need to replace this
+				// search functionality before this engine ID is out of allocated searches
+				var customSearchControl = new google.search.CustomSearchControl('009868829633250020713:hkecg_77rjc', customSearchOptions);
+				customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+				var options = new google.search.DrawOptions();
+				options.enableSearchResultsOnly();
+				options.setAutoComplete(true);
+				customSearchControl.draw('cse', options);
+				function parseParamsFromUrl() {
+					var params = {};
+					var parts = window.location.search.substr(1).split('&');
+					for (var i = 0; i < parts.length; i++) {
+						var keyValuePair = parts[i].split('=');
+						var key = decodeURIComponent(keyValuePair[0]);
+						params[key] = keyValuePair[1] ?
+							decodeURIComponent(keyValuePair[1].replace(/\+/g, ' ')) :
+							keyValuePair[1];
+					}
+					return params;
+				}
+				var queryParamName = 'q';
+				if (urlParams[queryParamName]) {
+					customSearchControl.execute(urlParams[queryParamName]);
+					searchQuery = urlParams[queryParamName];
+				}
+				$("input[name='q']").val(searchQuery);
+
+				setTabTooltips();
+				
+			}, true);
+		}
+	}
+
+	function setTabTooltips() {
+		var tabs = $('.gsc-tabHeader');
+		if (tabs.length == 8) {
+			var tabTooltips = new Array();
+			tabTooltips["Unreal Engine"] = "Show results from all pages on UnrealEngine.com";
+			tabTooltips["UnrealEngine.com"] = "Show results from UnrealEngine.com";
+			tabTooltips["Custom Search"] = "Show results from all pages on UnrealEngine.com";
+			tabTooltips["All"] = "Show results from all pages on UnrealEngine.com";
+			tabTooltips["Documentation"] = "Show results from the official Unreal Engine documentation";
+			tabTooltips["Wiki"] = "Show results from all the Unreal Engine community wiki";
+			tabTooltips["Answers"] = "Show results from the Unreal Engine community support site";
+			tabTooltips["Forums"] = "Show results from the Unreal Engine community forums";
+			tabTooltips["API"] = "Show results from the Unreal Engine API programming reference";
+
+			$('.gsc-tabHeader').each(function () {
+				var tab = "";
+				if ($(this).children("span").length != 0) {
+					tab = $(this).children("span").text();
+				}
+				else {
+					tab = $(this).text();
+				}
+				if (tab != "" && tabTooltips[tab] != null) {
+					$(this).qtip({
+						content: tabTooltips[tab],
+						position: {
+							my: 'left top',  // Position my top left...
+							at: 'bottom left', // at the bottom right of...
+							adjust: {
+								x: 0,
+								y: 20
+							}
+						}
+					});
+				}
+			});
+		}
+		else {
+			setTimeout(setTabTooltips, 100);
+		}
+	}
+});
+
+function addSearchTerm(term)
+{
+    var spacer = "";
+    if ($('input[name=\'q\']').val() != "")
+    {
+        spacer = " ";
+    }
+    $('input[name=\'q\']').val($('input[name=\'q\']').val() + spacer + term);
+}
+
+function executeSearch(term)
+{
+    $('input[name=\'q\']').val(term);
+    $('#searchform').submit();
+}

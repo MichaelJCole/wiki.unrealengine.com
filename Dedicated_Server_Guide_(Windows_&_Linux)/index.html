@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(3),u=e(4),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}catch(e){throw f.emit("fn-err",[arguments,this,e],t),e}finally{f.emit("fn-end",[c.now()],t)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e,n){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now(),!1,n])}},{}],2:[function(e,n,t){function r(e,n){if(!o)return!1;if(e!==o)return!1;if(!n)return!0;if(!i)return!1;for(var t=i.split("."),r=n.split("."),a=0;a<r.length;a++)if(r[a]!==t[a])return!1;return!0}var o=null,i=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var u=navigator.userAgent,f=u.match(a);f&&u.indexOf("Chrome")===-1&&u.indexOf("Chromium")===-1&&(o="Safari",i=f[1])}n.exports={agent:o,version:i,match:r}},{}],3:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],4:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],5:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=v(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){h[e]=v(e).concat(n)}function m(e,n){var t=h[e];if(t)for(var r=0;r<t.length;r++)t[r]===n&&t.splice(r,1)}function v(e){return h[e]||[]}function g(e){return p[e]=p[e]||o(t)}function w(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var h={},y={},b={on:l,addEventListener:l,removeEventListener:m,emit:t,get:g,listeners:v,context:n,buffer:w,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(3),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!E++){var e=x.info=NREUM.info,n=l.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+x.offset],null,"api");var t=l.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===l.readyState&&i()}function i(){f("mark",["domContent",a()+x.offset],null,"api")}function a(){return O.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-x.offset}var u=(new Date).getTime(),f=e("handle"),c=e(3),s=e("ee"),p=e(2),d=window,l=d.document,m="addEventListener",v="attachEvent",g=d.XMLHttpRequest,w=g&&g.prototype;NREUM.o={ST:setTimeout,SI:d.setImmediate,CT:clearTimeout,XHR:g,REQ:d.Request,EV:d.Event,PR:d.Promise,MO:d.MutationObserver};var h=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1130.min.js"},b=g&&w&&w[m]&&!/CriOS/.test(navigator.userAgent),x=n.exports={offset:u,now:a,origin:h,features:{},xhrWrappable:b,userAgent:p};e(1),l[m]?(l[m]("DOMContentLoaded",i,!1),d[m]("load",r,!1)):(l[v]("onreadystatechange",o),d[v]("onload",r)),f("mark",["firstbyte",u],null,"api");var E=0,O=e(5)},{}]},{},["loader"]);</script>
+<title>Dedicated Server Guide (Windows &amp; Linux) - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Dedicated_Server_Guide_(Windows_\u0026_Linux)","wgTitle":"Dedicated Server Guide (Windows \u0026 Linux)","wgCurRevisionId":19,"wgRevisionId":19,"wgArticleId":9,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Code"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Dedicated_Server_Guide_(Windows_\u0026_Linux)","wgRelevantArticleId":9,"wgRequestId":"7809a9ab73945ff5bc788343","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@0s4gmng",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Dedicated_Server_Guide_Windows_Linux rootpage-Dedicated_Server_Guide_Windows_Linux skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0d0405fab30c4bd94"><meta name="worker" content="187"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"_currentVersion":"1.37.2.101.41","_type":"Epic Games Nav","hideSignIn":true,"epicPropertyName":"unreal_engine","pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_createdBy":"tony.rossi","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"_futureVersion":"none","_created":"2017-08-21T08:59:33.648Z","_activeDate":"2019-05-13T15:00:00.000Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/academy","title":"Online Learning","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/megagrants","title":"MegaGrants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/twinmotion","title":"Twinmotion"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/industries","title":"Industries"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.d5e3cccc48c5a4674991.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.d5e3cccc48c5a4674991.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Dedicated+Server+Guide+%28Windows+%26+Linux%29" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we're working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=Dedicated_Server_Guide_(Windows_%26_Linux)" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk"><span><a href="/index.php?title=Talk:Dedicated_Server_Guide_(Windows_%26_Linux)" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=Dedicated_Server_Guide_(Windows_%26_Linux)">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=Dedicated_Server_Guide_(Windows_%26_Linux)&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Dedicated_Server_Guide_(Windows_%26_Linux)&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Dedicated Server Guide (Windows &amp; Linux)</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><br />
+Engine Version: 4.14, 4.15, 4.16, 4.17, 4.18
+</p><p>NOTE - Apologies for the video quality of the tutorials. They were recorded in 1080p and decent quality 
+but for some reason after uploading to you tube they became horribly blurred. I will redo them ASAP. Thanks 
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Section_1_Building_a_dedicated_server_in_Unreal_Engine_4"><span class="tocnumber">1</span> <span class="toctext">Section 1 Building a dedicated server in Unreal Engine 4</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#1._Download_the_Unreal_engine_from_source"><span class="tocnumber">1.1</span> <span class="toctext">1. Download the Unreal engine from source</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#2._Setup_source_unreal_engine"><span class="tocnumber">1.2</span> <span class="toctext">2. Setup source unreal engine</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#2.a_Setup_source_unreal_engine_To_use_Visual_studio_2017"><span class="tocnumber">1.3</span> <span class="toctext">2.a Setup source unreal engine To use Visual studio 2017</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Congratulations_-_you_should_have_now_successfully_setup_a_source_built_version_of_unreal_engine"><span class="tocnumber">1.4</span> <span class="toctext">Congratulations - you should have now successfully setup a source built version of unreal engine</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#3._Video_guide"><span class="tocnumber">1.5</span> <span class="toctext">3. Video guide</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Section_2_setting_up_a_dedicated_server_on_windows"><span class="tocnumber">2</span> <span class="toctext">Section 2 setting up a dedicated server on windows</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#1._Dedicated_Server_from_a_brand_new_project"><span class="tocnumber">2.1</span> <span class="toctext">1. Dedicated Server from a brand new project</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#2._Dedicated_Server_from_a_blueprint_only_project"><span class="tocnumber">2.2</span> <span class="toctext">2. Dedicated Server from a blueprint only project</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#3._preparing_the_project_for_building"><span class="tocnumber">2.3</span> <span class="toctext">3. preparing the project for building</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#1._Target_file_instructions_for_engine_version_4.14"><span class="tocnumber">2.3.1</span> <span class="toctext">1. Target file instructions for engine version 4.14</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#2._Target_file_instructions_for_engine_version_4.15"><span class="tocnumber">2.3.2</span> <span class="toctext">2. Target file instructions for engine version 4.15</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#3._Target_file_instructions_for_engine_version_4.16"><span class="tocnumber">2.3.3</span> <span class="toctext">3. Target file instructions for engine version 4.16</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#4._Target_file_instructions_for_engine_version_4.17"><span class="tocnumber">2.3.4</span> <span class="toctext">4. Target file instructions for engine version 4.17</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#5._Target_file_instructions_for_engine_version_4.18"><span class="tocnumber">2.3.5</span> <span class="toctext">5. Target file instructions for engine version 4.18</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-16"><a href="#4._Switch_Unreal_engine_versions_.26_generate_project_files"><span class="tocnumber">2.4</span> <span class="toctext">4. Switch Unreal engine versions &amp; generate project files</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#5._Building_the_server"><span class="tocnumber">2.5</span> <span class="toctext">5. Building the server</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#6._Fixing_the_lighting_swarm_error"><span class="tocnumber">2.6</span> <span class="toctext">6. Fixing the lighting swarm error</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#6.a_Video_Guide"><span class="tocnumber">2.7</span> <span class="toctext">6.a Video Guide</span></a></li>
+<li class="toclevel-2 tocsection-20"><a href="#7._Prepare_the_project_for_packaging"><span class="tocnumber">2.8</span> <span class="toctext">7. Prepare the project for packaging</span></a></li>
+<li class="toclevel-2 tocsection-21"><a href="#8._setup_packaging_settings"><span class="tocnumber">2.9</span> <span class="toctext">8. setup packaging settings</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#9._Congratulations_you_have_now_packaged_your_project_yay_:-p"><span class="tocnumber">2.10</span> <span class="toctext">9. Congratulations you have now packaged your project yay&#160;:-p</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-23"><a href="#Section_3_launching_and_joining_the_dedicated_server"><span class="tocnumber">3</span> <span class="toctext">Section 3 launching and joining the dedicated server</span></a>
+<ul>
+<li class="toclevel-2 tocsection-24"><a href="#1._copy_the_server_executable"><span class="tocnumber">3.1</span> <span class="toctext">1. copy the server executable</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="#2._create_the_server_shortcut_and_setup_log_options"><span class="tocnumber">3.2</span> <span class="toctext">2. create the server shortcut and setup log options</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="#3._Launch_and_test_the_server"><span class="tocnumber">3.3</span> <span class="toctext">3. Launch and test the server</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-27"><a href="#Section_4_notes"><span class="tocnumber">4</span> <span class="toctext">Section 4 notes</span></a>
+<ul>
+<li class="toclevel-2 tocsection-28"><a href="#1._allowing_friends_to_join_over_internet"><span class="tocnumber">4.1</span> <span class="toctext">1. allowing friends to join over internet</span></a></li>
+<li class="toclevel-2 tocsection-29"><a href="#2._Hosting_on_a_virtual_server"><span class="tocnumber">4.2</span> <span class="toctext">2. Hosting on a virtual server</span></a></li>
+<li class="toclevel-2 tocsection-30"><a href="#3._Creating_additional_maps_and_joining_different_maps"><span class="tocnumber">4.3</span> <span class="toctext">3. Creating additional maps and joining different maps</span></a></li>
+<li class="toclevel-2 tocsection-31"><a href="#4._Enabling_Physics"><span class="tocnumber">4.4</span> <span class="toctext">4. Enabling Physics</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-32"><a href="#Section_5"><span class="tocnumber">5</span> <span class="toctext">Section 5</span></a>
+<ul>
+<li class="toclevel-2 tocsection-33"><a href="#1._Im_too_lazy_for_all_this_just_give_me_the_files"><span class="tocnumber">5.1</span> <span class="toctext">1. Im too lazy for all this just give me the files</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-34"><a href="#section_6_Contact_the_author"><span class="tocnumber">6</span> <span class="toctext">section 6 Contact the author</span></a>
+<ul>
+<li class="toclevel-2 tocsection-35"><a href="#1."><span class="tocnumber">6.1</span> <span class="toctext">1.</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-36"><a href="#section_7_Building_and_deploying_a_UE4_dedicated_server_for_Linux"><span class="tocnumber">7</span> <span class="toctext">section 7 Building and deploying a UE4 dedicated server for Linux</span></a>
+<ul>
+<li class="toclevel-2 tocsection-37"><a href="#1._Configure_Visual_Studio_for_Linux_cross_compilation"><span class="tocnumber">7.1</span> <span class="toctext">1. Configure Visual Studio for Linux cross compilation</span></a></li>
+<li class="toclevel-2 tocsection-38"><a href="#2._Package_your_project_to_a_distinct_location"><span class="tocnumber">7.2</span> <span class="toctext">2. Package your project to a distinct location</span></a></li>
+<li class="toclevel-2 tocsection-39"><a href="#3._Build_a_dedicated_server_binary_for_Linux"><span class="tocnumber">7.3</span> <span class="toctext">3. Build a dedicated server binary for Linux</span></a></li>
+<li class="toclevel-2 tocsection-40"><a href="#4._Deploy_your_binary_to_a_remote_machine"><span class="tocnumber">7.4</span> <span class="toctext">4. Deploy your binary to a remote machine</span></a></li>
+<li class="toclevel-2 tocsection-41"><a href="#5._Connect_to_your_server_and_run_the_dedicated_server_binary"><span class="tocnumber">7.5</span> <span class="toctext">5. Connect to your server and run the dedicated server binary</span></a></li>
+<li class="toclevel-2 tocsection-42"><a href="#6._Open_UDP:7777"><span class="tocnumber">7.6</span> <span class="toctext">6. Open UDP:7777</span></a></li>
+<li class="toclevel-2 tocsection-43"><a href="#7._Play_your_game_on_your_server"><span class="tocnumber">7.7</span> <span class="toctext">7. Play your game on your server</span></a></li>
+<li class="toclevel-2 tocsection-44"><a href="#8._Issues"><span class="tocnumber">7.8</span> <span class="toctext">8. Issues</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-45"><a href="#8._Dedicated_Server_on_Steam"><span class="tocnumber">8</span> <span class="toctext">8. Dedicated Server on Steam</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Section_1_Building_a_dedicated_server_in_Unreal_Engine_4">Section 1 Building a dedicated server in Unreal Engine 4</span></h2>
+<p>Building a standalone dedicated server wasn’t an easy thing to do and i know a lot of people struggle with it so i decided to make this wiki guide to try and help people. I’m going to cover the steps I took to build a Windows executable of a dedicated server. 
+</p>
+<h3><span class="mw-headline" id="1._Download_the_Unreal_engine_from_source">1. Download the Unreal engine from source</span></h3>
+<p>You’ll need a source-built version of the engine in order to build using the server solution configurations in Visual Studio. 
+</p><p>To build the engine from source go to <a rel="nofollow" class="external free" href="https://github.com/EpicGames/UnrealEngine">https://github.com/EpicGames/UnrealEngine</a>
+</p><p>Note: to see the content of the link above you need first to create a git hub account and associate it to your epic games account, then accept the invite of epic games on GitHub. You will then need to click the link and login to your account. 
+</p><p>Next select engine version and click the green clone/download button
+</p><p><a href="/index.php?title=File:Select_engine.png" class="image"><img alt="Select engine.png" src="https://d26ilriwvtzlb.cloudfront.net/7/7b/Select_engine.png" width="1612" height="901" /></a>
+</p><p>there are several options but i always prefer to just download as zip file
+</p><p>extract and unzip the zip file to a location of your choice.
+</p>
+<h3><span class="mw-headline" id="2._Setup_source_unreal_engine">2. Setup source unreal engine</span></h3>
+<p>open up the previously extracted folder
+and find a file called Setup.bat
+</p><p>double click this file and it will open up a console window and begin installing unreal dependencies
+</p><p>Note if you receive any errors when trying to open the .bat file then just right click instead and select run as administrator
+</p><p><a href="/index.php?title=File:Setup.png" class="image"><img alt="Setup.png" src="https://d26ilriwvtzlb.cloudfront.net/9/98/Setup.png" width="1860" height="802" /></a>
+</p><p>now find a file called GenerateProjectFiles.bat
+</p><p>double click this file or again right click and run as administrator
+</p><p>once it is done you will then have a visual studios solution project file in your folder 
+</p><p><a href="/index.php?title=File:Solution.png" class="image"><img alt="Solution.png" src="https://d26ilriwvtzlb.cloudfront.net/8/85/Solution.png" width="832" height="390" /></a>
+</p>
+<h3><span class="mw-headline" id="2.a_Setup_source_unreal_engine_To_use_Visual_studio_2017">2.a Setup source unreal engine To use Visual studio 2017</span></h3>
+<p>If you are using visual studio 2017. Instead of clicking on the GenerateProjectFiles.bat as shown above. Open up a CMD prompt window.
+Navigate to the folder where source built unreal files are by using the cd (change directory) command.
+Once inside the correct directory you need to run the following command.
+"GenerateProjectFiles.bat -2017"
+</p><p>this will then generate visual studio 2017 project files instead.
+full info can be found here
+<a rel="nofollow" class="external free" href="https://answers.unrealengine.com/questions/579186/what-about-visual-studio-2017-in-ue4.html">https://answers.unrealengine.com/questions/579186/what-about-visual-studio-2017-in-ue4.html</a>  
+_______________________________________________________________________________________________
+</p><p>now open this solution file and it will open visual studios and begin loading the source code.
+</p><p>note the first time you open the solution it normally takes a long time to parse all the header files .
+make sure you let it completely finish until it says ready at the bottom before you continue.
+</p><p>next go up to where it says develop next to where it says win64 and in the drop down menu select DEVELOPMENT EDITOR
+</p><p><a href="/index.php?title=File:Editor.png" class="image"><img alt="Editor.png" src="https://d26ilriwvtzlb.cloudfront.net/a/a1/Editor.png" width="1081" height="202" /></a>
+</p><p>next go to the solution explorer and right click the ue4 and select build
+</p><p><a href="/index.php?title=File:Build.png" class="image"><img alt="Build.png" src="https://d26ilriwvtzlb.cloudfront.net/1/18/Build.png" width="475" height="559" /></a>
+</p><p>note depending on your system this can again take quite a long time to complete
+</p><p>once complete you then need to right click on ue4 again in the solution explorer and go to "set as start up project"
+</p><p><a href="/index.php?title=File:Build.png" class="image"><img alt="Build.png" src="https://d26ilriwvtzlb.cloudfront.net/1/18/Build.png" width="475" height="559" /></a>
+</p><p>finally go up to where it says local windows debugger and click the little green play button 
+</p><p><br />
+<a href="/index.php?title=File:Debugger.png" class="image"><img alt="Debugger.png" src="https://d26ilriwvtzlb.cloudfront.net/e/ed/Debugger.png" width="624" height="286" /></a>
+</p><p>you may get a warning pop up like this
+</p><p><br />
+<a href="/index.php?title=File:Warning2.png" class="image"><img alt="Warning2.png" src="https://d26ilriwvtzlb.cloudfront.net/3/37/Warning2.png" width="831" height="634" /></a> 
+</p><p>just click yes and the editor will begin to open.
+</p><p>note again the first time it may take a while to open and can appear to be stuck on a certain percentage as if its frozen. just be patient and it will open.
+</p><p><a href="/index.php?title=File:Shaders.png" class="image"><img alt="Shaders.png" src="https://d26ilriwvtzlb.cloudfront.net/2/2c/Shaders.png" width="1566" height="979" /></a> 
+</p><p>it will compile all the shaders as well which can take a while the first time.
+</p><p>What i do now is right click and add to task bar so that next time you can just open the engine directly rather than having to open visual studio and do it that way.
+</p>
+<h3><span class="mw-headline" id="Congratulations_-_you_should_have_now_successfully_setup_a_source_built_version_of_unreal_engine">Congratulations - you should have now successfully setup a source built version of unreal engine</span></h3>
+<h3><span class="mw-headline" id="3._Video_guide">3. Video guide</span></h3>
+<p><a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=u0jtHK7BdzY&amp;feature=youtu.be">https://www.youtube.com/watch?v=u0jtHK7BdzY&amp;feature=youtu.be</a>
+</p>
+<h2><span class="mw-headline" id="Section_2_setting_up_a_dedicated_server_on_windows">Section 2 setting up a dedicated server on windows</span></h2>
+<h3><span class="mw-headline" id="1._Dedicated_Server_from_a_brand_new_project">1. Dedicated Server from a brand new project</span></h3>
+<p>Open up source unreal engine, select c++ and third person template, give it a suitable name and save location
+</p><p><a href="/index.php?title=File:Createproject.png" class="image"><img alt="Createproject.png" src="https://d26ilriwvtzlb.cloudfront.net/e/ef/Createproject.png" width="1159" height="775" /></a>
+</p><p>once the project and visual studio have finished completely loading, close them both down.
+</p><p>Note again wait until the header files have all been parsed in visual studio before closing. it may prompt you to save just click ok.
+</p>
+<h3><span class="mw-headline" id="2._Dedicated_Server_from_a_blueprint_only_project">2. Dedicated Server from a blueprint only project</span></h3>
+<p>if your project was made with a none source or different engine version or was simply only BLUEPRINTS to begin with
+you will not be able to make a dedicated server until you add some c++ code.
+</p><p>So simply go to add new, c++ class, an empty class will suffice, and you can delete it later.
+</p><p>Once you have a source directory, right click on the .uproject file and generate visual studio project files. This should create an .sln in the project directory that you can open in visual studio.
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="3._preparing_the_project_for_building">3. preparing the project for building</span></h3>
+<h4><span class="mw-headline" id="1._Target_file_instructions_for_engine_version_4.14">1. Target file instructions for engine version 4.14</span></h4>
+<p>open up the previously created project folder from the file explorer
+inside there will be a folder called source . open this up
+</p><p><a href="/index.php?title=File:Sourcefolder.png" class="image"><img alt="Sourcefolder.png" src="https://d26ilriwvtzlb.cloudfront.net/d/df/Sourcefolder.png" width="1030" height="460" /></a>
+</p><p>inside you will find some visual studio source files. take one of the source files and copy and paste it and then rename it to match the others . format is gamenameServer.Target.cs
+so in my case because my project game name is called test i would rename my file to testServer.Target.cs
+like so
+</p><p><a href="/index.php?title=File:Testserver.png" class="image"><img alt="Testserver.png" src="https://d26ilriwvtzlb.cloudfront.net/0/04/Testserver.png" width="518" height="283" /></a>
+</p><p>right click this newly created file and click edit
+</p><p><a href="/index.php?title=File:Editfile.png" class="image"><img alt="Editfile.png" src="https://d26ilriwvtzlb.cloudfront.net/6/6d/Editfile.png" width="863" height="703" /></a>
+</p><p>this will normally bring up a notepad so you can edit the file , although you can use any kind of text or code editor you wish. notepad is just quick and easy.
+</p><p>delete anything that is in the file so it is completely blank and replace with this code/text
+</p>
+<pre>// Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
+
+using UnrealBuildTool;
+using System.Collections.Generic;
+
+public class ShooterGameServerTarget&#160;: TargetRules
+{
+      public ShooterGameServerTarget(TargetInfo Target)
+      {
+         Type = TargetType.Server;
+         bUsesSteam = true;
+      }
+
+       //
+       // TargetRules interface.
+       //
+
+       public override bool GetSupportedPlatforms(ref List&lt;UnrealTargetPlatform&gt; OutPlatforms)
+       {
+            // It is valid for only server platforms
+            return UnrealBuildTool.UnrealBuildTool.GetAllServerPlatforms(ref OutPlatforms, false);
+       }
+
+       public override void SetupBinaries
+       (
+          TargetInfo Target, ref List&lt;UEBuildBinaryConfiguration&gt; OutBuildBinaryConfigurations,
+          ref List&lt;string&gt; OutExtraModuleNames
+       )
+       {
+         OutExtraModuleNames.Add("ShooterGame");
+       }
+}
+</pre>
+<p>next you have to make 3 changes to the file 
+</p><p>first find this line of code at the top
+</p>
+<pre>public class ShooterGameServerTarget&#160;: TargetRules
+</pre>
+<p><br />
+and change it so that it has your game name instead so in my case my game is called test so i would change the line of code to this
+</p>
+<pre>public class testServerTarget&#160;: TargetRules
+</pre>
+<p><br />
+next underneath it find this line of code and do the same as before and change the name to match your game
+</p>
+<pre>public ShooterGameServerTarget(TargetInfo Target)
+</pre>
+<p><br />
+so again in my case my game name is test so i would change this line of code to this
+</p>
+<pre>public testServerTarget(TargetInfo Target)
+</pre>
+<p><br />
+and finally find this line of code and do the same as before and change the name to match your game
+</p>
+<pre>OutExtraModuleNames.Add("ShooterGame");
+</pre>
+<p><br />
+so again in my case my game is called test so i would change this line of code to this
+</p>
+<pre>OutExtraModuleNames.Add("test");
+
+</pre>
+<p><br /> 
+Now just save the file with the same name and close it.
+</p>
+<h4><span class="mw-headline" id="2._Target_file_instructions_for_engine_version_4.15">2. Target file instructions for engine version 4.15</span></h4>
+<pre>// Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
+
+using UnrealBuildTool;
+using System.Collections.Generic;
+
+[SupportedPlatforms(UnrealPlatformClass.Server)]
+public class ShooterGameServerTarget&#160;: TargetRules      // Change this line of code as shown in the previous steps
+{
+ 
+    public ShooterGameServerTarget(TargetInfo Target)  // Change this line of code as shown in the previous steps
+
+       {
+
+     Type = TargetType.Server;
+
+      bUsesSteam = false;
+
+       }
+
+        //
+        // TargetRules interface.
+        //
+            public override void SetupBinaries
+            (
+             TargetInfo Target,
+             ref List&lt;UEBuildBinaryConfiguration&gt; OutBuildBinaryConfigurations,
+             ref List&lt;string&gt; OutExtraModuleNames
+             )
+               {
+                OutExtraModuleNames.Add("ShooterGame");     // Change this line of code as shown in the previous steps
+               }
+  }
+</pre>
+<h4><span class="mw-headline" id="3._Target_file_instructions_for_engine_version_4.16">3. Target file instructions for engine version 4.16</span></h4>
+<pre>// Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
+
+using UnrealBuildTool;
+using System.Collections.Generic;
+
+[SupportedPlatforms(UnrealPlatformClass.Server)]
+public class ShooterGameServerTarget&#160;: TargetRules    // Change this line of code as shown previously
+{
+	public ShooterGameServerTarget(TargetInfo Target)&#160;: base(Target) // Change this line of code as shown previously
+       {
+              Type = TargetType.Server;
+              ExtraModuleNames.Add("ShooterGame");   // Change this line of code as shown previously
+       }
+}
+</pre>
+<h4><span class="mw-headline" id="4._Target_file_instructions_for_engine_version_4.17">4. Target file instructions for engine version 4.17</span></h4>
+<pre>// Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
+
+using UnrealBuildTool;
+using System.Collections.Generic;
+
+[SupportedPlatforms(UnrealPlatformClass.Server)]
+public class ShooterGameServerTarget&#160;: TargetRules   // Change this line as shown previously
+{
+       public ShooterGameServerTarget(TargetInfo Target)&#160;: base(Target)  // Change this line as shown previously
+       {
+        Type = TargetType.Server;
+        ExtraModuleNames.Add("ShooterGame");    // Change this line as shown previously
+       }
+}
+</pre>
+<h4><span class="mw-headline" id="5._Target_file_instructions_for_engine_version_4.18">5. Target file instructions for engine version 4.18</span></h4>
+<pre>// Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
+
+using UnrealBuildTool;
+using System.Collections.Generic;
+
+[SupportedPlatforms(UnrealPlatformClass.Server)]
+public class ShooterGameServerTarget&#160;: TargetRules   // Change this line as shown previously
+{
+       public ShooterGameServerTarget(TargetInfo Target)&#160;: base(Target)  // Change this line as shown previously
+       {
+        Type = TargetType.Server;
+        ExtraModuleNames.Add("ShooterGame");    // Change this line as shown previously
+       }
+}
+</pre>
+<h3><span class="mw-headline" id="4._Switch_Unreal_engine_versions_.26_generate_project_files">4. Switch Unreal engine versions &amp; generate project files</span></h3>
+<p>next inside the project folder right click the uproject file and when the menu pops up select "switch unreal engine versions"
+</p><p>if when you right click on a uproject file you dont get a menu that looks like this
+</p><p><a href="/index.php?title=File:Build_server.png" class="image"><img alt="Build server.png" src="https://d26ilriwvtzlb.cloudfront.net/9/99/Build_server.png" width="516" height="267" /></a>
+</p><p>then follow this step below from the read me file. 
+</p><p><i>One last thing. You’ll want to setup your Windows shell so that you can interact with .uproject files. Find the file named UnrealVersionSelector-Win64-Shippping.exe in the UnrealEngine/Engine/Binaries/Win64/ folder and run it. Now, you’ll be able to double-click .uproject files to load the project, or right click them to quickly update Visual Studio files.</i>
+</p><p>This should now allow you to right click on the uproject file to bring up the menu.
+</p><p>when you click switch engine versions make sure that your source build version of the engine is selected in the drop down box and click ok.
+</p><p><a href="/index.php?title=File:Selectsource.png" class="image"><img alt="Selectsource.png" src="https://d26ilriwvtzlb.cloudfront.net/a/a4/Selectsource.png" width="892" height="392" /></a>
+</p><p>this should automatically regenerate the visual studio solution project files . if it does not then it means your files are already up to date but just to be safe you can right click the uproject file again and click "generate visual studio project files"
+</p>
+<h3><span class="mw-headline" id="5._Building_the_server">5. Building the server</span></h3>
+<p>next open up the visual studio project solution and allow it to fully load until it says ready.
+</p><p><a href="/index.php?title=File:Testsolution.png" class="image"><img alt="Testsolution.png" src="https://d26ilriwvtzlb.cloudfront.net/c/c8/Testsolution.png" width="517" height="398" /></a>
+</p><p>go up to the drop down box and in the menu this time select DEVELOPMENT EDITOR
+</p><p><br />
+<a href="/index.php?title=File:Developmenteditor.png" class="image"><img alt="Developmenteditor.png" src="https://d26ilriwvtzlb.cloudfront.net/a/a8/Developmenteditor.png" width="561" height="496" /></a>
+</p><p>then same as before go to the solution explorer and right click and click build
+</p><p><br />
+<a href="/index.php?title=File:Buildserver.png" class="image"><img alt="Buildserver.png" src="https://d26ilriwvtzlb.cloudfront.net/6/6e/Buildserver.png" width="794" height="796" /></a>
+</p><p>again depending on youre computer this can take a long time to complete.
+</p><p><br />
+once this is done go back to the menu and in the drop down box this time select DEVELOPMENT SERVER
+</p><p><a href="/index.php?title=File:Development_server.png" class="image"><img alt="Development server.png" src="https://d26ilriwvtzlb.cloudfront.net/0/0a/Development_server.png" width="817" height="633" /></a>
+</p><p>then same as before go to the solution explorer and right click and click build
+</p><p><br />
+<a href="/index.php?title=File:Buildserver.png" class="image"><img alt="Buildserver.png" src="https://d26ilriwvtzlb.cloudfront.net/6/6e/Buildserver.png" width="794" height="796" /></a>
+</p><p>again depending on your computer this can take a long time to complete.
+</p><p>once the server is built if you go into your project folder again then click binaries, win64
+and you should have the server files in there like this 
+</p><p><a href="/index.php?title=File:Serverfiles.png" class="image"><img alt="Serverfiles.png" src="https://d26ilriwvtzlb.cloudfront.net/7/70/Serverfiles.png" width="688" height="341" /></a>
+</p>
+<h3><span class="mw-headline" id="6._Fixing_the_lighting_swarm_error">6. Fixing the lighting swarm error</span></h3>
+<p>With source built unreal when you go to build the lighting it is common for the following error to occur and it took me forever to find the solution so i am including it here to save you guys the headache.
+</p><p><br />
+<a href="/index.php?title=File:Swarm_errorr.png" class="image"><img alt="Swarm errorr.png" src="https://d26ilriwvtzlb.cloudfront.net/b/b9/Swarm_errorr.png" width="692" height="268" /></a>
+</p><p>so what you do is in your solution explorer in visual studio scroll down until you see "unreal lightmass"
+</p><p><a href="/index.php?title=File:Lightmass.png" class="image"><img alt="Lightmass.png" src="https://d26ilriwvtzlb.cloudfront.net/f/f7/Lightmass.png" width="438" height="414" /></a>
+</p><p>and again like before right click it and click build.
+</p><p>when it has finished close visual studio and now the swarm bug error should be fixed.
+</p>
+<h3><span class="mw-headline" id="6.a_Video_Guide">6.a Video Guide</span></h3>
+<p><a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=lkrFFNfjtS0&amp;feature=youtu.be">https://www.youtube.com/watch?v=lkrFFNfjtS0&amp;feature=youtu.be</a>
+</p>
+<h3><span class="mw-headline" id="7._Prepare_the_project_for_packaging">7. Prepare the project for packaging</span></h3>
+<p>now open up your project again by clicking on the uproject file.
+</p><p>ok so the first thing we need to do is under the content folder is add two new folders .
+one called maps, the other blueprints.
+</p><p><a href="/index.php?title=File:Folder_structure.png" class="image"><img alt="Folder structure.png" src="https://d26ilriwvtzlb.cloudfront.net/1/10/Folder_structure.png" width="556" height="296" /></a>
+</p><p>then we need to go down to where the third person example map is stored and move it into your newly created map folder like so.
+</p><p><br />
+<a href="/index.php?title=File:Maps.png" class="image"><img alt="Maps.png" src="https://d26ilriwvtzlb.cloudfront.net/6/6c/Maps.png" width="648" height="349" /></a>
+</p><p>rename this to test level or whatever you like. this will be the level that the player loads into the server on and plays the game .
+</p><p>as of engine versions 4.14+ whenever you make a new map you must open the map and then click on build so that it generates the correct mapBuildDataRegistry Files for it. once this is done then click save all.
+</p><p>now we need to create 2 more additional maps. so go up to file, then new level and select the empty map level.
+name this first level entry map, and the second level transition map. like so
+</p><p><br />
+</p><p><a href="/index.php?title=File:Mapfiles.png" class="image"><img alt="Mapfiles.png" src="https://d26ilriwvtzlb.cloudfront.net/d/dd/Mapfiles.png" width="553" height="150" /></a>
+</p><p>again dont forget to build each time on the new map to make sure the data is saved correctly.
+</p><p><br />
+open up the entry level map and go up to blueprints and open the level blueprint
+</p><p><br />
+<a href="/index.php?title=File:Openlevel.png" class="image"><img alt="Openlevel.png" src="https://d26ilriwvtzlb.cloudfront.net/4/44/Openlevel.png" width="789" height="449" /></a>
+</p><p>in this blueprint drag off from begin play and find the open level node. in the level name set the parameter to
+127.0.0.1 this is your local ip address.
+</p><p><br />
+<a href="/index.php?title=File:Ip.png" class="image"><img alt="Ip.png" src="https://d26ilriwvtzlb.cloudfront.net/4/47/Ip.png" width="626" height="291" /></a> 
+</p><p>compile and save and close the blueprint.
+</p><p>finally open up the test level map and just click on the default character that is in the map and just delete him otherwise when you join the server you will end up with duplicated characters.
+</p><p><a href="/index.php?title=File:Testlevel.png" class="image"><img alt="Testlevel.png" src="https://d26ilriwvtzlb.cloudfront.net/1/1b/Testlevel.png" width="539" height="357" /></a>
+</p><p><br />
+now we need to set the project settings up 
+</p><p>so open up the project settings and then go to maps and modes.
+</p><p>set the editor startup map to entry
+</p><p>set the game default map to entry
+</p><p>set the transition map to transition
+</p><p>set the server default map to test level
+</p><p>like so
+</p><p><a href="/index.php?title=File:Mapsetup.png" class="image"><img alt="Mapsetup.png" src="https://d26ilriwvtzlb.cloudfront.net/8/80/Mapsetup.png" width="429" height="222" /></a>
+</p>
+<h3><span class="mw-headline" id="8._setup_packaging_settings">8. setup packaging settings</span></h3>
+<p>go to file, packaging, packaging settings
+</p><p><a href="/index.php?title=File:PackagingSettings.png" class="image"><img alt="PackagingSettings.png" src="https://d26ilriwvtzlb.cloudfront.net/6/6a/PackagingSettings.png" width="487" height="720" /></a>
+</p><p>in the packaging settings scroll down till you find the section list of maps to include in a packaged build . click on the + sign to add 3 elements to the array. one for each map you have in the project.
+then browse to your map folder and add each of your 3 maps to the array like so
+</p><p><br />
+<a href="/index.php?title=File:Addmaps.png" class="image"><img alt="Addmaps.png" src="https://d26ilriwvtzlb.cloudfront.net/1/13/Addmaps.png" width="1129" height="387" /></a>
+</p><p>now close the settings and package the project.
+</p><p><br />
+<a href="/index.php?title=File:Packageproject.png" class="image"><img alt="Packageproject.png" src="https://d26ilriwvtzlb.cloudfront.net/5/5c/Packageproject.png" width="676" height="497" /></a>
+</p>
+<h3><span class="mw-headline" id="9._Congratulations_you_have_now_packaged_your_project_yay_:-p">9. Congratulations you have now packaged your project yay&#160;:-p</span></h3>
+<h2><span class="mw-headline" id="Section_3_launching_and_joining_the_dedicated_server">Section 3 launching and joining the dedicated server</span></h2>
+<h3><span class="mw-headline" id="1._copy_the_server_executable">1. copy the server executable</span></h3>
+<p>go to your project folder, then binaries, win 64, and find the file called "yourProjectNameServer.exe"
+and right click it and copy it.
+</p><p><a href="/index.php?title=File:Copyproject.png" class="image"><img alt="Copyproject.png" src="https://d26ilriwvtzlb.cloudfront.net/d/dc/Copyproject.png" width="907" height="610" /></a>
+</p><p>next go to your packaged game location. then WindowsNoEditor, then the name of your project, binaries, win64,
+and paste in the server.exe like so.
+</p><p><a href="/index.php?title=File:Projectbinaries.png" class="image"><img alt="Projectbinaries.png" src="https://d26ilriwvtzlb.cloudfront.net/e/eb/Projectbinaries.png" width="737" height="327" /></a>
+</p>
+<h3><span class="mw-headline" id="2._create_the_server_shortcut_and_setup_log_options">2. create the server shortcut and setup log options</span></h3>
+<p>now take the server file and create a shortcut to it. then rename it to match whatever you called your map inside the project . in my case i called it test level so my shortcut will look like this
+</p><p><br />
+<a href="/index.php?title=File:Shortcut.png" class="image"><img alt="Shortcut.png" src="https://d26ilriwvtzlb.cloudfront.net/8/89/Shortcut.png" width="424" height="156" /></a>
+</p><p>now right click this shortcut and go to properties
+</p><p><br />
+<a href="/index.php?title=File:Properties.png" class="image"><img alt="Properties.png" src="https://d26ilriwvtzlb.cloudfront.net/4/44/Properties.png" width="603" height="570" /></a>
+</p><p>at the end of the target path simply add   -log like so
+</p><p><a href="/index.php?title=File:Targetpath.png" class="image"><img alt="Targetpath.png" src="https://d26ilriwvtzlb.cloudfront.net/d/d0/Targetpath.png" width="551" height="279" /></a>
+</p><p>and click ok
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="3._Launch_and_test_the_server">3. Launch and test the server</span></h3>
+<p>Now we are ready to launch the dedicated server and test level.
+</p><p>double click the server shortcut you just modified
+</p><p>if all goes well you should see a command window open and the server will launch itself
+</p><p><a href="/index.php?title=File:Serverlog.png" class="image"><img alt="Serverlog.png" src="https://d26ilriwvtzlb.cloudfront.net/8/83/Serverlog.png" width="1269" height="284" /></a>
+</p><p>here you can see the ip address of the computer hosting the server, you can see the server is listening on port 7777 which is the default unreal port, and it has loaded up the test level map as we set out in our project.
+</p><p><br />
+Your server is now running all that's left now is to click the project.exe to join the server.
+</p><p><br />
+in the logs if all is well you will see that a client requested to join the server and then at the bottom you should see join succeeded: 256
+</p><p>this means the player has successfully joined the dedicated server.
+</p><p><a href="/index.php?title=File:Joinsuccess.png" class="image"><img alt="Joinsuccess.png" src="https://d26ilriwvtzlb.cloudfront.net/0/05/Joinsuccess.png" width="830" height="122" /></a>
+</p><p>if you were to launch another game exe you would now see another login success and the number would now be&#160;:257
+</p><p>like so
+</p><p><a href="/index.php?title=File:257.png" class="image"><img alt="257.png" src="https://d26ilriwvtzlb.cloudfront.net/6/60/257.png" width="875" height="217" /></a> 
+</p><p><br />
+</p><p>congratulations you are now hosting a dedicated server on your own computer and have two players joined that can run around and see each other
+</p><p><a href="/index.php?title=File:Yay.png" class="image"><img alt="Yay.png" src="https://d26ilriwvtzlb.cloudfront.net/6/6e/Yay.png" width="1541" height="846" /></a>
+</p><p><br />
+to properly close down the server in the command window press ctrl c. alternatively you can press the x on the log window or failing that you can ctr alt delete and kill any unreal processes that are running. but the best method is to use ctrl c
+</p>
+<h2><span class="mw-headline" id="Section_4_notes">Section 4 notes</span></h2>
+<h3><span class="mw-headline" id="1._allowing_friends_to_join_over_internet">1. allowing friends to join over internet</span></h3>
+<p>if you want to allow friends to join your games etc then simply go back to your project and on the entry level, open the level blueprint and instead of using your local ip address, input your real public ip address.
+</p><p><a href="/index.php?title=File:Ip.png" class="image"><img alt="Ip.png" src="https://d26ilriwvtzlb.cloudfront.net/4/47/Ip.png" width="626" height="291" /></a>
+</p><p>to find this simply type  in to google "what is my ip" . or use an ip address finding program etc.
+</p><p>also remember that when you make changes in the game you need to repackage the game . so once you change the ip address to your real public ip make sure to repackage the game before you send it to your friends.
+</p><p>also you might need to rebuild the server binaries in visual studio.
+</p><p>once package is complete then zip up the whole windows no editor game folder and send it to youre friends.
+</p><p>start the server your end , then get the friends to open the game executable and join your game.
+</p><p>if your friends are unable to join your game it will be because you do not have the ports forwarded and setup properly on your router, and you may need to set up a static ip address.
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="2._Hosting_on_a_virtual_server">2. Hosting on a virtual server</span></h3>
+<p>log into your virtual server, open up the internet and download the game package. unzip it and then launch the server shortcut as normal.
+</p>
+<h3><span class="mw-headline" id="3._Creating_additional_maps_and_joining_different_maps">3. Creating additional maps and joining different maps</span></h3>
+<h3><span class="mw-headline" id="4._Enabling_Physics">4. Enabling Physics</span></h3>
+<p>Not sure if this is still relevant in engine 4.14+ but ive left it here just in case. from original wiki authors.
+</p><p>As of 4.4.3, if you’re replicating actors whose movement depends on simulated physics, you’ll need to set their <b>SkeletalMeshComponent.bEnablePhysicsOnDedicatedServer</b> property to true. The standalone dedicated servers return true to <b>IsRunningDedicatedServer()</b>, which results in prevention of physics simulations for SkeletalMeshComponents that do not explicitly set the bEnablePhysicsOnDedicatedServer property.
+Thanks to user <b>HateDread</b> for pointing this out for me.
+</p><p>Details:
+</p><p><a rel="nofollow" class="external free" href="https://answers.unrealengine.com/questions/97074/vehicle-template-issues-with-standalone-dedicated.html#answer-101321">https://answers.unrealengine.com/questions/97074/vehicle-template-issues-with-standalone-dedicated.html#answer-101321</a>
+</p><p>Commit that fixes this:
+</p><p><a rel="nofollow" class="external free" href="https://github.com/EpicGames/UnrealEngine/commit/9860acf7b10c7187cc9287342e43c73b0083791f">https://github.com/EpicGames/UnrealEngine/commit/9860acf7b10c7187cc9287342e43c73b0083791f</a>
+</p>
+<h2><span class="mw-headline" id="Section_5">Section 5</span></h2>
+<h3><span class="mw-headline" id="1._Im_too_lazy_for_all_this_just_give_me_the_files">1. Im too lazy for all this just give me the files</span></h3>
+<p>i will provide the test project files soon i ran out of time
+</p>
+<h2><span class="mw-headline" id="section_6_Contact_the_author">section 6 Contact the author</span></h2>
+<h3><span class="mw-headline" id="1.">1.</span></h3>
+<p>if you need help you can find me on unreal forums - <a rel="nofollow" class="external free" href="https://forums.unrealengine.com/member.php?42414-EniGmaa">https://forums.unrealengine.com/member.php?42414-EniGmaa</a>
+</p><p>Or on unreal slackers discord
+<a rel="nofollow" class="external free" href="http://unrealslackers.org/">http://unrealslackers.org/</a>
+</p><p>Username is PrintStringFTW#6597
+</p><p>thankyou
+</p>
+<h2><span class="mw-headline" id="section_7_Building_and_deploying_a_UE4_dedicated_server_for_Linux">section 7 Building and deploying a UE4 dedicated server for Linux</span></h2>
+<p>Original blog post: <a rel="nofollow" class="external free" href="http://blog.piinecone.com/post/98470361272/building-and-deploying-a-ue4-dedicated-server-for-linux">http://blog.piinecone.com/post/98470361272/building-and-deploying-a-ue4-dedicated-server-for-linux</a>
+</p><p>In a prior post I covered the basics of building a standalone dedicated server executable for Windows from a UE4 game. This post will cover packaging, building, and deploying a Linux binary.
+</p>
+<h3><span class="mw-headline" id="1._Configure_Visual_Studio_for_Linux_cross_compilation">1. Configure Visual Studio for Linux cross compilation</span></h3>
+<p>Epic have provided a prebuilt cross compilation toolchain for building Linux binaries from Windows. Follow the installation guide on the wiki: <a rel="nofollow" class="external free" href="https://wiki.unrealengine.com/Compiling_For_Linux">https://wiki.unrealengine.com/Compiling_For_Linux</a>.
+</p><p>Once you have the toolchain installed, verify that you have a LINUX_ROOT env var pointing to it. You can check this in git bash with the following command:
+</p><p><i>`env | grep LINUX_ROOT `</i>
+</p>
+<h3><span class="mw-headline" id="2._Package_your_project_to_a_distinct_location">2. Package your project to a distinct location</span></h3>
+<p>Thanks to Osman for pointing this out to me. In order to compress everything you’ll need to deploy and run a standalone binary, you should package your project somewhere outside of your project’s working directory. The resulting file structure will contain the essentials.
+</p><p>Open the editor and package your project for Linux. Choose a distinct destination for the build (eg, ~/Desktop/MyGameLinux/). Once this completes, you should see a client build for Linux in the destination you chose.
+</p>
+<h3><span class="mw-headline" id="3._Build_a_dedicated_server_binary_for_Linux">3. Build a dedicated server binary for Linux</span></h3>
+<p>Open your project solution in Visual Studio, select the Development Server configuration (or whichever server configuration you’d like to use) and build for Linux. Make sure you’ve followed the previous guide and that your Server target is correctly setup.
+When the build completes, you’ll have a new server binary in your project’s working directory (../MyGame/Binaries/Win64/MyGameServer).
+</p><p>Copy the Linux Server binary to the packaged project directory we created in step 2. You should put it next to the client binary. So when you look in:
+</p><p><i>~/Desktop/MyGameLinux/LinuxNoEditor/MyGame/Binaries/Linux</i>
+</p><p>You should see:
+</p><p><i>MyGame</i>
+</p><p><i>MyGameServer</i>
+</p>
+<h3><span class="mw-headline" id="4._Deploy_your_binary_to_a_remote_machine">4. Deploy your binary to a remote machine</span></h3>
+<p>You’ll need a Linux machine to deploy and run your server. I’m using a Google Compute VM for testing, but EC2 or any other cloud provider should suffice for now. I haven’t done any research or benchmarking to determine which provider, OS, and machine type is ideal for running UE4 dedicated servers.
+</p><p>Using git bash, create a gzipped tar of your packaged directory (I foolishly forgot to remove the client binary before doing this; you should remove it as you won’t be running it remotely):
+</p><p><i>tar -cvzf mygame-linux-server.tar.gz ~/Desktop/MyGameLinux/</i>
+</p><p>Copy the resulting archive to your remote Linux machine:
+</p><p><i>scp mygame-linux-server.tar.gz piinecone@123.456.78.91</i>
+</p><p>This will copy the tar into the home directory of the machine at the supplied IP address. Replace my nonsense numbers with the external IP of your remote machine. Note that you may have to append
+</p><p><i>-i ~/.ssh/&lt;name of your private key&gt;</i>
+</p><p>to perform the secure copy, depending on your ssh configuration.
+</p>
+<h3><span class="mw-headline" id="5._Connect_to_your_server_and_run_the_dedicated_server_binary">5. Connect to your server and run the dedicated server binary</span></h3>
+<p>SSH into your machine:
+</p><p><i>ssh piinecone@123.456.78.91</i>
+</p><p>You may need to append `-i ~/.ssh/&lt;your private key&gt;` again here.
+</p><p>Once connected, you’ll be in your home directory. `ls` and you should see your gzipped tarball. Unpack it:
+</p><p><i>tar -xzf mygame-linux-server.tar.gz</i>
+</p><p>`cd` to your binary location:
+</p><p><i>cd MyGameLinux/LinuxNoEditor/MyGame/Binaries/Linux</i>
+</p><p>Make your server binary executable:
+</p><p><i>chmod +x MyGameServer</i>
+</p><p>Run it!
+</p><p><i>./MyGameServer -log</i>
+</p><p>Okay, now kill it with Ctrl+C because we have to open up allow connections on UDP:7777.
+</p><p>Also, if you see this error:
+</p><p><b>Could not adjust number of file handles</b>
+</p><p>Add this line to /etc/security/limits.conf:
+</p><p><i>user - nofile 10000</i>
+</p><p>And for Debian and Ubuntu, add this line to /etc/pam.d/common-session:
+</p><p><i>session required pam_limits.so</i>
+</p><p>After rebooting your machine you should be able to run the server executable.
+</p>
+<h3><span class="mw-headline" id="6._Open_UDP:7777">6. Open UDP:7777</span></h3>
+<p>Most cloud VMs default to fairly tight security so you’ll probably have to manually open port 7777 (the UE4 server’s default port) to accept UDP connections. I’m not going to cover the specifics of this because it can vary by machine and provider. For a Google Compute VM you can just create a forwarding rule with the CLI. Other machines will require that you modify the iptables.
+</p><p>Once you’ve opened UDP 7777, you can verify the connection is working with netcat. On the remote machine:
+</p><p><i>nc -luv 777</i>
+</p><p>On your machine:
+</p><p><i>nc -vu server.ip.add.ress 7777</i>
+</p><p>Enter text on either console and it should appear in the other.
+</p>
+<h3><span class="mw-headline" id="7._Play_your_game_on_your_server">7. Play your game on your server</span></h3>
+<p>This is, after all, the whole point. Build a client executable (or just use the one you built in step 2). Run it, open the console (with “~”), and type:
+open my.server.ip.address:7777
+</p><p>You should see a join in your server log, and your client pawn should spawn into whichever map the server is currently running.
+</p>
+<h3><span class="mw-headline" id="8._Issues">8. Issues</span></h3>
+<p>At some point of time (around Unreal Engine 4.4.x), Linux servers required glibc 2.14+, which made it unable to run on Debian-stable (back then Debian 7 'wheezy'). This was a temporary issue not experienced in previous versions, and it was fixed in later ones. Cross-toolchain provided with the Unreal Engine targets glibc 2.12.2, which is old enough to run on most contemporary distros, including Debian-stable and even CentOS 6.x without hassle.
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="8._Dedicated_Server_on_Steam">8. Dedicated Server on Steam</span></h2>
+<p>Now on it's own page:
+<a rel="nofollow" class="external free" href="https://wiki.unrealengine.com/Dedicated_Server_Guide_Steam">https://wiki.unrealengine.com/Dedicated_Server_Guide_Steam</a>
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20190805154954
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.240 seconds
+Real time usage: 0.975 seconds
+Preprocessor visited node count: 179/1000000
+Preprocessor generated node count: 184/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:9-0!canonical and timestamp 20190805154953 and revision id 19
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=Dedicated_Server_Guide_(Windows_%26_Linux)&amp;oldid=19">https://wiki.unrealengine.com/index.php?title=Dedicated_Server_Guide_(Windows_%26_Linux)&amp;oldid=19</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/index.php?title=Category:Tutorials&amp;action=edit&amp;redlink=1" class="new" title="Category:Tutorials (page does not exist)">Tutorials</a></li><li><a href="/index.php?title=Category:Code" title="Category:Code">Code</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0fabd7d8c0a1277bf"><meta name="worker" content="171"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.78","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"legalTags":[],"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners-apply","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://dev.epicgames.com","title":"Online Services"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/training-partners","title":"Training Partners"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.d5e3cccc48c5a4674991.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.d5e3cccc48c5a4674991.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.240","walltime":"0.975","ppvisitednodes":{"value":179,"limit":1000000},"ppgeneratednodes":{"value":184,"limit":1000000},"postexpandincludesize":{"value":0,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.000      1 -total"]},"cachereport":{"timestamp":"20190805154954","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":89});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":123,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>UDP Socket Sender Receiver From One UE4 Instance To Another - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another","wgTitle":"UDP Socket Sender Receiver From One UE4 Instance To Another","wgCurRevisionId":23922,"wgRevisionId":23922,"wgArticleId":5904,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Code"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head"></div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-recentchanges"><a href="/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Community' aria-labelledby='p-Community-label'>
+	<h3 id='p-Community-label'>Community</h3>
+	<div class="body">
+		<ul>
+			<li id="n-UE4-Games"><a href="/Category:Games">UE4 Games</a></li>
+			<li id="n-Dev-Blogs"><a href="/Developer_Blogs">Dev Blogs</a></li>
+			<li id="n-Dev-Livestreams"><a href="/Developer_Livestreams">Dev Livestreams</a></li>
+			<li id="n-Code-Sharing-Hub"><a href="/GitHub_Sharing_Hub">Code Sharing Hub</a></li>
+			<li id="n-UE-User-Groups"><a href="/User_Group_Map">UE User Groups</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Learning_Resources' aria-labelledby='p-Learning_Resources-label'>
+	<h3 id='p-Learning_Resources-label'>Learning Resources</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Example-Projects"><a href="/Category:Example_Projects">Example Projects</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Software_and_Tools' aria-labelledby='p-Software_and_Tools-label'>
+	<h3 id='p-Software_and_Tools-label'>Software and Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Art:-3D"><a href="/3D_Art_Resources">Art: 3D</a></li>
+			<li id="n-Art:-2D"><a href="/2D_Art_Resources">Art: 2D</a></li>
+			<li id="n-Audio"><a href="/Audio_Resources">Audio</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Modding' aria-labelledby='p-Modding-label'>
+	<h3 id='p-Modding-label'>Modding</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Modding-Resources"><a href="/Category:Modding_Resources">Modding Resources</a></li>
+			<li id="n-Moddable-Games"><a href="/Category:Moddable_Games">Moddable Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Epic_Official' aria-labelledby='p-Epic_Official-label'>
+	<h3 id='p-Epic_Official-label'>Epic Official</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Website"><a href="https://www.unrealengine.com" rel="nofollow">Website</a></li>
+			<li id="n-Learning-Resources"><a href="https://docs.unrealengine.com/latest/INT/" rel="nofollow">Learning Resources</a></li>
+			<li id="n-Forums"><a href="https://forums.unrealengine.com/" rel="nofollow">Forums</a></li>
+			<li id="n-Blog"><a href="https://www.unrealengine.com/blog" rel="nofollow">Blog</a></li>
+			<li id="n-YouTube"><a href="https://www.youtube.com/UnrealEngine" rel="nofollow">YouTube</a></li>
+			<li id="n-Twitch"><a href="http://www.twitch.tv/unrealengine" rel="nofollow">Twitch</a></li>
+			<li id="n-Twitter"><a href="https://twitter.com/UnrealEngine" rel="nofollow">Twitter</a></li>
+			<li id="n-Facebook"><a href="https://www.facebook.com/UnrealEngine" rel="nofollow">Facebook</a></li>
+			<li id="n-Instagram"><a href="https://instagram.com/unrealengine/" rel="nofollow">Instagram</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another&amp;oldid=23922" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=UDP+Socket+Sender+Receiver+From+One+UE4+Instance+To+Another&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=UDP+Socket+Sender+Receiver+From+One+UE4+Instance+To+Another" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">UDP Socket Sender Receiver From One UE4 Instance To Another</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Setup"><span class="tocnumber">1.1</span> <span class="toctext">Setup</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Build_CS"><span class="tocnumber">1.2</span> <span class="toctext">Build CS</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Custom_Data"><span class="tocnumber">2</span> <span class="toctext">Custom Data</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Sender"><span class="tocnumber">3</span> <span class="toctext">Sender</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#.h"><span class="tocnumber">3.1</span> <span class="toctext">.h</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#.cpp"><span class="tocnumber">3.2</span> <span class="toctext">.cpp</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Receiver"><span class="tocnumber">4</span> <span class="toctext">Receiver</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#.h_2"><span class="tocnumber">4.1</span> <span class="toctext">.h</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#.cpp_2"><span class="tocnumber">4.2</span> <span class="toctext">.cpp</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#TCP"><span class="tocnumber">5</span> <span class="toctext">TCP</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Conclusion"><span class="tocnumber">6</span> <span class="toctext">Conclusion</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Post_4.12"><span class="tocnumber">7</span> <span class="toctext">Post 4.12</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p><b>Author:</b> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)
+<a rel="nofollow" class="external text" href="http://www.ue4code.com">www.ue4code.com</a>
+</p><p>In this tutorial I give you the core code for how you can send any custom data structure you want, BP-exposed, from one instance of UE4 to another!
+</p><p>The implications are vast, the use cases are nearly infinite! 
+</p><p>You can send any data you want from any 1 UE4 instance to any other!
+</p><p><a href="/File:UDPVictory.jpg" class="image" title="px=900"><img alt="px=900" src="https://d26ilriwvtzlb.cloudfront.net/7/78/UDPVictory.jpg" width="1280" height="960" /></a>
+<a href="/File:UDPGraph.jpg" class="image" title="px=900"><img alt="px=900" src="https://d26ilriwvtzlb.cloudfront.net/a/a2/UDPGraph.jpg" width="1270" height="768" /></a>
+</p>
+<h3><span class="mw-headline" id="Setup">Setup</span></h3>
+<p>Below are two actor classes, you should spawn 1 in your sending instance of UE4 and 1 in your receiving instance of UE4, of the respective types.
+</p><p>The reason they are actors is to allow them to be easily blueprintable and have async BP event responses via BlueprintImplementable event.
+</p><p>I used this ip,port
+</p><p>IP = 127.0.0.1
+</p><p>Port = 8890
+</p><p>The IP is passed in an FString
+</p>
+<h3><span class="mw-headline" id="Build_CS">Build CS</span></h3>
+<p>Make sure to include the extra dependencies!
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">PublicDependencyModuleNames.<span class="me1">AddRange</span><span class="br0">&#40;</span><span class="kw3">new</span> string<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span>
+    <span class="st0">&quot;Core&quot;</span>, <span class="st0">&quot;CoreUObject&quot;</span>, <span class="st0">&quot;Engine&quot;</span>, <span class="st0">&quot;InputCore&quot;</span>,
+&#160;
+     <span class="st0">&quot;Sockets&quot;</span>, <span class="st0">&quot;Networking&quot;</span>   <span class="co1">//&lt;~~~~~</span>
+ <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<h2><span class="mw-headline" id="Custom_Data">Custom Data</span></h2>
+<p>The core of my method is that your data structure must have its own serialization function defined, here is the code for a BP exposed serializable data structure in UE4.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co2">#pragma once</span>
+&#160;
+<span class="co2">#include &quot;AnyCustomData.generated.h&quot;</span>
+&#160;
+USTRUCT<span class="br0">&#40;</span>BlueprintType<span class="br0">&#41;</span>
+<span class="kw4">struct</span> FAnyCustomData
+<span class="br0">&#123;</span> 
+	GENERATED_USTRUCT_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+	UPROPERTY<span class="br0">&#40;</span>EditAnywhere, BlueprintReadWrite, Category<span class="sy1">=</span><span class="st0">&quot;Joy Color&quot;</span><span class="br0">&#41;</span>
+	FString Name <span class="sy1">=</span> <span class="st0">&quot;Victory!&quot;</span><span class="sy4">;</span>
+&#160;
+	UPROPERTY<span class="br0">&#40;</span>EditAnywhere, BlueprintReadWrite, Category<span class="sy1">=</span><span class="st0">&quot;Joy Color&quot;</span><span class="br0">&#41;</span>
+	<span class="kw4">int32</span> Count <span class="sy1">=</span> <span class="nu0">1</span><span class="sy4">;</span>
+&#160;
+	UPROPERTY<span class="br0">&#40;</span>EditAnywhere, BlueprintReadWrite, Category<span class="sy1">=</span><span class="st0">&quot;Joy Color&quot;</span><span class="br0">&#41;</span>
+	<span class="kw4">float</span> Scale <span class="sy1">=</span> <span class="nu0">1</span>.<span class="me1">f</span><span class="sy4">;</span>
+&#160;
+	UPROPERTY<span class="br0">&#40;</span>EditAnywhere, BlueprintReadWrite, Category<span class="sy1">=</span><span class="st0">&quot;Joy Color&quot;</span><span class="br0">&#41;</span>
+	FLinearColor Color <span class="sy1">=</span> FLinearColor<span class="sy4">::</span><span class="me2">Red</span><span class="sy4">;</span>
+&#160;
+	FAnyCustomData<span class="br0">&#40;</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span><span class="br0">&#125;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span>
+&#160;
+FORCEINLINE FArchive<span class="sy3">&amp;</span> operator<span class="sy1">&lt;&lt;</span><span class="br0">&#40;</span>FArchive <span class="sy3">&amp;</span>Ar, FAnyCustomData<span class="sy3">&amp;</span> TheStruct <span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Ar <span class="sy1">&lt;&lt;</span> TheStruct.<span class="me1">Name</span><span class="sy4">;</span> 
+	Ar <span class="sy1">&lt;&lt;</span> TheStruct.<span class="me1">Count</span><span class="sy4">;</span> 
+	Ar <span class="sy1">&lt;&lt;</span> TheStruct.<span class="me1">Scale</span><span class="sy4">;</span> 
+	Ar <span class="sy1">&lt;&lt;</span> TheStruct.<span class="me1">Color</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">return</span> Ar<span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>As you can see am using a C++ operator overload of operator&lt;&lt; to tell UE4's FArchive how to serialize my data structure.
+</p><p>Because the data types are simple I can rely on UE4's existing serialization overloads for each simple data type.
+</p>
+<h2><span class="mw-headline" id="Sender">Sender</span></h2>
+<h3><span class="mw-headline" id=".h">.h</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="coMULTI">/*
+&#160;
+	By Rama
+&#160;
+*/</span>
+<span class="co2">#pragma once</span>
+&#160;
+<span class="co1">//Networking</span>
+<span class="co2">#include &quot;Networking.h&quot;</span>
+&#160;
+<span class="co1">//Base</span>
+<span class="co2">#include &quot;RamaUDPSender.generated.h&quot;</span>
+&#160;
+UCLASS<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw2">class</span> ARamaUDPSender <span class="sy4">:</span> <span class="kw2">public</span> AActor
+<span class="br0">&#123;</span>
+	GENERATED_UCLASS_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+	<span class="kw4">bool</span> IsUDP<span class="sy4">;</span>
+&#160;
+	<span class="co1">//UFUNCTION(BlueprintCallable, Category=RamaUDPSender)</span>
+	<span class="kw4">bool</span> RamaUDPSender_SendString<span class="br0">&#40;</span>FString ToSend<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+	TSharedPtr<span class="sy1">&lt;</span>FInternetAddr<span class="sy1">&gt;</span>	RemoteAddr<span class="sy4">;</span>
+	FSocket<span class="sy2">*</span> SenderSocket<span class="sy4">;</span>
+&#160;
+	<span class="kw4">bool</span> StartUDPSender<span class="br0">&#40;</span>
+		<span class="kw4">const</span> FString<span class="sy3">&amp;</span> YourChosenSocketName,
+		<span class="kw4">const</span> FString<span class="sy3">&amp;</span> TheIP, 
+		<span class="kw4">const</span> <span class="kw4">int32</span> ThePort,
+		<span class="kw4">bool</span> UDP <span class="sy1">=</span> <span class="kw2">false</span>
+	<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+	UPROPERTY<span class="br0">&#40;</span>EditAnywhere, BlueprintReadWrite, Category<span class="sy1">=</span><span class="st0">&quot;Rama UDP Sender&quot;</span><span class="br0">&#41;</span>
+	<span class="kw4">bool</span> ShowOnScreenDebugMessages<span class="sy4">;</span>
+&#160;
+&#160;
+	<span class="co1">//ScreenMsg</span>
+	FORCEINLINE <span class="kw4">void</span> ScreenMsg<span class="br0">&#40;</span><span class="kw4">const</span> FString<span class="sy3">&amp;</span> Msg<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		<span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>ShowOnScreenDebugMessages<span class="br0">&#41;</span> <span class="kw1">return</span><span class="sy4">;</span>
+		GEngine<span class="sy2">-</span><span class="sy1">&gt;</span>AddOnScreenDebugMessage<span class="br0">&#40;</span><span class="sy2">-</span><span class="nu0">1</span>, <span class="nu0">5</span>.<span class="me1">f</span>, FColor<span class="sy4">::</span><span class="me2">Red</span>, <span class="sy2">*</span>Msg<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+	FORCEINLINE <span class="kw4">void</span> ScreenMsg<span class="br0">&#40;</span><span class="kw4">const</span> FString<span class="sy3">&amp;</span> Msg, <span class="kw4">const</span> <span class="kw4">float</span> Value<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		<span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>ShowOnScreenDebugMessages<span class="br0">&#41;</span> <span class="kw1">return</span><span class="sy4">;</span>
+		GEngine<span class="sy2">-</span><span class="sy1">&gt;</span>AddOnScreenDebugMessage<span class="br0">&#40;</span><span class="sy2">-</span><span class="nu0">1</span>, <span class="nu0">5</span>.<span class="me1">f</span>, FColor<span class="sy4">::</span><span class="me2">Red</span>, FString<span class="sy4">::</span><span class="me2">Printf</span><span class="br0">&#40;</span>TEXT<span class="br0">&#40;</span><span class="st0">&quot;%s&#160;%f&quot;</span><span class="br0">&#41;</span>, <span class="sy2">*</span>Msg, Value<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+	FORCEINLINE <span class="kw4">void</span> ScreenMsg<span class="br0">&#40;</span><span class="kw4">const</span> FString<span class="sy3">&amp;</span> Msg, <span class="kw4">const</span> FString<span class="sy3">&amp;</span> Msg2<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		<span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>ShowOnScreenDebugMessages<span class="br0">&#41;</span> <span class="kw1">return</span><span class="sy4">;</span>
+		GEngine<span class="sy2">-</span><span class="sy1">&gt;</span>AddOnScreenDebugMessage<span class="br0">&#40;</span><span class="sy2">-</span><span class="nu0">1</span>, <span class="nu0">5</span>.<span class="me1">f</span>, FColor<span class="sy4">::</span><span class="me2">Red</span>, FString<span class="sy4">::</span><span class="me2">Printf</span><span class="br0">&#40;</span>TEXT<span class="br0">&#40;</span><span class="st0">&quot;%s&#160;%s&quot;</span><span class="br0">&#41;</span>, <span class="sy2">*</span>Msg, <span class="sy2">*</span>Msg2<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+&#160;
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+&#160;
+	<span class="coMULTI">/** Called whenever this actor is being removed from a level */</span>
+	<span class="kw2">virtual</span> <span class="kw4">void</span> EndPlay<span class="br0">&#40;</span><span class="kw4">const</span> EEndPlayReason<span class="sy4">::</span><span class="me2">Type</span> EndPlayReason<span class="br0">&#41;</span> override<span class="sy4">;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id=".cpp">.cpp</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="coMULTI">/*
+&#160;
+	RamaUDPSender
+&#160;
+	by Rama
+*/</span>
+<span class="co2">#include &quot;UDPSendReceive.h&quot;</span>
+<span class="co2">#include &quot;RamaUDPSender.h&quot;</span>
+&#160;
+ARamaUDPSender<span class="sy4">::</span><span class="me2">ARamaUDPSender</span><span class="br0">&#40;</span><span class="kw4">const</span> FObjectInitializer<span class="sy3">&amp;</span> ObjectInitializer<span class="br0">&#41;</span>
+	<span class="sy4">:</span> Super<span class="br0">&#40;</span>ObjectInitializer<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>	
+	SenderSocket <span class="sy1">=</span> <span class="kw2">NULL</span><span class="sy4">;</span>
+&#160;
+	ShowOnScreenDebugMessages <span class="sy1">=</span> <span class="kw2">true</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> ARamaUDPSender<span class="sy4">::</span><span class="me2">EndPlay</span><span class="br0">&#40;</span><span class="kw4">const</span> EEndPlayReason<span class="sy4">::</span><span class="me2">Type</span> EndPlayReason<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Super<span class="sy4">::</span><span class="me2">EndPlay</span><span class="br0">&#40;</span>EndPlayReason<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="co1">//~~~~~~~~~~~~~~~~</span>
+&#160;
+	<span class="kw1">if</span><span class="br0">&#40;</span>SenderSocket<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		SenderSocket<span class="sy2">-</span><span class="sy1">&gt;</span>Close<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		ISocketSubsystem<span class="sy4">::</span><span class="me2">Get</span><span class="br0">&#40;</span>PLATFORM_SOCKETSUBSYSTEM<span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>DestroySocket<span class="br0">&#40;</span>SenderSocket<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">bool</span> ARamaUDPSender<span class="sy4">::</span><span class="me2">StartUDPSender</span><span class="br0">&#40;</span>
+	<span class="kw4">const</span> FString<span class="sy3">&amp;</span> YourChosenSocketName,
+	<span class="kw4">const</span> FString<span class="sy3">&amp;</span> TheIP, 
+	<span class="kw4">const</span> <span class="kw4">int32</span> ThePort
+<span class="br0">&#41;</span><span class="br0">&#123;</span>	
+	<span class="co1">//Create Remote Address.</span>
+	RemoteAddr <span class="sy1">=</span> ISocketSubsystem<span class="sy4">::</span><span class="me2">Get</span><span class="br0">&#40;</span>PLATFORM_SOCKETSUBSYSTEM<span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>CreateInternetAddr<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw4">bool</span> bIsValid<span class="sy4">;</span>
+	RemoteAddr<span class="sy2">-</span><span class="sy1">&gt;</span>SetIp<span class="br0">&#40;</span><span class="sy2">*</span>TheIP, bIsValid<span class="br0">&#41;</span><span class="sy4">;</span>
+	RemoteAddr<span class="sy2">-</span><span class="sy1">&gt;</span>SetPort<span class="br0">&#40;</span>ThePort<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>bIsValid<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		ScreenMsg<span class="br0">&#40;</span><span class="st0">&quot;Rama UDP Sender&gt;&gt; IP address was not valid!&quot;</span>, TheIP<span class="br0">&#41;</span><span class="sy4">;</span>
+		<span class="kw1">return</span> <span class="kw2">false</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+&#160;
+	SenderSocket <span class="sy1">=</span> FUdpSocketBuilder<span class="br0">&#40;</span><span class="sy2">*</span>YourChosenSocketName<span class="br0">&#41;</span>
+		.<span class="me1">AsReusable</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+		.<span class="me1">WithBroadcast</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+	<span class="sy4">;</span>
+&#160;
+&#160;
+	<span class="co1">//check(SenderSocket-&gt;GetSocketType() == SOCKTYPE_Datagram);</span>
+&#160;
+	<span class="co1">//Set Send Buffer Size</span>
+	<span class="kw4">int32</span> SendSize <span class="sy1">=</span> <span class="nu0">2</span><span class="sy2">*</span><span class="nu0">1024</span><span class="sy2">*</span><span class="nu0">1024</span><span class="sy4">;</span>
+	SenderSocket<span class="sy2">-</span><span class="sy1">&gt;</span>SetSendBufferSize<span class="br0">&#40;</span>SendSize,SendSize<span class="br0">&#41;</span><span class="sy4">;</span>
+	SenderSocket<span class="sy2">-</span><span class="sy1">&gt;</span>SetReceiveBufferSize<span class="br0">&#40;</span>SendSize, SendSize<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	UE_LOG<span class="br0">&#40;</span>LogTemp,Log,TEXT<span class="br0">&#40;</span><span class="st0">&quot;<span class="es1">\n</span><span class="es1">\n</span><span class="es1">\n</span>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	UE_LOG<span class="br0">&#40;</span>LogTemp,Log,TEXT<span class="br0">&#40;</span><span class="st0">&quot;Rama ****UDP**** Sender Initialized Successfully!!!&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	UE_LOG<span class="br0">&#40;</span>LogTemp,Log,TEXT<span class="br0">&#40;</span><span class="st0">&quot;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<span class="es1">\n</span><span class="es1">\n</span><span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">return</span> <span class="kw2">true</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">bool</span> ARamaUDPSender<span class="sy4">::</span><span class="me2">RamaUDPSender_SendString</span><span class="br0">&#40;</span>FString ToSend<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>SenderSocket<span class="br0">&#41;</span> 
+	<span class="br0">&#123;</span>
+		ScreenMsg<span class="br0">&#40;</span><span class="st0">&quot;No sender socket&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		<span class="kw1">return</span> <span class="kw2">false</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+	<span class="co1">//~~~~~~~~~~~~~~~~</span>
+&#160;
+	<span class="kw4">int32</span> BytesSent <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span>
+&#160;
+	FAnyCustomData NewData<span class="sy4">;</span>
+	NewData.<span class="me1">Scale</span> <span class="sy1">=</span> FMath<span class="sy4">::</span><span class="me2">FRandRange</span><span class="br0">&#40;</span><span class="nu0">0</span>,<span class="nu0">1000</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	NewData.<span class="me1">Count</span> <span class="sy1">=</span> FMath<span class="sy4">::</span><span class="me2">RandRange</span><span class="br0">&#40;</span><span class="nu0">0</span>,<span class="nu0">100</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	NewData.<span class="me1">Color</span> <span class="sy1">=</span> FLinearColor<span class="br0">&#40;</span>FMath<span class="sy4">::</span><span class="me2">FRandRange</span><span class="br0">&#40;</span><span class="nu0">0</span>,<span class="nu0">1</span><span class="br0">&#41;</span>,FMath<span class="sy4">::</span><span class="me2">FRandRange</span><span class="br0">&#40;</span><span class="nu0">0</span>,<span class="nu0">1</span><span class="br0">&#41;</span>,FMath<span class="sy4">::</span><span class="me2">FRandRange</span><span class="br0">&#40;</span><span class="nu0">0</span>,<span class="nu0">1</span><span class="br0">&#41;</span>,<span class="nu0">1</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	FArrayWriter Writer<span class="sy4">;</span>
+&#160;
+	Writer <span class="sy1">&lt;&lt;</span> NewData<span class="sy4">;</span> <span class="co1">//Serializing our custom data, thank you UE4!</span>
+&#160;
+	SenderSocket<span class="sy2">-</span><span class="sy1">&gt;</span>SendTo<span class="br0">&#40;</span>Writer.<span class="me1">GetData</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,Writer.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,BytesSent,<span class="sy2">*</span>RemoteAddr<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">if</span><span class="br0">&#40;</span>BytesSent <span class="sy1">&lt;=</span> <span class="nu0">0</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		<span class="kw4">const</span> FString Str <span class="sy1">=</span> <span class="st0">&quot;Socket is valid but the receiver received 0 bytes, make sure it is listening properly!&quot;</span><span class="sy4">;</span>
+		UE_LOG<span class="br0">&#40;</span>LogTemp,Error,TEXT<span class="br0">&#40;</span><span class="st0">&quot;%s&quot;</span><span class="br0">&#41;</span>,<span class="sy2">*</span>Str<span class="br0">&#41;</span><span class="sy4">;</span>
+		ScreenMsg<span class="br0">&#40;</span>Str<span class="br0">&#41;</span><span class="sy4">;</span>
+		<span class="kw1">return</span> <span class="kw2">false</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+&#160;
+	ScreenMsg<span class="br0">&#40;</span><span class="st0">&quot;UDP~ Send Succcess! Bytes Sent = &quot;</span>,BytesSent <span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">return</span> <span class="kw2">true</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>The core here is:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">FArrayWriter Writer<span class="sy4">;</span>
+&#160;
+Writer <span class="sy1">&lt;&lt;</span> NewData<span class="sy4">;</span> <span class="co1">//Serializing our custom data, thank you UE4!</span>
+&#160;
+SenderSocket<span class="sy2">-</span><span class="sy1">&gt;</span>SendTo<span class="br0">&#40;</span>Writer.<span class="me1">GetData</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,Writer.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span>,BytesSent,<span class="sy2">*</span>RemoteAddr<span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<p>I am using UE4's ArrayWriter to do the serializtion and then send this serialized data over the network.
+</p>
+<h2><span class="mw-headline" id="Receiver">Receiver</span></h2>
+<h3><span class="mw-headline" id=".h_2">.h</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="coMULTI">/*
+&#160;
+	By Rama
+&#160;
+*/</span>
+<span class="co2">#pragma once</span>
+&#160;
+<span class="co1">//Networking</span>
+<span class="co2">#include &quot;Networking.h&quot;</span>
+&#160;
+<span class="co1">//Base</span>
+<span class="co2">#include &quot;RamaUDPReceiver.generated.h&quot;</span>
+&#160;
+UCLASS<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw2">class</span> ARamaUDPReceiver <span class="sy4">:</span> <span class="kw2">public</span> AActor
+<span class="br0">&#123;</span>
+	GENERATED_UCLASS_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+<span class="co1">//====================================================</span>
+<span class="co1">//		Data Received Events!</span>
+<span class="kw2">public</span><span class="sy4">:</span>
+	<span class="coMULTI">/** Data has been received!! */</span>
+	UFUNCTION<span class="br0">&#40;</span>BlueprintImplementableEvent<span class="br0">&#41;</span>
+	<span class="kw4">void</span> BPEvent_DataReceived<span class="br0">&#40;</span><span class="kw4">const</span> FAnyCustomData<span class="sy3">&amp;</span> ReceivedData <span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="co1">//====================================================</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+	FSocket<span class="sy2">*</span> ListenSocket<span class="sy4">;</span>
+&#160;
+	FUdpSocketReceiver<span class="sy2">*</span> UDPReceiver <span class="sy1">=</span> nullptr<span class="sy4">;</span>
+	<span class="kw4">void</span> Recv<span class="br0">&#40;</span><span class="kw4">const</span> FArrayReaderPtr<span class="sy3">&amp;</span> ArrayReaderPtr, <span class="kw4">const</span> FIPv4Endpoint<span class="sy3">&amp;</span> EndPt<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw4">bool</span> StartUDPReceiver<span class="br0">&#40;</span>
+		<span class="kw4">const</span> FString<span class="sy3">&amp;</span> YourChosenSocketName,
+		<span class="kw4">const</span> FString<span class="sy3">&amp;</span> TheIP, 
+		<span class="kw4">const</span> <span class="kw4">int32</span> ThePort
+	<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="co1">//ScreenMsg</span>
+	FORCEINLINE <span class="kw4">void</span> ScreenMsg<span class="br0">&#40;</span><span class="kw4">const</span> FString<span class="sy3">&amp;</span> Msg<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		GEngine<span class="sy2">-</span><span class="sy1">&gt;</span>AddOnScreenDebugMessage<span class="br0">&#40;</span><span class="sy2">-</span><span class="nu0">1</span>, <span class="nu0">5</span>.<span class="me1">f</span>, FColor<span class="sy4">::</span><span class="me2">Red</span>, <span class="sy2">*</span>Msg<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+	FORCEINLINE <span class="kw4">void</span> ScreenMsg<span class="br0">&#40;</span><span class="kw4">const</span> FString<span class="sy3">&amp;</span> Msg, <span class="kw4">const</span> <span class="kw4">float</span> Value<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		GEngine<span class="sy2">-</span><span class="sy1">&gt;</span>AddOnScreenDebugMessage<span class="br0">&#40;</span><span class="sy2">-</span><span class="nu0">1</span>, <span class="nu0">5</span>.<span class="me1">f</span>, FColor<span class="sy4">::</span><span class="me2">Red</span>, FString<span class="sy4">::</span><span class="me2">Printf</span><span class="br0">&#40;</span>TEXT<span class="br0">&#40;</span><span class="st0">&quot;%s&#160;%f&quot;</span><span class="br0">&#41;</span>, <span class="sy2">*</span>Msg, Value<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+	FORCEINLINE <span class="kw4">void</span> ScreenMsg<span class="br0">&#40;</span><span class="kw4">const</span> FString<span class="sy3">&amp;</span> Msg, <span class="kw4">const</span> FString<span class="sy3">&amp;</span> Msg2<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		GEngine<span class="sy2">-</span><span class="sy1">&gt;</span>AddOnScreenDebugMessage<span class="br0">&#40;</span><span class="sy2">-</span><span class="nu0">1</span>, <span class="nu0">5</span>.<span class="me1">f</span>, FColor<span class="sy4">::</span><span class="me2">Red</span>, FString<span class="sy4">::</span><span class="me2">Printf</span><span class="br0">&#40;</span>TEXT<span class="br0">&#40;</span><span class="st0">&quot;%s&#160;%s&quot;</span><span class="br0">&#41;</span>, <span class="sy2">*</span>Msg, <span class="sy2">*</span>Msg2<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+&#160;
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+&#160;
+	<span class="coMULTI">/** Called whenever this actor is being removed from a level */</span>
+	<span class="kw2">virtual</span> <span class="kw4">void</span> EndPlay<span class="br0">&#40;</span><span class="kw4">const</span> EEndPlayReason<span class="sy4">::</span><span class="me2">Type</span> EndPlayReason<span class="br0">&#41;</span> override<span class="sy4">;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id=".cpp_2">.cpp</span></h3>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="coMULTI">/*
+&#160;
+	RamaUDPReceiver
+&#160;
+	by Rama
+*/</span>
+<span class="co2">#include &quot;UDPSendReceive.h&quot;</span>
+<span class="co2">#include &quot;RamaUDPReceiver.h&quot;</span>
+&#160;
+ARamaUDPReceiver<span class="sy4">::</span><span class="me2">ARamaUDPReceiver</span><span class="br0">&#40;</span><span class="kw4">const</span> FObjectInitializer<span class="sy3">&amp;</span> ObjectInitializer<span class="br0">&#41;</span>
+	<span class="sy4">:</span> Super<span class="br0">&#40;</span>ObjectInitializer<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>	
+	ListenSocket <span class="sy1">=</span> <span class="kw2">NULL</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> ARamaUDPReceiver<span class="sy4">::</span><span class="me2">EndPlay</span><span class="br0">&#40;</span><span class="kw4">const</span> EEndPlayReason<span class="sy4">::</span><span class="me2">Type</span> EndPlayReason<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	Super<span class="sy4">::</span><span class="me2">EndPlay</span><span class="br0">&#40;</span>EndPlayReason<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="co1">//~~~~~~~~~~~~~~~~</span>
+&#160;
+	<span class="kw3">delete</span> UDPReceiver<span class="sy4">;</span>
+	UDPReceiver <span class="sy1">=</span> nullptr<span class="sy4">;</span>
+&#160;
+	<span class="co1">//Clear all sockets!</span>
+	<span class="co1">//		makes sure repeat plays in Editor dont hold on to old sockets!</span>
+	<span class="kw1">if</span><span class="br0">&#40;</span>ListenSocket<span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		ListenSocket<span class="sy2">-</span><span class="sy1">&gt;</span>Close<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		ISocketSubsystem<span class="sy4">::</span><span class="me2">Get</span><span class="br0">&#40;</span>PLATFORM_SOCKETSUBSYSTEM<span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>DestroySocket<span class="br0">&#40;</span>ListenSocket<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="co1">//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+<span class="co1">//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+<span class="co1">//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+&#160;
+<span class="co1">//Rama's Start TCP Receiver</span>
+<span class="kw4">bool</span> ARamaUDPReceiver<span class="sy4">::</span><span class="me2">StartUDPReceiver</span><span class="br0">&#40;</span>
+	<span class="kw4">const</span> FString<span class="sy3">&amp;</span> YourChosenSocketName,
+	<span class="kw4">const</span> FString<span class="sy3">&amp;</span> TheIP, 
+	<span class="kw4">const</span> <span class="kw4">int32</span> ThePort
+<span class="br0">&#41;</span><span class="br0">&#123;</span>
+&#160;
+	ScreenMsg<span class="br0">&#40;</span><span class="st0">&quot;RECEIVER INIT&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//~~~</span>
+&#160;
+	FIPv4Address Addr<span class="sy4">;</span>
+	FIPv4Address<span class="sy4">::</span><span class="me2">Parse</span><span class="br0">&#40;</span>TheIP, Addr<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//Create Socket</span>
+	FIPv4Endpoint Endpoint<span class="br0">&#40;</span>Addr, ThePort<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//BUFFER SIZE</span>
+	<span class="kw4">int32</span> BufferSize <span class="sy1">=</span> <span class="nu0">2</span><span class="sy2">*</span><span class="nu0">1024</span><span class="sy2">*</span><span class="nu0">1024</span><span class="sy4">;</span>
+&#160;
+	ListenSocket <span class="sy1">=</span> FUdpSocketBuilder<span class="br0">&#40;</span><span class="sy2">*</span>YourChosenSocketName<span class="br0">&#41;</span>
+		.<span class="me1">AsNonBlocking</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+		.<span class="me1">AsReusable</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+		.<span class="me1">BoundToEndpoint</span><span class="br0">&#40;</span>Endpoint<span class="br0">&#41;</span>
+		.<span class="me1">WithReceiveBufferSize</span><span class="br0">&#40;</span>BufferSize<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="sy4">;</span>
+&#160;
+	FTimespan ThreadWaitTime <span class="sy1">=</span> FTimespan<span class="sy4">::</span><span class="me2">FromMilliseconds</span><span class="br0">&#40;</span><span class="nu0">100</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	UDPReceiver <span class="sy1">=</span> <span class="kw3">new</span> FUdpSocketReceiver<span class="br0">&#40;</span>ListenSocket, ThreadWaitTime, TEXT<span class="br0">&#40;</span><span class="st0">&quot;UDP RECEIVER&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	UDPReceiver<span class="sy2">-</span><span class="sy1">&gt;</span>OnDataReceived<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">BindUObject</span><span class="br0">&#40;</span><span class="kw3">this</span>, <span class="sy3">&amp;</span>ARamaUDPReceiver<span class="sy4">::</span><span class="me2">Recv</span><span class="br0">&#41;</span><span class="sy4">;</span> 
+&#160;
+	<span class="kw1">return</span> <span class="kw2">true</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> ARamaUDPReceiver<span class="sy4">::</span><span class="me2">Recv</span><span class="br0">&#40;</span><span class="kw4">const</span> FArrayReaderPtr<span class="sy3">&amp;</span> ArrayReaderPtr, <span class="kw4">const</span> FIPv4Endpoint<span class="sy3">&amp;</span> EndPt<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	ScreenMsg<span class="br0">&#40;</span><span class="st0">&quot;Received bytes&quot;</span>, ArrayReaderPtr<span class="sy2">-</span><span class="sy1">&gt;</span>Num<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	FAnyCustomData Data<span class="sy4">;</span>
+	<span class="sy2">*</span>ArrayReaderPtr <span class="sy1">&lt;&lt;</span> Data<span class="sy4">;</span>		<span class="co1">//Now de-serializing! See AnyCustomData.h</span>
+&#160;
+	<span class="co1">//BP Event</span>
+	BPEvent_DataReceived<span class="br0">&#40;</span>Data<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>The core here is the binding of the receiver thread delegate:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">UDPReceiver<span class="sy2">-</span><span class="sy1">&gt;</span>OnDataReceived<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">BindUObject</span><span class="br0">&#40;</span><span class="kw3">this</span>, <span class="sy3">&amp;</span>ARamaUDPReceiver<span class="sy4">::</span><span class="me2">Recv</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<p>and then deserializing inside this delegate binded function:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">FAnyCustomData Data<span class="sy4">;</span>
+<span class="sy2">*</span>ArrayReaderPtr <span class="sy1">&lt;&lt;</span> Data<span class="sy4">;</span>		<span class="co1">//Now de-serializing! See AnyCustomData.h</span>
+&#160;
+<span class="co1">//BP Event</span>
+BPEvent_DataReceived<span class="br0">&#40;</span>Data<span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<h2><span class="mw-headline" id="TCP">TCP</span></h2>
+<p>I have a wiki on communicating via TCP here!
+<a href="/TCP_Socket_Listener,_Receive_Binary_Data_From_an_IP/Port_Into_UE4,_(Full_Code_Sample)" title="TCP Socket Listener, Receive Binary Data From an IP/Port Into UE4, (Full Code Sample)">TCP_Socket_Listener,_Receive_Binary_Data_From_an_IP/Port_Into_UE4,_(Full_Code_Sample)</a>
+</p>
+<h2><span class="mw-headline" id="Conclusion">Conclusion</span></h2>
+<p>As you can see I am using my custom USTRUCT serialization function to send any data I want from one instance of UE4 to another, and straight into Blueprints!
+</p><p>Now you can too!
+</p><p>Enjoy!
+</p><p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>) <a rel="nofollow" class="external text" href="http://www.ue4code.com">www.ue4code.com</a>
+</p>
+<h2><span class="mw-headline" id="Post_4.12">Post 4.12</span></h2>
+<p>If your receiver doesn't receive anything, you might want to try add this line: 
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">Receiver<span class="sy2">-</span><span class="sy1">&gt;</span>Start<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<p>Thanks to David_88 here: <a rel="nofollow" class="external free" href="https://forums.unrealengine.com/showthread.php?125064-FUdpSocketReceiver-not-receiving-data">https://forums.unrealengine.com/showthread.php?125064-FUdpSocketReceiver-not-receiving-data</a>
+</p><p>Another thing might help you: if you want to spawn actor or set timer in your blueprint after receiving data, you'll have to call the blueprint event BPEvent_DataReceived(...) in game thread. Rama has another tutorial about multithreading here: <a rel="nofollow" class="external free" href="https://wiki.unrealengine.com/Multi-Threading:_How_to_Create_Threads_in_UE4">https://wiki.unrealengine.com/Multi-Threading:_How_to_Create_Threads_in_UE4</a>
+</p><p>What's needed here, is the last bit of that tutorial:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co2">#include &quot;Async.h&quot;</span>
+...
+<span class="me1">AsyncTask</span><span class="br0">&#40;</span>ENamedThreads<span class="sy4">::</span><span class="me2">GameThread</span>, <span class="br0">&#91;</span><span class="sy3">&amp;</span><span class="br0">&#93;</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    BPEvent_DataReceived<span class="br0">&#40;</span>Data<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// call your event this way so it'll be executed on game thread</span>
+ <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<p>This'll call your blueprint event in game thread.
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.125 seconds
+Real time usage: 0.193 seconds
+Preprocessor visited node count: 137/1000000
+Preprocessor generated node count: 276/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:5904-0!*!0!!en!2!* and timestamp 20161223163926
+ -->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another&amp;oldid=23922">https://wiki.unrealengine.com/index.php?title=UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another&amp;oldid=23922</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.061 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

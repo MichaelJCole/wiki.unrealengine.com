@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(){}function o(e,t,n){return function(){return i(e,[f.now()].concat(u(arguments)),t?null:this,n),t?void 0:this}}var i=e("handle"),a=e(2),u=e(3),c=e("ee").get("tracer"),f=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,t){s[t]=o(d+t,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),t.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,t){var n={},r=this,o="function"==typeof t;return i(l+"tracer",[f.now(),e,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return t.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],n),e}finally{c.emit("fn-end",[f.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){m[t]=o(l+t)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,f.now()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(o<0?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],4:[function(e,t,n){t.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?c(e,u,i):i()}function n(n,r,o,i){if(!d.aborted||i){e&&e(n,r,o);for(var a=t(o),u=m(n),c=u.length,f=0;f<c;f++)u[f].apply(a,r);var p=s[y[n]];return p&&p.push([b,n,r,a]),a}}function l(e,t){v[e]=m(e).concat(t)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(n)}function g(e,t){f(e,function(e,n){t=t||"feature",y[n]=t,t in s||(s[t]=[])})}var v={},y={},b={on:l,emit:n,get:w,listeners:m,context:t,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",c=e("gos"),f=e(2),s={},p={},d=t.exports=o();d.backlog=s},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!x++){var e=h.info=NREUM.info,t=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return s.abort();f(y,function(t,n){e[t]||(e[t]=n)}),c("mark",["onload",a()+h.offset],null,"api");var n=d.createElement("script");n.src="https://"+e.agent,t.parentNode.insertBefore(n,t)}}function o(){"complete"===d.readyState&&i()}function i(){c("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),c=e("handle"),f=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1071.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=t.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+<title>Structs, USTRUCTS(), They're Awesome - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Structs,_USTRUCTS(),_They're_Awesome","wgTitle":"Structs, USTRUCTS(), They're Awesome","wgCurRevisionId":33,"wgRevisionId":33,"wgArticleId":16,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Code"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Structs,_USTRUCTS(),_They're_Awesome","wgRelevantArticleId":16,"wgRequestId":"81286fb8e135fae9d1f09796","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@1xxwts3",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Structs_USTRUCTS_They_re_Awesome rootpage-Structs_USTRUCTS_They_re_Awesome skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-09a9d3c24f8e543fe"><meta name="worker" content="139"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"hideShieldDownload":false,"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"alert":{"msg":"","_type":"Epic Header Alert","id":"","type":"info","statusHref":""},"_activeDate":"2018-08-06T09:11:04.633Z","links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://academy.unrealengine.com/","title":"Video Tutorials","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/unrealdevgrants","title":"Unreal Dev Grants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_currentVersion":"1.37.2.100","_type":"Epic Games Nav","hideSignIn":true,"pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"_futureVersion":"none","downloadLink":{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":""},"_created":"2017-08-21T08:59:33.648Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"hideShieldDropdown":false,"properties":[{"propertyKey":"paragon","_type":"Epic Games Property","egDisabled":true,"egSkip":true}],"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.7960915dddd3d03dc648.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.7960915dddd3d03dc648.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Structs%2C+USTRUCTS%28%29%2C+They%27re+Awesome" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=Structs,_USTRUCTS(),_They%27re_Awesome" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Structs,_USTRUCTS(),_They%27re_Awesome&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=Structs,_USTRUCTS(),_They%27re_Awesome">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=Structs,_USTRUCTS(),_They%27re_Awesome&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Structs,_USTRUCTS(),_They%27re_Awesome&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Structs, USTRUCTS(), They're Awesome</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Technical"><span class="tocnumber">1.1</span> <span class="toctext">Technical</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Core_Syntax"><span class="tocnumber">2</span> <span class="toctext">Core Syntax</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Examples"><span class="tocnumber">3</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Example_1"><span class="tocnumber">3.1</span> <span class="toctext">Example 1</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Example_2"><span class="tocnumber">3.2</span> <span class="toctext">Example 2</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#Particle_Data_Tracker"><span class="tocnumber">3.2.1</span> <span class="toctext">Particle Data Tracker</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Garbage_Collection"><span class="tocnumber">3.2.2</span> <span class="toctext">Garbage Collection</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Structs_With_Struct_Member_Variables"><span class="tocnumber">4</span> <span class="toctext">Structs With Struct Member Variables</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Struct_Assignment"><span class="tocnumber">5</span> <span class="toctext">Struct Assignment</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Deep_Copy"><span class="tocnumber">5.1</span> <span class="toctext">Deep Copy</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#Automatic_Make.2FBreak_in_BP"><span class="tocnumber">6</span> <span class="toctext">Automatic Make/Break in BP</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Replication"><span class="tocnumber">7</span> <span class="toctext">Replication</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#Other_notes"><span class="tocnumber">8</span> <span class="toctext">Other notes</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#Related_Links"><span class="tocnumber">9</span> <span class="toctext">Related Links</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#Thank_You_Epic_for_USTRUCTS.28.29"><span class="tocnumber">10</span> <span class="toctext">Thank You Epic for USTRUCTS()</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p><i>Original Author:</i> <a href="/index.php?title=User:Rama" title="User:Rama">Rama</a> (<a href="/index.php?title=User_talk:Rama" title="User talk:Rama">talk</a>)
+</p><p>Structs enable you to create custom variable types to organize your data, by relating other c++ or UE4 C++ data types to each other.
+</p><p>The power of structs is <b>extreme organization</b>, as well as ability to have functions for internal data type operations!
+</p>
+<h3><span class="mw-headline" id="Technical">Technical</span></h3>
+<p>Structs enable you to create custom variable types to organize your data, by relating other C++ or UE4 C++ data types to each other. The power of structs is <b>extreme organization</b> as well as the ability to have functions for <b>internal data type operations</b>. '
+</p><p>In UE4, structs should be used for simple data type combining and data management purposes. For complex interactions with the game world, you should make a UObject or AActor subclass instead.
+</p>
+<h2><span class="mw-headline" id="Core_Syntax">Core Syntax</span></h2>
+<p>&lt;syntaxhighlight lang="cpp"&gt;
+//If you want this to appear in BP, make sure to use this instead
+//USTRUCT(BlueprintType)
+USTRUCT()
+struct FJoyStruct
+{
+	GENERATED_BODY()
+</p><p>	//Always make USTRUCT variables into UPROPERTY()
+	//    any non-UPROPERTY() struct vars are not replicated
+</p><p>	// So to simplify your life for later debugging, always use UPROPERTY()
+	UPROPERTY()
+	int32 SampleInt32;
+</p>
+<pre>       //If you want the property to appear in BP, make sure to use this instead
+       //UPROPERTY(BlueprintReadOnly)
+</pre>
+<p>	UPROPERTY()
+	AActor* TargetActor;
+</p><p>	//Set
+	void SetInt(const int32 NewValue)
+	{
+		SampleInt32 = NewValue;
+	}
+</p><p>	//Get
+	AActor* GetActor()
+	{
+		return TargetActor;
+	}
+</p><p>	//Check
+	bool ActorIsValid() const
+	{
+		if(!TargetActor) return false;
+		return TargetActor-&gt;IsValidLowLevel();
+	}
+</p><p>	//Constructor
+	FJoyStruct()
+	{
+		//Always initialize your USTRUCT variables!
+		//   exception is if you know the variable type has its own default constructor
+		SampleInt32 	= 5;
+		TargetActor = NULL;
+	}
+};
+&lt;/syntaxhighlight&gt;
+</p><p><br />
+<i>Additional Note Author:</i> <a href="/index.php?title=User:DesertEagle_PWN&amp;action=edit&amp;redlink=1" class="new" title="User:DesertEagle PWN (page does not exist)">DesertEagle_PWN</a> (<a href="/index.php?title=User_talk:DesertEagle_PWN&amp;action=edit&amp;redlink=1" class="new" title="User talk:DesertEagle PWN (page does not exist)">talk</a>)<br />
+Additional Note: The idea of USTRUCTS() is to declare engine data types that are in global scope and can be accessed by other classes/structs/blueprints. Because of this, it is invalid UE4 syntax to declare a struct inside of a class or other struct if using the USTRUCT() macro. Regular structs can still be utilized inside your classes and other structs; however these cannot be replicated natively and will not be available for UE4 reflective debugging or other engine systems such as Blueprints.
+</p><p><i>Additional Note Author:</i> <a href="/index.php?title=User:Darkgaze&amp;action=edit&amp;redlink=1" class="new" title="User:Darkgaze (page does not exist)">Darkgaze</a> (<a href="/index.php?title=User_talk:Darkgaze&amp;action=edit&amp;redlink=1" class="new" title="User talk:Darkgaze (page does not exist)">talk</a>)<br />
+Additional Note: Concerning the variables visibility on the editor: In the example above, if you don't add "EditAnywhere" parameter into UPROPERTY inside the members of the USTRUCT, whey won't show up in the Editor panel. You will see the variable but there will be no way to see/change/unfold the values inside. The class that defines a new UPROPERTY using that struct type should have that parameter too. 
+In case you can't modify the data and you are using blueprints, you should add BlueprintType inside the USTRUCT parenthesis.
+</p>
+<h2><span class="mw-headline" id="Examples">Examples</span></h2>
+<h3><span class="mw-headline" id="Example_1">Example 1</span></h3>
+<p>You want to relate a float brightness value with a world space location FVector, both of which are interpolated using an Alpha value.
+</p>
+<ul><li>And you want to do this for 100 different game locations simultaneously.</li></ul>
+<ul><li>And you want to do this process repeatedly over time!</li></ul>
+<ul><li>You need to store the incremental interpolation values between game events.</li></ul>
+<ul><li>AActors/UObjects are not involved (You could just subclass AActor/UObject and store the data per instance)</li></ul>
+<p><br />
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+USTRUCT()
+struct FMyInterpStruct
+{
+	GENERATED_BODY()
+</p><p>	UPROPERTY()
+	float Brightness;
+</p><p>	UPROPERTY()
+	float BrightnessGoal; //interping to
+</p><p>	UPROPERTY()
+	FVector Location;
+</p><p>	UPROPERTY()
+	FVector LocationGoal;
+</p><p>	UPROPERTY()
+	float Alpha;
+</p><p>	void InterpInternal()
+	{
+		Location = FMath::Lerp&lt;FVector&gt;(Location,LocationGoal,Alpha);
+		Brightness = FMath::Lerp&lt;float&gt;(Brightness,BrightnessGoal,Alpha);
+	}
+</p><p>	//Brightness out is returned, FVector is returned by reference
+	float Interp(const float&amp; NewAlpha, FVector&amp; Out)
+	{
+		//value received from rest of your game engine
+		Alpha = NewAlpha;
+</p><p>		//Internal data structure management
+		InterpInternal();
+</p><p>		//Return Values
+		Out = Location;
+		return Brightness;
+	}
+	FMyInterpStruct()
+	{
+		Brightness = 2; 
+		BrightnessGoal = 100;
+</p><p>		Alpha = 0; 
+</p><p>		Location = FVector::ZeroVector;
+		LocationGoal = FVector(0,0,200000);
+	}
+};
+&lt;/syntaxhighlight&gt;
+</p>
+<h3><span class="mw-headline" id="Example_2">Example 2</span></h3>
+<p>You want to track information about particle system components that you have spawned into the world through
+</p>
+<pre> UGameplayStatics::SpawnEmitterAtLocation() // returns a UParticleSystemComponent
+</pre>
+<p>and you want to track the lifetime of the particle and apply parameter changes from C++. You could write your own class, but if your needs are simple or you do not have project-permissions to make a subclass of UParticleSystemComponent, you can just make a USTRUCT to relate the various data types!
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+USTRUCT()
+struct FParticleStruct
+{
+	GENERATED_BODY()
+</p><p>	UPROPERTY()
+	UParticleSystemComponent* PSCPtr;
+</p><p>	UPROPERTY()
+	float LifeTime;
+</p><p>	void SetColor()
+	{
+		//
+	}
+	FLinearColor GetCurrentColor() const
+	{
+		//
+	}
+</p><p>	//For GC
+	void Destroy()
+	{
+		PSCPtr = nullptr;
+	}
+</p><p>	//Constructor
+	FParticleStruct()
+	{
+		PSCPtr = NULL;
+		LifeTime = -1;
+	}
+};
+&lt;/syntaxhighlight&gt;
+</p>
+<h4><span class="mw-headline" id="Particle_Data_Tracker">Particle Data Tracker</span></h4>
+<p>Now you can have an array of these USTRUCTS for each particle that you spawn!
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+//Particle Data Tracking Array
+UPROPERTY()
+TArray&lt;FParticleStruct&gt; PSCArray;
+&lt;/syntaxhighlight&gt;
+</p>
+<h4><span class="mw-headline" id="Garbage_Collection">Garbage Collection</span></h4>
+<p>By marking a USTRUCT or USTRUCT array as UPROPERTY() and marking any UObject / AActor members as UPROPERTY(), you are protected from dangling pointer crashes
+</p><p><a href="/index.php?title=How_To_Prevent_Crashes_Due_To_Dangling_Actor_Pointers" title="How To Prevent Crashes Due To Dangling Actor Pointers">How_To_Prevent_Crashes_Due_To_Dangling_Actor_Pointers</a>
+</p><p>However you must also clear ustructs you no longer need if they have pointers to UObjects if you ever want GC to be able garbage collect those UObjects.
+</p>
+<h2><span class="mw-headline" id="Structs_With_Struct_Member_Variables">Structs With Struct Member Variables</span></h2>
+<p>The struct that wants to use another struct must be defined below the struct it wants to include.
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+USTRUCT()
+struct FFlowerStruct
+{
+	GENERATED_BODY()
+</p><p>	UPROPERTY()
+	int32 NumPetals;
+</p><p>	UPROPERTY()
+	FLinearColor Color;
+</p><p>	UPROPERTY()
+	FVector Scale3D;
+</p><p>	void SetFlowerColor(const FLinearColor&amp; NewColor)
+	{
+		Color = NewColor;
+	}
+</p><p>	FFlowerStruct()
+	{
+		NumPetals 	= 5;
+		Scale3D 		= FVector(1,1,1);
+		Color 			= FLinearColor(1,0,0,1);
+	}
+};
+</p><p>USTRUCT()
+struct FIslandStruct
+{
+	GENERATED_BODY()
+</p><p>	UPROPERTY()
+	int32 Type;
+</p><p>	UPROPERTY()
+	TArray&lt;FVector&gt; StarLocations;
+</p><p>	UPROPERTY()
+	float RainAlpha;
+</p><p>	//Dynamic Array of Flower Custom USTRUCT()
+	UPROPERTY()
+	TArray&lt;FFlowerStruct&gt; FlowersOnThisIsland;
+</p><p>	void SetRainAlpha(const float&amp; NewAlpha) 
+	{
+		RainAlpha = NewAlpha;
+	}
+</p><p>	int32 GetStarCount() const
+	{
+		return StarLocations.Num();
+	}
+	FIslandStruct()
+	{
+		Type = 0;
+		Percent = 1;
+	}
+};
+&lt;/syntaxhighlight&gt;
+</p>
+<h2><span class="mw-headline" id="Struct_Assignment">Struct Assignment</span></h2>
+<p>My personal favorite thing about structs is that unlike UObject or AActor classes, which must be utilized via pointers (AActor*) you can directly copy the entire contents of a USTRUCT to another USTRUCT of the same type with a single line of assignment!
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+FFlowerStruct ExistingFlower;
+</p><p>// ... create ExistingFlower here
+</p><p>FFlowerStruct NewFlower;
+NewFlower = ExistingFlower;
+&lt;/syntaxhighlight&gt;
+</p>
+<h3><span class="mw-headline" id="Deep_Copy">Deep Copy</span></h3>
+<p>If you have struct members pointing to UObjects or array pointers, you must be careful to copy these members yourself!
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+USTRUCT()
+struct FMyStruct {
+</p>
+<pre>   int32* MyIntArray;
+</pre>
+<p>};
+</p><p>FMyStruct MyFirstStruct, MySecondStruct;
+</p><p>// Create the integer array on the first struct
+MyFirstStruct.MyIntArray = new int32[10];
+for( int i = 0; i &lt; 10; ++i ) {
+</p>
+<pre> MyFirstStruct.MyIntArray[i] = i;
+</pre>
+<p>}
+</p><p>GEngine-&gt;AddOnScreenMessage(-1, 10.f, FColor::Blue, FString::FromInt(MyFirstStruct.MyIntArray[4]));
+</p><p>// Assign the first struct to the second struct, i.e. create a shallow copy
+MySecondStruct.MyIntArray[4] = 6;
+</p><p>GEngine-&gt;AddOnScreenMessage(-1, 10.f, FColor::Blue, FString::Printf(TEXT("%d&#160;%d"), MyFirstStruct.MyIntArray[4], MySecondStruct.MyIntArray[4]));
+&lt;/syntaxhighlight&gt;
+</p><p>On screen the output will be
+</p>
+<pre> 4
+ 6 6
+</pre>
+<p>instead of the expected
+</p>
+<pre> 4
+ 4 6
+</pre>
+<p>This is because the data stored in MyStruct::MyIntArray is not actually stored inside of MyStruct. The <i>new</i> keyword creates the data somewhere in RAM and we simply store a pointer there. The address the pointer stores is copied over to <i>MySecondStruct</i>, but it still points to the same data. In fact, it would be counterproductive to remove this functionality since there are cases where you want exactly that. Additionally the Unreal Property System does not support non-UObject pointers, which is why <i>MyIntArray</i> is not marked with UPROPERTY().
+</p><p>However, copying arrays of integers (e.g. int32[10] instead of int32*) means the data is stored directly inside the struct and as such "deep copied". However, if you store a pointer to a UObject, this object is NOT deep copied! Once again only the pointer is copied and the original UObject left unchanged. Which is good because otherwise you might manipulate the wrong instance thinking you only had one to begin with leaving the original UObject unaffected, thus resembling a very nerve-wrecking and very difficult to track down bug!
+</p>
+<h2><span class="mw-headline" id="Automatic_Make.2FBreak_in_BP">Automatic Make/Break in BP</span></h2>
+<p>Marking the USTRUCT as <i>BlueprintType</i> and adding <i>EditAnywhere, BlueprintReadWrite, Category = "Your Category"</i> to USTRUCT properties causes UE4 to automatically create <i>Make</i> and <i>Break</i> Blueprint functions, allowing to construct or extract data from the custom USTRUCT.
+</p><p>Special thanks to Community member Iniside for pointing this out.&#160;:)
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+USTRUCT(BlueprintType)
+struct FFlowerStruct
+{
+	GENERATED_BODY()
+</p><p>	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flower Struct")
+	int32 NumPetals;
+</p><p>	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flower Struct")
+	FLinearColor Color;
+</p><p>	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flower Struct")
+	FVector Scale3D;
+};
+&lt;/syntaxhighlight&gt;
+</p><p><a href="/index.php?title=File:CustomUStructMakeBreak.jpg" class="image"><img alt="CustomUStructMakeBreak.jpg" src="https://d3ar1piqh1oeli.cloudfront.net/0/0d/CustomUStructMakeBreak.jpg/1000px-CustomUStructMakeBreak.jpg" width="1000" height="560" srcset="https://d26ilriwvtzlb.cloudfront.net/0/0d/CustomUStructMakeBreak.jpg 1.5x" /></a>
+</p>
+<h2><span class="mw-headline" id="Replication">Replication</span></h2>
+<hr />
+<hr />
+<hr />
+<pre> Remember that only UPROPERTY() variables of USTRUCTS() are considered for replication!
+</pre>
+<hr />
+<hr />
+<hr />
+<p>So if your USTRUCT is not replicating properly, the first thing you should check is that every member is at least UPROPERTY()! The struct does not have be a BlueprintType, it just needs UPROPERTY() above all properties that you want replicated.
+</p>
+<h2><span class="mw-headline" id="Other_notes">Other notes</span></h2>
+<p>In case you are looking for GENERATED_USTRUCT_BODY, in 4.11+, GENERATED_BODY() should be used instead. 
+</p>
+<h2><span class="mw-headline" id="Related_Links">Related Links</span></h2>
+<p><a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?103241-UE_Log-crashing-engine-when-trying-to-print-a-FString&amp;p=488561&amp;viewfull=1#post488561">UStruct data member memory management</a>
+</p>
+<h2><span class="mw-headline" id="Thank_You_Epic_for_USTRUCTS.28.29">Thank You Epic for USTRUCTS()</span></h2>
+<p>I love USTRUCTS(), thank you Epic!
+</p><p><a href="/index.php?title=User:Rama" title="User:Rama">Rama</a> (<a href="/index.php?title=User_talk:Rama" title="User talk:Rama">talk</a>)
+</p><p><br />
+Additional edits <a href="/index.php?title=User:Darkgaze&amp;action=edit&amp;redlink=1" class="new" title="User:Darkgaze (page does not exist)">Darkgaze</a> (<a href="/index.php?title=User_talk:Darkgaze&amp;action=edit&amp;redlink=1" class="new" title="User talk:Darkgaze (page does not exist)">talk</a>)
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20180922104203
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.044 seconds
+Real time usage: 0.103 seconds
+Preprocessor visited node count: 65/1000000
+Preprocessor generated node count: 74/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:16-0!canonical and timestamp 20180922104203 and revision id 33
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=Structs,_USTRUCTS(),_They%27re_Awesome&amp;oldid=33">https://wiki.unrealengine.com/index.php?title=Structs,_USTRUCTS(),_They%27re_Awesome&amp;oldid=33</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="/index.php?title=Category:Code" title="Category:Code">Code</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-09a9d3c24f8e543fe"><meta name="worker" content="69"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.31","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/gHooNW9I/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Edit the global content type","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.7960915dddd3d03dc648.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.7960915dddd3d03dc648.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.044","walltime":"0.103","ppvisitednodes":{"value":65,"limit":1000000},"ppgeneratednodes":{"value":74,"limit":1000000},"postexpandincludesize":{"value":0,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.000      1 -total"]},"cachereport":{"timestamp":"20180922104203","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":189});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":232,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

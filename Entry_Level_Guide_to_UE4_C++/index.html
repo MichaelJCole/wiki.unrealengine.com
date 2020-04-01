@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Entry Level Guide to UE4 C++ - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Entry_Level_Guide_to_UE4_C++","wgTitle":"Entry Level Guide to UE4 C++","wgCurRevisionId":23745,"wgRevisionId":23745,"wgArticleId":816,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Templates","Tutorials","Code","Community Created Content"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Entry_Level_Guide_to_UE4_C++","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["ext.voteNY","mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Entry_Level_Guide_to_UE4_C skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head"></div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-recentchanges"><a href="/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Community' aria-labelledby='p-Community-label'>
+	<h3 id='p-Community-label'>Community</h3>
+	<div class="body">
+		<ul>
+			<li id="n-UE4-Games"><a href="/Category:Games">UE4 Games</a></li>
+			<li id="n-Dev-Blogs"><a href="/Developer_Blogs">Dev Blogs</a></li>
+			<li id="n-Dev-Livestreams"><a href="/Developer_Livestreams">Dev Livestreams</a></li>
+			<li id="n-Code-Sharing-Hub"><a href="/GitHub_Sharing_Hub">Code Sharing Hub</a></li>
+			<li id="n-UE-User-Groups"><a href="/User_Group_Map">UE User Groups</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Learning_Resources' aria-labelledby='p-Learning_Resources-label'>
+	<h3 id='p-Learning_Resources-label'>Learning Resources</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Example-Projects"><a href="/Category:Example_Projects">Example Projects</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Software_and_Tools' aria-labelledby='p-Software_and_Tools-label'>
+	<h3 id='p-Software_and_Tools-label'>Software and Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Art:-3D"><a href="/3D_Art_Resources">Art: 3D</a></li>
+			<li id="n-Art:-2D"><a href="/2D_Art_Resources">Art: 2D</a></li>
+			<li id="n-Audio"><a href="/Audio_Resources">Audio</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Modding' aria-labelledby='p-Modding-label'>
+	<h3 id='p-Modding-label'>Modding</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Modding-Resources"><a href="/Category:Modding_Resources">Modding Resources</a></li>
+			<li id="n-Moddable-Games"><a href="/Category:Moddable_Games">Moddable Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Epic_Official' aria-labelledby='p-Epic_Official-label'>
+	<h3 id='p-Epic_Official-label'>Epic Official</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Website"><a href="https://www.unrealengine.com" rel="nofollow">Website</a></li>
+			<li id="n-Learning-Resources"><a href="https://docs.unrealengine.com/latest/INT/" rel="nofollow">Learning Resources</a></li>
+			<li id="n-Forums"><a href="https://forums.unrealengine.com/" rel="nofollow">Forums</a></li>
+			<li id="n-Blog"><a href="https://www.unrealengine.com/blog" rel="nofollow">Blog</a></li>
+			<li id="n-YouTube"><a href="https://www.youtube.com/UnrealEngine" rel="nofollow">YouTube</a></li>
+			<li id="n-Twitch"><a href="http://www.twitch.tv/unrealengine" rel="nofollow">Twitch</a></li>
+			<li id="n-Twitter"><a href="https://twitter.com/UnrealEngine" rel="nofollow">Twitter</a></li>
+			<li id="n-Facebook"><a href="https://www.facebook.com/UnrealEngine" rel="nofollow">Facebook</a></li>
+			<li id="n-Instagram"><a href="https://instagram.com/unrealengine/" rel="nofollow">Instagram</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Entry_Level_Guide_to_UE4_C%2B%2B" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Entry_Level_Guide_to_UE4_C%2B%2B" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=Entry_Level_Guide_to_UE4_C%2B%2B&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Entry_Level_Guide_to_UE4_C%2B%2B&amp;oldid=23745" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Entry_Level_Guide_to_UE4_C%2B%2B&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Entry_Level_Guide_to_UE4_C%2B%2B"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk"><span><a href="/Talk:Entry_Level_Guide_to_UE4_C%2B%2B"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Entry_Level_Guide_to_UE4_C%2B%2B" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Entry_Level_Guide_to_UE4_C%2B%2B&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Entry_Level_Guide_to_UE4_C%2B%2B&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Entry+Level+Guide+to+UE4+C%2B%2B&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Entry+Level+Guide+to+UE4+C%2B%2B" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Entry Level Guide to UE4 C++</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="aux">
+<div>
+<b>Rate this Article:</b> <div id="rating_"><div class="rating-score"><div class="voteboxrate">5.00</div></div><div class="rating-section"><img class="vote-rating-star" data-vote-the-vote="1" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__1" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="2" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__2" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="3" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__3" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="4" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__4" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="5" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__5" src="/extensions/VoteNY/images/star_on.gif" alt="" /> <span class="rating-total">(21 votes)</span></div>
+				<div class="rating-clear">
+			</div></div>
+</div>
+<div>
+<p>Approved for Versions:(please verify)
+</p>
+</div>
+</div>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#What_is_a_good_starting_point_for_learning_UE4_C.2B.2B.3F"><span class="tocnumber">2</span> <span class="toctext">What is a good starting point for learning UE4 C++?</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#ClientMessage"><span class="tocnumber">2.1</span> <span class="toctext">ClientMessage</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#There_will_always_be_a_PC"><span class="tocnumber">2.2</span> <span class="toctext">There will always be a PC</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#What_are_-.3E.2C_..2C_::"><span class="tocnumber">3</span> <span class="toctext">What are -&gt;, .,&#160;::</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#-.3E_and_."><span class="tocnumber">3.1</span> <span class="toctext">-&gt; and .</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#Example"><span class="tocnumber">3.1.1</span> <span class="toctext">Example</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Summary"><span class="tocnumber">3.1.2</span> <span class="toctext">Summary</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="#The_Use_of_::"><span class="tocnumber">3.2</span> <span class="toctext">The Use of&#160;::</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="#What_is_it_for.3F"><span class="tocnumber">3.2.1</span> <span class="toctext">What is it for?</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#Example_2"><span class="tocnumber">3.2.2</span> <span class="toctext">Example</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#If_Not_for_::"><span class="tocnumber">3.2.3</span> <span class="toctext">If Not for&#160;::</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Summary_2"><span class="tocnumber">3.2.4</span> <span class="toctext">Summary</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Those_T_things"><span class="tocnumber">4</span> <span class="toctext">Those T things</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="#Shared_Reference"><span class="tocnumber">4.1</span> <span class="toctext">Shared Reference</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#Those_Prefixes"><span class="tocnumber">5</span> <span class="toctext">Those Prefixes</span></a>
+<ul>
+<li class="toclevel-2 tocsection-17"><a href="#Epic.27s_Official_Class_Documentation"><span class="tocnumber">5.1</span> <span class="toctext">Epic's Official Class Documentation</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#G"><span class="tocnumber">5.2</span> <span class="toctext">G</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="#Ok.2C_Really.2C_What_Are_Those_T_Things.3F.3F.3F"><span class="tocnumber">6</span> <span class="toctext">Ok, Really, What Are Those T Things???</span></a></li>
+<li class="toclevel-1 tocsection-20"><a href="#Pointers"><span class="tocnumber">7</span> <span class="toctext">Pointers</span></a>
+<ul>
+<li class="toclevel-2 tocsection-21"><a href="#Always_Check_Your_Pointers"><span class="tocnumber">7.1</span> <span class="toctext">Always Check Your Pointers</span></a></li>
+<li class="toclevel-2 tocsection-22"><a href="#De-Referencing_Pointers"><span class="tocnumber">7.2</span> <span class="toctext">De-Referencing Pointers</span></a>
+<ul>
+<li class="toclevel-3 tocsection-23"><a href="#De-Reference_with_.2A"><span class="tocnumber">7.2.1</span> <span class="toctext">De-Reference with *</span></a></li>
+<li class="toclevel-3 tocsection-24"><a href="#De-Reference_with_-.3E"><span class="tocnumber">7.2.2</span> <span class="toctext">De-Reference with -&gt;</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-25"><a href="#Why_Use_a_Pointer.3F"><span class="tocnumber">7.3</span> <span class="toctext">Why Use a Pointer?</span></a>
+<ul>
+<li class="toclevel-3 tocsection-26"><a href="#Access_Data_That_is_Far_Far_Away"><span class="tocnumber">7.3.1</span> <span class="toctext">Access Data That is Far Far Away</span></a></li>
+<li class="toclevel-3 tocsection-27"><a href="#Access_Huge_Quantities_of_Data_Any_Time"><span class="tocnumber">7.3.2</span> <span class="toctext">Access Huge Quantities of Data Any Time</span></a></li>
+<li class="toclevel-3 tocsection-28"><a href="#Stay_Current_With_Runtime_Changes"><span class="tocnumber">7.3.3</span> <span class="toctext">Stay Current With Runtime Changes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-29"><a href="#Passing_Data_by_Reference"><span class="tocnumber">7.4</span> <span class="toctext">Passing Data by Reference</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-30"><a href="#Related_Epic_Tutorial"><span class="tocnumber">8</span> <span class="toctext">Related Epic Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-31"><a href="#Summary_3"><span class="tocnumber">9</span> <span class="toctext">Summary</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p><i>Author</i> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)
+</p><p>Dear Community,
+</p><p>This wiki page is devoted to reducing the intensity of the C++ entry point for new coders.
+</p><p>If you have general questions as you are trying to get comfortable with C++, please ask them in the Discussion Tab.
+</p><p>I and hopefully others can then answer those questions in this main page.
+</p>
+<h2><span class="mw-headline" id="What_is_a_good_starting_point_for_learning_UE4_C.2B.2B.3F">What is a good starting point for learning UE4 C++?</span></h2>
+<p>I personally can recommend starting with extending the PlayerController class, and then making a blueprint of that.
+</p><p>Then you reference your custom player controller in your Game Mode Class.
+</p><p>I have a tutorial on this here:
+</p><p><b><a href="/Game_Mode,_Linking_to_Player_Controller_Blueprint_in_C%2B%2B" title="Game Mode, Linking to Player Controller Blueprint in C++" class="mw-redirect">Game Mode, Linking to Player Controller Blueprint</a></b>
+</p>
+<h3><span class="mw-headline" id="ClientMessage">ClientMessage</span></h3>
+<p>When you are learning C++ you need to be able to give yourself feedback on what functions are running, what info your algorithms are getting, and what different parts of the code are actually computing.
+</p><p>You can use logs for this, but you can also use ClientMessage!
+</p><p><br />
+I enjoy ClientMessage because <b>all you have to do is press the ~ or other key to open the player console</b> and your feedback is right there.
+</p><p><br />
+When you are just starting out, having this instant feedback is really important so you know what you did right and where parts of your code are not working correctly, or simply not running at all!
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">ClientMessage<span class="br0">&#40;</span><span class="st0">&quot;Yes this function did run!&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">ClientMessage<span class="br0">&#40;</span><span class="st0">&quot;Current value of the float is &quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+ClientMessage<span class="br0">&#40;</span>FString<span class="sy4">::</span><span class="me2">SanitizeFloat</span><span class="br0">&#40;</span>TheFloat<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id="There_will_always_be_a_PC">There will always be a PC</span></h3>
+<p>In any actual game circumstance you will always have a PlayerController, so it is a great entry point into the world of UE4 C++&#160;:)
+</p>
+<h2><span class="mw-headline" id="What_are_-.3E.2C_..2C_::">What are -&gt;, .,&#160;::</span></h2>
+<p><i>I've seen that in C++ we use hyphen arrow symbol (-&gt;) instead of dot (.) as in other languages. But i've also saw using double colons (::) which i dont understand. So can you please explain why is C++ using these symbols? Whats the difference between -&gt; and&#160;::?</i>
+</p><p><i>For example, open UnrealEdEngine.cpp (\UnrealEngine\Engine\Source\Editor\UnrealEd\Private) and you can see the UUnrealEdEngine::Init function at line 26. Why is this function having double colons? Inside the function block i see Super::Init(InEngineLoop).</i>
+</p><p><i>I was expecting to see Super-&gt;Init(InEngineLoop) but instead its using double colons. Inside that function most of them are using double colons. So please explain the difference of&#160;:: and -&gt; and dot (.).</i>
+</p>
+<h3><span class="mw-headline" id="-.3E_and_.">-&gt; and .</span></h3>
+<p>In very non-programmatic terms:
+The -&gt; means that the variable is a pointer to where the data is actually stored, whereas the . means that the variable is the actual container of the data.
+</p><p>This means that the . is a direct access to real hard data, whereas the -&gt; is an indirect reference to data that may or may not actually exist.
+</p>
+<pre> The -&gt; is like a sign that can point to a tree that is not actually there.
+ So you must always check whether the sign is accurate!
+</pre>
+<h4><span class="mw-headline" id="Example">Example</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">FVector<span class="sy2">*</span> LocationPtr <span class="sy1">=</span> nullptr<span class="sy4">;</span>
+FVector Location<span class="sy4">;</span>
+&#160;
+Location.<span class="me1">X</span> <span class="sy1">=</span> <span class="nu0">5</span><span class="sy4">;</span>
+LocationPtr <span class="sy1">=</span> <span class="sy3">&amp;</span>Location<span class="sy4">;</span>
+ClientMessage<span class="br0">&#40;</span>FString<span class="sy4">::</span><span class="me2">SanitizeFloat</span><span class="br0">&#40;</span>LocationPtr<span class="sy2">-</span><span class="sy1">&gt;</span>X<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<p>LocationPtr does not inherently point to anything upon being created, it must be pointed to the actual data
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">LocationPtr <span class="sy1">=</span> <span class="sy3">&amp;</span>Location<span class="sy4">;</span></pre></div></div>
+<p>Location however IS the data itself, and can be accessed immediately using "."
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">Location.<span class="me1">X</span> <span class="sy1">=</span> <span class="nu0">5</span><span class="sy4">;</span></pre></div></div>
+<p>Now that we have assigned LocationPtr, we can access the X variable via indirect reference "-&gt;"
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>LocationPtr<span class="br0">&#41;</span> <span class="kw1">return</span><span class="sy4">;</span>
+ClientMessage<span class="br0">&#40;</span>FString<span class="sy4">::</span><span class="me2">SanitizeFloat</span><span class="br0">&#40;</span>LocationPtr<span class="sy2">-</span><span class="sy1">&gt;</span>X<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<pre> Value will print out as "5"
+</pre>
+<h4><span class="mw-headline" id="Summary">Summary</span></h4>
+<p>When you have a normal variable you use ".", because the variable itself is the container of the data so you can access it any time.
+</p><p>When you are using a pointer, which is an indirect reference, you dont actually know at any time if it is pointing to something, so you must check:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>LocationPtr<span class="br0">&#41;</span> <span class="kw1">return</span><span class="sy4">;</span> <span class="co1">//the pointer wasnt pointing to anything.</span></pre></div></div>
+<p>If the pointer is pointing to actual variable data, you can then access that data using -&gt;
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">LocationPtr<span class="sy2">-</span><span class="sy1">&gt;</span>X<span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id="The_Use_of_::">The Use of&#160;::</span></h3>
+<p>This tells you the namespace / scope of the function or variable.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">UUnrealEdEngine<span class="sy4">::</span><span class="me2">Init</span></pre></div></div>
+<p>The above means that the Init function is found in the class UUnrealEdEngine.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">Super<span class="sy4">::</span><span class="me2">Init</span><span class="br0">&#40;</span>InEngineLoop<span class="br0">&#41;</span>.</pre></div></div>
+<p>Because the Init function is virtual, you can call the Super class version of the function (and you should!)
+</p><p>Super itself means the super class of UUnrealEdEngine.
+</p>
+<h4><span class="mw-headline" id="What_is_it_for.3F">What is it for?</span></h4>
+<pre> You have enormous power and freedom in C++!
+</pre>
+<p>This perhaps is what makes it a little more complex to learn&#160;:)
+</p><p>You can put functions and declare variables pretty much anywhere you want in C++, so you use the&#160;:: to limit the scope so that different classes can have variables and functions with the same name, but still be recognized as distinct by the compiler.
+</p>
+<h4><span class="mw-headline" id="Example_2">Example</span></h4>
+<p>For example, let's say you have class AMyTree, and AMyFlower.
+</p><p>AMyTree wants to have a GetLocation() function, and so does AMyFlower.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">FVector GetLocation<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span><span class="sy4">;</span></pre></div></div>
+<p>But in C++, you are working at a very low level, which means you have the power to put functions and variables in the global name space.
+</p><p>If you simply declare a variable or a function outside of a class or ustruct or other namespace
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw4">static</span> <span class="kw4">const</span> FVector MyGlobalVector <span class="sy1">=</span> FVector<span class="br0">&#40;</span><span class="nu0">2</span>,<span class="nu0">4</span>,<span class="nu0">16</span><span class="br0">&#41;</span><span class="sy4">;</span>
+FORCEINLINE <span class="kw4">void</span> MyVeryGlobalFunction<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+  <span class="co1">//Does something</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>Then those symbols have entered the global namespace and will be recognized anywhere they are used.
+</p><p>This is actually very useful for <b><a href="/Operator_Overloads_in_UE4_C%2B%2B" title="Operator Overloads in UE4 C++" class="mw-redirect"> C++ Operators</a></b>!
+</p><p><br />
+However this causes a problem for AMyTree and AMyFlower, who both want a GetLocation() function!
+</p><p><br />  
+If you don't use the&#160;::, you cannot distinguish for the compiler at compile time whether GetLocation() is for the Flower or for the Tree&#160;!
+</p><p>You use the&#160;:: to tell the compiler which version of the function is for which class
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">FVector AMyFlower<span class="sy4">::</span><span class="me2">GetLocation</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span>
+<span class="br0">&#123;</span>
+	<span class="co1">//one set of code</span>
+<span class="br0">&#125;</span>
+FVector AMyTree<span class="sy4">::</span><span class="me2">GetLocation</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw4">const</span>
+<span class="br0">&#123;</span>
+	<span class="co1">//another set of code</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h4><span class="mw-headline" id="If_Not_for_::">If Not for&#160;::</span></h4>
+<p>If we did not have&#160;:: to declare the scope of a variable or function, then every single symbol in your entire game code would have to be unique.
+</p><p>You could not ever have functions with the same name!
+</p>
+<h4><span class="mw-headline" id="Summary_2">Summary</span></h4>
+<pre> Think of&#160;:: as simply a label, telling you which class the function or variable belongs to.
+</pre>
+<h2><span class="mw-headline" id="Those_T_things">Those T things</span></h2>
+<p><i>What are these T things? Like TSharedRef, TWeakPtr, TArray and so on?</i>
+</p><p>Do not let those T things confuse you!
+</p><p>It does make symbols looke a little more confusing, so try to block it out of your mind when first reading a existing UE4 symbol, like
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">TArray</pre></div></div>
+<p>pretend this reads as
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">Array</pre></div></div>
+<p>The letter T is required, but it is more of a declaration of the type of class that Array is.
+</p>
+<pre> Imagine that class names could be different colors, T is just one color, or flavor of classes in UE4.
+</pre>
+<p>But when you are trying to read the code, the letter T can make you not understand what the class itself is about, if you do not ignore it.
+</p>
+<h3><span class="mw-headline" id="Shared_Reference">Shared Reference</span></h3>
+<p>Another example,
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">TSharedRef</pre></div></div>
+<p>Read this without the T and it reads as "Shared Reference".
+</p><p>See?
+</p><p>Ignore the T and you will be able to read the code base much more easily to get a clear sense of the intent of each class.
+</p><p>Just make sure to use the T when you are trying to use the class&#160;:)
+</p>
+<h2><span class="mw-headline" id="Those_Prefixes">Those Prefixes</span></h2>
+<p><i>Those extra capital prefixes. For example</i> 
+</p>
+<ul>
+<li>what is the F in FVector and FSourceControlStatePtr
+</li>
+<li>what is the T in TSharedRef, TWeakPtr, TArray 
+</li>
+<li>what is the U (i guess its for Unreal) UObject, UUnrealEdEngine
+</li>
+<li>what is the G in GIsEditor, GSlowTaskOccurred
+</li>
+<li>and so on...
+</li>
+</ul>
+<p>With the exception of G, think of all the others as colors, or flavors of classes in UE4.
+</p><p>Each letter indicates that this particular class is of a certain nature.
+</p>
+<h3><span class="mw-headline" id="Epic.27s_Official_Class_Documentation">Epic's Official Class Documentation</span></h3>
+<p>Epic expands on what the prefixes mean here:
+</p><p><a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/Reference/Classes/index.html">Epic's Class Documentation</a>
+</p>
+<h3><span class="mw-headline" id="G">G</span></h3>
+<p>G means "Global", and it is a label to tell you that you can access these variables anywhere.
+</p>
+<h2><span class="mw-headline" id="Ok.2C_Really.2C_What_Are_Those_T_Things.3F.3F.3F">Ok, Really, What Are Those T Things???</span></h2>
+<p>In the UE4 source, types are always prefixed with a character specifying the type's category.  In this example, T is used to let you know that the type is a template class.  So TSharedRef, TWeakPtr, TArray, etc. are all template classes.  Having a prefix allows you to easily differentiate type names from variable names, as variable names are not typically declared with a prefix in UE4 source (one notable exception to this is that boolean variable names are prefixed with a 'b').
+</p><p>So, in short, those "T things" should make you think two things:
+</p>
+<ol>
+<li>You're looking at a type name (and not a variable name).
+</li>
+<li>The type name is specifying a template class.
+</li>
+</ol>
+<p><br />
+</p><p>There are other prefixes that will appear in the source, such as U, A, S, I, and F.  You can read about their meanings here: 
+</p><p><a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/Development/CodingStandard/index.html#namingconventions">Epic's Naming Conventions</a>
+</p><p>As a side note, I like to think of template classes as a way to give a "sub type" to a "main type".  For TArray, the subtype could be the type that TArray is supposed to contain, for example:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">TArray<span class="sy1">&lt;</span>FString<span class="sy1">&gt;</span> MyVariableName<span class="sy4">;</span></pre></div></div>
+<p>That would be a container for a series of FString values.  Without template classes, it would be up to you to "just know" that MyVariableName actually contained FStrings, but thanks to template classes the compiler can know that as well, so you don't have to keep as much stuff in your head while reading your friend's magic alien voodoo spaghetti code.
+</p><p>You can read more about template classes here: 
+</p><p><a rel="nofollow" class="external text" href="https://en.wikipedia.org/wiki/Template_(C%2B%2B)">Template (Wikipedia Article)</a>
+</p>
+<h2><span class="mw-headline" id="Pointers">Pointers</span></h2>
+<p><i>Pointers (*) and References (&amp;). Man i find it hard to use these. What exactly are they? Can you include some examples on how to use and where to use and whats the advantage of using it?</i>
+</p><p>This is perhaps the most important thing for newcomers to understand to really get rolling with C++.
+</p><p>Once you have a firm grasp on Pointers you should be coding happily in UE4 C++&#160;!
+</p><p>Pointers are extremely powerful and also a bit dangerous in order to give you the power that they have.
+</p>
+<pre> Pointers require you to be a diligent coder. In return they give you speed and power.
+</pre>
+<p>A pointer must point to a memory address where the actual data is stored.
+</p><p>To get the memory address for the pointer to point to, you use &amp;
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">FVector Location <span class="sy1">=</span> FVector<span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">2</span>, <span class="nu0">9000</span><span class="br0">&#41;</span><span class="sy4">;</span>
+FVector<span class="sy2">*</span> LocationPtr <span class="sy1">=</span> nullptr<span class="sy4">;</span> <span class="co1">//LocationPtr currently points to NOTHING</span>
+&#160;
+LocationPtr <span class="sy1">=</span> <span class="sy3">&amp;</span>Location<span class="sy4">;</span> <span class="co1">//LocationPtr now points to the memory address of Location</span></pre></div></div>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Always_Check_Your_Pointers">Always Check Your Pointers</span></h3>
+<p>Before trying to access the data that pointers are supposed to be pointing to, you must always check if they actually are!
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">check<span class="br0">&#40;</span>LocationPtr<span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<p>or
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>LocationPtr<span class="br0">&#41;</span> <span class="kw1">return</span><span class="sy4">;</span></pre></div></div>
+<p>You have to do this because at any time you do not know if the pointer still points to valid data.
+</p><p>Using check will crash the game deliberately if the pointer is not valid, you would do this if you consider it absolutely critical that a pointer never be invalid at a particular point in your code.
+</p><p>In the case of returning out of the function, this could be a "silent" fail case that you would not detect unless you print out a screen or log message as you exit. 
+</p><p>The check method guarantees you will know what happened, which is that a pointer that absolutely must be valid wasnt.
+</p>
+<h3><span class="mw-headline" id="De-Referencing_Pointers">De-Referencing Pointers</span></h3>
+<p>After you've verified the pointer does point to valid data, you can dereference it to access the data
+</p>
+<h4><span class="mw-headline" id="De-Reference_with_.2A">De-Reference with *</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">FVector NewVector <span class="sy1">=</span> FVector<span class="sy4">::</span><span class="me2">ZeroVector</span><span class="sy4">;</span>
+<span class="kw1">if</span><span class="br0">&#40;</span>LocationPtr<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+  NewVector <span class="sy1">=</span> <span class="sy2">*</span>LocationPtr<span class="sy4">;</span> <span class="co1">//De-Referencing pointer</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h4><span class="mw-headline" id="De-Reference_with_-.3E">De-Reference with -&gt;</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>LocationPtr<span class="br0">&#41;</span> <span class="kw1">return</span><span class="sy4">;</span>
+<span class="kw4">const</span> <span class="kw4">float</span> XValue <span class="sy1">=</span> LocationPtr<span class="sy2">-</span><span class="sy1">&gt;</span>X<span class="sy4">;</span></pre></div></div>
+<h3><span class="mw-headline" id="Why_Use_a_Pointer.3F">Why Use a Pointer?</span></h3>
+<ul>
+<li>Pointers give you direct access to memory locations that might be far far away from your local context in wich you are running code.
+</li>
+</ul>
+<ul>
+<li>Pointers also give you a way to access huge amounts of data without creating a copy of that data
+</li>
+</ul>
+<ul>
+<li>Pointers give you a living connection, a dynamically updated link to data that will always be current because the pointer is an indirect reference that does not have to change itself to update along with the data it is pointing to.
+</li>
+</ul>
+<h4><span class="mw-headline" id="Access_Data_That_is_Far_Far_Away">Access Data That is Far Far Away</span></h4>
+<p>Let's say you have a Character, that is part of a sublevel, that is part of a sub world, that is part of a far away Galaxy,
+</p><p>and to actually finally reach this Character's current Armor variable, you have to travel through a whole series of Gets, like this:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">GetGalaxy<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetSolarSystem<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetPlanet<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetMainCharacter<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>Armor<span class="sy4">;</span></pre></div></div>
+<p>The above operation is costly and takes time to execute, it is also complicated to read in code.
+</p><p>The above code is however, a way to access the current armor of a Character in a Galaxy far far away.
+</p><p><br />
+But wouldn't it be nice to be able to do this complicated retrieval operation only once, and obtain a sort of link, some kind of a <i>pointer</i> to the actual data, for quick access?
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">FArmorStruct<span class="sy2">*</span> TheArmor <span class="sy1">=</span> <span class="sy3">&amp;</span> GetGalaxy<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetSolarSystem<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetPlanet<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetMainCharacter<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>Armor<span class="sy4">;</span></pre></div></div>
+<p>Now, to obtain data about the armor, you dont have to write
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">GetGalaxy<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetSolarSystem<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetPlanet<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetMainCharacter<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetCurrentArmor<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">Durability</span><span class="sy4">;</span>
+GetGalaxy<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetSolarSystem<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetPlanet<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetMainCharacter<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetCurrentArmor<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">Color</span><span class="sy4">;</span>
+GetGalaxy<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetSolarSystem<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetPlanet<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetMainCharacter<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetCurrentArmor<span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">Size</span><span class="sy4">;</span></pre></div></div>
+<p>which is both confusing to read, and does actually incur a runtime cost on the CPU to do all those get operations to get across the Galaxy to the Character's armor.
+</p><p>Instead you can write:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">//Always Check Your Pointers</span>
+<span class="kw1">if</span><span class="br0">&#40;</span><span class="sy3">!</span>TheArmor<span class="br0">&#41;</span> <span class="kw1">return</span><span class="sy4">;</span>
+&#160;
+TheArmor<span class="sy2">-</span><span class="sy1">&gt;</span>Durability<span class="sy4">;</span>
+TheArmor<span class="sy2">-</span><span class="sy1">&gt;</span>Color<span class="sy4">;</span>
+TheArmor<span class="sy2">-</span><span class="sy1">&gt;</span>Size<span class="sy4">;</span></pre></div></div>
+<p>See? Isn't that easier to read?
+</p><p>But wait there's more!
+</p>
+<h4><span class="mw-headline" id="Access_Huge_Quantities_of_Data_Any_Time">Access Huge Quantities of Data Any Time</span></h4>
+<p>Pointers can point to relatively small amounts of data, or vast and huge quantities of data!
+</p>
+<pre> The pointer is pointing to a location in memory,
+ the actual amount of memory involved could be enormous!
+</pre>
+<p>So continuing the above example, you might say, "Why don't I just create a copy of the Character's Armor?"
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">FArmorStruct ArmorVar <span class="sy1">=</span> GetGalaxy<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetSolarSystem<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetPlanet<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetMainCharacter<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>Armor<span class="sy4">;</span></pre></div></div>
+<p>But what if the FArmorStruct contains a huuuuge amount of data, and you want to do this for 300 Characters across the Galaxy?
+</p>
+<pre> You would be copying this data many times over!
+</pre>
+<pre> But the data already exists in one memory location.
+ Why would you copy it over just to access it, thereby duplicating the data?
+</pre>
+<p>Pointers enable you to avoid this entirely!
+</p>
+<pre> You can simply point to the one memory location and access it any time.
+</pre>
+<h4><span class="mw-headline" id="Stay_Current_With_Runtime_Changes">Stay Current With Runtime Changes</span></h4>
+<p>Also, in the above case, once you copy the armor data, it is no longer the actual armor of the Character on the other world.
+</p>
+<pre> You have lost the living connection to the Armor.
+</pre>
+<p>So if the Character on the other world chooses to change their armor color, you won't know!
+</p>
+<pre> Pointers give you an actual living, dynamically updated link
+ to potentially large quantities of data,
+ that you only want to have to obtain access to once.
+</pre>
+<p>So again, the correct way:
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">FArmorStruct<span class="sy2">*</span> TheArmor <span class="sy1">=</span> <span class="sy3">&amp;</span> GetGalaxy<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetSolarSystem<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetPlanet<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>GetMainCharacter<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy2">-</span><span class="sy1">&gt;</span>Armor<span class="sy4">;</span></pre></div></div>
+<pre> Now you have easy access and a living connection to data that is in a Galaxy far far away,
+ without ever having to duplicate any data.
+</pre>
+<h3><span class="mw-headline" id="Passing_Data_by_Reference">Passing Data by Reference</span></h3>
+<p>Another use of &amp; is to pass data by reference into functions.
+</p><p>This is especially important for very large quantities of data that you would not want to copy into the function context!
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw4">int32</span> AMyClass<span class="sy4">::</span><span class="me2">GetArraySize</span><span class="br0">&#40;</span>TArray<span class="sy1">&lt;</span><span class="kw4">uint8</span><span class="sy1">&gt;</span><span class="sy3">&amp;</span> MyHugeBinaryArray<span class="br0">&#41;</span> <span class="kw4">const</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">return</span> MyHugeBinaryArray.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">//you use . instead of-&gt; because passing by Reference</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>If you dont use the &amp;, then you will be copying the entire huge array, just to find out how big it is!
+</p>
+<pre> Try to pass by reference wherever you can, instead of passing in pointers. It is much safer&#160;:)
+</pre>
+<h2><span class="mw-headline" id="Related_Epic_Tutorial">Related Epic Tutorial</span></h2>
+<p><a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/index.html">Programming Guide</a>&#160;:
+</p>
+<ul>
+<li> <b><a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/QuickStart/index.html">Programming Quick Start</a></b>
+</li>
+<li> <b><a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/Introduction/index.html">Introduction to C++ Programming in UE4</a></b>
+</li>
+<li> <b><a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/Tutorials/index.html">C++ Programming Tutorials</a></b>
+</li>
+</ul>
+<p><a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/Development/CodingStandard/index.html">Coding Standard</a>
+</p>
+<h2><span class="mw-headline" id="Summary_3">Summary</span></h2>
+<p>Feel free to post new questions in the Discussion tab!
+</p><p>I hope this helps you to cross the C++ entry barrier and enjoy the power and Beauty of UE4 C++&#160;!
+</p><p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.109 seconds
+Real time usage: 0.110 seconds
+Preprocessor visited node count: 396/1000000
+Preprocessor generated node count: 758/1000000
+Post‐expand include size: 178/2097152 bytes
+Template argument size: 22/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=Entry_Level_Guide_to_UE4_C%2B%2B&amp;oldid=23745">https://wiki.unrealengine.com/index.php?title=Entry_Level_Guide_to_UE4_C%2B%2B&amp;oldid=23745</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li><li><a href="/Category:Code" title="Category:Code">Code</a></li><li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?399"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.145 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

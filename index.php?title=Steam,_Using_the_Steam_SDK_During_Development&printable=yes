@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(3),u=e(4),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}catch(e){throw f.emit("fn-err",[arguments,this,e],t),e}finally{f.emit("fn-end",[c.now()],t)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now()])}},{}],2:[function(e,n,t){function r(e,n){if(!o)return!1;if(e!==o)return!1;if(!n)return!0;if(!i)return!1;for(var t=i.split("."),r=n.split("."),a=0;a<r.length;a++)if(r[a]!==t[a])return!1;return!0}var o=null,i=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var u=navigator.userAgent,f=u.match(a);f&&u.indexOf("Chrome")===-1&&u.indexOf("Chromium")===-1&&(o="Safari",i=f[1])}n.exports={agent:o,version:i,match:r}},{}],3:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],4:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],5:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=v(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){h[e]=v(e).concat(n)}function m(e,n){var t=h[e];if(t)for(var r=0;r<t.length;r++)t[r]===n&&t.splice(r,1)}function v(e){return h[e]||[]}function g(e){return p[e]=p[e]||o(t)}function w(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var h={},y={},b={on:l,addEventListener:l,removeEventListener:m,emit:t,get:g,listeners:v,context:n,buffer:w,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(3),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!E++){var e=x.info=NREUM.info,n=l.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+x.offset],null,"api");var t=l.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===l.readyState&&i()}function i(){f("mark",["domContent",a()+x.offset],null,"api")}function a(){return O.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-x.offset}var u=(new Date).getTime(),f=e("handle"),c=e(3),s=e("ee"),p=e(2),d=window,l=d.document,m="addEventListener",v="attachEvent",g=d.XMLHttpRequest,w=g&&g.prototype;NREUM.o={ST:setTimeout,SI:d.setImmediate,CT:clearTimeout,XHR:g,REQ:d.Request,EV:d.Event,PR:d.Promise,MO:d.MutationObserver};var h=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1099.min.js"},b=g&&w&&w[m]&&!/CriOS/.test(navigator.userAgent),x=n.exports={offset:u,now:a,origin:h,features:{},xhrWrappable:b,userAgent:p};e(1),l[m]?(l[m]("DOMContentLoaded",i,!1),d[m]("load",r,!1)):(l[v]("onreadystatechange",o),d[v]("onload",r)),f("mark",["firstbyte",u],null,"api");var E=0,O=e(5)},{}]},{},["loader"]);</script>
+<title>Steam, Using the Steam SDK During Development - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Steam,_Using_the_Steam_SDK_During_Development","wgTitle":"Steam, Using the Steam SDK During Development","wgCurRevisionId":59,"wgRevisionId":59,"wgArticleId":29,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Code"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Steam,_Using_the_Steam_SDK_During_Development","wgRelevantArticleId":29,"wgRequestId":"18373634de4a7dfa72d6f32b","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","ext.pygments":"ready","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@0ikrhkq",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=ext.pygments%7Cmediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;printable=1&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;printable=1&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<meta name="robots" content="noindex,follow"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Steam_Using_the_Steam_SDK_During_Development rootpage-Steam_Using_the_Steam_SDK_During_Development skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-02a815c95fb568b8b"><meta name="worker" content="1435"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"hideShieldDownload":false,"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"alert":{"msg":"","_type":"Epic Header Alert","id":"","type":"info","statusHref":""},"_activeDate":"2018-08-06T09:11:04.633Z","links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://academy.unrealengine.com/","title":"Video Tutorials","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/unrealdevgrants","title":"Unreal Dev Grants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Game-Dev)","_createdBy":"tony.rossi"},"_currentVersion":"1.37.2.101.4","_type":"Epic Games Nav","hideSignIn":true,"pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"_futureVersion":"none","downloadLink":{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":""},"_created":"2017-08-21T08:59:33.648Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"hideShieldDropdown":false,"properties":[{"propertyKey":"paragon","_type":"Epic Games Property","egDisabled":true,"egSkip":true}],"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.c574fb01e685d2e3102c.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.c574fb01e685d2e3102c.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Steam%2C+Using+the+Steam+SDK+During+Development&amp;returntoquery=printable%3Dyes" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we're working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=Steam,_Using_the_Steam_SDK_During_Development" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Steam,_Using_the_Steam_SDK_During_Development&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=Steam,_Using_the_Steam_SDK_During_Development">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=Steam,_Using_the_Steam_SDK_During_Development&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Steam,_Using_the_Steam_SDK_During_Development&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Steam, Using the Steam SDK During Development</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Steamworks_SDK"><span class="tocnumber">2</span> <span class="toctext">Steamworks SDK</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Github_Engine_Builds_vs_Retail_UE4_Builds"><span class="tocnumber">3</span> <span class="toctext">Github Engine Builds vs Retail UE4 Builds</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Retail_Builds_Skip_to_This_Step"><span class="tocnumber">3.1</span> <span class="toctext">Retail Builds Skip to This Step</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Engine.2FSource.2FThirdParty.2FSteamworks"><span class="tocnumber">4</span> <span class="toctext">Engine/Source/ThirdParty/Steamworks</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Steam_Build_CS"><span class="tocnumber">5</span> <span class="toctext">Steam Build CS</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Engine.2FBinaries.2FThirdParty.2FSteamworks"><span class="tocnumber">6</span> <span class="toctext">Engine/Binaries/ThirdParty/Steamworks</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Dll_Files"><span class="tocnumber">7</span> <span class="toctext">Dll Files</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Win64"><span class="tocnumber">7.1</span> <span class="toctext">Win64</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Win32"><span class="tocnumber">7.2</span> <span class="toctext">Win32</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Build.CS"><span class="tocnumber">8</span> <span class="toctext">Build.CS</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Target.cs"><span class="tocnumber">9</span> <span class="toctext">Target.cs</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Config.2FDefaultEngine.ini"><span class="tocnumber">10</span> <span class="toctext">Config/DefaultEngine.ini</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#WinPlatform.Automation.cs"><span class="tocnumber">11</span> <span class="toctext">WinPlatform.Automation.cs</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#OnlineSubsystemPlugin"><span class="tocnumber">12</span> <span class="toctext">OnlineSubsystemPlugin</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#Some_Tips"><span class="tocnumber">13</span> <span class="toctext">Some Tips</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="#Epic_Tutorial"><span class="tocnumber">14</span> <span class="toctext">Epic Tutorial</span></a></li>
+<li class="toclevel-1 tocsection-18"><a href="#Packaging"><span class="tocnumber">15</span> <span class="toctext">Packaging</span></a></li>
+<li class="toclevel-1 tocsection-19"><a href="#Packaging_w.2F_Steam_for_Shipping_Builds"><span class="tocnumber">16</span> <span class="toctext">Packaging w/ Steam for Shipping Builds</span></a></li>
+<li class="toclevel-1 tocsection-20"><a href="#Running_Steam_on_Mac"><span class="tocnumber">17</span> <span class="toctext">Running Steam on Mac</span></a></li>
+<li class="toclevel-1 tocsection-21"><a href="#Conclusion"><span class="tocnumber">18</span> <span class="toctext">Conclusion</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p><i>Original Author:</i> Rama
+</p><p>Dear Community,
+</p><p>This is my guide to getting Steamworks running with your game!
+</p><p>You do not need to have been Greenlit to start using the Steam SDK during your game's development process.
+</p>
+<h2><span class="mw-headline" id="Steamworks_SDK">Steamworks SDK</span></h2>
+<p>(in 4.7 and beyond you dont need to do this step, you will find the Steam binaries in Engine/Binaries/ThirdParty/Steamworks)
+</p><p>Download the steamworks SDK:
+</p><p><a rel="nofollow" class="external text" href="https://partner.steamgames.com/%7C">Steamworks SDK</a>
+</p><p>Identify what the latest version is that you are downloading, such as "v129a"
+</p>
+<h2><span class="mw-headline" id="Github_Engine_Builds_vs_Retail_UE4_Builds">Github Engine Builds vs Retail UE4 Builds</span></h2>
+<p>Please note that recompiling the engine and modifying the Steamworks build cs is not required.
+</p><p>If you are not using your own locally built verison of the engine you should be able to simply download the Steam SDK and skip to this step:
+</p>
+<h3><span class="mw-headline" id="Retail_Builds_Skip_to_This_Step">Retail Builds Skip to This Step</span></h3>
+<p><b><a href="#Engine.2FBinaries.2FThirdParty.2FSteamworks">Binaries, DLL copying</a></b>
+</p>
+<h2><span class="mw-headline" id="Engine.2FSource.2FThirdParty.2FSteamworks">Engine/Source/ThirdParty/Steamworks</span></h2>
+<p>Copy the entire contents of the downloaded SDK to
+</p>
+<pre> Engine/Source/ThirdParty/Steamworks/Steamv129a
+ 
+or whatever your current version is!
+</pre>
+<p>So you will end up with folder structure like this
+</p>
+<pre> Engine/Source/ThirdParty/Steamworks/Steamv129a/sdk/
+</pre>
+<h2><span class="mw-headline" id="Steam_Build_CS">Steam Build CS</span></h2>
+<p>Open the Steam Build CS contained in the directory structure
+</p>
+<pre> Engine/Source/ThirdParty/Steamworks/
+</pre>
+<p>Make sure the version number there matches the version you downloaded as the Steam SDK!
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Engine.2FBinaries.2FThirdParty.2FSteamworks">Engine/Binaries/ThirdParty/Steamworks</span></h2>
+<p>Now in your UE4 engine's <b>Binaries</b> folder you must create this directory structure
+</p>
+<pre> Engine/Binaries/ThirdParty/Steamworks/Steamv129a/Win64
+ Engine/Binaries/ThirdParty/Steamworks/Steamv129a/Win32
+</pre>
+<p>Remember to use your current steam version as shown in the SDK you downloaded!
+</p>
+<h2><span class="mw-headline" id="Dll_Files">Dll Files</span></h2>
+<p>Dlls marked with (<i>Steam Client Install Dir</i>) are found in your <b>program files x86 / Steam</b> directory (regular steam client)
+</p><p>The other 2 dlls are found in the SDK you downloaded in this directory structure
+</p>
+<pre> sdk/redistributable_bin
+</pre>
+<h3><span class="mw-headline" id="Win64">Win64</span></h3>
+<pre> steam_api64.dll	(Downloaded SDK)
+ steamclient64.dll 	(Steam Client Install Dir)
+ tier0_s64.dll		(Steam Client Install Dir)
+ vstdlib_s64.dll 	(Steam Client Install Dir)
+</pre>
+<h3><span class="mw-headline" id="Win32">Win32</span></h3>
+<pre> steam_api.dll		(Downloaded SDK)
+ steamclient.dll 	(Steam Client Install Dir)
+ tier0_s.dll  		(Steam Client Install Dir)
+ vstdlib_s.dll  	(Steam Client Install Dir)
+</pre>
+<h2><span class="mw-headline" id="Build.CS">Build.CS</span></h2>
+<p>In your game's build.cs you need to include this:
+</p><p><br />
+</p>
+<pre> PublicDependencyModuleNames.AddRange(new string[] { 
+ 	"OnlineSubsystem",
+ 	"OnlineSubsystemUtils"
+ });
+</pre>
+<pre> DynamicallyLoadedModuleNames.Add("OnlineSubsystemSteam");
+</pre>
+<h2><span class="mw-headline" id="Target.cs">Target.cs</span></h2>
+<p>In your game's Target.cs, add <b>bUsesSteam=true</b> in the constructor. Here's an example:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="k">public</span> <span class="k">class</span> <span class="nc">ShooterGameTarget</span> <span class="o">:</span> <span class="n">TargetRules</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">ShooterGameTarget</span><span class="p">(</span><span class="n">TargetInfo</span> <span class="n">Target</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Type</span> <span class="o">=</span> <span class="n">TargetType</span><span class="p">.</span><span class="n">Game</span><span class="p">;</span>
+        <span class="n">bUsesSteam</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">.....</span>
+</pre></div>
+<h2><span class="mw-headline" id="Config.2FDefaultEngine.ini">Config/DefaultEngine.ini</span></h2>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="p">[</span><span class="o">/</span><span class="n">Script</span><span class="o">/</span><span class="n">Engine</span><span class="p">.</span><span class="n">GameEngine</span><span class="p">]</span>
+<span class="o">!</span><span class="n">NetDriverDefinitions</span><span class="o">=</span><span class="n">ClearArray</span>
+<span class="o">+</span><span class="n">NetDriverDefinitions</span><span class="o">=</span><span class="p">(</span><span class="n">DefName</span><span class="o">=</span><span class="s">&quot;GameNetDriver&quot;</span><span class="p">,</span><span class="n">DriverClassName</span><span class="o">=</span><span class="s">&quot;/Script/OnlineSubsystemSteam.SteamNetDriver&quot;</span><span class="p">,</span><span class="n">DriverClassNameFallback</span><span class="o">=</span><span class="s">&quot;/Script/OnlineSubsystemUtils.IpNetDriver&quot;</span><span class="p">)</span>
+
+<span class="p">[</span><span class="n">OnlineSubsystem</span><span class="p">]</span>
+<span class="n">DefaultPlatformService</span><span class="o">=</span><span class="n">Steam</span>
+<span class="n">PollingIntervalInMs</span><span class="o">=</span><span class="mi">20</span>
+
+<span class="p">[</span><span class="n">OnlineSubsystemSteam</span><span class="p">]</span>
+<span class="n">bEnabled</span><span class="o">=</span><span class="nb">true</span>
+<span class="n">SteamDevAppId</span><span class="o">=</span><span class="mi">480</span>
+<span class="n">GameServerQueryPort</span><span class="o">=</span><span class="mi">27015</span>
+<span class="n">bRelaunchInSteam</span><span class="o">=</span><span class="nb">false</span>
+<span class="n">GameVersion</span><span class="o">=</span><span class="mf">1.0.0.0</span>
+<span class="n">bVACEnabled</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">bAllowP2PPacketRelay</span><span class="o">=</span><span class="nb">true</span>
+<span class="n">P2PConnectionTimeout</span><span class="o">=</span><span class="mi">90</span>
+
+<span class="p">[</span><span class="o">/</span><span class="n">Script</span><span class="o">/</span><span class="n">OnlineSubsystemSteam</span><span class="p">.</span><span class="n">SteamNetDriver</span><span class="p">]</span>
+<span class="n">NetConnectionClassName</span><span class="o">=</span><span class="s">&quot;/Script/OnlineSubsystemSteam.SteamNetConnection&quot;</span>
+</pre></div>
+<h2><span class="mw-headline" id="WinPlatform.Automation.cs">WinPlatform.Automation.cs</span></h2>
+<p>In Visual Studio, this file is in the folder <b>Programs/Automation/Win.Automation/WinPlatform.Automation.cs</b>. Open it, and check that this string has your Steam API version: 
+</p>
+<pre> string SteamVersion = "Steamv131";
+</pre>
+<h2><span class="mw-headline" id="OnlineSubsystemPlugin">OnlineSubsystemPlugin</span></h2>
+<p>&gt;Edit from Rumbleball 29.03.2018
+</p><p>This Wiki entry seems to be pretty old and there seems to be some changes to the engine.
+UE4.16+ (at least) you will need to enable the OnlinesubSystemSteam Plugin for your game.
+If you don't do that, you will get the following warnings in the output window of the editor:
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span> <span class="nl">LogModuleManager</span><span class="p">:</span><span class="nl">Warning</span><span class="p">:</span> <span class="n">No</span> <span class="n">filename</span> <span class="n">provided</span> <span class="k">for</span> <span class="n">module</span> <span class="n">OnlineSubsystemSteam</span>
+ <span class="nl">LogModuleManager</span><span class="p">:</span><span class="nl">Warning</span><span class="p">:</span> <span class="nl">ModuleManager</span><span class="p">:</span> <span class="n">Unable</span> <span class="n">to</span> <span class="n">load</span> <span class="n">module</span> <span class="err">&#39;</span><span class="n">OnlineSubsystemSteam</span><span class="err">&#39;</span> <span class="n">because</span> <span class="n">the</span> <span class="n">file</span> <span class="err">&#39;</span><span class="nl">D</span><span class="p">:</span><span class="o">/</span><span class="n">Programs</span><span class="o">/</span><span class="n">Epic</span> <span class="n">Games</span><span class="o">/</span><span class="mf">4.13</span><span class="o">/</span><span class="n">Engine</span><span class="o">/</span><span class="n">Binaries</span><span class="o">/</span><span class="n">Win64</span><span class="o">/</span><span class="err">&#39;</span> <span class="n">was</span> <span class="n">not</span> <span class="n">found</span><span class="p">.</span>
+</pre></div>
+<p>To enable the plugin: Open the editor and go to Edit-&gt;Plugins-&gt;Online Platform and enable 'Online Subsystem Steam'
+</p>
+<h2><span class="mw-headline" id="Some_Tips">Some Tips</span></h2>
+<p>1. There is an awesome program written by a community member named Garner. Check it out here:
+</p><p><a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?67565-Steam-Setup-Utility">Steam Setup Utility by Garner</a>
+</p><p>2. Trying to run your game in PIE mode may give you a "Steam API disabled!" Error. Run your game in standalone mode to see if things get better.
+</p>
+<h2><span class="mw-headline" id="Epic_Tutorial">Epic Tutorial</span></h2>
+<p>Epic's tutorial on this subject is here:
+</p><p><a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/Online/Steam/index.html">Online Subsystem Steam</a>
+</p>
+<h2><span class="mw-headline" id="Packaging">Packaging</span></h2>
+<p>(This is not required in more recent engine builds, just check the ThirdParty folder to make sure Steam is there)
+</p><p>When packaging your game you must copy the Steam binaries from the engine ThirdParty to your packaged game Engine/ThirdParty
+</p><p>Engine/Binaries/ThirdParty/Steamworks
+</p>
+<h2><span class="mw-headline" id="Packaging_w.2F_Steam_for_Shipping_Builds">Packaging w/ Steam for Shipping Builds</span></h2>
+<p>For shipping builds you must manually create a file called:
+</p><p>steam_appid.txt
+</p><p>and in that file put just your app id with no extra whitespaces (spaces or returns or anything like that)
+</p><p>to test you could create such a file and put just 480 in it.
+</p><p>♥ Rama
+</p>
+<h2><span class="mw-headline" id="Running_Steam_on_Mac">Running Steam on Mac</span></h2>
+<p>Quoting Epic tutorial:
+</p><p>Contrary to Windows, Steam Overlay on Mac requires game to be launched using Steam client. For this you first need to add the game to your library using "Add a Non-Steam Game to My Library" option from Steam's Games menu.<a rel="nofollow" class="external autonumber" href="https://docs.unrealengine.com/latest/INT/Programming/Online/Steam/index.html#steamoverlayonmac">[1]</a>
+</p>
+<h2><span class="mw-headline" id="Conclusion">Conclusion</span></h2>
+<p>If everything works you will see the steam pop up appear in the lower right and you can press SHIFT+TAB to see the Steam overlay!
+</p><p>If you see in your log that the .dlls can't be found, check two things
+</p><p>1. You put them in <b>Binaries</b> not Source
+</p><p>2. and you named the folder appropriately for your version number, ex:
+</p>
+<pre> Binaries/ThirdParty/Steamworks/Steamv129
+</pre>
+<p>Enjoy!
+</p><p><a href="/index.php?title=User:Rama" title="User:Rama">Rama</a> (<a href="/index.php?title=User_talk:Rama" title="User talk:Rama">talk</a>)
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20181220090734
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.020 seconds
+Real time usage: 0.195 seconds
+Preprocessor visited node count: 109/1000000
+Preprocessor generated node count: 148/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:29-0!canonical and timestamp 20181220090734 and revision id 59
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=Steam,_Using_the_Steam_SDK_During_Development&amp;oldid=59">https://wiki.unrealengine.com/index.php?title=Steam,_Using_the_Steam_SDK_During_Development&amp;oldid=59</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="/index.php?title=Category:Code" title="Category:Code">Code</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-00f7fdb47766f2f80"><meta name="worker" content="1531"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.33","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/gHooNW9I/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Game-Dev)","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.c574fb01e685d2e3102c.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.c574fb01e685d2e3102c.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.020","walltime":"0.195","ppvisitednodes":{"value":109,"limit":1000000},"ppgeneratednodes":{"value":148,"limit":1000000},"postexpandincludesize":{"value":0,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.000      1 -total"]},"cachereport":{"timestamp":"20181220090734","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":188});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":234,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

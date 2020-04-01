@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(3),u=e(4),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}catch(e){throw f.emit("fn-err",[arguments,this,e],t),e}finally{f.emit("fn-end",[c.now()],t)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e,n){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now(),!1,n])}},{}],2:[function(e,n,t){function r(e,n){if(!o)return!1;if(e!==o)return!1;if(!n)return!0;if(!i)return!1;for(var t=i.split("."),r=n.split("."),a=0;a<r.length;a++)if(r[a]!==t[a])return!1;return!0}var o=null,i=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var u=navigator.userAgent,f=u.match(a);f&&u.indexOf("Chrome")===-1&&u.indexOf("Chromium")===-1&&(o="Safari",i=f[1])}n.exports={agent:o,version:i,match:r}},{}],3:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],4:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],5:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=v(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){h[e]=v(e).concat(n)}function m(e,n){var t=h[e];if(t)for(var r=0;r<t.length;r++)t[r]===n&&t.splice(r,1)}function v(e){return h[e]||[]}function g(e){return p[e]=p[e]||o(t)}function w(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var h={},y={},b={on:l,addEventListener:l,removeEventListener:m,emit:t,get:g,listeners:v,context:n,buffer:w,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(3),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!E++){var e=x.info=NREUM.info,n=l.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+x.offset],null,"api");var t=l.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===l.readyState&&i()}function i(){f("mark",["domContent",a()+x.offset],null,"api")}function a(){return O.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-x.offset}var u=(new Date).getTime(),f=e("handle"),c=e(3),s=e("ee"),p=e(2),d=window,l=d.document,m="addEventListener",v="attachEvent",g=d.XMLHttpRequest,w=g&&g.prototype;NREUM.o={ST:setTimeout,SI:d.setImmediate,CT:clearTimeout,XHR:g,REQ:d.Request,EV:d.Event,PR:d.Promise,MO:d.MutationObserver};var h=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1118.min.js"},b=g&&w&&w[m]&&!/CriOS/.test(navigator.userAgent),x=n.exports={offset:u,now:a,origin:h,features:{},xhrWrappable:b,userAgent:p};e(1),l[m]?(l[m]("DOMContentLoaded",i,!1),d[m]("load",r,!1)):(l[v]("onreadystatechange",o),d[v]("onload",r)),f("mark",["firstbyte",u],null,"api");var E=0,O=e(5)},{}]},{},["loader"]);</script>
+<title>Unity3D Developer's Guide to Unreal Engine 4 - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Unity3D_Developer's_Guide_to_Unreal_Engine_4","wgTitle":"Unity3D Developer's Guide to Unreal Engine 4","wgCurRevisionId":407,"wgRevisionId":407,"wgArticleId":203,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Code"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Unity3D_Developer's_Guide_to_Unreal_Engine_4","wgRelevantArticleId":203,"wgRequestId":"85549090336b3a52708e621d","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","ext.pygments":"ready","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@0s4gmng",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=ext.pygments%7Cmediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Unity3D_Developer_s_Guide_to_Unreal_Engine_4 rootpage-Unity3D_Developer_s_Guide_to_Unreal_Engine_4 skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0b48461a8a6519d83"><meta name="worker" content="188"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"_currentVersion":"1.37.2.101.41","_type":"Epic Games Nav","hideSignIn":true,"epicPropertyName":"unreal_engine","pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_createdBy":"tony.rossi","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"_futureVersion":"none","_created":"2017-08-21T08:59:33.648Z","_activeDate":"2019-05-13T15:00:00.000Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/academy","title":"Online Learning","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/megagrants","title":"MegaGrants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/twinmotion","title":"Twinmotion"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/industries","title":"Industries"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.dde071ba1484c53b7528.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.dde071ba1484c53b7528.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Unity3D+Developer%27s+Guide+to+Unreal+Engine+4" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we're working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=Unity3D_Developer%27s_Guide_to_Unreal_Engine_4" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Unity3D_Developer%27s_Guide_to_Unreal_Engine_4&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=Unity3D_Developer%27s_Guide_to_Unreal_Engine_4">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=Unity3D_Developer%27s_Guide_to_Unreal_Engine_4&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Unity3D_Developer%27s_Guide_to_Unreal_Engine_4&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Unity3D Developer's Guide to Unreal Engine 4</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div class="tip">
+<div class="normaltitle">Unity Developers New to Unreal Engine 4</div>
+<p>Check out the official <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/GettingStarted/FromUnity/index.html">Unreal Engine 4 for Unity Developers</a> guide in the documentation!
+</p>
+</div>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Key_concepts"><span class="tocnumber">2</span> <span class="toctext">Key concepts</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Game_logic"><span class="tocnumber">2.1</span> <span class="toctext">Game logic</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Unity"><span class="tocnumber">2.1.1</span> <span class="toctext">Unity</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Unreal_Engine_4"><span class="tocnumber">2.1.2</span> <span class="toctext">Unreal Engine 4</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-6"><a href="#Game_Start"><span class="tocnumber">2.2</span> <span class="toctext">Game Start</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#Unity_2"><span class="tocnumber">2.2.1</span> <span class="toctext">Unity</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Unreal_Engine_4_2"><span class="tocnumber">2.2.2</span> <span class="toctext">Unreal Engine 4</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="#Life_Cycle"><span class="tocnumber">2.2.3</span> <span class="toctext">Life Cycle</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-10"><a href="#Scene"><span class="tocnumber">2.3</span> <span class="toctext">Scene</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#Unity3D"><span class="tocnumber">2.3.1</span> <span class="toctext">Unity3D</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#Unreal_Engine4"><span class="tocnumber">2.3.2</span> <span class="toctext">Unreal Engine4</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13"><a href="#Scene_objects"><span class="tocnumber">2.4</span> <span class="toctext">Scene objects</span></a>
+<ul>
+<li class="toclevel-3 tocsection-14"><a href="#Unity_3"><span class="tocnumber">2.4.1</span> <span class="toctext">Unity</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#Unreal_Engine_4_3"><span class="tocnumber">2.4.2</span> <span class="toctext">Unreal Engine 4</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-16"><a href="#Input_events"><span class="tocnumber">2.5</span> <span class="toctext">Input events</span></a>
+<ul>
+<li class="toclevel-3 tocsection-17"><a href="#Unity_4"><span class="tocnumber">2.5.1</span> <span class="toctext">Unity</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="#Unreal_Engine_4_4"><span class="tocnumber">2.5.2</span> <span class="toctext">Unreal Engine 4</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-19"><a href="#Print_to_console_.28log.29"><span class="tocnumber">2.6</span> <span class="toctext">Print to console (log)</span></a>
+<ul>
+<li class="toclevel-3 tocsection-20"><a href="#Unity_5"><span class="tocnumber">2.6.1</span> <span class="toctext">Unity</span></a></li>
+<li class="toclevel-3 tocsection-21"><a href="#Unreal_Engine_4_5"><span class="tocnumber">2.6.2</span> <span class="toctext">Unreal Engine 4</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-22"><a href="#Main_classes_and_function"><span class="tocnumber">3</span> <span class="toctext">Main classes and function</span></a>
+<ul>
+<li class="toclevel-2 tocsection-23"><a href="#Basic_Data_Types"><span class="tocnumber">3.1</span> <span class="toctext">Basic Data Types</span></a></li>
+<li class="toclevel-2 tocsection-24"><a href="#Member_Functions_and_Variables"><span class="tocnumber">3.2</span> <span class="toctext">Member Functions and Variables</span></a></li>
+<li class="toclevel-2 tocsection-25"><a href="#Components"><span class="tocnumber">3.3</span> <span class="toctext">Components</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="#Statics"><span class="tocnumber">3.4</span> <span class="toctext">Statics</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="#Spawning"><span class="tocnumber">3.5</span> <span class="toctext">Spawning</span></a>
+<ul>
+<li class="toclevel-3 tocsection-28"><a href="#Unity3D_2"><span class="tocnumber">3.5.1</span> <span class="toctext">Unity3D</span></a></li>
+<li class="toclevel-3 tocsection-29"><a href="#Unreal_Engine4_2"><span class="tocnumber">3.5.2</span> <span class="toctext">Unreal Engine4</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-30"><a href="#.23includes"><span class="tocnumber">4</span> <span class="toctext">#includes</span></a>
+<ul>
+<li class="toclevel-2 tocsection-31"><a href="#Particles.2FParticleSystemComponent.h"><span class="tocnumber">4.1</span> <span class="toctext">Particles/ParticleSystemComponent.h</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-32"><a href="#Related_Links"><span class="tocnumber">5</span> <span class="toctext">Related Links</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p>This guide should be Used and Maintained with the idea that it's purpose is to illustrate comparable elements and features between Unity3D and Unreal4.<br />
+Any topic that is not relatable back to Unity3D in some direct way should have it's own wiki page for user experience and searches.
+</p><p><br />
+</p>
+<h1><span class="mw-headline" id="Key_concepts">Key concepts</span></h1>
+<h2><span class="mw-headline" id="Game_logic">Game logic</span></h2>
+<h5><span class="mw-headline" id="Unity">Unity</span></h5>
+<p>Game logic is written using the Mono environment. Scripts manipulate GameObjects. GameObjects can have numerous scripts or none at all.
+</p>
+<h5><span class="mw-headline" id="Unreal_Engine_4">Unreal Engine 4</span></h5>
+<p>Game logic is written using C++ and/or Blueprint Editor. C++ classes and blueprints manipulate scene Actors. Blueprints are similar to Unity Prefabs. A Blueprint is a single parent class, interfaces, any components you wish to add via the blueprint editor, and one system of blueprint logic. A typical game sees major systems and functionality created with C++, but since C++ classes can be exposed to Blueprint systems, tertiary functionality can be added via the blueprint system.
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Game_Start">Game Start</span></h2>
+<h5><span class="mw-headline" id="Unity_2">Unity</span></h5>
+<p>By default the level with index 0 is loaded. Once loaded, all scripts (depending on execution order) have numerous methods fired, such as, Awake, Start, OnEnable, etc....
+</p><p><br />
+</p>
+<h5><span class="mw-headline" id="Unreal_Engine_4_2">Unreal Engine 4</span></h5>
+<p>The level set by default in (Edit &gt; Project Settings &gt; Maps &amp; Modes) is loaded. Every level has a WorldSettings class of which the properties can be edited in the editor. Using this class, UWorld classes are created at runtime. UWorld creates an object of class GameMode in scene. GameMode objects are used to spawn PlayerController objects, managers, and other objects used during gameplay.
+</p><p>Note: (Edit &gt; Project Settings &gt; Maps &amp; Modes) Default Modes section will allow you to set a default GameMode that all levels by default use. 
+</p><p>The Game's entry point is the constructor of the class inherited from GameMode.
+</p>
+<h3><span class="mw-headline" id="Life_Cycle">Life Cycle</span></h3>
+<p><b>Stub:</b> This should be expanded to include the general life cycle of Unreal Script Execution Order similar to [<a rel="nofollow" class="external text" href="http://docs.unity3d.com/Manual/ExecutionOrder.html">Unity Docs</a>]<br />
+Consider making a new page and linking to it from here.
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Scene">Scene</span></h2>
+<p>The concept of the Scene in both engines is the same. However, Unity3D and UE4 have different axes definitions.
+</p>
+<h5><span class="mw-headline" id="Unity3D">Unity3D</span></h5>
+<p>Unity uses a left handed coordinate system -- where the vertical direction is usually represented by the +Y axis.
+</p>
+<ul><li> X - left, right</li>
+<li> Y - up, down</li>
+<li> Z - forwards, backwards</li></ul>
+<p>File format: *.scene
+</p><p>Use GameObject static methods for scene objects operations ( find, spawn, destroy)
+</p><p>Level loading: Application.LoadLevel(string name);
+</p>
+<h5><span class="mw-headline" id="Unreal_Engine4">Unreal Engine4</span></h5>
+<p>UE4 uses a left handed coordinate system -- where the vertical direction is usually represented by the +Z axis.
+Z axis up.
+</p>
+<ul><li> X - forwards, backwards</li>
+<li> Y - left, right</li>
+<li> Z - up, down</li></ul>
+<p>UE4 also referrers to the pivots of a rotation as: Roll, Pitch, and Yaw.
+</p><p>File format: *.umap
+</p><p>Use UWorld for scene object operations ( find, spawn, destroy). You can get UWorld using GetWorld() from any UObject.
+</p><p><b>Level loading:</b><br />
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1">// OpenLevel in Blueprints. Both work the same and allow you to pass additional parameters. Example: &quot;&lt;key_1&gt;=&lt;value_1&gt;?&lt;key_2&gt;=&lt;value_2&gt;&quot;</span>
+<span class="c1">// @param bAbsolute if true options are reset, if false options are carried over from current level</span>
+<span class="n">UGameplayStatics</span><span class="o">::</span><span class="n">OpenLevel</span><span class="p">(</span><span class="n">UObject</span><span class="o">*</span> <span class="n">WorldContextObject</span><span class="p">,</span> <span class="n">FName</span> <span class="n">LevelName</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">bAbsolute</span><span class="p">,</span> <span class="n">FString</span> <span class="n">Options</span><span class="p">);</span>
+
+<span class="c1">// or</span>
+
+<span class="c1">// where the URL = path to the level and can include additional parameters. Example: &quot;/Game/Maps/&lt;map_name&gt;?&lt;key_1&gt;=&lt;value_1&gt;?&lt;key_2&gt;=&lt;value_2&gt;&quot;</span>
+<span class="n">GetWorld</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">ServerTravel</span><span class="p">(</span><span class="n">string</span> <span class="n">URL</span><span class="p">)</span>
+</pre></div>
+<p><b>Reading Parameters:</b><br />
+To use the parameters in code you must be in the <b>GameMode</b> class<br />
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1">// Searches the GameMode&#39;s current OptionsString (a default gamemode variable) for the &lt;key&gt; and if the &#39;key&#39; is not found returns the &#39;default_value&#39;</span>
+<span class="c1">// Keys and Values are formatted similar to ini files.</span>
+<span class="n">GetIntOption</span><span class="p">(</span><span class="n">OptionsString</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">default_value</span><span class="p">);</span>
+</pre></div>
+<h2><span class="mw-headline" id="Scene_objects">Scene objects</span></h2>
+<h5><span class="mw-headline" id="Unity_3">Unity</span></h5>
+<p>Base scene object – GameObject.
+</p><p>GameObjects are containers for all other Components. It has a Transform component by default. Components are then added to give the GameObject functionality.
+</p><p>GameObjects support a hierarchy (parent-child relation).
+</p>
+<h5><span class="mw-headline" id="Unreal_Engine_4_3">Unreal Engine 4</span></h5>
+<p>Base scene object  - Actor.
+</p><p>An Actor is the base object that can be placed or spawned into the world. An Actor by itself does not contain a USceneComponent (More on these later). The Actor is simply the base object which can have a presence in the level. Components add functionality to an Actor.
+</p><p>Actors support a hierarchy (parent-child relation).
+</p><p>Programmers can inherit from the default UActorComponent to create their own component.
+</p><p>Component spawning example:
+</p><p><b>.h</b>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1">// Remember to add a UPROPERTY() to your component definition in the .h with proper tags to expose the variables of the component for editing in the details panel of UE4 Editor.</span>
+<span class="c1">// If you do not, you will be able to see the component but the details panel will show up blank!</span>
+<span class="c1">// Add BlueprintReadWrite or other Blueprint tags to use in Blueprints.</span>
+<span class="n">UPROPERTY</span><span class="p">(</span><span class="n">EditAnywhere</span><span class="p">)</span>
+<span class="n">USceneComponent</span><span class="o">*</span> <span class="n">SceneComponent</span><span class="p">;</span>
+</pre></div>
+<p><b>.cpp</b>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">USceneComponent</span><span class="o">*</span> <span class="n">SceneComponent</span> <span class="o">=</span> <span class="n">FObjectInitializer</span><span class="p">.</span><span class="n">CreateDefaultSubobject</span><span class="o">&lt;</span><span class="n">USceneComponent</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;SceneComp&quot;</span><span class="p">));</span>
+<span class="n">RootComponent</span> <span class="o">=</span> <span class="n">SceneComponent</span><span class="p">;</span>
+</pre></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Input_events">Input events</span></h2>
+<h5><span class="mw-headline" id="Unity_4">Unity</span></h5>
+<p>Class Input
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">Input</span><span class="p">.</span><span class="n">GetAxis</span><span class="p">(</span><span class="s">&quot;MoveForward&quot;</span><span class="p">);</span>
+<span class="n">Input</span><span class="p">.</span><span class="n">GetTouch</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+<h5><span class="mw-headline" id="Unreal_Engine_4_4">Unreal Engine 4</span></h5>
+<p>Component UInputComponent of Actor class
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">InputComponent</span><span class="o">-&gt;</span><span class="n">BindAxis</span><span class="p">(</span><span class="s">&quot;MoveForward&quot;</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">AFirstPersonBaseCodeCharacter</span><span class="o">::</span><span class="n">MoveForward</span><span class="p">);</span>
+<span class="n">InputComponent</span><span class="o">-&gt;</span><span class="n">BindTouch</span><span class="p">(</span><span class="n">EInputEvent</span><span class="o">::</span><span class="n">IE_Pressed</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">AStrategyPlayerController</span><span class="o">::</span><span class="n">OnTapPressedMy</span><span class="p">);</span>
+<span class="p">...</span>
+<span class="kt">void</span> <span class="n">AStrategyPlayerController</span><span class="o">::</span><span class="n">OnTapPressedMy</span><span class="p">(</span><span class="n">ETouchIndex</span><span class="o">::</span><span class="n">Type</span> <span class="n">index</span><span class="p">,</span> <span class="n">FVector</span> <span class="n">ScreenPosition</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Print_to_console_.28log.29">Print to console (log)</span></h2>
+<h5><span class="mw-headline" id="Unity_5">Unity</span></h5>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">Debug</span><span class="p">.</span><span class="n">Log</span><span class="p">(</span><span class="s">&quot;Log text &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.1f</span><span class="p">).</span><span class="n">ToString</span><span class="p">());</span>
+<span class="n">Debug</span><span class="p">.</span><span class="n">LogWarning</span><span class="p">(</span><span class="s">&quot;Log warning&quot;</span><span class="p">);</span>
+<span class="n">Debug</span><span class="p">.</span><span class="n">LogError</span><span class="p">(</span><span class="s">&quot;Log error&quot;</span><span class="p">);</span>
+</pre></div>
+<h5><span class="mw-headline" id="Unreal_Engine_4_5">Unreal Engine 4</span></h5>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="n">GEngine</span><span class="o">-&gt;</span><span class="n">AddOnScreenDebugMessage</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">5.f</span><span class="p">,</span> <span class="n">FColor</span><span class="o">::</span><span class="n">Red</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;This is an on screen message!&quot;</span><span class="p">));</span>
+<span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogTemp</span><span class="p">,</span> <span class="n">Log</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Log text %f&quot;</span><span class="p">),</span> <span class="mf">0.1f</span><span class="p">);</span>
+<span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogTemp</span><span class="p">,</span> <span class="n">Warning</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Log warning&quot;</span><span class="p">));</span>
+<span class="n">UE_LOG</span><span class="p">(</span><span class="n">LogTemp</span><span class="p">,</span> <span class="n">Error</span><span class="p">,</span> <span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Log error&quot;</span><span class="p">));</span>
+<span class="n">FError</span><span class="o">::</span><span class="n">Throwf</span><span class="p">(</span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Log error&quot;</span><span class="p">));</span>
+<span class="n">FMessageDialog</span><span class="o">::</span><span class="n">Open</span><span class="p">(</span><span class="n">EAppMsgType</span><span class="o">::</span><span class="n">Ok</span><span class="p">,</span> <span class="n">FText</span><span class="o">::</span><span class="n">FromString</span><span class="p">(</span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Dialog message&quot;</span><span class="p">)));</span>
+</pre></div>
+<p>Further Reading: <a href="/index.php?title=Logs,_Printing_Messages_To_Yourself_During_Runtime" title="Logs, Printing Messages To Yourself During Runtime"> Wiki Entry on logging</a>
+<br /><br />
+</p>
+<h1><span class="mw-headline" id="Main_classes_and_function">Main classes and function</span></h1>
+<h2><span class="mw-headline" id="Basic_Data_Types">Basic Data Types</span></h2>
+<table class="wikitable">
+
+<tr>
+<th> Unity3D </th>
+<th> Unreal Engine4
+</th></tr>
+<tr>
+<td> int </td>
+<td> int32, int24, int8
+</td></tr>
+<tr>
+<td> string </td>
+<td> FString
+</td></tr>
+<tr>
+<td> Transform </td>
+<td> FTransform
+</td></tr>
+<tr>
+<td> Quaternion </td>
+<td> FQuat
+</td></tr>
+<tr>
+<td> Rotation </td>
+<td> FRotator
+</td></tr>
+<tr>
+<td> Gameobject </td>
+<td> Actor
+</td></tr>
+<tr>
+<td> Array </td>
+<td> TArray
+</td></tr></table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Member_Functions_and_Variables">Member Functions and Variables</span></h2>
+<p>Here is a list of commonly used functions and variables every Unity C# programmer should know and use. Listed along side are the identical/similar functions and variables used to gather the same information
+</p>
+<table class="wikitable">
+
+<tr>
+<th> Unity3D </th>
+<th> Unreal Engine4
+</th></tr>
+<tr>
+<td> Update() </td>
+<td> Tick(), TickComponent()
+</td></tr>
+<tr>
+<td> transform </td>
+<td> GetTransform() (returns new instance), SetActorTransform(FTransform) (to apply the Transform)
+</td></tr>
+<tr>
+<td> transform.position </td>
+<td> GetActorLocation()
+</td></tr>
+<tr>
+<td> transform.rotation </td>
+<td> GetActorRotation()
+</td></tr>
+<tr>
+<td> transform.localScale</td>
+<td> GetActorScale()
+</td></tr>
+<tr>
+<td> GetComponent&lt;T&gt;() </td>
+<td> FindComponentByClass&lt;T&gt;()
+</td></tr>
+<tr>
+<td> Destroy() </td>
+<td> Destroy()
+</td></tr>
+<tr>
+<td> Find()</td>
+<td> TObjectIterator&lt;T&gt;(), FActorIterator&lt;T&gt;, ActorItr(GetWorld()),ConstructorHelpers::FObjectFinder&lt;your_class&gt; object(name)
+</td></tr>
+<tr>
+<td> MathF </td>
+<td> FMath
+</td></tr>
+<tr>
+<td> RayCast </td>
+<td> Trace
+</td></tr>
+<tr>
+<td> SphereCast </td>
+<td> Sweep
+</td></tr></table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Components">Components</span></h2>
+<table class="wikitable">
+
+<tr>
+<th> Unity3D </th>
+<th> Unreal Engine4
+</th></tr>
+<tr>
+<td> Transform </td>
+<td> USceneComponent
+</td></tr>
+<tr>
+<td> Camera</td>
+<td> UCameraComponent
+</td></tr>
+<tr>
+<td> BoxCollider </td>
+<td> UBoxComponent
+</td></tr>
+<tr>
+<td> MeshFilter </td>
+<td> UStaticMeshComponent
+</td></tr>
+<tr>
+<td> ParticleSystem </td>
+<td> UParticleSystemComponent
+</td></tr>
+<tr>
+<td> AudioSource </td>
+<td> UAudioComponent
+</td></tr></table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Statics">Statics</span></h2>
+<table class="wikitable">
+
+<tr>
+<th> Unreal Engine 4 </th>
+<th> Use
+</th></tr>
+<tr>
+<td> UGameplayStatics </td>
+<td> Used to get access to things like players pawn, game mode, singleton, controller, spawn decal, spawn emitter
+</td></tr></table>
+<h2><span class="mw-headline" id="Spawning">Spawning</span></h2>
+<p>To create something at runtime.
+</p>
+<h5><span class="mw-headline" id="Unity3D_2">Unity3D</span></h5>
+<p><b>Instantiate()</b>
+</p><p>This function makes a copy of an object in a similar way to the Duplicate command in the editor. If you are cloning a GameObject then you can also optionally specify its position and rotation (these will default to Vector3.zero and Quaternion.identity respectively). If you are cloning a Component then the GameObject it is attached to will also be cloned, again with an optional position and rotation.
+</p>
+<h5><span class="mw-headline" id="Unreal_Engine4_2">Unreal Engine4</span></h5>
+<p><b>UWorld-&gt;SpawnActor()</b>
+</p><p>The process of creating a new instance of an Actor is known as spawning. Spawning of Actors is performed using the UWorld::SpawnActor() function. This function creates a new instance of a specified class and returns a pointer to the newly created Actor. UWorld::SpawnActor() may only be used for creating instances of classes which inherit from the Actor class in their hierarchy.
+</p><p><br />
+</p>
+<h1><span class="mw-headline" id=".23includes">#includes</span></h1>
+<p>It should be noted that #includes can also be added to your "Project.h" and will thus be included in all classes. This however can be a draw on your compiler and it's advised to add includes individually.
+</p>
+<h4><span class="mw-headline" id="Particles.2FParticleSystemComponent.h">Particles/ParticleSystemComponent.h</span></h4>
+<p>When trying to add a particle system via C++ you will receive an error unless you include the "Particles/ParticleSystemComponent.h" to your "class.h". Below is an example class that provides an exposed Particle System slot on an Actor via C++.
+</p><p>It is important to note that includes now require that the complete short path be defined. For example "ParticleSystemComponent.h" will not work without "Particles/" short path defined along with it as "Particles/ParticleSystemComponent.h".
+</p><p><big><big><big><b>.h</b></big></big></big>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1">// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.</span>
+
+<span class="cp">#pragma once</span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;GameFramework/Actor.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;Particles/ParticleSystemComponent.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;ParticleTest.generated.h&quot;</span><span class="cp"></span>
+
+<span class="n">UCLASS</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">AParticleTest</span> <span class="o">:</span> <span class="k">public</span> <span class="n">AActor</span>
+<span class="p">{</span>
+	<span class="n">GENERATED_UCLASS_BODY</span><span class="p">()</span>
+
+	<span class="n">UPROPERTY</span><span class="p">(</span><span class="n">VisibleAnywhere</span><span class="p">,</span> <span class="n">Category</span> <span class="o">=</span> <span class="n">Particle</span> <span class="n">System</span><span class="p">)</span>
+	<span class="n">TSubobjectPtr</span><span class="o">&lt;</span><span class="n">UParticleSystemComponent</span><span class="o">&gt;</span> <span class="n">ParticleSystem</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<p><big><big><big><b>.cpp</b></big></big></big>
+</p>
+<div class="mw-highlight mw-content-ltr" dir="ltr"><pre><span></span><span class="c1">// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.</span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;MyProject.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;ParticleTest.h&quot;</span><span class="cp"></span>
+
+
+<span class="n">AParticleTest</span><span class="o">::</span><span class="n">AParticleTest</span><span class="p">(</span><span class="k">const</span> <span class="k">class</span> <span class="nc">FPostConstructInitializeProperties</span><span class="o">&amp;</span> <span class="n">PCIP</span><span class="p">)</span>
+	<span class="o">:</span> <span class="n">Super</span><span class="p">(</span><span class="n">PCIP</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">ParticleSystem</span> <span class="o">=</span> <span class="n">PCIP</span><span class="p">.</span><span class="n">CreateDefaultSubobject</span><span class="o">&lt;</span><span class="n">UParticleSystemComponent</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">FName</span><span class="p">(</span><span class="n">TEXT</span><span class="p">(</span><span class="s">&quot;Particle System&quot;</span><span class="p">)));</span>
+	<span class="n">RootComponent</span> <span class="o">=</span> <span class="n">ParticleSystem</span><span class="p">;</span>
+
+<span class="p">}</span>
+</pre></div>
+<h1><span class="mw-headline" id="Related_Links">Related Links</span></h1>
+<p><a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?60720-Unity-to-Unreal-Losing-world-references&amp;p=234977&amp;viewfull=1#post234977">Storing References To World Objects, Forum Link by Rama</a>
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20190706063706
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.044 seconds
+Real time usage: 0.534 seconds
+Preprocessor visited node count: 219/1000000
+Preprocessor generated node count: 336/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:203-0!canonical and timestamp 20190706063705 and revision id 407
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=Unity3D_Developer%27s_Guide_to_Unreal_Engine_4&amp;oldid=407">https://wiki.unrealengine.com/index.php?title=Unity3D_Developer%27s_Guide_to_Unreal_Engine_4&amp;oldid=407</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="/index.php?title=Category:Code" title="Category:Code">Code</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0d0405fab30c4bd94"><meta name="worker" content="123"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.75","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"legalTags":[],"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners-apply","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://dev.epicgames.com","title":"Online Services"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"melissa.robinson"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.dde071ba1484c53b7528.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.dde071ba1484c53b7528.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.044","walltime":"0.534","ppvisitednodes":{"value":219,"limit":1000000},"ppgeneratednodes":{"value":336,"limit":1000000},"postexpandincludesize":{"value":0,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.000      1 -total"]},"cachereport":{"timestamp":"20190706063706","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":84});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":116,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

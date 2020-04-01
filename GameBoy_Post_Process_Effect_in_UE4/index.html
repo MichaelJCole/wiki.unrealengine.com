@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(3),u=e(4),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}catch(e){throw f.emit("fn-err",[arguments,this,e],t),e}finally{f.emit("fn-end",[c.now()],t)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e,n){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now(),!1,n])}},{}],2:[function(e,n,t){function r(e,n){if(!o)return!1;if(e!==o)return!1;if(!n)return!0;if(!i)return!1;for(var t=i.split("."),r=n.split("."),a=0;a<r.length;a++)if(r[a]!==t[a])return!1;return!0}var o=null,i=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var u=navigator.userAgent,f=u.match(a);f&&u.indexOf("Chrome")===-1&&u.indexOf("Chromium")===-1&&(o="Safari",i=f[1])}n.exports={agent:o,version:i,match:r}},{}],3:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],4:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],5:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=v(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){h[e]=v(e).concat(n)}function m(e,n){var t=h[e];if(t)for(var r=0;r<t.length;r++)t[r]===n&&t.splice(r,1)}function v(e){return h[e]||[]}function g(e){return p[e]=p[e]||o(t)}function w(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var h={},y={},b={on:l,addEventListener:l,removeEventListener:m,emit:t,get:g,listeners:v,context:n,buffer:w,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(3),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!E++){var e=x.info=NREUM.info,n=l.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+x.offset],null,"api");var t=l.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===l.readyState&&i()}function i(){f("mark",["domContent",a()+x.offset],null,"api")}function a(){return O.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-x.offset}var u=(new Date).getTime(),f=e("handle"),c=e(3),s=e("ee"),p=e(2),d=window,l=d.document,m="addEventListener",v="attachEvent",g=d.XMLHttpRequest,w=g&&g.prototype;NREUM.o={ST:setTimeout,SI:d.setImmediate,CT:clearTimeout,XHR:g,REQ:d.Request,EV:d.Event,PR:d.Promise,MO:d.MutationObserver};var h=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1118.min.js"},b=g&&w&&w[m]&&!/CriOS/.test(navigator.userAgent),x=n.exports={offset:u,now:a,origin:h,features:{},xhrWrappable:b,userAgent:p};e(1),l[m]?(l[m]("DOMContentLoaded",i,!1),d[m]("load",r,!1)):(l[v]("onreadystatechange",o),d[v]("onload",r)),f("mark",["firstbyte",u],null,"api");var E=0,O=e(5)},{}]},{},["loader"]);</script>
+<title>GameBoy Post Process Effect in UE4 - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"GameBoy_Post_Process_Effect_in_UE4","wgTitle":"GameBoy Post Process Effect in UE4","wgCurRevisionId":519,"wgRevisionId":519,"wgArticleId":259,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Epic Created Content"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"GameBoy_Post_Process_Effect_in_UE4","wgRelevantArticleId":259,"wgRequestId":"603cb296b895ce340b29aaa2","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@0s4gmng",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-GameBoy_Post_Process_Effect_in_UE4 rootpage-GameBoy_Post_Process_Effect_in_UE4 skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0e33288c51e7947d3"><meta name="worker" content="138"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"_currentVersion":"1.37.2.101.21","_type":"Epic Games Nav","hideSignIn":true,"epicPropertyName":"unreal_engine","pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_createdBy":"tony.rossi","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"_futureVersion":"none","_created":"2017-08-21T08:59:33.648Z","_activeDate":"2018-08-06T09:11:04.633Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://academy.unrealengine.com/","title":"Video Tutorials","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/megagrants","title":"MegaGrants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.482337d8153c02460e19.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.482337d8153c02460e19.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=GameBoy+Post+Process+Effect+in+UE4" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we're working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=GameBoy_Post_Process_Effect_in_UE4" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:GameBoy_Post_Process_Effect_in_UE4&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=GameBoy_Post_Process_Effect_in_UE4">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=GameBoy_Post_Process_Effect_in_UE4&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=GameBoy_Post_Process_Effect_in_UE4&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">GameBoy Post Process Effect in UE4</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>Authored by: Alan Noon
+</p><p><br />
+<a href="/index.php?title=File:Gameboy_1.png" class="image"><img alt="Gameboy 1.png" src="https://d26ilriwvtzlb.cloudfront.net/9/9f/Gameboy_1.png" width="584" height="329" /></a>
+</p>
+<div>
+<p>Inspired by the the recent <b><a rel="nofollow" class="external text" href="http://jams.gamejolt.io/gbjam3">Game Boy Jam</a></b>, I thought it would be neat to experiment with some of Unreal 4′s post processing capabilities. Finally we have all of the power and flexibility we need to accurately recreate primitive LCD displays of the late 80′s!!!</p>
+<p><br />
+</p>
+<p>The effect is pretty straight forward. First there’s there’s the iconic monochrome display, capable of a massive 4 different shades of sickly green. Second is the low res nature of the Game Boy’s screen. Third, I chose to add an outline effect in order to make things look more pixel art-y.</p>
+<p><br />
+</p>
+<p>For the monochrome, olive toned display, we’ll use color grading in the Global Post Processing Volume.</p>
+<p><br />
+</p>
+<p>The blocky, low res look and outline effects will be done by leveraging a couple of post process materials swiped from some of Epic’s Content Example projects.</p>
+<p><br />
+</p>
+<p>As this tutorial assumes little to no prior UE4 experience, expect a boatload of screenshots.</p>
+<p><br />
+</p>
+<p>OK, let’s walk through it together!</p>
+<p><br />
+</p>
+</div>
+<h2><span class="mw-headline" id="STEP_1:_Create_a_New_Project">STEP 1: Create a New Project</span></h2>
+<div> 
+<p>First up, create a new project, making sure to check “include starter content” so you have something interesting to look at. Name your project. You should now see a simple scene consisting of a couple of chairs and a table on a slab, floating in heaven.</p>
+<p><a href="/index.php?title=File:Gameboy_2.png" class="image"><img alt="Gameboy 2.png" src="https://d26ilriwvtzlb.cloudfront.net/2/21/Gameboy_2.png" width="584" height="329" /></a>
+</p>
+<p> Right click in the Asset Pane of the Content Browser and make a new folder to hold your content. I called mine “GBA” for some reason. (We’re actually going to mimic the GB.)</p>
+<p><a href="/index.php?title=File:Gameboy_3.png" class="image"><img alt="Gameboy 3.png" src="https://d26ilriwvtzlb.cloudfront.net/c/cb/Gameboy_3.png" width="584" height="329" /></a>
+</p>
+</div>
+<h2><span class="mw-headline" id="STEP_2:_Color_Grading">STEP 2: Color Grading</span></h2> 
+<div> 
+<p>Color grading is an extremely powerful way to control the final look of your scene. Fortunately, it is EXTREMELY easy, (and fun!) to do in UE4.</p> 
+<p><br /> 
+</p>
+<p>First of all, we’ll grab a screen shot of our original scene. PRNT SCRN will do, as will the Snipping Tool. In the image editing tool of your choice, (mine is Photoshop,) paste the screen grab into a new file.</p>
+<p><br /> 
+</p>
+<p>When we do color grading, we’re going to take the default range of colors in our rendered frame and remap them into a new palette. This is done by way of a LUT, or Look Up Table. In our case, it’s a Color Look Up Table. We’re going crush the beauty of UE4′s renderer down into 4 colors of ick. So download and save the image from the link:<b> <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/images/Engine/Rendering/PostProcessEffects/ColorGrading/RGBTable16x1.png">LUT Texture Example</a></b>, which will represent the full color, unadulterated spectrum. Load that into Photoshop and then Copy/Paste it into our project’s screen shot image. Anywhere will do really; placement is not important.</p> 
+<p><a href="/index.php?title=File:Gameboy_4.png" class="image"><img alt="Gameboy 4.png" src="https://d26ilriwvtzlb.cloudfront.net/4/4d/Gameboy_4.png" width="584" height="329" /></a>
+</p>
+<p>Now let’s mash down those colors! Using Photoshop’s Adjustment Layers, manipulate the image to your liking. I threw on a Posterize to bring the number of colors down, followed by Levels in order to make the blacks not so black, and then Hue/Saturation to impart that characteristic green hue, in that order.</p> 
+<p><a href="/index.php?title=File:Gameboy_5.png" class="image"><img alt="Gameboy 5.png" src="https://d26ilriwvtzlb.cloudfront.net/7/71/Gameboy_5.png" width="584" height="329" /></a>
+</p>
+<p>Once the screen shot of our table and chair scene looked suitably Game Boy-ey, I cropped the image to just the LUT portion of the image. Here are the Adjustment Layer settings I used and their effect, step by step:</p> 
+<p><br />
+<b>Original:</b>
+</p><p><a href="/index.php?title=File:Gameboy_6.png" class="image"><img alt="Gameboy 6.png" src="https://d26ilriwvtzlb.cloudfront.net/a/ae/Gameboy_6.png" width="584" height="329" /></a>
+</p><p><b>Posterize:</b>
+</p><p><a href="/index.php?title=File:Gameboy_7.png" class="image"><img alt="Gameboy 7.png" src="https://d26ilriwvtzlb.cloudfront.net/a/a9/Gameboy_7.png" width="584" height="329" /></a>
+</p><p><b>Levels:</b>
+</p><p><a href="/index.php?title=File:Gameboy_8.png" class="image"><img alt="Gameboy 8.png" src="https://d26ilriwvtzlb.cloudfront.net/e/e5/Gameboy_8.png" width="584" height="329" /></a>
+</p><p><b>Hue/Saturation:</b>
+</p><p><a href="/index.php?title=File:Gameboy_9.png" class="image"><img alt="Gameboy 9.png" src="https://d26ilriwvtzlb.cloudfront.net/e/ee/Gameboy_9.png" width="584" height="329" /></a>
+<br />
+</p>
+<p>Save that LUT strip out into a format that Unreal likes, and we’re good to go. (I use PNG.)</p>
+<p><br />
+</p>
+<p>In UE4, select your GBA asset folder, then right click in the right hand pane of the Content Browser. Select “Import to /Game/GBA…” and browse to that LUT image we just saved.</p>
+<p><a href="/index.php?title=File:Gameboy_10.png" class="image"><img alt="Gameboy 10.png" src="https://d26ilriwvtzlb.cloudfront.net/6/62/Gameboy_10.png" width="584" height="329" /></a>
+</p>
+<p>Double click the thumbnail that just appeared so we can edit one of the texture settings. From the LOD Group setting, choose “Color Lookup Table” and click the Save icon in the upper left.</p>
+<p><a href="/index.php?title=File:Gameboy_11.png" class="image"><img alt="Gameboy 11.png" src="https://d26ilriwvtzlb.cloudfront.net/f/f8/Gameboy_11.png" width="584" height="329" /></a>
+</p>
+<p>In the upper righthand portion of the UE4 UI, we see the Scene Outliner. Scroll through that list and select “GlobalPostProcessVolume” Guess what? This controls all the fancy post process effects happening in our scene.</p>
+<p><br />
+</p>
+<p>Below the Scene Outliner is the Details Panel, which displays the particulars of whatever actor we’ve selected in the Scene Outliner. Scroll down a bit to find the Scene Color group and you should see the Color Grading setting. From the Content Browser, we click and drag our Game Boy LUT over and drop it on the thumbnail that currently reads “None”.</p>
+<p><a href="/index.php?title=File:Gameboy_12.png" class="image"><img alt="Gameboy 12.png" src="https://d26ilriwvtzlb.cloudfront.net/d/de/Gameboy_12.png" width="584" height="329" /></a>
+</p>
+<p>Press the Play button in the toolbar above the viewport, and BAM! We’re looking a lot more like 1998 portable gaming.</p>
+<p><a href="/index.php?title=File:Gameboy_13.png" class="image"><img alt="Gameboy 13.png" src="https://d26ilriwvtzlb.cloudfront.net/9/94/Gameboy_13.png" width="584" height="329" /></a>
+</p>
+</div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="STEP_3:_Low_Res">STEP 3: Low Res</span></h2>
+<div>
+<p><br />
+</p>
+<p>The Game Boy’s screen res was a whopping 160×144, so let’s downgrade our image some more. From here, I am going to refer to Alan Willard’s great tutorial on how to do just that.</p>
+<p><br />
+&lt;youtube&gt;<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=GLJC1qG3oK4">https://www.youtube.com/watch?v=GLJC1qG3oK4</a>&lt;/youtube&gt;
+<br />
+</p>
+<p>Assuming you followed along as you watched the video, you should have a good understanding of what the shader does and have a material instance of the 8 Bit Pixellize Post Process Material to boot. If not, here’s a neat trick:</p>
+<p><br />
+</p>
+<p><em><b>PROTIP:</b> You can Select/Copy/Paste Material Graphs and share them via .txt files.</em></p>
+<p><br />
+</p>
+<p>I’ve done just that for you, here: <b><a rel="nofollow" class="external text" href="http://web.archive.org/web/20150305061202/http://alannoon.com:80/wp-content/uploads/8Bit-Pixellize_Post_Process_Material.txt">8Bit Pixellize_Post_Process_Material</a></b>. Save and then open that text file in a suitable text editor, CTRL+A to select all, and CTRL+C to copy. Now go back into UE4, right click in the Content Browser, create a new material and name it something logical such as “M_Pixellize_Post_Process”</p>
+<p><a href="/index.php?title=File:Gameboy_14.png" class="image"><img alt="Gameboy 14.png" src="https://d26ilriwvtzlb.cloudfront.net/7/73/Gameboy_14.png" width="584" height="329" /></a>
+</p>
+<p>Double click the material icon and the Material Editor will appear. Select the lone material node sitting there and then change the Material Domain to “Post Process” in the Details Panel on the lefthand side of the dialog.</p>
+<p><a href="/index.php?title=File:Gameboy_15.png" class="image"><img alt="Gameboy 15.png" src="https://d26ilriwvtzlb.cloudfront.net/0/0b/Gameboy_15.png" width="584" height="329" /></a>
+</p>
+<p>Now click anywhere in the graph view and CTRL+V to paste the contents of the pixellize text file from earlier. After a short pause, UE4 will rebuild the shader graph. Reposition nodes to taste. Now just wire the Color output of the Scene Texture node to the Emissive input of the master material node. Click the Save icon in the upper left of the Material Editor and close it.</p>
+<p><a href="/index.php?title=File:Gameboy_16.png" class="image"><img alt="Gameboy 16.png" src="https://d26ilriwvtzlb.cloudfront.net/6/6f/Gameboy_16.png" width="584" height="329" /></a>
+</p>
+<p>Right click the material we just created in the Content Browser, and choose “Create Material Instance” Press ENTER to accept the name UE4 supplies for you. Right click the material instance and select “Save” This will create a optimized version of our post process material that only exposes the pixellation parameter, which will save us from having to monkey around in the graph of the master material should we want to change the low res look.</p>
+<p><a href="/index.php?title=File:Gameboy_17.png" class="image"><img alt="Gameboy 17.png" src="https://d26ilriwvtzlb.cloudfront.net/e/e4/Gameboy_17.png" width="584" height="329" /></a>
+</p>
+<p>With the GlobalPostProcess actor selected in the Scene Outliner, go back to the Details Panel and scroll down to the “Misc” group where you should find the “Blendables” array, currently containing zero members. This is where we can add however many post process effects we would like in order to manipulate our final output. Press the “+” button. Now from the Content Browser, we’ll drag the material instance of the post process shader into the slot that was created in the Blendables Array.</p>
+<p><a href="/index.php?title=File:Gameboy_18.png" class="image"><img alt="Gameboy 18.png" src="https://d26ilriwvtzlb.cloudfront.net/1/13/Gameboy_18.png" width="584" height="329" /></a>
+</p>
+<p>Press Play.</p>
+<p><a href="/index.php?title=File:Gameboy_19.png" class="image"><img alt="Gameboy 19.png" src="https://d26ilriwvtzlb.cloudfront.net/a/a9/Gameboy_19.png" width="584" height="329" /></a>
+</p>
+<p><em>EEEK!</em> A bit too low res. Double click the material instance in the Content Browser. Click the triangle next to “Scalar Parameter” and the Pixellation setting should unfold. Tick the checkbox to enable editing of the field and set the value as desired. I chose 256.</p>
+<p><a href="/index.php?title=File:Gameboy_20.png" class="image"><img alt="Gameboy 20.png" src="https://d26ilriwvtzlb.cloudfront.net/c/c5/Gameboy_20.png" width="584" height="329" /></a>
+</p>
+<p>That’s better!</p>
+<p><br />
+</p>
+</div>
+<h2><span class="mw-headline" id="STEP_4:_Outline">STEP 4: Outline</span></h2>
+<div>
+<p><br />
+</p>
+<p>By now this tutorial is running long, so I am going to take another shortcut and borrow some work from Epic’s Stylized Rendering Content Example, (available on the Content Marketplace!) put together by Kendall Tucker. I am also going to forgo screenshotting redundant UI operations as you can reference the basics up above. Switching to Expert Mode…</p>
+<p><br />
+</p>
+<p>In the Stylized Rendering Project there’s a post process material that does an outline effect similar to what we want, though it contains a couple of features that aren’t suitable for our purposes here. So I’ve gone ahead and circumvented that stuff and hijacked the bits we do need. It’s a fairly complex material that I myself do not fully understand, so let’s skip the pesky details regarding exactly how it works and jump to the final result: <b><a rel="nofollow" class="external text" href="http://alannoon.com/wp-content/uploads/Outline_Post_Process_Material.txt">Outline_Post_Process_Material</a></b>. You know the routine: Save/Open/CTRL+A/CTRL+C to grab the contents of the material.</p>
+<p><br />
+</p>
+<p>In UE4, right click the content browser and make a new material. Name it. Double click the icon. In the Material Editor Graph, select the material node. In the Details Panel of the Material Editor, change the Material Domain to “Post Process” Click anywhere in the graph view and CTRL+V to paste the contents of the text file in. Wait just a sec, and the graph will be recreated. Drag off of the pin on the right most Lerp node and connect it to “Emissive” on the head material node.</p>
+<p><a href="/index.php?title=File:Gameboy_21.png" class="image"><img alt="Gameboy 21.png" src="https://d26ilriwvtzlb.cloudfront.net/1/1c/Gameboy_21.png" width="584" height="329" /></a>
+</p>
+<p>Click Save. Zoom out with the mouse wheel and you should have something that looks like this:</p>
+<p><a href="/index.php?title=File:Gameboy_22.png" class="image"><img alt="Gameboy 22.png" src="https://d26ilriwvtzlb.cloudfront.net/3/32/Gameboy_22.png" width="584" height="329" /></a>
+</p>
+<p>Close the Material Editor and right click the material we just made and create a material instance of it. Save it.</p>
+<p><br />
+</p>
+<p>With GlobalPostProcess selected in the Scene Outliner, drop down to the Details Panel and scrolll back down to the Blendables Array in the Misc Group. Click the “+” to add another Blendable to the array, and drag M_Outline_Post_Process_Inst to the new slot. Press Play.</p>
+<p><a href="/index.php?title=File:Gameboy_23.png" class="image"><img alt="Gameboy 23.png" src="https://d26ilriwvtzlb.cloudfront.net/0/03/Gameboy_23.png" width="584" height="329" /></a>
+</p>
+<p>That’s it!</p>
+</div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="STEP_5:_Tweaking">STEP 5: Tweaking</span></h2>
+<div>
+<p><br />
+</p>
+<p>There are all sorts of goodies in the Detail Panel of the Global Post Process Volume, so I encourage you to experiment in there and find some settings you like. For example, I prefer a little more life in my scene so I turned on Grain. YMMV.</p>
+<p><br />
+</p>
+<p>I felt our outline was probably too dark, so I went ahead and opened the outline post process material instance to tune the outline color. (I eyeballed 0.070811, 0.095, 0.033771) You can also play with the outline thickness.</p>
+<p><br />
+</p>
+<p>Tweak out the LUT in Photoshop to tune the colors. I ended up desaturating mine beyond the initial values listed above. Try reducing the levels of Posterization to make the scene even harsher looking.</p>
+<p><br />
+</p>
+</div>
+<h2><span class="mw-headline" id="Further_Work">Further Work</span></h2>
+<p><br />
+</p>
+<div>
+<ul>
+<li><strike>Fixing reflections. You may notice that the outline is not working in the floor plane reflection. I’ll have to look into that.</strike><b>UPDATE!!!</b> Outline reflection has been fixed </li>
+<li>Dithering. It would be fun to come up with another post process material to dither the image, adding to that retro feel.</li>
+<li>Motion Blur. The Game Boy was notorious for the amount of blurring that occurred on moving objects. It would be worth trying to duplicate that effect for maximum authenticity.</li>
+<li>Wrap head around how the Outline Shader works.</li>
+</ul>
+</div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Conclusion">Conclusion</span></h2>
+<div>
+<p><br />
+</p>
+<p>I hope you enjoyed this tutorial as much as I did making it. With luck, you learned something new and saw how easy it is to dramatically alter the final look of your projects with the post processing features of UE4. Thanks!</p>
+</div>
+<h2><span class="mw-headline" id="UPDATE.21.21.21_Game_Boy_Post_Process_Effect_in_UE4_Outline_Reflections_Fixed">UPDATE!!! Game Boy Post Process Effect in UE4 Outline Reflections Fixed</span></h2>
+<div>
+<p><br />
+<a href="/index.php?title=File:Gameboy_24.png" class="image"><img alt="Gameboy 24.png" src="https://d26ilriwvtzlb.cloudfront.net/e/e7/Gameboy_24.png" width="584" height="329" /></a> 
+</p>
+<p>In attempting to recreate the look of the Game Boy, I added an outline effect, which looked pretty good, save for one very noticeable issue: the outline was not being rendered into the reflection on the floor. Turns out, the fix is super simple!</p>
+<p>Basically, the outline effect was being applied to the scene AFTER reflections were being calculated. The reflection feature had no knowledge of the outline and therefore did not know to render it. We just need to change the order in which the effect is applied to the scene and everything should be happy. This is done at the material level. Let’s check it out…</p>
+<p>Open up the project you created previously, and in the Content Browser, double click the master outline post process material we created in order to open it in the material editor.</p>
+<p><a href="/index.php?title=File:Gameboy_25.png" class="image"><img alt="Gameboy 25.png" src="https://d26ilriwvtzlb.cloudfront.net/8/86/Gameboy_25.png" width="584" height="329" /></a>
+</p>
+<p>Select the head node in the graph view, and scroll down in the details panel on the left hand side of the Material Editor dialog. Find the Post Process Material group and we see the setting for “Blendable Location” This is where we control at which point in the post process chain this effect will be applied.</p>
+<p><br />
+</p>
+<p>There are three options here: After Tonemapping, Before Tonemapping, After Translucency.</p>
+<p><br />
+</p>
+<p>The Tonemapping process determines the final color of the scene. Reflections are calculated after that. (Makes sense, right? You want your reflections to match the rest of the scene, don’t ya?) So what we want to do is pick “Before Tonemapping” for our outline material, so that by the time the reflection system does its thing, it sees the outline.</p>
+<p><a href="/index.php?title=File:Gameboy_26.png" class="image"><img alt="Gameboy 26.png" src="https://d26ilriwvtzlb.cloudfront.net/0/01/Gameboy_26.png" width="584" height="329" /></a>
+</p>
+<p>So make that change, save the material with the button in the upper left, and close the Material Editor.</p>
+<p><br />
+</p>
+<p>Press Play, and Viola! Outlined reflections!</p>
+</div>
+
+<!-- 
+NewPP limit report
+Cached time: 20190405210026
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.160 seconds
+Real time usage: 0.593 seconds
+Preprocessor visited node count: 1/1000000
+Preprocessor generated node count: 4/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 1/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:259-0!canonical and timestamp 20190405210026 and revision id 519
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=GameBoy_Post_Process_Effect_in_UE4&amp;oldid=519">https://wiki.unrealengine.com/index.php?title=GameBoy_Post_Process_Effect_in_UE4&amp;oldid=519</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="/index.php?title=Category:Epic_Created_Content" title="Category:Epic Created Content">Epic Created Content</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0b48461a8a6519d83"><meta name="worker" content="123"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.40","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/gHooNW9I/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://dev.epicgames.com","title":"Online Services"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.482337d8153c02460e19.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.482337d8153c02460e19.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.160","walltime":"0.593","ppvisitednodes":{"value":1,"limit":1000000},"ppgeneratednodes":{"value":4,"limit":1000000},"postexpandincludesize":{"value":0,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":1,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.000      1 -total"]},"cachereport":{"timestamp":"20190405210026","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":90});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":132,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

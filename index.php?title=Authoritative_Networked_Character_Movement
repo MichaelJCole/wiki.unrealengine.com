@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(){}function o(e,t,n){return function(){return i(e,[f.now()].concat(u(arguments)),t?null:this,n),t?void 0:this}}var i=e("handle"),a=e(2),u=e(3),c=e("ee").get("tracer"),f=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,t){s[t]=o(d+t,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),t.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,t){var n={},r=this,o="function"==typeof t;return i(l+"tracer",[f.now(),e,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return t.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],n),e}finally{c.emit("fn-end",[f.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){m[t]=o(l+t)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,f.now()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(o<0?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],4:[function(e,t,n){t.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?c(e,u,i):i()}function n(n,r,o,i){if(!d.aborted||i){e&&e(n,r,o);for(var a=t(o),u=m(n),c=u.length,f=0;f<c;f++)u[f].apply(a,r);var p=s[y[n]];return p&&p.push([b,n,r,a]),a}}function l(e,t){v[e]=m(e).concat(t)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(n)}function g(e,t){f(e,function(e,n){t=t||"feature",y[n]=t,t in s||(s[t]=[])})}var v={},y={},b={on:l,emit:n,get:w,listeners:m,context:t,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",c=e("gos"),f=e(2),s={},p={},d=t.exports=o();d.backlog=s},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!x++){var e=h.info=NREUM.info,t=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return s.abort();f(y,function(t,n){e[t]||(e[t]=n)}),c("mark",["onload",a()+h.offset],null,"api");var n=d.createElement("script");n.src="https://"+e.agent,t.parentNode.insertBefore(n,t)}}function o(){"complete"===d.readyState&&i()}function i(){c("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),c=e("handle"),f=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1071.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=t.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+<title>Authoritative Networked Character Movement - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Authoritative_Networked_Character_Movement","wgTitle":"Authoritative Networked Character Movement","wgCurRevisionId":321,"wgRevisionId":321,"wgArticleId":160,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Code","Community Created Content"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Authoritative_Networked_Character_Movement","wgRelevantArticleId":160,"wgRequestId":"7d8666e584a88c457f3bab38","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@1xxwts3",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Authoritative_Networked_Character_Movement rootpage-Authoritative_Networked_Character_Movement skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-00f7fdb47766f2f80"><meta name="worker" content="139"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"hideShieldDownload":false,"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"alert":{"msg":"","_type":"Epic Header Alert","id":"","type":"info","statusHref":""},"_activeDate":"2018-08-06T09:11:04.633Z","links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://academy.unrealengine.com/","title":"Video Tutorials","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/unrealdevgrants","title":"Unreal Dev Grants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_currentVersion":"1.37.2.100","_type":"Epic Games Nav","hideSignIn":true,"pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"_futureVersion":"none","downloadLink":{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":""},"_created":"2017-08-21T08:59:33.648Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"hideShieldDropdown":false,"properties":[{"propertyKey":"paragon","_type":"Epic Games Property","egDisabled":true,"egSkip":true}],"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.100bcb10fc821c7c23f8.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.100bcb10fc821c7c23f8.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Authoritative+Networked+Character+Movement" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=Authoritative_Networked_Character_Movement" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Authoritative_Networked_Character_Movement&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=Authoritative_Networked_Character_Movement">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=Authoritative_Networked_Character_Movement&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Authoritative_Networked_Character_Movement&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Authoritative Networked Character Movement</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><a href="/index.php?title=Template:Rating&amp;action=edit&amp;redlink=1" class="new" title="Template:Rating (page does not exist)">Template:Rating</a>
+</p><p>Original Author: <a href="/index.php?title=User:DarthCoder&amp;action=edit&amp;redlink=1" class="new" title="User:DarthCoder (page does not exist)">DarthCoder</a> (<a href="/index.php?title=User_talk:DarthCoder&amp;action=edit&amp;redlink=1" class="new" title="User talk:DarthCoder (page does not exist)">talk</a>)
+</p><p>Implementing proper authoritative character movement is a very complex, yet under documented task. This tutorial serves as an introduction to implementing networked movement features in Unreal 4 by extending the <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/GameFramework/UCharacterMovementComponent/index.html">UCharacterMovementComponent</a>. This will be an intermediate to advanced tutorial, and will require using C++ since saved moves do not appear to be supported in Blueprint. Most of my knowledge of the character movement system comes from the Unreal Tournament 4 source code, so some similarities will be apparent.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Initial_Setup"><span class="tocnumber">1</span> <span class="toctext">Initial Setup</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Implementing_Movement_Abilities"><span class="tocnumber">2</span> <span class="toctext">Implementing Movement Abilities</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Sprint"><span class="tocnumber">2.1</span> <span class="toctext">Sprint</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Unlimited_Sprint"><span class="tocnumber">2.1.1</span> <span class="toctext">Unlimited Sprint</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="#Only_Sprint_Forward"><span class="tocnumber">2.1.2</span> <span class="toctext">Only Sprint Forward</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-6"><a href="#Boost_Dodge"><span class="tocnumber">2.2</span> <span class="toctext">Boost Dodge</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Double_Jump"><span class="tocnumber">2.3</span> <span class="toctext">Double Jump</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Cooldown_Timers"><span class="tocnumber">3</span> <span class="toctext">Cooldown Timers</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Conclusion"><span class="tocnumber">4</span> <span class="toctext">Conclusion</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Other_Resources"><span class="tocnumber">5</span> <span class="toctext">Other Resources</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Initial_Setup">Initial Setup</span></h2>
+<p>To implement custom networked character movement, you must extend the <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/GameFramework/UCharacterMovementComponent/index.html">UCharacterMovementComponent</a> and saved move classes. For starters let's get a class setup with all the boilerplate code out of the way. (thanks to antsonthetree for providing the code to fix this for the latest Unreal 4 version)
+<a href="/index.php?title=File:Create-character-movement-class.jpg" class="image"><img alt="Create-character-movement-class.jpg" src="https://d26ilriwvtzlb.cloudfront.net/b/b5/Create-character-movement-class.jpg" width="950" height="574" /></a>
+</p><p><i>MyCharacterMovement.h</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>pragma once</li></ol>
+<ol><li>include "GameFramework/CharacterMovementComponent.h"</li>
+<li>include "MyCharacterMovement.generated.h"</li></ol>
+<p>UCLASS()
+class UMyCharacterMovement&#160;: public UCharacterMovementComponent
+{
+	GENERATED_UCLASS_BODY()
+</p><p>	//============================================================================================
+	//Replication
+	//============================================================================================
+</p><p>public:
+</p><p>	friend class FSavedMove_ExtendedMyMovement;
+</p><p>	virtual void UpdateFromCompressedFlags(uint8 Flags) override;
+</p><p>	virtual class FNetworkPredictionData_Client* GetPredictionData_Client() const override;
+};
+</p><p>class FSavedMove_MyMovement&#160;: public FSavedMove_Character
+{
+public:
+</p><p>	typedef FSavedMove_Character Super;
+</p><p>	///@brief Resets all saved variables.
+	virtual void Clear() override;
+</p><p>	///@brief Store input commands in the compressed flags.
+	virtual uint8 GetCompressedFlags() const override;
+</p><p>	///@brief This is used to check whether or not two moves can be combined into one.
+	///Basically you just check to make sure that the saved variables are the same.
+	virtual bool CanCombineWith(const FSavedMovePtr&amp; NewMove, ACharacter* Character, float MaxDelta) const override;
+</p><p>	///@brief Sets up the move before sending it to the server. 
+	virtual void SetMoveFor(ACharacter* Character, float InDeltaTime, FVector const&amp; NewAccel, class FNetworkPredictionData_Client_Character &amp; ClientData) override;
+	///@brief Sets variables on character movement component before making a predictive correction.
+	virtual void PrepMoveFor(class ACharacter* Character) override;
+};
+</p><p>class FNetworkPredictionData_Client_MyMovement&#160;: public FNetworkPredictionData_Client_Character
+{
+public:
+</p>
+<pre>       FNetworkPredictionData_Client_MyMovement(const UCharacterMovementComponent&amp; ClientMovement);
+</pre>
+<p>	typedef FNetworkPredictionData_Client_Character Super;
+</p><p>	///@brief Allocates a new copy of our custom saved move
+	virtual FSavedMovePtr AllocateNewMove() override;
+};
+&lt;/syntaxhighlight&gt;
+</p><p><i>MyCharacterMovement.cpp</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>include "MyCharacterMovement.h"</li></ol>
+<p>UMyCharacterMovement::UMyCharacterMovement(const FObjectInitializer&amp; ObjectInitializer)
+	:Super(ObjectInitializer)
+{
+</p><p>}
+</p><p>//============================================================================================
+//Replication
+//============================================================================================
+</p><p>//Set input flags on character from saved inputs
+void UMyCharacterMovement::UpdateFromCompressedFlags(uint8 Flags)//Client only
+{
+	Super::UpdateFromCompressedFlags(Flags);
+</p><p><br />	
+}
+</p><p>class FNetworkPredictionData_Client* UMyCharacterMovement::GetPredictionData_Client() const
+{
+	check(PawnOwner&#160;!= NULL);
+	check(PawnOwner-&gt;Role &lt; ROLE_Authority);
+</p><p>	if (!ClientPredictionData)
+	{
+		UMyCharacterMovement* MutableThis = const_cast&lt;UMyCharacterMovement*&gt;(this);
+</p><p>		MutableThis-&gt;ClientPredictionData = new FNetworkPredictionData_Client_MyMovement(*this);
+		MutableThis-&gt;ClientPredictionData-&gt;MaxSmoothNetUpdateDist = 92.f;
+		MutableThis-&gt;ClientPredictionData-&gt;NoSmoothNetUpdateDist = 140.f;
+	}
+</p><p>	return ClientPredictionData;
+}
+</p><p>void FSavedMove_MyMovement::Clear()
+{
+	Super::Clear();
+</p><p><br />	
+}
+</p><p>uint8 FSavedMove_MyMovement::GetCompressedFlags() const
+{
+	uint8 Result = Super::GetCompressedFlags();
+</p><p><br />
+	return Result;
+}
+</p><p>bool FSavedMove_MyMovement::CanCombineWith(const FSavedMovePtr&amp; NewMove, ACharacter* Character, float MaxDelta) const
+{
+</p><p>	return Super::CanCombineWith(NewMove, Character, MaxDelta);
+}
+</p><p>void FSavedMove_MyMovement::SetMoveFor(ACharacter* Character, float InDeltaTime, FVector const&amp; NewAccel, class FNetworkPredictionData_Client_Character &amp; ClientData)
+{
+	Super::SetMoveFor(Character, InDeltaTime, NewAccel, ClientData);
+</p><p>	UMyCharacterMovement* CharMov = Cast&lt;UMyCharacterMovement&gt;(Character-&gt;GetCharacterMovement());
+	if (CharMov)
+	{
+</p><p>	}
+}
+</p><p>void FSavedMove_MyMovement::PrepMoveFor(class ACharacter* Character)
+{
+	Super::PrepMoveFor(Character);
+</p><p>	UMyCharacterMovement* CharMov = Cast&lt;UMyCharacterMovement&gt;(Character-&gt;GetCharacterMovement());
+	if (CharMov)
+	{
+</p><p>	}
+}
+</p><p>FNetworkPredictionData_Client_MyMovement::FNetworkPredictionData_Client_MyMovement(const UCharacterMovementComponent&amp; ClientMovement)
+</p>
+<dl><dd> Super(ClientMovement)</dd></dl>
+<p>{
+</p><p>}
+</p><p>FSavedMovePtr FNetworkPredictionData_Client_MyMovement::AllocateNewMove()
+{
+	return FSavedMovePtr(new FSavedMove_MyMovement());
+}
+&lt;/syntaxhighlight&gt;
+In order to actually use the custom component we'll have to set the default subobject class in the character class constructor.
+</p><p><i>MyCharacter.cpp</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+AMyCharacter::AMyCharacter(const FObjectInitializer&amp; ObjectInitializer)
+	:Super(ObjectInitializer.SetDefaultSubobjectClass&lt;UMyCharacterMovement&gt;(ACharacter::CharacterMovementComponentName))
+{
+	//Do normal stuff in constructor...
+}
+&lt;/syntaxhighlight&gt;
+</p>
+<h2><span class="mw-headline" id="Implementing_Movement_Abilities">Implementing Movement Abilities</span></h2>
+<h3><span class="mw-headline" id="Sprint">Sprint</span></h3>
+<p>Sprint is an example of an ability that can be implemented quite easily using just the compressed flags. To start with, we'll implement a basic unlimited sprint ability. We'll gradually improve it as we go along.
+</p>
+<h4><span class="mw-headline" id="Unlimited_Sprint">Unlimited Sprint</span></h4>
+<p>The first thing to do is add the input events to the character class.
+</p><p><i>MyCharacter.cpp</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+void AMyCharacter::SetupPlayerInputComponent(class UInputComponent* InputComponent)
+{
+	check(InputComponent);
+</p><p>	InputComponent-&gt;BindAction("Sprint", IE_Pressed, this, &amp;AMyCharacter::StartSprinting);
+	InputComponent-&gt;BindAction("Sprint", IE_Released, this, &amp;AMyCharacter::StopSprinting);
+</p><p>	//Other input bindings...
+}
+</p><p>void AMyCharacter::StartSprinting()
+{
+	UMyCharacterMovement* MoveComp = Cast&lt;UMyCharacterMovement&gt;(GetCharacterMovement());
+	if (MoveComp)
+	{
+		MoveComp-&gt;SetSprinting(true);
+	}
+}
+</p><p>void AMyCharacter::StopSprinting()
+{
+	UMyCharacterMovement* MoveComp = Cast&lt;UMyCharacterMovement&gt;(GetCharacterMovement());
+	if (MoveComp)
+	{
+		MoveComp-&gt;SetSprinting(false);
+	}
+}
+&lt;/syntaxhighlight&gt;
+</p><p>The character movement component will need to have the SetSprinting method, and also a few properties. Add the following properties and methods to <i>MyCharacterMovement.h</i>
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+UPROPERTY(EditAnywhere, Category = "Sprint")
+float SprintSpeedMultiplier;
+UPROPERTY(EditAnywhere, Category = "Sprint")
+float SprintAccelerationMultiplier;
+</p><p>///@brief Activate or deactivate sprint.
+void SetSprinting(bool bSprinting);
+</p><p>///@brief Flag for activating sprint.
+uint8 bWantsToSprint&#160;: 1;
+</p><p>///@brief Override maximum speed during sprint.
+virtual float GetMaxSpeed() const override;
+///@brief Override maximum acceleration for sprint.
+virtual float GetMaxAcceleration() const override;
+&lt;/syntaxhighlight&gt;
+</p><p>SetSprinting will be called to activate the sprint ability, and should need no explanation. GetMaxSpeed and GetMaxAcceleration use the sprint flag to determine whether or not to apply the speed and acceleration multipliers. This is all you need for a single player game, but try to run this in a networked game you'll quickly discover it doesn't work. The client can't sprint because the server doesn't know it's trying to, so it keeps getting corrected back to the normal walking speed.
+</p><p><i>MyCharacterMovement.cpp</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+void UMyCharacterMovement::SetSprinting(bool bSprinting)
+{
+	bWantsToSprint = bSprinting;
+}
+</p><p>float UMyCharacterMovement::GetMaxSpeed() const
+{
+	float MaxSpeed = Super::GetMaxSpeed();
+</p><p>	if (bWantsToSprint)
+	{
+		MaxSpeed *= SprintSpeedMultiplier;
+	}
+</p><p>	return MaxSpeed;
+}
+</p><p>float UMyCharacterMovement::GetMaxAcceleration() const
+{
+	float MaxAccel = Super::GetMaxAcceleration();
+</p><p>	if (bWantsToSprint)
+	{
+		MaxAccel *= SprintAccelerationMultiplier;
+	}
+</p><p>	return MaxAccel;
+}
+&lt;/syntaxhighlight&gt;
+</p><p>To make this replicate to the server and work with the prediction system we'll finally need to use the saved move class we inherited from earlier. We need to add a flag corresponding to the character movement component's sprint flag. This flag is used to re-trigger the ability later if a network correction forces us to resimulate the move. 
+</p><p><i>MyCharacterMovement.h</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+class FSavedMove_MyMovement&#160;: public FSavedMove_Character
+{
+public:
+</p><p>	typedef FSavedMove_Character Super;
+</p><p>	///@brief Resets all saved variables.
+	virtual void Clear() override;
+</p><p>	///@brief Store input commands in the compressed flags.
+	virtual uint8 GetCompressedFlags() const override;
+</p><p>	///@brief This is used to check whether or not two moves can be combined into one.
+	///Basically you just check to make sure that the saved variables are the same.
+	virtual bool CanCombineWith(const FSavedMovePtr&amp; NewMove, ACharacter* Character, float MaxDelta) const override;
+</p><p>	///@brief Sets up the move before sending it to the server. 
+	virtual void SetMoveFor(ACharacter* Character, float InDeltaTime, FVector const&amp; NewAccel, class FNetworkPredictionData_Client_Character &amp; ClientData) override;
+	///@brief Sets variables on character movement component before making a predictive correction.
+	virtual void PrepMoveFor(class ACharacter* Character) override;
+</p><p>	uint8 bSavedWantsToSprint&#160;: 1;
+};
+&lt;/syntaxhighlight&gt;
+</p><p>The character movement component will create these saved moves and fill them with data needed to replay moves on the server. The implementation of the saved move is pretty much just responsible for copying the variables needed to make the movement calculations back and forth between the saved move and the character movement component. Also, the SprintSpeedMultiplier and SprintAccelerationMultiplier should be given sensible default values in the constructor (2.0f should work fine).
+</p><p><i>MyCharacterMovement.cpp</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+void UMyCharacterMovement::UpdateFromCompressedFlags(uint8 Flags)
+{
+	Super::UpdateFromCompressedFlags(Flags);
+</p><p>	//The Flags parameter contains the compressed input flags that are stored in the saved move.
+	//UpdateFromCompressed flags simply copies the flags from the saved move into the movement component.
+	//It basically just resets the movement component to the state when the move was made so it can simulate from there.
+	bWantsToSprint = (Flags&amp;FSavedMove_Character::FLAG_Custom_0)&#160;!= 0;
+}
+</p><p>void FSavedMove_MyMovement::SetMoveFor(ACharacter* Character, float InDeltaTime, FVector const&amp; NewAccel, class FNetworkPredictionData_Client_Character&amp; ClientData)
+{
+	Super::SetMoveFor(Character, InDeltaTime, NewAccel, ClientData);
+</p><p>	UExtendedCharacterMovement* CharMov = Cast&lt;UExtendedCharacterMovement&gt;(Character-&gt;GetCharacterMovement());
+	if (CharMov)
+	{
+		//This is literally just the exact opposite of UpdateFromCompressed flags. We're taking the input
+		//from the player and storing it in the saved move.
+		bSavedWantsToSprint = CharMov-&gt;bWantsToSprint;
+	}
+}
+</p><p>void FSavedMove_MyMovement::Clear()
+{
+	Super::Clear();
+</p><p>	//Clear variables back to their default values.
+	bSavedWantsToSprint = false;
+}
+</p><p>//This is where we compress the flags saved in SetMoveFor. We're basically just ORing a bunch of them together.
+uint8 FSavedMove_ExtendedMovement::GetCompressedFlags() const
+{
+	uint8 Result = Super::GetCompressedFlags();
+</p><p>	if (bSavedWantsToSprint)
+	{
+		Result |= FLAG_Custom_0;
+	}
+</p><p>	return Result;
+}
+</p><p>bool FSavedMove_ExtendedMovement::CanCombineWith(const FSavedMovePtr&amp; NewMove, ACharacter* Character, float MaxDelta) const
+{
+	//This pretty much just tells the engine if it can optimize by combining saved moves. There doesn't appear to be
+	//any problem with leaving it out, but it seems that it's good practice to implement this anyways.
+	if (bSavedWantsToSprint&#160;!= ((FSavedMove_ExtendedMovement*)&amp;NewMove)-&gt;bSavedWantsToSprint)
+	{
+		return false;
+	}
+</p><p>	return Super::CanCombineWith(NewMove, Character, MaxDelta);
+}
+&lt;/syntaxhighlight&gt;
+</p><p>At this point you should have a basic sprint ability that can be triggered from either the client, or server. However, the sprint ability right now isn't very customizable. The player can sprint sideways and backwards just as easily as forwards, and can also sprint forever with no breaks between.
+</p>
+<h4><span class="mw-headline" id="Only_Sprint_Forward">Only Sprint Forward</span></h4>
+<p>Disclaimer: This is only my current implementation. If I come up with a better way then I'll update this tutorial.
+</p><p>There are a couple ways to prevent the player from sprinting sideways and backwards. One way would be to store the forward key state in the compressed flags just like we did with bWantsToSprint. This is fairly easy to do, but it uses up a flag that could be used for other abilities. It's actually possible to prevent the player from sprinting in other directions without sending any additional data.
+</p><p>Since inputs are handled by the saved move, as long as our calculations only rely on things that are replicated (velocity and rotation in this example), then we can make calculations based on them. Start by adding a method to check that we're moving forward.
+</p><p><i>MyCharacterMovement.h</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+///@return Whether or not the character is currently moving in a forward direction.
+bool IsMovingForward() const;
+&lt;/syntaxhighlight&gt;
+</p><p><i>MyCharacterMovement.cpp</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+bool UMyCharacterMovement::IsMovingForward() const
+{
+	if (!PawnOwner)
+	{
+		return false;
+	}
+</p><p>	FVector Forward = PawnOwner-&gt;GetActorForwardVector();
+	FVector MoveDirection = Velocity.GetSafeNormal();
+</p><p>	//Ignore vertical movement
+	Forward.Z = 0.0f;
+	MoveDirection.Z = 0.0f;
+</p><p>	float VelocityDot = FVector::DotProduct(Forward, MoveDirection);
+	return VelocityDot &gt; 0.7f;//Check to make sure difference between headings is not too great.
+}
+&lt;/syntaxhighlight&gt;
+</p><p>Then we simply check to make sure we're moving forward before applying the sprint speed boost in GetMaxSpeed and GetMaxAcceleration
+</p><p><i>MyCharacterMovement.cpp</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+float UMyCharacterMovement::GetMaxSpeed() const
+{
+	float MaxSpeed = Super::GetMaxSpeed();
+</p><p>	if (bWantsToSprint &amp;&amp; IsMovingForward())
+	{
+		MaxSpeed *= SprintSpeedMultiplier;
+	}
+</p><p>	return MaxSpeed;
+}
+</p><p>float UMyCharacterMovement::GetMaxAcceleration() const
+{
+	float MaxAccel = Super::GetMaxAcceleration();
+</p><p>	if (bWantsToSprint &amp;&amp; IsMovingForward())
+	{
+		MaxAccel *= SprintAccelerationMultiplier;
+	}
+</p><p>	return MaxAccel;
+}
+&lt;/syntaxhighlight&gt;
+</p>
+<h3><span class="mw-headline" id="Boost_Dodge">Boost Dodge</span></h3>
+<p>A popular feature lately in FPS games is to have boost dodges/thruster packs basically your character quickly boosts horizontally to avoid damage, close the distance for a melee, make a long jump, or whatever else the player wants to try and use it for. Two prime examples of recent games with this ability being Halo 5 and Call of Duty: Advanced Warfare. The boost dodge ability is one example of an ability that can benefit from sending extra data alongside the typical activation flags. In Unreal Tournament 4 the ability is implemented using four flags: one for each boost direction, but in this implementation we'll be sending along the character's movement vector to the server, since we can reuse it for other abilities as well.
+</p><p>To start with we'll deal with how to send additional input data to use in prediction. First add a variable to store it in the character movement component, then add the corresponding saved direction vector to the FSavedMove_MyMovement class. We'll also need to override the OnMovementUpdated method. The ability activation flag is handled just like bWantsToSprint. Don't forget to give DodgeStrength and GroundDodgeStrengthMultiplier some sane default values in the constructor.
+</p><p><i>MyCharacterMovement.h</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+//Inside UMyCharacterMovement class...
+UPROPERTY(EditAnywhere, Category = "Dodge")
+float DodgeStrength;
+UPROPERTY(EditAnywhere, Category = "Dodge")
+float GroundDodgeStrengthMultiplier;
+</p><p>UFUNCTION(Unreliable, Server, WithValidation)
+void ServerSetMoveDirection(const FVector&amp; MoveDir);
+</p><p>///@brief Triggers the dodge action.
+void DoDodge();
+</p><p>///@brief Event triggered at the end of a movement update
+virtual void OnMovementUpdated(float DeltaSeconds, const FVector &amp; OldLocation, const FVector &amp; OldVelocity) override;
+</p><p>FVector MoveDirection;
+uint8 bWantsToDodge&#160;: 1;
+</p><p>//Inside FSavedMove_MyMovement class...
+FVector SavedMoveDirection;
+uint8 bSavedWantsToDodge&#160;: 1;
+</p><p>///@brief This is used to copy state from the saved move to the character movement component.
+///This is ONLY used for predictive corrections, the actual data must be sent through RPC.
+virtual void PrepMoveFor(class ACharacter* Character) override;
+&lt;/syntaxhighlight&gt;
+</p><p>For sending extra client inputs to the server, we'll need to use RPC functions in place of the compressed flags. A convenient place to send the inputs is in the beginning of the OnMovementUpdated method.
+</p><p><i>MyCharacterMovement.cpp</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+bool UMyCharacterMovement::ServerSetMoveDirection_Validate(const FVector&amp; MoveDir)
+{
+	return true;
+}
+</p><p>void UMyCharacterMovement::ServerSetMoveDirection_Implementation(const FVector&amp; MoveDir)
+{
+	MoveDirection = DodgeDir;
+}
+</p><p>void UMyCharacterMovement::OnMovementUpdated(float DeltaSeconds, const FVector&amp; OldLocation, const FVector&amp; OldVelocity)
+{
+	Super::OnMovementUpdated(DeltaSeconds, OldLocation, OldVelocity);
+</p><p>	if (!CharacterOwner)
+	{
+		return;
+	}
+</p><p>	//Store movement vector
+	if (PawnOwner-&gt;IsLocallyControlled())
+	{
+		MoveDirection = PawnOwner-&gt;GetLastMovementInputVector();
+	}
+	//Send movement vector to server
+	if (PawnOwner-&gt;Role &lt; ROLE_Authority)
+	{
+		ServerSetMoveDirection(MoveDirection);
+	}
+}
+&lt;/syntaxhighlight&gt;
+</p><p>The input will also need to be added to the saved moves. The implementation is very similar to adding an input flag to the saved moves, but does not involve compressed flag methods. The only difference is that PrepMoveFor needs to be implemented to allow for client corrections to be made.
+</p><p><i>MyCharacterMovement.cpp</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+void FSavedMove_MyMovement::SetMoveFor(ACharacter* Character, float InDeltaTime, FVector const&amp; NewAccel, class FNetworkPredictionData_Client_Character&amp; ClientData)
+{
+	Super::SetMoveFor(Character, InDeltaTime, NewAccel, ClientData);
+</p><p>	UMyCharacterMovement* CharMov = Cast&lt;UMyCharacterMovement&gt;(Character-&gt;GetCharacterMovement());
+	if (CharMov)
+	{
+		//This is literally just the exact opposite of UpdateFromCompressed flags. We're taking the input
+		//from the player and storing it in the saved move.
+		bSavedWantsToSprint = CharMov-&gt;bWantsToSprint;
+</p><p>		//Again, just taking the player movement component's state and storing it for later it in the saved move.
+		SavedMoveDirection = CharMov-&gt;MoveDirection;
+	}
+}
+</p><p>void FSavedMove_MyMovement::Clear()
+{
+	Super::Clear();
+</p><p>	//Clear variables back to their default values.
+	bSavedWantsToSprint = false;
+	SavedMoveDirection = FVector::ZeroVector;
+}
+</p><p>bool FSavedMove_MyMovement::CanCombineWith(const FSavedMovePtr&amp; NewMove, ACharacter* Character, float MaxDelta) const
+{
+	//This pretty much just tells the engine if it can optimize by combining saved moves. There doesn't appear to be
+	//any problem with leaving it out, but it seems that it's good practice to implement this anyways.
+	if (bSavedWantsToSprint&#160;!= ((FSavedMove_ExtendedMovement*)&amp;NewMove)-&gt;bSavedWantsToSprint)
+	{
+		return false;
+	}
+</p><p>	if (SavedMoveDirection&#160;!= ((FSavedMove_ExtendedMovement*)&amp;NewMove)-&gt;SavedMoveDirection)
+	{
+		return false;
+	}
+</p><p>	return Super::CanCombineWith(NewMove, Character, MaxDelta);
+}
+</p><p>void FSavedMove_MyMovement::PrepMoveFor(class ACharacter* Character)
+{
+	Super::PrepMoveFor(Character);
+</p><p>	UMyCharacterMovement* CharMov = Cast&lt;UMyCharacterMovement&gt;(Character-&gt;GetCharacterMovement());
+	if (CharMov)
+	{
+		//This is just the exact opposite of SetMoveFor. It copies the state from the saved move to the movement
+		//component before a correction is made to a client.
+		CharMov-&gt;MoveDirection = SavedMoveDirection;
+</p><p>		//Don't update flags here. They're automatically setup before corrections using the compressed flag methods.
+	}
+}
+&lt;/syntaxhighlight&gt;
+</p><p>Now we have all the data needed in order to implement the actual ability in OnMovementUpdated. We'll also need to implement the method to trigger the ability and hook it up to the character's input component. For the sake of brevity, and my own sanity, it's assumed that you can figure out how to hook up the DoDodge method to the input component by now if you've already made it this far, so that bit of code has been omitted.
+</p><p><i>MyCharacterMovement.cpp</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+void UMyCharacterMovement::OnMovementUpdated(float DeltaSeconds, const FVector&amp; OldLocation, const FVector&amp; OldVelocity)
+{
+	Super::OnMovementUpdated(DeltaSeconds, OldLocation, OldVelocity);
+</p><p>	if (!CharacterOwner)
+	{
+		return;
+	}
+</p><p>	//Store movement vector
+	if (PawnOwner-&gt;IsLocallyControlled())
+	{
+		MoveDirection = PawnOwner-&gt;GetLastMovementInputVector();
+	}
+	//Send movement vector to server
+	if (PawnOwner-&gt;Role &lt; ROLE_Authority)
+	{
+		ServerSetMoveDirection(MoveDirection);
+	}
+</p><p>	//Update dodge movement
+	if (bWantsToDodge)
+	{		
+		MoveDirection.Normalize();
+		FVector DodgeVel = MoveDirection*DodgeStrength;
+		DodgeVel.Z = 0.0f;
+</p><p>		if (IsMovingOnGround())
+		{
+			DodgeVel *= GroundDodgeStrengthMultiplier;
+		}
+</p><p>		Launch(DodgeVel);
+</p><p>		bWantsToDodge = false;
+	}
+}
+</p><p>void UMyCharacterMovement::DoDodge()
+{
+	bWantsToDodge = true;
+}
+&lt;/syntaxhighlight&gt;
+</p><p>Now you should be able to test the character movement and boost around using whatever key you've assigned boost to. To keep things simple, this is just a basic boost implementation. You could get more advanced and average the velocities in OnMovementUpdated so that you boost faster when going forward, or use all sorts of other math to make things more interesting.
+</p>
+<h3><span class="mw-headline" id="Double_Jump">Double Jump</span></h3>
+<p>A simple double jump is actually quite easy to implement. The first thing is to override the CanJumpInternal_Implementation method in the character class so that we can actually trigger the extra jump.
+</p><p><i>MyCharacter.cpp</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+bool AMyCharacter::CanJumpInternal_Implementation() const
+{
+	bool bCanJump = Super::CanJumpInternal_Implementation();
+</p><p>	UMyCharacterMovement* MyMovementComp = Cast&lt;UMyCharacterMovement&gt;(GetCharacterMovement());
+	if (!bCanJump &amp;&amp; MyMovementComp)
+	{
+		bCanJump = MyMovementComp-&gt;CanJump();
+	}
+</p><p>	return bCanJump;
+}
+&lt;/syntaxhighlight&gt;
+</p><p>It's much more convenient to check for double jumping capability inside the character movement component, so we'll just call into a CanJump method we'll add to it. Additionally, we'll want to override a couple methods, and add a couple properties. We'll also need to add a member to the saved move for corrections to work.
+</p><p><i>MyCharacterMovement.h</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+//Inside UMyCharacterMovement...
+</p><p>///@brief Override DoJump to trigger the extra jumps.
+virtual bool DoJump(bool bReplayingMoves) override;
+///@return Whether or not the character can currently jump.
+bool CanJump();
+///@brief This is called whenever the character lands on the ground, and will be used to reset the jump counter.
+virtual void ProcessLanded(const FHitResult&amp; Hit, float remainingTime, int32 Iterations) override;
+</p><p>UPROPERTY(Category = "Multijump", EditAnywhere, BlueprintReadWrite, meta = (DisplayName = "Max Multijump Count"))
+int32 MaxJumpCount;
+UPROPERTY(Category = "Multijump", BlueprintReadWrite, meta = (DisplayName = "Current jump count"))
+int32 JumpCount;
+</p><p>//Inside FSavedMove_MyMovement...
+int32 SavedJumpCount;
+&lt;/syntaxhighlight&gt;
+</p><p>Okay, I lied. It's not necessarily a double jump, because you can set the MaxJumpCount property higher than 2 to let your character jump as many times as you want. It turns out it's easier to implement this way though, so you basically get extra functionality for free.
+</p><p>First of all just get all the saved move stuff out of the way. Not much special here, just the same as before. The only difference being we don't have to bother sending the JumpCount through an RPC, because it just gets incremented on both the client and server whenever a jump is triggered.
+</p><p><i>MyCharacterMovement.cpp</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+void FSavedMove_MyMovement::Clear()
+{
+	Super::Clear();
+</p><p>	//Omitted variables from previous abilities...
+</p><p>	SavedJumpCount = 0;
+}
+</p><p>bool FSavedMove_MyMovement::CanCombineWith(const FSavedMovePtr&amp; NewMove, ACharacter* Character, float MaxDelta) const
+{
+	//Omitted variables from previous abilities...
+</p><p>	if (SavedJumpCount&#160;!= ((FSavedMove_MyMovement*)&amp;NewMove)-&gt;SavedJumpCount)
+	{
+		return false;
+	}
+</p><p>	return Super::CanCombineWith(NewMove, Character, MaxDelta);
+}
+</p><p>void FSavedMove_MyMovement::SetMoveFor(ACharacter* Character, float InDeltaTime, FVector const&amp; NewAccel, class FNetworkPredictionData_Client_Character &amp; ClientData)
+{
+	Super::SetMoveFor(Character, InDeltaTime, NewAccel, ClientData);
+</p><p>	UMyCharacterMovement* CharMov = Cast&lt;UMyCharacterMovement&gt;(Character-&gt;GetCharacterMovement());
+	if (CharMov)
+	{
+		//Omitted variables from previous abilities...
+</p><p>		SavedJumpCount = CharMov-&gt;JumpCount;
+	}
+}
+</p><p>void FSavedMove_MyMovement::PrepMoveFor(class ACharacter* Character)
+{
+	Super::PrepMoveFor(Character);
+</p><p>	UMyCharacterMovement* CharMov = Cast&lt;UMyCharacterMovement&gt;(Character-&gt;GetCharacterMovement());
+	if (CharMov)
+	{
+		//Omitted variables from previous abilities...
+</p><p>		CharMov-&gt;JumpCount = SavedJumpCount;
+	}
+}
+&lt;/syntaxhighlight&gt;
+</p><p>Now comes the actual extra jump implementation. To let the player even trigger the jump, the CanJump method we call into from the character class needs to be implemented. It's pretty self explanatory.
+</p><p><i>MyCharacterMovement.cpp</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+bool UExtendedCharacterMovement::CanJump()
+{
+	return (IsMovingOnGround() || JumpCount &lt; MaxJumpCount) &amp;&amp; CanEverJump();
+}
+&lt;/syntaxhighlight&gt;
+</p><p>Now all that remains is to increment the jump count whenever an extra jump is triggered, and reset it on landing. The character movement component has a DoJump method for incrementing the counter, and a convenient ProcessLanded method we can override to reset the counter. 
+</p><p><i>MyCharacterMovement.cpp</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+bool UMyCharacterMovement::DoJump(bool bReplayingMoves)
+{
+	if (Super::DoJump(bReplayingMoves))
+	{
+		JumpCount++;
+</p><p>		return true;
+	}
+</p><p>	return false;
+}
+</p><p>void UMyCharacterMovement::ProcessLanded(const FHitResult&amp; Hit, float remainingTime, int32 Iterations)
+{
+	JumpCount = 0;
+</p><p>	Super::ProcessLanded(Hit, remainingTime, Iterations);
+}
+&lt;/syntaxhighlight&gt;
+</p><p>The double jump will work now if all you want to do is add an extra jump. The only problem is you can't really change directions while jumping. The good news is, we sent the movement vector earlier so that we could boost in different directions, so we can just reuse that here to make whatever velocity calculations we want to.
+</p><p><i>MyCharacterMovement.cpp</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+bool UMyCharacterMovement::DoJump(bool bReplayingMoves)
+{
+	if (Super::DoJump(bReplayingMoves))
+	{
+		JumpCount++;
+</p><p>		//Adjust midair velocity using the input direction
+		if (JumpCount &gt; 1)
+		{
+			//Calculate lateral speed to use in adjusting trajectory in midair
+			FVector LateralVelocity = Velocity;
+			LateralVelocity.Z = 0.0f;//Don't care about vertical velocity
+			float LateralSpeed = LateralVelocity.Size();
+</p><p>			//Average the actual velocity with the target velocity
+			FVector NewVelocity = MoveDirection*LateralSpeed;
+			NewVelocity.Z = 0.0f;
+			NewVelocity += LateralVelocity;
+			NewVelocity *= 0.5f;
+</p><p>			Velocity = NewVelocity;
+			Velocity.Z = JumpZVelocity;
+		}
+</p><p>		return true;
+	}
+</p><p>	return false;
+}
+&lt;/syntaxhighlight&gt;
+</p><p>Now jumping while holding in a different direction will cause the character to change directions mid jump.
+</p>
+<h2><span class="mw-headline" id="Cooldown_Timers">Cooldown Timers</span></h2>
+<p>The last example for character movement is cooldown timers on abilities. The boost dodge ability will be used to demonstrate how to implement a simple cooldown timer. The same concept applies to sprint energy and other timer/energy type effects as well.
+</p><p>Timers are just calculated on both the client and the server independently, because they don't really need to match up perfectly since the server is authoritative. The only reason they need to be calculated on the client too is so that players don't try to spam the boost button and see their character getting corrected back to its original position. If you have a timer that really needs to be synchronized, then you could probably set it to be replicated, but in the interest of not wasting bandwidth the boost timer won't be replicated.
+</p><p><i>MyCharacterMovement.h</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+//Inside UMyCharacterMovement class...
+</p><p>UPROPERTY(EditAnywhere, Category = "Dodge")
+float DodgeCooldown;
+</p><p>float DodgeCooldownTimer;
+</p><p>//Inside FSavedMove_MyMovement class...
+float SavedDodgeCooldownTimer;
+&lt;/syntaxhighlight&gt;
+</p><p>DodgeCooldown should be initialized to something like 2.0f or whatever you want the cooldown time to be. DodgeCooldownTimer is what will actually be doing the timing, so set it to 0.0f in the constructor. We'll use OnMovementUpdated to update our timers.
+</p><p><i>MyCharacterMovement.cpp</i>
+&lt;syntaxhighlight lang="cpp"&gt;
+void UMyCharacterMovement::OnMovementUpdated(float DeltaSeconds, const FVector&amp; OldLocation, const FVector&amp; OldVelocity)
+{
+	//...
+</p><p>	//Update dodge movement
+	if (bWantsToDodge &amp;&amp; DodgeCooldownTimer &lt;= 0.0f)
+	{		
+		MoveDirection.Normalize();
+		FVector DodgeVel = MoveDirection*DodgeStrength;
+		DodgeVel.Z = 0.0f;
+</p><p>		if (IsMovingOnGround())
+		{
+			DodgeVel *= GroundDodgeStrengthMultiplier;
+		}
+</p><p>		Launch(DodgeVel);
+</p><p>		bWantsToDodge = false;
+</p><p>		//Reset cooldown timer
+		DodgeCooldownTimer = DodgeCooldown;
+	}
+</p><p>	//Update cooldown timers
+	{
+		if (DodgeCooldownTimer &gt; 0.0f)
+		{
+			DodgeCooldownTimer -= DeltaSeconds;
+		}
+	}
+</p><p>	//...
+}
+&lt;/syntaxhighlight&gt;
+</p><p>We pretty much just update and check against the timers all in the OnMovementUpdated method. After a while this can get kind of messy, so in a larger project with lots of movement abilities it can be beneficial to refactor things a bit and maybe split stuff up into more methods, but for the sake of this example this will work fine.
+</p><p>Finally, just do the usual with the saved moves.
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+void FSavedMove_MyMovement::Clear()
+{
+	Super::Clear();
+</p><p>	//Omitted other variables...
+</p><p>	SavedDodgeCooldownTimer= 0;
+}
+</p><p>bool FSavedMove_MyMovement::CanCombineWith(const FSavedMovePtr&amp; NewMove, ACharacter* Character, float MaxDelta) const
+{
+	//Omitted other variables...
+</p><p>	if (SavedDodgeCooldownTimer!= ((FSavedMove_MyMovement*)&amp;NewMove)-&gt;SavedDodgeCooldownTimer)
+	{
+		return false;
+	}
+</p><p>	return Super::CanCombineWith(NewMove, Character, MaxDelta);
+}
+</p><p>void FSavedMove_MyMovement::SetMoveFor(ACharacter* Character, float InDeltaTime, FVector const&amp; NewAccel, class FNetworkPredictionData_Client_Character &amp; ClientData)
+{
+	Super::SetMoveFor(Character, InDeltaTime, NewAccel, ClientData);
+</p><p>	UMyCharacterMovement* CharMov = Cast&lt;UMyCharacterMovement&gt;(Character-&gt;GetCharacterMovement());
+	if (CharMov)
+	{
+		//Omitted other variables...
+</p><p>		SavedDodgeCooldownTimer = CharMov-&gt;DodgeCooldownTimer;
+	}
+}
+</p><p>void FSavedMove_MyMovement::PrepMoveFor(class ACharacter* Character)
+{
+	Super::PrepMoveFor(Character);
+</p><p>	UMyCharacterMovement* CharMov = Cast&lt;UMyCharacterMovement&gt;(Character-&gt;GetCharacterMovement());
+	if (CharMov)
+	{
+		//Omitted other variables...
+</p><p>		CharMov-&gt;DodgeCooldownTimer = SavedDodgeCooldownTimer;
+	}
+}
+&lt;/syntaxhighlight&gt;
+</p>
+<h2><span class="mw-headline" id="Conclusion">Conclusion</span></h2>
+<p>Most movement abilities should be easy to implement in quite a similar fashion. A jetpack would just need to use the compressed flags to set some sort of bWantsToJetpack on the movement component, then just use OnMovementUpdated to adjust the velocity.
+</p><p>If you find any errors, or have any questions or suggestions about this tutorial then just drop them in the <a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?79646-Wiki-Authoritative-Networked-Character-Movement-Tutorial&amp;p=351317#post351317">forum thread</a> and I'll try to update accordingly.
+</p>
+<h2><span class="mw-headline" id="Other_Resources">Other Resources</span></h2>
+<p>This section just includes links to various useful resources relating to the character movement component. I'll be updating this whenever I find more.
+</p><p><a href="/index.php?title=Custom_Character_Movement_Component" title="Custom Character Movement Component">Custom Character Movement Component</a>
+</p><p><a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Gameplay/Networking/CharacterMovementComponent/index.html">Character Movement Component docs</a>
+</p><p><a rel="nofollow" class="external text" href="http://error454.com/2015/03/20/ue4/movement/replication/">Error545's Character Movement Replication in UE4 blog post</a>
+</p><p><a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?5047-How-to-add-a-movement-type-inherited-from-Walking-Like-Covering">Custom Movement Modes</a>
+</p><p><a rel="nofollow" class="external text" href="https://github.com/EpicGames/UnrealTournament/blob/clean-master/UnrealTournament/Source/UnrealTournament/Public/UTCharacterMovement.h">UTCharacterMovement.h</a>
+</p><p><a rel="nofollow" class="external text" href="https://github.com/EpicGames/UnrealTournament/blob/clean-master/UnrealTournament/Source/UnrealTournament/Private/UTCharacterMovement.cpp">UTCharacterMovement.cpp</a>
+</p><p><a rel="nofollow" class="external text" href="https://github.com/EpicGames/UnrealTournament/blob/clean-master/UnrealTournament/Source/UnrealTournament/Public/UTCharacter.h">UTCharacter.h</a>
+</p><p><a rel="nofollow" class="external text" href="https://github.com/EpicGames/UnrealTournament/blob/clean-master/UnrealTournament/Source/UnrealTournament/Private/UTCharacter.cpp">UTCharacter.cpp</a>
+</p><p><a rel="nofollow" class="external text" href="https://github.com/EpicGames/UnrealTournament/blob/clean-master/UnrealTournament/Source/UnrealTournament/Private/UTCharMovementReplication.cpp">UTCharMovementReplication.cpp</a>
+</p><p><br />
+<a href="/index.php?title=User:DarthCoder&amp;action=edit&amp;redlink=1" class="new" title="User:DarthCoder (page does not exist)">DarthCoder</a> (<a href="/index.php?title=User_talk:DarthCoder&amp;action=edit&amp;redlink=1" class="new" title="User talk:DarthCoder (page does not exist)">talk</a>)
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20180929001221
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.052 seconds
+Real time usage: 0.101 seconds
+Preprocessor visited node count: 41/1000000
+Preprocessor generated node count: 76/1000000
+Post‐expand include size: 20/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    3.193      1 -total
+100.00%    3.193      1 Template:Rating
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:160-0!canonical and timestamp 20180929001221 and revision id 321
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=Authoritative_Networked_Character_Movement&amp;oldid=321">https://wiki.unrealengine.com/index.php?title=Authoritative_Networked_Character_Movement&amp;oldid=321</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/index.php?title=Category:Tutorials&amp;action=edit&amp;redlink=1" class="new" title="Category:Tutorials (page does not exist)">Tutorials</a></li><li><a href="/index.php?title=Category:Code" title="Category:Code">Code</a></li><li><a href="/index.php?title=Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0a137bf8b82e8a632"><meta name="worker" content="139"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.31","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/gHooNW9I/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Edit the global content type","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.100bcb10fc821c7c23f8.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.100bcb10fc821c7c23f8.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.052","walltime":"0.101","ppvisitednodes":{"value":41,"limit":1000000},"ppgeneratednodes":{"value":76,"limit":1000000},"postexpandincludesize":{"value":20,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    3.193      1 -total","100.00%    3.193      1 Template:Rating"]},"cachereport":{"timestamp":"20180929001221","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":188});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":229,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

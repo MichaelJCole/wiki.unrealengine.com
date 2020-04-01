@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(3),u=e(4),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}catch(e){throw f.emit("fn-err",[arguments,this,e],t),e}finally{f.emit("fn-end",[c.now()],t)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e,n){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now(),!1,n])}},{}],2:[function(e,n,t){function r(e,n){if(!o)return!1;if(e!==o)return!1;if(!n)return!0;if(!i)return!1;for(var t=i.split("."),r=n.split("."),a=0;a<r.length;a++)if(r[a]!==t[a])return!1;return!0}var o=null,i=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var u=navigator.userAgent,f=u.match(a);f&&u.indexOf("Chrome")===-1&&u.indexOf("Chromium")===-1&&(o="Safari",i=f[1])}n.exports={agent:o,version:i,match:r}},{}],3:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],4:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],5:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=v(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){h[e]=v(e).concat(n)}function m(e,n){var t=h[e];if(t)for(var r=0;r<t.length;r++)t[r]===n&&t.splice(r,1)}function v(e){return h[e]||[]}function g(e){return p[e]=p[e]||o(t)}function w(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var h={},y={},b={on:l,addEventListener:l,removeEventListener:m,emit:t,get:g,listeners:v,context:n,buffer:w,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(3),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!E++){var e=x.info=NREUM.info,n=l.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+x.offset],null,"api");var t=l.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===l.readyState&&i()}function i(){f("mark",["domContent",a()+x.offset],null,"api")}function a(){return O.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-x.offset}var u=(new Date).getTime(),f=e("handle"),c=e(3),s=e("ee"),p=e(2),d=window,l=d.document,m="addEventListener",v="attachEvent",g=d.XMLHttpRequest,w=g&&g.prototype;NREUM.o={ST:setTimeout,SI:d.setImmediate,CT:clearTimeout,XHR:g,REQ:d.Request,EV:d.Event,PR:d.Promise,MO:d.MutationObserver};var h=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1130.min.js"},b=g&&w&&w[m]&&!/CriOS/.test(navigator.userAgent),x=n.exports={offset:u,now:a,origin:h,features:{},xhrWrappable:b,userAgent:p};e(1),l[m]?(l[m]("DOMContentLoaded",i,!1),d[m]("load",r,!1)):(l[v]("onreadystatechange",o),d[v]("onload",r)),f("mark",["firstbyte",u],null,"api");var E=0,O=e(5)},{}]},{},["loader"]);</script>
+<title>Linux Known Issues - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Linux_Known_Issues","wgTitle":"Linux Known Issues","wgCurRevisionId":343,"wgRevisionId":343,"wgArticleId":171,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Linux_Known_Issues","wgRelevantArticleId":171,"wgRequestId":"7e771d5b409ab5c0390ec558","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@0s4gmng",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Linux_Known_Issues rootpage-Linux_Known_Issues skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-08a23efcd19f60be7"><meta name="worker" content="107"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"_currentVersion":"1.37.2.101.41","_type":"Epic Games Nav","hideSignIn":true,"epicPropertyName":"unreal_engine","pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_createdBy":"tony.rossi","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"_futureVersion":"none","_created":"2017-08-21T08:59:33.648Z","_activeDate":"2019-05-13T15:00:00.000Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/academy","title":"Online Learning","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/megagrants","title":"MegaGrants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/twinmotion","title":"Twinmotion"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/industries","title":"Industries"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.d5e3cccc48c5a4674991.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.d5e3cccc48c5a4674991.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Linux+Known+Issues" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we're working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=Linux_Known_Issues" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Linux_Known_Issues&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=Linux_Known_Issues">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=Linux_Known_Issues&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Linux_Known_Issues&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Linux Known Issues</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p>Presently known issues with UE4 natively running in Linux. A page of bugs until we have a better solution for tracking. This page is part of the <a href="/index.php?title=Linux_Support" title="Linux Support">Linux Support</a> area.
+</p><p>If you are looking on how to configure an IDE editor or how to run on Linux, check <a href="/index.php?title=Running_On_Linux" title="Running On Linux">Running On Linux</a> area.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#GenerateProjectFiles.sh.2Fmake_.2A.2A.2A"><span class="tocnumber">1</span> <span class="toctext">GenerateProjectFiles.sh/make ***</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#General"><span class="tocnumber">2</span> <span class="toctext">General</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Problems_interfacing_with_third_party_libraries_that_use_STL"><span class="tocnumber">2.1</span> <span class="toctext">Problems interfacing with third party libraries that use STL</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#UE4Editor"><span class="tocnumber">3</span> <span class="toctext">UE4Editor</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Building"><span class="tocnumber">3.1</span> <span class="toctext">Building</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Running"><span class="tocnumber">3.2</span> <span class="toctext">Running</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Loading_C.2B.2B_Project"><span class="tocnumber">3.3</span> <span class="toctext">Loading C++ Project</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#UnrealFrontend"><span class="tocnumber">4</span> <span class="toctext">UnrealFrontend</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#SDL2_issues"><span class="tocnumber">5</span> <span class="toctext">SDL2 issues</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#4.8_branch"><span class="tocnumber">5.1</span> <span class="toctext">4.8 branch</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Official_.3C.3D_4.7_branch"><span class="tocnumber">5.2</span> <span class="toctext">Official  &lt;= 4.7 branch</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#Performance_Troubleshooting"><span class="tocnumber">6</span> <span class="toctext">Performance Troubleshooting</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Getting_GLSL_shaders_source"><span class="tocnumber">7</span> <span class="toctext">Getting GLSL shaders source</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="#.desktop_file_template"><span class="tocnumber">8</span> <span class="toctext">.desktop file template</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#Window_Managers"><span class="tocnumber">9</span> <span class="toctext">Window Managers</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16"><a href="#Xfce_4.10.2B"><span class="tocnumber">9.1</span> <span class="toctext">Xfce 4.10+</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Unity"><span class="tocnumber">9.2</span> <span class="toctext">Unity</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Gnome"><span class="tocnumber">9.3</span> <span class="toctext">Gnome</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#KDE"><span class="tocnumber">9.4</span> <span class="toctext">KDE</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="GenerateProjectFiles.sh.2Fmake_.2A.2A.2A">GenerateProjectFiles.sh/make ***</span></h2>
+<p>If you get an error like this:
+</p><p><b>UnrealBuildTool Exception: System.Security.SecurityException: No access to the given key ---&gt; System.UnauthorizedAccessException: Access to the path "/etc/mono/registry" is denied.</b>
+</p><p>you need to:
+</p>
+<pre>$ export MONO_REGISTRY_PATH=~/.mono/registry
+</pre>
+<p>otherwise you can create the default registry path with:
+</p>
+<pre>$ sudo mkdir -p /etc/mono/registry/LocalMachine
+</pre>
+<p><br />
+If you get a following error:
+</p><p><b>Localisation.Automation.cs(156,96): error CS0234: The type or namespace name `LocaleCodeHelper' does not exist in the namespace `OneSky'. Are you missing an assembly reference?</b>
+</p><p>from your engine root folder do:
+</p>
+<pre>$ cd Engine/Source/ThirdParty/OneSky
+$ xbuild OneSky.csproj /verbosity:quiet /nologo /p:TargetFrameworkVersion=v4.0 /p:Configuration="Release"
+$ cd -
+$ cp Engine/Source/ThirdParty/OneSky/bin/Release/OneSky.dll Engine/Binaries/DotNET/OneSky.dll
+</pre>
+<h2><span class="mw-headline" id="General">General</span></h2>
+<h3><span class="mw-headline" id="Problems_interfacing_with_third_party_libraries_that_use_STL">Problems interfacing with third party libraries that use STL</span></h3>
+<p>In UE versions between 4.3 to 4.16 (both inclusive), a linker script (introduced <a rel="nofollow" class="external text" href="https://github.com/EpicGames/UnrealEngine/commit/5ace6a8679073e495b83157f410156cdbae7b959">in this commit</a>) was used to hide global new/delete overloads. The script was needed because Steam runtime library would allocate a class instance via one of the custom new signatures that UE4 did not overload, but deletion would still happen through a regular global operator delete, resulting in a crash (due to pointers coming from two different heaps).
+</p><p>The script unfortunately had a side effect of breaking third party libraries that used STL classes in their API: code that was getting inlined in the engine would use engine's operator new/delete, while the code that resided in the library itself, or libstdc++.so/libc++.so would continue to call its own operator new/delete - again resulting in a crash.
+</p><p>The problem also affected AMD drivers (that are written in C++), although the mechanism here is not completely clear. 
+</p><p>The solution for this in UE 4.3 through 4.16 is to remove the linker script (i.e. undo <a rel="nofollow" class="external text" href="https://github.com/EpicGames/UnrealEngine/commit/5ace6a8679073e495b83157f410156cdbae7b959">commit 5ace6a8679073</a>). UE 4.17 does not hide new/delete by default and does not need any changes.
+</p><p>The original problem that necessitated the hiding should be gone now - Steam runtime problems has since been updated. In case you are running into a similar issue (custom new signature that results in allocations bypassing UE4's global new) with another library, you will need to contact the library author, since you cannot fix two of these problems at once (hiding new/delete AND being able to interface with third party C++ library that uses STL).
+</p>
+<h2><span class="mw-headline" id="UE4Editor">UE4Editor</span></h2>
+<h3><span class="mw-headline" id="Building">Building</span></h3>
+<h3><span class="mw-headline" id="Running">Running</span></h3>
+<p>- Some people have experienced a problem with the Editor not displaying anything in the Content Browser. One work-around is opening the Unreal Project from a case insensitive filesystem, such as a mounted fat volume on your system. 
+</p><p>- Creating from templates, or using existing C++ projects - other outstanding issues ie. missing IDE error, missing IDE plugins, etc,
+</p><p>- Arch Linux users are unable to start the editor in normal POSIX multi-threaded mode, but only using a -onethread command line argument. Try installing pthreads via <b>pecl install pthreads</b> (thanks to IRC user fuken for the tip) or, building the editor using a Debug profile: <b>make UE4Editor-Linux-Debug</b> instead.
+</p><p>- <s>Lightmass crashes/lightbuilding fails (FIXED by amigo)</s> still experiencing in russian (ru_RU) locale,
+</p><p>- Baking lighting fails arbitrarily, or works on some projects - inconsistent,
+</p><p>- Optimus based laptop users who are getting <i>Assert failed: IsInRenderingThread()</i> or DRI buffer related errors should try running editor with: <b>PRIMUS_SYNC=1 primusrun UE4Editor</b> (thanks to HicksD for this tip),
+</p><p>- right mouse button gets stuck sometimes so that it does not aim anymore but it dollies in and out
+</p><p>- opening widget reflector, and dragging its window doubles total slate tick time.
+</p><p>- dragging any window (non-ue4) over the editor window also increases total slate tick time.
+</p><p>- opening a window (ie. char. BP) on the 2nd screen triples/quadruples total slate tick time.
+</p><p>- opening a window (ie. mat.ed) on the 2nd screen only doubles or less total slate tick time.
+</p><p>- dragging mouse over the details panel widgets triples or more the total slate tick time.
+</p><p>- content browser does not allow some keyboard events (ie. F2 to rename).
+</p><p>- Font/text on UI showing up as rectangles can be addressed by <a rel="nofollow" class="external free" href="https://answers.unrealengine.com/questions/117323/editor-rendering-problems.html">https://answers.unrealengine.com/questions/117323/editor-rendering-problems.html</a>
+</p><p>- For artifacts on Mesa driver, try updating to latest. More info at <a rel="nofollow" class="external free" href="https://wiki.unrealengine.com/Running_On_Linux">https://wiki.unrealengine.com/Running_On_Linux</a>
+</p><p>- Sometimes attempting to copy &amp; paste or duplicate blueprint nodes stops working (<b>WORKAROUND</b>: copy &amp; paste anything in another window, such as a text editor, and the editor should be able to copy &amp; paste / duplicate blueprint nodes once more).
+</p><p>- Tool tips can cause lag in the Editor, in Engine/Config/ConsoleVariables.ini under the editors root dir add the line 
+</p>
+<pre> Slate.AllowToolTips=0 
+</pre>
+<p>to the bottom of the file and restart the editor, or just type in the console 
+</p>
+<pre> Slate.AllowToolTips 0 
+</pre>
+<p>to turn Tool Tips off or 
+</p>
+<pre> Slate.AllowToolTips 1 
+</pre>
+<p>to turn Tool Tips back on. 
+</p>
+<h3><span class="mw-headline" id="Loading_C.2B.2B_Project">Loading C++ Project</span></h3>
+<p>- when loading up the project and there is no editor module for a c++ project it will compile the missing editor module for your project but then crash, the module is built but something else crashes afterwards.
+</p><p>- you can either 
+</p>
+<ol><li> start the editor and load the project then let it compile and crash then start the Editor and load the Project again.</li>
+<li> build the module in the IDE of choice then start the editor and load the project.</li>
+<li> build the module in the terminal, then start the editor and load the project.</li></ol>
+<p>- if it has to build the module again it may crash at the same spot.
+</p>
+<h2><span class="mw-headline" id="UnrealFrontend">UnrealFrontend</span></h2>
+<p>- Platform and process integration needs implementation/testing
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="SDL2_issues">SDL2 issues</span></h2>
+<h3><span class="mw-headline" id="4.8_branch">4.8 branch</span></h3>
+<p>All the window issues mentioned below ( Official &lt;= 4.7 branch ) are fixed.
+</p><p>- Sometimes the Tooltip window does not disappear. (Happens when another thread starts for example if the Import File Dialog apears the open Tooltip will stuck)
+</p><p>- <s>Notification window is ontop of some dialog boxes.</s> (Fixed by yaakuro)
+</p><p>- Infinite rotation/scaling of objects in the viewport not possible.
+</p><p>- In Content Browser renaming and deleting does not work.
+</p>
+<h3><span class="mw-headline" id="Official_.3C.3D_4.7_branch">Official  &lt;= 4.7 branch</span></h3>
+<p>- <s>Need to be able to enumerate all graphics adapters in the system and get their basic parameters (brand, name, VRAM size...)</s>  <i>-- SDL does support Xinerama and XRandR, i.e. all the facilities that X11 provides in that regard.</i>
+</p><p>- Need to be able to create a simple text window for console output, without needing to render text in advance,
+</p>
+<h2><span class="mw-headline" id="Performance_Troubleshooting">Performance Troubleshooting</span></h2>
+<p>As per Epic|rcl:
+</p>
+<pre>$ sudo perf record -a -g sleep 60
+</pre>
+<p>Smaller intervals than 60 sec can be used as well..
+</p>
+<pre>$ perf report --no-children --sort comm,dso,sym
+</pre>
+<p>Then identify the offender and complain....use Dev builds, of course.
+</p>
+<h2><span class="mw-headline" id="Getting_GLSL_shaders_source">Getting GLSL shaders source</span></h2>
+<pre>1 Uncomment r.DumpShaderDebugInfo=1 in ConsoleVariables.ini
+2 Tweak GUID (change a random digit init) in ShaderVersion.usf
+3 Launch the editor
+</pre>
+<h2><span class="mw-headline" id=".desktop_file_template">.desktop file template</span></h2>
+<p>Please change the location of the UnrealEngine directory:
+</p>
+<pre>[Desktop Entry]
+Version=1.0
+Type=Application
+Exec=Documents/UnrealEngine/Engine/Binaries/Linux/UE4Editor -opengl4
+Path=Documents/UnrealEngine/Engine/Binaries/Linux
+Name=Unreal Engine Editor
+Icon=Documents/UnrealEngine/Engine/Source/Programs/UnrealVS/Resources/Preview.png
+Terminal=false
+</pre>
+<h2><span class="mw-headline" id="Window_Managers">Window Managers</span></h2>
+<h3><span class="mw-headline" id="Xfce_4.10.2B">Xfce 4.10+</span></h3>
+<p>Switch on the composite manager (Settings/Window Manager Tweaks/Compositor)
+</p>
+<h3><span class="mw-headline" id="Unity">Unity</span></h3>
+<p>UE4Editor does not need any special setting in the default version of Unity WM.
+</p>
+<h3><span class="mw-headline" id="Gnome">Gnome</span></h3>
+<h3><span class="mw-headline" id="KDE">KDE</span></h3>
+<p>Problems with tooltips (framerate drop and smearing) can be avoided by disabling "Allow applications to block compositing" in the KDE Compositor settings.
+</p>
+<div style="border-top: 1px solid gray; width: 300px; font-size: 14px; color: #666; margin-top: 20px; padding: 6px">&lt;-- Back to the main <a href="/index.php?title=Linux_Support" title="Linux Support">Linux Support</a> page.</div>
+
+<!-- 
+NewPP limit report
+Cached time: 20190803151223
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.012 seconds
+Real time usage: 0.014 seconds
+Preprocessor visited node count: 76/1000000
+Preprocessor generated node count: 82/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:171-0!canonical and timestamp 20190803151223 and revision id 343
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=Linux_Known_Issues&amp;oldid=343">https://wiki.unrealengine.com/index.php?title=Linux_Known_Issues&amp;oldid=343</a>"						</div>
+					<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0d0405fab30c4bd94"><meta name="worker" content="139"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.78","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"legalTags":[],"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners-apply","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://dev.epicgames.com","title":"Online Services"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/training-partners","title":"Training Partners"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.d5e3cccc48c5a4674991.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.d5e3cccc48c5a4674991.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.012","walltime":"0.014","ppvisitednodes":{"value":76,"limit":1000000},"ppgeneratednodes":{"value":82,"limit":1000000},"postexpandincludesize":{"value":0,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.000      1 -total"]},"cachereport":{"timestamp":"20190803151223","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":83});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":123,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

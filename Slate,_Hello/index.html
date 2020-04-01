@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(){}function o(e,t,n){return function(){return i(e,[f.now()].concat(u(arguments)),t?null:this,n),t?void 0:this}}var i=e("handle"),a=e(2),u=e(3),c=e("ee").get("tracer"),f=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,t){s[t]=o(d+t,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),t.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,t){var n={},r=this,o="function"==typeof t;return i(l+"tracer",[f.now(),e,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return t.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],n),e}finally{c.emit("fn-end",[f.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){m[t]=o(l+t)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,f.now()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(o<0?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],4:[function(e,t,n){t.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?c(e,u,i):i()}function n(n,r,o,i){if(!d.aborted||i){e&&e(n,r,o);for(var a=t(o),u=m(n),c=u.length,f=0;f<c;f++)u[f].apply(a,r);var p=s[y[n]];return p&&p.push([b,n,r,a]),a}}function l(e,t){v[e]=m(e).concat(t)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(n)}function g(e,t){f(e,function(e,n){t=t||"feature",y[n]=t,t in s||(s[t]=[])})}var v={},y={},b={on:l,emit:n,get:w,listeners:m,context:t,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",c=e("gos"),f=e(2),s={},p={},d=t.exports=o();d.backlog=s},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!x++){var e=h.info=NREUM.info,t=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return s.abort();f(y,function(t,n){e[t]||(e[t]=n)}),c("mark",["onload",a()+h.offset],null,"api");var n=d.createElement("script");n.src="https://"+e.agent,t.parentNode.insertBefore(n,t)}}function o(){"complete"===d.readyState&&i()}function i(){c("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),c=e("handle"),f=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1071.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=t.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+<title>Slate, Hello - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Slate,_Hello","wgTitle":"Slate, Hello","wgCurRevisionId":295,"wgRevisionId":295,"wgArticleId":147,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Code","Community Created Content"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Slate,_Hello","wgRelevantArticleId":147,"wgRequestId":"5ff90737c9dd73ed034a980f","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@1xxwts3",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Slate_Hello rootpage-Slate_Hello skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-02a815c95fb568b8b"><meta name="worker" content="109"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"hideShieldDownload":false,"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"alert":{"msg":"","_type":"Epic Header Alert","id":"","type":"info","statusHref":""},"_activeDate":"2018-08-06T09:11:04.633Z","links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://academy.unrealengine.com/","title":"Video Tutorials","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/unrealdevgrants","title":"Unreal Dev Grants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_currentVersion":"1.37.2.100","_type":"Epic Games Nav","hideSignIn":true,"pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"_futureVersion":"none","downloadLink":{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":""},"_created":"2017-08-21T08:59:33.648Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"hideShieldDropdown":false,"properties":[{"propertyKey":"paragon","_type":"Epic Games Property","egDisabled":true,"egSkip":true}],"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.100bcb10fc821c7c23f8.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.100bcb10fc821c7c23f8.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Slate%2C+Hello" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=Slate,_Hello" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Slate,_Hello&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=Slate,_Hello">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=Slate,_Hello&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Slate,_Hello&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Slate, Hello</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><a href="/index.php?title=Template:Rating&amp;action=edit&amp;redlink=1" class="new" title="Template:Rating (page does not exist)">Template:Rating</a>
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:402px;"><a href="/index.php?title=File:Hello_slate.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/3/38/Hello_slate.png/400px-Hello_slate.png" width="400" height="73" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/3/38/Hello_slate.png/600px-Hello_slate.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/3/38/Hello_slate.png/800px-Hello_slate.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Hello_slate.png" class="internal" title="Enlarge"></a></div>Hello Slate!</div></div></div>
+<p>This tutorial assumes an intermediate understanding of C++ and event driven systems. It will give you a basic introduction to adding HUD capable of rendering Slate Widgets. In line with ancient tradition, the Slate Widget will render a text-box displaying the message "Hello, Slate!". Aside from the sources, there are a several steps involved in setting up a project that can handle Slate Widgets. Some things that may be glaringly obvious to someone with experience might be glazed over that aren't as obvious to someone just learning C.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Creating_a_project"><span class="tocnumber">1</span> <span class="toctext">Creating a project</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Creating_the_HUD_and_Widget_files"><span class="tocnumber">2</span> <span class="toctext">Creating the HUD and Widget files</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Create_the_HUD_class"><span class="tocnumber">2.1</span> <span class="toctext">Create the HUD class</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Create_the_Slate_Widget_class"><span class="tocnumber">2.2</span> <span class="toctext">Create the Slate Widget class</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Allow_C.2B.2B_Access_to_Slate_API_by_Modifying_Build_File"><span class="tocnumber">3</span> <span class="toctext">Allow C++ Access to Slate API by Modifying Build File</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Adding_code_to_our_HUD"><span class="tocnumber">4</span> <span class="toctext">Adding code to our HUD</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Creating_the_content_of_our_Widget"><span class="tocnumber">5</span> <span class="toctext">Creating the content of our Widget</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Set_the_Game_Mode.27s_HUD"><span class="tocnumber">6</span> <span class="toctext">Set the Game Mode's HUD</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Watching_the_result"><span class="tocnumber">7</span> <span class="toctext">Watching the result</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Links_and_Further_Reading"><span class="tocnumber">8</span> <span class="toctext">Links and Further Reading</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Change_Log"><span class="tocnumber">9</span> <span class="toctext">Change Log</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Creating_a_project">Creating a project</span></h2>
+<p>If you have not done so already the first thing to do is to create a blank C++ project. For the purpose of this tutorial, it is recommended that you have <b>"Include Starter Content" unticked</b>. This tutorial will use the <b>project name HelloSlate</b>, however you can call it anything of your own choosing as long as you're comfortable with making the appropriate changes to the provided source files. For beginners I would suggest that you do not diverge from the provided example.
+</p>
+<h2><span class="mw-headline" id="Creating_the_HUD_and_Widget_files">Creating the HUD and Widget files</span></h2>
+<p>Now the open the project. We will have to create four new c++ files:
+</p>
+<ul><li> StandardHUD.h</li>
+<li> StandardHUD.cpp</li>
+<li> StandardSlateWidget.h</li>
+<li> StandardSlateWidget.cpp</li></ul>
+<p>To create the files, we suggest you use the UE Editor as follows.
+</p><p>Note: You can create these manually. As you might be aware of already, when you create .cpp and .h files manually, Unreal puts the files in the intermediate folder. Make sure your files are in the source folder like they should be.
+</p>
+<h3><span class="mw-headline" id="Create_the_HUD_class">Create the HUD class</span></h3>
+<p>File --&gt; New c++ Class --&gt; On the Choose Parent Class list select "HUD" --&gt; Click Next
+</p><p>Then name for this class will be&#160;: StandardHUD. Leave the path as it is (..../HelloSlate/Source/HelloSlate/).
+The files should look like: .../HelloSlate/Source/HelloSlate/StandardHUD.h and .cpp
+</p><p>Wait until the editor compiles the new files. It will open a Visual Studio instance.
+</p><p>Now you will see the HUD file (represents the h and cpp) in your Content Browser, under C++ Classes -&gt; HelloSlate, next to the GameModeBase file.
+</p>
+<h3><span class="mw-headline" id="Create_the_Slate_Widget_class">Create the Slate Widget class</span></h3>
+<p>Repeat the process and this time choose parent class "Slate Widget".
+The name of the class will be "StandardSlateWidget".
+After creating this class, you will not see it on the Content Browser.
+</p><p>As for v4.18, if you have any problem when Visual Studio opens due to some bugs while creating a new class, you can close all VS instances and go to "File -&gt; Refresh Visual Studio Project".
+Another good way to continue is to go to "File -&gt; Open Project" and reopen this project again.
+</p><p>Now open Visual Studio by going to "File -&gt; Open Visual Studio" or double clicking the new Standard HUD file on the content browser.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:302px;"><a href="/index.php?title=File:Hello_slate_files.PNG" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/d/d3/Hello_slate_files.PNG/300px-Hello_slate_files.PNG" width="300" height="318" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/d/d3/Hello_slate_files.PNG 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Hello_slate_files.PNG" class="internal" title="Enlarge"></a></div>How the new files look in the project explorer</div></div></div>
+<h2><span class="mw-headline" id="Allow_C.2B.2B_Access_to_Slate_API_by_Modifying_Build_File">Allow C++ Access to Slate API by Modifying Build File</span></h2>
+<p>Open the HelloSlate.Build.cs file (typically located in $Projectfolder/$Projectname/Source/$Projectname) and modify it to allow Slate.
+</p><p>The contents of this file has changed since 4.8. In v4.18 you will find a commented line saying:
+<i>Uncomment if you are using Slate UI</i>
+</p><p>Just uncomment the following line:
+</p><p>&lt;source lang=cpp&gt;
+PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
+&lt;/source&gt;
+</p><p>If you already had a project and you wanted to use Slate, just make sure "Slate" and "SlateCore" modules are added to PrivateDependencyModuleNames.
+</p><p>Here's how the source file looks in v4.18:
+<br />
+&lt;source lang=cpp&gt;
+// Fill out your copyright notice in the Description page of Project Settings.
+</p><p>using UnrealBuildTool;
+</p><p>public class HelloSlate&#160;: ModuleRules
+{
+	public HelloSlate(ReadOnlyTargetRules Target)&#160;: base(Target)
+	{
+		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+</p><p>		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+</p><p>		// Uncomment if you are using Slate UI
+</p>
+<pre>               PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
+</pre>
+<p>		// Uncomment if you are using online features
+		// PrivateDependencyModuleNames.Add("OnlineSubsystem");
+</p><p>		// To include OnlineSubsystemSteam, add it to the plugins section in your uproject file with the Enabled attribute set to true
+	}
+}
+&lt;/source&gt;
+</p><p>Save the file and close visual studio. Next time you build your project your sources can link to the Slate API.
+</p>
+<h2><span class="mw-headline" id="Adding_code_to_our_HUD">Adding code to our HUD</span></h2>
+<p>The HUD files are blank. We will fill them with a basic HUD creation 
+</p><p>Lines commented with "// ++ " are added lines to the original file:
+</p><p><br />
+<b>StandardHUD.h:</b>
+<br />
+&lt;source lang=cpp&gt;
+</p>
+<ol><li>pragma once</li>
+<li>include "CoreMinimal.h"</li>
+<li>include "GameFramework/HUD.h"</li>
+<li>include "StandardHUD.generated.h"</li></ol>
+<p>// ++ A predeclaration of SStandardSlateWidget that we need. The .h will be added to .cpp instead.
+class SStandardSlateWidget;
+</p><p>UCLASS()
+class HELLOSLATE_API AStandardHUD&#160;: public AHUD
+{
+	GENERATED_BODY()
+</p><p>public:
+	// ++ Reference to an SCompoundWidget, TSharedPtr adds to the refcount of MyUIWidget
+	// MyUIWidget will not self-destruct as long as refcount &gt; 0. refcount will be (refcout-1) if HUD is destroyed.
+	TSharedPtr&lt;SStandardSlateWidget&gt; MyUIWidget;
+</p><p>	// ++ Called as soon as game starts, create SCompoundWidget and give Viewport access
+	void BeginPlay();
+};
+&lt;/source&gt;
+</p><p><b>StandardHUD.cpp:</b>
+<br />
+</p><p>&lt;source lang=cpp&gt;
+// Fill out your copyright notice in the Description page of Project Settings.
+</p>
+<ol><li>include "StandardHUD.h"</li>
+<li>include "SStandardSlateWidget.h"</li></ol>
+<p>// ++ The SWeakWidget we are using
+</p>
+<ol><li>include "Widgets/SWeakWidget.h" </li></ol>
+<p>// ++ To use GEngine. You can also import just "Engine.h" but some people mention this compiles slower than this header.
+</p>
+<ol><li>include "Runtime/Engine/Classes/Engine/Engine.h" </li></ol>
+<p><br />
+void AStandardHUD::BeginPlay()
+{
+	// So far only TSharedPtr&lt;SMyUIWidget&gt; has been created, now create the actual object.
+	// Create a SMyUIWidget on heap, our MyUIWidget shared pointer provides handle to object
+	// Widget will not self-destruct unless the HUD's SharedPtr (and all other SharedPtrs) are destroyed first.
+	MyUIWidget = SNew(SStandardSlateWidget).OwnerHUDArg(this);
+</p><p>	// Pass our viewport a weak ptr to our widget
+	// Viewport's weak ptr will not give Viewport ownership of Widget
+	GEngine-&gt;GameViewport-&gt;AddViewportWidgetContent( 
+		SNew(SWeakWidget)
+		.PossiblyNullContent(MyUIWidget.ToSharedRef())
+	);
+</p><p>	// Set widget's properties as visible (sets child widget's properties recursively)
+	MyUIWidget-&gt;SetVisibility(EVisibility::Visible);
+</p><p>}
+&lt;/source&gt;
+</p><p>Additional information about adding items to the viewport from the documentation:
+</p><p><i>The game's viewport is an instance of the GameViewportClient class. A reference to the current game viewport is accessible via the GameViewport member of UEngine, which can be accessed using the GEngine global pointer to the current UEngine instance for the game.</i>
+</p>
+<h2><span class="mw-headline" id="Creating_the_content_of_our_Widget">Creating the content of our Widget</span></h2>
+<p>The Widget files ("What the hell's a Widget!?" -Rodney Dangerfield) aka The Slate Widget is a custom Slate GUI component. The widget is where we will display "Hello Slate!".
+</p><p>We want to add a new argument while creating our custom SCompoundWidget.
+</p><p><b>StandardSlateWidget.h:</b>
+<br />
+</p><p>&lt;source lang=cpp&gt;
+</p>
+<ol><li>pragma once</li>
+<li>include "CoreMinimal.h"</li>
+<li>include "Widgets/SCompoundWidget.h"</li></ol>
+<p>class HELLOSLATE_API SStandardSlateWidget&#160;: public SCompoundWidget
+{
+public:
+	SLATE_BEGIN_ARGS(SStandardSlateWidget)
+	{}
+</p>
+<pre>       // ++ We add a new argument called OwnerHUDArg
+</pre>
+<p>	SLATE_ARGUMENT(TWeakObjectPtr&lt;class AStandardHUD&gt;, OwnerHUDArg);
+</p><p>	SLATE_END_ARGS()
+</p><p>	// Constructs this widget with InArgs. Needed for every widget. Builds this widget and any of it's children
+	void Construct(const FArguments&amp; InArgs);
+</p><p>private:
+</p><p>	// ++ Pointer to our parent HUD. To make sure HUD's lifetime is controlled elsewhere, use "weak" ptr.
+	// ++ HUD has a "strong" pointer to Widget, circular ownership would prevent/break self-destruction of hud/widget (cause a memory leak).
+	TWeakObjectPtr&lt;class AStandardHUD&gt; OwnerHUD;
+</p><p>};
+&lt;/source&gt;
+</p><p>Additional information taken from an answer from a staff member on the Answer Hub [<a rel="nofollow" class="external text" href="https://answers.unrealengine.com/questions/74356/need-help-understanding-slate-mutators.html">HERE</a>]:
+</p><p><i> SLATE_BEGIN_ARGS and SLATE_END_ARGS actually create a struct containing variables added by the SLATE_ARGUMENT, SLATE_ATTRIBUTE, and SLATE_EVENT macros. The name given to those variables is in the form of _TheNameYouGaveIt.</i>
+</p><p><i>SLATE_ARGUMENT creates a variable of the exact type you gave it, so SLATE_ARGUMENT(int, MyThing) makes a variable of type int, with the name _MyThing.</i>
+</p><p><i>SLATE_ATTRIBUTE creates a TAttribute for the type you gave it, so SLATE_ATTRIBUTE(int, MyThing) makes a variable of type TAttribute, with the name _MyThing.</i>
+</p><p><i>Additionally the macros define a series of functions to allow you to set the variable they add, which are named based on TheNameYouGaveIt.</i>
+</p><p><br />
+<b>StandardSlateWidget.cpp:</b>
+<br />
+&lt;source lang=cpp&gt;
+</p>
+<ol><li>include "SStandardSlateWidget.h"</li>
+<li>include "SlateOptMacros.h"</li></ol>
+<p>BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
+</p><p>// ++ This is needed in order to use the localization macro LOCTEXT
+</p>
+<ol><li>define LOCTEXT_NAMESPACE "SStandardSlateWidget"</li></ol>
+<p>void SStandardSlateWidget::Construct(const FArguments&amp; InArgs)
+{
+	// ++ Asign the argument to our local variable
+</p>
+<pre>       // name will be _OwnerHUDArg instead of OwnerHUDArg, see comments about SLATE_ARGUMENT before
+</pre>
+<p>	OwnerHUD = InArgs._OwnerHUDArg;
+</p>
+<pre>       // ++ Add all this Slate code
+</pre>
+<p>	// If the code below doesn't look like C++ to you it's because it (sort-of) isn't,
+	// Slate makes extensive use of the C++ Prerocessor(macros) and operator overloading,
+	// Epic is trying to make our lives easier, look-up the macro/operator definitions to see why.
+</p><p>	ChildSlot
+	.VAlign(VAlign_Fill)
+	.HAlign(HAlign_Fill)
+	[
+		SNew(SOverlay)
+		+ SOverlay::Slot()
+		.VAlign(VAlign_Top)
+		.HAlign(HAlign_Center)
+		[
+			// Inside lies a text block with these settings
+			SNew(STextBlock)
+			.ShadowColorAndOpacity(FLinearColor::Black)
+			.ColorAndOpacity(FLinearColor::Red)
+			.ShadowOffset(FIntPoint(-1, 1)) 
+			.Font(FSlateFontInfo("Veranda", 16))
+</p>
+<pre>                       // localized text to be translated with a generic name HelloSlateText
+</pre>
+<p>			.Text(LOCTEXT("HelloSlateText", "Hello, Slate!")) 
+		]
+	];
+</p><p>}
+</p><p>// ++ We need to undefine this namespace after we finish creating the Slate widget
+</p>
+<ol><li>undef LOCTEXT_NAMESPACE</li></ol>
+<p>END_SLATE_FUNCTION_BUILD_OPTIMIZATION
+&lt;/source&gt;
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Set_the_Game_Mode.27s_HUD">Set the Game Mode's HUD</span></h2>
+<p>The last thing we need to do is set our GameMode's HUD class to the one we just built. Every project has a default Game Mode, and every GameMode has a default Pawn, HUD, PlayerController, and GameState. To do this in v4.18, we will modify the HelloSlateGameMode.h and cpp. This is a necessary step to tell Unreal what HUD to use by default.
+</p><p>Note: Versions before 4.18 (not sure when It changed) use GameMode. Now the base class is called GameModeBase, which is a light version of GameMode. So the name will contain the "Base" suffix.
+</p><p><b>HelloSlateGameModeBase.h:</b>
+<br />
+&lt;source lang=cpp&gt;
+</p>
+<ol><li>pragma once</li>
+<li>include "CoreMinimal.h"</li>
+<li>include "GameFramework/GameModeBase.h"</li>
+<li>include "HelloSlateGameModeBase.generated.h"</li></ol>
+<p>UCLASS()
+class HELLOSLATE_API AHelloSlateGameModeBase&#160;: public AGameModeBase
+{
+	GENERATED_BODY()
+</p><p>public:
+</p>
+<pre>       // ++ Add a constructor
+</pre>
+<p>	AHelloSlateGameModeBase();	
+};
+&lt;/source&gt;
+</p><p><b>HelloSlateGameMode.cpp:</b>
+<br />
+&lt;source lang=cpp&gt;
+</p>
+<ol><li>include "HelloSlateGameModeBase.h"</li></ol>
+<p>// ++ Include Our HUD header
+</p>
+<ol><li>include "StandardHUD.h"</li></ol>
+<p>// ++ In the constructor, call parent constructor and set the hud class to use our custom HUD by default.
+AHelloSlateGameModeBase::AHelloSlateGameModeBase()&#160;: Super()
+{
+	HUDClass = AStandardHUD::StaticClass();
+}
+&lt;/source&gt;
+</p>
+<h2><span class="mw-headline" id="Watching_the_result">Watching the result</span></h2>
+<p>Now, clean/rebuild your project and launch the Editor from Visual Studio (a fast way to do this is to use Ctrl + F5, which will compile and start without debugging, which will open the Editor).
+</p><p>If you hit "play" and you don't see any text on top of the viewport in red color, then you have to tell your game to use your Mode Game class.
+</p><p>This can be modified in several ways. One of them is doing it manually to our DefaultEngine.ini file, which is writable.
+</p><p>A faster way, if you want to permanently modify your project to use this Game Mode class, go to Edit --&gt; Project Settings. Under Maps &amp; Modes on the list, go to Default Modes section on the right side of the panel, and select our class HelloSlateModeGameBase  in Default GameMode. When you select it, if you open up Selected GameMOde, you will see that HUD Class is StandardHUD instad of HUD, which is our HUD class.
+</p><p>To use this game mode just in this scene, you can also go to Window -&gt; World Settings. In the game mode, which is probably None, select your HelloSlateModeGameBase class. You will see that underneath this dropbox there's a list of default items. The HUD should be DefaultHUD instead of HUD, so that our HUD is used instead.
+</p><p>Hit "play", hopefully you CAN see the result at the top of the Viewport.
+</p>
+<h2><span class="mw-headline" id="Links_and_Further_Reading">Links and Further Reading</span></h2>
+<p>If you run into any questions try dropping a line in the tutorial's <b>wiki's thread</b>.
+<a rel="nofollow" class="external free" href="https://forums.unrealengine.com/showthread.php?822-Slate-Tutorial">https://forums.unrealengine.com/showthread.php?822-Slate-Tutorial</a>
+</p><p>For more information on more advanced uses of Slate you can see some examples of Loading Slate Styles &amp; Resources here...<br />
+<a rel="nofollow" class="external free" href="https://wiki.unrealengine.com/Loading_Slate_Styles_%26_Resources">https://wiki.unrealengine.com/Loading_Slate_Styles_%26_Resources</a>
+</p><p>Other advanced tutorials
+<a href="/index.php?title=Slate,_How_to_Make_Fancy_Custom_SButtons" title="Slate, How to Make Fancy Custom SButtons">Slate,_How_to_Make_Fancy_Custom_SButtons</a>
+</p>
+<h2><span class="mw-headline" id="Change_Log">Change Log</span></h2>
+<p>Original Author (March 2014): <a href="/index.php?title=User:Darkgaze&amp;action=edit&amp;redlink=1" class="new" title="User:Darkgaze (page does not exist)">Bleakwise</a> (<a href="/index.php?title=User_talk:Bleakwise&amp;action=edit&amp;redlink=1" class="new" title="User talk:Bleakwise (page does not exist)">talk</a>)
+Other Authors: [<a rel="nofollow" class="external text" href="https://wiki.unrealengine.com/index.php?title=Slate,_Hello&amp;action=history">Check History</a>]
+</p><p>Update 4.8: Thank you Unreal community for having the old tutorial here so I had a place to start. I will try to go through the further reading and also update those as well.
+</p><p>Update 4.8.2 (<a href="/index.php?title=User:Katianie&amp;action=edit&amp;redlink=1" class="new" title="User:Katianie (page does not exist)">Katianie</a> 7/18/2015): I probably should have done this sooner but <a rel="nofollow" class="external text" href="http://katianie.com/Unreal_Source_Code/HelloSlate.zip">here is a link to the full project</a>. I started to mess around a bit with the stuff in the next tutorial "How to Make Fancy Custom Buttons" so there is some commented out code related to that. I just tested the project before zipping it up and it works, let me know if you guys have any trouble, you can reach me on Skype at Katianie9 or send me a message through here.
+</p><p>Update 4.8 (<a href="/index.php?title=User:Katianie&amp;action=edit&amp;redlink=1" class="new" title="User:Katianie (page does not exist)">Katianie</a> 6/14/2015): I am modifying this tutorial to reflect the changes in Unreal 4.8. I followed this tutorial a few hours ago and I noticed that about half the stuff that was mentioned has been changed.
+</p><p>Update 4.18 (<a href="/index.php?title=User:Darkgaze&amp;action=edit&amp;redlink=1" class="new" title="User:Darkgaze (page does not exist)">Darkgaze</a> 1/12/2018): I did a whole updage of this tutorial for Unreal 4.18, added new content, titles and other stuff that may be useful. Thanks for the tutorial&#160;! Hope this helps others.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20181002031712
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.060 seconds
+Real time usage: 0.275 seconds
+Preprocessor visited node count: 45/1000000
+Preprocessor generated node count: 80/1000000
+Post‐expand include size: 20/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    3.125      1 -total
+100.00%    3.125      1 Template:Rating
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:147-0!canonical and timestamp 20181002031711 and revision id 295
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=Slate,_Hello&amp;oldid=295">https://wiki.unrealengine.com/index.php?title=Slate,_Hello&amp;oldid=295</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/index.php?title=Category:Tutorials&amp;action=edit&amp;redlink=1" class="new" title="Category:Tutorials (page does not exist)">Tutorials</a></li><li><a href="/index.php?title=Category:Code" title="Category:Code">Code</a></li><li><a href="/index.php?title=Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-02a815c95fb568b8b"><meta name="worker" content="99"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.31","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/gHooNW9I/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Edit the global content type","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.100bcb10fc821c7c23f8.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.100bcb10fc821c7c23f8.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.060","walltime":"0.275","ppvisitednodes":{"value":45,"limit":1000000},"ppgeneratednodes":{"value":80,"limit":1000000},"postexpandincludesize":{"value":20,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    3.125      1 -total","100.00%    3.125      1 Template:Rating"]},"cachereport":{"timestamp":"20181002031712","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":178});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":227,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

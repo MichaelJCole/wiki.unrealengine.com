@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(3),u=e(4),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}catch(e){throw f.emit("fn-err",[arguments,this,e],t),e}finally{f.emit("fn-end",[c.now()],t)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e,n){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now(),!1,n])}},{}],2:[function(e,n,t){function r(e,n){if(!o)return!1;if(e!==o)return!1;if(!n)return!0;if(!i)return!1;for(var t=i.split("."),r=n.split("."),a=0;a<r.length;a++)if(r[a]!==t[a])return!1;return!0}var o=null,i=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var u=navigator.userAgent,f=u.match(a);f&&u.indexOf("Chrome")===-1&&u.indexOf("Chromium")===-1&&(o="Safari",i=f[1])}n.exports={agent:o,version:i,match:r}},{}],3:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],4:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],5:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=v(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){h[e]=v(e).concat(n)}function m(e,n){var t=h[e];if(t)for(var r=0;r<t.length;r++)t[r]===n&&t.splice(r,1)}function v(e){return h[e]||[]}function g(e){return p[e]=p[e]||o(t)}function w(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var h={},y={},b={on:l,addEventListener:l,removeEventListener:m,emit:t,get:g,listeners:v,context:n,buffer:w,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(3),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!E++){var e=x.info=NREUM.info,n=l.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+x.offset],null,"api");var t=l.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===l.readyState&&i()}function i(){f("mark",["domContent",a()+x.offset],null,"api")}function a(){return O.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-x.offset}var u=(new Date).getTime(),f=e("handle"),c=e(3),s=e("ee"),p=e(2),d=window,l=d.document,m="addEventListener",v="attachEvent",g=d.XMLHttpRequest,w=g&&g.prototype;NREUM.o={ST:setTimeout,SI:d.setImmediate,CT:clearTimeout,XHR:g,REQ:d.Request,EV:d.Event,PR:d.Promise,MO:d.MutationObserver};var h=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1118.min.js"},b=g&&w&&w[m]&&!/CriOS/.test(navigator.userAgent),x=n.exports={offset:u,now:a,origin:h,features:{},xhrWrappable:b,userAgent:p};e(1),l[m]?(l[m]("DOMContentLoaded",i,!1),d[m]("load",r,!1)):(l[v]("onreadystatechange",o),d[v]("onload",r)),f("mark",["firstbyte",u],null,"api");var E=0,O=e(5)},{}]},{},["loader"]);</script>
+<title>Category:Code - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"Category","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":14,"wgPageName":"Category:Code","wgTitle":"Code","wgCurRevisionId":27,"wgRevisionId":27,"wgArticleId":13,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Pages with ignored display titles","Tutorials"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Category:Code","wgRelevantArticleId":13,"wgRequestId":"f437c5d71973d5ecf79fa84a","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.action.view.categoryPage.styles":"ready","mediawiki.helplink":"ready","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@0s4gmng",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.action.view.categoryPage.styles%7Cmediawiki.helplink%2CsectionAnchor%7Cmediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-14 ns-subject page-Category_Code rootpage-Category_Code skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-040772e76459d4d80"><meta name="worker" content="91"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"hideShieldDownload":false,"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"alert":{"msg":"","_type":"Epic Header Alert","id":"","type":"info","statusHref":""},"_activeDate":"2018-08-06T09:11:04.633Z","links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://academy.unrealengine.com/","title":"Video Tutorials","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/unrealdevgrants","title":"Unreal Dev Grants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Game-Dev)","_createdBy":"tony.rossi"},"_currentVersion":"1.37.2.101.4","_type":"Epic Games Nav","hideSignIn":true,"pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"_futureVersion":"none","downloadLink":{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":""},"_created":"2017-08-21T08:59:33.648Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"hideShieldDropdown":false,"properties":[{"propertyKey":"paragon","_type":"Epic Games Property","egDisabled":true,"egSkip":true}],"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.12e1f7ced08cc35fc7eb.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.12e1f7ced08cc35fc7eb.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Category%3ACode" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we're working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-category" class="selected"><span><a href="/index.php?title=Category:Code" title="View the category page [c]" accesskey="c">Category</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Category_talk:Code&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=Category:Code">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=Category:Code&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Category:Code&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+<div id="mw-indicator-mw-helplink" class="mw-indicator"><a href="//www.mediawiki.org/wiki/Special:MyLanguage/Help:Categories" target="_blank" class="mw-helplink">Help</a></div>
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Category:Code</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><br />
+Code snippets are a great way to learn about different parts of the engine and framework. They can also be a huge help when you get stuck. We've all been there. You know exactly what you want to do, but you just can't quite figure out the one missing piece of the puzzle that makes it all work. Chances are someone else has done something similar and their code helped you figure it out. 
+</p><p>The Code repository is meant to provide the community with a place to post their snippets so the rest of the community can use them for help or inspiration.
+</p>
+<div class="action">
+<h2 id="mp-dyk-h2" class="heading"><span class="mw-headline" id="Contribute.21">Contribute!</span></h2>
+<p>To get started with coding for the editor, visit the <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/index.html">Programming Guide</a> documentation page. Then, once you have something coded that you want to share, follow the <a href="/index.php?title=Get_Involved" title="Get Involved">Get Involved</a> guide and create a page. Add your code to the page, then fill out details about what the code does and add relevant images to show it off.
+</p>
+</div>
+<div style="overflow:hidden;margin-bottom:20px;">
+<div class="action info" style="width:32%;float:left;margin-right:1%;">
+<h2 id="mp-dyk-h2" class="heading"><span class="mw-headline" id="Featured_Code">Featured Code</span></h2>
+<p><a href="/index.php?title=Template:Featured_Code&amp;action=edit&amp;redlink=1" class="new" title="Template:Featured Code (page does not exist)">Template:Featured Code</a>
+</p>
+</div>
+<div class="action info" style="width:32%;float:left;margin-right:1%;">
+<h2 id="mp-dyk-h2" class="heading"><span class="mw-headline" id="Top_Code_Examples">Top Code Examples</span></h2>
+<p><a href="/index.php?title=Special:TopRatings/Code/0/5" class="new" title="Special:TopRatings/Code/0/5 (page does not exist)">Special:TopRatings/Code/0/5</a>
+</p>
+</div>
+<div class="action info" style="width:32%;float:left;">
+<h2 id="mp-dyk-h2" class="heading"><span class="mw-headline" id="Recent_Additions">Recent Additions</span></h2>
+<ul><li><a href="/index.php?title=Asynchronous_Image_Loading_from_Disk" title="Asynchronous Image Loading from Disk">Asynchronous Image Loading from Disk</a> - A C++ utility class for loading images from disk into textures</li>
+<li><a href="/index.php?title=Rope_Swing" title="Rope Swing">Rope Swing</a> - A simple rope swing implementation</li>
+<li><a href="/index.php?title=Coordinate_mapping_from_leap_motion_to_unreal_world" title="Coordinate mapping from leap motion to unreal world">Coordinate mapping from leap motion to unreal world</a> - change mapping from leap to game world</li>
+<li><a href="/index.php?title=Unity3D_Developer%27s_Guide_to_Unreal_Engine_4" title="Unity3D Developer&#39;s Guide to Unreal Engine 4">Unity3D Developer's Guide to Unreal Engine 4</a> - Help for Unity users changing to C++</li>
+<li><a href="/index.php?title=Solus_C%2B%2B_Tutorials" title="Solus C++ Tutorials">Solus C++ Tutorials</a> - C++ Tutorials for the game Solus</li>
+<li><a href="/index.php?title=Global_Data_Access,_Data_Storage_Class_Accessible_From_Any_CPP_or_BP_Class_During_Runtime!" class="mw-redirect" title="Global Data Access, Data Storage Class Accessible From Any CPP or BP Class During Runtime!">Global Data Access, Data Storage Class Accessible From Any CPP or BP Class During Runtime!</a> - Learn how to access data during runtime.  </li>
+<li><a href="/index.php?title=Linux_Support" title="Linux Support">Linux Support</a> - Tutorial for the nuts and bolts of supporting Linux Development. </li>
+<li><a href="/index.php?title=Reflecting_Projectile_C%2B%2B" title="Reflecting Projectile C++">Reflecting Projectile C++</a> - Learn how to create a reflecting projectile. </li></ul>
+</div>
+</div>
+
+<!-- 
+NewPP limit report
+Cached time: 20190308233825
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.012 seconds
+Real time usage: 0.015 seconds
+Preprocessor visited node count: 13/1000000
+Preprocessor generated node count: 46/1000000
+Post‐expand include size: 59/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    5.771      1 -total
+ 79.43%    4.584      1 Special:TopRatings/Code/0/5
+ 17.24%    0.995      1 Template:Featured_Code
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:13-0!canonical and timestamp 20190308233825 and revision id 27
+ -->
+<div class="mw-category-generated" lang="en" dir="ltr"><div id="mw-subcategories">
+<h2>Subcategories</h2>
+<p>This category has only the following subcategory.
+</p><div lang="en" dir="ltr" class="mw-content-ltr"><h3>C</h3>
+<ul><li><a href="/index.php?title=Category:Code_Tutorials" title="Category:Code Tutorials">Code Tutorials</a></li></ul></div>
+</div><div id="mw-pages">
+<h2>Pages in category "Code"</h2>
+<p>The following 200 pages are in this category, out of 214 total.
+</p>(previous page) (<a href="/index.php?title=Category:Code&amp;pagefrom=UML#mw-pages" title="Category:Code">next page</a>)<div lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-category"><div class="mw-category-group"><h3>A</h3>
+<ul><li><a href="/index.php?title=Access_Functions_%26_Variables_From_a_TSubclassOf_Variable_in_C%2B%2B" title="Access Functions &amp; Variables From a TSubclassOf Variable in C++">Access Functions &amp; Variables From a TSubclassOf Variable in C++</a></li>
+<li><a href="/index.php?title=Accessing_mesh_triangles_and_vertex_positions_in_build" title="Accessing mesh triangles and vertex positions in build">Accessing mesh triangles and vertex positions in build</a></li>
+<li><a href="/index.php?title=Actor_Components,_Making_Native_%26_Deferred_Attached_to_Socket" title="Actor Components, Making Native &amp; Deferred Attached to Socket">Actor Components, Making Native &amp; Deferred Attached to Socket</a></li>
+<li><a href="/index.php?title=Actor_Custom_Components,_Edit_Variables_Per_Instance_In_Level_Editor" title="Actor Custom Components, Edit Variables Per Instance In Level Editor">Actor Custom Components, Edit Variables Per Instance In Level Editor</a></li>
+<li><a href="/index.php?title=Add_in_editor_Icon_to_your_Custom_Actor" title="Add in editor Icon to your Custom Actor">Add in editor Icon to your Custom Actor</a></li>
+<li><a href="/index.php?title=AI_Controlled_Butterfly_-_C%2B%2B_tutorial" title="AI Controlled Butterfly - C++ tutorial">AI Controlled Butterfly - C++ tutorial</a></li>
+<li><a href="/index.php?title=AI_Custom_Pathing,_How_To_Use_Nav_Modifiers_Query_Filters" title="AI Custom Pathing, How To Use Nav Modifiers Query Filters">AI Custom Pathing, How To Use Nav Modifiers Query Filters</a></li>
+<li><a href="/index.php?title=AI_Dodge,_Rotate_Vector_Along_Axis_By_Angle" title="AI Dodge, Rotate Vector Along Axis By Angle">AI Dodge, Rotate Vector Along Axis By Angle</a></li>
+<li><a href="/index.php?title=AI_Navigation_in_C%2B%2B,_Customize_Path_Following_Every_Tick" title="AI Navigation in C++, Customize Path Following Every Tick">AI Navigation in C++, Customize Path Following Every Tick</a></li>
+<li><a href="/index.php?title=Algorithm_Analysis:_Create_Directory_Recursively" title="Algorithm Analysis: Create Directory Recursively">Algorithm Analysis: Create Directory Recursively</a></li>
+<li><a href="/index.php?title=An_Introduction_to_UE4_Plugins" title="An Introduction to UE4 Plugins">An Introduction to UE4 Plugins</a></li>
+<li><a href="/index.php?title=Animated_Vertex_Positions_of_Character_Mesh,_How_To_Obtain_Them" title="Animated Vertex Positions of Character Mesh, How To Obtain Them">Animated Vertex Positions of Character Mesh, How To Obtain Them</a></li>
+<li><a href="/index.php?title=Animation_Blueprint,_Implement_Custom_C%2B%2B_Logic_Via_Tick_Updates" title="Animation Blueprint, Implement Custom C++ Logic Via Tick Updates">Animation Blueprint, Implement Custom C++ Logic Via Tick Updates</a></li>
+<li><a href="/index.php?title=Animation_Blueprint,_Set_Custom_Variables_Via_C%2B%2B" title="Animation Blueprint, Set Custom Variables Via C++">Animation Blueprint, Set Custom Variables Via C++</a></li>
+<li><a href="/index.php?title=Animation_Node,_Entire_Source_for_a_Turn_In_Place_Node" title="Animation Node, Entire Source for a Turn In Place Node">Animation Node, Entire Source for a Turn In Place Node</a></li>
+<li><a href="/index.php?title=Animation_Node,_Translate_With_Complete_Source_Code_and_Instructions" title="Animation Node, Translate With Complete Source Code and Instructions">Animation Node, Translate With Complete Source Code and Instructions</a></li>
+<li><a href="/index.php?title=Animation_Nodes,_Code_for_How_to_Create_Your_Own" title="Animation Nodes, Code for How to Create Your Own">Animation Nodes, Code for How to Create Your Own</a></li>
+<li><a href="/index.php?title=Applying_Service_Locator_Pattern_to_UE4" title="Applying Service Locator Pattern to UE4">Applying Service Locator Pattern to UE4</a></li>
+<li><a href="/index.php?title=Asynchronous_Image_Loading_from_Disk" title="Asynchronous Image Loading from Disk">Asynchronous Image Loading from Disk</a></li>
+<li><a href="/index.php?title=Authoritative_Networked_Character_Movement" title="Authoritative Networked Character Movement">Authoritative Networked Character Movement</a></li></ul></div><div class="mw-category-group"><h3>B</h3>
+<ul><li><a href="/index.php?title=Basic_Inventory_/_Item_system" title="Basic Inventory / Item system">Basic Inventory / Item system</a></li>
+<li><a href="/index.php?title=Bind_keyboard_and_mouse_input_events_dynamically" title="Bind keyboard and mouse input events dynamically">Bind keyboard and mouse input events dynamically</a></li>
+<li><a href="/index.php?title=Blueprint_Function_Library,_Create_Your_Own_to_Share_With_Others" title="Blueprint Function Library, Create Your Own to Share With Others">Blueprint Function Library, Create Your Own to Share With Others</a></li>
+<li><a href="/index.php?title=Blueprint_Node:_Create_Object_from_Blueprint" title="Blueprint Node: Create Object from Blueprint">Blueprint Node: Create Object from Blueprint</a></li>
+<li><a href="/index.php?title=Blueprint_Node:_Math_Node" title="Blueprint Node: Math Node">Blueprint Node: Math Node</a></li>
+<li><a href="/index.php?title=Blueprint_Node:_Sort_Array_of_Actors_By_Field" title="Blueprint Node: Sort Array of Actors By Field">Blueprint Node: Sort Array of Actors By Field</a></li>
+<li><a href="/index.php?title=Blueprint_Sound_Node:_Cue_Player" title="Blueprint Sound Node: Cue Player">Blueprint Sound Node: Cue Player</a></li>
+<li><a href="/index.php?title=Blueprints,_Creating_C%2B%2B_Functions_as_new_Blueprint_Nodes" title="Blueprints, Creating C++ Functions as new Blueprint Nodes">Blueprints, Creating C++ Functions as new Blueprint Nodes</a></li>
+<li><a href="/index.php?title=Blueprints,_Creating_Variables_in_C%2B%2B_For_Use_In_BP" title="Blueprints, Creating Variables in C++ For Use In BP">Blueprints, Creating Variables in C++ For Use In BP</a></li>
+<li><a href="/index.php?title=Blueprints,_Empower_Your_Entire_Team_With_BlueprintImplementableEvent" title="Blueprints, Empower Your Entire Team With BlueprintImplementableEvent">Blueprints, Empower Your Entire Team With BlueprintImplementableEvent</a></li>
+<li><a href="/index.php?title=Blueprints,_Empower_Your_Entire_Team_With_BlueprintNativeEvents" title="Blueprints, Empower Your Entire Team With BlueprintNativeEvents">Blueprints, Empower Your Entire Team With BlueprintNativeEvents</a></li>
+<li><a href="/index.php?title=Branch-free_HSV_to_RGB_conversion_in_shader" title="Branch-free HSV to RGB conversion in shader">Branch-free HSV to RGB conversion in shader</a></li>
+<li><a href="/index.php?title=Build_Current_VS_Project_With_Single_Key_Press" title="Build Current VS Project With Single Key Press">Build Current VS Project With Single Key Press</a></li>
+<li><a href="/index.php?title=Building_On_Linux" title="Building On Linux">Building On Linux</a></li></ul></div><div class="mw-category-group"><h3>C</h3>
+<ul><li><a href="/index.php?title=C%2B%2B_Camera_Controlled_Turrets" title="C++ Camera Controlled Turrets">C++ Camera Controlled Turrets</a></li>
+<li><a href="/index.php?title=C%2B%2B_Inventory" title="C++ Inventory">C++ Inventory</a></li>
+<li><a href="/index.php?title=Clear_Widgets_When_Switching_Levels" title="Clear Widgets When Switching Levels">Clear Widgets When Switching Levels</a></li>
+<li><a href="/index.php?title=Collision_Events_in_Code" title="Collision Events in Code">Collision Events in Code</a></li>
+<li><a href="/index.php?title=Compiling_For_FreeBSD" title="Compiling For FreeBSD">Compiling For FreeBSD</a></li>
+<li><a href="/index.php?title=Compiling_For_Linux" title="Compiling For Linux">Compiling For Linux</a></li>
+<li><a href="/index.php?title=Component_Visualizers" title="Component Visualizers">Component Visualizers</a></li>
+<li><a href="/index.php?title=Config_Files,_Read_%26_Write_to_Config_Files" title="Config Files, Read &amp; Write to Config Files">Config Files, Read &amp; Write to Config Files</a></li>
+<li><a href="/index.php?title=Cooking_On_Linux" title="Cooking On Linux">Cooking On Linux</a></li>
+<li><a href="/index.php?title=Coordinate_mapping_from_leap_motion_to_unreal_world" title="Coordinate mapping from leap motion to unreal world">Coordinate mapping from leap motion to unreal world</a></li>
+<li><a href="/index.php?title=Create_A_Custom_Weapon_-_How_Firing_Works" title="Create A Custom Weapon - How Firing Works">Create A Custom Weapon - How Firing Works</a></li>
+<li><a href="/index.php?title=Create_Custom_engine_classes_for_your_game_module" title="Create Custom engine classes for your game module">Create Custom engine classes for your game module</a></li>
+<li><a href="/index.php?title=Create_Custom_K2_Node_For_Blueprint" title="Create Custom K2 Node For Blueprint">Create Custom K2 Node For Blueprint</a></li>
+<li><a href="/index.php?title=Creating_%26_Linking_Static_Libraries_And_Make_Your_Own_Blueprint_Node_With_VS_2017_%26_UE4" title="Creating &amp; Linking Static Libraries And Make Your Own Blueprint Node With VS 2017 &amp; UE4">Creating &amp; Linking Static Libraries And Make Your Own Blueprint Node With VS 2017 &amp; UE4</a></li>
+<li><a href="/index.php?title=Creating_an_Editor_Module" title="Creating an Editor Module">Creating an Editor Module</a></li>
+<li><a href="/index.php?title=Creating_Asynchronous_Blueprint_Nodes" title="Creating Asynchronous Blueprint Nodes">Creating Asynchronous Blueprint Nodes</a></li>
+<li><a href="/index.php?title=Curves,_Create_Custom_Cubic_Curves_In_Editor_For_Use_In_Code" title="Curves, Create Custom Cubic Curves In Editor For Use In Code">Curves, Create Custom Cubic Curves In Editor For Use In Code</a></li>
+<li><a href="/index.php?title=Custom_Blueprint_Node_Creation" title="Custom Blueprint Node Creation">Custom Blueprint Node Creation</a></li>
+<li><a href="/index.php?title=Custom_Character_Mesh_Class" title="Custom Character Mesh Class">Custom Character Mesh Class</a></li>
+<li><a href="/index.php?title=Custom_Character_Movement_Component" title="Custom Character Movement Component">Custom Character Movement Component</a></li>
+<li><a href="/index.php?title=Custom_Context_Menu_for_Actors_in_Editor" title="Custom Context Menu for Actors in Editor">Custom Context Menu for Actors in Editor</a></li>
+<li><a href="/index.php?title=Custom_Input_Devices" title="Custom Input Devices">Custom Input Devices</a></li>
+<li><a href="/index.php?title=Custom_UObject_Components,_How_to_Make_Accessible_to_Blueprints" title="Custom UObject Components, How to Make Accessible to Blueprints">Custom UObject Components, How to Make Accessible to Blueprints</a></li>
+<li><a href="/index.php?title=Customizing_detail_panels" title="Customizing detail panels">Customizing detail panels</a></li>
+<li><a href="/index.php?title=CustomSettings" title="CustomSettings">CustomSettings</a></li></ul></div><div class="mw-category-group"><h3>D</h3>
+<ul><li><a href="/index.php?title=Debugging_How_To_Debug_Packaged_Games" title="Debugging How To Debug Packaged Games">Debugging How To Debug Packaged Games</a></li>
+<li><a href="/index.php?title=Debugging_Unreal_Shader_Files" title="Debugging Unreal Shader Files">Debugging Unreal Shader Files</a></li>
+<li><a href="/index.php?title=Dedicated_Server_Guide_(Windows_%26_Linux)" title="Dedicated Server Guide (Windows &amp; Linux)">Dedicated Server Guide (Windows &amp; Linux)</a></li>
+<li><a href="/index.php?title=Delegates_In_UE4,_Raw_Cpp_and_BP_Exposed" title="Delegates In UE4, Raw Cpp and BP Exposed">Delegates In UE4, Raw Cpp and BP Exposed</a></li>
+<li><a href="/index.php?title=Detailed_Account_Of_Integrating_OpenCV_Into_UE4_With_VS2017" title="Detailed Account Of Integrating OpenCV Into UE4 With VS2017">Detailed Account Of Integrating OpenCV Into UE4 With VS2017</a></li>
+<li><a href="/index.php?title=Draw_3D_Debug_Points,_Lines,_and_Spheres:_Visualize_Your_Algorithm_in_Action" title="Draw 3D Debug Points, Lines, and Spheres: Visualize Your Algorithm in Action">Draw 3D Debug Points, Lines, and Spheres: Visualize Your Algorithm in Action</a></li>
+<li><a href="/index.php?title=Dynamic_Arrays" title="Dynamic Arrays">Dynamic Arrays</a></li>
+<li><a href="/index.php?title=Dynamic_Load_Object" title="Dynamic Load Object">Dynamic Load Object</a></li></ul></div><div class="mw-category-group"><h3>E</h3>
+<ul><li><a href="/index.php?title=Entry_Level_Guide_to_UE4_C%2B%2B" title="Entry Level Guide to UE4 C++">Entry Level Guide to UE4 C++</a></li>
+<li><a href="/index.php?title=Entry_Level_Guide_to_UE4_C%2B%2B_RUS" title="Entry Level Guide to UE4 C++ RUS">Entry Level Guide to UE4 C++ RUS</a></li>
+<li><a href="/index.php?title=Enums_For_Both_C%2B%2B_and_BP" title="Enums For Both C++ and BP">Enums For Both C++ and BP</a></li>
+<li><a href="/index.php?title=EnumToString_Macro" title="EnumToString Macro">EnumToString Macro</a></li>
+<li><a href="/index.php?title=Event_handling" title="Event handling">Event handling</a></li>
+<li><a href="/index.php?title=Expose_an_interface_to_blueprint" title="Expose an interface to blueprint">Expose an interface to blueprint</a></li>
+<li><a href="/index.php?title=Extend_UserWidget_for_UMG_Widgets" title="Extend UserWidget for UMG Widgets">Extend UserWidget for UMG Widgets</a></li>
+<li><a href="/index.php?title=External_Build_System_Configuration" title="External Build System Configuration">External Build System Configuration</a></li></ul></div><div class="mw-category-group"><h3>F</h3>
+<ul><li><a href="/index.php?title=File_Management,_Create_Folders,_Delete_Files,_and_More" title="File Management, Create Folders, Delete Files, and More">File Management, Create Folders, Delete Files, and More</a></li>
+<li><a href="/index.php?title=First_Person_Shooter_C%2B%2B_Tutorial" title="First Person Shooter C++ Tutorial">First Person Shooter C++ Tutorial</a></li>
+<li><a href="/index.php?title=Float_as_String_With_Precision" title="Float as String With Precision">Float as String With Precision</a></li>
+<li><a href="/index.php?title=Forward_Declarations" title="Forward Declarations">Forward Declarations</a></li>
+<li><a href="/index.php?title=Function_Pointers" title="Function Pointers">Function Pointers</a></li></ul></div><div class="mw-category-group"><h3>G</h3>
+<ul><li><a href="/index.php?title=Game_Instance,_Custom_Game_Instance_For_Inter-Level_Persistent_Data_Storage" title="Game Instance, Custom Game Instance For Inter-Level Persistent Data Storage">Game Instance, Custom Game Instance For Inter-Level Persistent Data Storage</a></li>
+<li><a href="/index.php?title=Game_Mode,_Linking_to_Player_Controller_Blueprint" title="Game Mode, Linking to Player Controller Blueprint">Game Mode, Linking to Player Controller Blueprint</a></li>
+<li><a href="/index.php?title=Game_User_Settings" title="Game User Settings">Game User Settings</a></li>
+<li><a href="/index.php?title=Gameplay_Debugger:_Quick,_simple,_re-usable" title="Gameplay Debugger: Quick, simple, re-usable">Gameplay Debugger: Quick, simple, re-usable</a></li>
+<li><a href="/index.php?title=GameplayAbilities_and_You" title="GameplayAbilities and You">GameplayAbilities and You</a></li>
+<li><a href="/index.php?title=Garbage_Collection_%26_Dynamic_Memory_Allocation" title="Garbage Collection &amp; Dynamic Memory Allocation">Garbage Collection &amp; Dynamic Memory Allocation</a></li>
+<li><a href="/index.php?title=Garbage_Collection_~_Count_References_To_Any_Object" title="Garbage Collection ~ Count References To Any Object">Garbage Collection ~ Count References To Any Object</a></li>
+<li><a href="/index.php?title=Generate_Visual_Studio_Project" title="Generate Visual Studio Project">Generate Visual Studio Project</a></li>
+<li><a href="/index.php?title=Get_Available_Screen_Resolutions_in_Blueprints" title="Get Available Screen Resolutions in Blueprints">Get Available Screen Resolutions in Blueprints</a></li>
+<li><a href="/index.php?title=Get_Screen-Size_Bounds_of_An_Actor" title="Get Screen-Size Bounds of An Actor">Get Screen-Size Bounds of An Actor</a></li>
+<li><a href="/index.php?title=Global_Data_Access,_Data_Storage_Class_Accessible_From_Any_CPP_or_BP_Class_During_Runtime" title="Global Data Access, Data Storage Class Accessible From Any CPP or BP Class During Runtime">Global Data Access, Data Storage Class Accessible From Any CPP or BP Class During Runtime</a></li>
+<li><a href="/index.php?title=Global_Fade_In_out" title="Global Fade In out">Global Fade In out</a></li></ul></div><div class="mw-category-group"><h3>H</h3>
+<ul><li><a href="/index.php?title=HLSL_Shaders" title="HLSL Shaders">HLSL Shaders</a></li>
+<li><a href="/index.php?title=Hot_Reload" title="Hot Reload">Hot Reload</a></li>
+<li><a href="/index.php?title=How_to_add_a_shared_library_(.so)_in_android_project" title="How to add a shared library (.so) in android project">How to add a shared library (.so) in android project</a></li>
+<li><a href="/index.php?title=How_to_Change_FPS_Cap_,_Near_Clip,_Editor_%26_Game" title="How to Change FPS Cap , Near Clip, Editor &amp; Game">How to Change FPS Cap , Near Clip, Editor &amp; Game</a></li>
+<li><a href="/index.php?title=How_to_Convert_a_BP/Content_Project_to_a_C%2B%2B_Project_in_8_Steps" title="How to Convert a BP/Content Project to a C++ Project in 8 Steps">How to Convert a BP/Content Project to a C++ Project in 8 Steps</a></li>
+<li><a href="/index.php?title=How_To_Create_Custom_Blueprint_Pin" title="How To Create Custom Blueprint Pin">How To Create Custom Blueprint Pin</a></li>
+<li><a href="/index.php?title=How_to_Launch_Web_Browser_with_URL_From_In-Game" title="How to Launch Web Browser with URL From In-Game">How to Launch Web Browser with URL From In-Game</a></li>
+<li><a href="/index.php?title=How_to_Link_External_C_Libraries_.dll_.lib_With_Your_Project_%26_Package_With_Game,_Fast_And_Easy" title="How to Link External C Libraries .dll .lib With Your Project &amp; Package With Game, Fast And Easy">How to Link External C Libraries .dll .lib With Your Project &amp; Package With Game, Fast And Easy</a></li>
+<li><a href="/index.php?title=How_To_Make_UStruct" title="How To Make UStruct">How To Make UStruct</a></li>
+<li><a href="/index.php?title=How_To_Modify_Blueprint_Variable_References_In_C%2B%2B_Without_Copying" title="How To Modify Blueprint Variable References In C++ Without Copying">How To Modify Blueprint Variable References In C++ Without Copying</a></li>
+<li><a href="/index.php?title=How_To_Package_Extra_NonUASSET_Files_With_Your_Game" title="How To Package Extra NonUASSET Files With Your Game">How To Package Extra NonUASSET Files With Your Game</a></li>
+<li><a href="/index.php?title=How_To_Package_Plugins_For_UE4_Marketplace" title="How To Package Plugins For UE4 Marketplace">How To Package Plugins For UE4 Marketplace</a></li>
+<li><a href="/index.php?title=How_To_Prevent_Crashes_Due_To_Dangling_Actor_Pointers" title="How To Prevent Crashes Due To Dangling Actor Pointers">How To Prevent Crashes Due To Dangling Actor Pointers</a></li>
+<li><a href="/index.php?title=How_To_Send_Game_Logs_To_Custom_Files_%26_Log_Without_Console_Window" title="How To Send Game Logs To Custom Files &amp; Log Without Console Window">How To Send Game Logs To Custom Files &amp; Log Without Console Window</a></li>
+<li><a href="/index.php?title=How_To_Test_Dedicated_Server_Games_Via_Commandline" title="How To Test Dedicated Server Games Via Commandline">How To Test Dedicated Server Games Via Commandline</a></li>
+<li><a href="/index.php?title=How_To_Use_Sessions_In_C%2B%2B" title="How To Use Sessions In C++">How To Use Sessions In C++</a></li>
+<li><a href="/index.php?title=HUD,_Canvas,_Code_Sample_of_800%2B_Lines,_Create_Buttons_%26_Draw_Materials" title="HUD, Canvas, Code Sample of 800+ Lines, Create Buttons &amp; Draw Materials">HUD, Canvas, Code Sample of 800+ Lines, Create Buttons &amp; Draw Materials</a></li>
+<li><a href="/index.php?title=HUD:_Unity_3D_OnGUI_Remake" title="HUD: Unity 3D OnGUI Remake">HUD: Unity 3D OnGUI Remake</a></li></ul></div><div class="mw-category-group"><h3>I</h3>
+<ul><li><a href="/index.php?title=Integrating_OpenCV_Into_Unreal_Engine_4" title="Integrating OpenCV Into Unreal Engine 4">Integrating OpenCV Into Unreal Engine 4</a></li>
+<li><a href="/index.php?title=Interfaces_And_Blueprints" title="Interfaces And Blueprints">Interfaces And Blueprints</a></li>
+<li><a href="/index.php?title=Interfaces_in_C%2B%2B" title="Interfaces in C++">Interfaces in C++</a></li>
+<li><a href="/index.php?title=Iterators:_Object_%26_Actor_Iterators,_Optional_Class_Scope_For_Faster_Search" title="Iterators: Object &amp; Actor Iterators, Optional Class Scope For Faster Search">Iterators: Object &amp; Actor Iterators, Optional Class Scope For Faster Search</a></li></ul></div><div class="mw-category-group"><h3>L</h3>
+<ul><li><a href="/index.php?title=Line_Traces_/_RayCasts_How_To_Get_UV_Info_From_Hits" title="Line Traces / RayCasts How To Get UV Info From Hits">Line Traces / RayCasts How To Get UV Info From Hits</a></li>
+<li><a href="/index.php?title=Linking_Dlls" title="Linking Dlls">Linking Dlls</a></li>
+<li><a href="/index.php?title=Linking_Static_Libraries_Using_The_Build_System" title="Linking Static Libraries Using The Build System">Linking Static Libraries Using The Build System</a></li>
+<li><a href="/index.php?title=Linux_Support" title="Linux Support">Linux Support</a></li>
+<li><a href="/index.php?title=List_of_Key/Gamepad_Input_Names" title="List of Key/Gamepad Input Names">List of Key/Gamepad Input Names</a></li>
+<li><a href="/index.php?title=Loading_Screen" title="Loading Screen">Loading Screen</a></li>
+<li><a href="/index.php?title=Log_Macro_with_Netmode_and_Colour" title="Log Macro with Netmode and Colour">Log Macro with Netmode and Colour</a></li>
+<li><a href="/index.php?title=Logs,_Printing_Class_Name,_Function_Name,_Line_Number_of_your_Calling_Code!" title="Logs, Printing Class Name, Function Name, Line Number of your Calling Code!">Logs, Printing Class Name, Function Name, Line Number of your Calling Code!</a></li>
+<li><a href="/index.php?title=Logs,_Printing_Messages_To_Yourself_During_Runtime" title="Logs, Printing Messages To Yourself During Runtime">Logs, Printing Messages To Yourself During Runtime</a></li></ul></div><div class="mw-category-group"><h3>M</h3>
+<ul><li><a href="/index.php?title=Mass_Scale_of_Physics_Mesh,_Dynamically_Update_During_Runtime" title="Mass Scale of Physics Mesh, Dynamically Update During Runtime">Mass Scale of Physics Mesh, Dynamically Update During Runtime</a></li>
+<li><a href="/index.php?title=Mesh_Collision,_Obtain_Closest_Point_on_Mesh_Surface_To_Other_Point" title="Mesh Collision, Obtain Closest Point on Mesh Surface To Other Point">Mesh Collision, Obtain Closest Point on Mesh Surface To Other Point</a></li>
+<li><a href="/index.php?title=Min/Max_of_An_Array_of_Any_DataType,_Including_Ones_That_You_Create" title="Min/Max of An Array of Any DataType, Including Ones That You Create">Min/Max of An Array of Any DataType, Including Ones That You Create</a></li>
+<li><a href="/index.php?title=Modular_Pawn" title="Modular Pawn">Modular Pawn</a></li>
+<li><a href="/index.php?title=Multi-Threading:_How_to_Create_Threads_in_UE4" title="Multi-Threading: How to Create Threads in UE4">Multi-Threading: How to Create Threads in UE4</a></li>
+<li><a href="/index.php?title=Multi-Threading:_Task_Graph_System" title="Multi-Threading: Task Graph System">Multi-Threading: Task Graph System</a></li></ul></div><div class="mw-category-group"><h3>N</h3>
+<ul><li><a href="/index.php?title=Network_Replication,_Using_ReplicatedUsing_/_RepNotify_vars" title="Network Replication, Using ReplicatedUsing / RepNotify vars">Network Replication, Using ReplicatedUsing / RepNotify vars</a></li>
+<li><a href="/index.php?title=Networking/Replication" title="Networking/Replication">Networking/Replication</a></li></ul></div><div class="mw-category-group"><h3>O</h3>
+<ul><li><a href="/index.php?title=Oculus_Rift" title="Oculus Rift">Oculus Rift</a></li>
+<li><a href="/index.php?title=Oculus_Rift_Blueprint" title="Oculus Rift Blueprint">Oculus Rift Blueprint</a></li>
+<li><a href="/index.php?title=Oculus_Rift_Separate_View" title="Oculus Rift Separate View">Oculus Rift Separate View</a></li>
+<li><a href="/index.php?title=Online-Multiplayer" title="Online-Multiplayer">Online-Multiplayer</a></li>
+<li><a href="/index.php?title=Operator_Overloads" title="Operator Overloads">Operator Overloads</a></li></ul></div><div class="mw-category-group"><h3>P</h3>
+<ul><li><a href="/index.php?title=Packaged_Game_Paths,_Obtain_Directories_Based_on_Executable_Location" title="Packaged Game Paths, Obtain Directories Based on Executable Location">Packaged Game Paths, Obtain Directories Based on Executable Location</a></li>
+<li><a href="/index.php?title=Passing_Arguments_To_Server_During_Connection" title="Passing Arguments To Server During Connection">Passing Arguments To Server During Connection</a></li>
+<li><a href="/index.php?title=Physics_Constraints,_Create_New_Constraints_Dynamically_During_Runtime" title="Physics Constraints, Create New Constraints Dynamically During Runtime">Physics Constraints, Create New Constraints Dynamically During Runtime</a></li>
+<li><a href="/index.php?title=PhysX_Source_Guide" title="PhysX Source Guide">PhysX Source Guide</a></li>
+<li><a href="/index.php?title=PhysX,_Integrating_PhysX_Code_into_Your_Project" title="PhysX, Integrating PhysX Code into Your Project">PhysX, Integrating PhysX Code into Your Project</a></li>
+<li><a href="/index.php?title=Plugin,_Functional_Code_Template_For_You" title="Plugin, Functional Code Template For You">Plugin, Functional Code Template For You</a></li>
+<li><a href="/index.php?title=Plugins,_How_To_Package_Custom_Plugins_With_Your_Game" title="Plugins, How To Package Custom Plugins With Your Game">Plugins, How To Package Custom Plugins With Your Game</a></li>
+<li><a href="/index.php?title=Plugins,_How_To_Use_CPP_Code_Of_Plugin_In_Your_Project" title="Plugins, How To Use CPP Code Of Plugin In Your Project">Plugins, How To Use CPP Code Of Plugin In Your Project</a></li>
+<li><a href="/index.php?title=Procedural_Mesh_Component_in_C%2B%2B:Getting_Started" title="Procedural Mesh Component in C++:Getting Started">Procedural Mesh Component in C++:Getting Started</a></li>
+<li><a href="/index.php?title=Procedural_Mesh_Generation" title="Procedural Mesh Generation">Procedural Mesh Generation</a></li>
+<li><a href="/index.php?title=Profiling,_How_To_Count_CPU_Cycles_Of_Specific_Blocks_Of_Your_Game_Code" title="Profiling, How To Count CPU Cycles Of Specific Blocks Of Your Game Code">Profiling, How To Count CPU Cycles Of Specific Blocks Of Your Game Code</a></li>
+<li><a href="/index.php?title=Projectile_C%2B%2B" title="Projectile C++">Projectile C++</a></li></ul></div><div class="mw-category-group"><h3>Q</h3>
+<ul><li><a href="/index.php?title=QtCreator_in_Windows" title="QtCreator in Windows">QtCreator in Windows</a></li>
+<li><a href="/index.php?title=Quest_Framework" title="Quest Framework">Quest Framework</a></li></ul></div><div class="mw-category-group"><h3>R</h3>
+<ul><li><a href="/index.php?title=Rebinding_Keys_At_Runtime_in_Packaged_Game" title="Rebinding Keys At Runtime in Packaged Game">Rebinding Keys At Runtime in Packaged Game</a></li>
+<li><a href="/index.php?title=Reflecting_Projectile_C%2B%2B" title="Reflecting Projectile C++">Reflecting Projectile C++</a></li>
+<li><a href="/index.php?title=Replacing_The_Pathfinder" title="Replacing The Pathfinder">Replacing The Pathfinder</a></li>
+<li><a href="/index.php?title=Replication" title="Replication">Replication</a></li>
+<li><a href="/index.php?title=Rope_Swing" title="Rope Swing">Rope Swing</a></li>
+<li><a href="/index.php?title=RTS_Camera" title="RTS Camera">RTS Camera</a></li>
+<li><a href="/index.php?title=Running_On_Linux" title="Running On Linux">Running On Linux</a></li></ul></div><div class="mw-category-group"><h3>S</h3>
+<ul><li><a href="/index.php?title=Save_System,_Read_%26_Write_Any_Data_to_Compressed_Binary_Files" title="Save System, Read &amp; Write Any Data to Compressed Binary Files">Save System, Read &amp; Write Any Data to Compressed Binary Files</a></li>
+<li><a href="/index.php?title=Shooter_Game_-_Toggle_Third_Person" title="Shooter Game - Toggle Third Person">Shooter Game - Toggle Third Person</a></li>
+<li><a href="/index.php?title=ShooterGame_exploring" title="ShooterGame exploring">ShooterGame exploring</a></li>
+<li><a href="/index.php?title=Simple_Global_Event_System" title="Simple Global Event System">Simple Global Event System</a></li>
+<li><a href="/index.php?title=SkookumScript" title="SkookumScript">SkookumScript</a></li>
+<li><a href="/index.php?title=Template:Slate_Data_Binding_Part_3" title="Template:Slate Data Binding Part 3">Template:Slate Data Binding Part 3</a></li>
+<li><a href="/index.php?title=Template:Slate_Style_Sets_Part_2" title="Template:Slate Style Sets Part 2">Template:Slate Style Sets Part 2</a></li>
+<li><a href="/index.php?title=Slate_Tabs" title="Slate Tabs">Slate Tabs</a></li>
+<li><a href="/index.php?title=Slate,_Edit_Text_Widget,_Custom_Rendering_%26_Any_TrueTypeFont" title="Slate, Edit Text Widget, Custom Rendering &amp; Any TrueTypeFont">Slate, Edit Text Widget, Custom Rendering &amp; Any TrueTypeFont</a></li>
+<li><a href="/index.php?title=Slate,_Hello" title="Slate, Hello">Slate, Hello</a></li>
+<li><a href="/index.php?title=Slate,_How_to_Make_Fancy_Custom_SButtons" title="Slate, How to Make Fancy Custom SButtons">Slate, How to Make Fancy Custom SButtons</a></li>
+<li><a href="/index.php?title=Slate,_Loading_Styles_%26_Resources" title="Slate, Loading Styles &amp; Resources">Slate, Loading Styles &amp; Resources</a></li>
+<li><a href="/index.php?title=Slate,_Simple_C%2B%2B_Chat_System" title="Slate, Simple C++ Chat System">Slate, Simple C++ Chat System</a></li>
+<li><a href="/index.php?title=Slate,_Tree_View_Widget,_Ex:_In-Editor_File_Structure_Explorer" title="Slate, Tree View Widget, Ex: In-Editor File Structure Explorer">Slate, Tree View Widget, Ex: In-Editor File Structure Explorer</a></li>
+<li><a href="/index.php?title=Solus_C%2B%2B_Tutorials" title="Solus C++ Tutorials">Solus C++ Tutorials</a></li>
+<li><a href="/index.php?title=Spawn_Different_Pawns_For_Every_Player" title="Spawn Different Pawns For Every Player">Spawn Different Pawns For Every Player</a></li>
+<li><a href="/index.php?title=Spawn_Different_Pawns_For_Players_in_Multiplayer" title="Spawn Different Pawns For Players in Multiplayer">Spawn Different Pawns For Players in Multiplayer</a></li>
+<li><a href="/index.php?title=Static_Const,_Make_Const_Versions_of_UE4_Types" title="Static Const, Make Const Versions of UE4 Types">Static Const, Make Const Versions of UE4 Types</a></li>
+<li><a href="/index.php?title=Static_Function_Libraries,_Your_Own_Version_of_UE4_C%2B%2B,_No_Engine_Compile_Times" title="Static Function Libraries, Your Own Version of UE4 C++, No Engine Compile Times">Static Function Libraries, Your Own Version of UE4 C++, No Engine Compile Times</a></li>
+<li><a href="/index.php?title=Steam,_Using_the_Steam_SDK_During_Development" title="Steam, Using the Steam SDK During Development">Steam, Using the Steam SDK During Development</a></li>
+<li><a href="/index.php?title=Stereo_Rendered_VR_Crosshair" title="Stereo Rendered VR Crosshair">Stereo Rendered VR Crosshair</a></li>
+<li><a href="/index.php?title=Streamed_Levels,_Test_If_Actor_Is_In_Level_Bounds" title="Streamed Levels, Test If Actor Is In Level Bounds">Streamed Levels, Test If Actor Is In Level Bounds</a></li>
+<li><a href="/index.php?title=String_Conversions:_FString_to_FName,_FString_to_Int32,_Float_to_FString" title="String Conversions: FString to FName, FString to Int32, Float to FString">String Conversions: FString to FName, FString to Int32, Float to FString</a></li>
+<li><a href="/index.php?title=String_Manipulation_in_c%2B%2B_for_beginers" title="String Manipulation in c++ for beginers">String Manipulation in c++ for beginers</a></li>
+<li><a href="/index.php?title=Structs,_USTRUCTS(),_They%27re_Awesome" title="Structs, USTRUCTS(), They&#039;re Awesome">Structs, USTRUCTS(), They&#039;re Awesome</a></li>
+<li><a href="/index.php?title=Survival_Sample_Game:_Section_4" title="Survival Sample Game: Section 4">Survival Sample Game: Section 4</a></li>
+<li><a href="/index.php?title=Survival_Sample_Game:_Section_5" title="Survival Sample Game: Section 5">Survival Sample Game: Section 5</a></li>
+<li><a href="/index.php?title=Survival_Sample_Game:_Section_6" title="Survival Sample Game: Section 6">Survival Sample Game: Section 6</a></li></ul></div><div class="mw-category-group"><h3>T</h3>
+<ul><li><a href="/index.php?title=TAssetPtr_and_Asynchronous_Asset_Loading" title="TAssetPtr and Asynchronous Asset Loading">TAssetPtr and Asynchronous Asset Loading</a></li>
+<li><a href="/index.php?title=TCP_Socket_Listener,_Receive_Binary_Data_From_an_IP/Port_Into_UE4,_(Full_Code_Sample)" title="TCP Socket Listener, Receive Binary Data From an IP/Port Into UE4, (Full Code Sample)">TCP Socket Listener, Receive Binary Data From an IP/Port Into UE4, (Full Code Sample)</a></li>
+<li><a href="/index.php?title=Templates_in_C%2B%2B" title="Templates in C++">Templates in C++</a></li>
+<li><a href="/index.php?title=Texture_Merging_With_UCanvasRenderTarget2D" title="Texture Merging With UCanvasRenderTarget2D">Texture Merging With UCanvasRenderTarget2D</a></li>
+<li><a href="/index.php?title=Third_Party_Socket_Server_Connection" title="Third Party Socket Server Connection">Third Party Socket Server Connection</a></li>
+<li><a href="/index.php?title=Third_Person_Camera_Zoom_C%2B%2B" title="Third Person Camera Zoom C++">Third Person Camera Zoom C++</a></li>
+<li><a href="/index.php?title=Timeline_in_c%2B%2B" title="Timeline in c++">Timeline in c++</a></li>
+<li><a href="/index.php?title=Trace_Functions" title="Trace Functions">Trace Functions</a></li></ul></div><div class="mw-category-group"><h3>U</h3>
+<ul><li><a href="/index.php?title=UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another" title="UDP Socket Sender Receiver From One UE4 Instance To Another">UDP Socket Sender Receiver From One UE4 Instance To Another</a></li>
+<li><a href="/index.php?title=UE4%E4%B8%8EWEB%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A4%E4%BA%92(json)" title="UE4与WEB服务器交互(json)">UE4与WEB服务器交互(json)</a></li>
+<li><a href="/index.php?title=UMG_Disable_Focus_Outline" title="UMG Disable Focus Outline">UMG Disable Focus Outline</a></li>
+<li><a href="/index.php?title=UMG_Previewing_custom_UserWidgets_in_realtime" title="UMG Previewing custom UserWidgets in realtime">UMG Previewing custom UserWidgets in realtime</a></li>
+<li><a href="/index.php?title=UMG,_Custom_Widget_Components_And_Render_Code,_Usable_In_UMG_Designer" title="UMG, Custom Widget Components And Render Code, Usable In UMG Designer">UMG, Custom Widget Components And Render Code, Usable In UMG Designer</a></li>
+<li><a href="/index.php?title=UMG,_How_to_extend_a_UUserWidget::_for_UMG_in_C%2B%2B." title="UMG, How to extend a UUserWidget:: for UMG in C++.">UMG, How to extend a UUserWidget:: for UMG in C++.</a></li>
+<li><a href="/index.php?title=UMG,_Referencing_UMG_Widgets_in_Code" title="UMG, Referencing UMG Widgets in Code">UMG, Referencing UMG Widgets in Code</a></li></ul></div></div></div>(previous page) (<a href="/index.php?title=Category:Code&amp;pagefrom=UML#mw-pages" title="Category:Code">next page</a>)
+</div></div></div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=Category:Code&amp;oldid=27">https://wiki.unrealengine.com/index.php?title=Category:Code&amp;oldid=27</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/index.php?title=Category:Pages_with_ignored_display_titles&amp;action=edit&amp;redlink=1" class="new" title="Category:Pages with ignored display titles (page does not exist)">Pages with ignored display titles</a></li><li><a href="/index.php?title=Category:Tutorials&amp;action=edit&amp;redlink=1" class="new" title="Category:Tutorials (page does not exist)">Tutorials</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0e431aa1ef35622dd"><meta name="worker" content="91"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.33","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/gHooNW9I/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Game-Dev)","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.12e1f7ced08cc35fc7eb.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.12e1f7ced08cc35fc7eb.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.012","walltime":"0.015","ppvisitednodes":{"value":13,"limit":1000000},"ppgeneratednodes":{"value":46,"limit":1000000},"postexpandincludesize":{"value":59,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    5.771      1 -total"," 79.43%    4.584      1 Special:TopRatings/Code/0/5"," 17.24%    0.995      1 Template:Featured_Code"]},"cachereport":{"timestamp":"20190308233825","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":120});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":158,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

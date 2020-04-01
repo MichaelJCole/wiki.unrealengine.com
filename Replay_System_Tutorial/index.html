@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={licenseKey:"93a8bd5691",applicationID:"145396307"};window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var i=n[t]={exports:{}};e[t][0].call(i.exports,function(n){var i=e[t][1][n];return r(i||n)},i,i.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<t.length;i++)r(t[i]);return r}({1:[function(e,n,t){function r(){}function i(e,n,t){return function(){return o(e,[u.now()].concat(f(arguments)),n?null:this,t),n?void 0:this}}var o=e("handle"),a=e(4),f=e(5),c=e("ee").get("tracer"),u=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],l="api-",d=l+"ixn-";a(p,function(e,n){s[n]=i(l+n,!0,"api")}),s.addPageAction=i(l+"addPageAction",!0),s.setCurrentRouteName=i(l+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,i="function"==typeof n;return o(d+"tracer",[u.now(),e,t],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],t),i)try{return n.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],t),e}finally{c.emit("fn-end",[u.now()],t)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=i(d+n)}),newrelic.noticeError=function(e,n){"string"==typeof e&&(e=new Error(e)),o("err",[e,u.now(),!1,n])}},{}],2:[function(e,n,t){function r(e,n){var t=e.getEntries();t.forEach(function(e){"first-paint"===e.name?c("timing",["fp",Math.floor(e.startTime)]):"first-contentful-paint"===e.name&&c("timing",["fcp",Math.floor(e.startTime)])})}function i(e,n){var t=e.getEntries();t.length>0&&c("lcp",[t[t.length-1]])}function o(e){if(e instanceof s&&!l){var n,t=Math.round(e.timeStamp);n=t>1e12?Date.now()-t:u.now()-t,l=!0,c("timing",["fi",t,{type:e.type,fid:n}])}}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var a,f,c=e("handle"),u=e("loader"),s=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){a=new PerformanceObserver(r),f=new PerformanceObserver(i);try{a.observe({entryTypes:["paint"]}),f.observe({entryTypes:["largest-contentful-paint"]})}catch(p){}}if("addEventListener"in document){var l=!1,d=["click","keydown","mousedown","pointerdown","touchstart"];d.forEach(function(e){document.addEventListener(e,o,!1)})}}},{}],3:[function(e,n,t){function r(e,n){if(!i)return!1;if(e!==i)return!1;if(!n)return!0;if(!o)return!1;for(var t=o.split("."),r=n.split("."),a=0;a<r.length;a++)if(r[a]!==t[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}n.exports={agent:i,version:o,match:r}},{}],4:[function(e,n,t){function r(e,n){var t=[],r="",o=0;for(r in e)i.call(e,r)&&(t[o]=n(r,e[r]),o+=1);return t}var i=Object.prototype.hasOwnProperty;n.exports=r},{}],5:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,i=t-n||0,o=Array(i<0?0:i);++r<i;)o[r]=e[n+r];return o}n.exports=r},{}],6:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function i(e){function n(e){return e&&e instanceof r?e:e?c(e,f,o):o()}function t(t,r,i,o){if(!l.aborted||o){e&&e(t,r,i);for(var a=n(i),f=v(t),c=f.length,u=0;u<c;u++)f[u].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function d(e,n){h[e]=v(e).concat(n)}function m(e,n){var t=h[e];if(t)for(var r=0;r<t.length;r++)t[r]===n&&t.splice(r,1)}function v(e){return h[e]||[]}function g(e){return p[e]=p[e]||i(t)}function w(e,n){u(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var h={},y={},b={on:d,addEventListener:d,removeEventListener:m,emit:t,get:g,listeners:v,context:n,buffer:w,abort:a,aborted:!1};return b}function o(){return new r}function a(){(s.api||s.feature)&&(l.aborted=!0,s=l.backlog={})}var f="nr@context",c=e("gos"),u=e(4),s={},p={},l=n.exports=i();l.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(i.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return e[n]=r,r}var i=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){i.buffer([e],r),i.emit(e,n,t)}var i=e("ee").get("handle");n.exports=r,r.ee=i},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,o,function(){return i++})}var i=1,o="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!x++){var e=E.info=NREUM.info,n=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();u(y,function(n,t){e[n]||(e[n]=t)}),c("mark",["onload",a()+E.offset],null,"api");var t=d.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function i(){"complete"===d.readyState&&o()}function o(){c("mark",["domContent",a()+E.offset],null,"api")}function a(){return O.exists&&performance.now?Math.round(performance.now()):(f=Math.max((new Date).getTime(),f))-E.offset}var f=(new Date).getTime(),c=e("handle"),u=e(4),s=e("ee"),p=e(3),l=window,d=l.document,m="addEventListener",v="attachEvent",g=l.XMLHttpRequest,w=g&&g.prototype;NREUM.o={ST:setTimeout,SI:l.setImmediate,CT:clearTimeout,XHR:g,REQ:l.Request,EV:l.Event,PR:l.Promise,MO:l.MutationObserver};var h=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1167.min.js"},b=g&&w&&w[m]&&!/CriOS/.test(navigator.userAgent),E=n.exports={offset:f,now:a,origin:h,features:{},xhrWrappable:b,userAgent:p};e(1),e(2),d[m]?(d[m]("DOMContentLoaded",o,!1),l[m]("load",r,!1)):(d[v]("onreadystatechange",i),l[v]("onload",r)),c("mark",["firstbyte",f],null,"api");var x=0,O=e(6)},{}],"wrap-function":[function(e,n,t){function r(e){return!(e&&e instanceof Function&&e.apply&&!e[a])}var i=e("ee"),o=e(5),a="nr@original",f=Object.prototype.hasOwnProperty,c=!1;n.exports=function(e,n){function t(e,n,t,i){function nrWrapper(){var r,a,f,c;try{a=this,r=o(arguments),f="function"==typeof t?t(r,a):t||{}}catch(u){l([u,"",[r,a,i],f])}s(n+"start",[r,a,i],f);try{return c=e.apply(a,r)}catch(p){throw s(n+"err",[r,a,p],f),p}finally{s(n+"end",[r,a,c],f)}}return r(e)?e:(n||(n=""),nrWrapper[a]=e,p(e,nrWrapper),nrWrapper)}function u(e,n,i,o){i||(i="");var a,f,c,u="-"===i.charAt(0);for(c=0;c<n.length;c++)f=n[c],a=e[f],r(a)||(e[f]=t(a,u?f+i:i,o,f))}function s(t,r,i){if(!c||n){var o=c;c=!0;try{e.emit(t,r,i,n)}catch(a){l([a,t,r,i])}c=o}}function p(e,n){if(Object.defineProperty&&Object.keys)try{var t=Object.keys(e);return t.forEach(function(t){Object.defineProperty(n,t,{get:function(){return e[t]},set:function(n){return e[t]=n,n}})}),n}catch(r){l([r])}for(var i in e)f.call(e,i)&&(n[i]=e[i]);return n}function l(n){try{e.emit("internal-error",n)}catch(t){}}return e||(e=i),t.inPlace=u,t.flag=a,t}},{}]},{},["loader"]);</script>
+<title>Replay System Tutorial - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Replay_System_Tutorial","wgTitle":"Replay System Tutorial","wgCurRevisionId":143,"wgRevisionId":143,"wgArticleId":71,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Replay_System_Tutorial","wgRelevantArticleId":71,"wgRequestId":"29d5c0eeb688823f95e4ce15","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@0s4gmng",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Replay_System_Tutorial rootpage-Replay_System_Tutorial skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0fabd7d8c0a1277bf"><meta name="worker" content="152"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"_currentVersion":"1.37.2.101.61.0.1","_type":"Epic Games Nav","hideSignIn":true,"_lastModifiedBy":"tony.rossi","epicPropertyName":"unreal_engine","pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_createdBy":"tony.rossi","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/id/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/","key":"logo"},"_futureVersion":"none","_created":"2017-08-21T08:59:33.648Z","_activeDate":"2019-05-31T08:22:43.049Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Industries","key":"industries","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/industry/games","title":"Games"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/architecture-solution","title":"Architecture"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/industry/automotive-transportation","title":"Automotive & Transportation"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/industry/broadcast-live-events","title":"Broadcast & Live Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/industry/film-television","title":"Film & Television"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/industry/training-simulation","title":"Training & Simulation"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/industry/more-uses","title":"More Uses"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Learning & Support","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/learn","title":"Get Started"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/onlinelearning-courses","title":"Online Learning","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events/webinar-series","title":"Webinars"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/megagrants","title":"MegaGrants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://communities.unrealengine.com","title":"User Groups"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]}],"hideSearch":false,"_lastModified":"2020-01-30T21:35:59.869Z","_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.e3f076853c19c9a96ad0.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.e3f076853c19c9a96ad0.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Replay+System+Tutorial" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we're working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=Replay_System_Tutorial" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Replay_System_Tutorial&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=Replay_System_Tutorial">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=Replay_System_Tutorial&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Replay_System_Tutorial&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Replay System Tutorial</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><a href="/index.php?title=Template:Rating&amp;action=edit&amp;redlink=1" class="new" title="Template:Rating (page does not exist)">Template:Rating</a>
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Initial_Setup"><span class="tocnumber">2</span> <span class="toctext">Initial Setup</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Replication"><span class="tocnumber">3</span> <span class="toctext">Replication</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Adding_our_C.2B.2B_code"><span class="tocnumber">4</span> <span class="toctext">Adding our C++ code</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#ReplayTutorial.Build.cs"><span class="tocnumber">4.1</span> <span class="toctext">ReplayTutorial.Build.cs</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#MyGameInstance.h"><span class="tocnumber">4.2</span> <span class="toctext">MyGameInstance.h</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#MyGameInstance.cpp"><span class="tocnumber">4.3</span> <span class="toctext">MyGameInstance.cpp</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Blueprint_.28UI.29_Implementation"><span class="tocnumber">5</span> <span class="toctext">Blueprint (UI) Implementation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Additional_Setup"><span class="tocnumber">5.1</span> <span class="toctext">Additional Setup</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#FirstPersonCharacter_Input"><span class="tocnumber">5.2</span> <span class="toctext">FirstPersonCharacter Input</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#MainMenuUI"><span class="tocnumber">6</span> <span class="toctext">MainMenuUI</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#WID_ReplaySlot"><span class="tocnumber">6.1</span> <span class="toctext">WID_ReplaySlot</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#WID_MainMenu"><span class="tocnumber">6.2</span> <span class="toctext">WID_MainMenu</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Testing_it"><span class="tocnumber">7</span> <span class="toctext">Testing it</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#Adding_the_ReplaySpectator_Controller"><span class="tocnumber">8</span> <span class="toctext">Adding the ReplaySpectator Controller</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16"><a href="#PC_ReplaySpectator.h"><span class="tocnumber">8.1</span> <span class="toctext">PC_ReplaySpectator.h</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#PC_ReplaySpectator.cpp"><span class="tocnumber">8.2</span> <span class="toctext">PC_ReplaySpectator.cpp</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#WID_ReplaySpectator"><span class="tocnumber">8.3</span> <span class="toctext">WID_ReplaySpectator</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#BP_PC_ReplaySpectator"><span class="tocnumber">8.4</span> <span class="toctext">BP_PC_ReplaySpectator</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="#Conclusion.2C_Bugs"><span class="tocnumber">9</span> <span class="toctext">Conclusion, Bugs</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p>This tutorial is intended to show you how to easily create a basic replay system, enabling you to record game data to a hard drive and play it back at a later time. I spent quite some time reading through the engine code to be able to implement this in my own projects and was surprised that no one covered it in a tutorial yet, so here goes... My method might not be the optimal one, but it works and I'd like to share it with those who want to work with replays as well. While the tutorial does include some c++ code, I will show you how to expose the necessary methods, so that they can be called from blueprints. 
+</p><p>(NOTE: Replays can't be recorded or played back in PIE mode. Use Standalone instead!)
+</p>
+<ol><li> In the Initial Setup I'll show you how a new project is initially configured to be able to deal with Replays.</li>
+<li> The section "Replication" sets up the First Person Example to replicate its Projectiles, Cube Meshes and to let Clients call Server_Fire</li>
+<li> In "Adding our C++ code" I introduce some functions to a new GameInstance class that will start/stop recording and Find, Rename, Watch and Delete Replays from Hard Disk</li>
+<li> In "Blueprint (UI) Implementation you will find a minimalistic Set-Up to start/stop Recording from Blueprints</li>
+<li> In "MainMenuUI" I show you how to make a simple Replay Browser to manipulate previous records</li>
+<li> The section "Testing it" is a good spot to make a break from this tutorial and an invitation to play around. </li>
+<li> The last section "Adding the ReplaySpectator Controller" introduces a PlayerController to handle a Replay Playback and a Widget to interface between User and PlayBack. </li>
+<li> Finally, there is still bug that needs to be fixed, this is described in "Conclusion, Bugs"</li></ol>
+<h2><span class="mw-headline" id="Initial_Setup">Initial Setup</span></h2>
+<p>To begin with, create a project of your liking. I chose the "First Person Example" as a base, however any Example should do. You can also include this tutorial in your own project, but for the sake of simplicity I will display it for a clean one. 
+After the project is created, open the project folder on your hard drive and navigate to ReplayTutorial/Config/DefaultEngine.ini, open it, and add the following statement at the end of this file: 
+</p>
+<dl><dd> [/Script/Engine.GameEngine]</dd>
+<dd> +NetDriverDefinitions=(DefName="DemoNetDriver",DriverClassName="/Script/Engine.DemoNetDriver",DriverClassNameFallback="/Script/Engine.DemoNetDriver")</dd></dl>
+<p>This step will enable and load the DemoNetDriver for you, which is the actual recorder.
+</p>
+<h2><span class="mw-headline" id="Replication">Replication</span></h2>
+<p>In order to let the engine record gameplay, you need to make sure that our actors are properly replicated. The engine treats the replay recorder like a networked client, even in a single player game, so that replicated data is automatically recorded. You can safely skip to the next section if your project is already set up for multiplayer games. 
+</p><p>In the level's "World Outliner", select all of the EditorCubeXX-actors and set their property "Static Mesh Replicate Movement" to true. The movement of these cubes will be recorded this way. 
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:315px;"><a href="/index.php?title=File:ReplayTutorial_ReplicateMeshes.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/7/72/ReplayTutorial_ReplicateMeshes.png" width="313" height="656" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_ReplicateMeshes.png" class="internal" title="Enlarge"></a></div>Setting the Cubes in the Level to Replicate</div></div></div>
+<p>After that, open the Blueprint "FirstPersonProjectile" and set the properties of "Replicates" and "Replicate Movement" to true. This will make sure that the projectile balls will be seen on clients and in the records. Now, when the server shoots, others will see it. 
+Additionally, clients might shoot, but they can't replicate data to the other clients OR the recorder. To ammend that, open the Blueprint "FirstPersonCharacter" and verify that "Replicate Movement" and "Replicates" is set. Then, locate the event called "InputAction Fire" and add a custom event called "Server_Fire" near it. Set this event to "Run on Server" and "Reliable", since this is important gameplay input. We need to restructure (see Images) the "InputAction Fire" event in order to make it network-enabled. Put the nodes "Montage Play" and "Play Sound At Location" directly after the "InputAction Fire" event. Then drag a node called "Switch Has Authority" out of the sound node. From the "Remote" Execute-Pin, call the previously created method "Server_Fire" and from the "Authority" Pin, spawn the projectile. This concludes our preparations.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:ReplayTutorial_ReplicateCharacter1.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/1/13/ReplayTutorial_ReplicateCharacter1.png/940px-ReplayTutorial_ReplicateCharacter1.png" width="940" height="572" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/1/13/ReplayTutorial_ReplicateCharacter1.png/1410px-ReplayTutorial_ReplicateCharacter1.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/1/13/ReplayTutorial_ReplicateCharacter1.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_ReplicateCharacter1.png" class="internal" title="Enlarge"></a></div>Server_Fire Function Part 1</div></div></div>
+<div class="thumb tnone"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:ReplayTutorial_ReplicateCharacter2.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/3/37/ReplayTutorial_ReplicateCharacter2.png/940px-ReplayTutorial_ReplicateCharacter2.png" width="940" height="572" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/3/37/ReplayTutorial_ReplicateCharacter2.png/1410px-ReplayTutorial_ReplicateCharacter2.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/3/37/ReplayTutorial_ReplicateCharacter2.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_ReplicateCharacter2.png" class="internal" title="Enlarge"></a></div>Server_Fire Function Part 2</div></div></div>
+<h2><span class="mw-headline" id="Adding_our_C.2B.2B_code">Adding our C++ code</span></h2>
+<p>All of the recording and playback methods can be found within the engine. What we have to do in order to use them is to correctly expose these methods to blueprint. To achieve this, right click in the "Content Browser" and add a new c++ class. Click on "Show All Classes" in the upper right corner and search for GameInstance. Since this will be our parent class, select it. You can choose a name when you select Next, then create the new class. 
+</p><p>This will open Visual Studio (if you installed it – I will skip this step here&#160;;)), where you will see the newly created &lt;name&gt;.h (definition) and &lt;name&gt;.cpp (code) files. In my case, they are named MyGameInstance.x
+</p>
+<h3><span class="mw-headline" id="ReplayTutorial.Build.cs">ReplayTutorial.Build.cs</span></h3>
+<p>Before creating any code, make sure that you include "Json" in the PublicDependencyModules, a definition that can be found in the Solution Explorer under Solution/Games/ReplayTutorial/Source/ReplayTutorial.Build.cs. Open it and add "Json", like so: 
+</p>
+<pre>PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Json" });
+</pre>
+<h3><span class="mw-headline" id="MyGameInstance.h">MyGameInstance.h</span></h3>
+<p>The .h (definition file) will contain our definitions of the necessary methods and properties. You will need to add an include at the beginning of this file, so that these three are available: 
+</p>
+<pre>#include "Engine/GameInstance.h"
+#include "NetworkReplayStreaming.h"
+#include "MyGameInstance.generated.h"
+</pre>
+<p>Afterwards, in the class body, add the following function definitions. Their names will already tell you what the functions are intended for: 
+</p>
+<pre>
+public:
+	/** Start recording a replay from blueprint. ReplayName = Name of file on disk, FriendlyName = Name of replay in UI */
+	UFUNCTION(BlueprintCallable, Category = "Replays")
+		void StartRecordingReplayFromBP(FString ReplayName, FString FriendlyName);
+
+	/** Start recording a running replay and save it, from blueprint. */
+	UFUNCTION(BlueprintCallable, Category = "Replays")
+		void StopRecordingReplayFromBP();
+
+	/** Start playback for a previously recorded Replay, from blueprint */
+	UFUNCTION(BlueprintCallable, Category = "Replays")
+		void PlayReplayFromBP(FString ReplayName);
+
+	/** Start looking for/finding replays on the hard drive */
+	UFUNCTION(BlueprintCallable, Category = "Replays")
+		void FindReplays();
+
+	/** Apply a new custom name to the replay (for UI only) */
+	UFUNCTION(BlueprintCallable, Category = "Replays")
+		void RenameReplay(const FString &amp;ReplayName, const FString &amp;NewFriendlyReplayName);
+
+	/** Delete a previously recorded replay */
+	UFUNCTION(BlueprintCallable, Category = "Replays")
+		void DeleteReplay(const FString &amp;ReplayName);
+</pre>
+<p>We also need additional functions for our FindReplays() and DeleteReplay(..) methods, since they rely on async callbacks. To support these, add the following: 
+</p>
+<pre>
+	virtual void Init() override;
+
+private:
+
+	// for FindReplays() 
+	TSharedPtr&lt;INetworkReplayStreamer&gt; EnumerateStreamsPtr;
+	FOnEnumerateStreamsComplete OnEnumerateStreamsCompleteDelegate;
+
+	void OnEnumerateStreamsComplete(const TArray&lt;FNetworkReplayStreamInfo&gt;&amp; StreamInfos);
+
+	// for DeleteReplays(..)
+	FOnDeleteFinishedStreamComplete OnDeleteFinishedStreamCompleteDelegate;
+
+	void OnDeleteFinishedStreamComplete(const bool bDeleteSucceeded);
+</pre>
+<p>Further, it will be necessary to display Information about replays to the user interface. Since this is in blueprint, let us create a struct to hold these data. Add the following definition at the beginning of the file (or before our UMyGameInstance class definition): 
+</p>
+<pre>
+USTRUCT(BlueprintType)
+struct FS_ReplayInfo
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(BlueprintReadOnly)
+		FString ReplayName;
+
+	UPROPERTY(BlueprintReadOnly)
+		FString FriendlyName;
+
+	UPROPERTY(BlueprintReadOnly)
+		FDateTime Timestamp;
+
+	UPROPERTY(BlueprintReadOnly)
+		int32 LengthInMS;
+
+	UPROPERTY(BlueprintReadOnly)
+		bool bIsValid;
+
+	FS_ReplayInfo(FString NewName, FString NewFriendlyName, FDateTime NewTimestamp, int32 NewLengthInMS)
+	{
+		ReplayName = NewName;
+		FriendlyName = NewFriendlyName;
+		Timestamp = NewTimestamp;
+		LengthInMS = NewLengthInMS;
+		bIsValid = true;
+	}
+
+	FS_ReplayInfo()
+	{
+		ReplayName = "Replay";
+		FriendlyName = "Replay";
+		Timestamp = FDateTime::MinValue();
+		LengthInMS = 0;
+		bIsValid = false;
+	}
+};
+</pre>
+<p>And lastly, add another function to our UMyGameInstance class, that we call when finding replays has completed: 
+</p>
+<pre>
+protected:
+	UFUNCTION(BlueprintImplementableEvent, Category = "Replays")
+		void BP_OnFindReplaysComplete(const TArray&lt;FS_ReplayInfo&gt; &amp;AllReplays);
+</pre>
+<h3><span class="mw-headline" id="MyGameInstance.cpp">MyGameInstance.cpp</span></h3>
+<p>This file will contain our actual code which carries out the previously defined methods. To begin with, lets include the following two definitions: 
+</p>
+<pre>
+#include "ReplayTutorial.h"
+#include "Runtime/NetworkReplayStreaming/NullNetworkReplayStreaming/Public/NullNetworkReplayStreaming.h"
+#include "NetworkVersion.h"
+#include "MyGameInstance.h"
+
+</pre>
+<p>Then, lets create our Init() function first, since this is the place were we can safely link the OnDelete...- and OnEnumerate...-Delegates before a user will call any of our functions: 
+</p>
+<pre>
+void UMyGameInstance::Init()
+{
+	Super::Init();
+	
+	// create a ReplayStreamer for FindReplays() and DeleteReplay(..)
+	EnumerateStreamsPtr = FNetworkReplayStreaming::Get().GetFactory().CreateReplayStreamer();
+	// Link FindReplays() delegate to function
+	OnEnumerateStreamsCompleteDelegate = FOnEnumerateStreamsComplete::CreateUObject(this, &amp;UMyGameInstance::OnEnumerateStreamsComplete);
+	// Link DeleteReplay() delegate to function
+	OnDeleteFinishedStreamCompleteDelegate = FOnDeleteFinishedStreamComplete::CreateUObject(this, &amp;UMyGameInstance::OnDeleteFinishedStreamComplete);
+}
+</pre>
+<p>Some of our functions are actually only calling functions that are already present in the GameInstance, like the following: 
+</p>
+<pre>void UMyGameInstance::StartRecordingReplayFromBP(FString ReplayName, FString FriendlyName)
+{
+	StartRecordingReplay(ReplayName, FriendlyName);
+}
+
+void UMyGameInstance::StopRecordingReplayFromBP()
+{
+	StopRecordingReplay();
+}
+
+void UMyGameInstance::PlayReplayFromBP(FString ReplayName)
+{
+	PlayReplay(ReplayName);
+}
+</pre>
+<p>FindReplays() on the other hand needs an additional (our previously created) ReplayStreamer, called  "EnumerateStreamsPtr". It starts looking for replays on your hard disc and asynchronously calls " OnEnumerateStreamsComplete" when ready: 
+</p>
+<pre>void UMyGameInstance::FindReplays()
+{
+	if (EnumerateStreamsPtr.Get())
+	{
+		EnumerateStreamsPtr.Get()-&gt;EnumerateStreams(FNetworkReplayVersion(), FString(), FString(), OnEnumerateStreamsCompleteDelegate);
+	}
+}
+
+void UMyGameInstance::OnEnumerateStreamsComplete(const TArray&lt;FNetworkReplayStreamInfo&gt;&amp; StreamInfos)
+{
+	TArray&lt;FS_ReplayInfo&gt; AllReplays;
+
+	for (FNetworkReplayStreamInfo StreamInfo : StreamInfos)
+	{
+		if (!StreamInfo.bIsLive)
+		{
+			AllReplays.Add(FS_ReplayInfo(StreamInfo.Name, StreamInfo.FriendlyName, StreamInfo.Timestamp, StreamInfo.LengthInMS));
+		}
+	}
+
+	BP_OnFindReplaysComplete(AllReplays);
+}
+</pre>
+<p>In order to rename replays I have stumbled upon the Engine-functions that create, write and read data to the actual files on our hard disk. I've put together a solution to setting a "Friendly-Name" (for UI) in a previously recorded replay, so that users can put their own nametags on their replays. However, I think this is a bit of a hack because the filestrings are merely put together like in the engine. If the methods in the engine ever change then this will obviously not work anymore: 
+</p>
+<pre>void UMyGameInstance::RenameReplay(const FString &amp;ReplayName, const FString &amp;NewFriendlyReplayName)
+{	
+	// Get File Info
+	FNullReplayInfo Info;
+
+	const FString DemoPath = FPaths::Combine(*FPaths::GameSavedDir(), TEXT("Demos/"));
+	const FString StreamDirectory = FPaths::Combine(*DemoPath, *ReplayName);
+	const FString StreamFullBaseFilename = FPaths::Combine(*StreamDirectory, *ReplayName);
+	const FString InfoFilename = StreamFullBaseFilename + TEXT(".replayinfo");
+
+	TUniquePtr&lt;FArchive&gt; InfoFileArchive(IFileManager::Get().CreateFileReader(*InfoFilename));
+
+	if (InfoFileArchive.IsValid() &amp;&amp; InfoFileArchive-&gt;TotalSize() != 0)
+	{
+		FString JsonString;
+		*InfoFileArchive &lt;&lt; JsonString;
+
+		Info.FromJson(JsonString);
+		Info.bIsValid = true;
+
+		InfoFileArchive-&gt;Close();
+	}
+
+	// Set FriendlyName
+	Info.FriendlyName = NewFriendlyReplayName;
+
+	// Write File Info
+	TUniquePtr&lt;FArchive&gt; ReplayInfoFileAr(IFileManager::Get().CreateFileWriter(*InfoFilename));
+
+	if (ReplayInfoFileAr.IsValid())
+	{
+		FString JsonString = Info.ToJson();
+		*ReplayInfoFileAr &lt;&lt; JsonString;
+
+		ReplayInfoFileAr-&gt;Close();
+	}
+}
+</pre>
+<p>Last but not least, add the code for our DeleteReplay(..) call, pray to the Compiler Gods (at your own discretion, do not anger real gods and blame me for it!) and hit compile afterwards: 
+</p>
+<pre>void UMyGameInstance::DeleteReplay(const FString &amp;ReplayName)
+{
+	if (EnumerateStreamsPtr.Get())
+	{
+		EnumerateStreamsPtr.Get()-&gt;DeleteFinishedStream(ReplayName, OnDeleteFinishedStreamCompleteDelegate);
+	}
+}
+
+void UMyGameInstance::OnDeleteFinishedStreamComplete(const bool bDeleteSucceeded)
+{
+	FindReplays();
+}
+</pre>
+<h2><span class="mw-headline" id="Blueprint_.28UI.29_Implementation">Blueprint (UI) Implementation</span></h2>
+<p>Now that all of that code is compiled and out of the way, let's finally turn to the Unreal Editor again.  I will try to show you a very minimalistic implementation of these Replay System calls, you can get creative and do it in a different way, but a few things must be done first.
+</p>
+<h3><span class="mw-headline" id="Additional_Setup">Additional Setup</span></h3>
+<ol><li> n our content browser, right click and add a new blueprint class. Click on "Display All Classes" and select the c++ GameInstance we created, then call it something senseful to distinguish it from its parent, like "BP_MyGameInstance". Open the new blueprint and override the BP_OnFindReplaysComplete(..) function. We will use this function to display a list of Replays in our UI later.</li>
+<li> Create a new map and call it something like "MainMenuMap"</li>
+<li> Open the Project Settings and under "Project – Maps &amp; Modes" set DefaultGameMode to "GameModeBase". Then, set the Editor StartUp Map, Game Default Map and Server Default Map to "MainMenuMap". Afterwards set GameInstance to BP_MyGameInstance</li>
+<li> Open the FirstPersonExampleMap and verify that it overrides the GameMode with the "FirstPersonGameMode".</li></ol>
+<div class="thumb tnone"><div class="thumbinner" style="width:468px;"><a href="/index.php?title=File:ReplayTutorial_OverrideFindReplays.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/b/bb/ReplayTutorial_OverrideFindReplays.png" width="466" height="372" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_OverrideFindReplays.png" class="internal" title="Enlarge"></a></div>Where to find Override Function</div></div></div>
+<p>After these steps, open the "FirstPersonCharacter" blueprint.
+</p>
+<h3><span class="mw-headline" id="FirstPersonCharacter_Input">FirstPersonCharacter Input</span></h3>
+<p>For the sake of the simplicity of this tutorial, I will call the Replay functions here. You might want to do that from the GameMode or GameState instead, for example when the game begins or ends. If you want to follow the tutorial, just add two Input Events "Page Up" and "Page Down". Drag a "Switch Has Authority" node out from each of them and add Game Instance Casts like in the image to the two events. From Page Up, call Start Recording Replay and from Page Down call Stop Recording. 
+For the ReplayName I tend to use strings like "Replay_2017-04-29_01-54-03" and the Friendly-Name usually stays empty for automatic recording. For the purpose of this tutorial I have put test in.  Now we already should be able to record Replays (found in ProjectFolder/Saved/Demos), by pressing our PageUp or PageDown Keys.
+</p>
+<dl><dd> NOTE: Replays can't be recorded or played back in PIE mode. Use Standalone!</dd></dl>
+<div class="thumb tnone"><div class="thumbinner" style="width:796px;"><a href="/index.php?title=File:ReplayTutorial_SetupInput.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/a/a8/ReplayTutorial_SetupInput.png" width="794" height="622" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_SetupInput.png" class="internal" title="Enlarge"></a></div>Set up Input to Start and Stop Recording</div></div></div>
+<h2><span class="mw-headline" id="MainMenuUI">MainMenuUI</span></h2>
+<p>For the sake of completeness I also want to show you how to browse, rename and delete Replays that were previously recorded. To do that, we need two Widget Blueprints. In the content Browser, create two Widgets called "WID_MainMenu" and "WID_ReplaySlot". 
+</p>
+<h3><span class="mw-headline" id="WID_ReplaySlot">WID_ReplaySlot</span></h3>
+<p>Set up the ReplaySlot Widget to look like this: 
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:873px;"><a href="/index.php?title=File:ReplayTutorial_ReplaySlotWID.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/e/e7/ReplayTutorial_ReplaySlotWID.png" width="871" height="307" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_ReplaySlotWID.png" class="internal" title="Enlarge"></a></div>Widget Designer</div></div></div>
+<p>Then, switch over to the Event Graph and add two String variables "ReplayName" and "ReplayFriendlyName" to the Widget, both set to be "Editable" and "Exposed On Spawn". From the "Event Construct", initialize the TextBox text like in the Image. Then, create Events for the two Buttons (OnClicked) and the TextBox (OnTextCommited) and call the GameInstance Functions we created all the way in the beginning of this tutorial. By comparing to NotEqual (OnCleared) - again, see image - we allow users to hit ESC and keep the old name. 
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:ReplayTutorial_ReplaySlotWIDGraph1.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/e/e3/ReplayTutorial_ReplaySlotWIDGraph1.png/940px-ReplayTutorial_ReplaySlotWIDGraph1.png" width="940" height="436" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/e/e3/ReplayTutorial_ReplaySlotWIDGraph1.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_ReplaySlotWIDGraph1.png" class="internal" title="Enlarge"></a></div>Widget Event Construct</div></div></div>
+<div class="thumb tnone"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:ReplayTutorial_ReplaySlotWIDGraph2.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/5/5c/ReplayTutorial_ReplaySlotWIDGraph2.png/940px-ReplayTutorial_ReplaySlotWIDGraph2.png" width="940" height="486" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/5/5c/ReplayTutorial_ReplaySlotWIDGraph2.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_ReplaySlotWIDGraph2.png" class="internal" title="Enlarge"></a></div>Widget Additional Behavior (Buttons)</div></div></div>
+<h3><span class="mw-headline" id="WID_MainMenu">WID_MainMenu</span></h3>
+<p>In the WID_MainMenu, create a UI similar to that in the images. Make sure that the AllReplaysScrollBox is set to be a variable for the EventGraph: 
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:ReplayTutorial_MainMenuWID.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/3/3b/ReplayTutorial_MainMenuWID.png/940px-ReplayTutorial_MainMenuWID.png" width="940" height="504" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/3/3b/ReplayTutorial_MainMenuWID.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_MainMenuWID.png" class="internal" title="Enlarge"></a></div>Main Menu Widget Part 1</div></div></div>
+<div class="thumb tnone"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:ReplayTutorial_MainMenuWID2.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/7/70/ReplayTutorial_MainMenuWID2.png/940px-ReplayTutorial_MainMenuWID2.png" width="940" height="517" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/7/70/ReplayTutorial_MainMenuWID2.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_MainMenuWID2.png" class="internal" title="Enlarge"></a></div>Main Menu Widget Part 2 - WidgetSwitcher Alternate View</div></div></div>
+<p>Now switch to the event graph and create a custom event "OnFindReplays" with an input of type "Array of S_ReplayInfo". Clear the children of the AllReplaysScrollBox, then create a new ReplaySlot for each of the Replays, feed the two strings in it and add the new widget as a child of the Scrollbox, like so: 
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:ReplayTutorial_MainMenuGraph1.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/8/84/ReplayTutorial_MainMenuGraph1.png/940px-ReplayTutorial_MainMenuGraph1.png" width="940" height="268" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/8/84/ReplayTutorial_MainMenuGraph1.png/1410px-ReplayTutorial_MainMenuGraph1.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/8/84/ReplayTutorial_MainMenuGraph1.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_MainMenuGraph1.png" class="internal" title="Enlarge"></a></div>Main Menu Widget OnFindReplays Event</div></div></div>
+<p>Also add functionality to the other buttons: 
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:ReplayTutorial_MainMenuGraph2.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/4/43/ReplayTutorial_MainMenuGraph2.png/940px-ReplayTutorial_MainMenuGraph2.png" width="940" height="477" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/4/43/ReplayTutorial_MainMenuGraph2.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_MainMenuGraph2.png" class="internal" title="Enlarge"></a></div>Main Menu Widget Other Buttons</div></div></div>
+<p>Now we need to display the main menu when our main menu map loads. To do that, open the level blueprint of the mainmenumap and insert the following event: 
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:ReplayTutorial_LevelBlueprint.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/2/2c/ReplayTutorial_LevelBlueprint.png/940px-ReplayTutorial_LevelBlueprint.png" width="940" height="217" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/2/2c/ReplayTutorial_LevelBlueprint.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_LevelBlueprint.png" class="internal" title="Enlarge"></a></div>Main Menu Level Blueprint</div></div></div>
+<p>Now, if you launch the game and press Browse Replays you will not see any entries. This is because we still have not connected our GameInstance to our UI. To do this, go to BP_MyGameInstance and fill in the code of our prepared event like so: 
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:ReplayTutorial_GameInstanceBP.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/4/4c/ReplayTutorial_GameInstanceBP.png/940px-ReplayTutorial_GameInstanceBP.png" width="940" height="264" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/4/4c/ReplayTutorial_GameInstanceBP.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_GameInstanceBP.png" class="internal" title="Enlarge"></a></div>GameInstance to UI forward Replay Info</div></div></div>
+<h2><span class="mw-headline" id="Testing_it">Testing it</span></h2>
+<p>This is the easy part. In order to test the system, all you need to do is open a standalone game and press page up, upon which the game will start recording. If you press page down it will put a Replay under Saved/Demos. Because I did not build a function to go back to the main menu just close and open the game (in standalone again!). From the MainMenu you should be able to see an entry in your Replay Browser. 
+If you press Playback on an entry, the game will immediately start playing the replay back for you. 
+Delete will delete it. 
+If you start to rename it and switch to another widget or press Enter, the name will be saved. 
+</p>
+<h2><span class="mw-headline" id="Adding_the_ReplaySpectator_Controller">Adding the ReplaySpectator Controller</span></h2>
+<p>In order to manipulate our Replay during Playback, we will need to add a new PlayerController specifically for this task. Right click in the Content Browser and select "New C++ class", scroll down to "Player Controller" and select it. Click on Next and give the new Player Controller a descriptive name like "PC_ReplaySpectator". This will open up Visual Studio again.
+</p>
+<h3><span class="mw-headline" id="PC_ReplaySpectator.h">PC_ReplaySpectator.h</span></h3>
+<p>In our definitions file we need to set some default values in the constructor. We also need to provide two integers to store console variables, because the game will be a blurry mess when pausing it, due to how Motion Blur and Temporal Anti-Aliasing work. To prevent artifacts, we will switch off Motion Blur and change Anti-Aliasing during a Pause, only to switch it back afterwards. 
+Additionally we will need some methods to interface between User-Input and the Replay Payback. To this end, add the following code to your definition file: 
+</p>
+<pre>public:
+	/** we must set some Pause-Behavior values in the ctor */
+	APC_ReplaySpectator(const FObjectInitializer&amp; ObjectInitializer);
+
+protected:
+
+	/** for saving Anti-Aliasing and Motion-Blur settings during Pause State */
+	int32 PreviousAASetting;
+	int32 PreviousMBSetting;
+
+public:
+
+	/** Set the Paused State of the Running Replay to bDoPause. Return new Pause State */
+	UFUNCTION(BlueprintCallable, Category = "CurrentReplay")
+		bool SetCurrentReplayPausedState(bool bDoPause);
+
+	/** Gets the Max Number of Seconds that were recorded in the current Replay */
+	UFUNCTION(BlueprintCallable, Category = "CurrentReplay")
+		int32 GetCurrentReplayTotalTimeInSeconds() const;
+
+	/** Gets the Second we are currently watching in the Replay */
+	UFUNCTION(BlueprintCallable, Category = "CurrentReplay")
+		int32 GetCurrentReplayCurrentTimeInSeconds() const;
+
+	/** Jumps to the specified Second in the Replay we are watching */
+	UFUNCTION(BlueprintCallable, Category = "CurrentReplay")
+		void SetCurrentReplayTimeToSeconds(int32 Seconds);
+
+	/** Changes the PlayRate of the Replay we are watching, enabling FastForward or SlowMotion */
+	UFUNCTION(BlueprintCallable, Category = "CurrentReplay")
+		void SetCurrentReplayPlayRate(float PlayRate = 1.f);
+</pre>
+<h3><span class="mw-headline" id="PC_ReplaySpectator.cpp">PC_ReplaySpectator.cpp</span></h3>
+<p>Now, lets focus on the code file, beginning with the following include statement. The only thing that was added is the include to the DemoNetDriver (which is the "Interface" to our Playback) 
+</p>
+<pre>#include "TP_StrategyWithSteam.h"
+#include "Engine/DemoNetDriver.h"
+#include "PC_ReplaySpectator.h"
+</pre>
+<p>In the constructor, we must make sure that the Player Controller keeps Tick-ing during a Game Pause. To do that, add the following Ctor:
+</p>
+<pre>APC_ReplaySpectator::APC_ReplaySpectator(const FObjectInitializer&amp; ObjectInitializer) : Super(ObjectInitializer)
+{
+	bShowMouseCursor = true;
+	PrimaryActorTick.bTickEvenWhenPaused = true;
+	bShouldPerformFullTickWhenPaused = true;
+} 
+</pre>
+<p>Now we will implement switching into and out of the Pause State. All you have to do to enable Pause is set the WorldSettings-&gt;Pauser PlayerState to our current one. In order to quit the Pause State we will then Nullify this Setting. Additionally you can see that we will store our AntiAliasing and MotionBlur Console Variables
+</p>
+<pre>bool APC_ReplaySpectator::SetCurrentReplayPausedState(bool bDoPause)
+{
+	AWorldSettings* WorldSettings = GetWorldSettings();
+
+	// Set MotionBlur off and Anti Aliasing to FXAA in order to bypass the pause-bug of both
+	static const auto CVarAA = IConsoleManager::Get().FindConsoleVariable(TEXT("r.DefaultFeature.AntiAliasing"));
+
+	static const auto CVarMB = IConsoleManager::Get().FindConsoleVariable(TEXT("r.DefaultFeature.MotionBlur"));
+
+	if (bDoPause)
+	{
+		PreviousAASetting = CVarAA-&gt;GetInt();
+		PreviousMBSetting = CVarMB-&gt;GetInt();
+
+		// Set MotionBlur to OFF, Anti-Aliasing to FXAA
+		CVarAA-&gt;Set(1);
+		CVarMB-&gt;Set(0);
+
+		WorldSettings-&gt;Pauser = PlayerState;
+		return true;
+	}
+	// Rest MotionBlur and AA
+	CVarAA-&gt;Set(PreviousAASetting);
+	CVarMB-&gt;Set(PreviousMBSetting);
+
+	WorldSettings-&gt;Pauser = NULL;
+	return false;
+}
+</pre>
+<p>Lastly, we will implement the "Interface" between User and DemoNetDriver. These functions simply forward requests that will be called from our UI to the DemoNetDriver. The actual work was already done In-Engine. After copying the following, hit compile and switch to the Unreal Editor: 
+</p>
+<pre>int32 APC_ReplaySpectator::GetCurrentReplayTotalTimeInSeconds() const
+{
+	if (GetWorld())
+	{
+		if (GetWorld()-&gt;DemoNetDriver)
+		{
+			return GetWorld()-&gt;DemoNetDriver-&gt;DemoTotalTime;
+		}
+	}
+
+	return 0.f;
+}
+
+int32 APC_ReplaySpectator::GetCurrentReplayCurrentTimeInSeconds() const
+{
+	if (GetWorld())
+	{
+		if (GetWorld()-&gt;DemoNetDriver)
+		{
+			return GetWorld()-&gt;DemoNetDriver-&gt;DemoCurrentTime;
+		}
+	}
+
+	return 0.f;
+}
+
+void APC_ReplaySpectator::SetCurrentReplayTimeToSeconds(int32 Seconds)
+{
+	if (GetWorld())
+	{
+		if (GetWorld()-&gt;DemoNetDriver)
+		{
+			GetWorld()-&gt;DemoNetDriver-&gt;GotoTimeInSeconds(Seconds);
+		}
+	}
+}
+
+
+void APC_ReplaySpectator::SetCurrentReplayPlayRate(float PlayRate)
+{
+	if (GetWorld())
+	{
+		if (GetWorld()-&gt;DemoNetDriver)
+		{
+			GetWorld()-&gt;GetWorldSettings()-&gt;DemoPlayTimeDilation = PlayRate;
+		}
+	}
+}
+</pre>
+<h3><span class="mw-headline" id="WID_ReplaySpectator">WID_ReplaySpectator</span></h3>
+<p>Now we need to call the previously created functions from somewhere in the UI. To do that, simply create another widget called WID_ReplaySpectator or similar. To correctly use the functions you'll need two Text Fields to display Current and Max Game Time, a Slider to Change it (and display the Current Progress as a Fraction), a Pause-Button and a ComboBox to select the PlayRate. I've certainly set this up to be minimalistic but you will likely design it your own way anyways:
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:ReplayTutorial_ReplaySpectatorWID.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/b/bc/ReplayTutorial_ReplaySpectatorWID.png/940px-ReplayTutorial_ReplaySpectatorWID.png" width="940" height="579" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/b/bc/ReplayTutorial_ReplaySpectatorWID.png/1410px-ReplayTutorial_ReplaySpectatorWID.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/b/bc/ReplayTutorial_ReplaySpectatorWID.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_ReplaySpectatorWID.png" class="internal" title="Enlarge"></a></div>Replay Spectator Widget Designer</div></div></div>
+<p>Now switch to the Event Graph and build the following Events/Functions. Starting from the Event Construct, you'll save a Reference to the Replay PC and obtain the total Game Time In Seconds as a new Integer Variable. Then, from Event Tick, obtain the Current Game Time In Seconds. To display them, switch to the Designer and click on the CurrentTime Text. In its properties press the DropDown labelled as "Bind" and create a new Binding. Rename it so that the functions called "CurrentGameTimeToText" and fill in the functionality like in the picture. Then, do the same for the TotalGameTime-Text field. 
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:ReplayTutorial_ReplaySpectatorGameTimes.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/e/e9/ReplayTutorial_ReplaySpectatorGameTimes.png/940px-ReplayTutorial_ReplaySpectatorGameTimes.png" width="940" height="888" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/e/e9/ReplayTutorial_ReplaySpectatorGameTimes.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_ReplaySpectatorGameTimes.png" class="internal" title="Enlarge"></a></div>Replay Spectator Widget, Game Time Related Functions</div></div></div>
+<p>You might also want to display the current Progress as a fraction. To this end open the designer, select the Slider and under Value, create a new Binding. This will need two more variables that are created now, a Released At value as a float (we will change this later) and a Boolean to decide whether the user has picked up the Slider. Make sure that this bool is set to False as a Standard Value: 
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:ReplayTutorial_ReplaySpectatorSlider.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/4/47/ReplayTutorial_ReplaySpectatorSlider.png/940px-ReplayTutorial_ReplaySpectatorSlider.png" width="940" height="336" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/4/47/ReplayTutorial_ReplaySpectatorSlider.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_ReplaySpectatorSlider.png" class="internal" title="Enlarge"></a></div>Replay Spectator Widget, Slider Value Binding</div></div></div>
+<p>To enable and disable Pause, implement the Button Clicked Function and Bind the Text on this Button according to the following: 
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:ReplayTutorial_ReplaySpectatorPause.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/1/13/ReplayTutorial_ReplaySpectatorPause.png/940px-ReplayTutorial_ReplaySpectatorPause.png" width="940" height="573" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/1/13/ReplayTutorial_ReplaySpectatorPause.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_ReplaySpectatorPause.png" class="internal" title="Enlarge"></a></div>Replay Spectator Widget, Pause Manipulation Functions</div></div></div>
+<p>To manipulate the current Playback Rate, simply do the following: 
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:937px;"><a href="/index.php?title=File:ReplayTutorial_ReplaySpectatorPlayRate.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/6/6b/ReplayTutorial_ReplaySpectatorPlayRate.png" width="935" height="673" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_ReplaySpectatorPlayRate.png" class="internal" title="Enlarge"></a></div>Replay Spectator Widget, PlayRate Manipulation Event</div></div></div>
+<p>The last thing to do for this widget is to let the users directly manipulate the Slider we provided. We need three events that are linked to the Slider to do this, CaptureBegin, ValueChanged and CaptureEnd. When the Capture Begins, we'll set the PickedUp Boolean to true. On Value Changed, we will store the ReleaseAt Value and on CaptureEnd we will tell the PlayerController-&gt;DemoNetDriver and reset the Boolean. 
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:942px;"><a href="/index.php?title=File:ReplayTutorial_ReplaySpectatorSlider2.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/4/4a/ReplayTutorial_ReplaySpectatorSlider2.png/940px-ReplayTutorial_ReplaySpectatorSlider2.png" width="940" height="452" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/4/4a/ReplayTutorial_ReplaySpectatorSlider2.png 1.5x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:ReplayTutorial_ReplaySpectatorSlider2.png" class="internal" title="Enlarge"></a></div>Replay Spectator Widget, Slider Manipulation</div></div></div>
+<h3><span class="mw-headline" id="BP_PC_ReplaySpectator">BP_PC_ReplaySpectator</span></h3>
+<p>We are slowly coming to an end of this tutorial. What is still left missing has to do with our ReplaySpectator-Player Controller. You will need to create a child Blueprint of the C++ class that we created. Right click in the Content Browser and create a Blueprint Class. From here, search for PC_ReplaySpectator and select it as a parent. Call the new Blueprint "BP_PC_ReplaySpectator" or similar, then open it. 
+</p><p>From Event BeginPlay, drag out the Execution Pin and create a "Create Widget" node, with Class set to WID_ReplaySpectator and Owner to Self. Then drag out the Return Value and create a "Add to Viewport" node. Close the Blueprint. 
+</p><p>Navigate to the "FirstPersonGameMode" Blueprint from the First Person Example and open it. In here, set the Replay Spectator Player Controller class to the new BP_PC_ReplaySpectator.
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Conclusion.2C_Bugs">Conclusion, Bugs</span></h2>
+<p>I hope that this tutorial can be of any help to someone, especially since nothing comparable was in the wiki at this point. Of course the UI is very minimalistic, but this was a design choice for the tutorial, since the actual UI you'd use would depend on your own projects.
+</p><p>You will notice that when you switch to a different time, the Cube Meshes and the Player are not initially in the correct position. This is especially apparent if you have your replay set to paused. I'm not quite sure why this happens, yet, but I will update the tutorial when I find it out. 
+</p><p><a href="/index.php?title=User:MrBurgerAt&amp;action=edit&amp;redlink=1" class="new" title="User:MrBurgerAt (page does not exist)">MrBurgerAt</a>
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20200215070942
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.228 seconds
+Real time usage: 2.216 seconds
+Preprocessor visited node count: 234/1000000
+Preprocessor generated node count: 456/1000000
+Post‐expand include size: 20/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.949      1 -total
+100.00%    0.949      1 Template:Rating
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:71-0!canonical and timestamp 20200215070940 and revision id 143
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=Replay_System_Tutorial&amp;oldid=143">https://wiki.unrealengine.com/index.php?title=Replay_System_Tutorial&amp;oldid=143</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="/index.php?title=Category:Tutorials&amp;action=edit&amp;redlink=1" class="new" title="Category:Tutorials (page does not exist)">Tutorials</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0fabd7d8c0a1277bf"><meta name="worker" content="188"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.89","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign up for Unreal Engine news!","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"legalTags":[],"_type":"Epic Games Footer","newLineCopyrights":false,"_lastModifiedBy":"tony.rossi","epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue","href":"https://unrealengine.com"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners-apply","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://dev.epicgames.com","title":"Online Services"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/training-partners","title":"Training Partners"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://www.epicgames.com/site/community-rules","title":"Community Rules"}],"hideDefaultTermsPolicy":false,"_lastModified":"2020-02-11T15:07:29.514Z","_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.e3f076853c19c9a96ad0.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.e3f076853c19c9a96ad0.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.228","walltime":"2.216","ppvisitednodes":{"value":234,"limit":1000000},"ppgeneratednodes":{"value":456,"limit":1000000},"postexpandincludesize":{"value":20,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.949      1 -total","100.00%    0.949      1 Template:Rating"]},"cachereport":{"timestamp":"20200215070942","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":97});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":136,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

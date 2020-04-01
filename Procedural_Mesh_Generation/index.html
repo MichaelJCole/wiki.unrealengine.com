@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(){}function o(e,t,n){return function(){return i(e,[f.now()].concat(u(arguments)),t?null:this,n),t?void 0:this}}var i=e("handle"),a=e(2),u=e(3),c=e("ee").get("tracer"),f=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,t){s[t]=o(d+t,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),t.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,t){var n={},r=this,o="function"==typeof t;return i(l+"tracer",[f.now(),e,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return t.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],n),e}finally{c.emit("fn-end",[f.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){m[t]=o(l+t)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,f.now()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(o<0?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],4:[function(e,t,n){t.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?c(e,u,i):i()}function n(n,r,o,i){if(!d.aborted||i){e&&e(n,r,o);for(var a=t(o),u=m(n),c=u.length,f=0;f<c;f++)u[f].apply(a,r);var p=s[y[n]];return p&&p.push([b,n,r,a]),a}}function l(e,t){v[e]=m(e).concat(t)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(n)}function g(e,t){f(e,function(e,n){t=t||"feature",y[n]=t,t in s||(s[t]=[])})}var v={},y={},b={on:l,emit:n,get:w,listeners:m,context:t,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",c=e("gos"),f=e(2),s={},p={},d=t.exports=o();d.backlog=s},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!x++){var e=h.info=NREUM.info,t=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return s.abort();f(y,function(t,n){e[t]||(e[t]=n)}),c("mark",["onload",a()+h.offset],null,"api");var n=d.createElement("script");n.src="https://"+e.agent,t.parentNode.insertBefore(n,t)}}function o(){"complete"===d.readyState&&i()}function i(){c("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),c=e("handle"),f=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1071.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=t.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+<title>Procedural Mesh Generation - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Procedural_Mesh_Generation","wgTitle":"Procedural Mesh Generation","wgCurRevisionId":79,"wgRevisionId":79,"wgArticleId":39,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Code"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Procedural_Mesh_Generation","wgRelevantArticleId":39,"wgRequestId":"d34ddd0a320597a0c82f0416","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@1xxwts3",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Procedural_Mesh_Generation rootpage-Procedural_Mesh_Generation skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-00f7fdb47766f2f80"><meta name="worker" content="99"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"hideShieldDownload":false,"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"alert":{"msg":"","_type":"Epic Header Alert","id":"","type":"info","statusHref":""},"_activeDate":"2018-08-06T09:11:04.633Z","links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://academy.unrealengine.com/","title":"Video Tutorials","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/unrealdevgrants","title":"Unreal Dev Grants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_currentVersion":"1.37.2.100","_type":"Epic Games Nav","hideSignIn":true,"pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"_futureVersion":"none","downloadLink":{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":""},"_created":"2017-08-21T08:59:33.648Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"hideShieldDropdown":false,"properties":[{"propertyKey":"paragon","_type":"Epic Games Property","egDisabled":true,"egSkip":true}],"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.100bcb10fc821c7c23f8.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.100bcb10fc821c7c23f8.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Procedural+Mesh+Generation" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=Procedural_Mesh_Generation" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Procedural_Mesh_Generation&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=Procedural_Mesh_Generation">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=Procedural_Mesh_Generation&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Procedural_Mesh_Generation&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Procedural Mesh Generation</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><a href="/index.php?title=Template:Rating&amp;action=edit&amp;redlink=1" class="new" title="Template:Rating (page does not exist)">Template:Rating</a>
+</p><p>This is a very simple demonstration on how to generate procedural meshes and spawn them in game. It is not to be taken as an example of proper programming technique, but only as an indication to help you generate your own meshes.
+</p><p>You can <b><a rel="nofollow" class="external text" href="https://github.com/SRombauts/UE4ProceduralMesh/">get this up-to-date demo code in a working UE 4.7 project on GitHub</a></b>. 
+</p><p>Please note that <b>this no longer works in 4.8</b> because Epic added an <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/BlueprintAPI/Components/ProceduralMesh/index.html">official component with the same name (UProceduralMeshComponent) and similar functionality</a>. Check this Wiki page to find a tutorial for it: <a href="/index.php?title=Procedural_Mesh_Component_in_C%2B%2B:Getting_Started" title="Procedural Mesh Component in C++:Getting Started">Procedural Mesh Component in C++:Getting Started</a>.
+</p><p>The following assumes you already have a project created. However, you will need to add RHI, RenderCore and ShaderCore modules in your build file.
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "RHI", "RenderCore", "ShaderCore" });
+&lt;/syntaxhighlight&gt;
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Creating_a_Generated_Mesh_class"><span class="tocnumber">1</span> <span class="toctext">Creating a Generated Mesh class</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#GeneratedMeshComponent.h"><span class="tocnumber">1.1</span> <span class="toctext">GeneratedMeshComponent.h</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#GeneratedMeshComponent.cpp"><span class="tocnumber">1.2</span> <span class="toctext">GeneratedMeshComponent.cpp</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-4"><a href="#Creating_a_Generated_Actor_Class"><span class="tocnumber">2</span> <span class="toctext">Creating a Generated Actor Class</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#GameGeneratedActor.h"><span class="tocnumber">2.1</span> <span class="toctext">GameGeneratedActor.h</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#GameGeneratedActor.cpp"><span class="tocnumber">2.2</span> <span class="toctext">GameGeneratedActor.cpp</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Spawning_the_Actor"><span class="tocnumber">3</span> <span class="toctext">Spawning the Actor</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Connecting_standard_UCustomMeshComponent"><span class="tocnumber">4</span> <span class="toctext">Connecting standard UCustomMeshComponent</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Blueprint_implementation"><span class="tocnumber">5</span> <span class="toctext">Blueprint implementation</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Changelog"><span class="tocnumber">6</span> <span class="toctext">Changelog</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Update_1"><span class="tocnumber">6.1</span> <span class="toctext">Update 1</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Update_2"><span class="tocnumber">6.2</span> <span class="toctext">Update 2</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Update_3"><span class="tocnumber">6.3</span> <span class="toctext">Update 3</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Update_4"><span class="tocnumber">6.4</span> <span class="toctext">Update 4</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Update_5"><span class="tocnumber">6.5</span> <span class="toctext">Update 5</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Update_6"><span class="tocnumber">6.6</span> <span class="toctext">Update 6</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Update_7"><span class="tocnumber">6.7</span> <span class="toctext">Update 7</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="#Update_8"><span class="tocnumber">6.8</span> <span class="toctext">Update 8</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#Update_9"><span class="tocnumber">6.9</span> <span class="toctext">Update 9</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="#External_link"><span class="tocnumber">7</span> <span class="toctext">External link</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Creating_a_Generated_Mesh_class">Creating a Generated Mesh class</span></h2>
+<p>The Unreal Engine 4 sources come with a CustomMeshComponent under Engine\Plugins\Runtime\CustomMeshComponent. I had trouble with using it as a plugin (link error), so I have reimplemented it. Essentially, copy the files to your project and rename them GeneratedMeshComponent (.h/.cpp). Replace all occurences of "Custom" to "Generated". You will need to add your project header to the cpp file. Otherwise, the code as I have use it is untouched.
+</p><p>This step may not be required, see Update 7 below.
+</p><p>Here they are as they appear in my test project:
+</p>
+<h3><span class="mw-headline" id="GeneratedMeshComponent.h">GeneratedMeshComponent.h</span></h3>
+<p>&lt;syntaxhighlight lang="cpp"&gt;
+// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.
+</p>
+<ol><li>pragma once</li></ol>
+<ol><li>include "GeneratedMeshComponent.generated.h"</li></ol>
+<p>USTRUCT(BlueprintType)
+struct FGeneratedMeshTriangle
+{
+	GENERATED_USTRUCT_BODY()
+</p><p>	UPROPERTY(EditAnywhere, Category=Triangle)
+	FVector Vertex0;
+</p><p>	UPROPERTY(EditAnywhere, Category=Triangle)
+	FVector Vertex1;
+</p><p>	UPROPERTY(EditAnywhere, Category=Triangle)
+	FVector Vertex2;
+};
+</p><p>/** Component that allows you to specify custom triangle mesh geometry */
+UCLASS(editinlinenew, meta=(BlueprintSpawnableComponent), ClassGroup=Rendering)
+class UGeneratedMeshComponent&#160;: public UMeshComponent, public IInterface_CollisionDataProvider 
+{
+	GENERATED_UCLASS_BODY()
+</p><p>public:
+	/** Set the geometry to use on this triangle mesh */
+	UFUNCTION(BlueprintCallable, Category="Components|GeneratedMesh")
+	bool SetGeneratedMeshTriangles(const TArray&lt;FGeneratedMeshTriangle&gt;&amp; Triangles);
+</p><p>	/** Description of collision */
+	UPROPERTY(BlueprintReadOnly, Category="Collision")
+	class UBodySetup* ModelBodySetup;
+</p><p>	// Begin UMeshComponent interface.
+	virtual int32 GetNumMaterials() const OVERRIDE;
+	// End UMeshComponent interface.
+</p><p>	// Begin Interface_CollisionDataProvider Interface
+	virtual bool GetPhysicsTriMeshData(struct FTriMeshCollisionData* CollisionData, bool InUseAllTriData) OVERRIDE;
+	virtual bool ContainsPhysicsTriMeshData(bool InUseAllTriData) const OVERRIDE;
+	virtual bool WantsNegXTriMesh() OVERRIDE { return false; }
+	// End Interface_CollisionDataProvider Interface
+</p><p>	// Begin UPrimitiveComponent interface.
+	virtual FPrimitiveSceneProxy* CreateSceneProxy() OVERRIDE;
+	virtual class UBodySetup* GetBodySetup() OVERRIDE;
+	// End UPrimitiveComponent interface.
+</p><p>	void UpdateBodySetup();
+	void UpdateCollision();
+private:
+</p><p><br />
+</p><p>	// Begin USceneComponent interface.
+	virtual FBoxSphereBounds CalcBounds(const FTransform &amp; LocalToWorld) const OVERRIDE;
+	// Begin USceneComponent interface.
+</p><p>	/** */
+	TArray&lt;FGeneratedMeshTriangle&gt; GeneratedMeshTris;
+</p><p>	friend class FGeneratedMeshSceneProxy;
+};
+&lt;/syntaxhighlight&gt;
+</p>
+<h3><span class="mw-headline" id="GeneratedMeshComponent.cpp">GeneratedMeshComponent.cpp</span></h3>
+<p>&lt;syntaxhighlight lang="cpp"&gt;
+// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved. 
+</p>
+<ol><li>include "MyProject5.h"</li>
+<li>include "DynamicMeshBuilder.h"</li>
+<li>include "GeneratedMeshComponent.h"</li>
+<li>include "Runtime/Launch/Resources/Version.h" // for ENGINE_xxx_VERSION</li></ol>
+<p>/** Vertex Buffer */
+class FGeneratedMeshVertexBuffer&#160;: public FVertexBuffer 
+{
+public:
+	TArray&lt;FDynamicMeshVertex&gt; Vertices;
+</p><p>	virtual void InitRHI()
+	{
+</p>
+<ol><li>if ENGINE_MAJOR_VERSION &gt;= 4 &amp;&amp; ENGINE_MINOR_VERSION &gt;= 3</li></ol>
+<pre>               FRHIResourceCreateInfo CreateInfo;
+</pre>
+<p>		VertexBufferRHI = RHICreateVertexBuffer(Vertices.Num() * sizeof(FDynamicMeshVertex),BUF_Static,CreateInfo);
+</p>
+<ol><li>else</li></ol>
+<p>		VertexBufferRHI = RHICreateVertexBuffer(Vertices.Num() * sizeof(FDynamicMeshVertex),NULL,BUF_Static);
+</p>
+<ol><li>endif</li></ol>
+<p>		// Copy the vertex data into the vertex buffer.
+		void* VertexBufferData = RHILockVertexBuffer(VertexBufferRHI,0,Vertices.Num() * sizeof(FDynamicMeshVertex), RLM_WriteOnly);
+		FMemory::Memcpy(VertexBufferData,Vertices.GetTypedData(),Vertices.Num() * sizeof(FDynamicMeshVertex));
+		RHIUnlockVertexBuffer(VertexBufferRHI);
+</p><p>	}
+</p><p>};
+</p><p>/** Index Buffer */
+class FGeneratedMeshIndexBuffer&#160;: public FIndexBuffer 
+{
+public:
+	TArray&lt;int32&gt; Indices;
+</p><p>	virtual void InitRHI()
+	{
+</p>
+<ol><li>if ENGINE_MAJOR_VERSION &gt;= 4 &amp;&amp; ENGINE_MINOR_VERSION &gt;= 3</li></ol>
+<pre>               FRHIResourceCreateInfo CreateInfo;
+</pre>
+<p>		IndexBufferRHI = RHICreateIndexBuffer(sizeof(int32),Indices.Num() * sizeof(int32),BUF_Static,CreateInfo);
+</p>
+<ol><li>else</li></ol>
+<p>		IndexBufferRHI = RHICreateIndexBuffer(sizeof(int32),Indices.Num() * sizeof(int32),NULL,BUF_Static);
+</p>
+<ol><li>endif</li></ol>
+<p>		// Write the indices to the index buffer.
+		void* Buffer = RHILockIndexBuffer(IndexBufferRHI,0,Indices.Num() * sizeof(int32),RLM_WriteOnly);
+		FMemory::Memcpy(Buffer,Indices.GetTypedData(),Indices.Num() * sizeof(int32));
+		RHIUnlockIndexBuffer(IndexBufferRHI);
+	}
+};
+</p><p>/** Vertex Factory */
+class FGeneratedMeshVertexFactory&#160;: public FLocalVertexFactory
+{
+public:
+</p><p>	FGeneratedMeshVertexFactory()
+	{}
+</p><p><br />
+	/** Initialization */
+	void Init(const FGeneratedMeshVertexBuffer* VertexBuffer)
+	{
+		check(!IsInRenderingThread());
+</p><p>		ENQUEUE_UNIQUE_RENDER_COMMAND_TWOPARAMETER(
+			InitGeneratedMeshVertexFactory,
+			FGeneratedMeshVertexFactory*,VertexFactory,this,
+			const FGeneratedMeshVertexBuffer*,VertexBuffer,VertexBuffer,
+		{
+			// Initialize the vertex factory's stream components.
+			DataType NewData;
+			NewData.PositionComponent = STRUCTMEMBER_VERTEXSTREAMCOMPONENT(VertexBuffer,FDynamicMeshVertex,Position,VET_Float3);
+			NewData.TextureCoordinates.Add(
+				FVertexStreamComponent(VertexBuffer,STRUCT_OFFSET(FDynamicMeshVertex,TextureCoordinate),sizeof(FDynamicMeshVertex),VET_Float2)
+				);
+			NewData.TangentBasisComponents[0] = STRUCTMEMBER_VERTEXSTREAMCOMPONENT(VertexBuffer,FDynamicMeshVertex,TangentX,VET_PackedNormal);
+			NewData.TangentBasisComponents[1] = STRUCTMEMBER_VERTEXSTREAMCOMPONENT(VertexBuffer,FDynamicMeshVertex,TangentZ,VET_PackedNormal);
+			NewData.ColorComponent = STRUCTMEMBER_VERTEXSTREAMCOMPONENT(VertexBuffer, FDynamicMeshVertex, Color, VET_Color);
+			VertexFactory-&gt;SetData(NewData);
+		});
+	}
+};
+</p><p><br />
+</p><p>//////////////////////////////////////////////////////////////////////////
+</p><p>UGeneratedMeshComponent::UGeneratedMeshComponent( const FPostConstructInitializeProperties&amp; PCIP )
+	: Super( PCIP )
+{
+	PrimaryComponentTick.bCanEverTick = false;
+</p><p>}
+</p><p>bool UGeneratedMeshComponent::SetGeneratedMeshTriangles(const TArray&lt;FGeneratedMeshTriangle&gt;&amp; Triangles)
+{
+	GeneratedMeshTris = Triangles;
+</p><p>	UpdateCollision();
+</p><p>	// Need to recreate scene proxy to send it over
+	MarkRenderStateDirty();
+</p><p>	return true;
+}
+</p><p><br />
+FPrimitiveSceneProxy* UGeneratedMeshComponent::CreateSceneProxy()
+{
+</p><p>	/** Scene proxy defined only inside the scope of this one function */
+	class FGeneratedMeshSceneProxy&#160;: public FPrimitiveSceneProxy
+	{
+	public:
+</p><p>		FGeneratedMeshSceneProxy(UGeneratedMeshComponent* Component)
+			: FPrimitiveSceneProxy(Component)
+</p>
+<ol><li>if ENGINE_MAJOR_VERSION &gt;= 4 &amp;&amp; ENGINE_MINOR_VERSION &gt;= 5</li></ol>
+<p>			, MaterialRelevance(Component-&gt;GetMaterialRelevance(ERHIFeatureLevel::SM4)) // Feature level defined by the capabilities of DX10 Shader Model 4.
+</p>
+<ol><li>else</li></ol>
+<p>			, MaterialRelevance(Component-&gt;GetMaterialRelevance())
+</p>
+<ol><li>endif</li></ol>
+<p>		{
+			const FColor VertexColor(255,255,255);
+</p><p>			// Add each triangle to the vertex/index buffer
+			for(int TriIdx=0; TriIdx&lt;Component-&gt;GeneratedMeshTris.Num(); TriIdx++)
+			{
+				FGeneratedMeshTriangle&amp; Tri = Component-&gt;GeneratedMeshTris[TriIdx];
+</p><p>				const FVector Edge01 = (Tri.Vertex1 - Tri.Vertex0);
+				const FVector Edge02 = (Tri.Vertex2 - Tri.Vertex0);
+</p><p>				const FVector TangentX = Edge01.SafeNormal();
+				const FVector TangentZ = (Edge02 ^ Edge01).SafeNormal();
+				const FVector TangentY = (TangentX ^ TangentZ).SafeNormal();
+</p><p>				FDynamicMeshVertex Vert0;
+				Vert0.Position = Tri.Vertex0;
+				Vert0.Color = VertexColor;
+				Vert0.SetTangents(TangentX, TangentY, TangentZ);
+				int32 VIndex = VertexBuffer.Vertices.Add(Vert0);
+				IndexBuffer.Indices.Add(VIndex);
+</p><p>				FDynamicMeshVertex Vert1;
+				Vert1.Position = Tri.Vertex1;
+				Vert1.Color = VertexColor;
+				Vert1.SetTangents(TangentX, TangentY, TangentZ);
+				VIndex = VertexBuffer.Vertices.Add(Vert1);
+				IndexBuffer.Indices.Add(VIndex);
+</p><p>				FDynamicMeshVertex Vert2;
+				Vert2.Position = Tri.Vertex2;
+				Vert2.Color = VertexColor;
+				Vert2.SetTangents(TangentX, TangentY, TangentZ);
+				VIndex = VertexBuffer.Vertices.Add(Vert2);
+				IndexBuffer.Indices.Add(VIndex);
+			}
+</p><p>			// Init vertex factory
+			VertexFactory.Init(&amp;VertexBuffer);
+</p><p>			// Enqueue initialization of render resource
+			BeginInitResource(&amp;VertexBuffer);
+			BeginInitResource(&amp;IndexBuffer);
+			BeginInitResource(&amp;VertexFactory);
+</p><p>			// Grab material
+			Material = Component-&gt;GetMaterial(0);
+			if(Material == NULL)
+			{
+				Material = UMaterial::GetDefaultMaterial(MD_Surface);
+			}
+		}
+</p><p>		virtual ~FGeneratedMeshSceneProxy()
+		{
+			VertexBuffer.ReleaseResource();
+			IndexBuffer.ReleaseResource();
+			VertexFactory.ReleaseResource();
+		}
+</p><p>		virtual void DrawDynamicElements(FPrimitiveDrawInterface* PDI,const FSceneView* View)
+		{
+			QUICK_SCOPE_CYCLE_COUNTER( STAT_GeneratedMeshSceneProxy_DrawDynamicElements );
+</p><p>			const bool bWireframe = View-&gt;Family-&gt;EngineShowFlags.Wireframe;
+</p><p>			auto WireframeMaterialInstance = new FColoredMaterialRenderProxy(
+				GEngine-&gt;WireframeMaterial&#160;? GEngine-&gt;WireframeMaterial-&gt;GetRenderProxy(IsSelected())&#160;: NULL,
+				FLinearColor(0, 0.5f, 1.f)
+				);
+</p><p>			FMaterialRenderProxy* MaterialProxy = NULL;
+			if(bWireframe)
+			{
+				MaterialProxy = &amp;WireframeMaterialInstance;
+			}
+			else
+			{
+				MaterialProxy = Material-&gt;GetRenderProxy(IsSelected());
+			}
+</p><p>			// Draw the mesh.
+			FMeshBatch Mesh;
+			FMeshBatchElement&amp; BatchElement = Mesh.Elements[0];
+			BatchElement.IndexBuffer = &amp;IndexBuffer;
+			Mesh.bWireframe = bWireframe;
+			Mesh.VertexFactory = &amp;VertexFactory;
+			Mesh.MaterialRenderProxy = MaterialProxy;
+</p>
+<ol><li>if ENGINE_MAJOR_VERSION &gt;= 4 &amp;&amp; ENGINE_MINOR_VERSION &gt;= 5</li></ol>
+<p>			BatchElement.PrimitiveUniformBuffer = CreatePrimitiveUniformBufferImmediate(GetLocalToWorld(), GetBounds(), GetLocalBounds(), true, UseEditorDepthTest());
+</p>
+<ol><li>else</li></ol>
+<p>			BatchElement.PrimitiveUniformBuffer = CreatePrimitiveUniformBufferImmediate(GetLocalToWorld(), GetBounds(), GetLocalBounds(), true);
+</p>
+<ol><li>endif</li></ol>
+<p>			BatchElement.FirstIndex = 0;
+			BatchElement.NumPrimitives = IndexBuffer.Indices.Num() / 3;
+			BatchElement.MinVertexIndex = 0;
+			BatchElement.MaxVertexIndex = VertexBuffer.Vertices.Num() - 1;
+			Mesh.ReverseCulling = IsLocalToWorldDeterminantNegative();
+			Mesh.Type = PT_TriangleList;
+			Mesh.DepthPriorityGroup = SDPG_World;
+			PDI-&gt;DrawMesh(Mesh);
+		}
+</p><p>		virtual FPrimitiveViewRelevance GetViewRelevance(const FSceneView* View)
+		{
+			FPrimitiveViewRelevance Result;
+			Result.bDrawRelevance = IsShown(View);
+			Result.bShadowRelevance = IsShadowCast(View);
+			Result.bDynamicRelevance = true;
+			MaterialRelevance.SetPrimitiveViewRelevance(Result);
+			return Result;
+		}
+</p><p>		virtual bool CanBeOccluded() const OVERRIDE
+		{
+			return&#160;!MaterialRelevance.bDisableDepthTest;
+		}
+</p><p>		virtual uint32 GetMemoryFootprint( void ) const { return( sizeof( *this ) + GetAllocatedSize() ); }
+</p><p>		uint32 GetAllocatedSize( void ) const { return( FPrimitiveSceneProxy::GetAllocatedSize() ); }
+</p><p>	private:
+</p><p>		UMaterialInterface* Material;
+		FGeneratedMeshVertexBuffer VertexBuffer;
+		FGeneratedMeshIndexBuffer IndexBuffer;
+		FGeneratedMeshVertexFactory VertexFactory;
+</p><p>		FMaterialRelevance MaterialRelevance;
+	};
+</p><p><br />	
+	//Only create if have enough tris
+	if(GeneratedMeshTris.Num() &gt; 0)
+	{
+		return new FGeneratedMeshSceneProxy(this);
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+</p><p>int32 UGeneratedMeshComponent::GetNumMaterials() const
+{
+	return 1;
+}
+</p><p><br />
+FBoxSphereBounds UGeneratedMeshComponent::CalcBounds(const FTransform &amp; LocalToWorld) const
+{
+	// Minimum Vector: It's set to the first vertex's position initially (NULL == FVector::ZeroVector might be required and a known vertex vector has intrinsically valid values)
+	FVector vecMin = GeneratedMeshTris[0].Vertex0;
+</p><p>	// Maximum Vector: It's set to the first vertex's position initially (NULL == FVector::ZeroVector might be required and a known vertex vector has intrinsically valid values)
+	FVector vecMax = GeneratedMeshTris[0].Vertex0;
+</p><p>	// Get maximum and minimum X, Y and Z positions of vectors
+	for (int32 TriIdx = 0; TriIdx &lt; GeneratedMeshTris.Num(); TriIdx++)
+	{
+		vecMin.X = (vecMin.X &gt; GeneratedMeshTris[TriIdx].Vertex0.X)&#160;? GeneratedMeshTris[TriIdx].Vertex0.X&#160;: vecMin.X;
+		vecMin.X = (vecMin.X &gt; GeneratedMeshTris[TriIdx].Vertex1.X)&#160;? GeneratedMeshTris[TriIdx].Vertex1.X&#160;: vecMin.X;
+		vecMin.X = (vecMin.X &gt; GeneratedMeshTris[TriIdx].Vertex2.X)&#160;? GeneratedMeshTris[TriIdx].Vertex2.X&#160;: vecMin.X;
+</p><p>		vecMin.Y = (vecMin.Y &gt; GeneratedMeshTris[TriIdx].Vertex0.Y)&#160;? GeneratedMeshTris[TriIdx].Vertex0.Y&#160;: vecMin.Y;
+		vecMin.Y = (vecMin.Y &gt; GeneratedMeshTris[TriIdx].Vertex1.Y)&#160;? GeneratedMeshTris[TriIdx].Vertex1.Y&#160;: vecMin.Y;
+		vecMin.Y = (vecMin.Y &gt; GeneratedMeshTris[TriIdx].Vertex2.Y)&#160;? GeneratedMeshTris[TriIdx].Vertex2.Y&#160;: vecMin.Y;
+</p><p>		vecMin.Z = (vecMin.Z &gt; GeneratedMeshTris[TriIdx].Vertex0.Z)&#160;? GeneratedMeshTris[TriIdx].Vertex0.Z&#160;: vecMin.Z;
+		vecMin.Z = (vecMin.Z &gt; GeneratedMeshTris[TriIdx].Vertex1.Z)&#160;? GeneratedMeshTris[TriIdx].Vertex1.Z&#160;: vecMin.Z;
+		vecMin.Z = (vecMin.Z &gt; GeneratedMeshTris[TriIdx].Vertex2.Z)&#160;? GeneratedMeshTris[TriIdx].Vertex2.Z&#160;: vecMin.Z;
+</p><p>		vecMax.X = (vecMax.X &lt; GeneratedMeshTris[TriIdx].Vertex0.X)&#160;? GeneratedMeshTris[TriIdx].Vertex0.X&#160;: vecMax.X;
+		vecMax.X = (vecMax.X &lt; GeneratedMeshTris[TriIdx].Vertex1.X)&#160;? GeneratedMeshTris[TriIdx].Vertex1.X&#160;: vecMax.X;
+		vecMax.X = (vecMax.X &lt; GeneratedMeshTris[TriIdx].Vertex2.X)&#160;? GeneratedMeshTris[TriIdx].Vertex2.X&#160;: vecMax.X;
+</p><p>		vecMax.Y = (vecMax.Y &lt; GeneratedMeshTris[TriIdx].Vertex0.Y)&#160;? GeneratedMeshTris[TriIdx].Vertex0.Y&#160;: vecMax.Y;
+		vecMax.Y = (vecMax.Y &lt; GeneratedMeshTris[TriIdx].Vertex1.Y)&#160;? GeneratedMeshTris[TriIdx].Vertex1.Y&#160;: vecMax.Y;
+		vecMax.Y = (vecMax.Y &lt; GeneratedMeshTris[TriIdx].Vertex2.Y)&#160;? GeneratedMeshTris[TriIdx].Vertex2.Y&#160;: vecMax.Y;
+</p><p>		vecMax.Z = (vecMax.Z &lt; GeneratedMeshTris[TriIdx].Vertex0.Z)&#160;? GeneratedMeshTris[TriIdx].Vertex0.Z&#160;: vecMax.Z;
+		vecMax.Z = (vecMax.Z &lt; GeneratedMeshTris[TriIdx].Vertex1.Z)&#160;? GeneratedMeshTris[TriIdx].Vertex1.Z&#160;: vecMax.Z;
+		vecMax.Z = (vecMax.Z &lt; GeneratedMeshTris[TriIdx].Vertex2.Z)&#160;? GeneratedMeshTris[TriIdx].Vertex2.Z&#160;: vecMax.Z;
+	}
+</p><p>	FVector vecOrigin = ((vecMax - vecMin) / 2) + vecMin;	/* Origin = ((Max Vertex's Vector - Min Vertex's Vector) / 2 ) + Min Vertex's Vector */
+	FVector BoxPoint = vecMax - vecMin;			/* The difference between the "Maximum Vertex" and the "Minimum Vertex" is our actual Bounds Box */
+	return FBoxSphereBounds(vecOrigin, BoxPoint, BoxPoint.Size()).TransformBy(LocalToWorld);
+}
+</p><p><br />
+bool UGeneratedMeshComponent::GetPhysicsTriMeshData(struct FTriMeshCollisionData* CollisionData, bool InUseAllTriData)
+{
+	FTriIndices Triangle;
+</p><p>	for(int32 i=0;i&lt;GeneratedMeshTris.Num();i++) {
+		const FGeneratedMeshTriangle&amp; tri = GeneratedMeshTris[i];
+</p><p>		Triangle.v0 = CollisionData-&gt;Vertices.Add(tri.Vertex0);
+		Triangle.v1 = CollisionData-&gt;Vertices.Add(tri.Vertex1);
+		Triangle.v2 = CollisionData-&gt;Vertices.Add(tri.Vertex2);
+</p><p>		CollisionData-&gt;Indices.Add(Triangle);
+		CollisionData-&gt;MaterialIndices.Add(i);
+	}
+</p><p>	CollisionData-&gt;bFlipNormals = true;
+</p><p>	return true;
+}
+</p><p>bool UGeneratedMeshComponent::ContainsPhysicsTriMeshData(bool InUseAllTriData) const
+{
+	return (GeneratedMeshTris.Num() &gt; 0);
+}
+</p><p>void UGeneratedMeshComponent::UpdateBodySetup() {
+	if (ModelBodySetup == NULL)	{
+		ModelBodySetup = ConstructObject&lt;UBodySetup&gt;(UBodySetup::StaticClass(), this);
+		ModelBodySetup-&gt;CollisionTraceFlag = CTF_UseComplexAsSimple;
+		ModelBodySetup-&gt;bMeshCollideAll = true;
+	}
+}
+</p><p>void UGeneratedMeshComponent::UpdateCollision() {
+	if (bPhysicsStateCreated) {
+		DestroyPhysicsState();
+		UpdateBodySetup();
+		CreatePhysicsState();
+</p>
+<pre>               ModelBodySetup-&gt;InvalidatePhysicsData(); //Will not work in Packaged build
+                                                        //Epic needs to add support for this
+</pre>
+<p>		ModelBodySetup-&gt;CreatePhysicsMeshes();
+	}
+}
+</p><p>UBodySetup* UGeneratedMeshComponent::GetBodySetup() {
+	UpdateBodySetup();
+	return ModelBodySetup;
+}
+&lt;/syntaxhighlight&gt;
+</p>
+<h2><span class="mw-headline" id="Creating_a_Generated_Actor_Class">Creating a Generated Actor Class</span></h2>
+<p>Next you need to create an Actor-derived class so you can attach the UGeneratedMeshComponent to it and spawn it. Also, to make it accessible to blueprints. Note that this example class should have a TArray&lt;FVector&gt;&amp; input parameter to describe the polyline we are going to rotate, but for our purposes the polyline has been hardcoded.
+</p><p>Create a new class called GameGeneratedActor (i.e. AGameGeneratedActor). There is also a Lathe function that I am including which is very simple, just for the purposes of this exercise. Here's the source for it:
+</p>
+<h3><span class="mw-headline" id="GameGeneratedActor.h">GameGeneratedActor.h</span></h3>
+<p>&lt;syntaxhighlight lang="cpp"&gt;
+// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.
+</p>
+<ol><li>pragma once</li></ol>
+<ol><li>include "GameFramework/Actor.h"</li>
+<li>include "GeneratedMeshComponent.h"</li>
+<li>include "GameGeneratedActor.generated.h"</li></ol>
+<p>/**
+</p>
+<pre>* 
+*/
+</pre>
+<p>UCLASS()
+class AGameGeneratedActor&#160;: public AActor
+{
+	GENERATED_UCLASS_BODY()
+</p><p>	void Lathe(const TArray&lt;FVector&gt;&amp; points, TArray&lt;FGeneratedMeshTriangle&gt;&amp; triangles, int segments = 64);
+</p><p>};
+&lt;/syntaxhighlight&gt;
+</p>
+<h3><span class="mw-headline" id="GameGeneratedActor.cpp">GameGeneratedActor.cpp</span></h3>
+<p>&lt;syntaxhighlight lang="cpp"&gt;
+// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.
+</p>
+<ol><li>include "MyProject5.h"</li>
+<li>include "GameGeneratedActor.h"</li></ol>
+<p>AGameGeneratedActor::AGameGeneratedActor(const class FPostConstructInitializeProperties&amp; PCIP)
+	: Super(PCIP)
+{
+</p><p>	UGeneratedMeshComponent* mesh = PCIP.CreateDefaultSubobject&lt;UGeneratedMeshComponent&gt;(this, TEXT("GeneratedMesh"));
+</p><p>	//Contains the points describing the polyline we are going to rotate
+	TArray&lt;FVector&gt; points;
+</p><p>	points.Add(FVector(20, 5, 0));
+	points.Add(FVector(15, 6, 0));
+	points.Add(FVector(12, 7, 0));
+	points.Add(FVector(11, 8, 0));
+	points.Add(FVector(8, 7, 0));
+	points.Add(FVector(7, 6, 0));
+	points.Add(FVector(4, 5, 0));
+	points.Add(FVector(3, 4, 0));
+	points.Add(FVector(2, 3, 0));
+	points.Add(FVector(1, 4, 0));
+</p><p>	TArray&lt;FGeneratedMeshTriangle&gt; triangles;
+	Lathe(points, triangles,128);
+	mesh-&gt;SetGeneratedMeshTriangles(triangles);
+</p><p>	RootComponent = mesh;
+}
+</p><p>void AGameGeneratedActor::Lathe(const TArray&lt;FVector&gt;&amp; points, TArray&lt;FGeneratedMeshTriangle&gt;&amp; triangles, int segments) {
+	UE_LOG(LogClass, Log, TEXT("AGameGeneratedActor::Lathe POINTS&#160;%d"), points.Num());
+</p><p>	TArray&lt;FVector&gt; verts;
+</p><p>	// precompute some trig
+	float angle = FMath::DegreesToRadians(360.0f / segments);
+	float sinA = FMath::Sin(angle);
+	float cosA = FMath::Cos(angle);
+</p><p>	/*
+	This implementation is rotation around the X Axis, other formulas below
+</p><p>	Z Axis Rotation
+	x' = x*cos q - y*sin q
+	y' = x*sin q + y*cos q
+	z' = z
+</p><p>	X Axis Rotation
+	y' = y*cos q - z*sin q
+	z' = y*sin q + z*cos q
+	x' = x
+</p><p>	Y Axis Rotation
+	z' = z*cos q - x*sin q
+	x' = z*sin q + x*cos q
+	y' = y
+	*/
+</p><p>	//Working point array, in which we keep the rotated line we draw with
+	TArray&lt;FVector&gt; wp;
+	for (int i = 0; i &lt; points.Num(); i++) {
+		wp.Add(points[i]);
+	}
+</p><p>	// Add a first and last point on the axis to complete the triangles
+	FVector p0(wp[0].X, 0, 0);
+	FVector pLast(wp[wp.Num() - 1].X, 0, 0);
+</p><p>	FGeneratedMeshTriangle tri;
+	//for each segment draw the triangles clockwise for normals pointing out or counterclockwise for the opposite (this here does CW)
+	for (int segment = 0; segment&lt;segments; segment++) {
+</p><p>		for (int i = 0; i&lt;points.Num() - 1; i++) {
+			FVector p1 = wp[i];
+			FVector p2 = wp[i + 1];
+			FVector p1r(p1.X, p1.Y*cosA - p1.Z*sinA, p1.Y*sinA + p1.Z*cosA);
+			FVector p2r(p2.X, p2.Y*cosA - p2.Z*sinA, p2.Y*sinA + p2.Z*cosA);
+</p><p>			if (i == 0) {
+				tri.Vertex0 = p1;
+				tri.Vertex1 = p0;
+				tri.Vertex2 = p1r;
+				triangles.Add(tri);
+			}
+</p><p>			tri.Vertex0 = p1;
+			tri.Vertex1 = p1r;
+			tri.Vertex2 = p2;
+			triangles.Add(tri);
+</p><p>			tri.Vertex0 = p2;
+			tri.Vertex1 = p1r;
+			tri.Vertex2 = p2r;
+			triangles.Add(tri);
+</p><p>			if (i == points.Num() - 2) {
+				tri.Vertex0 = p2;
+				tri.Vertex1 = p2r;
+				tri.Vertex2 = pLast;
+				triangles.Add(tri);
+				wp[i + 1] = p2r;
+			}
+</p><p>			wp[i] = p1r;
+		}
+	}
+}
+</p><p><br />
+&lt;/syntaxhighlight&gt;
+</p>
+<h2><span class="mw-headline" id="Spawning_the_Actor">Spawning the Actor</span></h2>
+<p>Once the project has been compiled, the new classes are accessible by Blueprints. So you will need to hook up a SpawnActor in some blueprint and set its class to GameGeneratedActor(I used a PlayerController, and its hooked to a HUD event), and it should look like this (note: I use the transform before and after as it seems to not consider scale on the spawn. In this example I suggest a scale of 10, otherwise the object will be too small)
+</p><p><a href="/index.php?title=File:SpawnActorBlueprintExample.png" class="image"><img alt="SpawnActorBlueprintExample.png" src="https://d26ilriwvtzlb.cloudfront.net/2/27/SpawnActorBlueprintExample.png" width="1071" height="410" /></a>
+</p><p>Once you run the game and trigger the spawn, it should look like this:
+</p><p><a href="/index.php?title=File:GeneratedMeshExample.png" class="image"><img alt="GeneratedMeshExample.png" src="https://d26ilriwvtzlb.cloudfront.net/4/4e/GeneratedMeshExample.png" width="655" height="518" /></a>
+</p><p>For more info, see this thread: <a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?1552-Generate-Procedural-Mesh">Generate Procedural Mesh</a>
+</p><p>Enjoy!
+</p>
+<h2><span class="mw-headline" id="Connecting_standard_UCustomMeshComponent">Connecting standard UCustomMeshComponent</span></h2>
+<p>UPDATE: Since commit <a rel="nofollow" class="external text" href="https://github.com/EpicGames/UnrealEngine/commit/7c7b6146b8b7f41ca5397fedb873a39e989c3c2f">7c7b614</a> (Nov. 4th, 2014) the API export macro has been implemented in the native engine code.
+</p><p>If you want to avoid code duplication and standard functionality of UCustomMeshComponent is more than enough for you, you can try to connect CustomMeshPlugin. To avoid link error you should add import/export macro directly to the class header and recompile the engine from source:
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.
+</p>
+<ol><li>pragma once</li></ol>
+<p>...
+</p><p>/** Component that allows you to specify custom triangle mesh geometry */
+UCLASS(hidecategories=(Object,LOD, Physics, Collision), editinlinenew, meta=(BlueprintSpawnableComponent), ClassGroup=Rendering)
+class CUSTOMMESHCOMPONENT_API UCustomMeshComponent&#160;: public UMeshComponent
+&lt;/syntaxhighlight&gt;
+</p>
+<h2><span class="mw-headline" id="Blueprint_implementation">Blueprint implementation</span></h2>
+<p>If you want to be able to generate a mesh from blueprints you can do this: 
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>include "GameFramework/Actor.h"</li>
+<li>include "ProceduralMeshComponent.h"</li>
+<li>include "CustomMeshBridge.generated.h"</li></ol>
+<p><br />
+/**
+</p>
+<pre>*  code by Frederic Artus Nieto
+*/
+</pre>
+<p>UCLASS()
+class SSS2_API ACustomMeshBridge&#160;: public AActor
+{
+	GENERATED_UCLASS_BODY()
+public:
+</p><p>	UFUNCTION(BlueprintPure, meta = (FriendlyName = "Make Triangle", Keywords = "New Triangle"), Category = ProceduralMesh)
+		static FGeneratedMeshTriangle CreateTriangle(FVector vertex0, FVector vertex1, FVector vertex2);
+</p><p>	UFUNCTION(BlueprintCallable, meta = (FriendlyName = "Set Mesh Material", Keywords = "Set Mesh Material"), Category = ProceduralMesh)
+		static void SetMeshMaterial(UProceduralMeshComponent* component, UMaterialInterface* Material);
+</p><p>	UFUNCTION(BlueprintCallable, meta = (FriendlyName = "Set Mesh Triangles", Keywords = "Set Mesh Triangles"), Category = ProceduralMesh)
+		static void SetMeshTriangles(UProceduralMeshComponent* component, TArray&lt;FGeneratedMeshTriangle&gt; Triangles);
+</p><p>};
+&lt;/syntaxhighlight&gt;
+&lt;syntaxhighlight lang="cpp"&gt;
+// code by Frederic Artus Nieto
+</p>
+<ol><li>include "SSS2.h"</li>
+<li>include "DynamicMeshBuilder.h"</li>
+<li>include "CustomMeshBridge.h"</li>
+<li>include "ConstructorHelpers.h"</li></ol>
+<p>ACustomMeshBridge::ACustomMeshBridge(const class FPostConstructInitializeProperties&amp; PCIP)
+	: Super(PCIP)
+{
+}
+</p><p>FGeneratedMeshTriangle ACustomMeshBridge::CreateTriangle(FVector vertex0, FVector vertex1, FVector vertex2)
+{
+	FGeneratedMeshTriangle tri;
+	tri.Vertex0 = vertex0;
+	tri.Vertex1 = vertex1;
+	tri.Vertex2 = vertex2;
+	return tri;
+}
+</p><p>void ACustomMeshBridge::SetMeshMaterial(GameGeneratedActor * component, UMaterialInterface* Material)
+{
+	component-&gt;SetMaterial(0, Material);
+}
+</p><p>void ACustomMeshBridge::SetMeshTriangles(GameGeneratedActor * component, TArray&lt;FGeneratedMeshTriangle&gt; Triangles)
+{
+	component-&gt;SetProceduralMeshTriangles(Triangles);
+}
+&lt;/syntaxhighlight&gt;
+</p><p>Once you made this class, you will see some new nodes in the ProceduralMesh tab when you select a new node in the blueprint editor (you have to untick "Context Sensitive").
+Note that you do need to have a GameGeneratedActor component in your actor to do that. 
+</p><p>You then have to use the SetMeshTriangles node to apply the new triangles to the GameGeneratedActor.
+You can do it during runtime to make animated meshes (I had some laggy experience when updating too many vertices). 
+You can apply a material to the mesh with the SetMeshMaterial node if you want. Note that there are no UVs.
+</p>
+<h2><span class="mw-headline" id="Changelog">Changelog</span></h2>
+<h3><span class="mw-headline" id="Update_1">Update 1</span></h3>
+<p>The UGeneratedMeshComponent class has been updated to include collisions. However, this is currently only available within the Editor, as it is related to cooking physics at runtime (which is not supported outside the Editor at this time). Epic will include the capability for version 4.2 or 4.3. See <a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?2695-Implement-Runtime-Collision-Detection-for-Procedural-Generated-Meshes">this thread</a> and <a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?2078-How-to-create-collision-information-for-procedural-geometry">this thread</a>. Thanks to all who participated in those threads for pointers, credit goes to them. Remember to set SetActorCollisionsEnabled(true) in your Actor! <a href="/index.php?title=User:Dmacesic&amp;action=edit&amp;redlink=1" class="new" title="User:Dmacesic (page does not exist)">Dmacesic</a> (<a href="/index.php?title=User_talk:Dmacesic&amp;action=edit&amp;redlink=1" class="new" title="User talk:Dmacesic (page does not exist)">talk</a>) 18:04, 11 April 2014 (UTC)
+</p>
+<h3><span class="mw-headline" id="Update_2">Update 2</span></h3>
+<p>Added vertex color fix from Ryvar as per <a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?1552-Generate-Procedural-Mesh&amp;p=50833&amp;viewfull=1#post50833">this post</a>.
+</p>
+<h3><span class="mw-headline" id="Update_3">Update 3</span></h3>
+<p>RHICreateXXXBuffer function signature changed for 4.3.  Put in macro code to make code work both for 4.2 and 4.3
+</p>
+<h3><span class="mw-headline" id="Update_4">Update 4</span></h3>
+<p>Code updated for UE4.5&#160;: #include Version.h for ENGINE_MINOR_VERSION macro, GetMaterialRelevance(::SM5) , CreatePrimitiveUniformBufferImmediate() with UseEditorDepthTest() and comments on mesh collision in cooked game.
+</p>
+<h3><span class="mw-headline" id="Update_5">Update 5</span></h3>
+<p>Add information about solving link problem.
+</p>
+<h3><span class="mw-headline" id="Update_6">Update 6</span></h3>
+<p>Added an example of blueprint implementation.
+If you made a little build please post a screen of the bluprint if none is there.
+</p>
+<h3><span class="mw-headline" id="Update_7">Update 7</span></h3>
+<p>It is posible to compile without copying the CustomMeshComponent files by including the CustomMeshPlugin as a private module in the &lt;Project&gt;.Build.cs file (original solution found at <a rel="nofollow" class="external free" href="https://answers.unrealengine.com/questions/13691/using-a-plugin-in-c-code.html">https://answers.unrealengine.com/questions/13691/using-a-plugin-in-c-code.html</a>).  This is working on version 4.10, make sure the plugin is enabled in the editor Edit-&gt;Plugins and by adding it as a private dependency it's no longer really a plugin as it's not optional!
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<pre>PrivateDependencyModuleNames.AddRange(new string[] { "CustomMeshComponent" });
+PrivateIncludePathModuleNames.AddRange(new string[] { "CustomMeshComponent" });
+</pre>
+<p>&lt;/syntaxhighlight&gt;
+</p><p>And then the headers can be included with
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<pre>#include "CustomMeshComponent.h"
+</pre>
+<p>&lt;/syntaxhighlight&gt;
+</p>
+<h3><span class="mw-headline" id="Update_8">Update 8</span></h3>
+<p>GetTypeData not available anymore. Use GetData
+</p>
+<h3><span class="mw-headline" id="Update_9">Update 9</span></h3>
+<p>DrawDynamicElements not available anymore. Use GetDynamicMeshElements
+</p>
+<h2><span class="mw-headline" id="External_link">External link</span></h2>
+<ul><li> <a rel="nofollow" class="external text" href="https://github.com/SRombauts/UE4ProceduralMesh/">Get this demo code in a working UE 4.7 project on GitHub</a>.</li></ul>
+
+<!-- 
+NewPP limit report
+Cached time: 20181002121137
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.060 seconds
+Real time usage: 0.126 seconds
+Preprocessor visited node count: 81/1000000
+Preprocessor generated node count: 116/1000000
+Post‐expand include size: 20/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    3.175      1 -total
+100.00%    3.175      1 Template:Rating
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:39-0!canonical and timestamp 20181002121137 and revision id 79
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=Procedural_Mesh_Generation&amp;oldid=79">https://wiki.unrealengine.com/index.php?title=Procedural_Mesh_Generation&amp;oldid=79</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="/index.php?title=Category:Code" title="Category:Code">Code</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-02a815c95fb568b8b"><meta name="worker" content="99"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.31","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/gHooNW9I/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Edit the global content type","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.100bcb10fc821c7c23f8.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.100bcb10fc821c7c23f8.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.060","walltime":"0.126","ppvisitednodes":{"value":81,"limit":1000000},"ppgeneratednodes":{"value":116,"limit":1000000},"postexpandincludesize":{"value":20,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    3.175      1 -total","100.00%    3.175      1 Template:Rating"]},"cachereport":{"timestamp":"20181002121137","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":186});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":234,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

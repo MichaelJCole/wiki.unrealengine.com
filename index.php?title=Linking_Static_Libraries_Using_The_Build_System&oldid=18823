@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Linking Static Libraries Using The Build System - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Linking_Static_Libraries_Using_The_Build_System","wgTitle":"Linking Static Libraries Using The Build System","wgCurRevisionId":23474,"wgRevisionId":18823,"wgArticleId":717,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Templates","Tutorials","Code","Community Created Content"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Linking_Static_Libraries_Using_The_Build_System","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["ext.voteNY","mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-csharp {line-height: normal;}
+.source-csharp li, .source-csharp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for csharp
+ * CSS class: source-csharp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.csharp.source-csharp .de1, .csharp.source-csharp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.csharp.source-csharp  {font-family:monospace;}
+.csharp.source-csharp .imp {font-weight: bold; color: red;}
+.csharp.source-csharp li, .csharp.source-csharp .li1 {font-weight: normal; vertical-align:top;}
+.csharp.source-csharp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.csharp.source-csharp .li2 {font-weight: bold; vertical-align:top;}
+.csharp.source-csharp .kw1 {color: #0600FF; font-weight: bold;}
+.csharp.source-csharp .kw2 {color: #FF8000; font-weight: bold;}
+.csharp.source-csharp .kw3 {color: #008000;}
+.csharp.source-csharp .kw4 {color: #6666cc; font-weight: bold;}
+.csharp.source-csharp .kw5 {color: #000000;}
+.csharp.source-csharp .co1 {color: #008080; font-style: italic;}
+.csharp.source-csharp .co2 {color: #008080;}
+.csharp.source-csharp .co3 {color: #008080;}
+.csharp.source-csharp .coMULTI {color: #008080; font-style: italic;}
+.csharp.source-csharp .es0 {color: #008080; font-weight: bold;}
+.csharp.source-csharp .es_h {color: #008080; font-weight: bold;}
+.csharp.source-csharp .br0 {color: #008000;}
+.csharp.source-csharp .sy0 {color: #008000;}
+.csharp.source-csharp .st0 {color: #666666;}
+.csharp.source-csharp .st_h {color: #666666;}
+.csharp.source-csharp .nu0 {color: #FF0000;}
+.csharp.source-csharp .me1 {color: #0000FF;}
+.csharp.source-csharp .me2 {color: #0000FF;}
+.csharp.source-csharp .ln-xtra, .csharp.source-csharp li.ln-xtra, .csharp.source-csharp div.ln-xtra {background-color: #ffc;}
+.csharp.source-csharp span.xtra { display:block; }
+
+/*]]>*/
+</style><style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Linking_Static_Libraries_Using_The_Build_System skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head"></div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-recentchanges"><a href="/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Community' aria-labelledby='p-Community-label'>
+	<h3 id='p-Community-label'>Community</h3>
+	<div class="body">
+		<ul>
+			<li id="n-UE4-Games"><a href="/Category:Games">UE4 Games</a></li>
+			<li id="n-Dev-Blogs"><a href="/Developer_Blogs">Dev Blogs</a></li>
+			<li id="n-Dev-Livestreams"><a href="/Developer_Livestreams">Dev Livestreams</a></li>
+			<li id="n-Code-Sharing-Hub"><a href="/GitHub_Sharing_Hub">Code Sharing Hub</a></li>
+			<li id="n-UE-User-Groups"><a href="/User_Group_Map">UE User Groups</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Learning_Resources' aria-labelledby='p-Learning_Resources-label'>
+	<h3 id='p-Learning_Resources-label'>Learning Resources</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Example-Projects"><a href="/Category:Example_Projects">Example Projects</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Software_and_Tools' aria-labelledby='p-Software_and_Tools-label'>
+	<h3 id='p-Software_and_Tools-label'>Software and Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Art:-3D"><a href="/3D_Art_Resources">Art: 3D</a></li>
+			<li id="n-Art:-2D"><a href="/2D_Art_Resources">Art: 2D</a></li>
+			<li id="n-Audio"><a href="/Audio_Resources">Audio</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Modding' aria-labelledby='p-Modding-label'>
+	<h3 id='p-Modding-label'>Modding</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Modding-Resources"><a href="/Category:Modding_Resources">Modding Resources</a></li>
+			<li id="n-Moddable-Games"><a href="/Category:Moddable_Games">Moddable Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Epic_Official' aria-labelledby='p-Epic_Official-label'>
+	<h3 id='p-Epic_Official-label'>Epic Official</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Website"><a href="https://www.unrealengine.com" rel="nofollow">Website</a></li>
+			<li id="n-Learning-Resources"><a href="https://docs.unrealengine.com/latest/INT/" rel="nofollow">Learning Resources</a></li>
+			<li id="n-Forums"><a href="https://forums.unrealengine.com/" rel="nofollow">Forums</a></li>
+			<li id="n-Blog"><a href="https://www.unrealengine.com/blog" rel="nofollow">Blog</a></li>
+			<li id="n-YouTube"><a href="https://www.youtube.com/UnrealEngine" rel="nofollow">YouTube</a></li>
+			<li id="n-Twitch"><a href="http://www.twitch.tv/unrealengine" rel="nofollow">Twitch</a></li>
+			<li id="n-Twitter"><a href="https://twitter.com/UnrealEngine" rel="nofollow">Twitter</a></li>
+			<li id="n-Facebook"><a href="https://www.facebook.com/UnrealEngine" rel="nofollow">Facebook</a></li>
+			<li id="n-Instagram"><a href="https://instagram.com/unrealengine/" rel="nofollow">Instagram</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Linking_Static_Libraries_Using_The_Build_System" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Linking_Static_Libraries_Using_The_Build_System" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;oldid=18823&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;oldid=18823" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Linking_Static_Libraries_Using_The_Build_System"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk"><span><a href="/Talk:Linking_Static_Libraries_Using_The_Build_System"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Linking_Static_Libraries_Using_The_Build_System" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;action=edit&amp;oldid=18823"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Linking+Static+Libraries+Using+The+Build+System&amp;returntoquery=oldid%3D18823&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Linking+Static+Libraries+Using+The+Build+System&amp;returntoquery=oldid%3D18823" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Linking Static Libraries Using The Build System</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"><div id="mw-revision-info">Revision as of 16:18, 28 February 2016 by <a href="/index.php?title=User:Drone.ah&amp;action=edit&amp;redlink=1" class="new mw-userlink" title="User:Drone.ah (page does not exist)">Drone.ah</a>  <span class="mw-usertoollinks">(<a href="/index.php?title=User_talk:Drone.ah&amp;action=edit&amp;redlink=1" class="new" title="User talk:Drone.ah (page does not exist)">Talk</a> | <a href="/Special:Contributions/Drone.ah" title="Special:Contributions/Drone.ah">contribs</a>)</span></div><br />
+				<div id="mw-revision-nav">(<a href="/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;diff=prev&amp;oldid=18823" title="Linking Static Libraries Using The Build System">diff</a>) <a href="/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;direction=prev&amp;oldid=18823" title="Linking Static Libraries Using The Build System">← Older revision</a> | <a href="/Linking_Static_Libraries_Using_The_Build_System" title="Linking Static Libraries Using The Build System">Latest revision</a> (<a href="/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;diff=cur&amp;oldid=18823" title="Linking Static Libraries Using The Build System">diff</a>) | <a href="/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;direction=next&amp;oldid=18823" title="Linking Static Libraries Using The Build System">Newer revision →</a> (<a href="/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;diff=next&amp;oldid=18823" title="Linking Static Libraries Using The Build System">diff</a>)</div></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="aux">
+<div>
+<b>Rate this Article:</b> <div id="rating_"><div class="rating-score"><div class="voteboxrate">3.00</div></div><div class="rating-section"><img class="vote-rating-star" data-vote-the-vote="1" data-vote-id="" data-vote-action="3" data-vote-rating="3.00" data-vote-voted="0" id="rating__1" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="2" data-vote-id="" data-vote-action="3" data-vote-rating="3.00" data-vote-voted="0" id="rating__2" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="3" data-vote-id="" data-vote-action="3" data-vote-rating="3.00" data-vote-voted="0" id="rating__3" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="4" data-vote-id="" data-vote-action="3" data-vote-rating="3.00" data-vote-voted="0" id="rating__4" src="/extensions/VoteNY/images/star_off.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="5" data-vote-id="" data-vote-action="3" data-vote-rating="3.00" data-vote-voted="0" id="rating__5" src="/extensions/VoteNY/images/star_off.gif" alt="" /> <span class="rating-total">(6 votes)</span></div>
+				<div class="rating-clear">
+			</div></div>
+</div>
+<div>
+<p>Approved for Versions:4.1, 4.2, 4.3, 4.4
+</p>
+</div>
+</div>
+<table align="right">
+<tr>
+<td> <div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Scope_.26_Notes"><span class="tocnumber">1.1</span> <span class="toctext">Scope &amp; Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Visual_Studio_2013_-_Library_Configuration"><span class="tocnumber">2</span> <span class="toctext">Visual Studio 2013 - Library Configuration</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Creating_the_project"><span class="tocnumber">2.1</span> <span class="toctext">Creating the project</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Updating_another_Project"><span class="tocnumber">2.2</span> <span class="toctext">Updating another Project</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Customizations_for_Targeting_UE4_Modules"><span class="tocnumber">2.3</span> <span class="toctext">Customizations for Targeting UE4 Modules</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#Targeting_64_bit_platforms"><span class="tocnumber">2.3.1</span> <span class="toctext">Targeting 64 bit platforms</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Multi_Threaded_DLL"><span class="tocnumber">2.3.2</span> <span class="toctext">Multi Threaded DLL</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="#Third_Party_Directory"><span class="tocnumber">2.4</span> <span class="toctext">Third Party Directory</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#UE4_-_Build_System"><span class="tocnumber">3</span> <span class="toctext">UE4 - Build System</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Extending_the_Base_ModuleRules_class"><span class="tocnumber">3.1</span> <span class="toctext">Extending the Base ModuleRules class</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Loading_Our_Libraries"><span class="tocnumber">3.2</span> <span class="toctext">Loading Our Libraries</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-13"><a href="#Visual_Studio_2013_-_Linking_Our_Library"><span class="tocnumber">4</span> <span class="toctext">Visual Studio 2013 - Linking Our Library</span></a>
+<ul>
+<li class="toclevel-2 tocsection-14"><a href="#Startup_Module"><span class="tocnumber">4.1</span> <span class="toctext">Startup Module</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Marshalling"><span class="tocnumber">4.2</span> <span class="toctext">Marshalling</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#More_Information"><span class="tocnumber">5</span> <span class="toctext">More Information</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<h1><span class="mw-headline" id="Overview">Overview</span></h1>
+<p>The goal of this tutorial is to show you how to link a <i>static library</i> into UE4 using the <b>Build System</b>. This is primarily targeted at developers that are not intending to make engine level modification, but still want to extend the capabilities of UE4 with a library that provides such capabilities. 
+</p><p>For examples sake, I will be creating a library called <b>BobsMagic</b> and linking into a UE4 project called <b>UE4Magic</b>.
+</p>
+<h2><span class="mw-headline" id="Scope_.26_Notes">Scope &amp; Notes</span></h2>
+<ul>
+<li> You will be able to link in a library of your own design by the end
+</li>
+<li> I will not go too deeply into exposing functions or defining any API
+</li>
+<li> I expect you to have, at the very least, a more than cursory level of knowledge about C++, C# and MS Visual Studio 2013
+</li>
+<li> All Code paths provided are from the UE4 Project's base directory.
+</li>
+</ul>
+<h1><span class="mw-headline" id="Visual_Studio_2013_-_Library_Configuration">Visual Studio 2013 - Library Configuration</span></h1>
+<p><i>It is important that you compile out your static libraries with the same version of MS Visual Studio as you are using to work with UE4. This is because each edition of Visual Studio comes with a different compiler, leading to incompatibilities in the binaries. Rest assured if you cross into this realm you will get a warning when you attempt to compile the library in.</i>
+</p>
+<h2><span class="mw-headline" id="Creating_the_project">Creating the project</span></h2>
+<p>Please go to the <a rel="nofollow" class="external text" href="http://msdn.microsoft.com/en-us/library/ms235627.aspx#BKMK_CreateLibProject">MSDN</a> and follow the steps there in order to create a new Static library. Once you have finished, please return, as we have to make a couple of modifications to be able to get things working.
+</p>
+<h2><span class="mw-headline" id="Updating_another_Project">Updating another Project</span></h2>
+<p>When you open up a project with Project or solution files targeted at an earlier edition of Visual Studio you are asked to upgrade. Allowing this to proceed will address the point at the beginning of this section. If you missed that dialog, or by chance it was not shown to you, it is possible to upgrade by going to the menu bar Project &gt; Update VC++ project when it is selected in your solution explorer.
+</p>
+<h2><span class="mw-headline" id="Customizations_for_Targeting_UE4_Modules">Customizations for Targeting UE4 Modules</span></h2>
+<p>We will need to make a few other modifications to ensure that our libraries are able to be linked in easily.
+</p>
+<h3><span class="mw-headline" id="Targeting_64_bit_platforms">Targeting 64 bit platforms</span></h3>
+<p>With a standard Static Library project we will be targeting x86 (32 bit) machines, which wont work for the UE4 toolset.
+</p>
+<ol>
+<li> Open the Project Properties page.
+</li>
+<li> Choose Configuration Manager
+</li>
+<li> Open the <b>Active Solution Platform</b> drop down list and select <b>&lt;New...&gt;</b>
+</li>
+<li> Type in or select <b>x64</b> if it is there
+</li>
+<li> Save it by clicking OK
+</li>
+</ol>
+<p>You should be able to close out your project project at this point. You should see it in the drop down at the top of Visual Studio.
+</p><p><a rel="nofollow" class="external text" href="http://msdn.microsoft.com/en-us/library/h2k70f3s.aspx">More Info on targeting x64</a>
+</p>
+<h3><span class="mw-headline" id="Multi_Threaded_DLL">Multi Threaded DLL</span></h3>
+<p>The unreal build system expects you to be providing a static library that is then linked into a DLL, so we have to ensure that our project does this as well.
+</p>
+<ol>
+<li> Open the Project Properties Page
+</li>
+<li> Filter through to Configuration Properties &gt; C/C++ &gt; Code Generation &gt; Runtime Library
+</li>
+<li> From the drop down list select Multi-threaded DLL (/MD)
+</li>
+<li> Save it by clicking OK
+</li>
+</ol>
+<h2><span class="mw-headline" id="Third_Party_Directory">Third Party Directory</span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><a href="/File:UnrealDLL_Builds.jpg" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/3/3e/UnrealDLL_Builds.jpg/200px-UnrealDLL_Builds.jpg" width="200" height="277" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/3/3e/UnrealDLL_Builds.jpg/300px-UnrealDLL_Builds.jpg 1.5x, https://d3ar1piqh1oeli.cloudfront.net/3/3e/UnrealDLL_Builds.jpg/400px-UnrealDLL_Builds.jpg 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UnrealDLL_Builds.jpg" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>sample directory layout</div></div></div>
+<p>Build your project and note the location that the libraries are output to. Your lib file(s) should be in /bin/Debug or /bin/Release depending on the mode you built your project with, unless you changed them before hand. We will be moving them from here into our UE4 project directory, for ease of reference and later packaging.
+</p><p>Open up a new explorer window and navigate to your Project directory. Once there, create a new path for your library - <b>/ThirdParty/BobsMagic</b>
+</p><p>You will want to follow this step for each library you wish to reference, if i were to be adding in the V8 library I would create /ThirdParty/V8
+</p><p>Within this directory we will be adding two new folders - Libraries and Includes - to house their respective files. Includes are the header files that come with your library, used to define the API (Application Programming Interface) for you to reference in UE4. You should copy your *.lib file(s) into the Libraries directory.
+</p><p><b>Note</b>: This is an arbitrary directory. It is only important to note its path so you can reference it in the build system later.
+</p>
+<h1><span class="mw-headline" id="UE4_-_Build_System">UE4 - Build System</span></h1>
+<p>Now we are going to step into the UnrealEngine and actually address the binding of our library to the engine.
+</p><p>The build system requires some C# code, but you shouldn't fret. Our example is going to be pretty simple and so you should be alright to copy and paste the majority of the following code.
+</p>
+<h3><span class="mw-headline" id="Extending_the_Base_ModuleRules_class">Extending the Base ModuleRules class</span></h3>
+<p>For anyone doing this as more than a one off you can, and probably should, add in a couple of properties to the ModuleRules class. The two I will be noting here are convenience properties to ensure that we always know where our Module and ThirdParty directories are. These two properties will leverage the System.IO namespace, to utilize a couple of the Path static methods.
+</p><p>inside <b>/Source/UE4Magic/UE4Magic.Build.cs</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="csharp source-csharp"><pre class="de1"><span class="kw1">using</span> <span class="co3">System.IO</span><span class="sy0">;</span>
+<span class="kw1">using</span> <span class="co3">UnrealBuildTool</span><span class="sy0">;</span>
+&#160;
+<span class="kw1">public</span> <span class="kw4">class</span> UE4Magic <span class="sy0">:</span> ModuleRules
+<span class="br0">&#123;</span>
+    <span class="kw1">private</span> <span class="kw4">string</span> ModulePath
+    <span class="br0">&#123;</span>
+        <span class="kw1">get</span> <span class="br0">&#123;</span> <span class="kw1">return</span> Path<span class="sy0">.</span><span class="me1">GetDirectoryName</span><span class="br0">&#40;</span> RulesCompiler<span class="sy0">.</span><span class="me1">GetModuleFilename</span><span class="br0">&#40;</span> <span class="kw1">this</span><span class="sy0">.</span><span class="me1">GetType</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">.</span><span class="me1">Name</span> <span class="br0">&#41;</span> <span class="br0">&#41;</span><span class="sy0">;</span> <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+&#160;
+    <span class="kw1">private</span> <span class="kw4">string</span> ThirdPartyPath
+    <span class="br0">&#123;</span>
+        <span class="kw1">get</span> <span class="br0">&#123;</span> <span class="kw1">return</span> Path<span class="sy0">.</span><span class="me1">GetFullPath</span><span class="br0">&#40;</span> Path<span class="sy0">.</span><span class="me1">Combine</span><span class="br0">&#40;</span> ModulePath, <span class="st0">&quot;../../ThirdParty/&quot;</span> <span class="br0">&#41;</span> <span class="br0">&#41;</span><span class="sy0">;</span> <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+&#160;
+    <span class="br0">&#91;</span>Constructor<span class="br0">&#93;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h3><span class="mw-headline" id="Loading_Our_Libraries">Loading Our Libraries</span></h3>
+<p>Next we will dive into our modules constructor, where we will create a new method to be called to configure the build system to load our libraries.
+</p><p>inside <b>/Source/UE4Magic/UE4Magic.Build.cs</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="csharp source-csharp"><pre class="de1"><span class="kw1">public</span> <span class="kw4">class</span> UE4Magic <span class="sy0">:</span> ModuleRules
+<span class="br0">&#123;</span>
+    <span class="br0">&#91;</span>Convenience Properties<span class="br0">&#93;</span>
+&#160;
+    <span class="kw1">public</span> UE4Magic<span class="br0">&#40;</span>TargetInfo Target<span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        <span class="br0">&#91;</span>Standard Module Initialization<span class="br0">&#93;</span>
+&#160;
+        LoadBobsMagic<span class="br0">&#40;</span>Target<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&#160;
+<span class="br0">&#125;</span></pre></div></div>
+<p>LoadBobsMagic accepts a TargetInfo object, which holds a number of configuration elements for the build system, allowing you to customize the build at compilation time. It is passed in to allow us to load in the libs for windows targeting, and can be used later to target other platforms. It also allows you to see if 64 or 32 bit platforms are being targeted, which is gold for our circumstances. If you remember, above I mentioned that we will be targeting x64 machines, but you can use this opportunity to compile out 32bit (x86) libraries as well.
+</p><p>Next we will define a constant to be passed in with the name of the library to link.
+</p><p>inside <b>/Source/UE4Magic/UE4Magic.Build.cs</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="csharp source-csharp"><pre class="de1"><span class="kw1">public</span> <span class="kw4">class</span> UE4Magic <span class="sy0">:</span> ModuleRules
+<span class="br0">&#123;</span>
+    <span class="br0">&#91;</span>Convenience Properties<span class="br0">&#93;</span>
+&#160;
+    <span class="br0">&#91;</span>Constructor<span class="br0">&#93;</span>
+&#160;
+    <span class="kw1">public</span> <span class="kw4">bool</span> LoadBobsMagic<span class="br0">&#40;</span>TargetInfo Target<span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        <span class="kw4">bool</span> isLibrarySupported <span class="sy0">=</span> <span class="kw1">false</span><span class="sy0">;</span>
+&#160;
+        <span class="kw1">if</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>Target<span class="sy0">.</span><span class="me1">Platform</span> <span class="sy0">==</span> UnrealTargetPlatform<span class="sy0">.</span><span class="me1">Win64</span><span class="br0">&#41;</span> <span class="sy0">||</span> <span class="br0">&#40;</span>Target<span class="sy0">.</span><span class="me1">Platform</span> <span class="sy0">==</span> UnrealTargetPlatform<span class="sy0">.</span><span class="me1">Win32</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+        <span class="br0">&#123;</span>
+            isLibrarySupported <span class="sy0">=</span> <span class="kw1">true</span><span class="sy0">;</span>
+&#160;
+            <span class="kw4">string</span> PlatformString <span class="sy0">=</span> <span class="br0">&#40;</span>Target<span class="sy0">.</span><span class="me1">Platform</span> <span class="sy0">==</span> UnrealTargetPlatform<span class="sy0">.</span><span class="me1">Win64</span><span class="br0">&#41;</span> <span class="sy0">?</span> <span class="st0">&quot;x64&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;x86&quot;</span><span class="sy0">;</span>
+            <span class="kw4">string</span> LibrariesPath <span class="sy0">=</span> Path<span class="sy0">.</span><span class="me1">Combine</span><span class="br0">&#40;</span>ThirdPartyPath, <span class="st0">&quot;BobsMagic&quot;</span>, <span class="st0">&quot;Libraries&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&#160;
+            PublicAdditionalLibraries<span class="sy0">.</span><span class="kw1">Add</span><span class="br0">&#40;</span>Path<span class="sy0">.</span><span class="me1">Combine</span><span class="br0">&#40;</span>LibrariesPath, <span class="st0">&quot;BobsMagic.&quot;</span> <span class="sy0">+</span> PlatformString <span class="sy0">+</span> <span class="st0">&quot;.lib&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span> 
+        <span class="br0">&#125;</span>
+&#160;
+        <span class="kw1">if</span> <span class="br0">&#40;</span>isLibrarySupported<span class="br0">&#41;</span>
+        <span class="br0">&#123;</span>
+            <span class="co1">// Include path</span>
+            PublicIncludePaths<span class="sy0">.</span><span class="kw1">Add</span><span class="br0">&#40;</span> Path<span class="sy0">.</span><span class="me1">Combine</span><span class="br0">&#40;</span> ThirdPartyPath, <span class="st0">&quot;BobsMagic&quot;</span>, <span class="st0">&quot;Includes&quot;</span> <span class="br0">&#41;</span> <span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+&#160;
+        Definitions<span class="sy0">.</span><span class="kw1">Add</span><span class="br0">&#40;</span><span class="kw4">string</span><span class="sy0">.</span><span class="me1">Format</span><span class="br0">&#40;</span> <span class="st0">&quot;WITH_BOBS_MAGIC_BINDING={0}&quot;</span>, isLibrarySupported <span class="sy0">?</span> <span class="nu0">1</span> <span class="sy0">:</span> <span class="nu0">0</span> <span class="br0">&#41;</span> <span class="br0">&#41;</span><span class="sy0">;</span>
+&#160;
+        <span class="kw1">return</span> isLibrarySupported<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&#160;
+<span class="br0">&#125;</span></pre></div></div>
+<p>This is an exceptionally straight forward setup, and not likely to be representative of a fully cross platform build. What we have done is to create the constant WITH_BOBS_MAGIC_BINDING to be passed in at compile time, it is set to 1 (or true).
+</p>
+<h1><span class="mw-headline" id="Visual_Studio_2013_-_Linking_Our_Library">Visual Studio 2013 - Linking Our Library</span></h1>
+<p>All of the UE4 goodies are taken care of at this point. You can now include your header files and start executing code.
+</p>
+<h2><span class="mw-headline" id="Startup_Module">Startup Module</span></h2>
+<p>A little known detail of working with unreal is that you can overwrite the default game implementation and get access to a method executed when your module is started/shutdown, similar to loaded/unloaded. This is not exactly build system related but a common thing that plugin deveopers are likely to be looking for is an initialization point. 
+</p><p>inside <b>/Source/UE4Magic/UE4Magic.cpp</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="br0">&#91;</span>Header Comment<span class="br0">&#93;</span>
+&#160;
+<span class="co2">#include &quot;Welcome/to/bobsmagic.h&quot;</span>
+&#160;
+<span class="br0">&#91;</span>Standard Includes<span class="br0">&#93;</span>
+&#160;
+<span class="kw2">class</span> FUE4MagicGameModule <span class="sy4">:</span> <span class="kw2">public</span> FDefaultGameModuleImpl
+<span class="br0">&#123;</span>
+    BobsMagic<span class="sy4">::</span><span class="me2">MagicalBob</span> <span class="sy2">*</span>PointerToBobsMagic<span class="sy4">;</span>
+&#160;
+    <span class="coMULTI">/**
+    * Called right after the module DLL has been loaded and the module object has been created
+    */</span>
+    <span class="kw2">virtual</span> <span class="kw4">void</span> StartupModule<span class="br0">&#40;</span><span class="br0">&#41;</span> override
+    <span class="br0">&#123;</span>
+        PointerToBobsMagic <span class="sy1">=</span> <span class="kw3">new</span> BobsMagic<span class="sy4">::</span><span class="me2">MagicalBob</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+        PointerToBobsMagic<span class="sy2">-</span><span class="sy1">&gt;</span>ThankEveryoneForReading<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+&#160;
+    <span class="coMULTI">/**
+    * Called before the module is unloaded, right before the module object is destroyed.
+    */</span>
+    <span class="kw2">virtual</span> <span class="kw4">void</span> ShutdownModule<span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        PointerToBobsMagic<span class="sy2">-</span><span class="sy1">&gt;</span>Dispose<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+        PointerToBobsMagic <span class="sy1">=</span> <span class="kw2">NULL</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span>
+&#160;
+<span class="co1">// Override the default implementation with ours implementation =)</span>
+IMPLEMENT_PRIMARY_GAME_MODULE<span class="br0">&#40;</span>FUE4MagicGameModule, UE4Magic, <span class="st0">&quot;UE4Magic&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<p>You can start the Visual Studio Debugger at this point and step through your code, even into the library you compiled, if you linked to a debug build. It will load in the header file from ThirdParty/BobsMagic/Includes/Welcome/to and allow the Libraries to execute as we all expect.
+</p>
+<h2><span class="mw-headline" id="Marshalling">Marshalling</span></h2>
+<p>As you will likely find out quickly, your Library wont be using the same types as in UE4. It is important that you marshall your data between these two in a meaningful and well thought out way. Changing it later may lead to complications.
+</p><p>When binding V8 into UE4 I uncovered a couple of macros in <b>StringConv.h</b> that are used in converting between, Wide Character, Unicode, Strings and C style Character Strings and I recommend you look around for other useful conversions. You may also end up having to create Wrapper objects.
+</p>
+<h1><span class="mw-headline" id="More_Information">More Information</span></h1>
+<p>I have successfully linked V8 into UE4 and am authoring a module allowing you to use JavaScript as a scripting language to use in your own projects. You can follow development on the <a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?254-Linking-V8-(JavaScript)-to-UE4">forums</a>.
+</p><p>If you are interested in doing something similar I would recommend you look at the <a rel="nofollow" class="external text" href="https://developers.google.com/v8/embed">V8 Embedders Guide</a> or the source for <a rel="nofollow" class="external text" href="https://github.com/joyent/node">Node.js</a>.
+</p><p>You can read more about me on my <a href="/User:Bob_Gneu" title="User:Bob Gneu">User Page</a>
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.047 seconds
+Real time usage: 0.052 seconds
+Preprocessor visited node count: 111/1000000
+Preprocessor generated node count: 198/1000000
+Post‐expand include size: 181/2097152 bytes
+Template argument size: 25/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;oldid=18823">https://wiki.unrealengine.com/index.php?title=Linking_Static_Libraries_Using_The_Build_System&amp;oldid=18823</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li><li><a href="/Category:Code" title="Category:Code">Code</a></li><li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.133 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

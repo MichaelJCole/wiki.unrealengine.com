@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(3),u=e(4),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}catch(e){throw f.emit("fn-err",[arguments,this,e],t),e}finally{f.emit("fn-end",[c.now()],t)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now()])}},{}],2:[function(e,n,t){function r(e,n){if(!o)return!1;if(e!==o)return!1;if(!n)return!0;if(!i)return!1;for(var t=i.split("."),r=n.split("."),a=0;a<r.length;a++)if(r[a]!==t[a])return!1;return!0}var o=null,i=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var u=navigator.userAgent,f=u.match(a);f&&u.indexOf("Chrome")===-1&&u.indexOf("Chromium")===-1&&(o="Safari",i=f[1])}n.exports={agent:o,version:i,match:r}},{}],3:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],4:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],5:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=v(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){h[e]=v(e).concat(n)}function m(e,n){var t=h[e];if(t)for(var r=0;r<t.length;r++)t[r]===n&&t.splice(r,1)}function v(e){return h[e]||[]}function g(e){return p[e]=p[e]||o(t)}function w(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var h={},y={},b={on:l,addEventListener:l,removeEventListener:m,emit:t,get:g,listeners:v,context:n,buffer:w,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(3),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!E++){var e=x.info=NREUM.info,n=l.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+x.offset],null,"api");var t=l.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===l.readyState&&i()}function i(){f("mark",["domContent",a()+x.offset],null,"api")}function a(){return O.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-x.offset}var u=(new Date).getTime(),f=e("handle"),c=e(3),s=e("ee"),p=e(2),d=window,l=d.document,m="addEventListener",v="attachEvent",g=d.XMLHttpRequest,w=g&&g.prototype;NREUM.o={ST:setTimeout,SI:d.setImmediate,CT:clearTimeout,XHR:g,REQ:d.Request,EV:d.Event,PR:d.Promise,MO:d.MutationObserver};var h=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1099.min.js"},b=g&&w&&w[m]&&!/CriOS/.test(navigator.userAgent),x=n.exports={offset:u,now:a,origin:h,features:{},xhrWrappable:b,userAgent:p};e(1),l[m]?(l[m]("DOMContentLoaded",i,!1),d[m]("load",r,!1)):(l[v]("onreadystatechange",o),d[v]("onload",r)),f("mark",["firstbyte",u],null,"api");var E=0,O=e(5)},{}]},{},["loader"]);</script>
+<title>The Solus Project - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"The_Solus_Project","wgTitle":"The Solus Project","wgCurRevisionId":795,"wgRevisionId":795,"wgArticleId":397,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Showcases","Games"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"The_Solus_Project","wgRelevantArticleId":397,"wgRequestId":"7a450d8df86905d4e00d16f4","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@0ikrhkq",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-The_Solus_Project rootpage-The_Solus_Project skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-02a815c95fb568b8b"><meta name="worker" content="1435"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"hideShieldDownload":false,"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"alert":{"msg":"","_type":"Epic Header Alert","id":"","type":"info","statusHref":""},"_activeDate":"2018-08-06T09:11:04.633Z","links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://academy.unrealengine.com/","title":"Video Tutorials","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/unrealdevgrants","title":"Unreal Dev Grants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Game-Dev)","_createdBy":"tony.rossi"},"_currentVersion":"1.37.2.101.4","_type":"Epic Games Nav","hideSignIn":true,"pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"_futureVersion":"none","downloadLink":{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":""},"_created":"2017-08-21T08:59:33.648Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"hideShieldDropdown":false,"properties":[{"propertyKey":"paragon","_type":"Epic Games Property","egDisabled":true,"egSkip":true}],"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.c574fb01e685d2e3102c.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.c574fb01e685d2e3102c.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=The+Solus+Project" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we're working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=The_Solus_Project" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:The_Solus_Project&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=The_Solus_Project">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=The_Solus_Project&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=The_Solus_Project&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">The Solus Project</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><br />
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Game_Overview"><span class="tocnumber">1</span> <span class="toctext">Game Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Core_Gameplay_Features"><span class="tocnumber">2</span> <span class="toctext">Core Gameplay Features</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Solus_Videos"><span class="tocnumber">3</span> <span class="toctext">Solus Videos</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#The_World_of_Solus"><span class="tocnumber">3.1</span> <span class="toctext">The World of Solus</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Features_and_Development"><span class="tocnumber">4</span> <span class="toctext">Features and Development</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#The_Planet"><span class="tocnumber">5</span> <span class="toctext">The Planet</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#The_Solus_Project"><span class="tocnumber">6</span> <span class="toctext">The Solus Project</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Solus_Example_Project"><span class="tocnumber">6.1</span> <span class="toctext">Solus Example Project</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Overview_Videos"><span class="tocnumber">6.2</span> <span class="toctext">Overview Videos</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#In-depth_Videos"><span class="tocnumber">6.3</span> <span class="toctext">In-depth Videos</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Solus_C.2B.2B_Tutorials"><span class="tocnumber">7</span> <span class="toctext">Solus C++ Tutorials</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#The_Power_of_Blueprints_.26_C.2B.2B_Together"><span class="tocnumber">7.1</span> <span class="toctext">The Power of Blueprints &amp; C++ Together</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#BlueprintImplementable_Events"><span class="tocnumber">7.2</span> <span class="toctext">BlueprintImplementable Events</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Creating_Custom_Level_BPs"><span class="tocnumber">7.3</span> <span class="toctext">Creating Custom Level BPs</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Sorted_List_of_All_Screen_Resolutions"><span class="tocnumber">7.4</span> <span class="toctext">Sorted List of All Screen Resolutions</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#Websites"><span class="tocnumber">8</span> <span class="toctext">Websites</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Game_Overview">Game Overview</span></h2>
+<p>Solus is a single player exploration and survival game, experienced in first person and developed in Unreal Engine 4. It is set on a mysterious and uninhabited alien planet.
+</p><p>With Earth on the brink of destruction you are sent to explore a distant planet. After 20 years of space travel you arrive but experience a catastrophic landing.
+With your team members dead and your equipment destroyed you have no ways of communicating with - or receiving help from an earth that might no longer exist...You are completely and utterly alone.
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Core_Gameplay_Features">Core Gameplay Features</span></h2>
+<ul><li> <b>Explore:</b> Survive through exploration. Unlock the strange planet's underlying secrets. Are you sure you are the first one here? </li></ul>
+<ul><li> <b>Scavenge:</b> Aid your survival and rebuild a communication device through the scavenging of useful items you come across. </li></ul>
+<ul><li> <b>Survive:</b> The planet is hostile to your presence. The planet is your enemy. Survive tornadoes, storms, volcanoes, meteors, lighting, extreme temperature changes and so on.</li></ul>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Solus_Videos">Solus Videos</span></h2>
+<h3><span class="mw-headline" id="The_World_of_Solus">The World of Solus</span></h3>
+<p>&lt;youtube&gt;<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=lOqHpj71anw">https://www.youtube.com/watch?v=lOqHpj71anw</a>&lt;/youtube&gt;
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Features_and_Development">Features and Development</span></h2>
+<ul><li> <b>Immersion:</b> Strong focus on atmosphere and immersion. The planet is to be captivatingly beautiful, but its dangers very real. </li></ul>
+<ul><li> <b>Oculus Rift:</b> Supported for total immersion. </li></ul>
+<ul><li> <b>Atmosphere:</b> Fully dynamic atmosphere. Temperature changes. Day and night. Tides. Winds. Dynamic weather. Disasters. </li></ul>
+<ul><li> <b>Extendibility:</b> Extremely modular workflow within the game will allow anyone to easily create levels and areas to explore.</li></ul>
+<ul><li> <b>The Ball:</b> Spiritual successor to the award-winning UE3 title, <a rel="nofollow" class="external text" href="http://www.theballthegame.com/">The Ball</a>. Same universe, same atmosphere.</li></ul>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="The_Planet">The Planet</span></h2>
+<p>Before you crash landed, you managed to gather this information via your ship's scanners:
+</p>
+<ul><li> The planet has a suitable atmosphere and houses large quantities of water, but is barren and mostly made up of rocks and desert. </li>
+<li> It is circled by two moons, one large and one small with the big moon affecting the tide. </li>
+<li> One sun. </li>
+<li> Days are hot (40C and above). Nights are cold (-35C and below). Vegetation is red. </li>
+<li> Large number of caverns present. Different types of caverns depending on the depth you're at. Normal stone caverns at the top, ice in the middle, and lava at the bottom.</li></ul>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="The_Solus_Project">The Solus Project</span></h2>
+<p>The Solus Project are tutorials based on the content of Solus.
+</p><p>Work on Solus started in July 2013, and we have a team of about 4 to 5 people working on this off and on. The game is the brainchild of Hourences, who previously designed and created the Unreal Engine 3 game The Ball.
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Solus_Example_Project">Solus Example Project</span></h3>
+<p>We stripped down Solus to the essentials and wrapped it up in a Solus Example project, which I am releasing for free.
+</p><p>This free project contains:
+</p>
+<ul><li> My folder structure and naming conventions</li>
+<li>     Some all purpose meshes and textures.</li>
+<li>     Over a dozen of my Light IES Textures</li>
+<li>     A Material Function Library with 20′ish material setups I use often.</li>
+<li>     Some of my material setups</li>
+<li>     My entire day and night alien sky system (!) – No weather is included in it though.</li>
+<li>     The Blueprints for the player and various other key parts.</li>
+<li>     Some of my sounds, effects, and so on.</li></ul>
+<ul><li> <a rel="nofollow" class="external free" href="https://drive.google.com/file/d/0B9LZWZkhLRtPZ1hZTnVXVlV0UUU/edit?usp=sharing">https://drive.google.com/file/d/0B9LZWZkhLRtPZ1hZTnVXVlV0UUU/edit?usp=sharing</a></li>
+<li> <a rel="nofollow" class="external free" href="https://dl.dropboxusercontent.com/u/2300830/SolusExample.zip">https://dl.dropboxusercontent.com/u/2300830/SolusExample.zip</a></li></ul>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Overview_Videos">Overview Videos</span></h3>
+<p>Four free videos are available online that give an overview on how we approached building the game and setting everything up, with most of the focus on Blueprint scripting. Shows just how far you can go, and what kind of tips and tricks are possible.
+</p>
+<ul><li> <b>Unreal Engine 4 presentation at the Swedish Game Awards - March 8 2014 - <a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=ZxrcwNGnXZc">https://www.youtube.com/watch?v=ZxrcwNGnXZc</a></b></li>
+<li> <b>Solus Overview video Part 1 - Content and Level development - <a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=8SxTqlom3Fg">https://www.youtube.com/watch?v=8SxTqlom3Fg</a></b></li>
+<li> <b>Solus Overview video Part 2 - Blueprint and the Sky - <a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=KDOhBMaa6Vs">https://www.youtube.com/watch?v=KDOhBMaa6Vs</a></b></li>
+<li> <b>Solus Overview video Part 3 - Closing words and Various - <a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=iX8OXU3Ka7Q">https://www.youtube.com/watch?v=iX8OXU3Ka7Q</a></b></li></ul>
+<p><br />
+&lt;youtube&gt;<a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=JFZCp4xsPmow">https://www.youtube.com/watch?v=JFZCp4xsPmow</a>&lt;/youtube&gt;
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="In-depth_Videos">In-depth Videos</span></h3>
+<ul><li> <b>The Solus Project – Level Building Introduction Preview – <a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=5yuz7_G69Rs">https://www.youtube.com/watch?v=5yuz7_G69Rs</a></b></li></ul>
+<dl><dd>Using the modular and easy to use modular environment assets from Solus, this video introduces you to everything you need to know to build basic environments in Unreal Engine 4. Besides covering how to build environments using modular meshes, the video also goes over how to create a landscape, apply foliage, how to best apply the UE4 reflection system, lighting and its performance considerations, and how to keep track and organize your levels. </dd>
+<dd></dd></dl>
+<ul><li> <b>The Solus Project – Blueprint Introduction Preview – <a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=XXd_qW6dtWw">https://www.youtube.com/watch?v=XXd_qW6dtWw</a></b></li></ul>
+<dl><dd>Starting from the basics, and building upon the free Solus Example project, this beginners video starts off by talking you through creating a door for Solus. First one that is set up in the level, then one that is set up in a separate Blueprint. Following that you will be building a pressure plate to control the door, and following that the video covers how to build a basic item system. Detecting, highlighting, and picking up rocks in the world, and place them on the pressure plate to keep the door open permanently.</dd>
+<dd></dd></dl>
+<ul><li> <b>The Solus Project – Blueprint Continued 1 Preview – <a rel="nofollow" class="external free" href="https://www.youtube.com/watch?v=4_dCTpVEWoA">https://www.youtube.com/watch?v=4_dCTpVEWoA</a></b></li></ul>
+<dl><dd>Continues upon the Blueprint Introduction video. Using the same content and the Blueprint scripts set up in that introduction video, this video steps it up a couple of notches. This advanced video dives deeper into Blueprint and touches on topics such as Macros, Functions, Arrays, and complex networks.</dd>
+<dd></dd>
+<dd>The eventual outcome of this video is having a player who can take damage, die, respawn, enable checkpoints, pick up and switch between multiple items, and who can combine a pipe with branches and fire to create a torch.</dd>
+<dd></dd>
+<dd></dd></dl>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Solus_C.2B.2B_Tutorials">Solus C++ Tutorials</span></h2>
+<p><i>Author: </i> <a href="/index.php?title=User:Rama" title="User:Rama">Rama</a> (<a href="/index.php?title=User_talk:Rama" title="User talk:Rama">talk</a>)
+</p><p>One of our goals with Solus is to share our development process with you and the rest of the Unreal Community!
+</p><p>I will be posting many code tutorials on different C++ systems that I am developing for Solus.
+</p>
+<hr />
+<h3><span class="mw-headline" id="The_Power_of_Blueprints_.26_C.2B.2B_Together">The Power of Blueprints &amp; C++ Together</span></h3>
+<p>Before working on Solus I was pretty much only working in C++ and I was never creating connections between UE4 Blueprints and the UE4 C++.
+</p><p>Now that I've been spending a lot of time working with the awesome Blueprint systems of Solus, I have this to tell you all:
+</p>
+<pre> The power of UE4 Blueprints + UE4 C++ is incredible!
+</pre>
+<p>I feel that <b>Blueprints are far more powerful than for just for prototyping c++ systems</b> or doing only level-related logic!
+</p><p>I have had plenty of time to experiment and I have learned that if you build the C++ engine correctly, then Blueprints can actually extend and implement the C++ engine.
+</p><p>This means that I as 1 programmer can empower the entire Solus Team to do amazing things in Blueprints with C++ as a backbone and a rock hard foundation.
+</p><p>I am suggesting that you and the entire Unreal Community should take due note of the fact that Blueprints have great power to empower the entire team, <b>if the c++ programmers design their systems to be extend by Blueprints!</b>
+</p>
+<h3><span class="mw-headline" id="BlueprintImplementable_Events">BlueprintImplementable Events</span></h3>
+<p>I discuss this topic further in my tutorial on BlueprintImplementable Events:
+</p><p><b><a href="/index.php?title=Blueprints,_Empower_Your_Entire_Team_With_BlueprintImplementableEvent" title="Blueprints, Empower Your Entire Team With BlueprintImplementableEvent"> Wiki Tutorial: BlueprintImplementable Events: Empower Your Entire Team!</a></b>
+</p><p>It was during my work on Solus, adapting to the huge blueprint code base, that I realized what I talk about in the tutorial above!
+</p>
+<hr />
+<h3><span class="mw-headline" id="Creating_Custom_Level_BPs">Creating Custom Level BPs</span></h3>
+<p>In this tutorial <a href="/index.php?title=User:Rama" title="User:Rama">Rama</a> (<a href="/index.php?title=User_talk:Rama" title="User talk:Rama">talk</a>) shows you how to create custom properties and blueprint nodes for your game's levels using a custom Level Blueprint!
+</p><p><b><a href="/index.php?title=Solus_C%2B%2B_Tutorials#Solus_C.2B.2B_Tutorial:_Creating_Custom_Level_Blueprints_in_C.2B.2B" title="Solus C++ Tutorials"> Wiki Tutorial: Creating Custom Level Blueprints in C++</a></b>
+</p><p><a href="https://www.youtube.com/watch?v=lOqHpj71anw" rel="nofollow"><img alt="Solus Intro" src="https://d3ar1piqh1oeli.cloudfront.net/c/c9/SolusCustomLevelBP.jpg/700px-SolusCustomLevelBP.jpg" width="700" height="525" srcset="https://d3ar1piqh1oeli.cloudfront.net/c/c9/SolusCustomLevelBP.jpg/1050px-SolusCustomLevelBP.jpg 1.5x, https://d26ilriwvtzlb.cloudfront.net/c/c9/SolusCustomLevelBP.jpg 2x" /></a>
+</p>
+<h3><span class="mw-headline" id="Sorted_List_of_All_Screen_Resolutions">Sorted List of All Screen Resolutions</span></h3>
+<p>I am giving you the code I used to get a computer-specific listing of all supported screen resolutions, for use with a Video Settings options menu!
+</p><p><a href="/index.php?title=Solus_C%2B%2B_Tutorials#Solus_Options_Menu:_Screen_Resolutions" title="Solus C++ Tutorials">Solus Options Menu: Screen Resolutions</a>
+</p><p><a href="/index.php?title=File:SolusScreenResolutions.jpg" class="image"><img alt="SolusScreenResolutions.jpg" src="https://d26ilriwvtzlb.cloudfront.net/4/41/SolusScreenResolutions.jpg" width="715" height="593" /></a>
+</p>
+<h2><span class="mw-headline" id="Websites">Websites</span></h2>
+<ul><li> <a rel="nofollow" class="external free" href="http://www.solusthegame.com/">http://www.solusthegame.com/</a></li>
+<li> <a rel="nofollow" class="external free" href="http://www.Hourences.com">http://www.Hourences.com</a></li></ul>
+<p>Thanks for reading! - Rama and Hourences
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20181222102405
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.052 seconds
+Real time usage: 0.168 seconds
+Preprocessor visited node count: 63/1000000
+Preprocessor generated node count: 68/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:397-0!canonical and timestamp 20181222102405 and revision id 795
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=The_Solus_Project&amp;oldid=795">https://wiki.unrealengine.com/index.php?title=The_Solus_Project&amp;oldid=795</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/index.php?title=Category:Showcases&amp;action=edit&amp;redlink=1" class="new" title="Category:Showcases (page does not exist)">Showcases</a></li><li><a href="/index.php?title=Category:Games" title="Category:Games">Games</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-09a9d3c24f8e543fe"><meta name="worker" content="1499"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.33","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/gHooNW9I/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Game-Dev)","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.c574fb01e685d2e3102c.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.c574fb01e685d2e3102c.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.052","walltime":"0.168","ppvisitednodes":{"value":63,"limit":1000000},"ppgeneratednodes":{"value":68,"limit":1000000},"postexpandincludesize":{"value":0,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.000      1 -total"]},"cachereport":{"timestamp":"20181222102405","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":195});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":232,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

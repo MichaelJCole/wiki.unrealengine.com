@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(){}function o(e,t,n){return function(){return i(e,[f.now()].concat(u(arguments)),t?null:this,n),t?void 0:this}}var i=e("handle"),a=e(2),u=e(3),c=e("ee").get("tracer"),f=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,t){s[t]=o(d+t,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),t.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,t){var n={},r=this,o="function"==typeof t;return i(l+"tracer",[f.now(),e,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return t.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],n),e}finally{c.emit("fn-end",[f.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){m[t]=o(l+t)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,f.now()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(o<0?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],4:[function(e,t,n){t.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?c(e,u,i):i()}function n(n,r,o,i){if(!d.aborted||i){e&&e(n,r,o);for(var a=t(o),u=m(n),c=u.length,f=0;f<c;f++)u[f].apply(a,r);var p=s[y[n]];return p&&p.push([b,n,r,a]),a}}function l(e,t){v[e]=m(e).concat(t)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(n)}function g(e,t){f(e,function(e,n){t=t||"feature",y[n]=t,t in s||(s[t]=[])})}var v={},y={},b={on:l,emit:n,get:w,listeners:m,context:t,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",c=e("gos"),f=e(2),s={},p={},d=t.exports=o();d.backlog=s},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!x++){var e=h.info=NREUM.info,t=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return s.abort();f(y,function(t,n){e[t]||(e[t]=n)}),c("mark",["onload",a()+h.offset],null,"api");var n=d.createElement("script");n.src="https://"+e.agent,t.parentNode.insertBefore(n,t)}}function o(){"complete"===d.readyState&&i()}function i(){c("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),c=e("handle"),f=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1071.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=t.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+<title>Pause Game On Steam Overlay Active - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Pause_Game_On_Steam_Overlay_Active","wgTitle":"Pause Game On Steam Overlay Active","wgCurRevisionId":621,"wgRevisionId":621,"wgArticleId":310,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Pause_Game_On_Steam_Overlay_Active","wgRelevantArticleId":310,"wgRequestId":"8dcda17dc7c220d7f633aa87","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@1xxwts3",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Pause_Game_On_Steam_Overlay_Active rootpage-Pause_Game_On_Steam_Overlay_Active skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-02a815c95fb568b8b"><meta name="worker" content="79"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"hideShieldDownload":false,"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"alert":{"msg":"","_type":"Epic Header Alert","id":"","type":"info","statusHref":""},"_activeDate":"2018-08-06T09:11:04.633Z","links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://academy.unrealengine.com/","title":"Video Tutorials","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/unrealdevgrants","title":"Unreal Dev Grants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"}]}],"hideSearch":false,"_version":{"_comment":"Common content type reverted to 1.37.2.100 version by tony.rossi","_createdBy":"tony.rossi"},"_currentVersion":"1.37.2.101.0","_type":"Epic Games Nav","hideSignIn":true,"pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"_futureVersion":"none","downloadLink":{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":""},"_created":"2017-08-21T08:59:33.648Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"hideShieldDropdown":false,"properties":[{"propertyKey":"paragon","_type":"Epic Games Property","egDisabled":true,"egSkip":true}],"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.100bcb10fc821c7c23f8.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.100bcb10fc821c7c23f8.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Pause+Game+On+Steam+Overlay+Active" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=Pause_Game_On_Steam_Overlay_Active" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Pause_Game_On_Steam_Overlay_Active&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=Pause_Game_On_Steam_Overlay_Active">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=Pause_Game_On_Steam_Overlay_Active&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Pause_Game_On_Steam_Overlay_Active&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Pause Game On Steam Overlay Active</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Overall_Picture."><span class="tocnumber">2</span> <span class="toctext">Overall Picture.</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Setting_up_your_Project_for_Steam."><span class="tocnumber">3</span> <span class="toctext">Setting up your Project for Steam.</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Creating_C.2B.2B_Classes"><span class="tocnumber">4</span> <span class="toctext">Creating C++ Classes</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Custom_Game_Instance"><span class="tocnumber">4.1</span> <span class="toctext">Custom Game Instance</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Creating_Steam_Manager"><span class="tocnumber">4.2</span> <span class="toctext">Creating Steam Manager</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Creating_Game_Instance_Blueprint"><span class="tocnumber">4.3</span> <span class="toctext">Creating Game Instance Blueprint</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Coding_Game_Instance"><span class="tocnumber">5</span> <span class="toctext">Coding Game Instance</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#YourGameInstance.h"><span class="tocnumber">5.1</span> <span class="toctext">YourGameInstance.h</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#YourGameInstance.cpp"><span class="tocnumber">5.2</span> <span class="toctext">YourGameInstance.cpp</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Coding_SteamManager"><span class="tocnumber">6</span> <span class="toctext">Coding SteamManager</span></a>
+<ul>
+<li class="toclevel-2 tocsection-12"><a href="#SteamManager.h"><span class="tocnumber">6.1</span> <span class="toctext">SteamManager.h</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#SteamManager.cpp"><span class="tocnumber">6.2</span> <span class="toctext">SteamManager.cpp</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Blueprint_Setup"><span class="tocnumber">7</span> <span class="toctext">Blueprint Setup</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="#Extra_Reading"><span class="tocnumber">8</span> <span class="toctext">Extra Reading</span></a></li>
+</ul>
+</div>
+
+<h3><span class="mw-headline" id="Introduction">Introduction</span></h3>
+<p>Original Author: <a href="/index.php?title=User:Motanum&amp;action=edit&amp;redlink=1" class="new" title="User:Motanum (page does not exist)">Motanum</a> (<a href="/index.php?title=User_talk:Motanum&amp;action=edit&amp;redlink=1" class="new" title="User talk:Motanum (page does not exist)">Talk</a>)
+</p><p>This guide will help you to trigger a Blueprint Function that can pause your game when the Steam Overlay becomes active. Keep in mind that this guide requires creating cpp classes. A basic understanding of programming is suggested, though the guide is made to be able to follow it step by step. I will provide the full necessary code, and will explain how it works. We do NOT need to modify the engine code to achieve our goals.
+</p><p><b>IMPORTANT!</b> The guide assumes that you already have a STEAM APP ID for your game and a build of it on Steamworks, which you can launch via Steam as if you were a normal Steam user.
+</p><p>The purpose of this guide is also to serve as an introduction to Steam Callbacks, so you can get started doing other functions with the help of Steamworks.
+</p><p>This Guide assumes that you already have a game, and the functionality to pause that game via Blueprints. If you are using CPP, then you are likely more knowledgeable than me, and should be able to achieve your goals after reading this guide.
+</p>
+<h2><span class="mw-headline" id="Overall_Picture.">Overall Picture.</span></h2>
+<p>The game which this guide is based on is Musical Range VR. So you may see multiple references to it on the guide. In the case of my game, I want the game to pause a song if the Steam Overlay becomes active. I already have a function in blueprints to pause the song in my game from a menu, so all I need is the game to automatically trigger it.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:928px;"><a href="/index.php?title=File:Image1.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/c/c3/Image1.png" width="926" height="464" class="thumbimage" /></a>  <div class="thumbcaption">Pause Song Script</div></div></div></div>
+<p>Your game will need a <a href="/index.php?title=Game_Instance,_Custom_Game_Instance_For_Inter-Level_Persistent_Data_Storage" title="Game Instance, Custom Game Instance For Inter-Level Persistent Data Storage">Game Instance class</a>. This class can handle a bunch of variables regardless of the map you are in or if you are transitioning to another map. The Game Instance will contain a variable to a SteamManager class. The Steam Manager will have a Steam Callback, which just means that Steam will trigger a function inside of SteamManager when an event happens. Then, SteamManager will trigger a blueprint event from Game Instance. We will then create a Blueprint Class based from our Custom Game Instance, and there we can code the functionality for the pause in blueprints.
+</p><p>It’s very simple in theory, but the code to get it to work with Steam can be a bit tricky if you are new to the SteamAPI or are just starting to include more code in your project. I spent a lot of time fighting countless of compilation errors and crashes. I hope this will help you to get this simple functionality quickly.
+</p>
+<h2><span class="mw-headline" id="Setting_up_your_Project_for_Steam.">Setting up your Project for Steam.</span></h2>
+<p>For the Steam Callbacks to work, be sure to set up the Steam SDK for your project. Rama made a great tutorial on how to achieve that. So just follow his <a href="/index.php?title=Steam,_Using_the_Steam_SDK_During_Development" title="Steam, Using the Steam SDK During Development">guide</a>.
+</p><p>Also, stop by this guide and take a look at the <a href="/index.php?title=Steam_workshop#Requirements" title="Steam workshop">Requirements</a> step.
+</p>
+<h2><span class="mw-headline" id="Creating_C.2B.2B_Classes">Creating C++ Classes</span></h2>
+<h3><span class="mw-headline" id="Custom_Game_Instance">Custom Game Instance</span></h3>
+<p>Once you’ve finished setting up Steam SDK. It’s time to create a new Game Instance class if your game doesn’t have one. On the UE4 editor select Edit &gt; New C++ Class. On the window tick Show All Class. Search for GameInstance as select it as our base class.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:948px;"><a href="/index.php?title=File:MotanumTutorial1-Image2.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/a/ab/MotanumTutorial1-Image2.png" width="946" height="570" class="thumbimage" /></a>  <div class="thumbcaption">CPP CLass Creation</div></div></div></div>
+<p>Give your class a name. A good idea would be to call it YourGameNameInstance. Mine is Called MusicalRangeInstance. It doesn’t need to be placed on the Public or Private locations. Create the class and wait for the game to compile the new class.
+</p>
+<h3><span class="mw-headline" id="Creating_Steam_Manager">Creating Steam Manager</span></h3>
+<p>Next, we will create our new class SteamManager. Again go to select Edit &gt; New C++ Class on the UE4 editor. This time search for Object, and select it as our Parent class. You will know it’s the correct base class if it says it will include "UObject/NoExportTypes.h". Name it SteamManager and create the class. Wait for the game to compile the newly created class. Once done, it’s time to go to Visual Studio.
+</p>
+<h3><span class="mw-headline" id="Creating_Game_Instance_Blueprint">Creating Game Instance Blueprint</span></h3>
+<p>Before we can start coding the game instance, it’s a good idea to create a blueprint out from our newly created (but empty) Game Instance class, and set it up in your project. So that as we add more functionality and compile the C++ code, it will be reflected in the game. Else, you might think your game instance doesn’t work. If you already have a working Game Instance Blueprint based from YourGameInstance class, you may skip this step.
+</p><p>Right Click YourGameInstance c++ class on the content browser and select Create Blueprint class based from YourGameInstance. I recommend the name BP_YourGameInstance, to differentiate between the c++ and blueprint version. Place the newly created blueprint in your place of preference.
+</p><p><a href="/index.php?title=File:MotanumTutorial1-Image3.jpg" class="image" title="Creating Blueprint Class from CPP Class"><img alt="Creating Blueprint Class from CPP Class" src="https://d26ilriwvtzlb.cloudfront.net/e/e0/MotanumTutorial1-Image3.jpg" width="562" height="554" /></a>
+</p><p>Next, go to project settings. Under Projects select Maps and Modes. Then, on the Game Instance option, select your BP_YourGameInstance. Because BP_YourGameInstance is based on YourGameInstance, any changes we do in code to YourGameInstance, will be reflected in the blueprint version.
+</p>
+<h2><span class="mw-headline" id="Coding_Game_Instance">Coding Game Instance</span></h2>
+<p>We’ll start by working with YourGameInstance.h. Start by adding #include “SteamManager.h” to the include list. Then we’ll go to the body of YourGameInstance class and add the following inside.
+</p>
+<h3><span class="mw-headline" id="YourGameInstance.h">YourGameInstance.h</span></h3>
+<p>&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>pragma once</li></ol>
+<ol><li>include "Engine/GameInstance.h"</li>
+<li>include "SteamManager.h"</li>
+<li>include "YourGameInstance.generated.h"</li></ol>
+<p>/**
+</p>
+<pre>* 
+*/
+</pre>
+<p>UCLASS()
+class MUSICALRANGE_API UYourGameInstance&#160;: public UGameInstance
+{
+	GENERATED_BODY()
+</p><p>private:
+</p><p>protected:
+</p><p>public:
+	UYourGameInstance();
+	~UYourGameInstance();
+</p><p>	UPROPERTY(BlueprintReadOnly, Category = "Steamworks")
+	USteamManager* SteamManager;
+</p><p>	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Steamworks")
+	bool IsSteamOverlayActive;
+</p><p>	const bool EnableUSteamManagerFeatures = true;
+</p><p>	/*
+	* Fire this from Blueprints to tell the actor when to initialize CPP elements
+	*/
+	UFUNCTION(BlueprintCallable, Category = "Steamworks")
+	bool InitializeCPPElements();
+</p><p>	/*A function pair that can be called externally executes OnSteamOverlayIsActive()*/
+	void PublicOnSteamOverlayIsON();
+	void PublicOnSteamOverlayIsOFF();
+</p><p>	UFUNCTION(BlueprintImplementableEvent, Category = "Steamworks")
+	void OnSteamOverlayIsActive(bool isOverlayActive);
+};
+&lt;/syntaxhighlight&gt;
+</p><p>First we have some constructor and deconstructors, which you may or may not need. Depends on your game needs. Next we are creating a USteamManager variable inside of YourGameInstance class, which will contain the class that receives the information from Steam. 
+</p><p>Following that we have a bool variable. This can be read from blueprint at any time from the game instance if you want to know if the overlay is active. Notice it is BlueprintReadOnly, as it will only be modified by one function to make sure the value is always correct.
+</p><p>Then, we also have a constant bool value, in case you want to disable the SteamManager features globally for testing purposes. Below that we have a function that we are going to call on blueprints to initialize the CPP elements of the Game Instance. We do this, because there may be some maps, that you don’t want the Game Instance to start enabling SteamManager. For example, if you have an introduction or credit’s level at the beginning of the game launch.
+</p><p>Next we have a pair of functions PublicOnSteamOverlayIsON() and PublicOnSteamOverlayIsOFF(). This are 2 functions that can be called by outside actors to trigger the OnSteamOverlayIsActive blueprint event. The reason we have two functions instead of one while passing a value will be explained later on.
+</p><p>Finally, the function void OnSteamOverlayIsActive(bool isOverlayActive); is an event that will trigger on blueprint. Think of it like a Custom Event, or a Begin Play. The UFUNCTION is what gives it this functionality, and makes it special. As we won’t have to define that function in the cpp file. It must be fired internally by the owner class, thus we needed the other two public functions.
+</p><p>Next, it’s time to modify the CPP file. Add in the following to the body of YourGameInstance.cpp below the include list.
+</p>
+<h3><span class="mw-headline" id="YourGameInstance.cpp">YourGameInstance.cpp</span></h3>
+<p>The full CPP file is the following.
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>include "YourGame.h"</li>
+<li>include "YourGameInstance.h"</li></ol>
+<p>//Musical Range Game Instance Elements
+UYourGameInstance::UYourGameInstance() {
+}
+</p><p>UYourGameInstance::~UYourGameInstance() {
+}
+</p><p>bool UYourGameInstance::InitializeCPPElements() {
+	if (EnableUSteamManagerFeatures)
+	{
+		if (SteamUser()&#160;!= nullptr) //Is the Steam API initialized?
+		{
+			UE_LOG(LogSteamworks, Log, TEXT("CPP InitializeCPPElements() through USteamManager"));
+			SteamManager = NewObject&lt;USteamManager&gt;(this); //Use NewObject if outside of the Constructor
+			UE_LOG(LogSteamworks, Log, TEXT("New Object USteamManager created!"));
+			SteamManager-&gt;InitializeSteamManager();
+			UE_LOG(LogSteamworks, Log, TEXT("SteamManager Initialization Finished"));
+			SteamManager-&gt;AssignGameInstance(this);
+			UE_LOG(LogSteamworks, Log, TEXT("CPP InitializeCPPElements() SUCCESS!"));
+			return true;
+		}
+		else
+		{
+			UE_LOG(LogSteamworks, Warning, TEXT("CPP InitializeCPPElements() FAILED! NO STEAM LOGON"));
+			return false;
+		}
+	}
+	else
+	{
+		UE_LOG(LogSteamworks, Log, TEXT("Custom Steamworks Features NOT Initialized."));
+		UE_LOG(LogSteamworks, Log, TEXT("Change EnableUSteamManagerFeatures to True."));
+	}
+	return false;
+}
+</p><p>void UYourGameInstance::PublicOnSteamOverlayIsON() {
+	UE_LOG(LogSteamworks, Log, TEXT("PublicOnSteamOverlayIsON Called. Setting isSteamOverlayActive"));
+	IsSteamOverlayActive = true;
+	this-&gt;OnSteamOverlayIsActive(true);
+	UE_LOG(LogSteamworks, Log, TEXT("OnSteamOverlayIsActive Has been triggered"));
+}
+</p><p>void UYourGameInstance::PublicOnSteamOverlayIsOFF() {
+	UE_LOG(LogSteamworks, Log, TEXT("PublicOnSteamOverlayIsON Called. Setting isSteamOverlayActive"));
+	IsSteamOverlayActive = false;
+	this-&gt;OnSteamOverlayIsActive(false);
+	UE_LOG(LogSteamworks, Log, TEXT("OnSteamOverlayIsActive Has been triggered"));
+}
+&lt;/syntaxhighlight&gt;
+</p><p>Notice the UE_LOG in the code. This serve as debug functions, to know what the game is doing. You will need to define the keyword “LogSteamworks” in YourGame.h and YourGame.cpp. To learn more about UE_LOG you can read this <a href="/index.php?title=Logs,_Printing_Messages_To_Yourself_During_Runtime" title="Logs, Printing Messages To Yourself During Runtime">guide</a>.
+</p><p>First, we have our consturctors and deconstructors. We don’t need them, but if you do, then you may use them here. Next we have InitializeCPPElements(). We have an If statement, to execute the code only if we decided to enable it previously with the variable EnableUSteamManagerFeatures.
+</p><p>Next we do another if statement to check that Steamworks was properly Setup. I use (SteamUser()&#160;!= nullptr) to check for this. If False, I return an error that there is no Steam Log on. This has to be used, as if it’s false while being on the editor or other game dev environments, the game may crash or create bugs.
+</p><p>Then, we initialize the variable of SteamManager by creating a new object and storing it in the SteamManager variable. 
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+SteamManager = NewObject&lt;USteamManager&gt;(this);
+&lt;/syntaxhighlight&gt;
+</p><p>The next function is going to initialize SteamManager with the elements it needs in order to function properly. We haven’t written this function yet in the SteamManager yet, so we will get a Visual Studio telling us about it. Just ignore it for now.
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+SteamManager-&gt;InitializeSteamManager();
+&lt;/syntaxhighlight&gt;
+</p><p>Afterwards, we have to store a reference of YourGameInstance inside of SteamManager, so that the SteamManager knows which class has to fire the events for when Steam tells SteamManager it’s time to do so.
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+SteamManager-&gt;AssignGameInstance(this);
+&lt;/syntaxhighlight&gt;
+</p><p>Again, we haven’t actually created the function for AssignGameInstance() yet in SteamManager, so VS will throw an error. For now we’ll ignore it.
+</p><p>Next we have the function PublicOnSteamOverlayIsON(). This function will be called by SteamManager when we get a Steam callback saying that the Steam Overlay was activated with a true value. In the function, we first write a UE_LOG(), to know that the function was called properly by SteamManager.
+</p><p>Then, we set the bool variable of YourGameInstance to true. Remember, we are in the ON version of the function. Then, we launch the blueprint event node OnSteamOverlayIsActive() with a true value. We could have the variable IsSteamOverlayActive, feel free to use that if you want.
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+this-&gt;OnSteamOverlayIsActive(true);
+&lt;/syntaxhighlight&gt;
+</p><p>We use the this-&gt; keyword as explained by Rama in his <a href="/index.php?title=Blueprints,_Empower_Your_Entire_Team_With_BlueprintImplementableEvent" title="Blueprints, Empower Your Entire Team With BlueprintImplementableEvent">guide</a> to know ourselfs that we are not calling a C++ function, but a blueprint script function.
+</p><p>Finally, another UE_LOG() to know that the function has finished. By the time this log is print, the game should be pause if you followed the rest of the guide properly.
+</p><p>For the OFF version of the function, we copy the contents of the ON version and just change the bool keyword from true to false.
+</p><p>And that is all we need for now for YourGameInstance.
+</p>
+<h2><span class="mw-headline" id="Coding_SteamManager">Coding SteamManager</span></h2>
+<p>Before we start coding SteamManager. I recommend you read the Getting Started page from Steamworks, to get familiar with how Steamworks works and how to use it in general.
+</p><p><a rel="nofollow" class="external free" href="https://partner.steamgames.com/documentation/getting_started">https://partner.steamgames.com/documentation/getting_started</a>
+</p><p>Once you read that link, and are more comfortable with what a Callback is, it’s time to fill in the class for SteamManager. 
+</p>
+<h3><span class="mw-headline" id="SteamManager.h">SteamManager.h</span></h3>
+<p>The full SteamManager header is the following.
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>pragma once</li></ol>
+<ol><li>include "ThirdParty/Steamworks/Steamv132/sdk/public/steam/steam_api.h"</li>
+<li>include "UObject/NoExportTypes.h"</li>
+<li>include "SteamManager.generated.h"</li></ol>
+<p>/*~~~ Forward Declarations ~~~*/
+class UYourGameInstance;
+</p><p>/**
+</p>
+<pre>* 
+*/
+</pre>
+<p>UCLASS()
+class MUSICALRANGE_API USteamManager&#160;: public UObject
+{
+	GENERATED_BODY()
+</p><p>private:
+	//Steam Callback Setups
+	//Using STEAM_CALLBACK_MANUAL()
+	STEAM_CALLBACK_MANUAL(USteamManager, OnSteamOverlayActive, GameOverlayActivated_t, OnSteamOverlayActiveCallback);
+</p><p>public:
+	USteamManager();
+	~USteamManager();
+</p><p>	void InitializeSteamManager();
+	void AssignGameInstance(UYourGameInstance *NewYourGameInstance);
+</p><p>	UPROPERTY(BlueprintReadOnly, Category = "Musical Range")
+	UYourGameInstance *YourGameInstance;
+};
+&lt;/syntaxhighlight&gt;
+</p><p>Make sure to include the steam_api.h functions! They will be our way into accessing the steamworks information. Remember to keep the .generated.h file at the end of the include list! Else your compilation will fail.
+</p><p>Next, we need to do a Forward Declaration. Again, you may learn more about them from another <a href="/index.php?title=Forward_Declarations" title="Forward Declarations">guide</a> written by Rama. The basics of it is that YourGameInstance has a variable of class SteamManager, but SteamManager also has a class of YourGameInstance. You can see how we have this full circle reference going on. So, a forward declaration will “weakly” define UYourGameInstance, so that the compilation doesn’t fail.
+</p><p>Next, we set up our Steam Callback using STEAM_CALLBACK_MANUAL(). Using STEAM_CALLBACK will fail to compile with UCLASS, so do NOT use those for a UCLASS. The only difference, as I can tell, is that by using STEAM_CALLBACK_MANUAL() we need to register the callbacks in the CPP file before they can work, which is no hassle at all.
+</p><p>We are using:
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+STEAM_CALLBACK_MANUAL(USteamManager, OnSteamOverlayActive, GameOverlayActivated_t, OnSteamOverlayActiveCallback);
+&lt;/syntaxhighlight&gt;
+</p><p>USteamManager is the class where the Steam callback is handled. 
+</p><p>Next we have the function that will be triggered inside SteamManager.cpp when the Steam callback is fired. Don’t confuse it with the function OnSteamOverlayIsActive() over at YourGameInstance. I bet you can come up with better names than me.
+You can think of GameOverlayActivated_t as a variable/structure type that is responsible for the GameOverlay. Its name is set by steam. You can read the Steam Api for more callbacks that suit your needs.
+</p><p>OnSteamOverlayActiveCallback is an element we will use to register the callback on the cpp file.
+</p><p>On the public segment, we have our constructor and deconstructor. Then we create those 2 functions that we called in YourGameInstance.cpp, InitializeSteamManager() and AssignGameInstance().
+</p><p>Finally we have a variable to store YourGameInstance ioth it’s UPROPERTY() macro.
+</p>
+<h3><span class="mw-headline" id="SteamManager.cpp">SteamManager.cpp</span></h3>
+<p>The full cpp file for SteamManager is the following.
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>include "YourGame.h"</li>
+<li>include "SteamManager.h"</li>
+<li>include "YourGameInstance.h"</li>
+<li>include "Async.h"</li></ol>
+<p>USteamManager::USteamManager() {
+	UE_LOG(LogSteamworks, Log, TEXT("USteamManager Constructor Called"));
+}
+</p><p>USteamManager::~USteamManager() {
+}
+</p><p>void USteamManager::InitializeSteamManager() {
+	UE_LOG(LogSteamworks, Log, TEXT("Initializing USteamManager"));
+	OnSteamOverlayActiveCallback.Register(this, &amp;USteamManager::OnSteamOverlayActive);
+	UE_LOG(LogSteamworks, Log, TEXT("OnSteamOverlayActiveCallback.Register called"));
+}
+</p><p>void USteamManager::AssignGameInstance(UMusicalRangeInstance *NewYourGameInstance) {
+	YourGameInstance = NewYourGameInstance;
+	UE_LOG(LogSteamworks, Log, TEXT("New Game Instance Assigned to USteamManager"));
+}
+</p><p>void USteamManager::OnSteamOverlayActive(GameOverlayActivated_t *pCallbackData)
+{
+	UE_LOG(LogSteamworks, Log, TEXT("Intercepted the Steam Overlay callback"));
+	const bool isCurrentOverlayActive = ((pCallbackData-&gt;m_bActive)&#160;!= (0));;
+	UE_LOG(LogSteamworks, Log, TEXT("isCurrentOverlayActive =&#160;%d"), isCurrentOverlayActive);
+	YourGameInstance; //So that the call list reference on the Lambda works
+</p><p>	if (isCurrentOverlayActive)
+	{
+		AsyncTask(ENamedThreads::GameThread, [&amp;]() {
+			UE_LOG(LogSteamworks, Log, TEXT("Running inside AsyncTask() TRUE"));
+			YourGameInstance-&gt;PublicOnSteamOverlayIsON();
+			UE_LOG(LogSteamworks, Log, TEXT("Exiting AsyncTask()"));
+		});
+	}
+	else {
+		AsyncTask(ENamedThreads::GameThread, [&amp;]() {
+			UE_LOG(LogSteamworks, Log, TEXT("Running inside AsyncTask() FALSE"));
+			YourGameInstance-&gt;PublicOnSteamOverlayIsOFF();
+			UE_LOG(LogSteamworks, Log, TEXT("Exiting AsyncTask()"));
+		});
+	}
+	UE_LOG(LogSteamworks, Log, TEXT("OnSteamOverlayActive() at SteamManager Finished"));
+}
+&lt;/syntaxhighlight&gt;
+</p><p>Notice the extensive use of UE_LOG(). You may remove them or keep them to your liking.
+</p><p>Be sure to include YourGameInstance. We need access to the function PublicOnSteamOverlayIsActive() later on. Because the Header file get compiled first, by the time the compiler gets to the cpp file, it will already know that  PublicOnSteamOverlayIsActive() exist and will work. This is thanks to the Forward Declaration we did in the header file. Also don’t forget to include Async.h! This is the key to avoiding crashesto desktop.
+</p><p>First we have our constructor and deconstructor. 
+</p><p>Then we have the function to initialize the SteamManager elements. Because we are using STEAM_CALLBACK_MANUAL(), we need to register the callback at some time, before the callback will work. I decided to place 	OnSteamOverlayActiveCallback.Register(this, &amp;USteamManager::OnSteamOverlayActive); inside of the function InitializeSteamManager(), to have better control of when the callbacks are registered. You may put that line in the constructor of SteamManager. Be careful of having it multiple times, as it may produce multiple callback calls.
+Next, we have the AssignGameInstance() function. In there, we simply copy the new Game Instance into our variable. This will ensure that when we call the function YourGameInstance-&gt;PublicOnSteamOverlayIsActive() it will not be a null pointer and cause errors or a crash.
+</p><p>Finally, we have OnSteamOverlayActive(). I recommend you leave the UE_LOG() that are in the code, as they can help you a lot when you debug why something may not work. It’s better to add many at first and then remove some when it all works, rather than put a few, and have to recompile everything because you need more information.
+</p><p>Notice that we did not define that function OnSteamOverlayActive() as we regularly would in the header file. The macro STEAM_CALLBACK_MANUAL did that for us already at compile time. Note that all functions made with the macro must be void. The parameter for the function is “GameOverlayActivated_t *pCallbackData”. The pointer name can be defined by you. Some documentation name it as pResult.
+</p><p>Inside the function, we create a constant bool variable where we copy the callback result. Is the Overlay active or not? Something weird is that pCallbackData-&gt;m_bActive actually returns a uint8, so it can’t be just placed in a Boolean variable with the equal operator. Instead I make a not equal comparison to 0, which yields an equivalent result. If bActive is true, then it’s not equal to zero, so a true is stored for isCurrentOverlayActive. If bActive is false, then it is equal to zero, so a false is stored for isCurrentOverlayActive. A weird extra step that is no problem.
+</p><p>For debugging purposes I decided to have a UE_LOG output the state of the steam overlay. I recommend you keep these logs for callbacks results, as they can be helpful when debugging. Following that we write in the name of the variable holding YourGameInstance.
+</p><p>Next we have an If statement to split the function we are going to call based on the value of isCurrentOverlayActive. If it is true, then we are going to execute PublicOnSteamOverlayIsON(). Inside it is a function called AsyncTask().
+AsyncTask() is the key to avoiding your game crash when you try to run something from the SteamCallback. Basically, when we get the Steam Callback, it is not in the Game Thread, so if we tried to do YourGameInstance-&gt;PublicOnSteamOverlayON() the game will crash. AsyncTask() takes 2 parameters. The first, what thread we want the code to run in, and the second a lambda, which is the code you want to run.
+</p><p>For the thread we do ENamedThreads::GameThread. The lambda is a bit more complicated if you haven’t worked with them. You can read more about them <a rel="nofollow" class="external text" href="http://en.cppreference.com/w/cpp/language/lambda">here</a>. The basics of it so we can get our code to work is the following
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+[&amp;]( ) {
+//Your Code here.
+}
+&lt;/syntaxhighlight&gt;
+</p><p>The square brackets ask us what variables we want the Lambda to capture to be used. The &amp; symbol tells it that we want to make use of references of the variables used on the function. Thus, we wrote before YourGameInstance; before, so that the lambda would get access to your game instance. Then, the parenthesis asks for any intput parameters. We don’t need any of them.
+</p><p>Then the lines of code
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+	UE_LOG(LogSteamworks, Log, TEXT("Running inside AsyncTask() TRUE"));
+	YourGameInstance-&gt;PublicOnSteamOverlayIsON();
+	UE_LOG(LogSteamworks, Log, TEXT("Exiting AsyncTask()"));
+&lt;/syntaxhighlight&gt;
+</p><p>Will tell us when the callback has entered the AsyncTask() function and when it is about to leave the function. And inside the AsyncTask() function we call PublicOnSteamOverlayIsON(); This will trigger in turn OnSteamOverlayIsActive(), which will trigger our blueprint node to pause the game.
+</p><p>We do a similar code for the else part of the if statement. Be sure to change the called function to the OFF version.
+And that is all we need for the SteamManager.cpp.
+</p>
+<h2><span class="mw-headline" id="Blueprint_Setup">Blueprint Setup</span></h2>
+<p>Now, it’s up to you how to code your new blueprint node so that it will pause your game. For example, I will show the blueprint code I used to pause the song if it is playing in Musical Range VR. My set up is that the game is running a blueprint based from MusicalRangeInstance (My YourGameInstance). I have a floor monitor actor, which has a reference to pretty much every other actor in the scene and handles starting a song, setting options, etc.
+</p><p>So, my BP_MusicalRangeInstance fires the OnSteamIsActive() blueprint event, which in turns tells the FloorMonitorUI to pause the song if possible. The Floor Monitor then tells the actual Actor playing to wav to pause the song.
+</p>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:1110px;"><a href="/index.php?title=File:MotanumTutorial1-Image4.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/0/07/MotanumTutorial1-Image4.png" width="1108" height="508" class="thumbimage" /></a>  <div class="thumbcaption">On Begin Play at the FloorMonitor.</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:1131px;"><a href="/index.php?title=File:MotanumTutorial1-Image5.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/f/fc/MotanumTutorial1-Image5.png" width="1129" height="276" class="thumbimage" /></a>  <div class="thumbcaption">BP_MusicalRangeInstance – Event On Steam Overlay Is Active</div></div></div></div>
+<div class="center"><div class="thumb tnone"><div class="thumbinner" style="width:928px;"><a href="/index.php?title=File:Image1.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/c/c3/Image1.png" width="926" height="464" class="thumbimage" /></a>  <div class="thumbcaption">BP_FloorMonitorUI – Pause Song</div></div></div></div>
+<h2><span class="mw-headline" id="Extra_Reading">Extra Reading</span></h2>
+<p>Other resources which might be of your interest about Steamworks are listed below. 
+</p>
+<ul><li> Link <a href="/index.php?title=Steam_workshop" title="Steam workshop">Workshop Creation</a> asset guide</li></ul>
+
+<!-- 
+NewPP limit report
+Cached time: 20181022035638
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.072 seconds
+Real time usage: 0.465 seconds
+Preprocessor visited node count: 58/1000000
+Preprocessor generated node count: 64/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:310-0!canonical and timestamp 20181022035637 and revision id 621
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=Pause_Game_On_Steam_Overlay_Active&amp;oldid=621">https://wiki.unrealengine.com/index.php?title=Pause_Game_On_Steam_Overlay_Active&amp;oldid=621</a>"						</div>
+					<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0a137bf8b82e8a632"><meta name="worker" content="109"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.31","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/gHooNW9I/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Edit the global content type","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.100bcb10fc821c7c23f8.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.100bcb10fc821c7c23f8.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.072","walltime":"0.465","ppvisitednodes":{"value":58,"limit":1000000},"ppgeneratednodes":{"value":64,"limit":1000000},"postexpandincludesize":{"value":0,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.000      1 -total"]},"cachereport":{"timestamp":"20181022035638","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":702});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":748,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

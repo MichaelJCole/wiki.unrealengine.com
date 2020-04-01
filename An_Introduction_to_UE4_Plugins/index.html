@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(){}function o(e,t,n){return function(){return i(e,[f.now()].concat(u(arguments)),t?null:this,n),t?void 0:this}}var i=e("handle"),a=e(2),u=e(3),c=e("ee").get("tracer"),f=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,t){s[t]=o(d+t,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),t.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,t){var n={},r=this,o="function"==typeof t;return i(l+"tracer",[f.now(),e,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return t.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],n),e}finally{c.emit("fn-end",[f.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){m[t]=o(l+t)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,f.now()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(o<0?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],4:[function(e,t,n){t.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?c(e,u,i):i()}function n(n,r,o,i){if(!d.aborted||i){e&&e(n,r,o);for(var a=t(o),u=m(n),c=u.length,f=0;f<c;f++)u[f].apply(a,r);var p=s[y[n]];return p&&p.push([b,n,r,a]),a}}function l(e,t){v[e]=m(e).concat(t)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(n)}function g(e,t){f(e,function(e,n){t=t||"feature",y[n]=t,t in s||(s[t]=[])})}var v={},y={},b={on:l,emit:n,get:w,listeners:m,context:t,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",c=e("gos"),f=e(2),s={},p={},d=t.exports=o();d.backlog=s},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!x++){var e=h.info=NREUM.info,t=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return s.abort();f(y,function(t,n){e[t]||(e[t]=n)}),c("mark",["onload",a()+h.offset],null,"api");var n=d.createElement("script");n.src="https://"+e.agent,t.parentNode.insertBefore(n,t)}}function o(){"complete"===d.readyState&&i()}function i(){c("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),c=e("handle"),f=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1071.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=t.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+<title>An Introduction to UE4 Plugins - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"An_Introduction_to_UE4_Plugins","wgTitle":"An Introduction to UE4 Plugins","wgCurRevisionId":37,"wgRevisionId":37,"wgArticleId":18,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Code","Community Created Content","Getting Started"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"An_Introduction_to_UE4_Plugins","wgRelevantArticleId":18,"wgRequestId":"9635928f8063bc17b590282c","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@1xxwts3",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-An_Introduction_to_UE4_Plugins rootpage-An_Introduction_to_UE4_Plugins skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-00f7fdb47766f2f80"><meta name="worker" content="79"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"hideShieldDownload":false,"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"alert":{"msg":"","_type":"Epic Header Alert","id":"","type":"info","statusHref":""},"_activeDate":"2018-08-06T09:11:04.633Z","links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://academy.unrealengine.com/","title":"Video Tutorials","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/unrealdevgrants","title":"Unreal Dev Grants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_currentVersion":"1.37.2.100","_type":"Epic Games Nav","hideSignIn":true,"pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"_futureVersion":"none","downloadLink":{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":""},"_created":"2017-08-21T08:59:33.648Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"hideShieldDropdown":false,"properties":[{"propertyKey":"paragon","_type":"Epic Games Property","egDisabled":true,"egSkip":true}],"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.100bcb10fc821c7c23f8.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.100bcb10fc821c7c23f8.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=An+Introduction+to+UE4+Plugins" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=An_Introduction_to_UE4_Plugins" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:An_Introduction_to_UE4_Plugins&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=An_Introduction_to_UE4_Plugins">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=An_Introduction_to_UE4_Plugins&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=An_Introduction_to_UE4_Plugins&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">An Introduction to UE4 Plugins</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><a href="/index.php?title=Template:Rating&amp;action=edit&amp;redlink=1" class="new" title="Template:Rating (page does not exist)">Template:Rating</a>
+</p>
+<table align="right">
+<tr>
+<td> <div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Scope_.26_Notes"><span class="tocnumber">1.1</span> <span class="toctext">Scope &amp; Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Concepts_.26_Limitations"><span class="tocnumber">2</span> <span class="toctext">Concepts &amp; Limitations</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Engine_vs._Installed"><span class="tocnumber">2.1</span> <span class="toctext">Engine vs. Installed</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#First_Steps"><span class="tocnumber">3</span> <span class="toctext">First Steps</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#File_Structure"><span class="tocnumber">3.1</span> <span class="toctext">File Structure</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Content_Module"><span class="tocnumber">4</span> <span class="toctext">Content Module</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Archive_Manifest"><span class="tocnumber">4.1</span> <span class="toctext">Archive Manifest</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Stand_Alone_Plugin"><span class="tocnumber">5</span> <span class="toctext">Stand Alone Plugin</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#File_Structure_2"><span class="tocnumber">5.1</span> <span class="toctext">File Structure</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Archive_Manifest_2"><span class="tocnumber">5.2</span> <span class="toctext">Archive Manifest</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#Non-Game_Module"><span class="tocnumber">6</span> <span class="toctext">Non-Game Module</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Archive_Manifest_3"><span class="tocnumber">6.1</span> <span class="toctext">Archive Manifest</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Distribution"><span class="tocnumber">7</span> <span class="toctext">Distribution</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="#Sample_ReadMe.md"><span class="tocnumber">7.1</span> <span class="toctext">Sample ReadMe.md</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#More_Information"><span class="tocnumber">8</span> <span class="toctext">More Information</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<h1><span class="mw-headline" id="Overview">Overview</span></h1>
+<p>The goal of this tutorial is to show you how to create a new plugin, exercising the basic concepts and giving you a platform on which you can build your own projects out. 
+</p><p>For examples sake, I will be creating a bundle called "Bob's Bundle" and it will do little more than expose an interface to call into a protected method that will output to the console. 
+</p><p><a href="/index.php?title=Template:Warning&amp;action=edit&amp;redlink=1" class="new" title="Template:Warning (page does not exist)">Template:Warning</a> 
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Scope_.26_Notes">Scope &amp; Notes</span></h2>
+<ul><li> A "Plugin" is the wrong term to use in describing what we are doing. Instead we will refer to it as a bundle from now on. This is discussed in the next section - Concepts and Limitations. </li>
+<li> You will be able to create a new bundle of your own by the end</li>
+<li> I expect you to have, at the very least, a more than cursory level of knowledge about C++, and the UE4 Build System</li>
+<li> All Code paths provided, unless noted otherwise, are from the UE4 Project's base directory.</li>
+<li> Any time a file is added to the project, you should regenerate your project files.</li></ul>
+<h1><span class="mw-headline" id="Concepts_.26_Limitations">Concepts &amp; Limitations</span></h1>
+<p>The general idea behind a bundle is to wrap up a set of functionality that can be treated as a self contained group, transplanted as needed, adding functionality to UE4. There are three types of bundle:
+</p>
+<ol><li> <b>Non-Game Module</b> - Extension or Creation of a set of code that exposes an interface to internal code, allowing other modules and game modules to depend upon its functionality. </li>
+<li> <b>Stand Alone Plugin</b> - Extension or Creation of a set of code that does not allow exterior modules to modify its contents. </li>
+<li> <b>Content Module</b> - Contains content that is available to developers in the editor, as well as in the game.  </li></ol>
+<p>As the designer you are free to include any number of these you wish in your bundle, and in fact - you can include them all in the same bundle. They are simply used as encapsulation tools.
+</p><p><a href="/index.php?title=Template:Note&amp;action=edit&amp;redlink=1" class="new" title="Template:Note (page does not exist)">Template:Note</a> 
+<a href="/index.php?title=Template:Note&amp;action=edit&amp;redlink=1" class="new" title="Template:Note (page does not exist)">Template:Note</a>
+</p>
+<h2><span class="mw-headline" id="Engine_vs._Installed">Engine vs. Installed</span></h2>
+<p>An engine plugin is one that resides in the Plugin directory of your UE4 install. It will show up as <b>Built In</b> when looking at the plugin listing in the editor. An <b>Installed</b> plugin is only available or loaded for a particular Project. 
+</p><p>To see a list of the plugins that are already available to you (Enabled and Disabled) open the editor and in the menu bar, select <b>Window</b> &gt; <b>Plugins</b><sup>1</sup>. From here you can load or unload any plugins by checking the <b>Enabled</b> checkbox. 
+</p><p>If you wish to see any of the modules, including your game and plugins, that are available, select <b>Window</b> &gt; <b>Developer Tools</b> &gt; <b>Modules</b>. From here you can load, unload, reload and or recompile any of the modules currently available to the editor.
+</p>
+<hr />
+<p><sup>1</sup> In recent versions, this menu has been moved to <b>Edit</b> &gt; <b>Plugins</b>
+</p>
+<h1><span class="mw-headline" id="First_Steps">First Steps</span></h1>
+<p>To begin, you will need to create a new project from the UE4 Editor. I recommend a <b>C++ → Basic code</b> project, so you are able to exercise the interface of your module, given that you create one. I am exporting a <b>Basic Code</b> project called BobsPlayground.
+</p>
+<h2><span class="mw-headline" id="File_Structure">File Structure</span></h2>
+<p>Once Visual Studio (VS) has finished spinning up open up the project path in the windows file explorer. Here, create a new folder - Plugins, which should reside at MyProject/Plugins. In my example it is called BobsPlayground/Plugins. 
+</p><p>This is the directory that will house all of our further development, until we return to UE4 to confirm that we have the ability to add a dependency between our project and our plugin.
+</p>
+<h1><span class="mw-headline" id="Content_Module">Content Module</span></h1>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;"><a href="/index.php?title=File:Plugins-Listing.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/f/fc/Plugins-Listing.png/300px-Plugins-Listing.png" width="300" height="181" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/f/fc/Plugins-Listing.png/450px-Plugins-Listing.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/f/fc/Plugins-Listing.png/600px-Plugins-Listing.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Plugins-Listing.png" class="internal" title="Enlarge"></a></div>Figure 1. A peek into the plugin UI in the UE4 editor.</div></div></div>
+<p>Within the Plugins directory, add a new folder - Content. This will house our Content modules assets. Within this directory add a ""Content.uplugin"" file. This will be the <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/Plugins/index.html#plugindescriptorfiles">descriptor for our plugin</a>, so UE4 can find it, load it up and knows what to do with it. 
+</p><p>Here is the sample I am using for my content module. Feel free to copy it. 
+&lt;syntaxhighlight lang="javascript"&gt;
+{
+</p>
+<pre>   "FileVersion"&#160;: 3,
+   "FriendlyName"&#160;: "Bob's Content",
+   "Version"&#160;: 1,
+   "VersionName": "1.0",
+   "Description"&#160;: "Here I describe the content.",
+   "Category"&#160;: "Bobs.Content",
+   "CreatedBy"&#160;: "Bob Chatman",
+   "CreatedByURL"&#160;: "<a rel="nofollow" class="external free" href="http://gneu.org">http://gneu.org</a>",
+   "CanContainContent"&#160;: "true"
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p><p>This provides the plugin system with everything short of an icon to show in the UI View. To add an icon, create a Resources directory within your plugin folder, and create a PNG in there called Icon128.png.
+</p><p><a href="/index.php?title=Template:Note&amp;action=edit&amp;redlink=1" class="new" title="Template:Note (page does not exist)">Template:Note</a>
+</p><p>You should also be aware of the Category. It provides a way for you to filter your plugins by type, developer or whatever you choose. Each sub category is separated by a period character. Above, Bobs.Content becomes Bobs &gt; Content in the plugin listing in the editor, as shows in Figure 1, above. 
+</p><p><a href="/index.php?title=Template:Warning&amp;action=edit&amp;redlink=1" class="new" title="Template:Warning (page does not exist)">Template:Warning</a>
+</p><p><a href="/index.php?title=Template:Warning&amp;action=edit&amp;redlink=1" class="new" title="Template:Warning (page does not exist)">Template:Warning</a>
+</p>
+<h2><span class="mw-headline" id="Archive_Manifest">Archive Manifest</span></h2>
+<ul><li> Content/*</li>
+<li> Resources/Icon128.png</li>
+<li> Content.uplugin</li></ul>
+<h1><span class="mw-headline" id="Stand_Alone_Plugin">Stand Alone Plugin</span></h1>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><a href="/index.php?title=File:Solution-Explorer_-_Plugins_Generated.png" class="image"><img alt="Solution-Explorer - Plugins Generated.png" src="https://d3ar1piqh1oeli.cloudfront.net/4/4d/Solution-Explorer_-_Plugins_Generated.png/200px-Solution-Explorer_-_Plugins_Generated.png" width="200" height="493" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/4/4d/Solution-Explorer_-_Plugins_Generated.png/300px-Solution-Explorer_-_Plugins_Generated.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/4/4d/Solution-Explorer_-_Plugins_Generated.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:Solution-Explorer_-_Plugins_Generated.png" class="internal" title="Enlarge"></a></div></div></div></div>
+<p>Although not quite as straight forward as content, the Stand Alone plugin is a hundred times more interesting, technically speaking. These plugins exist for no other purpose than to extend and create new unreal editor classes. A prime example of such a plugin is the <a href="/index.php?title=Rama%27s_Vertex_Snap_Editor_Plugin#Core_of_Making_Your_Own_Editor_Mode" title="Rama&#39;s Vertex Snap Editor Plugin">Vertex Snap Editor Extension</a> by <a href="/index.php?title=User:Rama" title="User:Rama">Rama</a>, which adds the ability for you to vertex snap meshes together, but also details out how his plugin works. Seeing as this is an introduction to plugins, I will only show you how to configure your plugin, what you do with it afterwards is on you =).
+</p>
+<h2><span class="mw-headline" id="File_Structure_2">File Structure</span></h2>
+<p>We will, once again, add a uplugin plugin descriptor. This time we will make a modification to it though, adding in a modules listing parameter to allow us to configure the plugin and the declare the contexts that we wish for our standalone plugin to be loaded. 
+</p><p>Inside <b>/Plugins/StandAlone/StandAlone.uplugin</b>
+&lt;syntaxhighlight lang="javascript"&gt;
+{
+</p>
+<pre>   "FileVersion"&#160;: 3,
+</pre>
+<pre>   "FriendlyName"&#160;: "Bob's Plugin",
+   "Version"&#160;: 1,
+   "VersionName": "1.0",
+   "Description"&#160;: "Here I describe the capabilities of the plugin.",
+   "Category"&#160;: "Bobs.Stand Alone",
+   "CreatedBy"&#160;: "Bob Chatman",
+   "CreatedByURL"&#160;: "<a rel="nofollow" class="external free" href="http://gneu.org">http://gneu.org</a>",
+</pre>
+<pre>   "Modules"&#160;:
+   [
+       {
+           "Name"&#160;: "StandAlone",
+           "Type"&#160;: "Developer"
+       } 
+   ]
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p><p><br />
+<a href="/index.php?title=Template:Note&amp;action=edit&amp;redlink=1" class="new" title="Template:Note (page does not exist)">Template:Note</a>
+</p><p><br />
+The modules section accepts any number of entries, as a JSON array of objects. Name is the name of the module you are creating - this is likely to be same as the folder you put your module into. Type is one of three values, Developer, Runtime or Editor. Editor is loaded at editor load time, Runtime is loaded in all contexts, and Developer is loaded at any time where you are loading a Development build and never for Shipping builds. There is one final optional parameter to include, but it doesn't exactly mean much in a stand alone plugin. We will return to it in the next section. 
+</p><p>With the descriptor in place, we can dive into the guts. 
+</p><p><a href="/index.php?title=Template:Note&amp;action=edit&amp;redlink=1" class="new" title="Template:Note (page does not exist)">Template:Note</a>
+</p><p>Create the following path: <b>/Plugins/StandAlone/Source/StandAlone/</b>
+</p><p>Within this directory you will begin working on your plugin. You will need a Build.cs file to declare dependencies, include paths or handle linking of an external library. 
+</p><p>inside <b>/Plugins/StandAlone/Source/StandAlone/StandAlone.Build.cs</b>
+&lt;syntaxhighlight lang="csharp"&gt;
+using UnrealBuildTool;
+using System.IO;
+</p><p>public class StandAlone&#160;: ModuleRules
+{
+</p>
+<pre>   public StandAlone(ReadOnlyTargetRules Target)&#160;: base(Target)
+   {
+       PrivateIncludePaths.AddRange(new string[] { "StandAlone/Private" });
+       PublicIncludePaths.AddRange(new string[] { "StandAlone/Public" });
+</pre>
+<pre>       PublicDependencyModuleNames.AddRange(new string[] { "Engine", "Core" });
+   }
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p><p>Yep, at this point everything you see will be very similar to what you have already seen. I try to stick to the standard folder structure for my files, so I am following the coding guidelines that Epic has set out for us. In this directory you will want to create a Classes directory, for your UE4 related header files, and a Private folder to house your plugins implementations. There is no need for a public folder, as there is no public API to your plugin to be providing. 
+</p><p>inside <b>/Plugins/StandAlone/Source/StandAlone/Public/StandAlone.h</b> 
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>pragma once</li></ol>
+<ol><li>include "ModuleManager.h"</li></ol>
+<p>class StandAloneImpl&#160;: public IModuleInterface
+{
+public:
+	/** IModuleInterface implementation */
+	void StartupModule();
+	void ShutdownModule();
+};
+&lt;/syntaxhighlight&gt;
+</p><p>inside <b>/Plugins/StandAlone/Source/StandAlone/Private/StandAlone.cpp</b>
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>include "StandAlonePrivatePCH.h"</li></ol>
+<ol><li>include "StandAlone.h"</li></ol>
+<p>void StandAloneImpl::StartupModule()
+{
+}
+</p><p>void StandAloneImpl::ShutdownModule()
+{
+}
+</p><p>IMPLEMENT_MODULE(StandAloneImpl, Module)
+&lt;/syntaxhighlight&gt;
+</p><p>inside <b>/Plugins/StandAlone/Source/StandAlone/Private/StandAlonePrivatePCH.cpp</b>
+&lt;syntaxhighlight lang="cpp"&gt;
+&lt;/syntaxhighlight&gt;
+</p><p><b>StandAlonePrivatePCH.h</b> is an empty file, currently. It is there for you to stick your own PreCompiled Header references and include them in one lump, as you do with the <b>MyProject.h</b> file in your standard game.
+</p><p>The startup and shutdown module methods are available for you to be able to hook in and handle events that come with the loading of and unloading of the modules. This is likely a good place to handle opening or closing of data stores, handles and the like. I use this as the point when my V8 plugin is initialized to ensure that it is available globally.
+</p>
+<h2><span class="mw-headline" id="Archive_Manifest_2">Archive Manifest</span></h2>
+<ul><li> Binaries/Win64/UE4Editor-StandAlone.dll</li>
+<li> Resources/Icon128.png</li>
+<li> StandAlone.uplugin</li></ul>
+<h1><span class="mw-headline" id="Non-Game_Module">Non-Game Module</span></h1>
+<p>And finally, the pièce de résistance, a module exposing functionality. When this type of bundle comes into a party, everyone turns to look. There is one key element of this module, and that is the public facing interface and the importance of the load time. Everything else is as it was with a stand alone plugin. First, lets examine the addition to our plugin descriptor. 
+</p><p>Inside <b>/Plugins/Module/Module.uplugin</b>
+&lt;syntaxhighlight lang="javascript"&gt;
+{
+</p>
+<pre>   "FileVersion"&#160;: 3,
+</pre>
+<pre>   "FriendlyName"&#160;: "Bob's Module",
+   "Version"&#160;: 1,
+   "VersionName": "1.0",
+   "Description"&#160;: "Here I describe the capabilities of the module.",
+   "Category"&#160;: "Bobs.Module",
+   "CreatedBy"&#160;: "Bob Chatman",
+   "CreatedByURL"&#160;: "<a rel="nofollow" class="external free" href="http://gneu.org">http://gneu.org</a>",
+   "CanContainContent"&#160;: "true",
+</pre>
+<pre>   "Modules"&#160;:
+   [
+       {
+           "Name"&#160;: "Module",
+           "Type"&#160;: "Developer",
+           "LoadingPhase"&#160;: "PreDefault"
+       } 
+   ]
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p><p>The addition of the LoadingPhase allows our module to be loaded prior to the standard load time, which would allow any module that is loaded afterwards to be able to include it as a dependency. Let's look at what options we have for that. 
+</p><p>Inside <b>/Source/BobsPlayground/BobsPlayground.Build.cs</b>
+&lt;syntaxhighlight lang="csharp"&gt;
+using UnrealBuildTool;
+</p><p>public class BobsPlayground&#160;: ModuleRules
+{
+</p>
+<pre>   public BobsPlayground(ReadOnlyTargetRules Target)&#160;: base(Target)
+   {
+       PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore"});
+</pre>
+<pre>       PrivateDependencyModuleNames.AddRange(new string[] { "Module" });
+</pre>
+<pre>       DynamicallyLoadedModuleNames.AddRange(new string[] { "StandAlone" });
+   }
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p><p>There are three noteworthy ways to declare a dependency. <b>Public and Private dependencies are staticly linked into your project and visible to public and or private code, respectively</b>. Public implies that you may also expose such functionality to whatever tools, editors or plugins are dependent on your game/module. It is also important to keep in mind that with the static linking, the header files are included. Dynamically loaded modules do not include the header files at link time, and instead should be treated as an external dll, loaded when needed. The key difference is that because of the static linking, if the module is missing your code will fail out. <i>If you are using a dynamic link your code will be able to recover, in the event that the module is not found.</i> 
+</p><p>With this, all that remains is exposing our interface and writing a short test to confirm that it works. Create ""Module.Build.cs"", so your build system knows where to find the sources and how to build them:
+</p><p>inside <b>/Plugins/Module/Source/Module/Module.Build.cs</b>
+&lt;syntaxhighlight lang="csharp"&gt;
+using UnrealBuildTool;
+using System.IO;
+</p><p>public class Module&#160;: ModuleRules
+{
+</p>
+<pre>   public Module(ReadOnlyTargetRules Target)&#160;: base(Target)
+   {
+       PrivateIncludePaths.AddRange(new string[] { "Module/Private" });
+       PublicIncludePaths.AddRange(new string[] { "Module/Public" });
+</pre>
+<pre>       PublicDependencyModuleNames.AddRange(new string[] { "Engine", "Core" });
+   }
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p><p>Now we are able to create the public interface: <b>/Plugins/Module/Source/Module/Public/IModule.h</b>
+</p><p>Inside <b>/Plugins/Module/Source/Module/Public/IModule.h</b>
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>pragma once</li></ol>
+<ol><li>include "ModuleManager.h"</li></ol>
+<p>/**
+</p>
+<ul><li> The public interface to this module.  In most cases, this interface is only public to sibling modules</li>
+<li> within this plugin.</li>
+<li>/</li></ul>
+<p>class IModule&#160;: public IModuleInterface
+{
+public:
+	/**
+	* Singleton-like access to this module's interface.  This is just for convenience!
+	* Beware of calling this during the shutdown phase, though.  Your module might have been unloaded already.
+	*
+	* @return Returns singleton instance, loading the module on demand if needed
+	*/
+	static inline IModule&amp; Get()
+	{
+		return FModuleManager::LoadModuleChecked&lt; IModule &gt;("Module");
+	}
+</p><p>	/**
+	* Checks to see if this module is loaded and ready.  It is only valid to call Get() if IsAvailable() returns true.
+	*
+	* @return True if the module is loaded and ready to use
+	*/
+	static inline bool IsAvailable()
+	{
+		return FModuleManager::Get().IsModuleLoaded("Module");
+	}
+</p><p>	virtual bool IsThisNumber42(int32 num) = 0;
+};
+&lt;/syntaxhighlight&gt;
+</p><p>There are two static methods, and an instance method to test that a number is 42. The two methods provide us the ability to 1) Confirm that the module is loaded and available, and 2) get a reference to the plugin to be referenced in our game/module. Note the use of a pure virtual function here. Unreal uses classes and multiple inheritance to provide the contract of an interface, but that doesn't mean you have to provide implementations for your functions/methods. <i>I prefer to keep my interfaces pure virtual because it ensures that I have to implement methods</i>.  
+</p><p>Add to <b>/Source/BobsPlayground/BobsPlayground.h</b>
+&lt;syntaxhighlight lang="cpp"&gt;
+DECLARE_LOG_CATEGORY_EXTERN(BobsPlayground, Log, All);
+&lt;/syntaxhighlight&gt;
+</p><p>Add to <b>/Source/BobsPlayground/BobsPlayground.cpp</b>
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>include "IModule.h"</li></ol>
+<p>DEFINE_LOG_CATEGORY(BobsPlayground);
+</p><p>class FBobsPlaygroundModule&#160;: public IModule
+{
+	/** IModuleInterface implementation */
+	virtual void StartupModule() override;
+	virtual void ShutdownModule() override;
+};
+</p><p>void FBobsPlaygroundModule::StartupModule()
+{
+	if (IModule::IsAvailable())
+	{
+		UE_LOG(BobsPlayground, Log, TEXT("%s"), IModule::Get().IsThisNumber42(42)&#160;? TEXT("True")&#160;: TEXT("False"));
+		UE_LOG(BobsPlayground, Log, TEXT("%s"), IModule::Get().IsThisNumber42(12)&#160;? TEXT("True")&#160;: TEXT("False"));
+	}
+}
+&lt;/syntaxhighlight&gt;
+</p><p>Lastly, we will need to define our module implementation, defining our pure virtual function above. 
+</p><p>Inside <b>/Plugins/Module/Source/Module/Private/Module.h</b>
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>pragma once</li></ol>
+<p>class ModuleImpl&#160;: public IModule
+{
+public:
+	/** IModuleInterface implementation */
+	void StartupModule();
+	void ShutdownModule();
+</p><p>	bool IsThisNumber42(int32 num);
+};
+&lt;/syntaxhighlight&gt;
+</p><p>Inside <b>/Plugins/Module/Source/Module/Private/Module.cpp</b>
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>include "ModulePrivatePCH.h"</li></ol>
+<ol><li>include "Module.h"</li></ol>
+<p>void ModuleImpl::StartupModule()
+{
+}
+</p><p>void ModuleImpl::ShutdownModule()
+{
+}
+</p><p>bool ModuleImpl::IsThisNumber42(int32 num)
+{
+	return num == 42;
+}
+</p><p>IMPLEMENT_MODULE(ModuleImpl, Module)
+&lt;/syntaxhighlight&gt;
+</p><p>Note the reference to the header here. It is convenient for a complicated plugin to include it because common header files are able to be used there. 
+</p><p>Inside <b>/Plugins/Module/Source/Module/Private/ModulePrivatePCH.h</b>
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>include "IModule.h"</li></ol>
+<p>// You should place include statements to your module's private header files here.  You only need to
+// add includes for headers that are used in most of your module's source files though.
+&lt;/syntaxhighlight&gt;
+</p><p><a href="/index.php?title=Template:Warning&amp;action=edit&amp;redlink=1" class="new" title="Template:Warning (page does not exist)">Template:Warning</a> 
+</p><p>If you compile this out, drop a break point in the startmodule routine for your game you will be able to step through and see the something like the following output to your logs. 
+</p>
+<pre>
+[2095.04.01-06.15.29:347][  0]BobsPlayground: True
+[2095.04.01-06.15.30:290][  0]BobsPlayground: False
+</pre>
+<h2><span class="mw-headline" id="Archive_Manifest_3">Archive Manifest</span></h2>
+<ul><li> Binaries/Win64/UE4Editor-Module.dll</li>
+<li> Source/Module/Public/IModule.h</li>
+<li> Resources/Icon128.png</li>
+<li> Module.uplugin</li></ul>
+<h1><span class="mw-headline" id="Distribution">Distribution</span></h1>
+<p>Now that we have completely built a new bundle, the question is - how do we get it into the hands of a developer interested in its cause? Until the market place is here and we have firm details on EULAs and such, the following will be of great help.
+</p><p>We are going to create an archive, zip or 7zip if you wish. It is likely easier for you to make a zip as that is a default tool in the windows file explorer. 
+</p><p>In each of the above sections an Archive Manifest section has been included, listing important or key files to be included for distribution.
+</p><p>Within each archive it is a good idea to include a Readme.md file to detail out the Installation, Contact and key elements of your bundle. This would also be a good place to include any licensing or changelog information that an interested party could review before installation. 
+</p>
+<h2><span class="mw-headline" id="Sample_ReadMe.md">Sample ReadMe.md</span></h2>
+<pre style="white-space: pre-wrap;">
+Installation
+-------------
+Unzip the package into the Plugins directory of your game. To add it as an engine plugin you will need to unzip the module into the plugin directory under where you installed UE4.
+
+
+Contact
+-------------
+If you have any Questions, Comments, Bug reports or feature requests for this plugin, or you wish to contact me you can and should email me - me@myemail.com
+</pre>
+<h1><span class="mw-headline" id="More_Information">More Information</span></h1>
+<p>If you are interested in the plugin system, its capabilites or the descriptor file standard, details can be found in the <b><a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/Plugins/index.html">UE4 Documentation</a></b>. There are a hundred examples you can pull from, included in the source, under the plugins directory of the UE4 project. 
+</p><p>If you found this tutorial useful, you may also find the <a href="/index.php?title=Linking_Static_Libraries_Using_The_Build_System" title="Linking Static Libraries Using The Build System">Static Linking Tutorial</a> beneficial, as it walks through how to load and link a static library. I am using a derivative of these two as the base for my V8 Plugin. 
+</p><p>You can read more about me on my <a href="/index.php?title=User:Bob_Gneu" title="User:Bob Gneu">User Page</a>
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20180929105523
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.076 seconds
+Real time usage: 0.562 seconds
+Preprocessor visited node count: 110/1000000
+Preprocessor generated node count: 302/1000000
+Post‐expand include size: 194/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%   10.489      1 -total
+ 29.27%    3.070      1 Template:Rating
+ 29.01%    3.043      4 Template:Warning
+ 28.39%    2.978      5 Template:Note
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:18-0!canonical and timestamp 20180929105522 and revision id 37
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=An_Introduction_to_UE4_Plugins&amp;oldid=37">https://wiki.unrealengine.com/index.php?title=An_Introduction_to_UE4_Plugins&amp;oldid=37</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/index.php?title=Category:Tutorials&amp;action=edit&amp;redlink=1" class="new" title="Category:Tutorials (page does not exist)">Tutorials</a></li><li><a href="/index.php?title=Category:Code" title="Category:Code">Code</a></li><li><a href="/index.php?title=Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li><li><a href="/index.php?title=Category:Getting_Started" title="Category:Getting Started">Getting Started</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-09a9d3c24f8e543fe"><meta name="worker" content="118"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.31","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/gHooNW9I/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Edit the global content type","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.100bcb10fc821c7c23f8.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.100bcb10fc821c7c23f8.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.076","walltime":"0.562","ppvisitednodes":{"value":110,"limit":1000000},"ppgeneratednodes":{"value":302,"limit":1000000},"postexpandincludesize":{"value":194,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%   10.489      1 -total"," 29.27%    3.070      1 Template:Rating"," 29.01%    3.043      4 Template:Warning"," 28.39%    2.978      5 Template:Note"]},"cachereport":{"timestamp":"20180929105523","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":186});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":223,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

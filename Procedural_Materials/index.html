@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(){}function o(e,t,n){return function(){return i(e,[f.now()].concat(u(arguments)),t?null:this,n),t?void 0:this}}var i=e("handle"),a=e(2),u=e(3),c=e("ee").get("tracer"),f=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,t){s[t]=o(d+t,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),t.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,t){var n={},r=this,o="function"==typeof t;return i(l+"tracer",[f.now(),e,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return t.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],n),e}finally{c.emit("fn-end",[f.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){m[t]=o(l+t)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,f.now()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(o<0?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],4:[function(e,t,n){t.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?c(e,u,i):i()}function n(n,r,o,i){if(!d.aborted||i){e&&e(n,r,o);for(var a=t(o),u=m(n),c=u.length,f=0;f<c;f++)u[f].apply(a,r);var p=s[y[n]];return p&&p.push([b,n,r,a]),a}}function l(e,t){v[e]=m(e).concat(t)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(n)}function g(e,t){f(e,function(e,n){t=t||"feature",y[n]=t,t in s||(s[t]=[])})}var v={},y={},b={on:l,emit:n,get:w,listeners:m,context:t,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",c=e("gos"),f=e(2),s={},p={},d=t.exports=o();d.backlog=s},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!x++){var e=h.info=NREUM.info,t=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return s.abort();f(y,function(t,n){e[t]||(e[t]=n)}),c("mark",["onload",a()+h.offset],null,"api");var n=d.createElement("script");n.src="https://"+e.agent,t.parentNode.insertBefore(n,t)}}function o(){"complete"===d.readyState&&i()}function i(){c("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),c=e("handle"),f=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1071.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=t.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+<title>Procedural Materials - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Procedural_Materials","wgTitle":"Procedural Materials","wgCurRevisionId":379,"wgRevisionId":379,"wgArticleId":189,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Procedural_Materials","wgRelevantArticleId":189,"wgRequestId":"c0f0c52913bd933d2d2eb8af","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@1xxwts3",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Procedural_Materials rootpage-Procedural_Materials skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-02a815c95fb568b8b"><meta name="worker" content="109"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"hideShieldDownload":false,"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"alert":{"msg":"","_type":"Epic Header Alert","id":"","type":"info","statusHref":""},"_activeDate":"2018-08-06T09:11:04.633Z","links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://academy.unrealengine.com/","title":"Video Tutorials","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/unrealdevgrants","title":"Unreal Dev Grants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"}]}],"hideSearch":false,"_version":{"_comment":"Common content type reverted to 1.37.2.100 version by tony.rossi","_createdBy":"tony.rossi"},"_currentVersion":"1.37.2.101.0","_type":"Epic Games Nav","hideSignIn":true,"pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"_futureVersion":"none","downloadLink":{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":""},"_created":"2017-08-21T08:59:33.648Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"hideShieldDropdown":false,"properties":[{"propertyKey":"paragon","_type":"Epic Games Property","egDisabled":true,"egSkip":true}],"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.100bcb10fc821c7c23f8.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.100bcb10fc821c7c23f8.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Procedural+Materials" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=Procedural_Materials" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Procedural_Materials&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=Procedural_Materials">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=Procedural_Materials&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Procedural_Materials&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Procedural Materials</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><h1><span class="mw-headline" id="Goal_of_this_article">Goal of this article</span></h1>
+<p>With this article you will learn how to make and use of dynamic materials to create procedurally generated texture that during runtime is writable and readable in C++. This article will be catered to C++ programmers, and currently there is no support for blueprints.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Goal_of_this_article"><span class="tocnumber">1</span> <span class="toctext">Goal of this article</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Setup"><span class="tocnumber">2</span> <span class="toctext">Setup</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#What_you_will_need"><span class="tocnumber">2.1</span> <span class="toctext">What you will need</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Texture_Setup"><span class="tocnumber">2.2</span> <span class="toctext">Texture Setup</span></a>
+<ul>
+<li class="toclevel-3 tocsection-5"><a href="#Motivation"><span class="tocnumber">2.2.1</span> <span class="toctext">Motivation</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-6"><a href="#Material_Setup"><span class="tocnumber">2.3</span> <span class="toctext">Material Setup</span></a>
+<ul>
+<li class="toclevel-3 tocsection-7"><a href="#Motivation_2"><span class="tocnumber">2.3.1</span> <span class="toctext">Motivation</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-8"><a href="#Enqueue_Render_Task"><span class="tocnumber">2.4</span> <span class="toctext">Enqueue Render Task</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="#Explanation"><span class="tocnumber">2.4.1</span> <span class="toctext">Explanation</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-10"><a href="#Dynamic_Texture_.26_Dynamic_Material"><span class="tocnumber">2.5</span> <span class="toctext">Dynamic Texture &amp; Dynamic Material</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Manipulating_the_texture"><span class="tocnumber">2.6</span> <span class="toctext">Manipulating the texture</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Implemenations"><span class="tocnumber">2.7</span> <span class="toctext">Implemenations</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Complete_example"><span class="tocnumber">2.8</span> <span class="toctext">Complete example</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Setup">Setup</span></h1>
+<h2><span class="mw-headline" id="What_you_will_need">What you will need</span></h2>
+<ul><li> A texture that with the following properties: (<i>Editor</i>)
+<ul><li> No compression (B8G8R8A8) <sup><i>making it humanly readable and writable</i></sup>.</li>
+<li> No mipmaps</li>
+<li> No sRGB applied</li></ul></li>
+<li> A material with a Texture Sample 2D parameter (<i>Editor</i>)</li>
+<li> A function for enqueueing tasks on the render thread. (<i>C++</i>)</li>
+<li> Create the dynamic texture and link it with the dynamic material (<i>C++</i>)</li>
+<li> Manipulate the texture (<i>C++</i>)</li></ul>
+<h2><span class="mw-headline" id="Texture_Setup">Texture Setup</span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;"><a href="/index.php?title=File:DynamicTexture.JPG" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/5/5a/DynamicTexture.JPG/300px-DynamicTexture.JPG" width="300" height="471" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/5/5a/DynamicTexture.JPG/450px-DynamicTexture.JPG 1.5x, https://d3ar1piqh1oeli.cloudfront.net/5/5a/DynamicTexture.JPG/600px-DynamicTexture.JPG 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:DynamicTexture.JPG" class="internal" title="Enlarge"></a></div>Image</div></div></div>
+<p>First you will need to import a texture with your desired dimensions. In its' settings change the following:
+</p>
+<ul><li> Mip Gen Settings -&gt; <b>NoMipmaps</b></li>
+<li> sRGB -&gt; <b>false</b></li>
+<li> Compression Settings -&gt; <b>TC Vector Displacementmap</b></li></ul>
+<h3><span class="mw-headline" id="Motivation">Motivation</span></h3>
+<p>Unreal4 auto-compresses the textures when imported. They usually default to DXT5 which is not appropriate for us to edit. It skews the data and we're unable to get predictable results and values from the texture. By setting the Compression Settings to <b>TC Vector Displacementmap</b> we are guaranteed no compression.<br />
+We are setting the Gamma (sRGB) to false because it also skews the data. Gamma is useful for expanding the color palette in the region we humans are able to detect change. But since we're going to edit the texture it will obscure the pixel values which will make it harder for us to establish a proper prediction and estimation when working with the texture.<br />
+By setting the Mip Gen Settings to <b>NoMipmaps</b> we tell the engine that we are not going to be needing any mipmaps of our texture. This is to prevent bugs when the engine tries to downscale the texture (which we will dynamically write to and read from).
+</p>
+<h2><span class="mw-headline" id="Material_Setup">Material Setup</span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;"><a href="/index.php?title=File:DynamicTextureParam.JPG" class="image"><img alt="DynamicTextureParam.JPG" src="https://d3ar1piqh1oeli.cloudfront.net/d/d7/DynamicTextureParam.JPG/300px-DynamicTextureParam.JPG" width="300" height="145" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/d/d7/DynamicTextureParam.JPG/450px-DynamicTextureParam.JPG 1.5x, https://d3ar1piqh1oeli.cloudfront.net/d/d7/DynamicTextureParam.JPG/600px-DynamicTextureParam.JPG 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/index.php?title=File:DynamicTextureParam.JPG" class="internal" title="Enlarge"></a></div></div></div></div>
+<ul><li> Create a Texture Sample Parameter 2D node in the material</li>
+<li> Change the <i>Sampler Type</i> to <b>Linear Color</b></li>
+<li> Change the <i>Parameter Name</i> to <b>DynamicTextureParam</b> (or whatever name you set in SetTextureParameterValue())</li></ul>
+<h3><span class="mw-headline" id="Motivation_2">Motivation</span></h3>
+<p>The material setup can be as advanced as you wish, all you're going to need to keep in mind is that the texture from the dynamic parameter will be just that; dynamic. The picture illustrates how a simple setup may look (Use the colors of the dynamic texture and sample them with TexCoords). Something to keep in mind: If you don't set the <i>Sampler Type</i> to <b>Linear Color</b> you will encounter an error prompting you to change it accordingly. Later you will write to this parameter through C++.
+</p>
+<h2><span class="mw-headline" id="Enqueue_Render_Task">Enqueue Render Task</span></h2>
+<p>&lt;syntaxhighlight lang="cpp"&gt;void UpdateTextureRegions(UTexture2D* Texture, int32 MipIndex, uint32 NumRegions, FUpdateTextureRegion2D* Regions, uint32 SrcPitch, uint32 SrcBpp, uint8* SrcData, bool bFreeData)
+{
+	if (Texture &amp;&amp; Texture-&gt;Resource)
+	{
+		struct FUpdateTextureRegionsData
+		{
+			FTexture2DResource* Texture2DResource;
+			int32 MipIndex;
+			uint32 NumRegions;
+			FUpdateTextureRegion2D* Regions;
+			uint32 SrcPitch;
+			uint32 SrcBpp;
+			uint8* SrcData;
+		};
+</p><p>		FUpdateTextureRegionsData* RegionData = new FUpdateTextureRegionsData;
+</p><p>		RegionData-&gt;Texture2DResource = (FTexture2DResource*)Texture-&gt;Resource;
+		RegionData-&gt;MipIndex = MipIndex;
+		RegionData-&gt;NumRegions = NumRegions;
+		RegionData-&gt;Regions = Regions;
+		RegionData-&gt;SrcPitch = SrcPitch;
+		RegionData-&gt;SrcBpp = SrcBpp;
+		RegionData-&gt;SrcData = SrcData;
+</p><p>		ENQUEUE_UNIQUE_RENDER_COMMAND_TWOPARAMETER(
+			UpdateTextureRegionsData,
+			FUpdateTextureRegionsData*, RegionData, RegionData,
+			bool, bFreeData, bFreeData,
+			{
+			for (uint32 RegionIndex = 0; RegionIndex &lt; RegionData-&gt;NumRegions; ++RegionIndex)
+			{
+				int32 CurrentFirstMip = RegionData-&gt;Texture2DResource-&gt;GetCurrentFirstMip();
+				if (RegionData-&gt;MipIndex &gt;= CurrentFirstMip)
+				{
+					RHIUpdateTexture2D(
+						RegionData-&gt;Texture2DResource-&gt;GetTexture2DRHI(),
+						RegionData-&gt;MipIndex - CurrentFirstMip,
+						RegionData-&gt;Regions[RegionIndex],
+						RegionData-&gt;SrcPitch,
+						RegionData-&gt;SrcData
+						+ RegionData-&gt;Regions[RegionIndex].SrcY * RegionData-&gt;SrcPitch
+						+ RegionData-&gt;Regions[RegionIndex].SrcX * RegionData-&gt;SrcBpp
+						);
+				}
+			}
+			if (bFreeData)
+			{
+				FMemory::Free(RegionData-&gt;Regions);
+				FMemory::Free(RegionData-&gt;SrcData);
+			}
+			delete RegionData;
+		});
+	}
+}&lt;/syntaxhighlight&gt;
+</p>
+<h3><span class="mw-headline" id="Explanation">Explanation</span></h3>
+<p>This function is a straight copy-paste from <a href="/index.php?title=Dynamic_Textures" title="Dynamic Textures">here</a>, which is where you can read some more about it if you wish to know the ins- and outs of how it works and what it does.
+</p>
+<h2><span class="mw-headline" id="Dynamic_Texture_.26_Dynamic_Material">Dynamic Texture &amp; Dynamic Material</span></h2>
+<p>It does not matter where you do this; as long as it is only done once. A good start-off point would be to have this code in <b>PostInitializeComponents()</b>.
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+//Convert the static material in our mesh into a dynamic one, and store it (please note that if you have more than one material that you wish to mark dynamic, do so here).
+mDynamicMaterials.Add(StaticMeshComponent-&gt;CreateAndSetMaterialInstanceDynamic(0)); 
+//Create a dynamic texture with the default compression (B8G8R8A8)
+mDynamicTexture = UTexture2D::CreateTransient(w, h);
+//Make sure it won't be compressed
+mDynamicTexture-&gt;CompressionSettings = TextureCompressionSettings::TC_VectorDisplacementmap;
+//Turn off Gamma-correction
+mDynamicTexture-&gt;SRGB = 0;
+//Guarantee no garbage collection by adding it as a root reference
+mDynamicTexture-&gt;AddToRoot();
+//Update the texture with new variable values.
+mDynamicTexture-&gt;UpdateResource();
+//Grab the colorvalues from our existing texture (the one we created at <b>Texture Setup</b>) and copy it into a uint8* mTextureColors variable.
+int32 w, h;
+w = textureToReadFrom-&gt;GetSizeX();
+h = textureToReadFrom-&gt;GetSizeY();
+FTexture2DMipMap&amp; readMip = textureToReadFrom-&gt;PlatformData-&gt;Mips[0];
+mDataSize = w * h * 4; // * 4 because we're working with uint8's - which are 4 bytes large
+mDataSqrtSize = w * 4; // * 4 because we're working with uint8's - which are 4 bytes large
+readMip.BulkData.GetCopy((void**)&amp;mTextureColors);
+// Initalize our dynamic pixel array with data size
+mDynamicColors = new uint8[mDataSize];
+// Copy our current texture's colors into our dynamic colors
+FMemory::Memcpy(mDynamicColors, mTextureColors, mDataSize);
+// Create a new texture region with the width and height of our dynamic texture
+mUpdateTextureRegion = new FUpdateTextureRegion2D(0, 0, 0, 0, w, h);
+// Set the Paramater in our material to our texture
+mDynamicMaterials[0]-&gt;SetTextureParameterValue("DynamicTextureParam", mDynamicTexture);
+&lt;/syntaxhighlight&gt;
+</p><p>And the setup is complete. We now have three things:
+</p>
+<ul><li> An array of uint8's which acts as a copy of our static texture</li>
+<li> A dynamic texture which is read/write enabled</li>
+<li> A dynamic material which is read/write enabled</li></ul>
+<h2><span class="mw-headline" id="Manipulating_the_texture">Manipulating the texture</span></h2>
+<p>This is the final piece of the puzzle, which also happens to be the easiest. All you need to do now is to manipulate the array of mDynamicColors and set the individual color values. Worth noting; the entire array exists of BGRA-values, which means that every fourth index is the color B for the current pixel. Here's a small example:
+&lt;syntaxhighlight lang="cpp"&gt;
+mDynamicColors[0] = 255; // Set the Blue channel in pixel nr. 0 to 255
+mDynamicColors[1] = 120; // Set the Green channel in pixel nr. 0 to 120
+mDynamicColors[2] = 120; // Set the Red channel in pixel nr. 0 to 120
+mDynamicColors[3] = 120; // Set the Alpha channel in pixel nr. 0 to 120
+mDynamicColors[4] = 120; // Set the Blue channel in pixel nr. 1 to 120
+// etc etc
+// Array example:
+int pixelAmount = mDataSize / 4;
+for (int i = 0; i &lt; pixelAmount; ++i)
+{
+	int blue = i * 4 + 0;
+	int green = i * 4 + 1;
+	int red = i * 4 + 2;
+	int alpha = i * 4 + 3;
+	mDynamicColors[red] = 120; // Set pixel's red value to 120
+}
+&lt;/syntaxhighlight&gt;
+And now writing the newly set pixels to our texture:
+&lt;syntaxhighlight lang="cpp"&gt;
+void AYourSpecificActor::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	UpdateTextureRegions(mDynamicTexture, 0, 1, mUpdateTextureRegion, mDataSqrtSize, (uint32)4, mDynamicColors, false);
+	mDynamicMaterials[0]-&gt;SetTextureParameterValue("DynamicTextureParam", mDynamicTexture);
+}
+&lt;/syntaxhighlight&gt;
+</p>
+<h2><span class="mw-headline" id="Implemenations">Implemenations</span></h2>
+<p><a rel="nofollow" class="external text" href="https://gist.github.com/makuto/bf87e5ccd0b15b0859608c9b745ac5f1">Simple Dynamic Texture Implementation (Public Domain)</a>
+</p>
+<h2><span class="mw-headline" id="Complete_example">Complete example</span></h2>
+<p>This code is a snippet from our own game. It should be pretty straight forward what it does.
+Please note that this is copyrighted.
+</p><p>The .h file
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>pragma once</li></ol>
+<ol><li>include "GameFramework/Actor.h"</li>
+<li>include "WLavaActor.generated.h"</li></ol>
+<p>/**
+</p>
+<pre>* 
+*/
+</pre>
+<p>UCLASS()
+class SPELLSWORN_API AWLavaActor&#160;: public AStaticMeshActor
+{
+	GENERATED_UCLASS_BODY()
+</p><p>	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+	virtual void PostInitializeComponents() override;
+	virtual void Tick(float DeltaTime) override;
+	void PropagateLava();
+	int GetLavaValue(const FVector&amp; aWorldPosition) const;
+</p><p>	void SetMeltRateDivisor(float aDivisor) { mMeltRateDivisor = aDivisor; }
+	float GetDynamicMeltRate() const { return mMeltRate + mMeltRate * mMeltRateDivisor * .2f; }
+</p><p>	int32 GetRowSize() const { return mRowSize; }
+	int32 GetCellSize() const { return mCellSize; }
+	UFUNCTION()
+	void BeginPropagateLava();
+	UFUNCTION()
+	void EndPropagateLava();
+	void UpdateLava();
+</p><p>	UFUNCTION()
+	void ResetColors();
+</p><p>private:
+	FTimerHandle mTimerHandle_PropagateLava;
+</p><p>	UPROPERTY(EditAnywhere, Category = "TextureToArray")
+	class UWTextureToArray* LavaPixelArray;
+	TArray&lt;uint8&gt;* ExportedLavaValues;
+</p><p>	UPROPERTY(EditAnywhere, Category = "WLavaActor")
+	float mMeltRate;
+	UPROPERTY(EditAnywhere, Category = "WLavaActor")
+	uint8 mMeltWhenNeighborIsBelow;
+	UPROPERTY(EditAnywhere, Category = "WLavaActor")
+	float mMeltValue;
+</p><p>	int32 mCellSize;
+	int32 mRowSize;
+	int32 mArraySize;
+	TArray&lt;int32&gt; mArrayOfIndexes;
+</p><p>	TArray&lt;class UMaterialInstanceDynamic*&gt; mDynamicMaterials;
+	UPROPERTY() 
+	UTexture2D *mDynamicTexture;
+	FUpdateTextureRegion2D* mUpdateTextureRegion;
+	uint8* mDynamicColors;
+	float* mDynamicColorsFloat;
+	uint32 mDataSize;
+	uint32 mDataSqrtSize;
+</p><p>	UPROPERTY(ReplicatedUsing=OnRep_CurrentMeltTime)
+	float mCurrentMeltTime;
+	float mPreviousMeltTime;
+	float mMeltRateDivisor;
+</p><p>	UFUNCTION()
+	void OnRep_CurrentMeltTime();
+</p><p>	UPROPERTY(Replicated)
+	bool bPropagating;
+	float mPropagateTime;
+</p><p>};
+&lt;/syntaxhighlight&gt;
+</p><p><br />
+The .cpp file
+&lt;syntaxhighlight lang="cpp"&gt;
+</p><p><br />
+</p>
+<ol><li>include "Spellsworn.h"</li>
+<li>include "WLavaActor.h"</li>
+<li>include "WGameState.h"</li>
+<li>include "WGameMode.h"</li>
+<li>include "StaticMeshResources.h"</li>
+<li>include "Misc/TextureToArray/WTextureToArray.h"</li></ol>
+<ol><li>define RED 2</li>
+<li>define GREEN 1</li>
+<li>define BLUE 0</li>
+<li>define ALPHA 3</li></ol>
+<ol><li>define ALPHA_CHECK 200</li></ol>
+<p>void UpdateTextureRegions(UTexture2D* Texture, int32 MipIndex, uint32 NumRegions, FUpdateTextureRegion2D* Regions, uint32 SrcPitch, uint32 SrcBpp, uint8* SrcData, bool bFreeData)
+{
+	if (Texture &amp;&amp; Texture-&gt;Resource)
+	{
+		struct FUpdateTextureRegionsData
+		{
+			FTexture2DResource* Texture2DResource;
+			int32 MipIndex;
+			uint32 NumRegions;
+			FUpdateTextureRegion2D* Regions;
+			uint32 SrcPitch;
+			uint32 SrcBpp;
+			uint8* SrcData;
+		};
+</p><p>		FUpdateTextureRegionsData* RegionData = new FUpdateTextureRegionsData;
+</p><p>		RegionData-&gt;Texture2DResource = (FTexture2DResource*)Texture-&gt;Resource;
+		RegionData-&gt;MipIndex = MipIndex;
+		RegionData-&gt;NumRegions = NumRegions;
+		RegionData-&gt;Regions = Regions;
+		RegionData-&gt;SrcPitch = SrcPitch;
+		RegionData-&gt;SrcBpp = SrcBpp;
+		RegionData-&gt;SrcData = SrcData;
+</p><p>		ENQUEUE_UNIQUE_RENDER_COMMAND_TWOPARAMETER(
+			UpdateTextureRegionsData,
+			FUpdateTextureRegionsData*, RegionData, RegionData,
+			bool, bFreeData, bFreeData,
+			{
+			for (uint32 RegionIndex = 0; RegionIndex &lt; RegionData-&gt;NumRegions; ++RegionIndex)
+			{
+				int32 CurrentFirstMip = RegionData-&gt;Texture2DResource-&gt;GetCurrentFirstMip();
+				if (RegionData-&gt;MipIndex &gt;= CurrentFirstMip)
+				{
+					RHIUpdateTexture2D(
+						RegionData-&gt;Texture2DResource-&gt;GetTexture2DRHI(),
+						RegionData-&gt;MipIndex - CurrentFirstMip,
+						RegionData-&gt;Regions[RegionIndex],
+						RegionData-&gt;SrcPitch,
+						RegionData-&gt;SrcData
+						+ RegionData-&gt;Regions[RegionIndex].SrcY * RegionData-&gt;SrcPitch
+						+ RegionData-&gt;Regions[RegionIndex].SrcX * RegionData-&gt;SrcBpp
+						);
+				}
+			}
+			if (bFreeData)
+			{
+				FMemory::Free(RegionData-&gt;Regions);
+				FMemory::Free(RegionData-&gt;SrcData);
+			}
+			delete RegionData;
+		});
+	}
+}
+</p><p>AWLavaActor::AWLavaActor(const class FObjectInitializer&amp; PCIP)
+	: Super(PCIP)
+{
+	PrimaryActorTick.bCanEverTick = true;
+	mMeltRate = 0.05f;
+	mMeltWhenNeighborIsBelow = 127;
+	mMeltRateDivisor = 0.0f;
+	SetReplicates(true);
+	bPropagating = false;
+	mDynamicColors = nullptr;
+	mDynamicColorsFloat = nullptr;
+	mUpdateTextureRegion = nullptr;
+}
+</p><p>void AWLavaActor::GetLifetimeReplicatedProps(TArray&lt;FLifetimeProperty&gt;&amp; OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+</p><p>	DOREPLIFETIME(AWLavaActor, mCurrentMeltTime);
+	DOREPLIFETIME(AWLavaActor, bPropagating);
+}
+</p><p>void AWLavaActor::BeginPlay()
+{
+	Super::BeginPlay();
+</p><p>	UWorld* world = GetWorld();
+	if (world)
+	{
+		AWGameState* gameState = world-&gt;GetGameState&lt;AWGameState&gt;();
+		if (gameState)
+		{
+			gameState-&gt;mRestartRoundDelegate.RemoveAll(this);
+			gameState-&gt;mRestartRoundDelegate.AddUObject(this, &amp;AWLavaActor::BeginPropagateLava);
+			gameState-&gt;mStartShopDelegate.RemoveAll(this);
+			gameState-&gt;mStartShopDelegate.AddUObject(this, &amp;AWLavaActor::EndPropagateLava);
+		}
+	}
+}
+</p><p>void AWLavaActor::OnRep_CurrentMeltTime()
+{
+	if (mCurrentMeltTime - mPreviousMeltTime &gt; 2.f)
+	{
+		//GetWorld()-&gt;GetTimerManager().ClearTimer(mTimerHandle_PropagateLava);
+		//GetWorld()-&gt;GetTimerManager().SetTimer(mTimerHandle_PropagateLava, this, &amp;AWLavaActor::PropagateLava, GetDynamicMeltRate(), false);
+</p><p>		int timesToPropagate = (mCurrentMeltTime - mPreviousMeltTime) / mMeltRate;
+		for (int i = 0; i &lt; timesToPropagate; ++i)
+		{
+			PropagateLava();
+		}
+	}
+}
+</p><p>void AWLavaActor::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	//PRINT("Destroying lava actor");
+	UWorld* world = GetWorld();
+	if (world)
+	{
+		AWGameState* gameState = world-&gt;GetGameState&lt;AWGameState&gt;();
+		if (gameState)
+		{
+			gameState-&gt;mRestartRoundDelegate.RemoveAll(this);
+			gameState-&gt;mStartShopDelegate.RemoveAll(this);
+		}
+	}
+	delete[] mDynamicColors; mDynamicColors = nullptr;
+	delete[] mDynamicColorsFloat; mDynamicColorsFloat = nullptr;
+	delete mUpdateTextureRegion; mUpdateTextureRegion = nullptr;
+	Super::EndPlay(EndPlayReason);
+}
+</p><p>void AWLavaActor::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+	if (mDynamicColors) delete[] mDynamicColors;
+	if (mDynamicColorsFloat) delete[] mDynamicColorsFloat;
+	if (mUpdateTextureRegion) delete mUpdateTextureRegion;
+	if (!LavaPixelArray) return;
+</p><p>	ExportedLavaValues = LavaPixelArray-&gt;GetArray();
+	int32 w, h;
+	w = FMath::Sqrt(ExportedLavaValues-&gt;Num() / 4);
+	h = w;
+</p><p>	if (!IsRunningDedicatedServer())
+	{
+		mDynamicMaterials.Empty();
+		mDynamicMaterials.Add(GetStaticMeshComponent()-&gt;CreateAndSetMaterialInstanceDynamic(0));
+		mDynamicTexture = UTexture2D::CreateTransient(w, h);
+		mDynamicTexture-&gt;CompressionSettings = TextureCompressionSettings::TC_VectorDisplacementmap;
+		mDynamicTexture-&gt;SRGB = 0;
+		mDynamicTexture-&gt;AddToRoot();
+		mDynamicTexture-&gt;UpdateResource();
+</p><p>		mUpdateTextureRegion = new FUpdateTextureRegion2D(0, 0, 0, 0, w, h);
+</p><p>		mDynamicMaterials[0]-&gt;SetTextureParameterValue("DynamicTextureParam", mDynamicTexture);
+	}
+	mDataSize = w * h * 4;
+	mDataSqrtSize = w * 4;
+	mArraySize = w * h;
+	mRowSize = w;
+	mDynamicColors = new uint8[mDataSize];
+	mDynamicColorsFloat = new float[mArraySize];
+</p><p>	ResetColors();
+}
+</p><p>void AWLavaActor::BeginPropagateLava()
+{
+	bPropagating = true;
+	mPropagateTime = 0;
+	mCurrentMeltTime = mPreviousMeltTime = 0.0f;
+	//GetWorld()-&gt;GetTimerManager().ClearTimer(mTimerHandle_PropagateLava);
+	//GetWorld()-&gt;GetTimerManager().SetTimer(mTimerHandle_PropagateLava, this, &amp;AWLavaActor::PropagateLava, GetDynamicMeltRate(), false);
+	ResetColors();
+}
+</p><p>void AWLavaActor::EndPropagateLava()
+{
+	bPropagating = false;
+	mPropagateTime = 0;
+	mCurrentMeltTime = mPreviousMeltTime = 0.0f;
+	//GetWorld()-&gt;GetTimerManager().ClearTimer(mTimerHandle_PropagateLava);
+	ResetColors();
+}
+</p><p>void AWLavaActor::ResetColors()
+{
+	mArrayOfIndexes.Empty();
+	FMemory::Memcpy(mDynamicColors, ExportedLavaValues-&gt;GetData(), mDataSize);
+</p><p>	for (int i = 0; i &lt; mArraySize; ++i)
+	{
+		mDynamicColorsFloat[i] = static_cast&lt;float&gt;(mDynamicColors[i * 4 + RED]);
+		if (mDynamicColors[i * 4 + RED] &gt; mDynamicColors[i * 4 + BLUE])
+			mArrayOfIndexes.Add(i);
+	}
+</p><p>	UpdateLava();
+}
+</p><p>int AWLavaActor::GetLavaValue(const FVector&amp; aWorldPosition) const
+{
+	if (!mDynamicColors) return 0;
+	FVector origin;
+	FVector bounds;
+	GetActorBounds(false, origin, bounds);
+	FVector corner = origin - bounds;
+	FVector relativePosition = aWorldPosition - corner;
+	float cellSize = (bounds.X*2) / FMath::Max&lt;float&gt;(1.f, mRowSize);
+	int32 cellX = FMath::Clamp(FMath::RoundToInt(relativePosition.X / FMath::Max(1.f, cellSize)), 0, mRowSize);
+	int32 cellY = FMath::Clamp(FMath::RoundToInt(relativePosition.Y / FMath::Max(1.f, cellSize)), 0, mRowSize);
+	int32 cellIndex = FMath::Clamp&lt;int32&gt;(cellX + mRowSize * cellY, 0, mArraySize - 1);
+	uint8 value = FMath::Max&lt;uint8&gt;(mDynamicColors[cellIndex * 4 + RED], mDynamicColors[cellIndex * 4 + BLUE]);
+	if(mDynamicColors[cellIndex * 4 + ALPHA] &lt; ALPHA_CHECK)
+		return 0;
+</p><p>	return value;
+}
+</p><p>void AWLavaActor::PropagateLava()
+{
+	mPreviousMeltTime = mCurrentMeltTime;
+	mCurrentMeltTime += mMeltRate;
+</p><p>	//GetWorld()-&gt;GetTimerManager().ClearTimer(mTimerHandle_PropagateLava);
+	//GetWorld()-&gt;GetTimerManager().SetTimer(mTimerHandle_PropagateLava, this, &amp;AWLavaActor::PropagateLava, GetDynamicMeltRate(), false);
+</p><p>	struct Neighbor
+	{
+		Neighbor(int indx, float v)&#160;:index(indx), val(v){}
+		int index;
+		float val;
+	};
+	for (int32 i = 0; i &lt; mArrayOfIndexes.Num(); ++i)
+	{
+		int index = mArrayOfIndexes[i];
+		int colorIndex = index * 4;
+		uint8 colorValue = mDynamicColors[colorIndex + RED];
+		if (colorValue &lt;= mDynamicColors[colorIndex + BLUE] || mDynamicColors[colorIndex + ALPHA] &lt; ALPHA_CHECK)
+		{
+			mArrayOfIndexes.RemoveAt(i--);
+			continue;
+		}
+</p><p>		int x = index&#160;% mRowSize;
+		int y = FMath::FloorToInt(index / mRowSize);
+		Neighbor neighbors[12] = {
+			Neighbor((mRowSize * (y - 1) + (x - 0)) * 4, 1.00f),	// Below
+			Neighbor((mRowSize * (y - 1) + (x - 1)) * 4, 0.75f),	// Below Left
+			Neighbor((mRowSize * (y - 0) + (x - 1)) * 4, 1.00f),	// Left
+			Neighbor((mRowSize * (y + 1) + (x - 1)) * 4, 0.75f),	// Above Left
+			Neighbor((mRowSize * (y + 1) + (x + 0)) * 4, 1.00f),	// Above
+			Neighbor((mRowSize * (y + 1) + (x + 1)) * 4, 0.75f),	// Above Right
+			Neighbor((mRowSize * (y - 0) + (x + 1)) * 4, 1.00f),	// Right
+			Neighbor((mRowSize * (y - 1) + (x - 0)) * 4, 0.75f),	// Below right
+			Neighbor((mRowSize * (y - 2) + (x - 0)) * 4, 0.50f),	// Below * 2
+			Neighbor((mRowSize * (y - 0) + (x - 2)) * 4, 0.50f),	// Left * 2
+			Neighbor((mRowSize * (y + 2) + (x - 0)) * 4, 0.50f),	// Above * 2
+			Neighbor((mRowSize * (y + 0) + (x + 2)) * 4, 0.50f),	// Right * 2
+		};
+</p><p>		for (uint8 n = 0; n &lt; 12; ++n)
+		{
+			if (n &gt;= 0 &amp;&amp; n &lt; mDataSize)
+			{
+				colorValue = mDynamicColors[colorIndex + RED];
+				if (colorValue &lt;= 0) break;
+</p><p>				int rVal = mDynamicColors[neighbors[n].index + RED];
+				if (rVal &lt; mMeltWhenNeighborIsBelow)
+				{
+					float propVal = mMeltValue * neighbors[n].val/* * (mDynamicColorsFloat[index] / 255.f)*/;
+					mDynamicColorsFloat[index] -= propVal;
+					mDynamicColorsFloat[index] = FMath::Max&lt;float&gt;(mDynamicColorsFloat[index], 0.f);
+					mDynamicColors[colorIndex + RED] = static_cast&lt;uint8&gt;(FMath::FloorToInt(mDynamicColorsFloat[index]));
+				}
+			}
+		}
+	}
+</p><p>	UpdateLava();
+}
+</p><p>void AWLavaActor::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+</p><p>	if(bPropagating)
+	{
+		mPropagateTime += DeltaTime;
+		float dynamicMeltRate = GetDynamicMeltRate();
+		while(mPropagateTime &gt;= dynamicMeltRate)
+		{
+			mPropagateTime -= dynamicMeltRate;
+			PropagateLava();
+		}
+	}
+}
+</p><p>void AWLavaActor::UpdateLava()
+{
+	if (!IsRunningDedicatedServer())
+	{
+		UpdateTextureRegions(mDynamicTexture, 0, 1, mUpdateTextureRegion, mDataSqrtSize, (uint32)4, mDynamicColors, false);
+		mDynamicMaterials[0]-&gt;SetTextureParameterValue("DynamicTextureParam", mDynamicTexture);
+	}
+}
+&lt;/syntaxhighlight&gt;
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20181009221223
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.068 seconds
+Real time usage: 0.285 seconds
+Preprocessor visited node count: 52/1000000
+Preprocessor generated node count: 60/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:189-0!canonical and timestamp 20181009221222 and revision id 379
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=Procedural_Materials&amp;oldid=379">https://wiki.unrealengine.com/index.php?title=Procedural_Materials&amp;oldid=379</a>"						</div>
+					<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0a137bf8b82e8a632"><meta name="worker" content="109"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.31","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/gHooNW9I/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Edit the global content type","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.100bcb10fc821c7c23f8.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.100bcb10fc821c7c23f8.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.068","walltime":"0.285","ppvisitednodes":{"value":52,"limit":1000000},"ppgeneratednodes":{"value":60,"limit":1000000},"postexpandincludesize":{"value":0,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.000      1 -total"]},"cachereport":{"timestamp":"20181009221223","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":183});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":228,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

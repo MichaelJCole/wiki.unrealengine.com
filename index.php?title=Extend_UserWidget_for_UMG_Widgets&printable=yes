@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Extend UserWidget for UMG Widgets - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,follow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;printable=1&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;printable=1&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;printable=1&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Extend_UserWidget_for_UMG_Widgets","wgTitle":"Extend UserWidget for UMG Widgets","wgCurRevisionId":16753,"wgRevisionId":16753,"wgArticleId":3771,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Code"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Extend_UserWidget_for_UMG_Widgets","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;printable=1&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Extend_UserWidget_for_UMG_Widgets skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head"></div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-recentchanges"><a href="/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Community' aria-labelledby='p-Community-label'>
+	<h3 id='p-Community-label'>Community</h3>
+	<div class="body">
+		<ul>
+			<li id="n-UE4-Games"><a href="/Category:Games">UE4 Games</a></li>
+			<li id="n-Dev-Blogs"><a href="/Developer_Blogs">Dev Blogs</a></li>
+			<li id="n-Dev-Livestreams"><a href="/Developer_Livestreams">Dev Livestreams</a></li>
+			<li id="n-Code-Sharing-Hub"><a href="/GitHub_Sharing_Hub">Code Sharing Hub</a></li>
+			<li id="n-UE-User-Groups"><a href="/User_Group_Map">UE User Groups</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Learning_Resources' aria-labelledby='p-Learning_Resources-label'>
+	<h3 id='p-Learning_Resources-label'>Learning Resources</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Example-Projects"><a href="/Category:Example_Projects">Example Projects</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Software_and_Tools' aria-labelledby='p-Software_and_Tools-label'>
+	<h3 id='p-Software_and_Tools-label'>Software and Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Art:-3D"><a href="/3D_Art_Resources">Art: 3D</a></li>
+			<li id="n-Art:-2D"><a href="/2D_Art_Resources">Art: 2D</a></li>
+			<li id="n-Audio"><a href="/Audio_Resources">Audio</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Modding' aria-labelledby='p-Modding-label'>
+	<h3 id='p-Modding-label'>Modding</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Modding-Resources"><a href="/Category:Modding_Resources">Modding Resources</a></li>
+			<li id="n-Moddable-Games"><a href="/Category:Moddable_Games">Moddable Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Epic_Official' aria-labelledby='p-Epic_Official-label'>
+	<h3 id='p-Epic_Official-label'>Epic Official</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Website"><a href="https://www.unrealengine.com" rel="nofollow">Website</a></li>
+			<li id="n-Learning-Resources"><a href="https://docs.unrealengine.com/latest/INT/" rel="nofollow">Learning Resources</a></li>
+			<li id="n-Forums"><a href="https://forums.unrealengine.com/" rel="nofollow">Forums</a></li>
+			<li id="n-Blog"><a href="https://www.unrealengine.com/blog" rel="nofollow">Blog</a></li>
+			<li id="n-YouTube"><a href="https://www.youtube.com/UnrealEngine" rel="nofollow">YouTube</a></li>
+			<li id="n-Twitch"><a href="http://www.twitch.tv/unrealengine" rel="nofollow">Twitch</a></li>
+			<li id="n-Twitter"><a href="https://twitter.com/UnrealEngine" rel="nofollow">Twitter</a></li>
+			<li id="n-Facebook"><a href="https://www.facebook.com/UnrealEngine" rel="nofollow">Facebook</a></li>
+			<li id="n-Instagram"><a href="https://instagram.com/unrealengine/" rel="nofollow">Instagram</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Extend_UserWidget_for_UMG_Widgets" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Extend_UserWidget_for_UMG_Widgets" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Extend_UserWidget_for_UMG_Widgets&amp;oldid=16753" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Extend_UserWidget_for_UMG_Widgets&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Extend_UserWidget_for_UMG_Widgets"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Extend_UserWidget_for_UMG_Widgets&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Extend_UserWidget_for_UMG_Widgets" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Extend_UserWidget_for_UMG_Widgets&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Extend_UserWidget_for_UMG_Widgets&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Extend+UserWidget+for+UMG+Widgets&amp;returntoquery=printable%3Dyes&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Extend+UserWidget+for+UMG+Widgets&amp;returntoquery=printable%3Dyes" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Extend UserWidget for UMG Widgets</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#1:_We_start_of_by_creating_a_new_Blank_Project_from_the_launcher."><span class="tocnumber">2</span> <span class="toctext">1: We start of by creating a new Blank Project from the launcher.</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#2:_After_compiling"><span class="tocnumber">3</span> <span class="toctext">2: After compiling</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#3:_In_your_new_project"><span class="tocnumber">4</span> <span class="toctext">3: In your new project</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#4:_Add_new_class"><span class="tocnumber">5</span> <span class="toctext">4: Add new class</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#5:_Add_the_Dependency_Module"><span class="tocnumber">6</span> <span class="toctext">5: Add the Dependency Module</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#6:_Extending_the_User_Widget"><span class="tocnumber">7</span> <span class="toctext">6: Extending the User Widget</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#7:_Re-compile_your_project"><span class="tocnumber">8</span> <span class="toctext">7: Re-compile your project</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#8:_Set_Parent_Class"><span class="tocnumber">9</span> <span class="toctext">8: Set Parent Class</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#9:_Compiling_Widget_and_Notes"><span class="tocnumber">10</span> <span class="toctext">9: Compiling Widget and Notes</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="#Conclusion"><span class="tocnumber">11</span> <span class="toctext">Conclusion</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#Project_Download"><span class="tocnumber">12</span> <span class="toctext">Project Download</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="#Related_Tutorials"><span class="tocnumber">13</span> <span class="toctext">Related Tutorials</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p><i>Author: </i> <a href="/User:WCode" title="User:WCode">WCode</a> (<a href="/index.php?title=User_talk:WCode&amp;action=edit&amp;redlink=1" class="new" title="User talk:WCode (page does not exist)">talk</a>)
+</p><p>Some months back i did a tutorial on how to extend a User Widget for UMG Widgets.
+Now that UMG is more mature and have gotten scientifically better.
+I realize that the process of extending the User Widget class is much simpler.
+</p>
+<h2><span class="mw-headline" id="1:_We_start_of_by_creating_a_new_Blank_Project_from_the_launcher.">1: We start of by creating a new Blank Project from the launcher.</span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UMGExtedUserWidget_1a.png" class="image"><img alt="UMGExtedUserWidget 1a.png" src="https://d3ar1piqh1oeli.cloudfront.net/4/44/UMGExtedUserWidget_1a.png/180px-UMGExtedUserWidget_1a.png" width="180" height="123" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/4/44/UMGExtedUserWidget_1a.png/270px-UMGExtedUserWidget_1a.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/4/44/UMGExtedUserWidget_1a.png/360px-UMGExtedUserWidget_1a.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UMGExtedUserWidget_1a.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<h2><span class="mw-headline" id="2:_After_compiling">2: After compiling</span></h2>
+<p>After compiling the new project and launching your new project you should have something like this in your new project folder. 
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UMGExtedUserWidget_2a.png" class="image"><img alt="UMGExtedUserWidget 2a.png" src="https://d3ar1piqh1oeli.cloudfront.net/f/fc/UMGExtedUserWidget_2a.png/180px-UMGExtedUserWidget_2a.png" width="180" height="124" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/f/fc/UMGExtedUserWidget_2a.png/270px-UMGExtedUserWidget_2a.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/f/fc/UMGExtedUserWidget_2a.png/360px-UMGExtedUserWidget_2a.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UMGExtedUserWidget_2a.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<h2><span class="mw-headline" id="3:_In_your_new_project">3: In your new project</span></h2>
+<p>In your new project in the top left corner Press on the Option «File»
+File &gt;Add Code to Project 
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UMGExtedUserWidget_3a.png" class="image"><img alt="UMGExtedUserWidget 3a.png" src="https://d3ar1piqh1oeli.cloudfront.net/1/1e/UMGExtedUserWidget_3a.png/180px-UMGExtedUserWidget_3a.png" width="180" height="479" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/1/1e/UMGExtedUserWidget_3a.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/1/1e/UMGExtedUserWidget_3a.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UMGExtedUserWidget_3a.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<h2><span class="mw-headline" id="4:_Add_new_class">4: Add new class</span></h2>
+<p>In the new Window that opens up check «Show All Classes» in the top right corner.
+And enter UserWidget in the search field at the top of the class list.
+And Select UserWidget.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UMGExtedUserWidget_4a.png" class="image"><img alt="UMGExtedUserWidget 4a.png" src="https://d3ar1piqh1oeli.cloudfront.net/2/23/UMGExtedUserWidget_4a.png/180px-UMGExtedUserWidget_4a.png" width="180" height="64" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/2/23/UMGExtedUserWidget_4a.png/270px-UMGExtedUserWidget_4a.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/2/23/UMGExtedUserWidget_4a.png/360px-UMGExtedUserWidget_4a.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UMGExtedUserWidget_4a.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><b>Note:</b> I got a «Error» when making this tutorial related to the editor was unable to hot-reload. Closing the Editor and compiling manualy was the solution.
+</p>
+<h2><span class="mw-headline" id="5:_Add_the_Dependency_Module">5: Add the Dependency Module</span></h2>
+<p>Now in you IDE (I am using MS Visual Studio) you need to edit your Build file for your project. You need to add the Dependency Module «UMG»  to the project.
+</p><p>The edited line in you ProjectName.Build.cs file should be.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">PublicDependencyModuleNames.<span class="me1">AddRange</span><span class="br0">&#40;</span><span class="kw3">new</span> string<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span> <span class="st0">&quot;Core&quot;</span>, <span class="st0">&quot;CoreUObject&quot;</span>, <span class="st0">&quot;Engine&quot;</span>, <span class="st0">&quot;InputCore&quot;</span>, <span class="st0">&quot;UMG&quot;</span> <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<p>Also you need to uncomment the modules for Slate as shown.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co1">// Uncomment if you are using Slate UI</span>
+PrivateDependencyModuleNames.<span class="me1">AddRange</span><span class="br0">&#40;</span><span class="kw3">new</span> string<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span> <span class="st0">&quot;Slate&quot;</span>, <span class="st0">&quot;SlateCore&quot;</span> <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy4">;</span></pre></div></div>
+<p>Here is a image showing the edited Build file.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UMGExtedUserWidget_5a.png" class="image"><img alt="UMGExtedUserWidget 5a.png" src="https://d3ar1piqh1oeli.cloudfront.net/d/da/UMGExtedUserWidget_5a.png/180px-UMGExtedUserWidget_5a.png" width="180" height="64" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/d/da/UMGExtedUserWidget_5a.png/270px-UMGExtedUserWidget_5a.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/d/da/UMGExtedUserWidget_5a.png/360px-UMGExtedUserWidget_5a.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UMGExtedUserWidget_5a.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<h2><span class="mw-headline" id="6:_Extending_the_User_Widget">6: Extending the User Widget</span></h2>
+<p>In order to see the difference and for the sake of this tutorial we now open the MyUserWidget.h file in your IDE.
+And we add the following member to our new UserWidget class.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw2">public</span><span class="sy4">:</span>
+	UPROPERTY<span class="br0">&#40;</span>EditAnywhere, BlueprintReadWrite, Category <span class="sy1">=</span> <span class="st0">&quot;My New User Widget&quot;</span><span class="br0">&#41;</span>
+		FString MyNewWidgetName<span class="sy4">;</span></pre></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UMGExtedUserWidget_6a.png" class="image"><img alt="UMGExtedUserWidget 6a.png" src="https://d3ar1piqh1oeli.cloudfront.net/b/bc/UMGExtedUserWidget_6a.png/180px-UMGExtedUserWidget_6a.png" width="180" height="107" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/b/bc/UMGExtedUserWidget_6a.png/270px-UMGExtedUserWidget_6a.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/b/bc/UMGExtedUserWidget_6a.png/360px-UMGExtedUserWidget_6a.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UMGExtedUserWidget_6a.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<h2><span class="mw-headline" id="7:_Re-compile_your_project">7: Re-compile your project</span></h2>
+<p>Now re-compile your project and open up your project in the editor.
+And create a new Widget Blueprint. 
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UMGExtedUserWidget_7a.png" class="image"><img alt="UMGExtedUserWidget 7a.png" src="https://d3ar1piqh1oeli.cloudfront.net/5/56/UMGExtedUserWidget_7a.png/180px-UMGExtedUserWidget_7a.png" width="180" height="371" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/5/56/UMGExtedUserWidget_7a.png/270px-UMGExtedUserWidget_7a.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/5/56/UMGExtedUserWidget_7a.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UMGExtedUserWidget_7a.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<h2><span class="mw-headline" id="8:_Set_Parent_Class">8: Set Parent Class</span></h2>
+<p>Open up the new Widget Blueprint and select the Graph in the top right corner.
+And press on the Class Settings button at the top left. (To the right of the compile button.)
+In the Details panel (To the bottom left in my Editor) find the category «Class Options»
+Press on the dropdown menu for Parent Class and select your new User Widget class. (MyUserWidget in this case).
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UMGExtedUserWidget_8a.png" class="image"><img alt="UMGExtedUserWidget 8a.png" src="https://d3ar1piqh1oeli.cloudfront.net/0/0e/UMGExtedUserWidget_8a.png/180px-UMGExtedUserWidget_8a.png" width="180" height="99" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/0/0e/UMGExtedUserWidget_8a.png/270px-UMGExtedUserWidget_8a.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/0/0e/UMGExtedUserWidget_8a.png/360px-UMGExtedUserWidget_8a.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UMGExtedUserWidget_8a.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<h2><span class="mw-headline" id="9:_Compiling_Widget_and_Notes">9: Compiling Widget and Notes</span></h2>
+<p>Compile the Widget and you are done.
+If you can not see the new member we added earlier make sure you have checked.
+«Show Inherited Variabels» 
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:179px;"><a href="/File:UMGExtedUserWidget_9a.png" class="image"><img alt="UMGExtedUserWidget 9a.png" src="https://d26ilriwvtzlb.cloudfront.net/f/f2/UMGExtedUserWidget_9a.png" width="177" height="75" class="thumbimage" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UMGExtedUserWidget_9a.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p>And you will see the new member in your Blueprint Tab.
+</p>
+<div class="thumb tright"><div class="thumbinner" style="width:182px;"><a href="/File:UMGExtedUserWidget_9b.png" class="image"><img alt="UMGExtedUserWidget 9b.png" src="https://d3ar1piqh1oeli.cloudfront.net/0/0e/UMGExtedUserWidget_9b.png/180px-UMGExtedUserWidget_9b.png" width="180" height="173" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/0/0e/UMGExtedUserWidget_9b.png/270px-UMGExtedUserWidget_9b.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/0/0e/UMGExtedUserWidget_9b.png/360px-UMGExtedUserWidget_9b.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:UMGExtedUserWidget_9b.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p><b>Notes:</b> That is it this is got alot simpler then before.
+But i like to list some headers that may come in handy down the road.
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">	<span class="st0">&quot;Runtime/UMG/Public/UMG.h&quot;</span>
+	<span class="st0">&quot;Runtime/UMG/Public/UMGStyle.h&quot;</span>
+	<span class="st0">&quot;Runtime/UMG/Public/Slate/SObjectWidget.h&quot;</span>
+	<span class="st0">&quot;Runtime/UMG/Public/IUMGModule.h&quot;</span>
+	<span class="st0">&quot;Runtime/UMG/Public/Blueprint/UserWidget.h&quot;</span></pre></div></div>
+<h2><span class="mw-headline" id="Conclusion">Conclusion</span></h2>
+<p>You are done, now you have a simple and fast way to extend the user widget.
+From everything from Data Storage to picking up "events" delegates and so on.
+</p><p>Hope this was helpfull.<br />
+</p><p>WCode
+</p>
+<h2><span class="mw-headline" id="Project_Download">Project Download</span></h2>
+<p>Here is a link to a Project Download it contains all the information displayed here.<br />
+As well as a copy of the finished tutorial.<br />
+<a rel="nofollow" class="external free" href="https://drive.google.com/file/d/0B7MMiQc2raPVZmxBYVFqWGpoOGs/view?usp=sharing">https://drive.google.com/file/d/0B7MMiQc2raPVZmxBYVFqWGpoOGs/view?usp=sharing</a>
+</p>
+<h2><span class="mw-headline" id="Related_Tutorials">Related Tutorials</span></h2>
+<p><a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Engine/UMG/index.html">Epic's UMG Documentation</a>
+</p><p><a href="/UMG,_Create_Scrollable_List_of_Clickable_Buttons_From_Dynamic_Array" title="UMG, Create Scrollable List of Clickable Buttons From Dynamic Array"> UMG, Create Scrollable List of Clickable Buttons From Dynamic Array, by Rama!</a>
+</p><p><a rel="nofollow" class="external text" href="https://forums.unrealengine.com/showthread.php?52773-Tutorial-Snippet-Creating-a-UMG-Widget-in-C-and-delegate-example">[Tutorial/ Snippet] Creating a UMG Widget in C++, and delegate example by WCode.</a>
+</p><p><a rel="nofollow" class="external text" href="https://wiki.unrealengine.com/UMG,_How_to_extend_a_UUserWidget::_for_UMG_in_C%2B%2B.">[Tutorial] UMG, How to extend a UUserWidget:: for UMG in C++.</a>
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.086 seconds
+Real time usage: 0.366 seconds
+Preprocessor visited node count: 93/1000000
+Preprocessor generated node count: 178/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:3771-0!*!0!!en!2!* and timestamp 20161223174144
+ -->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=Extend_UserWidget_for_UMG_Widgets&amp;oldid=16753">https://wiki.unrealengine.com/index.php?title=Extend_UserWidget_for_UMG_Widgets&amp;oldid=16753</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;printable=1&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.055 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

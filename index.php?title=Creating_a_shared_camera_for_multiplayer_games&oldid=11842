@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Creating a shared camera for multiplayer games - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Creating_a_shared_camera_for_multiplayer_games","wgTitle":"Creating a shared camera for multiplayer games","wgCurRevisionId":11842,"wgRevisionId":11842,"wgArticleId":3345,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Creating_a_shared_camera_for_multiplayer_games","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Creating_a_shared_camera_for_multiplayer_games skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head"></div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-recentchanges"><a href="/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Community' aria-labelledby='p-Community-label'>
+	<h3 id='p-Community-label'>Community</h3>
+	<div class="body">
+		<ul>
+			<li id="n-UE4-Games"><a href="/Category:Games">UE4 Games</a></li>
+			<li id="n-Dev-Blogs"><a href="/Developer_Blogs">Dev Blogs</a></li>
+			<li id="n-Dev-Livestreams"><a href="/Developer_Livestreams">Dev Livestreams</a></li>
+			<li id="n-Code-Sharing-Hub"><a href="/GitHub_Sharing_Hub">Code Sharing Hub</a></li>
+			<li id="n-UE-User-Groups"><a href="/User_Group_Map">UE User Groups</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Learning_Resources' aria-labelledby='p-Learning_Resources-label'>
+	<h3 id='p-Learning_Resources-label'>Learning Resources</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Example-Projects"><a href="/Category:Example_Projects">Example Projects</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Software_and_Tools' aria-labelledby='p-Software_and_Tools-label'>
+	<h3 id='p-Software_and_Tools-label'>Software and Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Art:-3D"><a href="/3D_Art_Resources">Art: 3D</a></li>
+			<li id="n-Art:-2D"><a href="/2D_Art_Resources">Art: 2D</a></li>
+			<li id="n-Audio"><a href="/Audio_Resources">Audio</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Modding' aria-labelledby='p-Modding-label'>
+	<h3 id='p-Modding-label'>Modding</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Modding-Resources"><a href="/Category:Modding_Resources">Modding Resources</a></li>
+			<li id="n-Moddable-Games"><a href="/Category:Moddable_Games">Moddable Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Epic_Official' aria-labelledby='p-Epic_Official-label'>
+	<h3 id='p-Epic_Official-label'>Epic Official</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Website"><a href="https://www.unrealengine.com" rel="nofollow">Website</a></li>
+			<li id="n-Learning-Resources"><a href="https://docs.unrealengine.com/latest/INT/" rel="nofollow">Learning Resources</a></li>
+			<li id="n-Forums"><a href="https://forums.unrealengine.com/" rel="nofollow">Forums</a></li>
+			<li id="n-Blog"><a href="https://www.unrealengine.com/blog" rel="nofollow">Blog</a></li>
+			<li id="n-YouTube"><a href="https://www.youtube.com/UnrealEngine" rel="nofollow">YouTube</a></li>
+			<li id="n-Twitch"><a href="http://www.twitch.tv/unrealengine" rel="nofollow">Twitch</a></li>
+			<li id="n-Twitter"><a href="https://twitter.com/UnrealEngine" rel="nofollow">Twitter</a></li>
+			<li id="n-Facebook"><a href="https://www.facebook.com/UnrealEngine" rel="nofollow">Facebook</a></li>
+			<li id="n-Instagram"><a href="https://instagram.com/unrealengine/" rel="nofollow">Instagram</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Creating_a_shared_camera_for_multiplayer_games" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Creating_a_shared_camera_for_multiplayer_games" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=Creating_a_shared_camera_for_multiplayer_games&amp;oldid=11842&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Creating_a_shared_camera_for_multiplayer_games&amp;oldid=11842" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Creating_a_shared_camera_for_multiplayer_games&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Creating_a_shared_camera_for_multiplayer_games"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Creating_a_shared_camera_for_multiplayer_games&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Creating_a_shared_camera_for_multiplayer_games" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Creating_a_shared_camera_for_multiplayer_games&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Creating_a_shared_camera_for_multiplayer_games&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Creating+a+shared+camera+for+multiplayer+games&amp;returntoquery=oldid%3D11842&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Creating+a+shared+camera+for+multiplayer+games&amp;returntoquery=oldid%3D11842" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Creating a shared camera for multiplayer games</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"><div id="mw-revision-info">Revision as of 07:17, 19 February 2015 by <a href="/index.php?title=User:Praseodyl&amp;action=edit&amp;redlink=1" class="new mw-userlink" title="User:Praseodyl (page does not exist)">Praseodyl</a>  <span class="mw-usertoollinks">(<a href="/index.php?title=User_talk:Praseodyl&amp;action=edit&amp;redlink=1" class="new" title="User talk:Praseodyl (page does not exist)">Talk</a> | <a href="/Special:Contributions/Praseodyl" title="Special:Contributions/Praseodyl">contribs</a>)</span></div><br />
+				<div id="mw-revision-nav">(<a href="/index.php?title=Creating_a_shared_camera_for_multiplayer_games&amp;diff=prev&amp;oldid=11842" title="Creating a shared camera for multiplayer games">diff</a>) <a href="/index.php?title=Creating_a_shared_camera_for_multiplayer_games&amp;direction=prev&amp;oldid=11842" title="Creating a shared camera for multiplayer games">← Older revision</a> | Latest revision (diff) | Newer revision → (diff)</div></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Tutorial"><span class="tocnumber">2</span> <span class="toctext">Tutorial</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Editing_the_Character_Blueprint"><span class="tocnumber">2.1</span> <span class="toctext">Editing the Character Blueprint</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Creating_the_CameraFocusActor_Blueprint"><span class="tocnumber">2.2</span> <span class="toctext">Creating the CameraFocusActor Blueprint</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Testing_the_setup"><span class="tocnumber">3</span> <span class="toctext">Testing the setup</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Potential_Issues"><span class="tocnumber">4</span> <span class="toctext">Potential Issues</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Outlook"><span class="tocnumber">5</span> <span class="toctext">Outlook</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Introduction">Introduction</span></h1>
+<p>This tutorial will show you how to create a shared camera for multiplayer games. Examples for popular games using a similar system are the Lego games or the Smash Bros. games where all players are on the screen simultaneously and the camera reacts to the player positions by moving and zooming. The tutorial will focus on a two character system but the blueprints can be easily adapted to support as many players as desired.
+</p><p>The core concept of this camera system is an additional actor who manages the camera properties and makes sure that the characters stay within a certain distance from each other.  The following figure should illustrate the concept:
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:942px;"><a href="/File:SharedCameraConcept.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/6/62/SharedCameraConcept.png/940px-SharedCameraConcept.png" width="940" height="529" class="thumbimage" srcset="https://d26ilriwvtzlb.cloudfront.net/6/62/SharedCameraConcept.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/6/62/SharedCameraConcept.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:SharedCameraConcept.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>'C1' and 'C2' are the two characters. 'd' is the distance vector between them. 'r' is simply 'd' divided by two. 'CA' is the Actor responsible for managing the camera. 'l' is the distance vector between the camera and 'CA'.</div></div></div>
+<p>The CameraFocusActor (CA) will be updated on every Tick. Its position will be set to the center point between both characters. This will make sure that both characters have the same distance from the camera's focus point all the time.
+If the characters move further apart from each other the camera needs to zoom out to keep both character within its field of view. This is achieved by adjusting the lengths of the camera arm ('l' in the figure) on every Tick. In practice, this is done by simply setting the camera arm length to the same length the distance vector between both characters has ('d' in the figure).
+</p>
+<h1><span class="mw-headline" id="Tutorial">Tutorial</span></h1>
+<p>To implement this system I started with the 3rd person template. I did not actually create a second playable character. Instead I placed a second character in the level without any controller attached.
+</p>
+<h2><span class="mw-headline" id="Editing_the_Character_Blueprint">Editing the Character Blueprint</span></h2>
+<p>First, I edited the character blueprint. I duplicated the default 'MyCharacter' Blueprint just in case I would mess something up. All that needs to be done at this point is to remove the camera component and the camera arm component from the blueprint. Both character instances will share one camera that is attached to another blueprint so there is no need for a camera here.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:182px;"><a href="/File:Edit_Character.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/b/bd/Edit_Character.png/180px-Edit_Character.png" width="180" height="101" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/b/bd/Edit_Character.png/270px-Edit_Character.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/b/bd/Edit_Character.png/360px-Edit_Character.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:Edit_Character.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Changes in the 'MyCharacter' Blueprint</div></div></div>
+<h2><span class="mw-headline" id="Creating_the_CameraFocusActor_Blueprint">Creating the CameraFocusActor Blueprint</span></h2>
+<p>The CameraFocusActor is the object that is handling the camera and keeps the characters within certain bounds. The appropriate base class for this Blueprint is the 'Actor' because I only need the ability to modify the actors location and ability to add components.
+</p><p>The following image shows the components I added:
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:182px;"><a href="/File:CameraFocusActor_Components.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/5/56/CameraFocusActor_Components.png/180px-CameraFocusActor_Components.png" width="180" height="101" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/5/56/CameraFocusActor_Components.png/270px-CameraFocusActor_Components.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/5/56/CameraFocusActor_Components.png/360px-CameraFocusActor_Components.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:CameraFocusActor_Components.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Components necessary for the CameraFocusActor. The static mesh component is only there to visualize the actor's position for testing purposes.</div></div></div>
+<p>The critical parts are the 'spring arm component' that is used to control the camera's 'zoom level' ('l' in the first figure) and the 'camera component'. The 'scene component' is used as the root component because otherwise I would not be able to modify the 'spring arm component's' transform. Using the dummy 'scene component' nicely solves that problem. The locations of the 'spring arm component' and the 'camera component' should be set to (0,0,0). The 'spring arm component's' rotation should be set to something like (0,-45,0) to get some kind of top-down look. If another perspective is desired, here is the place to change that.
+I added an additional mesh component to make the actor visible while playing the game. When you are actually using the blueprint the component should be removed.
+</p><p>Now to the CameraFocusActor's event graph.
+I use the 'Event Begin Play' to take care of any initialization. Two things must be done: First, the 'player controllers' need to know that they should use the 'camera component' of this blueprint. Second, the CameraFocusActor must find the characters in the level. The next image shows the corresponding blueprint graph:
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:182px;"><a href="/File:CameraFocusActor_BeginPlay.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/3/36/CameraFocusActor_BeginPlay.png/180px-CameraFocusActor_BeginPlay.png" width="180" height="101" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/3/36/CameraFocusActor_BeginPlay.png/270px-CameraFocusActor_BeginPlay.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/3/36/CameraFocusActor_BeginPlay.png/360px-CameraFocusActor_BeginPlay.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:CameraFocusActor_BeginPlay.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Event Begin Play event handling.</div></div></div>
+<p>The 'Player Controller' of the player with index 1 is not really needed in my case since I only spawn one character controller but this shows how can tell other players to use the same camera.
+The second part where I get references to the characters is most certainly not the most robust solution but I hope doing it this way makes it obvious what is happening.
+</p><p>The last part is the 'Tick Event'.
+In the 'Tick Event' I take care of the positioning of the CameraFocusActor, control the length of the 'spring arm component' and make sure that that both characters stay within a certain distance from each other.
+This is the corresponding graph:
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:182px;"><a href="/File:CameraFocusActor_Tick.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/6/69/CameraFocusActor_Tick.png/180px-CameraFocusActor_Tick.png" width="180" height="101" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/6/69/CameraFocusActor_Tick.png/270px-CameraFocusActor_Tick.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/6/69/CameraFocusActor_Tick.png/360px-CameraFocusActor_Tick.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:CameraFocusActor_Tick.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Graph of the 'Event Tick'.</div></div></div>
+<p>First I compute the distance vector between both characters ('d' in the first figure). The value is only needed in this event but to keep the graph clean I assigned it to a variable.
+In a second step I compute the center point between both characters by dividing the distance vector by two and adding the second character's location vector. I also compute the lengths of the distance value and use that value as the length of the 'spring arm component'. This makes sure that the camera zooms in and out when the character distance changes.
+In a last step I keep the characters within bounds. To achieve that I clamp the length of the difference vector. The 'MaximumDistance' of 500 I use here makes sure that the length of the distance vector is set to 500 if it is longer than that. If it is shorter, nothing happens here. Next I compute the vector 'r' from the first figure by diving the clamped vector by two. The new positions of character one is now the sum of the vector 'r' and the position vector of the CameraFocusActor. The new position of character two is the difference between both vectors.
+When the length of the distance vector was smaller than the 'MaximumDistance' this part of the script has no effect and the locations of the characters are set to the locations they were already in. However, if the vector was shortened by the clamp node the characters are 'held back' by this script.
+</p>
+<h1><span class="mw-headline" id="Testing_the_setup">Testing the setup</span></h1>
+<p>To see the system in action you simply must place a character instance and an instance of the CameraFocusActor somewhere in the level. A second character instance with the playercontroller attached should be spawned as soon as 'Play' is hit.
+</p>
+<h1><span class="mw-headline" id="Potential_Issues">Potential Issues</span></h1>
+<p>When playing around with this system a few issues will become obvious. For example when one characters tries to move out of bounds, the other one will get 'dragged along'. Depending on your design choices that might actually be a desired behavior. However, if you don't want that, you can change the order of the sequence node in the 'Tick Event' graph. When you do that you must compute the value of the 'Distance' variable a second time right before the top left part is executed. This is necessary because the distance vector might change due to the clamp node.
+</p><p>Another issue are objects that might be in between the characters that are messing with the camera. The best way to avoid that greatly depends on what you actually want to do so I will not address that here.
+</p>
+<h1><span class="mw-headline" id="Outlook">Outlook</span></h1>
+<p>There are several things that can be done to adapt the script to your project. For example you could make sure that the camera shows the level from the same side. This might be necessary if your rooms have no front because they are never supposed to be visible. The script can be modified to account for that by using only the 'x' and 'z' components of the character locations when computing the location of the CameraFocusActor. If you keep the 'y' value fixed, your camera will always see the same side of the level. You could use the clamp angle node to give the camera a little 'room' for rotating by clamping the angle between the world's 'y' axis and the CameraFocusActor's 'y' axis. Implementing this would be a bit more tricky, though.
+You could also use the system for more than two characters by making sure the characters used for computing the distance vector are the characters with the greatest distance from each other. However this would only work when the view is limited to a specific angle as described above. There are also ways to get it working with arbitrary camera angles by projecting the characters onto the the plane perpendicular to the camera's forward vector but I won't go into detail there either.
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.050 seconds
+Real time usage: 0.089 seconds
+Preprocessor visited node count: 27/1000000
+Preprocessor generated node count: 32/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:3345-0!*!*!!en!2!* and timestamp 20161220234417
+ -->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=Creating_a_shared_camera_for_multiplayer_games&amp;oldid=11842">https://wiki.unrealengine.com/index.php?title=Creating_a_shared_camera_for_multiplayer_games&amp;oldid=11842</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.075 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

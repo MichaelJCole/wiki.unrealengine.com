@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var o=n[t]={exports:{}};e[t][0].call(o.exports,function(n){var o=e[t][1][n];return r(o||n)},o,o.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<t.length;o++)r(t[o]);return r}({1:[function(e,n,t){function r(){}function o(e,n,t){return function(){return i(e,[c.now()].concat(u(arguments)),n?null:this,t),n?void 0:this}}var i=e("handle"),a=e(3),u=e(4),f=e("ee").get("tracer"),c=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,n){s[n]=o(d+n,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,o="function"==typeof n;return i(l+"tracer",[c.now(),e,t],r),function(){if(f.emit((o?"":"no-")+"fn-start",[c.now(),r,o],t),o)try{return n.apply(this,arguments)}catch(e){throw f.emit("fn-err",[arguments,this,e],t),e}finally{f.emit("fn-end",[c.now()],t)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=o(l+n)}),newrelic.noticeError=function(e,n){"string"==typeof e&&(e=new Error(e)),i("err",[e,c.now(),!1,n])}},{}],2:[function(e,n,t){function r(e,n){if(!o)return!1;if(e!==o)return!1;if(!n)return!0;if(!i)return!1;for(var t=i.split("."),r=n.split("."),a=0;a<r.length;a++)if(r[a]!==t[a])return!1;return!0}var o=null,i=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var u=navigator.userAgent,f=u.match(a);f&&u.indexOf("Chrome")===-1&&u.indexOf("Chromium")===-1&&(o="Safari",i=f[1])}n.exports={agent:o,version:i,match:r}},{}],3:[function(e,n,t){function r(e,n){var t=[],r="",i=0;for(r in e)o.call(e,r)&&(t[i]=n(r,e[r]),i+=1);return t}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],4:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,o=t-n||0,i=Array(o<0?0:o);++r<o;)i[r]=e[n+r];return i}n.exports=r},{}],5:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function o(e){function n(e){return e&&e instanceof r?e:e?f(e,u,i):i()}function t(t,r,o,i){if(!d.aborted||i){e&&e(t,r,o);for(var a=n(o),u=v(t),f=u.length,c=0;c<f;c++)u[c].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function l(e,n){h[e]=v(e).concat(n)}function m(e,n){var t=h[e];if(t)for(var r=0;r<t.length;r++)t[r]===n&&t.splice(r,1)}function v(e){return h[e]||[]}function g(e){return p[e]=p[e]||o(t)}function w(e,n){c(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var h={},y={},b={on:l,addEventListener:l,removeEventListener:m,emit:t,get:g,listeners:v,context:n,buffer:w,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",f=e("gos"),c=e(3),s={},p={},d=n.exports=o();d.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(o.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[n]=r,r}var o=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){o.buffer([e],r),o.emit(e,n,t)}var o=e("ee").get("handle");n.exports=r,r.ee=o},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!E++){var e=x.info=NREUM.info,n=l.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();c(y,function(n,t){e[n]||(e[n]=t)}),f("mark",["onload",a()+x.offset],null,"api");var t=l.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function o(){"complete"===l.readyState&&i()}function i(){f("mark",["domContent",a()+x.offset],null,"api")}function a(){return O.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-x.offset}var u=(new Date).getTime(),f=e("handle"),c=e(3),s=e("ee"),p=e(2),d=window,l=d.document,m="addEventListener",v="attachEvent",g=d.XMLHttpRequest,w=g&&g.prototype;NREUM.o={ST:setTimeout,SI:d.setImmediate,CT:clearTimeout,XHR:g,REQ:d.Request,EV:d.Event,PR:d.Promise,MO:d.MutationObserver};var h=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1130.min.js"},b=g&&w&&w[m]&&!/CriOS/.test(navigator.userAgent),x=n.exports={offset:u,now:a,origin:h,features:{},xhrWrappable:b,userAgent:p};e(1),l[m]?(l[m]("DOMContentLoaded",i,!1),d[m]("load",r,!1)):(l[v]("onreadystatechange",o),d[v]("onload",r)),f("mark",["firstbyte",u],null,"api");var E=0,O=e(5)},{}]},{},["loader"]);</script>
+<title>Building On Linux - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Building_On_Linux","wgTitle":"Building On Linux","wgCurRevisionId":17,"wgRevisionId":17,"wgArticleId":8,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","Code","Community Created Content"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Building_On_Linux","wgRelevantArticleId":8,"wgRequestId":"d540bc70b567a2628d880cf3","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@0s4gmng",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Building_On_Linux rootpage-Building_On_Linux skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-0b48461a8a6519d83"><meta name="worker" content="139"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"_currentVersion":"1.37.2.101.41","_type":"Epic Games Nav","hideSignIn":true,"epicPropertyName":"unreal_engine","pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_createdBy":"tony.rossi","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"_futureVersion":"none","_created":"2017-08-21T08:59:33.648Z","_activeDate":"2019-05-13T15:00:00.000Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/academy","title":"Online Learning","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/megagrants","title":"MegaGrants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"_type":"Epic Header Link","collapseTarget":"More","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/twinmotion","title":"Twinmotion"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/industries","title":"Industries"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.dd99b2555a3e8a7fbc9c.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.dd99b2555a3e8a7fbc9c.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Building+On+Linux" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we're working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=Building_On_Linux" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Building_On_Linux&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=Building_On_Linux">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=Building_On_Linux&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Building_On_Linux&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">Building On Linux</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><p><a href="/index.php?title=Template:Rating&amp;action=edit&amp;redlink=1" class="new" title="Template:Rating (page does not exist)">Template:Rating</a>
+This page contains information about the effort to build UE4 natively on a Linux host.  If you are looking for information about targeting Linux using the existing Mac or Windows tools please see <a href="/index.php?title=Compiling_For_Linux" title="Compiling For Linux">Compiling For Linux</a>. The main page is <a href="/index.php?title=Linux_Support" title="Linux Support">Linux support</a>.
+</p>
+<div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Foreword_before_building"><span class="tocnumber">1</span> <span class="toctext">Foreword before building</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Prerequisites"><span class="tocnumber">2</span> <span class="toctext">Prerequisites</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Getting_Started"><span class="tocnumber">3</span> <span class="toctext">Getting Started</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Current_State"><span class="tocnumber">3.1</span> <span class="toctext">Current State</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Building"><span class="tocnumber">3.2</span> <span class="toctext">Building</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#First_Time_Setup"><span class="tocnumber">3.2.1</span> <span class="toctext">First Time Setup</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Controlling_the_Build_Environment"><span class="tocnumber">3.2.2</span> <span class="toctext">Controlling the Build Environment</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-8"><a href="#Build_Prerequisites"><span class="tocnumber">3.3</span> <span class="toctext">Build Prerequisites</span></a>
+<ul>
+<li class="toclevel-3 tocsection-9"><a href="#4.9_and_later"><span class="tocnumber">3.3.1</span> <span class="toctext">4.9 and later</span></a></li>
+<li class="toclevel-3 tocsection-10"><a href="#Before_4.7"><span class="tocnumber">3.3.2</span> <span class="toctext">Before 4.7</span></a>
+<ul>
+<li class="toclevel-4 tocsection-11"><a href="#Clang"><span class="tocnumber">3.3.2.1</span> <span class="toctext">Clang</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-12"><a href="#Enhancing_the_Makefile"><span class="tocnumber">3.3.3</span> <span class="toctext">Enhancing the Makefile</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13"><a href="#Known_Issues"><span class="tocnumber">3.4</span> <span class="toctext">Known Issues</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Miscellaneous"><span class="tocnumber">3.5</span> <span class="toctext">Miscellaneous</span></a>
+<ul>
+<li class="toclevel-3 tocsection-15"><a href="#Building_with_a_VM"><span class="tocnumber">3.5.1</span> <span class="toctext">Building with a VM</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#Recent_version_of_Mono_required"><span class="tocnumber">3.5.2</span> <span class="toctext">Recent version of Mono required</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#Recent_Mono_versions"><span class="tocnumber">3.5.3</span> <span class="toctext">Recent Mono versions</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="#Builds_and_runs"><span class="tocnumber">3.5.4</span> <span class="toctext">Builds and runs</span></a></li>
+<li class="toclevel-3 tocsection-19"><a href="#SDL2_with_multi-monitor_support"><span class="tocnumber">3.5.5</span> <span class="toctext">SDL2 with multi-monitor support</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-20"><a href="#Distro_Specific_Instructions"><span class="tocnumber">3.6</span> <span class="toctext">Distro Specific Instructions</span></a>
+<ul>
+<li class="toclevel-3 tocsection-21"><a href="#Setting_up_on_Ubuntu"><span class="tocnumber">3.6.1</span> <span class="toctext">Setting up on Ubuntu</span></a>
+<ul>
+<li class="toclevel-4 tocsection-22"><a href="#Installing_Dependencies"><span class="tocnumber">3.6.1.1</span> <span class="toctext">Installing Dependencies</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-23"><a href="#Setting_up_on_CentOS_7"><span class="tocnumber">3.6.2</span> <span class="toctext">Setting up on CentOS 7</span></a></li>
+<li class="toclevel-3 tocsection-24"><a href="#Setting_up_on_Fedora_20"><span class="tocnumber">3.6.3</span> <span class="toctext">Setting up on Fedora 20</span></a></li>
+<li class="toclevel-3 tocsection-25"><a href="#Setting_up_on_Arch_Linux"><span class="tocnumber">3.6.4</span> <span class="toctext">Setting up on Arch Linux</span></a></li>
+<li class="toclevel-3 tocsection-26"><a href="#Setting_up_on_Linux_Mint"><span class="tocnumber">3.6.5</span> <span class="toctext">Setting up on Linux Mint</span></a>
+<ul>
+<li class="toclevel-4 tocsection-27"><a href="#Before_running_.22First_Time_Setup.22"><span class="tocnumber">3.6.5.1</span> <span class="toctext">Before running "First Time Setup"</span></a></li>
+<li class="toclevel-4 tocsection-28"><a href="#libGL"><span class="tocnumber">3.6.5.2</span> <span class="toctext">libGL</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-29"><a href="#After_Building"><span class="tocnumber">4</span> <span class="toctext">After Building</span></a>
+<ul>
+<li class="toclevel-2 tocsection-30"><a href="#Generating_project_files_for_your_project"><span class="tocnumber">4.1</span> <span class="toctext">Generating project files for your project</span></a>
+<ul>
+<li class="toclevel-3 tocsection-31"><a href="#Visual_Studio_Code_project_files"><span class="tocnumber">4.1.1</span> <span class="toctext">Visual Studio Code project files</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-32"><a href="#Opening_your_project"><span class="tocnumber">4.2</span> <span class="toctext">Opening your project</span></a>
+<ul>
+<li class="toclevel-3 tocsection-33"><a href="#Debian_Based_Distros_Integration"><span class="tocnumber">4.2.1</span> <span class="toctext">Debian Based Distros Integration</span></a></li>
+<li class="toclevel-3 tocsection-34"><a href="#A_Note_on_IPTables"><span class="tocnumber">4.2.2</span> <span class="toctext">A Note on IPTables</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Foreword_before_building">Foreword before building</span></h2>
+<p><big><b>For the love of all good, please don't use the <i>root</i> user to compile and run Unreal Engine 4.</big></b>
+</p><p>Create another user account on your system and build and run using that account.
+</p>
+<h2><span class="mw-headline" id="Prerequisites">Prerequisites</span></h2>
+<p>As per <a rel="nofollow" class="external text" href="https://www.unrealengine.com/faq">Epic's FAQ</a> minimum system requirements for UE4 are:
+</p>
+<pre>Desktop PC or Mac
+Quad-core Intel or AMD processor, 2.5 GHz or faster
+NVIDIA GeForce 470 GTX or AMD Radeon 6870 HD series card or higher
+8 GB RAM
+</pre>
+<p>Please make sure that you at least meet the minimum system requirements and are running a native Linux install (not a VM), with binary NVIDIA or AMD graphics drivers.
+</p><p>The officially used (by Epic QA) Linux distribution is Ubuntu, and we suggest you have, or install, Ubuntu 16.04 LTS for its longevity and compatibility. UE4 only works on 64-bit architecture so make sure you get that right as well.
+</p><p><b>Note: </b>
+<b>We get too many questions from people who do not even meet minimum requirements, wondering why something does not build or run. So please, just because you are running Linux, it does not mean you can use some 10+ year old clunker of a computer to build and run a next-gen game engine (which UE4 is).</b>
+</p>
+<h1><span class="mw-headline" id="Getting_Started">Getting Started</span></h1>
+<h2><span class="mw-headline" id="Current_State">Current State</span></h2>
+<p>We've been discussing it mostly on the IRC at <a rel="nofollow" class="external free" href="irc://irc.freenode.net/UE4Linux">irc://irc.freenode.net/UE4Linux</a>, but you can also find a few forum threads about it.  If you'd like to have native Linux development tools, please jump in and join us.
+</p><p>Most current stable branch we suggest you use is <i>Release</i> from <a rel="nofollow" class="external text" href="https://github.com/EpicGames/UnrealEngine">Epic GitHub</a>:
+</p><p>Epic source code repositories (<a rel="nofollow" class="external free" href="https://www.unrealengine.com/ue4-on-github">https://www.unrealengine.com/ue4-on-github</a>) are set to private. In order to gain access you need to add your GitHub username when you sign up at <a rel="nofollow" class="external free" href="https://unrealengine.com">https://unrealengine.com</a>. If you do not have a GitHub username, then you need to get one first.
+</p><p>If you get a message that repository does not exist, you probably:
+</p>
+<ul><li> did not accept invitation from Epic to join their Git,</li>
+<li> did not log into GitHub (if browsing via web),</li>
+<li> have forgotten to add your GitHub username to your profile at <a rel="nofollow" class="external free" href="https://unrealengine.com">https://unrealengine.com</a>, or</li>
+<li> just need to wait a few minutes after accepting the invitation.</li></ul>
+<h2><span class="mw-headline" id="Building">Building</span></h2>
+<h3><span class="mw-headline" id="First_Time_Setup">First Time Setup</span></h3>
+<p>Make sure you linked your GitHub account to your profile on <a rel="nofollow" class="external free" href="https://unrealengine.com">https://unrealengine.com</a>, as all Epic repositories are private.
+</p><p>For the first time setup (if you just want to use the release version, if not follow the instructions after the following instructions), run the below commands in your favorite terminal:
+</p>
+<pre>$ git clone <a rel="nofollow" class="external free" href="https://github.com/EpicGames/UnrealEngine.git">https://github.com/EpicGames/UnrealEngine.git</a>
+$ # or if you are using ssh authentication: 
+$ # git clone git@github.com:EpicGames/UnrealEngine.git
+$ cd UnrealEngine
+$ ./Setup.sh
+$ ./GenerateProjectFiles.sh 
+</pre>
+<p>Or if you want to use a versioned branch that the latest Release is based on to get latest fixes, use a versioned branch for the release version. For the moment it is 4.18. (Note to maintainers, please keep this section up to date)
+</p>
+<pre>$ git clone -b 4.18 <a rel="nofollow" class="external free" href="https://github.com/EpicGames/UnrealEngine.git">https://github.com/EpicGames/UnrealEngine.git</a>
+$ # or if you are using ssh authentication: 
+$ # git clone -b 4.18 git@github.com:EpicGames/UnrealEngine.git
+$ cd UnrealEngine
+$ ./Setup.sh
+$ ./GenerateProjectFiles.sh 
+</pre>
+<p>The script may ask you to install additional packages (on certain distributions), and either git hooks will download the binary dependencies or the script will handle that for you.
+</p><p>Now you should be all set and you can build all needed UE4 projects to develop your projects using the generated Makefile. e.g:
+</p>
+<pre>$ make
+</pre>
+<p>This will compile the most needed UE4 binaries and will take a while. After finishing the binaries (Unreal Engine 4 Editor included) will be located in your Engine/Binaries/Linux subfolder. You can also import CMakeLists.txt which is generated by GenerateProjectFiles.sh as well into your favorite IDE (KDevelop, QTCreator, Codelite, or any that will handle a Makefile project or CMake project.).
+</p><p>You are ready to test it now.
+</p>
+<pre>$ ./Engine/Binaries/Linux/UE4Editor
+</pre>
+<p>If something goes wrong run UE4Editor through gdb using a generated project by passing the path to the project in gdb via&#160;: (replace $USER with your user name and $PROJECT with the name of a default project or your project)
+</p>
+<pre>$ gdb ./Engine/Binaries/Linux/UE4Editor
+</pre>
+<p>Then in gdb: (/home/$USER/Documents/Unreal Projects/ is the default location that UE4Editor creates projects)
+</p>
+<pre>set args "/home/$USER/Documents/Unreal Projects/$PROJECT/$PROJECT.uproject"
+</pre>
+<p>Then you can run the commands to get the information you need, which may be limited since the default editor is built against the Developer profile and not Debug, for than you need to build the Debug editor (see below for instructions on building the Debug editor)
+</p><p>If you get a core dump message, the core file may not be saved, if the error/crash is repeatable, you will need to set it to unlimited using ulimit and rerun the editor(run this as your default user, not as root or sudo).
+</p>
+<pre>$ ulimit -c unlimited
+</pre>
+<p>The core file is massive, the greater side of 1.8 Gigs, if you need to share the core file with others, or you want to store it without it taking up all that space, you can tar it:
+If you ran it from the root UnrealEngine folder.
+</p>
+<pre>$ tar Jvcf core-`date +%Y%m%d`.tar.xz ./Engine/Binaries/Linux/core 
+</pre>
+<p>Otherwise, the Editor should present you with a Project Browser Window. Hooray. First time run will be longer because shaders need to convert/compile,
+so sit tight and if you don't have a Dual Xeon 12-Core workstation, process will take &gt; 5 mins (even &gt; 1 hour on 2-Core systems).
+</p><p>You are on your own now, create a new project and play with the Editor&#160;;)
+</p>
+<h3><span class="mw-headline" id="Controlling_the_Build_Environment">Controlling the Build Environment</span></h3>
+<p>UnrealBuildTool (UBT) can be configured further by editing:
+</p>
+<pre>Engine/Saved/UnrealBuildTool/BuildConfiguration.xml
+</pre>
+<p>See the default file for a list of possible keys:
+</p>
+<pre>Engine/Programs/UnrealBuildTool/BuildConfiguration.xml
+</pre>
+<h2><span class="mw-headline" id="Build_Prerequisites">Build Prerequisites</span></h2>
+<h3><span class="mw-headline" id="4.9_and_later">4.9 and later</span></h3>
+<pre>   Setup.sh
+</pre>
+<p>will fetch required packages. This is the main and supported method of getting required packages.
+</p>
+<h3><span class="mw-headline" id="Before_4.7">Before 4.7</span></h3>
+<p>Manual installations.
+</p><p>You will need <i><b>mono 3.2.8+</b></i>, C# compiler (mcs), clang, dos2unix and cmake installed in order to build the editor:                                                                       
+</p>
+<pre>    build-essential mono-gmcs mono-xbuild mono-dmcs libmono-corlib4.0-cil libmono-system-data-datasetextensions4.0-cil 
+    libmono-system-web-extensions4.0-cil libmono-system-management4.0-cil libmono-system-xml-linq4.0-cil cmake dos2unix clang xdg-user-dirs
+</pre>
+<p><b>Note: Only used for 4.7 and below. -&gt; Depending whether you wish to use Qt or GTK for your dialogs, libqt4-dev or libqt5-dev or gtk2 or gtk3 will be needed. Setup.sh asks to install libqt4-dev</b>.
+</p><p>If you wish to recompile third party dependencies (which is no longer a necessary step for <i>release</i> or <i>versioned release numbered</i> branch), you will also need autoconf, bison, flex, libz, glew and possibly more.
+</p>
+<h4><span class="mw-headline" id="Clang">Clang</span></h4>
+<p>Clang 4.0.1 is the last supported version.
+</p><p>On Ubuntu 16.04 and later, use Clang 3.8 . If you have a later version you can create a soft link for 3.8:
+</p>
+<pre>sudo ln -s /usr/bin/clang-3.8 /usr/bin/clang
+sudo ln -s /usr/bin/clang++-3.8 /usr/bin/clang++
+</pre>
+<p>On Ubuntu 14.04, use Clang 3.5 or Clang 3.3 . Do not use Clang 3.4, as it has issues.
+</p><p>One of the websites with precompiled binaries of Clang 3.3 is <a rel="nofollow" class="external free" href="http://gaming.jhu.edu/mirror/archlinux/extra/os/x86_64/">http://gaming.jhu.edu/mirror/archlinux/extra/os/x86_64/</a>, you will need clang-3.3, llvm-3.3 and, llvm-libs-3.3
+</p><p>Clang version can be specified in UnrealEngine/Engine/Build/BatchFiles/Linux/Setup.sh
+</p>
+<h3><span class="mw-headline" id="Enhancing_the_Makefile">Enhancing the Makefile</span></h3>
+<p>Makefile does not contain a <b>clean</b> method, but you can clean any target by adding ARGS=-clean to it, like this
+</p>
+<pre> make UE4Editor ARGS=-clean
+</pre>
+<p>The above is the preferred way to clean a target, although you can also remove target files manually. Edit the Makefile in the engine's root and add the following to it before <b>.PHONY:</b> statement at the bottom:
+</p>
+<pre>shaders-clean:
+       rm -rf Engine/Intermediate/Shaders Engine/Saved Engine/DerivedDataCache Engine/Intermediate/CachedAssetRegistry.bin
+
+editor-clean:
+       rm -rf Engine/Intermediate/Build/Linux/x86_64-unknown-linux-gnu/UE4Editor Engine/Binaries/Linux/libUE4Editor-* Engine/Binaries/Linux/UE4Editor
+
+clean:
+       rm -f Engine/Binaries/Linux/Unreal* Engine/Binaries/Linux/UE* \
+       Engine/Binaries/Linux/libUnreal* Engine/Binaries/Linux/libUE* Engine/Binaries/Linux/libSh* \
+       Engine/Binaries/Linux/ShaderCompileWorker* Engine/Binaries/Linux/SlateViewer* Engine/Binaries/Linux/CrashReportClient*
+       rm -rf Engine/Intermediate/Build Engine/Binaries/Linux/HTML5 Engine/Binaries/Linux/Linux Engine/Binaries/Linux/Android Engine/Binaries/Linux/IOS Engine/Binaries/Linux/HTML5
+</pre>
+<p>Make sure that the indented sections are not made out of spaces, but a single tab.
+</p>
+<h2><span class="mw-headline" id="Known_Issues">Known Issues</span></h2>
+<p>See <a href="/index.php?title=Linux_Known_Issues" title="Linux Known Issues">Known Issues</a>
+</p>
+<h2><span class="mw-headline" id="Miscellaneous">Miscellaneous</span></h2>
+<h3><span class="mw-headline" id="Building_with_a_VM">Building with a VM</span></h3>
+<p>Distributions of Linux that are not officially supported (e.g. Arch Linux) may have difficulty compiling and/or running the engine. You can build with the supported Linux distribution (Ubuntu 14.04 LTS at the time of this writing) like so:
+</p>
+<ul><li> set up a virtual machine with this OS</li>
+<li> create a shared folder between the guest and host OS</li>
+<li> place the Unreal Engine code in this folder</li>
+<li> build Unreal Engine inside the VM</li>
+<li> run the compiled executable on the host machine</li></ul>
+<p><br />
+</p>
+<h3><span class="mw-headline" id="Recent_version_of_Mono_required">Recent version of Mono required</span></h3>
+<p>If you are getting an error like this:
+</p>
+<pre>  Could not load file or assembly 'Microsoft.Build.Tasks.v4.0' or one of its dependencies.
+</pre>
+<p>You may need to upgrade your mono version:
+</p>
+<pre>  <a rel="nofollow" class="external free" href="http://stackoverflow.com/questions/25116391/building-sln-on-mono-ubuntu">http://stackoverflow.com/questions/25116391/building-sln-on-mono-ubuntu</a>
+  <a rel="nofollow" class="external free" href="http://www.mono-project.com/docs/getting-started/install/linux/#debian-ubuntu-and-derivatives">http://www.mono-project.com/docs/getting-started/install/linux/#debian-ubuntu-and-derivatives</a>
+</pre>
+<p>(at least this fixed the problem for me).
+</p>
+<h3><span class="mw-headline" id="Recent_Mono_versions">Recent Mono versions</span></h3>
+<p><b>Note: this should not be the case as of 4.7.</b>
+</p><p>If you are getting an error like this:
+</p>
+<pre>&lt;snip&gt;Engine/Engine/Source/Programs/AutomationTool/Linux/Linux.Automation.csproj:  warning&#160;: Project has unknown ToolsVersion '11.0'. Using the default tools version '2.0' instead.
+/usr/lib/mono/2.0/Microsoft.Common.targets:  warning&#160;: TargetFrameworkVersion 'v4.0' not supported by this toolset (ToolsVersion: 2.0).
+/usr/lib/mono/2.0/Microsoft.CSharp.targets: error&#160;: Error executing task Csc: Argument cannot be null.
+</pre>
+<p>Edit the following files:
+</p>
+<ul><li> Engine/Source/Programs/AutomationTool/Linux/Linux.Automation.csproj</li></ul>
+<ul><li> Engine/Source/Programs/AutomationTool/Android/Android.Automation.csproj</li></ul>
+<ul><li> Engine/Source/Programs/AutomationTool/HTML5/HTML5.Automation.csproj</li></ul>
+<p>And change
+</p>
+<pre>ToolsVersion="11.0"
+</pre>
+<p>to
+</p>
+<pre>ToolsVersion="4.0"
+</pre>
+<p>usually found on the second or third line.
+</p><p>This can be automated with:
+</p>
+<pre>$ find Engine/Source/Programs/AutomationTool -name "*Automation.csproj" -exec sed -i "s/ToolsVersion=\"11.0\"/ToolsVersion=\"4.0\"/g" "{}" \;
+</pre>
+<p>You also have to export MSBuildToolsVersion=4.0 in the latest master it seems.
+</p>
+<h3><span class="mw-headline" id="Builds_and_runs">Builds and runs</span></h3>
+<ul><li> UnrealHeaderTool</li>
+<li> BlankProgram</li>
+<li> SlateViewer</li>
+<li> UE4Editor</li>
+<li> ShaderCompileWorker</li>
+<li> UnrealLightmass</li>
+<li> UnrealPak</li>
+<li> UE4Client</li>
+<li> UE4Game</li>
+<li> UE4Server</li></ul>
+<p>Builds - Mostly Untested:
+</p>
+<ul><li> UE4EditorServices</li>
+<li> UnrealFileServer</li>
+<li> UnrealVersionSelector</li>
+<li> UnrealFrontend</li>
+<li> CrashReportClient</li></ul>
+<p>Not appropiate on Linux:
+</p>
+<ul><li> MinidumpDiagnostics</li>
+<li> UnrealLaunchDaemon</li>
+<li> SymbolDebugger</li>
+<li> UnrealSync</li></ul>
+<h3><span class="mw-headline" id="SDL2_with_multi-monitor_support">SDL2 with multi-monitor support</span></h3>
+<p>If you run multi-monitor setup and have issues e.g. Editor splash screen appears centered between displays, make sure that SDL2 is compiled with xinerama and/or xrandr support.
+You will need to have the dev libs of both installed ahead of time. In Ubuntu (and alike) do:
+</p>
+<pre>$ sudo apt-get install libxinerama-dev libxrandr-dev x11proto-xinerama-dev
+</pre>
+<p>Then re-build SDL2:
+</p>
+<pre>$ cd Engine/Source/ThirdParty/SDL2 &amp;&amp; ./build.sh
+</pre>
+<h2><span class="mw-headline" id="Distro_Specific_Instructions">Distro Specific Instructions</span></h2>
+<h3><span class="mw-headline" id="Setting_up_on_Ubuntu">Setting up on Ubuntu</span></h3>
+<h4><span class="mw-headline" id="Installing_Dependencies">Installing Dependencies</span></h4>
+<p>Ubuntu users can install the dependencies needed to build Unreal Engine 4 by running the following command:
+</p><p>__14.04__
+</p>
+<pre>$ sudo apt-get install build-essential mono-gmcs mono-xbuild mono-dmcs libmono-corlib4.0-cil libmono-system-data-datasetextensions4.0-cil libmono-system-web-extensions4.0-cil libmono-system-management4.0-cil libmono-system-xml-linq4.0-cil cmake dos2unix clang-3.5 libfreetype6-dev libgtk-3-dev libmono-microsoft-build-tasks-v4.0-4.0-cil xdg-user-dirs
+</pre>
+<p>__16.04__
+</p>
+<pre>$ sudo apt-get install build-essential mono-mcs mono-devel mono-xbuild mono-dmcs mono-reference-assemblies-4.0 libmono-system-data-datasetextensions4.0-cil libmono-system-web-extensions4.0-cil libmono-system-management4.0-cil libmono-system-xml-linq4.0-cil cmake dos2unix clang-3.5 libfreetype6-dev libgtk-3-dev libmono-microsoft-build-tasks-v4.0-4.0-cil xdg-user-dirs
+</pre>
+<h3><span class="mw-headline" id="Setting_up_on_CentOS_7">Setting up on CentOS 7</span></h3>
+<p>See <a href="/index.php?title=Building_On_Centos" title="Building On Centos">Building on CentOS</a> page.
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Setting_up_on_Fedora_20">Setting up on Fedora 20</span></h3>
+<p>See <a rel="nofollow" class="external free" href="https://forums.unrealengine.com/showthread.php?53451-Successful-4-6-0-build-on-Fedora-20-x86_64">https://forums.unrealengine.com/showthread.php?53451-Successful-4-6-0-build-on-Fedora-20-x86_64</a>
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Setting_up_on_Arch_Linux">Setting up on Arch Linux</span></h3>
+<p>For a manual install, the dependencies needed to build Unreal Engine 4 can be added by running the following command:
+</p>
+<pre>$ sudo pacman -S mono clang35 dos2unix cmake
+</pre>
+<p>Arch users will have to either recompile their Clang or get a compiled package that does not use ld.gold, because ld.gold causes linking problems yet has been hard coded into Clang.
+</p><p>Optionally you could go through the following steps for a work around (faster and easier):
+</p><p>1. Open up a terminal.
+</p><p>2. Execute the following command:
+</p>
+<pre>$ mkdir ~/bin/ &amp;&amp; cd ~/bin/ &amp;&amp; ln -s /bin/ld.bfd ./ld.gold
+</pre>
+<p>3. Add the following line to your .bashrc (or .zshrc if you use zsh) usually found in the home folder (hidden).
+</p>
+<pre>export PATH=$HOME/bin:$PATH
+</pre>
+<p>4. Close all your terminals to apply the changes.
+</p><p><b>Arch Linux users should try building the Editor using the Debug profile if Development (default) does not work</b>:
+</p>
+<pre>$ make UE4Editor-Linux-Debug
+</pre>
+<p>This might work better and not cause threading crashes seen when building standard "Development" profile. More investigation is needed at this point.
+</p>
+<h3><span class="mw-headline" id="Setting_up_on_Linux_Mint">Setting up on Linux Mint</span></h3>
+<h4><span class="mw-headline" id="Before_running_.22First_Time_Setup.22">Before running "First Time Setup"</span></h4>
+<p>Mint users should install the dependencies needed to build Unreal Engine 4 by running the following command:
+</p><p>version (09.2016):
+</p>
+<pre>sudo apt install git build-essential clang-3.8 libglew-dev libcheese8 libcheese-gtk25 libclutter-gst-3.0-0 libcogl20 libclutter-gtk-1.0-0 libclutter-1.0-0  xserver-xorg-input-all
+</pre>
+<p>Now that Clang is installed; Mint users should also make a Symlink for clang &amp; clang++:
+</p>
+<pre>sudo ln -s /usr/bin/clang-3.8 /usr/bin/clang
+sudo ln -s /usr/bin/clang++-3.8 /usr/bin/clang++
+</pre>
+<h4><span class="mw-headline" id="libGL">libGL</span></h4>
+<p>When running SlateViewer, and later UE4Editor, libGL.so.1 needs to be either preloaded with LD_PRELOAD -OR- an installation of a package like fglrx to add the library to the build.
+</p><p>installation example:
+</p>
+<pre>sudo apt-get install fglrx
+</pre>
+<p>-OR-
+</p><p>LD_PRELOAD method:
+After "make ./SlateViewer":
+</p>
+<pre>export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/mesa/libGL.so.1 SlateViewer 
+</pre>
+<p>then run ./SlateViewer
+</p><p>and after UE4Editor is built:
+</p>
+<pre>export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/mesa/libGL.so.1 UE4Editor
+</pre>
+<p>then run ./UE4Editor
+</p>
+<h1><span class="mw-headline" id="After_Building">After Building</span></h1>
+<h2><span class="mw-headline" id="Generating_project_files_for_your_project">Generating project files for your project</span></h2>
+<p>To generate project files for your project, you need to run this command from the UnrealEngine folder:
+</p>
+<pre>$ ./GenerateProjectFiles.sh -project="/home/user/Documents/Unreal\ Projects/MyProject/MyProject.uproject" -game -engine
+</pre>
+<h3><span class="mw-headline" id="Visual_Studio_Code_project_files">Visual Studio Code project files</span></h3>
+<p>To generate project files for visual studio code, you need to pass -vscode parameter to the GenerateProjectFiles.sh script:
+</p>
+<pre>$ ./GenerateProjectFiles.sh -project="/home/user/Documents/Unreal\ Projects/MyProject/MyProject.uproject" -game -engine -vscode
+</pre>
+<p>This will also generate the necessary include file lists for vscode, they should be found in projectdir/.vscode.
+</p>
+<h2><span class="mw-headline" id="Opening_your_project">Opening your project</span></h2>
+<p>To open your project directly from the command line, you need to run this command from the Engine/Binaries/Linux folder in the UnrealEngine folder:
+</p>
+<pre>$ ./UE4Editor "/home/user/Documents/Unreal\ Projects/MyProject/MyProject.uproject"
+</pre>
+<h3><span class="mw-headline" id="Debian_Based_Distros_Integration">Debian Based Distros Integration</span></h3>
+<p>As of 4.16 the Setup.sh creates a .desktop file for the engine, mime type for .uproject files, and adds an icon for .uproject files.
+</p><p>This is a try to make an early integration with the system and it may not work as expected.
+</p>
+<div style="border-top: 1px solid gray; width: 300px; font-size: 14px; color: #666; margin-top: 20px; padding: 6px">&lt;-- Back to the main <a href="/index.php?title=Linux_Support" title="Linux Support">Linux Support</a> page.</div>
+<h3><span class="mw-headline" id="A_Note_on_IPTables">A Note on IPTables</span></h3>
+<p>As of at least 4.17, when building lighting, the engine requires that port 6666/udp be opened or it will fail with some cryptic messages
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20191006235744
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.024 seconds
+Real time usage: 0.026 seconds
+Preprocessor visited node count: 139/1000000
+Preprocessor generated node count: 174/1000000
+Post‐expand include size: 20/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.871      1 -total
+100.00%    0.871      1 Template:Rating
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:8-0!canonical and timestamp 20191006235744 and revision id 17
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=Building_On_Linux&amp;oldid=17">https://wiki.unrealengine.com/index.php?title=Building_On_Linux&amp;oldid=17</a>"						</div>
+					<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/index.php?title=Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/index.php?title=Category:Tutorials&amp;action=edit&amp;redlink=1" class="new" title="Category:Tutorials (page does not exist)">Tutorials</a></li><li><a href="/index.php?title=Category:Code" title="Category:Code">Code</a></li><li><a href="/index.php?title=Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-08a23efcd19f60be7"><meta name="worker" content="107"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.81","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"legalTags":[],"_type":"Epic Games Footer","newLineCopyrights":false,"_lastModifiedBy":"tony.rossi","epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue","href":"https://unrealengine.com"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners-apply","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://dev.epicgames.com","title":"Online Services"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/training-partners","title":"Training Partners"}],"hideDefaultTermsPolicy":false,"_lastModified":"2019-08-26T21:25:50.020Z","_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.dd99b2555a3e8a7fbc9c.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.dd99b2555a3e8a7fbc9c.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.024","walltime":"0.026","ppvisitednodes":{"value":139,"limit":1000000},"ppgeneratednodes":{"value":174,"limit":1000000},"postexpandincludesize":{"value":20,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.871      1 -total","100.00%    0.871      1 Template:Rating"]},"cachereport":{"timestamp":"20191006235744","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":90});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":123,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

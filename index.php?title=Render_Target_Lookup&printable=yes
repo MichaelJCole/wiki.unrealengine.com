@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>Render Target Lookup - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,follow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;printable=1&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;printable=1&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;printable=1&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Render_Target_Lookup","wgTitle":"Render Target Lookup","wgCurRevisionId":24183,"wgRevisionId":24183,"wgArticleId":1497,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorials","RenderTarget","DynamicHeightmap","Community Videos","Community Created Content","Templates"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Render_Target_Lookup","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;printable=1&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["ext.voteNY","mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Render_Target_Lookup skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head"></div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-recentchanges"><a href="/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Community' aria-labelledby='p-Community-label'>
+	<h3 id='p-Community-label'>Community</h3>
+	<div class="body">
+		<ul>
+			<li id="n-UE4-Games"><a href="/Category:Games">UE4 Games</a></li>
+			<li id="n-Dev-Blogs"><a href="/Developer_Blogs">Dev Blogs</a></li>
+			<li id="n-Dev-Livestreams"><a href="/Developer_Livestreams">Dev Livestreams</a></li>
+			<li id="n-Code-Sharing-Hub"><a href="/GitHub_Sharing_Hub">Code Sharing Hub</a></li>
+			<li id="n-UE-User-Groups"><a href="/User_Group_Map">UE User Groups</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Learning_Resources' aria-labelledby='p-Learning_Resources-label'>
+	<h3 id='p-Learning_Resources-label'>Learning Resources</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Example-Projects"><a href="/Category:Example_Projects">Example Projects</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Software_and_Tools' aria-labelledby='p-Software_and_Tools-label'>
+	<h3 id='p-Software_and_Tools-label'>Software and Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Art:-3D"><a href="/3D_Art_Resources">Art: 3D</a></li>
+			<li id="n-Art:-2D"><a href="/2D_Art_Resources">Art: 2D</a></li>
+			<li id="n-Audio"><a href="/Audio_Resources">Audio</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Modding' aria-labelledby='p-Modding-label'>
+	<h3 id='p-Modding-label'>Modding</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Modding-Resources"><a href="/Category:Modding_Resources">Modding Resources</a></li>
+			<li id="n-Moddable-Games"><a href="/Category:Moddable_Games">Moddable Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Epic_Official' aria-labelledby='p-Epic_Official-label'>
+	<h3 id='p-Epic_Official-label'>Epic Official</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Website"><a href="https://www.unrealengine.com" rel="nofollow">Website</a></li>
+			<li id="n-Learning-Resources"><a href="https://docs.unrealengine.com/latest/INT/" rel="nofollow">Learning Resources</a></li>
+			<li id="n-Forums"><a href="https://forums.unrealengine.com/" rel="nofollow">Forums</a></li>
+			<li id="n-Blog"><a href="https://www.unrealengine.com/blog" rel="nofollow">Blog</a></li>
+			<li id="n-YouTube"><a href="https://www.youtube.com/UnrealEngine" rel="nofollow">YouTube</a></li>
+			<li id="n-Twitch"><a href="http://www.twitch.tv/unrealengine" rel="nofollow">Twitch</a></li>
+			<li id="n-Twitter"><a href="https://twitter.com/UnrealEngine" rel="nofollow">Twitter</a></li>
+			<li id="n-Facebook"><a href="https://www.facebook.com/UnrealEngine" rel="nofollow">Facebook</a></li>
+			<li id="n-Instagram"><a href="https://instagram.com/unrealengine/" rel="nofollow">Instagram</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Render_Target_Lookup" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Render_Target_Lookup" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Render_Target_Lookup&amp;oldid=24183" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Render_Target_Lookup&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Render_Target_Lookup"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk"><span><a href="/Talk:Render_Target_Lookup"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Render_Target_Lookup" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Render_Target_Lookup&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Render_Target_Lookup&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Render+Target+Lookup&amp;returntoquery=printable%3Dyes&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Render+Target+Lookup&amp;returntoquery=printable%3Dyes" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Render Target Lookup</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="aux">
+<div>
+<b>Rate this Article:</b> <div id="rating_"><div class="rating-score"><div class="voteboxrate">3.88</div></div><div class="rating-section"><img class="vote-rating-star" data-vote-the-vote="1" data-vote-id="" data-vote-action="3" data-vote-rating="3.88" data-vote-voted="0" id="rating__1" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="2" data-vote-id="" data-vote-action="3" data-vote-rating="3.88" data-vote-voted="0" id="rating__2" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="3" data-vote-id="" data-vote-action="3" data-vote-rating="3.88" data-vote-voted="0" id="rating__3" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="4" data-vote-id="" data-vote-action="3" data-vote-rating="3.88" data-vote-voted="0" id="rating__4" src="/extensions/VoteNY/images/star_half.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="5" data-vote-id="" data-vote-action="3" data-vote-rating="3.88" data-vote-voted="0" id="rating__5" src="/extensions/VoteNY/images/star_off.gif" alt="" /> <span class="rating-total">(8 votes)</span></div>
+				<div class="rating-clear">
+			</div></div>
+</div>
+<div>
+<p>Approved for Versions:(please verify)
+</p>
+</div>
+</div>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Strategy"><span class="tocnumber">2</span> <span class="toctext">Strategy</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Generating_the_Heightmap"><span class="tocnumber">3</span> <span class="toctext">Generating the Heightmap</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Setting_up_the_Render_Target"><span class="tocnumber">4</span> <span class="toctext">Setting up the Render Target</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Render_Target_Reader"><span class="tocnumber">5</span> <span class="toctext">Render Target Reader</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#.h"><span class="tocnumber">5.1</span> <span class="toctext">.h</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#.cpp"><span class="tocnumber">5.2</span> <span class="toctext">.cpp</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Aligning_the_heightmap"><span class="tocnumber">6</span> <span class="toctext">Aligning the heightmap</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Using_the_HeightMapReader"><span class="tocnumber">7</span> <span class="toctext">Using the HeightMapReader</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Summary"><span class="tocnumber">8</span> <span class="toctext">Summary</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Overview">Overview</span></h2>
+<p>This tutorial covers a mostly blueprint, with a tiny bit of C++, approach to creating a dynamic heightmap that is driven by a <b>material</b>. Keep in mind that as the Unreal Engine evolves there will probably be a better technique for doing this but right now this is targeting version 4.1.
+There are many applications to dynamic heightmaps but this tutorial will focus on making a dynamic ocean.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:642px;"><a href="/File:DynamicHeightmapOverview.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/4/41/DynamicHeightmapOverview.png" width="640" height="359" class="thumbimage" /></a>  <div class="thumbcaption">Dynamic Ocean</div></div></div>
+<h2><span class="mw-headline" id="Strategy">Strategy</span></h2>
+<p>The strategy used is: 
+</p>
+<ol>
+<li> Create an ocean material and apply to a tessellated plane.
+</li>
+<li> Render its displacement to a render target at every frame.
+</li>
+<li> Read the render target's values to a buffer at every frame.
+</li>
+<li> For every actor affected by the water, look up the current wave height in the buffer.
+</li>
+<li> Add appropriate forces to the actor.
+</li>
+</ol>
+<h2><span class="mw-headline" id="Generating_the_Heightmap">Generating the Heightmap</span></h2>
+<p>The heightmap material can be anything, in my case I used a noise normal map and bumpmap blended with itself at two different scales. The coordinates are hooked up to a panner to give the illusion of the waves moving. It is not very sophisticated but for now it does the job.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:2414px;"><a href="/File:DynamicHeightmapHeightmapBlueprint_updated.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/6/6d/DynamicHeightmapHeightmapBlueprint_updated.png" width="2412" height="1398" class="thumbimage" /></a>  <div class="thumbcaption">Heightmap blueprint</div></div></div>
+<div class="thumb tnone"><div class="thumbinner" style="width:258px;"><a href="/File:DynamicHeightmapNoise_Normal.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/a/a6/DynamicHeightmapNoise_Normal.png" width="256" height="256" class="thumbimage" /></a>  <div class="thumbcaption">Wave Normal Map</div></div></div>
+<div class="thumb tnone"><div class="thumbinner" style="width:258px;"><a href="/File:DynamicHeightmapNoise_Bump.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/4/44/DynamicHeightmapNoise_Bump.png" width="256" height="256" class="thumbimage" /></a>  <div class="thumbcaption">Wave Bump Map</div></div></div>
+<p>The height map is used twice, once in the ocean material with a Fresnel node connected to the diffuse channel and another material used to fill the render target that only sends the bumpmap to the emmisive channel.
+</p>
+<h2><span class="mw-headline" id="Setting_up_the_Render_Target">Setting up the Render Target</span></h2>
+<p>We need to fill a render target with our heightmap. There are multiple ways to do it but I wanted to stay on the blueprint side of things as much as possible so I created an actor blueprint containing a <b>SceneCapture2D</b> and a <b>MaterialBillboard</b>. Align these two components together and and set the render target to the SceneCapture2D and you are good to go.
+</p><p>Do not forget to add this actor to your level.
+</p><p><b>*As of 4.13 this step can be replaced by using a "Draw Material to Render Target" node to update the render target.</b>
+</p>
+<h2><span class="mw-headline" id="Render_Target_Reader">Render Target Reader</span></h2>
+<p>This is the only C++ part of the whole tutorial. We need to be able to read the values from the render target to be able to return them your actors. The class contains two functions: Update and GetRenderTargetValue.
+</p><p>The level contains an instance of the HeightMapReader actor and Update is called at every tick. Beacause Update uses ReadPixel, it is very slow. The larger the render target the slower it gets. To mitigate this Update could not be called every frame with very little impact on the simulation. Also it is possible to only read parts of the render target and thus limit reading to only pixels that are likely to be requested by an actor.
+</p>
+<div class="thumb tnone"><div class="thumbinner" style="width:571px;"><a href="/File:DynamicHeightmapLevelBlueprint.png" class="image"><img alt="" src="https://d26ilriwvtzlb.cloudfront.net/8/83/DynamicHeightmapLevelBlueprint.png" width="569" height="261" class="thumbimage" /></a>  <div class="thumbcaption">Level Blueprint</div></div></div>
+<h4><span class="mw-headline" id=".h">.h</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1">UCLASS<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="kw2">class</span> AHeightMapReader <span class="sy4">:</span> <span class="kw2">public</span> AActor
+<span class="br0">&#123;</span>
+	GENERATED_UCLASS_BODY<span class="br0">&#40;</span><span class="br0">&#41;</span>
+&#160;
+	UPROPERTY<span class="br0">&#40;</span>Category <span class="sy1">=</span> HeightMap, EditAnywhere<span class="br0">&#41;</span>
+	UTextureRenderTarget2D<span class="sy2">*</span> RenderTarget<span class="sy4">;</span>
+&#160;
+	UFUNCTION<span class="br0">&#40;</span>BlueprintCallable, Category <span class="sy1">=</span> <span class="st0">&quot;HeightMap|Update&quot;</span><span class="br0">&#41;</span>
+	<span class="kw4">void</span> UpdateBuffer<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	UFUNCTION<span class="br0">&#40;</span>BlueprintCallable, Category <span class="sy1">=</span> <span class="st0">&quot;HeightMap|Texture Helper&quot;</span><span class="br0">&#41;</span>
+	FColor GetRenderTargetValue<span class="br0">&#40;</span><span class="kw4">float</span> x, <span class="kw4">float</span> y<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+<span class="kw2">private</span><span class="sy4">:</span>
+&#160;
+	TArray<span class="sy1">&lt;</span>FColor<span class="sy1">&gt;</span> ColorBuffer<span class="sy4">;</span>
+&#160;
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<h4><span class="mw-headline" id=".cpp">.cpp</span></h4>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw4">void</span> AHeightMapReader<span class="sy4">::</span><span class="me2">UpdateBuffer</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	ColorBuffer.<span class="me1">Reset</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">if</span> <span class="br0">&#40;</span>RenderTarget <span class="sy3">!</span><span class="sy1">=</span> <span class="kw2">NULL</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+&#160;
+		FTextureRenderTarget2DResource<span class="sy2">*</span> textureResource <span class="sy1">=</span> <span class="br0">&#40;</span>FTextureRenderTarget2DResource<span class="sy2">*</span><span class="br0">&#41;</span>RenderTarget<span class="sy2">-</span><span class="sy1">&gt;</span>Resource<span class="sy4">;</span>
+		<span class="kw1">if</span> <span class="br0">&#40;</span>textureResource<span class="sy2">-</span><span class="sy1">&gt;</span>ReadPixels<span class="br0">&#40;</span>ColorBuffer<span class="br0">&#41;</span><span class="br0">&#41;</span>
+		<span class="br0">&#123;</span>
+&#160;
+		<span class="br0">&#125;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&#160;
+&#160;
+FColor AHeightMapReader<span class="sy4">::</span><span class="me2">GetRenderTargetValue</span><span class="br0">&#40;</span><span class="kw4">float</span> x, <span class="kw4">float</span> y<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw4">float</span> size <span class="sy1">=</span> <span class="nu0">10000</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">if</span> <span class="br0">&#40;</span>RenderTarget <span class="sy1">==</span> <span class="kw2">NULL</span> <span class="sy3">||</span> ColorBuffer.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy1">==</span> <span class="nu0">0</span><span class="br0">&#41;</span>
+		<span class="kw1">return</span> FColor<span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw4">float</span> width <span class="sy1">=</span> RenderTarget<span class="sy2">-</span><span class="sy1">&gt;</span>GetSurfaceWidth<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="kw4">float</span> height <span class="sy1">=</span> RenderTarget<span class="sy2">-</span><span class="sy1">&gt;</span>GetSurfaceHeight<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="co1">//Conver coordinates to texture space</span>
+	<span class="kw4">float</span> normalizedX <span class="sy1">=</span> <span class="br0">&#40;</span>x <span class="sy2">/</span> size<span class="br0">&#41;</span> <span class="sy2">+</span> <span class="nu17">0.5f</span><span class="sy4">;</span>
+	<span class="kw4">float</span> normalizedY <span class="sy1">=</span> <span class="br0">&#40;</span>y <span class="sy2">/</span> size<span class="br0">&#41;</span> <span class="sy2">+</span> <span class="nu17">0.5f</span><span class="sy4">;</span>
+&#160;
+	<span class="kw4">int</span> i <span class="sy1">=</span> <span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span><span class="br0">&#40;</span>normalizedX <span class="sy2">*</span> width<span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="kw4">int</span> j <span class="sy1">=</span> <span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span><span class="br0">&#40;</span>normalizedY <span class="sy2">*</span> height<span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">if</span> <span class="br0">&#40;</span>i <span class="sy1">&lt;</span> <span class="nu0">0</span><span class="br0">&#41;</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>i <span class="sy1">&gt;=</span> width<span class="br0">&#41;</span> i <span class="sy1">=</span> width <span class="sy2">-</span> <span class="nu0">1</span><span class="sy4">;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>j <span class="sy1">&lt;</span> <span class="nu0">0</span><span class="br0">&#41;</span> j <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>j <span class="sy1">&gt;=</span> height<span class="br0">&#41;</span> j <span class="sy1">=</span> height <span class="sy2">-</span> <span class="nu0">1</span><span class="sy4">;</span>
+&#160;
+	<span class="kw4">int</span> index <span class="sy1">=</span> i <span class="sy2">+</span> j <span class="sy2">*</span> width<span class="sy4">;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>index <span class="sy1">&lt;</span> <span class="nu0">0</span><span class="br0">&#41;</span> index <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>index <span class="sy1">&gt;=</span> ColorBuffer.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> index <span class="sy1">=</span> ColorBuffer.<span class="me1">Num</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw1">return</span> ColorBuffer<span class="br0">&#91;</span>index<span class="br0">&#93;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<h2><span class="mw-headline" id="Aligning_the_heightmap">Aligning the heightmap</span></h2>
+<p>This is probably the most tedious part of the implementation. Depending on the mesh used as the water surface and which way the texture is oriented when rendering to render target there will be adjustments to be made to heightmap material. In my case I had to rotate it 90 degrees due to a rendering bug in the MaterialBillboard. I also needed to shift texture coordinates by (0.5,0.5). Take note that the current implementation limits the water plane to the worlds origin and the zone covered by the heightmap is only 10000 units wide.
+</p><p>Another useful trick to make sure everything is lined up is to create a simple black and white texture with arrows and words and use it as the bump map in the heightmap material. This allows to easily identify if something is pointing or scaled the wrong way. Also creating a grid of debug spheres set at the height returned by the HeightMapReader allows to quickly line everything up.
+</p>
+<h2><span class="mw-headline" id="Using_the_HeightMapReader">Using the HeightMapReader</span></h2>
+<p>To make my boat float, it contains a collection of test points (array of vectors) setup around its hull. I loop through each point and call GetRenderTargetValue from the HeightMapReader at the coordinates of that point transformed by the ship's transform. I then compare the height of each point with the returned height and if the value is above water I apply a downward force (gravity) at that location and if the point is underwater I apply an upward force at that location (buoyancy). These different forces will apply torque to the whole ship and make it sway and bob with the waves. To increase stability of the ship I increase linear and angular dampening based on the number of test points located underwater.
+</p>
+<h2><span class="mw-headline" id="Summary">Summary</span></h2>
+<p>With this technique it is easy to make actors react to a dynamic heightmap generated from a material. 
+</p><p>Here is a video of what was shown in this tutorial
+</p><p><iframe width="560" height="315" src="//www.youtube.com/embed/7_cFo8-RkaA" frameborder="0" allowfullscreen></iframe>
+</p><p>Here is a video tutorial to add buoyancy to pawns.
+</p><p><iframe width="560" height="315" src="//www.youtube.com/embed/kkxJeyG2whw" frameborder="0" allowfullscreen></iframe>
+</p><p>There are many areas left for improvements:
+</p>
+<ul>
+<li> Using a faster technique to read the render target in code.
+</li>
+<li> Allow the water plane to move with the actor instead of staying at the world center.
+</li>
+<li> Interpolate the values read from the render target to get a smoother transition when a test point is located between pixels.
+</li>
+</ul>
+<p>Due to requests, here is the water plane model used in the demo: <a href="/File:WaterPlane.zip" title="File:WaterPlane.zip">File:WaterPlane.zip</a>
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.058 seconds
+Real time usage: 0.238 seconds
+Preprocessor visited node count: 76/1000000
+Preprocessor generated node count: 174/1000000
+Post‐expand include size: 178/2097152 bytes
+Template argument size: 22/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=Render_Target_Lookup&amp;oldid=24183">https://wiki.unrealengine.com/index.php?title=Render_Target_Lookup&amp;oldid=24183</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li><li><a href="/index.php?title=Category:RenderTarget&amp;action=edit&amp;redlink=1" class="new" title="Category:RenderTarget (page does not exist)">RenderTarget</a></li><li><a href="/index.php?title=Category:DynamicHeightmap&amp;action=edit&amp;redlink=1" class="new" title="Category:DynamicHeightmap (page does not exist)">DynamicHeightmap</a></li><li><a href="/Category:Community_Videos" title="Category:Community Videos">Community Videos</a></li><li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;printable=1&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.288 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

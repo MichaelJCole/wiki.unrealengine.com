@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>An Introduction to UE4 Plugins - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,follow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;printable=1&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;printable=1&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;printable=1&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"An_Introduction_to_UE4_Plugins","wgTitle":"An Introduction to UE4 Plugins","wgCurRevisionId":23952,"wgRevisionId":23952,"wgArticleId":922,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Templates","Tutorials","Code","Community Created Content","Getting Started"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"An_Introduction_to_UE4_Plugins","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;printable=1&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["ext.voteNY","mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<style type="text/css">/*<![CDATA[*/
+.source-javascript {line-height: normal;}
+.source-javascript li, .source-javascript pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for javascript
+ * CSS class: source-javascript, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.javascript.source-javascript .de1, .javascript.source-javascript .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.javascript.source-javascript  {font-family:monospace;}
+.javascript.source-javascript .imp {font-weight: bold; color: red;}
+.javascript.source-javascript li, .javascript.source-javascript .li1 {font-weight: normal; vertical-align:top;}
+.javascript.source-javascript .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.javascript.source-javascript .li2 {font-weight: bold; vertical-align:top;}
+.javascript.source-javascript .kw1 {color: #000066; font-weight: bold;}
+.javascript.source-javascript .kw2 {color: #003366; font-weight: bold;}
+.javascript.source-javascript .kw3 {color: #000066;}
+.javascript.source-javascript .kw5 {color: #FF0000;}
+.javascript.source-javascript .co1 {color: #006600; font-style: italic;}
+.javascript.source-javascript .co2 {color: #009966; font-style: italic;}
+.javascript.source-javascript .coMULTI {color: #006600; font-style: italic;}
+.javascript.source-javascript .es0 {color: #000099; font-weight: bold;}
+.javascript.source-javascript .br0 {color: #009900;}
+.javascript.source-javascript .sy0 {color: #339933;}
+.javascript.source-javascript .st0 {color: #3366CC;}
+.javascript.source-javascript .nu0 {color: #CC0000;}
+.javascript.source-javascript .me1 {color: #660066;}
+.javascript.source-javascript .ln-xtra, .javascript.source-javascript li.ln-xtra, .javascript.source-javascript div.ln-xtra {background-color: #ffc;}
+.javascript.source-javascript span.xtra { display:block; }
+
+/*]]>*/
+</style><style type="text/css">/*<![CDATA[*/
+.source-csharp {line-height: normal;}
+.source-csharp li, .source-csharp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for csharp
+ * CSS class: source-csharp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.csharp.source-csharp .de1, .csharp.source-csharp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.csharp.source-csharp  {font-family:monospace;}
+.csharp.source-csharp .imp {font-weight: bold; color: red;}
+.csharp.source-csharp li, .csharp.source-csharp .li1 {font-weight: normal; vertical-align:top;}
+.csharp.source-csharp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.csharp.source-csharp .li2 {font-weight: bold; vertical-align:top;}
+.csharp.source-csharp .kw1 {color: #0600FF; font-weight: bold;}
+.csharp.source-csharp .kw2 {color: #FF8000; font-weight: bold;}
+.csharp.source-csharp .kw3 {color: #008000;}
+.csharp.source-csharp .kw4 {color: #6666cc; font-weight: bold;}
+.csharp.source-csharp .kw5 {color: #000000;}
+.csharp.source-csharp .co1 {color: #008080; font-style: italic;}
+.csharp.source-csharp .co2 {color: #008080;}
+.csharp.source-csharp .co3 {color: #008080;}
+.csharp.source-csharp .coMULTI {color: #008080; font-style: italic;}
+.csharp.source-csharp .es0 {color: #008080; font-weight: bold;}
+.csharp.source-csharp .es_h {color: #008080; font-weight: bold;}
+.csharp.source-csharp .br0 {color: #008000;}
+.csharp.source-csharp .sy0 {color: #008000;}
+.csharp.source-csharp .st0 {color: #666666;}
+.csharp.source-csharp .st_h {color: #666666;}
+.csharp.source-csharp .nu0 {color: #FF0000;}
+.csharp.source-csharp .me1 {color: #0000FF;}
+.csharp.source-csharp .me2 {color: #0000FF;}
+.csharp.source-csharp .ln-xtra, .csharp.source-csharp li.ln-xtra, .csharp.source-csharp div.ln-xtra {background-color: #ffc;}
+.csharp.source-csharp span.xtra { display:block; }
+
+/*]]>*/
+</style><style type="text/css">/*<![CDATA[*/
+.source-cpp {line-height: normal;}
+.source-cpp li, .source-cpp pre {
+	line-height: normal; border: 0px none white;
+}
+/**
+ * GeSHi Dynamically Generated Stylesheet
+ * --------------------------------------
+ * Dynamically generated stylesheet for cpp
+ * CSS class: source-cpp, CSS id: 
+ * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
+ * (http://qbnz.com/highlighter/ and http://geshi.org/)
+ * --------------------------------------
+ */
+.cpp.source-cpp .de1, .cpp.source-cpp .de2 {font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;font-family: monospace, monospace;}
+.cpp.source-cpp  {font-family:monospace;}
+.cpp.source-cpp .imp {font-weight: bold; color: red;}
+.cpp.source-cpp li, .cpp.source-cpp .li1 {font-weight: normal; vertical-align:top;}
+.cpp.source-cpp .ln {width:1px;text-align:right;margin:0;padding:0 2px;vertical-align:top;}
+.cpp.source-cpp .li2 {font-weight: bold; vertical-align:top;}
+.cpp.source-cpp .kw1 {color: #0000ff;}
+.cpp.source-cpp .kw2 {color: #0000ff;}
+.cpp.source-cpp .kw3 {color: #0000dd;}
+.cpp.source-cpp .kw4 {color: #0000ff;}
+.cpp.source-cpp .co1 {color: #666666;}
+.cpp.source-cpp .co2 {color: #339900;}
+.cpp.source-cpp .coMULTI {color: #ff0000; font-style: italic;}
+.cpp.source-cpp .es0 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es1 {color: #000099; font-weight: bold;}
+.cpp.source-cpp .es2 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es3 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es4 {color: #660099; font-weight: bold;}
+.cpp.source-cpp .es5 {color: #006699; font-weight: bold;}
+.cpp.source-cpp .br0 {color: #008000;}
+.cpp.source-cpp .sy0 {color: #008000;}
+.cpp.source-cpp .sy1 {color: #000080;}
+.cpp.source-cpp .sy2 {color: #000040;}
+.cpp.source-cpp .sy3 {color: #000040;}
+.cpp.source-cpp .sy4 {color: #008080;}
+.cpp.source-cpp .st0 {color: #FF0000;}
+.cpp.source-cpp .nu0 {color: #0000dd;}
+.cpp.source-cpp .nu6 {color: #208080;}
+.cpp.source-cpp .nu8 {color: #208080;}
+.cpp.source-cpp .nu12 {color: #208080;}
+.cpp.source-cpp .nu16 {color:#800080;}
+.cpp.source-cpp .nu17 {color:#800080;}
+.cpp.source-cpp .nu18 {color:#800080;}
+.cpp.source-cpp .nu19 {color:#800080;}
+.cpp.source-cpp .me1 {color: #007788;}
+.cpp.source-cpp .me2 {color: #007788;}
+.cpp.source-cpp .ln-xtra, .cpp.source-cpp li.ln-xtra, .cpp.source-cpp div.ln-xtra {background-color: #ffc;}
+.cpp.source-cpp span.xtra { display:block; }
+
+/*]]>*/
+</style><!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-An_Introduction_to_UE4_Plugins skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head"></div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-recentchanges"><a href="/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Community' aria-labelledby='p-Community-label'>
+	<h3 id='p-Community-label'>Community</h3>
+	<div class="body">
+		<ul>
+			<li id="n-UE4-Games"><a href="/Category:Games">UE4 Games</a></li>
+			<li id="n-Dev-Blogs"><a href="/Developer_Blogs">Dev Blogs</a></li>
+			<li id="n-Dev-Livestreams"><a href="/Developer_Livestreams">Dev Livestreams</a></li>
+			<li id="n-Code-Sharing-Hub"><a href="/GitHub_Sharing_Hub">Code Sharing Hub</a></li>
+			<li id="n-UE-User-Groups"><a href="/User_Group_Map">UE User Groups</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Learning_Resources' aria-labelledby='p-Learning_Resources-label'>
+	<h3 id='p-Learning_Resources-label'>Learning Resources</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Example-Projects"><a href="/Category:Example_Projects">Example Projects</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Software_and_Tools' aria-labelledby='p-Software_and_Tools-label'>
+	<h3 id='p-Software_and_Tools-label'>Software and Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Art:-3D"><a href="/3D_Art_Resources">Art: 3D</a></li>
+			<li id="n-Art:-2D"><a href="/2D_Art_Resources">Art: 2D</a></li>
+			<li id="n-Audio"><a href="/Audio_Resources">Audio</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Modding' aria-labelledby='p-Modding-label'>
+	<h3 id='p-Modding-label'>Modding</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Modding-Resources"><a href="/Category:Modding_Resources">Modding Resources</a></li>
+			<li id="n-Moddable-Games"><a href="/Category:Moddable_Games">Moddable Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Epic_Official' aria-labelledby='p-Epic_Official-label'>
+	<h3 id='p-Epic_Official-label'>Epic Official</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Website"><a href="https://www.unrealengine.com" rel="nofollow">Website</a></li>
+			<li id="n-Learning-Resources"><a href="https://docs.unrealengine.com/latest/INT/" rel="nofollow">Learning Resources</a></li>
+			<li id="n-Forums"><a href="https://forums.unrealengine.com/" rel="nofollow">Forums</a></li>
+			<li id="n-Blog"><a href="https://www.unrealengine.com/blog" rel="nofollow">Blog</a></li>
+			<li id="n-YouTube"><a href="https://www.youtube.com/UnrealEngine" rel="nofollow">YouTube</a></li>
+			<li id="n-Twitch"><a href="http://www.twitch.tv/unrealengine" rel="nofollow">Twitch</a></li>
+			<li id="n-Twitter"><a href="https://twitter.com/UnrealEngine" rel="nofollow">Twitter</a></li>
+			<li id="n-Facebook"><a href="https://www.facebook.com/UnrealEngine" rel="nofollow">Facebook</a></li>
+			<li id="n-Instagram"><a href="https://instagram.com/unrealengine/" rel="nofollow">Instagram</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/An_Introduction_to_UE4_Plugins" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/An_Introduction_to_UE4_Plugins" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="/index.php?title=An_Introduction_to_UE4_Plugins&amp;oldid=23952" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=An_Introduction_to_UE4_Plugins&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/An_Introduction_to_UE4_Plugins"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk"><span><a href="/Talk:An_Introduction_to_UE4_Plugins"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/An_Introduction_to_UE4_Plugins" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=An_Introduction_to_UE4_Plugins&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=An_Introduction_to_UE4_Plugins&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=An+Introduction+to+UE4+Plugins&amp;returntoquery=printable%3Dyes&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=An+Introduction+to+UE4+Plugins&amp;returntoquery=printable%3Dyes" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">An Introduction to UE4 Plugins</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="aux">
+<div>
+<b>Rate this Article:</b> <div id="rating_"><div class="rating-score"><div class="voteboxrate">3.25</div></div><div class="rating-section"><img class="vote-rating-star" data-vote-the-vote="1" data-vote-id="" data-vote-action="3" data-vote-rating="3.25" data-vote-voted="0" id="rating__1" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="2" data-vote-id="" data-vote-action="3" data-vote-rating="3.25" data-vote-voted="0" id="rating__2" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="3" data-vote-id="" data-vote-action="3" data-vote-rating="3.25" data-vote-voted="0" id="rating__3" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="4" data-vote-id="" data-vote-action="3" data-vote-rating="3.25" data-vote-voted="0" id="rating__4" src="/extensions/VoteNY/images/star_half.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="5" data-vote-id="" data-vote-action="3" data-vote-rating="3.25" data-vote-voted="0" id="rating__5" src="/extensions/VoteNY/images/star_off.gif" alt="" /> <span class="rating-total">(4 votes)</span></div>
+				<div class="rating-clear">
+			</div></div>
+</div>
+<div>
+<p>Approved for Versions:4.2, 4.3, 4.4, 4.5
+</p>
+</div>
+</div>
+<table align="right">
+<tr>
+<td> <div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Scope_.26_Notes"><span class="tocnumber">1.1</span> <span class="toctext">Scope &amp; Notes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Concepts_.26_Limitations"><span class="tocnumber">2</span> <span class="toctext">Concepts &amp; Limitations</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Engine_vs._Installed"><span class="tocnumber">2.1</span> <span class="toctext">Engine vs. Installed</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#First_Steps"><span class="tocnumber">3</span> <span class="toctext">First Steps</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#File_Structure"><span class="tocnumber">3.1</span> <span class="toctext">File Structure</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Content_Module"><span class="tocnumber">4</span> <span class="toctext">Content Module</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Archive_Manifest"><span class="tocnumber">4.1</span> <span class="toctext">Archive Manifest</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Stand_Alone_Plugin"><span class="tocnumber">5</span> <span class="toctext">Stand Alone Plugin</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#File_Structure_2"><span class="tocnumber">5.1</span> <span class="toctext">File Structure</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="#Archive_Manifest_2"><span class="tocnumber">5.2</span> <span class="toctext">Archive Manifest</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-12"><a href="#Non-Game_Module"><span class="tocnumber">6</span> <span class="toctext">Non-Game Module</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Archive_Manifest_3"><span class="tocnumber">6.1</span> <span class="toctext">Archive Manifest</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-14"><a href="#Distribution"><span class="tocnumber">7</span> <span class="toctext">Distribution</span></a>
+<ul>
+<li class="toclevel-2 tocsection-15"><a href="#Sample_ReadMe.md"><span class="tocnumber">7.1</span> <span class="toctext">Sample ReadMe.md</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-16"><a href="#More_Information"><span class="tocnumber">8</span> <span class="toctext">More Information</span></a></li>
+</ul>
+</div>
+
+</td></tr></table>
+<h1><span class="mw-headline" id="Overview">Overview</span></h1>
+<p>The goal of this tutorial is to show you how to create a new plugin, exercising the basic concepts and giving you a platform on which you can build your own projects out. 
+</p><p>For examples sake, I will be creating a bundle called "Bob's Bundle" and it will do little more than expose an interface to call into a protected method that will output to the console. 
+</p>
+<div style="background-color: #F0E7E7; border: 1px solid #C33; border-left: 5px solid #C33; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/b/b3/Icon_template_warning1.png" width="30" height="36" style="vertical-align: top" /> Please note that this article is not up to date and you may run into problems trying to get a working Plugin. If you just want to get an example Plugin with the current syntax to play around, look into your Unreal Engine Source Code at the path <b>Engine/Plugins/Developer</b> and checkout <b>BlankPlugin</b>. You can also just create an empty plugin by opening the Plugin Menu in the UE4Editor (Edit -&gt; Plugins) and pressing "New Plugin". 
+</p>
+</div> 
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Scope_.26_Notes">Scope &amp; Notes</span></h2>
+<ul>
+<li> A "Plugin" is the wrong term to use in describing what we are doing. Instead we will refer to it as a bundle from now on. This is discussed in the next section - Concepts and Limitations. 
+</li>
+<li> You will be able to create a new bundle of your own by the end
+</li>
+<li> I expect you to have, at the very least, a more than cursory level of knowledge about C++, and the UE4 Build System
+</li>
+<li> All Code paths provided, unless noted otherwise, are from the UE4 Project's base directory.
+</li>
+<li> Any time a file is added to the project, you should regenerate your project files.
+</li>
+</ul>
+<h1><span class="mw-headline" id="Concepts_.26_Limitations">Concepts &amp; Limitations</span></h1>
+<p>The general idea behind a bundle is to wrap up a set of functionality that can be treated as a self contained group, transplanted as needed, adding functionality to UE4. There are three types of bundle:
+</p>
+<ol>
+<li> <b>Non-Game Module</b> - Extension or Creation of a set of code that exposes an interface to internal code, allowing other modules and game modules to depend upon its functionality. 
+</li>
+<li> <b>Stand Alone Plugin</b> - Extension or Creation of a set of code that does not allow exterior modules to modify its contents. 
+</li>
+<li> <b>Content Module</b> - Contains content that is available to developers in the editor, as well as in the game.  
+</li>
+</ol>
+<p>As the designer you are free to include any number of these you wish in your bundle, and in fact - you can include them all in the same bundle. They are simply used as encapsulation tools.
+</p>
+<div style="background-color: #F0F0E7; border: 1px solid #C93; border-left: 5px solid #C93; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" style="vertical-align: top" /> Your bundle should not include a primary game module.
+</p>
+</div> 
+<div style="background-color: #F0F0E7; border: 1px solid #C93; border-left: 5px solid #C93; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" style="vertical-align: top" /> Your bundle may not have configurations in the config directory of your project.
+</p>
+</div>
+<h2><span class="mw-headline" id="Engine_vs._Installed">Engine vs. Installed</span></h2>
+<p>An engine plugin is one that resides in the Plugin directory of your UE4 install. It will show up as <b>Built In</b> when looking at the plugin listing in the editor. An <b>Installed</b> plugin is only available or loaded for a particular Project. 
+</p><p>To see a list of the plugins that are already available to you (Enabled and Disabled) open the editor and in the menu bar, select <b>Window</b> &gt; <b>Plugins</b><sup>1</sup>. From here you can load or unload any plugins by checking the <b>Enabled</b> checkbox. 
+</p><p>If you wish to see any of the modules, including your game and plugins, that are available, select <b>Window</b> &gt; <b>Developer Tools</b> &gt; <b>Modules</b>. From here you can load, unload, reload and or recompile any of the modules currently available to the editor.
+</p>
+<hr />
+<p><sup>1</sup> In recent versions, this menu has been moved to <b>Edit</b> &gt; <b>Plugins</b>
+</p>
+<h1><span class="mw-headline" id="First_Steps">First Steps</span></h1>
+<p>To begin, you will need to create a new project from the UE4 Editor. I recommend a <b>C++ → Basic code</b> project, so you are able to exercise the interface of your module, given that you create one. I am exporting a <b>Basic Code</b> project called BobsPlayground.
+</p>
+<h2><span class="mw-headline" id="File_Structure">File Structure</span></h2>
+<p>Once Visual Studio (VS) has finished spinning up open up the project path in the windows file explorer. Here, create a new folder - Plugins, which should reside at MyProject/Plugins. In my example it is called BobsPlayground/Plugins. 
+</p><p>This is the directory that will house all of our further development, until we return to UE4 to confirm that we have the ability to add a dependency between our project and our plugin.
+</p>
+<h1><span class="mw-headline" id="Content_Module">Content Module</span></h1>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;"><a href="/File:Plugins-Listing.png" class="image"><img alt="" src="https://d3ar1piqh1oeli.cloudfront.net/f/fc/Plugins-Listing.png/300px-Plugins-Listing.png" width="300" height="181" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/f/fc/Plugins-Listing.png/450px-Plugins-Listing.png 1.5x, https://d3ar1piqh1oeli.cloudfront.net/f/fc/Plugins-Listing.png/600px-Plugins-Listing.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:Plugins-Listing.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div>Figure 1. A peek into the plugin UI in the UE4 editor.</div></div></div>
+<p>Within the Plugins directory, add a new folder - Content. This will house our Content modules assets. Within this directory add a Content.uplugin file. This will be the <a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/Plugins/index.html#plugindescriptorfiles">descriptor for our plugin</a>, so UE4 can find it, load it up and knows what to do with it. 
+</p><p>Here is the sample I am using for my content module. Feel free to copy it. 
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="javascript source-javascript"><pre class="de1"><span class="br0">&#123;</span>
+    <span class="st0">&quot;FileVersion&quot;</span> <span class="sy0">:</span> <span class="nu0">3</span><span class="sy0">,</span>
+    <span class="st0">&quot;FriendlyName&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;Bob's Content&quot;</span><span class="sy0">,</span>
+    <span class="st0">&quot;Version&quot;</span> <span class="sy0">:</span> <span class="nu0">1</span><span class="sy0">,</span>
+    <span class="st0">&quot;VersionName&quot;</span><span class="sy0">:</span> <span class="st0">&quot;1.0&quot;</span><span class="sy0">,</span>
+    <span class="st0">&quot;Description&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;Here I describe the content.&quot;</span><span class="sy0">,</span>
+    <span class="st0">&quot;Category&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;Bobs.Content&quot;</span><span class="sy0">,</span>
+    <span class="st0">&quot;CreatedBy&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;Bob Chatman&quot;</span><span class="sy0">,</span>
+    <span class="st0">&quot;CreatedByURL&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;http://gneu.org&quot;</span><span class="sy0">,</span>
+    <span class="st0">&quot;CanContainContent&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;true&quot;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>This provides the plugin system with everything short of an icon to show in the UI View. To add an icon, create a Resources directory within your plugin folder, and create a PNG in there called Icon128.png.
+</p>
+<div style="background-color: #F0F0E7; border: 1px solid #C93; border-left: 5px solid #C93; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" style="vertical-align: top" /> As the name implies, it should be 128x128 px
+</p>
+</div>
+<p>You should also be aware of the Category. It provides a way for you to filter your plugins by type, developer or whatever you choose. Each sub category is separated by a period character. Above, Bobs.Content becomes Bobs &gt; Content in the plugin listing in the editor, as shows in Figure 1, above. 
+</p>
+<div style="background-color: #F0E7E7; border: 1px solid #C33; border-left: 5px solid #C33; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/b/b3/Icon_template_warning1.png" width="30" height="36" style="vertical-align: top" /> It seems that nested Plugin categories have been removed in UE 4.8. See <a rel="nofollow" class="external free" href="https://answers.unrealengine.com/questions/250282/dot-in-plugin-categories-does-not-work.html">https://answers.unrealengine.com/questions/250282/dot-in-plugin-categories-does-not-work.html</a> for reference.
+</p>
+</div>
+<div style="background-color: #F0E7E7; border: 1px solid #C33; border-left: 5px solid #C33; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/b/b3/Icon_template_warning1.png" width="30" height="36" style="vertical-align: top" /> As of UE4.0.1, Content bundles dead end here. Adding content to your bundle is a planned feature, but is not yet functional.
+</p>
+</div>
+<h2><span class="mw-headline" id="Archive_Manifest">Archive Manifest</span></h2>
+<ul>
+<li> Content/*
+</li>
+<li> Resources/Icon128.png
+</li>
+<li> Content.uplugin
+</li>
+</ul>
+<h1><span class="mw-headline" id="Stand_Alone_Plugin">Stand Alone Plugin</span></h1>
+<div class="thumb tright"><div class="thumbinner" style="width:202px;"><a href="/File:Solution-Explorer_-_Plugins_Generated.png" class="image"><img alt="Solution-Explorer - Plugins Generated.png" src="https://d3ar1piqh1oeli.cloudfront.net/4/4d/Solution-Explorer_-_Plugins_Generated.png/200px-Solution-Explorer_-_Plugins_Generated.png" width="200" height="493" class="thumbimage" srcset="https://d3ar1piqh1oeli.cloudfront.net/4/4d/Solution-Explorer_-_Plugins_Generated.png/300px-Solution-Explorer_-_Plugins_Generated.png 1.5x, https://d26ilriwvtzlb.cloudfront.net/4/4d/Solution-Explorer_-_Plugins_Generated.png 2x" /></a>  <div class="thumbcaption"><div class="magnify"><a href="/File:Solution-Explorer_-_Plugins_Generated.png" class="internal" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></a></div></div></div></div>
+<p>Although not quite as straight forward as content, the Stand Alone plugin is a hundred times more interesting, technically speaking. These plugins exist for no other purpose than to extend and create new unreal editor classes. A prime example of such a plugin is the <a href="/Rama%27s_Vertex_Snap_Editor_Plugin#Core_of_Making_Your_Own_Editor_Mode" title="Rama's Vertex Snap Editor Plugin">Vertex Snap Editor Extension</a> by <a href="/User:Rama" title="User:Rama">Rama</a>, which adds the ability for you to vertex snap meshes together, but also details out how his plugin works. Seeing as this is an introduction to plugins, I will only show you how to configure your plugin, what you do with it afterwards is on you =).
+</p>
+<h2><span class="mw-headline" id="File_Structure_2">File Structure</span></h2>
+<p>We will, once again, add a uplugin plugin descriptor. This time we will make a modification to it though, adding in a modules listing parameter to allow us to configure the plugin and the declare the contexts that we wish for our standalone plugin to be loaded. 
+</p><p>Inside <b>/Plugins/StandAlone/StandAlone.uplugin</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="javascript source-javascript"><pre class="de1"><span class="br0">&#123;</span>
+    <span class="st0">&quot;FileVersion&quot;</span> <span class="sy0">:</span> <span class="nu0">3</span><span class="sy0">,</span>
+&#160;
+    <span class="st0">&quot;FriendlyName&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;Bob's Plugin&quot;</span><span class="sy0">,</span>
+    <span class="st0">&quot;Version&quot;</span> <span class="sy0">:</span> <span class="nu0">1</span><span class="sy0">,</span>
+    <span class="st0">&quot;VersionName&quot;</span><span class="sy0">:</span> <span class="st0">&quot;1.0&quot;</span><span class="sy0">,</span>
+    <span class="st0">&quot;Description&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;Here I describe the capabilities of the plugin.&quot;</span><span class="sy0">,</span>
+    <span class="st0">&quot;Category&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;Bobs.Stand Alone&quot;</span><span class="sy0">,</span>
+    <span class="st0">&quot;CreatedBy&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;Bob Chatman&quot;</span><span class="sy0">,</span>
+    <span class="st0">&quot;CreatedByURL&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;http://gneu.org&quot;</span><span class="sy0">,</span>
+&#160;
+    <span class="st0">&quot;Modules&quot;</span> <span class="sy0">:</span>
+    <span class="br0">&#91;</span>
+        <span class="br0">&#123;</span>
+            <span class="st0">&quot;Name&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;StandAlone&quot;</span><span class="sy0">,</span>
+            <span class="st0">&quot;Type&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;Developer&quot;</span>
+        <span class="br0">&#125;</span> 
+    <span class="br0">&#93;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p><br />
+</p>
+<div style="background-color: #F0F0E7; border: 1px solid #C93; border-left: 5px solid #C93; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" style="vertical-align: top" /> The "Type" parameter in the "Modules" section takes in the following values: "Developer", "Runtime", "Editor". All of these will generate an Editor DLL when compiled against the editor, but when you compile the plugin for a standalone game, make sure that your "Type" value is set to "Runtime" otherwise Unreal will not generate the Static.lib file needed by the standalone game.
+</p>
+</div>
+<p><br />
+The modules section accepts any number of entries, as a JSON array of objects. Name is the name of the module you are creating - this is likely to be same as the folder you put your module into. Type is one of three values, Developer, Runtime or Editor. Editor is loaded at editor load time, Runtime is loaded in all contexts, and Developer is loaded at any time where you are loading a Development build and never for Shipping builds. There is one final optional parameter to include, but it doesn't exactly mean much in a stand alone plugin. We will return to it in the next section. 
+</p><p>With the descriptor in place, we can dive into the guts. 
+</p>
+<div style="background-color: #F0F0E7; border: 1px solid #C93; border-left: 5px solid #C93; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" style="vertical-align: top" /> As with the content example, you are able to include a 128x128 px png to be loaded into the UI of the editor.
+</p>
+</div>
+<p>Create the following path: <b>/Plugins/StandAlone/Source/StandAlone/</b>
+</p><p>Within this directory you will begin working on your plugin. You will need a Build.cs file to declare dependencies, include paths or handle linking of an external library. 
+</p><p>inside <b>/Plugins/StandAlone/Source/StandAlone/StandAlone.Build.cs</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="csharp source-csharp"><pre class="de1"><span class="kw1">using</span> <span class="co3">UnrealBuildTool</span><span class="sy0">;</span>
+<span class="kw1">using</span> <span class="co3">System.IO</span><span class="sy0">;</span>
+&#160;
+<span class="kw1">public</span> <span class="kw4">class</span> StandAlone <span class="sy0">:</span> ModuleRules
+<span class="br0">&#123;</span>
+    <span class="kw1">public</span> StandAlone<span class="br0">&#40;</span>TargetInfo Target<span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        PrivateIncludePaths<span class="sy0">.</span><span class="me1">AddRange</span><span class="br0">&#40;</span><span class="kw3">new</span> <span class="kw4">string</span><span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span> <span class="st0">&quot;StandAlone/Private&quot;</span> <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        PublicIncludePaths<span class="sy0">.</span><span class="me1">AddRange</span><span class="br0">&#40;</span><span class="kw3">new</span> <span class="kw4">string</span><span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span> <span class="st0">&quot;StandAlone/Public&quot;</span> <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&#160;
+        PublicDependencyModuleNames<span class="sy0">.</span><span class="me1">AddRange</span><span class="br0">&#40;</span><span class="kw3">new</span> <span class="kw4">string</span><span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span> <span class="st0">&quot;Engine&quot;</span>, <span class="st0">&quot;Core&quot;</span> <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>Yep, at this point everything you see will be very similar to what you have already seen. I try to stick to the standard folder structure for my files, so I am following the coding guidelines that Epic has set out for us. In this directory you will want to create a Classes directory, for your UE4 related header files, and a Private folder to house your plugins implementations. There is no need for a public folder, as there is no public API to your plugin to be providing. 
+</p><p>inside <b>/Plugins/StandAlone/Source/StandAlone/Public/StandAlone.h</b> 
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co2">#pragma once</span>
+&#160;
+<span class="co2">#include &quot;ModuleManager.h&quot;</span>
+&#160;
+<span class="kw2">class</span> StandAloneImpl <span class="sy4">:</span> <span class="kw2">public</span> IModuleInterface
+<span class="br0">&#123;</span>
+<span class="kw2">public</span><span class="sy4">:</span>
+	<span class="coMULTI">/** IModuleInterface implementation */</span>
+	<span class="kw4">void</span> StartupModule<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="kw4">void</span> ShutdownModule<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<p>inside <b>/Plugins/StandAlone/Source/StandAlone/Private/StandAlone.cpp</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co2">#include &quot;StandAlonePrivatePCH.h&quot;</span>
+&#160;
+<span class="co2">#include &quot;StandAlone.h&quot;</span>
+&#160;
+<span class="kw4">void</span> StandAloneImpl<span class="sy4">::</span><span class="me2">StartupModule</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> StandAloneImpl<span class="sy4">::</span><span class="me2">ShutdownModule</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+<span class="br0">&#125;</span>
+&#160;
+IMPLEMENT_MODULE<span class="br0">&#40;</span>StandAloneImpl, Module<span class="br0">&#41;</span></pre></div></div>
+<p><b>StandAlonePrivatePCH.h</b> is an empty file, currently. It is there for you to stick your own PreCompiled Header references and include them in one lump, as you do with the <b>MyProject.h</b> file in your standard game.
+</p><p>The startup and shutdown module methods are available for you to be able to hook in and handle events that come with the loading of and unloading of the modules. This is likely a good place to handle opening or closing of data stores, handles and the like. I use this as the point when my V8 plugin is initialized to ensure that it is available globally.
+</p>
+<h2><span class="mw-headline" id="Archive_Manifest_2">Archive Manifest</span></h2>
+<ul>
+<li> Binaries/Win64/UE4Editor-StandAlone.dll
+</li>
+<li> Resources/Icon128.png
+</li>
+<li> StandAlone.uplugin
+</li>
+</ul>
+<h1><span class="mw-headline" id="Non-Game_Module">Non-Game Module</span></h1>
+<p>And finally, the pièce de résistance, a module exposing functionality. When this type of bundle comes into a party, everyone turns to look. There is one key element of this module, and that is the public facing interface and the importance of the load time. Everything else is as it was with a stand alone plugin. First, lets examine the addition to our plugin descriptor. 
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="javascript source-javascript"><pre class="de1"><span class="br0">&#123;</span>
+    <span class="st0">&quot;FileVersion&quot;</span> <span class="sy0">:</span> <span class="nu0">3</span><span class="sy0">,</span>
+&#160;
+    <span class="st0">&quot;FriendlyName&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;Bob's Module&quot;</span><span class="sy0">,</span>
+    <span class="st0">&quot;Version&quot;</span> <span class="sy0">:</span> <span class="nu0">1</span><span class="sy0">,</span>
+    <span class="st0">&quot;VersionName&quot;</span><span class="sy0">:</span> <span class="st0">&quot;1.0&quot;</span><span class="sy0">,</span>
+    <span class="st0">&quot;Description&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;Here I describe the capabilities of the module.&quot;</span><span class="sy0">,</span>
+    <span class="st0">&quot;Category&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;Bobs.Module&quot;</span><span class="sy0">,</span>
+    <span class="st0">&quot;CreatedBy&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;Bob Chatman&quot;</span><span class="sy0">,</span>
+    <span class="st0">&quot;CreatedByURL&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;http://gneu.org&quot;</span><span class="sy0">,</span>
+    <span class="st0">&quot;CanContainContent&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;true&quot;</span><span class="sy0">,</span>
+&#160;
+    <span class="st0">&quot;Modules&quot;</span> <span class="sy0">:</span>
+    <span class="br0">&#91;</span>
+        <span class="br0">&#123;</span>
+            <span class="st0">&quot;Name&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;Module&quot;</span><span class="sy0">,</span>
+            <span class="st0">&quot;Type&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;Developer&quot;</span><span class="sy0">,</span>
+            <span class="st0">&quot;LoadingPhase&quot;</span> <span class="sy0">:</span> <span class="st0">&quot;PreDefault&quot;</span>
+        <span class="br0">&#125;</span> 
+    <span class="br0">&#93;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>The addition of the LoadingPhase allows our module to be loaded prior to the standard load time, which would allow any module that is loaded afterwards to be able to include it as a dependency. Let's look at what options we have for that. 
+</p><p>Inside <b>/Source/BobsPlayground/BobsPlayground.Build.cs</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="csharp source-csharp"><pre class="de1"><span class="kw1">using</span> <span class="co3">UnrealBuildTool</span><span class="sy0">;</span>
+&#160;
+<span class="kw1">public</span> <span class="kw4">class</span> BobsPlayground <span class="sy0">:</span> ModuleRules
+<span class="br0">&#123;</span>
+    <span class="kw1">public</span> BobsPlayground<span class="br0">&#40;</span>TargetInfo Target<span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        PublicDependencyModuleNames<span class="sy0">.</span><span class="me1">AddRange</span><span class="br0">&#40;</span><span class="kw3">new</span> <span class="kw4">string</span><span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span> <span class="st0">&quot;Core&quot;</span>, <span class="st0">&quot;CoreUObject&quot;</span>, <span class="st0">&quot;Engine&quot;</span>, <span class="st0">&quot;InputCore&quot;</span><span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&#160;
+        PrivateDependencyModuleNames<span class="sy0">.</span><span class="me1">AddRange</span><span class="br0">&#40;</span><span class="kw3">new</span> <span class="kw4">string</span><span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span> <span class="st0">&quot;Module&quot;</span> <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&#160;
+        DynamicallyLoadedModuleNames<span class="sy0">.</span><span class="me1">AddRange</span><span class="br0">&#40;</span><span class="kw3">new</span> <span class="kw4">string</span><span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="br0">&#123;</span> <span class="st0">&quot;StandAlone&quot;</span> <span class="br0">&#125;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>There are three noteworthy ways to declare a dependency. <b>Public and Private dependencies are staticly linked into your project and visible to public and or private code, respectively</b>. Public implies that you may also expose such functionality to whatever tools, editors or plugins are dependent on your game/module. It is also important to keep in mind that with the static linking, the header files are included. Dynamically loaded modules do not include the header files at link time, and instead should be treated as an external dll, loaded when needed. The key difference is that because of the static linking, if the module is missing your code will fail out. <i>If you are using a dynamic link your code will be able to recover, in the event that the module is not found.</i> 
+</p><p>With this, all that remains is exposing our interface and writing a short test to confirm that it works. Create the public interface: <b>/Plugins/Module/Source/Module/Public/IModule.h</b>
+</p><p>Inside <b>/Plugins/Module/Source/Module/Public/IModule.h</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co2">#pragma once</span>
+&#160;
+<span class="co2">#include &quot;ModuleManager.h&quot;</span>
+&#160;
+<span class="coMULTI">/**
+* The public interface to this module.  In most cases, this interface is only public to sibling modules
+* within this plugin.
+*/</span>
+<span class="kw2">class</span> IModule <span class="sy4">:</span> <span class="kw2">public</span> IModuleInterface
+<span class="br0">&#123;</span>
+&#160;
+<span class="kw2">public</span><span class="sy4">:</span>
+&#160;
+	<span class="coMULTI">/**
+	* Singleton-like access to this module's interface.  This is just for convenience!
+	* Beware of calling this during the shutdown phase, though.  Your module might have been unloaded already.
+	*
+	* @return Returns singleton instance, loading the module on demand if needed
+	*/</span>
+	<span class="kw4">static</span> <span class="kw2">inline</span> IModule<span class="sy3">&amp;</span> Get<span class="br0">&#40;</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		<span class="kw1">return</span> FModuleManager<span class="sy4">::</span><span class="me2">LoadModuleChecked</span><span class="sy1">&lt;</span> IModule <span class="sy1">&gt;</span><span class="br0">&#40;</span><span class="st0">&quot;Module&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+&#160;
+	<span class="coMULTI">/**
+	* Checks to see if this module is loaded and ready.  It is only valid to call Get() if IsAvailable() returns true.
+	*
+	* @return True if the module is loaded and ready to use
+	*/</span>
+	<span class="kw4">static</span> <span class="kw2">inline</span> <span class="kw4">bool</span> IsAvailable<span class="br0">&#40;</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		<span class="kw1">return</span> FModuleManager<span class="sy4">::</span><span class="me2">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">IsModuleLoaded</span><span class="br0">&#40;</span><span class="st0">&quot;Module&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+&#160;
+	<span class="kw2">virtual</span> <span class="kw4">bool</span> IsThisNumber42<span class="br0">&#40;</span><span class="kw4">int32</span> num<span class="br0">&#41;</span> <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<p>There are two static methods, and an instance method to test that a number is 42. The two methods provide us the ability to 1) Confirm that the module is loaded and available, and 2) get a reference to the plugin to be referenced in our game/module. Note the use of a pure virtual function here. Unreal uses classes and multiple inheritance to provide the contract of an interface, but that doesn't mean you have to provide implementations for your functions/methods. <i>I prefer to keep my interfaces pure virtual because it ensures that I have to implement methods</i>.  
+</p><p>Inside <b>/Source/BobsPlayground/BobsPlayground.cpp</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="kw4">void</span> FBobsPlaygroundModule<span class="sy4">::</span><span class="me2">StartupModule</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span>IModule<span class="sy4">::</span><span class="me2">IsAvailable</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+	<span class="br0">&#123;</span>
+		UE_LOG<span class="br0">&#40;</span>BobsPlayground, Log, TEXT<span class="br0">&#40;</span><span class="st0">&quot;%s&quot;</span><span class="br0">&#41;</span>, IModule<span class="sy4">::</span><span class="me2">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">IsThisNumber42</span><span class="br0">&#40;</span><span class="nu0">42</span><span class="br0">&#41;</span> <span class="sy4">?</span> TEXT<span class="br0">&#40;</span><span class="st0">&quot;True&quot;</span><span class="br0">&#41;</span> <span class="sy4">:</span> TEXT<span class="br0">&#40;</span><span class="st0">&quot;False&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+		UE_LOG<span class="br0">&#40;</span>BobsPlayground, Log, TEXT<span class="br0">&#40;</span><span class="st0">&quot;%s&quot;</span><span class="br0">&#41;</span>, IModule<span class="sy4">::</span><span class="me2">Get</span><span class="br0">&#40;</span><span class="br0">&#41;</span>.<span class="me1">IsThisNumber42</span><span class="br0">&#40;</span><span class="nu0">12</span><span class="br0">&#41;</span> <span class="sy4">?</span> TEXT<span class="br0">&#40;</span><span class="st0">&quot;True&quot;</span><span class="br0">&#41;</span> <span class="sy4">:</span> TEXT<span class="br0">&#40;</span><span class="st0">&quot;False&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></div></div>
+<p>Lastly, we will need to define our module implementation, defining our pure virtual function above. 
+</p><p>Inside <b>/Plugins/Module/Source/Module/Private/Module.h</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co2">#pragma once</span>
+&#160;
+<span class="kw2">class</span> ModuleImpl <span class="sy4">:</span> <span class="kw2">public</span> IModule
+<span class="br0">&#123;</span>
+<span class="kw2">public</span><span class="sy4">:</span>
+	<span class="coMULTI">/** IModuleInterface implementation */</span>
+	<span class="kw4">void</span> StartupModule<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+	<span class="kw4">void</span> ShutdownModule<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&#160;
+	<span class="kw4">bool</span> IsThisNumber42<span class="br0">&#40;</span><span class="kw4">int32</span> num<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span><span class="sy4">;</span></pre></div></div>
+<p>Inside <b>/Plugins/Module/Source/Module/Private/Module.cpp</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co2">#include &quot;ModulePrivatePCH.h&quot;</span>
+&#160;
+<span class="co2">#include &quot;Module.h&quot;</span>
+&#160;
+<span class="kw4">void</span> ModuleImpl<span class="sy4">::</span><span class="me2">StartupModule</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">void</span> ModuleImpl<span class="sy4">::</span><span class="me2">ShutdownModule</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+<span class="br0">&#125;</span>
+&#160;
+<span class="kw4">bool</span> ModuleImpl<span class="sy4">::</span><span class="me2">IsThisNumber42</span><span class="br0">&#40;</span><span class="kw4">int32</span> num<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+	<span class="kw1">return</span> num <span class="sy1">==</span> <span class="nu0">42</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&#160;
+IMPLEMENT_MODULE<span class="br0">&#40;</span>ModuleImpl, Module<span class="br0">&#41;</span></pre></div></div>
+<p>Note the reference to the header here. It is convenient for a complicated plugin to include it because common header files are able to be used there. 
+</p><p>Inside <b>/Plugins/Module/Source/Module/Private/ModulePrivatePCH.h</b>
+</p>
+<div dir="ltr" class="mw-geshi mw-code mw-content-ltr"><div class="cpp source-cpp"><pre class="de1"><span class="co2">#include &quot;IModule.h&quot;</span>
+&#160;
+<span class="co1">// You should place include statements to your module's private header files here.  You only need to</span>
+<span class="co1">// add includes for headers that are used in most of your module's source files though.</span></pre></div></div>
+<p>If you compile this out, drop a break point in the startmodule routine for your game you will be able to step through and see the something like the following output to your logs. 
+</p>
+<pre>
+[2095.04.01-06.15.29:347][  0]BobsPlayground: True
+[2095.04.01-06.15.30:290][  0]BobsPlayground: False
+</pre>
+<h2><span class="mw-headline" id="Archive_Manifest_3">Archive Manifest</span></h2>
+<ul>
+<li> Binaries/Win64/UE4Editor-Module.dll
+</li>
+<li> Source/Module/Public/IModule.h
+</li>
+<li> Resources/Icon128.png
+</li>
+<li> Module.uplugin
+</li>
+</ul>
+<h1><span class="mw-headline" id="Distribution">Distribution</span></h1>
+<p>Now that we have completely built a new bundle, the question is - how do we get it into the hands of a developer interested in its cause? Until the market place is here and we have firm details on EULAs and such, the following will be of great help.
+</p><p>We are going to create an archive, zip or 7zip if you wish. It is likely easier for you to make a zip as that is a default tool in the windows file explorer. 
+</p><p>In each of the above sections an Archive Manifest section has been included, listing important or key files to be included for distribution.
+</p><p>Within each archive it is a good idea to include a Readme.md file to detail out the Installation, Contact and key elements of your bundle. This would also be a good place to include any licensing or changelog information that an interested party could review before installation. 
+</p>
+<h2><span class="mw-headline" id="Sample_ReadMe.md">Sample ReadMe.md</span></h2>
+<pre style="white-space: pre-wrap;">
+Installation
+-------------
+Unzip the package into the Plugins directory of your game. To add it as an engine plugin you will need to unzip the module into the plugin directory under where you installed UE4.
+
+
+Contact
+-------------
+If you have any Questions, Comments, Bug reports or feature requests for this plugin, or you wish to contact me you can and should email me - me@myemail.com
+</pre>
+<h1><span class="mw-headline" id="More_Information">More Information</span></h1>
+<p>If you are interested in the plugin system, its capabilites or the descriptor file standard, details can be found in the <b><a rel="nofollow" class="external text" href="https://docs.unrealengine.com/latest/INT/Programming/Plugins/index.html">UE4 Documentation</a></b>. There are a hundred examples you can pull from, included in the source, under the plugins directory of the UE4 project. 
+</p><p>If you found this tutorial useful, you may also find the <a href="/Linking_Static_Libraries_Using_The_Build_System" title="Linking Static Libraries Using The Build System">Static Linking Tutorial</a> beneficial, as it walks through how to load and link a static library. I am using a derivative of these two as the base for my V8 Plugin. 
+</p><p>You can read more about me on my <a href="/User:Bob_Gneu" title="User:Bob Gneu">User Page</a>
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.119 seconds
+Real time usage: 0.205 seconds
+Preprocessor visited node count: 257/1000000
+Preprocessor generated node count: 570/1000000
+Post‐expand include size: 3426/2097152 bytes
+Template argument size: 1432/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=An_Introduction_to_UE4_Plugins&amp;oldid=23952">https://wiki.unrealengine.com/index.php?title=An_Introduction_to_UE4_Plugins&amp;oldid=23952</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li><li><a href="/Category:Code" title="Category:Code">Code</a></li><li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li><li><a href="/Category:Getting_Started" title="Category:Getting Started">Getting Started</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;printable=1&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.271 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

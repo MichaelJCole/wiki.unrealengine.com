@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(){}function o(e,t,n){return function(){return i(e,[f.now()].concat(u(arguments)),t?null:this,n),t?void 0:this}}var i=e("handle"),a=e(2),u=e(3),c=e("ee").get("tracer"),f=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,t){s[t]=o(d+t,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),t.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,t){var n={},r=this,o="function"==typeof t;return i(l+"tracer",[f.now(),e,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return t.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],n),e}finally{c.emit("fn-end",[f.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){m[t]=o(l+t)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,f.now()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(o<0?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],4:[function(e,t,n){t.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?c(e,u,i):i()}function n(n,r,o,i){if(!d.aborted||i){e&&e(n,r,o);for(var a=t(o),u=m(n),c=u.length,f=0;f<c;f++)u[f].apply(a,r);var p=s[y[n]];return p&&p.push([b,n,r,a]),a}}function l(e,t){v[e]=m(e).concat(t)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(n)}function g(e,t){f(e,function(e,n){t=t||"feature",y[n]=t,t in s||(s[t]=[])})}var v={},y={},b={on:l,emit:n,get:w,listeners:m,context:t,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",c=e("gos"),f=e(2),s={},p={},d=t.exports=o();d.backlog=s},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!x++){var e=h.info=NREUM.info,t=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return s.abort();f(y,function(t,n){e[t]||(e[t]=n)}),c("mark",["onload",a()+h.offset],null,"api");var n=d.createElement("script");n.src="https://"+e.agent,t.parentNode.insertBefore(n,t)}}function o(){"complete"===d.readyState&&i()}function i(){c("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),c=e("handle"),f=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1071.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=t.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script>
+<title>4 13+ Network Guide - Epic Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"4_13+_Network_Guide","wgTitle":"4 13+ Network Guide","wgCurRevisionId":387,"wgRevisionId":387,"wgArticleId":193,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"4_13+_Network_Guide","wgRelevantArticleId":193,"wgRequestId":"4114ee9a0493bd682621a97c","wgIsProbablyEditable":false,"wgRelevantPageIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0bhc5ha",function($,jQuery,require,module){mw.user.options.set([]);});mw.loader.implement("user.tokens@1xxwts3",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/
+
+});mw.loader.load(["site","mediawiki.page.startup","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.toc","mediawiki.searchSuggest","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<meta name="generator" content="MediaWiki 1.30.0"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd"/>
+<link rel="license" href="https://www.epicgames.com/tos"/>
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+<!--[if lt IE 9]><script src="/resources/lib/html5shiv/html5shiv.min.js?40bd4"></script><![endif]-->
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-4_13_Network_Guide rootpage-4_13_Network_Guide skin-vector action-view"><!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-00f7fdb47766f2f80"><meta name="worker" content="139"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesNavigation"></div><script>(function () {
+    var config = {"serverUrl":"https://www.unrealengine.com","locale":"en-US","localeOptions":[{"lang":"en-US","name":"English"},{"lang":"ko","name":"한국어"},{"lang":"ja","name":"日本語"},{"lang":"zh-CN","name":"简体中文"}],"euCookieStrings":{"cookieString":"We use cookies to ensure the best experience on all Epic Games websites. To learn more, please see our {0}.","policyString":"privacy policy","closeString":"Close","policyUrl":"https://www.epicgames.com/privacypolicy"},"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":true,"href":"http://unrealengine.com/register","title":"Download"},"hideCallToAction":false,"hideLocale":true,"hideShieldDownload":false,"logoLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","key":"logo"},"alert":{"msg":"","_type":"Epic Header Alert","id":"","type":"info","statusHref":""},"_activeDate":"2018-08-06T09:11:04.633Z","links":[{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":true,"href":"http://unrealengine.com/blog","title":"News","key":"blog"},{"isBarDivider":false,"_type":"Epic Header Link","useCustomCallback":false,"title":"About","key":"about","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/what-is-unreal-engine-4","title":"Overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/vr","title":"VR / AR"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/release-notes/","title":"What's New"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/faq","title":"FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/eula","title":"EULA"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/previous-versions","title":"Previous Versions"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Learn","key":"learn","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://docs.unrealengine.com/","title":"Documentation"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://academy.unrealengine.com/","title":"Video Tutorials","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/support","title":"Support"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://trello.com/b/TTAVI7Ny/ue4-roadmap","title":"Roadmap","target":"_blank"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://issues.unrealengine.com/","title":"Issues"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Community","key":"community","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/","title":"Forums"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://wiki.unrealengine.com/Main_Page","title":"Wiki"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://answers.unrealengine.com/","title":"AnswerHub"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/unrealdevgrants","title":"Unreal Dev Grants","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/user-groups","title":"User Groups","key":""},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/events","title":"Events"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/nvidia-edge","title":"Nvidia Edge","key":"programs"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/programs/intel-unreal","title":"Intel + Unreal","key":""}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Marketplace","key":"marketplace","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/marketplace","title":"Browse"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com/","title":"Submit Content"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-faq","title":"Marketplace FAQ"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/marketplace-guidelines","title":"Marketplace Guidelines"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://forums.unrealengine.com/forumdisplay.php?56-Marketplace","title":"Marketplace Forums"}]},{"isBarDivider":false,"collapseTarget":"More","_type":"Epic Header Link","useCustomCallback":false,"title":"Enterprise","key":"enterprise","kids":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/studio","title":"Unreal Studio","key":"studio-overview"},{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/enterprise/contact-us","title":"Enterprise Contact","key":"contact"}]}],"hideSearch":false,"_version":{"_comment":"Publish to server UnrealEngine.com (Production)","_createdBy":"tony.rossi"},"_currentVersion":"1.37.2.100","_type":"Epic Games Nav","hideSignIn":true,"pcDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi?productName=unrealengine","_uuid":"a0357fbf-1bd5-4eca-bbbf-48ea56e4ddb1","accountLinks":{"signOutLink":{"_type":"Epic Header Action Link","useCustomCallback":true,"href":"http://unrealengine.com/logout","key":"signout"},"dropdownLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"http://unrealengine.com/account/personal?lang=en-US","title":"Personal","key":"personal"},{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":"https://publish.unrealengine.com","title":"Seller","key":"seller"}],"signInLinks":[{"_type":"Epic Header Submenu Item","useCustomCallback":true,"href":"http://unrealengine.com/login","title":"Sign In","key":"signin"}],"_type":"Epic Header Account Links"},"_futureVersion":"none","downloadLink":{"_type":"Epic Header Submenu Item","useCustomCallback":false,"href":""},"_created":"2017-08-21T08:59:33.648Z","macDownloadUrl":"https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncher.dmg?productName=unrealengine","messages":{"search":"Search","default_download":"Get Epic Games","default_username":"Account","_type":"Epic Header Messages","locale":"English","sign_in":"Sign In","sign_out":"Sign Out"},"hideShieldDropdown":false,"properties":[{"propertyKey":"paragon","_type":"Epic Games Property","egDisabled":true,"egSkip":true}],"_locale":"en_US","useServerUrl":true,"isEu":false};
+
+    if (typeof window._egNavBeforeConfigSet === 'function') {
+        window._egNavBeforeConfigSet();
+        window._egNavBeforeConfigSetRun = true;
+    }
+    window._egNavBeforeConfigSetCalled = true;
+
+    if (typeof window._epicGamesNav === 'undefined') {
+        window._epicGamesNav = config;
+    } else {
+        var missingAssumeFalsey = ['hideLocale', 'hideSearch', 'hideSignIn', 'hideCallToAction'];
+        for (var key in config) {
+            if (typeof key === 'string') {
+                if (!window._epicGamesNav[key] && config[key] !== null && missingAssumeFalsey.indexOf(key) === -1) {
+                    window._epicGamesNav[key] = config[key];
+                }
+            }
+        }
+    }
+
+    window._epicGamesNav.onSearch = function(query) {
+        window.location.href = 'https://www.unrealengine.com' + '/bing-search?keyword=' + query;
+    };
+
+    if (typeof window._egNavAfterConfigSet === 'function') {
+        window._egNavAfterConfigSet();
+        window._egNavAfterConfigSetRun = true;
+    }
+    window._egNavAfterConfigSetCalled = true;
+})();
+window.__locale = '';
+</script><link key="header-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.100bcb10fc821c7c23f8.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./header.epic-unreal-engine.100bcb10fc821c7c23f8.js"></script></body></html>		<div class="container">
+			<div id="mw-navigation">
+				<h2>Navigation menu</h2>
+
+				<div id="mw-head">
+					<!-- 					<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=4+13%2B+Network+Guide" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+					 -->
+					<div class="homelink_container">
+                        <a href="/" title="UE4 Wiki Home" class="homelink">HOME</a>
+                    </div>
+                    <div class="notice">
+                    	We have temporarily disabled editing while we working on a new Wiki!
+                    </div>
+					<div id="left-navigation">
+											<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+														<li id="ca-nstab-main" class="selected"><span><a href="/index.php?title=4_13%2B_Network_Guide" title="View the content page [c]" accesskey="c">Page</a></span></li>
+							<li id="ca-talk" class="new"><span><a href="/index.php?title=Talk:4_13%2B_Network_Guide&amp;action=edit&amp;redlink=1" rel="discussion" title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+						</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										</div>
+					<div id="right-navigation">
+											<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+														<li id="ca-view" class="selected"><span><a href="/index.php?title=4_13%2B_Network_Guide">Read</a></span></li>
+							<li id="ca-viewsource"><span><a href="/index.php?title=4_13%2B_Network_Guide&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+							<li id="ca-history" class="collapsible"><span><a href="/index.php?title=4_13%2B_Network_Guide&amp;action=history" title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+						</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Epic Wiki" title="Search Epic Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+										</div>
+				</div>
+				
+			</div>
+			<div id="content" class="mw-body" role="main">
+				<a id="top"></a>
+
+								<div class="mw-indicators mw-body-content">
+</div>
+				<h1 id="firstHeading" class="firstHeading" lang="en">4 13+ Network Guide</h1>
+												<div id="bodyContent" class="mw-body-content">
+											<div id="siteSub" class="noprint">From Epic Wiki</div>
+										
+															<div id="jump-to-nav" class="mw-jump">
+						Jump to:						<a href="#mw-head">navigation</a>, 						<a href="#p-search">search</a>
+					</div>
+					<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output"><div id="toc" class="toc"><div class="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Game_Framework_Replication"><span class="tocnumber">2</span> <span class="toctext">Game Framework Replication</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Replicated_Functions"><span class="tocnumber">3</span> <span class="toctext">Replicated Functions</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Current_Documentation"><span class="tocnumber">4</span> <span class="toctext">Current Documentation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#C.2B.2B"><span class="tocnumber">4.1</span> <span class="toctext">C++</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Blueprint"><span class="tocnumber">4.2</span> <span class="toctext">Blueprint</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Testing_Multiplayer"><span class="tocnumber">4.3</span> <span class="toctext">Testing Multiplayer</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Host_vs_Dedicated_Server"><span class="tocnumber">5</span> <span class="toctext">Host vs Dedicated Server</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Bare-bones_Project.2C_ready_for_multiplayer.2C_with_Steam"><span class="tocnumber">6</span> <span class="toctext">Bare-bones Project, ready for multiplayer, with Steam</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Common_Project_Issues"><span class="tocnumber">7</span> <span class="toctext">Common Project Issues</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Dedicated_Server"><span class="tocnumber">7.1</span> <span class="toctext">Dedicated Server</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Steam"><span class="tocnumber">7.2</span> <span class="toctext">Steam</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Non-Steam"><span class="tocnumber">7.3</span> <span class="toctext">Non-Steam</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Creating.2FFinding.2FJoining_Sessions"><span class="tocnumber">7.4</span> <span class="toctext">Creating/Finding/Joining Sessions</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="#Common_Networking_Issues"><span class="tocnumber">8</span> <span class="toctext">Common Networking Issues</span></a>
+<ul>
+<li class="toclevel-2 tocsection-16"><a href="#When_replicated_functions_aren.27t_working"><span class="tocnumber">8.1</span> <span class="toctext">When replicated functions aren't working</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="#Variables_aren.27t_replicating"><span class="tocnumber">8.2</span> <span class="toctext">Variables aren't replicating</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id="Introduction">Introduction</span></h2>
+<p>Unreal Engine 4 includes a RPC system suited for many different types of multiplayer game development. UE4 networking is built around a server to client model. This model relies on the server to be the authority. The authority is what holds all of the “correct” data, updating the client(s) when needed, resulting in the clients holding an approximation of what is happening on the server.
+</p><p>Actors are the core of the networking system. During the network update, the server will gather Actors and then decide which is relevant for replication before sending the updated information to the client(s). Once the client(s) get the updated data from the server, they can then update their copy of the Actor, resulting in a client side representation of what is happening on the server. The continues regularly as the game is played, providing a multiplayer experience for the client(s) connected to the host.
+</p><p>In order for you game to use the RPC system in Unreal Engine 4, it has to include UnrealNetwork.h. You can include this anywhere you want to use it but I recommend that if you are making a multiplayer game, include it in the project header file. This file will share the same name as your project. As an example, if you project is named, "ShooterGame", the project header will be "ShooterGame.h".
+</p><p>In that file, make sure you have the following:
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>include "Engine.h"</li>
+<li>include "UnrealNetwork.h"</li></ol>
+<p>&lt;/syntaxhighlight&gt;
+</p><p><i>If this file has "EngineMinimal.h", change it to "Engine.h"</i>
+</p><p>Every Actor holds variables that can be replicated. In order to replicate, the variables need to start with the macro, UPROPERTY( ). Such as:
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+UPROPERTY( Replicated )
+MyWeaponClass *Weapon;
+&lt;/syntaxhighlight&gt;
+</p><p>By default, UPROPERTY will not replicate. You must set it to in the Actor .cpp file, in the following function:
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+void AMyWeaponInventory::GetLifetimeReplicatedPropers( TArray&lt;FLifetimeProperty&gt; &amp;OutLifetimeProps ) const
+{
+	DOREPLIFETIME( AMyWeaponInventory, Weapon );
+}
+&lt;/syntaxhighlight&gt;
+</p><p>Here is an example of a class with a single replicated value:
+</p><p><b>[MyActor.h]</b>
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>pragma once</li>
+<li>include "GameFramework/Actor.h"</li>
+<li>include "MyActor.generated.h"</li></ol>
+<p>UCLASS( )
+class MYGAME_API AMyActor&#160;: public AActor
+{
+	GENERATED_BODY( )
+</p><p>public:
+	AMyActor();
+	virtual void BeginPlay( ) override;
+	virtual void Tick( float DeltaTime ) override;
+</p><p>	UPROPERTY( replicated )
+	float Health;
+};
+&lt;/syntaxhighlight&gt;
+</p><p><b>[MyActor.cpp]</b>
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>include "MyGame.h"</li>
+<li>include "MyActor.h"</li></ol>
+<p>AMyActor::AMyActor( )
+{
+</p>
+<pre>   bReplicates = true;
+</pre>
+<p>}
+</p><p>void AMyActor::BeginPlay( )
+{
+	Super::BeginPlay( );
+}
+</p><p>void AMyActor::Tick( float DeltaTime )
+{
+	Super::Tick( DeltaTime );
+}
+</p><p>void AMyActor::GetLifetimeReplicatedProps( TArray&lt; FLifetimeProperty &gt; &amp; OutLifetimeProps ) const
+{
+</p>
+<pre>   DOREPLIFETIME( AMyActor, Health );
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p><p>"MyActor" will now replicate to all clients as well as when the Authority (server) changes the "Health" value, that value will be updated for all clients.
+</p><p>This is the basic premise of all replication in UE4. Classes that you want to have behavior in a multiplayer world are updated by the server and then the server, or authority, will update all the clients whenever a UPROPERTY( ) variable marked as Replicated has been changed.
+</p>
+<h2><span class="mw-headline" id="Game_Framework_Replication">Game Framework Replication</span></h2>
+<p>Classes that affect multiplayer:
+</p><p><b>GameMode</b>
+</p><p>The GameMode object only exists on the server. This means that if a GameMode has a reference to a Actor that is replicated, and changes any replicated variables, the only change will be on the server because the references and Game Mode itself are only accessible by server side classes. 
+</p><p><b>GameState</b>
+</p><p>The GameState exists on the server and the clients, so the server can use replicated variables on the GameState to keep all clients up-to-date on data about the game.
+</p><p><b>Pawn/Character</b>
+</p><p>Pawns/Characters will also exist on the server and on all clients, and can also contain replicated variables and events. The decision of whether to use the PlayerState or the Pawn for a certain variable or event will depend on the situation, but the main thing to keep in mind is that the PlayerState will persist for the entire time the player is connected, but a Pawn may not. For example, if a player character dies during gameplay, the Pawn he was controlling may be destroyed and a new one created when the player respawns.
+</p><p><b>PlayerController</b>
+</p><p>A PlayerController exists on the server for every player connected to the game. On clients, only the PlayerControllers for players owned by that client exist. This means that PlayerControllers are not the best place to store replicated properties that all connected clients are interested in. Instead, use the PlayerState.
+</p><p><b>PlayerState</b>
+</p><p>A PlayerState will exist for every player connected to the game on both the server and the clients. This class can be used for replicated properties that all clients, not just the owning client, are interested in, such as the individual player's current score.
+</p>
+<h2><span class="mw-headline" id="Replicated_Functions">Replicated Functions</span></h2>
+<p>Unreal 4 has two types of replicated functions. These are client side, used for when the server needs to update a client, and a server side, used for when a client needs to update the server.
+</p><p>A client side function is written as such:
+</p><p><b>[.h]</b>
+&lt;syntaxhighlight lang="cpp"&gt;
+UFUNCTION( Client, Reliable )
+void ClientTestFunction( );
+</p><p>UFUNCTION( Client, Unreliable )
+void ClientSecondTestFunction( );
+&lt;/syntaxhighlight&gt;
+</p><p><b>[.cpp]</b>
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+void AMyClass::ClientTestFunction_Implementation( ) 
+{
+</p>
+<pre>  // Reliable will always be called over the network
+</pre>
+<p>}
+</p><p>void AMyClass::ClientSecondTestFunction_Implementation( ) 
+{
+</p>
+<pre>   // Unreliable will not be called if the network is overly saturated
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p><p>A server function example:
+</p><p><b>[.h]</b>
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+UFUNCTION( Server, Reliable, WithValidation )
+void ServerTestFunction( );
+</p><p>UFUNCTION( Server, Unreliable, WithValidation )
+void ServerSecondTestFunction( );
+&lt;/syntaxhighlight&gt;
+</p><p><b>[.cpp]</b>
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+bool MyActor::ServerTestFunction_Validate( )
+{
+</p>
+<pre>   return true;
+</pre>
+<p>}
+</p><p>void MyActor::ServerTestFunction_Implementation( )
+{
+</p>
+<pre>   // Reliable will always be called over the network
+</pre>
+<p>}
+</p><p>bool MyActor::ServerSecondTestFunction_Validate( )
+{
+</p>
+<pre>   return true;
+</pre>
+<p>}
+</p><p>void MyActor::ServerSecondTestFunction_Implementation( )
+{
+</p>
+<pre>   // Unreliable will not be called if the network is overly saturated
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p><p>If any _Validate( ) function returns false, the client who called that server function will be disconnected. This is how UE4 handles bad data. This can also be used as a layer in an anti-cheat system. 
+</p><p><i>Server side functions always need to be validated. There is no setting or alternative. If you use a server function, reliable or unreliable, it must also include the validate function. Client functions can choose to use WithValidation or not to use it.</i>
+</p>
+<h2><span class="mw-headline" id="Current_Documentation">Current Documentation</span></h2>
+<h5><span class="mw-headline" id="C.2B.2B">C++</span></h5>
+<p><a rel="nofollow" class="external free" href="https://docs.unrealengine.com/latest/INT/Gameplay/Networking/index.html">https://docs.unrealengine.com/latest/INT/Gameplay/Networking/index.html</a>
+<a rel="nofollow" class="external free" href="https://docs.unrealengine.com/latest/INT/Gameplay/Networking/Actors/RPCs/">https://docs.unrealengine.com/latest/INT/Gameplay/Networking/Actors/RPCs/</a>
+<a rel="nofollow" class="external free" href="https://docs.unrealengine.com/latest/INT/Gameplay/Networking/Actors/index.html">https://docs.unrealengine.com/latest/INT/Gameplay/Networking/Actors/index.html</a>
+<a rel="nofollow" class="external free" href="https://docs.unrealengine.com/latest/INT/Gameplay/Networking/Actors/Properties/index.html">https://docs.unrealengine.com/latest/INT/Gameplay/Networking/Actors/Properties/index.html</a>
+</p>
+<h5><span class="mw-headline" id="Blueprint">Blueprint</span></h5>
+<p><a rel="nofollow" class="external free" href="https://docs.unrealengine.com/latest/INT/Gameplay/Networking/Blueprints/">https://docs.unrealengine.com/latest/INT/Gameplay/Networking/Blueprints/</a>
+<a rel="nofollow" class="external free" href="https://docs.unrealengine.com/latest/INT/Gameplay/HowTo/Networking/ReplicateActor/Blueprints/index.html">https://docs.unrealengine.com/latest/INT/Gameplay/HowTo/Networking/ReplicateActor/Blueprints/index.html</a>
+<a rel="nofollow" class="external free" href="https://docs.unrealengine.com/latest/INT/Gameplay/HowTo/Networking/ReplicateFunction/Blueprints/index.html">https://docs.unrealengine.com/latest/INT/Gameplay/HowTo/Networking/ReplicateFunction/Blueprints/index.html</a>
+<a rel="nofollow" class="external free" href="https://docs.unrealengine.com/latest/INT/Gameplay/HowTo/Networking/ReplicateVariable/Blueprints/index.html">https://docs.unrealengine.com/latest/INT/Gameplay/HowTo/Networking/ReplicateVariable/Blueprints/index.html</a>
+</p>
+<h5><span class="mw-headline" id="Testing_Multiplayer">Testing Multiplayer</span></h5>
+<p><a rel="nofollow" class="external free" href="https://docs.unrealengine.com/latest/INT/Gameplay/HowTo/Networking/TestMultiplayer/index.html">https://docs.unrealengine.com/latest/INT/Gameplay/HowTo/Networking/TestMultiplayer/index.html</a>
+</p>
+<h2><span class="mw-headline" id="Host_vs_Dedicated_Server">Host vs Dedicated Server</span></h2>
+<p>If you game supports both other players hosting games as well as running a Dedicated Server, you have to solve a interesting problem because the Dedicated Server will not render anything. This means that you have to have a authoritative route in your code / Blueprint that allows a host to visually see things like FX and hear sounds from something like PlaySoundAtLocation while making sure that the Dedicated Server doesn't try to do the same. This is because the Dedicated Server will throw a warning and can cause issues if it is trying to play FX or sounds.
+</p><p>Here is an example how to do this:
+</p><p><b>[C++]</b>
+</p><p>[Character.cpp]
+&lt;syntaxhighlight lang="cpp"&gt;
+void ATCharacter::Shoot( )
+{
+</p>
+<pre>   if( Role &lt; ROLE_Authority )
+   {
+       ServerShoot( );
+   }
+       
+   if( Weapon )
+   {
+       if( Weapon-&gt;bCanFire )
+       {
+           Weapon-&gt;Fire( );       
+       }
+   }
+</pre>
+<p>}
+</p><p>bool ATCharacter::ServerShoot_Validate( )
+{
+</p>
+<pre>   return true;
+</pre>
+<p>}
+</p><p>void ATCharacter::ServerShoot_Implementation( )
+{
+</p>
+<pre>   Shoot( );
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p><p>[Weapon.cpp]
+&lt;syntaxhighlight lang="cpp"&gt;
+void ATWeapon::Fire( )
+{
+</p>
+<pre>   // Non dedicated servers do muzzle flash
+   if( GetNetMode( )&#160;!= NM_DedicatedServer )
+   {
+       MuzzleFX( );   
+   }
+</pre>
+<pre>   // Authority fire Projectile
+   if( Role == ROLE_Authority )
+   {
+       // Handle spawning projectile
+   }
+</pre>
+<p>}
+</p><p>void ATWeapon::MuzzleFX( )
+{
+</p>
+<pre>   FVector FireLoc = ( FirePoint )&#160;? FirePoint-&gt;GetComponentLocation( )&#160;: GetActorLocation( );
+   FRotator FireRot = ( FirePoint )&#160;? FirePoint-&gt;GetComponentRotation( )&#160;: GetActorRotation( );
+   if( MuzzleFXTemplate )
+   {
+       UGameplayStatics::SpawnEmitterAtLocation( GetWorld( ), MuzzleFXTemplate, FireLoc, FireRot );
+   }
+   
+   if( MuzzleSound )
+   {
+       UGameplayStatics::PlaySoundAtLocation( GetWorld( ), MuzzleSound, FireLoc );
+   }    
+</pre>
+<p>}
+</p><p>&lt;/syntaxhighlight&gt;
+</p><p><b>[Blueprint]</b>
+</p><p><a href="/index.php?title=File:HostFire.png" class="image"><img alt="HostFire.png" src="https://d26ilriwvtzlb.cloudfront.net/0/07/HostFire.png" width="1446" height="732" /></a>
+</p><p>This sort of logic can be a bit much to understand at first but once you practice a bit, it shouldn't be much of an issue. Just remember to ask yourself the critical questions when it comes to replication, Here are a few as an example:
+</p>
+<ul><li> If I am the server, am I dedicated or a host?</li>
+<li> If I am a dedicated server, how do I want to handle this function, compared to if I am the host?</li>
+<li> If I am the host, how do I want to handle this function, compared to a dedicated server?</li>
+<li> At this point in code, am I calling from the server or client?</li>
+<li> Do I want the client to do this or the server?</li>
+<li> Do I want this code to replicate to all clients or only to one?</li>
+<li> Do I want this variable to be replicated? If so, why?</li>
+<li> Should this replicated variable be RepNotify, so clients have an event when it's replicated? If so, how do I want to use this event that is different than just having the variable replicated?</li></ul>
+<h2><span class="mw-headline" id="Bare-bones_Project.2C_ready_for_multiplayer.2C_with_Steam">Bare-bones Project, ready for multiplayer, with Steam</span></h2>
+<p>I have created this project using the Editor, New Project window, chose C++ and then chose "Blank".
+</p><p>In this example, my project is named "SteamExampleCPP". You do not have to use this name, just make sure that when you see it in the code below, to replace it with the name you are using.
+</p><p><b>[SteamExampleCPP.Build.cs]</b>
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+using UnrealBuildTool;
+</p><p>public class SteamExampleCPP&#160;: ModuleRules
+{
+</p>
+<pre>    public SteamExampleCPP(TargetInfo Target)
+    {
+</pre>
+<p>	PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "OnlineSubsystemUtils" });
+</p><p>	PrivateDependencyModuleNames.Add("OnlineSubsystem");
+</p>
+<pre>    }
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p><p><b>[SteamExampleCPP.h]</b>
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>pragma once</li></ol>
+<ol><li>include "Engine.h"</li>
+<li>include "UnrealNetwork.h"</li></ol>
+<p>&lt;/syntaxhighlight&gt;
+</p><p>With these changes in place, you can compile using the "Compile" button in UE4. Or, if UE4 is not running, you can right click on the project .sln in Visual Studio and build from there.
+</p><p>If after the compile you still don't have UE4 running, run it. You can do this through debugging from Visual Studio or by double-clicking the .uproject for the UE4 project.
+</p><p>Once UE4 is open, create a new C++ Class that inherits from Character. You can create a new class by opening the Content Browser, finding the "C++ Classes" folder and then opening it. If you right-click inside of it, you can then choose "Create new C++ Class". Alternatively, you can choose, File -&gt; Create new C++ Class, and then choose the class you want to create.
+</p><p><b>[SteamCharacter.h]</b>
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>pragma once</li></ol>
+<ol><li>include "GameFramework/Character.h"</li>
+<li>include "SteamCharacter.generated.h"</li></ol>
+<p>UCLASS()
+class STEAMEXAMPLECPP_API ASteamCharacter&#160;: public ACharacter
+{
+</p>
+<pre>   GENERATED_BODY()
+</pre>
+<p>public:
+</p>
+<pre>   ASteamCharacter();
+   
+   // Component for camera movement and distance
+   UPROPERTY( BlueprintReadOnly, VisibleAnywhere, Category = "Steam Character" )
+   USpringArmComponent *SpringArm;
+   
+   // Camera component - players view point in world
+   UPROPERTY( BlueprintReadOnly, VisibleAnywhere, Category = "Steam Character" )
+   UCameraComponent *Camera;
+   
+   // On loaded in game
+   virtual void BeginPlay() override;
+   
+   // On every frame
+   virtual void Tick( float DeltaSeconds ) override;
+   
+   // Gives this Character a chance to setup its InputComponent
+   virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+</pre>
+<pre>   // Moves the Character forward, based on the input value, A
+   void Forward( float A );
+   
+   // Moves the Character right, based on the input value, A
+   void Right( float A );	
+</pre>
+<p>};
+&lt;/syntaxhighlight&gt;
+</p><p><b>[SteamCharacter.cpp]</b>
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>include "SteamExampleCPP.h"</li>
+<li>include "SteamCharacter.h"</li></ol>
+<p>ASteamCharacter::ASteamCharacter()
+{
+</p>
+<pre>   PrimaryActorTick.bCanEverTick = true;
+   
+   SpringArm = CreateDefaultSubobject&lt;USpringArmComponent&gt;( TEXT("SpringArm") );
+   SpringArm-&gt;bUsePawnControlRotation = true;
+   SpringArm-&gt;SetupAttachment( RootComponent );
+   
+   Camera = CreateDefaultSubobject&lt;UCameraComponent&gt;( TEXT("Camera") );
+   Camera-&gt;bUsePawnControlRotation = true;
+   Camera-&gt;SetupAttachment( SpringArm );
+</pre>
+<p>}
+</p><p>void ASteamCharacter::BeginPlay()
+{
+</p>
+<pre>   Super::BeginPlay();
+</pre>
+<p>}
+</p><p>void ASteamCharacter::Tick( float DeltaTime )
+{
+</p>
+<pre>   Super::Tick( DeltaTime );
+</pre>
+<p>}
+</p><p>void ASteamCharacter::SetupPlayerInputComponent(class UInputComponent* IC)
+{
+</p>
+<pre>   // Renamed to "IC" to fix compile issue with InputComponent already being used elsewere in class
+   Super::SetupPlayerInputComponent(IC);
+</pre>
+<pre>   IC-&gt;BindAxis( "Forward", this, &amp;ASteamCharacter::Forward );
+   IC-&gt;BindAxis( "Right", this, &amp;ASteamCharacter::Right );
+   
+   // Use already existing functionality for turning / looking
+   IC-&gt;BindAxis( "Look", this, &amp;ACharacter::AddControllerYawInput );
+   IC-&gt;BindAxis( "Up", this, &amp;ACharacter::AddControllerPitchInput );
+   
+   // Existing jump from Character
+   IC-&gt;BindAction( "Jump", IE_Pressed, this, &amp;ACharacter::Jump );
+</pre>
+<p>}
+</p><p>void ASteamCharacter::Forward( float A )
+{
+</p>
+<pre>   if( A&#160;!= 0.f )
+   {
+       AddMovementInput( GetActorForwardVector( ), A );
+   }
+</pre>
+<p>}
+</p><p>void ASteamCharacter::Right( float A )
+{
+</p>
+<pre>   if( A&#160;!= 0.f )
+   {
+       AddMovementInput( GetActorRightVector( ), A );
+   }
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p><p>Next, we want to add the input settings we just declared in the Character class, so we can move the Character and look around with the camera.
+</p><p>Left-click the Settings button and then choose Project Settings. On the left side of the window that opens, choose "Input". Add Action and Axis mappings and change them to match these:
+</p><p><a href="/index.php?title=File:SteamSetupInput.png" class="image"><img alt="SteamSetupInput.png" src="https://d26ilriwvtzlb.cloudfront.net/5/55/SteamSetupInput.png" width="940" height="598" /></a>
+</p><p>Next, we want to create a Blueprint class from the SteamCharacter class. This way we have a asset in the editor we can add to/adjust that has all the base functionality we setup in code.
+</p><p>To create a Blueprint class from a custom C++ Class, in the Content Browser, find the "C++ Classes" folder and click it. Inside of it you should see the classes for the project. Right click on the class you want to make a Blueprint from - in this case, from the SteamCharacter class - and then choose, "Create Blueprint class based on &lt;ClassName&gt;".
+</p><p><a href="/index.php?title=File:BlueprintCreation.png" class="image"><img alt="BlueprintCreation.png" src="https://d26ilriwvtzlb.cloudfront.net/2/29/BlueprintCreation.png" width="549" height="377" /></a>
+</p><p>In the popup window, name the class something that hasn't been used. I generally use the class name followed with _BP, such as, "SteamCharacter_BP". Then click, "Create Blueprint class".
+</p><p>You can now open the Blueprint class by double clicking on it. 
+</p><p>We want to setup the Character with SkeletalMesh, as well as setup the SpringArm and Camera we created in the C++ class. Because I do not have any art assets in this project, I will be using a existing SkeletalMesh from the Engine content folders. You however, can use whatever Character model you have.
+</p><p>If you select "Mesh" from the Components List, at the top left of the Blueprint "Viewport" window, you can set the SkeletalMesh on the right side. If you do not see any SkeletalMesh options from the Mesh selection, left click the small eye icon on the bottom right and choose, "Show Engine content". You make need to adjust the SkeletalMesh.
+</p><p>By default, forward is down the X axis. You can tell by the small gizmo in the viewport. You can also move the SkeletalMesh so it is within the collision capsule in the Character. Finally, the camera can be adjusted by selecting the SpringArm Component and by moving it where you want to. You can move the camera closer and farther by setting the SpringArm "TargetLength" setting to whatever value you want.
+</p><p>My Character looks like:
+</p><p><a href="/index.php?title=File:SteamCharacterBP.png" class="image"><img alt="SteamCharacterBP.png" src="https://d26ilriwvtzlb.cloudfront.net/8/88/SteamCharacterBP.png" width="675" height="421" /></a>
+</p><p>Next, we want to make sure that our Character Blueprint is what is used as our DefaultPawnClass in our GameMode.
+</p><p><b>[SteamExampleCPPGameMode.h]</b>
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>pragma once</li></ol>
+<ol><li>include "GameFramework/GameMode.h"</li>
+<li>include "SteamExampleCPPGameMode.generated.h"</li></ol>
+<p>UCLASS()
+class STEAMEXAMPLECPP_API ASteamExampleCPPGameMode&#160;: public AGameMode
+{
+	GENERATED_BODY()
+</p><p>public:
+</p>
+<pre>   ASteamExampleCPPGameMode( );	
+</pre>
+<p>};
+&lt;/syntaxhighlight&gt;
+</p><p><b>[SteamExampleCPPGameMode.cpp]</b>
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>include "SteamExampleCPP.h"</li>
+<li>include "SteamExampleCPPGameMode.h"</li>
+<li>include "SteamCharacter.h"</li></ol>
+<p>ASteamExampleCPPGameMode::ASteamExampleCPPGameMode( )
+{
+</p>
+<pre>   static ConstructorHelpers::FClassFinder&lt;APawn&gt; PawnAsset( TEXT("/Game/SteamCharacter_BP") );
+   if( PawnAsset.Succeeded( ) )
+   {
+       DefaultPawnClass = PawnAsset.Class;
+   }
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p><p>If you are having issues, make sure that the path to your Blueprint is correct, inside of the following:
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+PawnAsset( TEXT("") );
+&lt;/syntaxhighlight&gt;
+</p><p>As a note, the asset path always starts with /Game/. As an example, let's say you have a character named, MyCharacter_BP that is inside of a folder called Characters, which is inside a folder called Blueprint. The path would be:
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+/Game/Blueprints/Character/MyCharacter_BP
+&lt;/syntaxhighlight&gt;
+</p><p>Back in UE4, press the Compile button to compile what was just added to the GameMode. When that is done, open the "Maps &amp; Modes" settings by clicking on "Settings" and going to "Project Settings". Then, on the left of that window, click on "Maps &amp; Modes".
+</p><p>Change it to look like (or as close as you can):
+</p><p><a href="/index.php?title=File:SteamExample_Mapsandmodes.png" class="image"><img alt="SteamExample Mapsandmodes.png" src="https://d26ilriwvtzlb.cloudfront.net/e/e7/SteamExample_Mapsandmodes.png" width="956" height="673" /></a>
+</p><p>The "default" map is a very simple map I made. Make one yourself and name it anything you want. Make sure to have a map set for all of the map fields and that game mode is set for Default Game Mode and Server Game Mode.
+</p><p>If you press the Play button, you should not be able to run around as your Character, using WASD and the mouse.
+</p><p>Make sure to save everything you have created, we now want to enable OnlineSubsystemSteam. 
+</p><p>Press the Edit option in the top menu bar and then go to, Plugins. In the Plugins window, under Online Platform, scroll down and use the checkbox to turn on, Online Subystem Steam. A bar will show up asking you to restart the editor. Once this is set, go ahead and simply close UE4, saving anything that needs to be saved.
+</p><p>We can now add the required config settings. In the project folder, in the Config folder, open DefaultEngine.ini. You can also open this file in Visual Studio.
+</p><p>Add the following to DefaultEngine:
+&lt;syntaxhighlight lang="cpp"&gt;
+[/Script/Engine.GameEngine]
+!NetDriverDefinitions=ClearArray
++NetDriverDefinitions=(DefName="GameNetDriver",DriverClassName="/Script/OnlineSubsystemSteam.SteamNetDriver",DriverClassNameFallback="/Script/OnlineSubsystemUtils.IpNetDriver")
+</p><p>[OnlineSubsystem]
+DefaultPlatformService=Steam
+PollingIntervalInMs=20
+</p><p>[OnlineSubsystemSteam]
+bEnabled=true
+SteamDevAppId=480
+GameServerQueryPort=27015
+bRelaunchInSteam=false
+GameVersion=1.0.0.0
+bVACEnabled=1
+bAllowP2PPacketRelay=true
+P2PConnectionTimeout=90
+</p><p>[/Script/OnlineSubsystemSteam.SteamNetDriver]
+NetConnectionClassName="/Script/OnlineSubsystemSteam.SteamNetConnection"
+&lt;/syntaxhighlight&gt;
+</p><p>Save the DefaultEngine.ini file and restart the UE4 Editor. You can do so through either the .uproject or by launching through Visual Studio.
+</p><p>The last step we need to do is have the ability to create / join a game. Open the SteamCharacter_BP (or your equivalent) and add the following to the Event Graph:
+</p><p><a href="/index.php?title=File:Steam_createjoingame.png" class="image"><img alt="Steam createjoingame.png" src="https://d26ilriwvtzlb.cloudfront.net/7/79/Steam_createjoingame.png" width="1532" height="753" /></a>
+</p><p>Make sure to compile your Blueprint and save.
+</p><p>You can now package the project and use Steam to create and join games. "J" creates the game. "K" will join an existing game; this takes a few seconds and if you spam the "K" key, it could fail, so press it once and as long as you don't see a debug text tell you that joining failed, just wait.
+</p><p>Attached here is the sample project: <a rel="nofollow" class="external text" href="https://drive.google.com/open?id=0B_7mVza1uzD5S3plTGNJcldEQ3M">Steam Example Project C++ [4.13]</a>
+</p><p><i>If you download this, you must right click the SteamExampleCPP.uproject and choose, "Generate Visual Studio files".</i> 
+</p>
+<h2><span class="mw-headline" id="Common_Project_Issues">Common Project Issues</span></h2>
+<h5><span class="mw-headline" id="Dedicated_Server">Dedicated Server</span></h5>
+<p>UE4 gives you the ability to create a Dedicated Server for your game. Here is a break down on how to do it:
+</p>
+<ul><li> Be running source. If you do not have source, you will need to get it. You can start here: <a rel="nofollow" class="external free" href="https://wiki.unrealengine.com/GitHub_Setup">https://wiki.unrealengine.com/GitHub_Setup</a></li>
+<li> After building UE4, create a new C++ Project. (Remember that Template Projects aren't setup for multiplayer and if you use one, you will not see the same functionality as in a standalone game) - This is where you'd normally start working on your game / have your game made.</li>
+<li> Close Visual Studio and find the project folder where you created your project.</li>
+<li> Open the Source folder and right-click -&gt; Text Document.</li>
+<li> Name the Text document &lt;MyGame&gt;Server.Target.cs. As an example, if your game is "RTS", your file name will be, RTSServer.Target.cs.</li></ul>
+<p><i>As a note, if you do not have the ability to change the extension on your file(s) in Windows, you will need to go to your folder options and enable that. You can do this by pressing the Start Button or clicking the Windows icon and search, "Control Panel". Open Control Panel and then search for "Folder Options". Open the "View" Tab and un-check "Hide extensions for known files types, then press "Apply" then "OK".</i>
+</p>
+<ul><li> Open your &lt;MyGame&gt;.Target.cs file and add the following, replacing every "Game" with your game name. Again, as an example, if your game name is "RTS", you would change "GameServerTarget" to RTSServerTarget and OutExtraModuleNames.Add("Game") to OutExtraModuleNames.Add("RTS").</li></ul>
+<ul><li> If you are working in 4.14+, the last two functions will need to be removed.</li></ul>
+<p>&lt;syntaxhighlight lang="cpp"&gt;
+// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.
+</p><p>using UnrealBuildTool;
+using System.Collections.Generic;
+</p><p>public class GameServerTarget&#160;: TargetRules
+{
+</p>
+<pre>   public GameServerTarget(TargetInfo Target)
+   {
+       Type = TargetType.Server;
+   }
+
+   //
+   // TargetRules interface.
+   //
+   public override void SetupBinaries(
+       TargetInfo Target,
+       ref List&lt;UEBuildBinaryConfiguration&gt; OutBuildBinaryConfigurations,
+       ref List&lt;string&gt; OutExtraModuleNames
+       )
+   {
+       base.SetupBinaries(Target, ref OutBuildBinaryConfigurations, ref OutExtraModuleNames);
+       OutExtraModuleNames.Add("Game");
+   }
+
+   public override bool GetSupportedPlatforms(ref List&lt;UnrealTargetPlatform&gt; OutPlatforms)
+   {
+       // It is valid for only server platforms
+       return UnrealBuildTool.UnrealBuildTool.GetAllServerPlatforms(ref OutPlatforms, false);
+   }
+</pre>
+<p><br />
+</p>
+<pre>   //Remove below this comment if you are using 4.14. You'll need to make sure you don't delete the end bracket as well.
+   public override List&lt;UnrealTargetPlatform&gt; GUBP_GetPlatforms_MonolithicOnly(UnrealTargetPlatform HostPlatform)
+   {
+       if (HostPlatform == UnrealTargetPlatform.Mac)
+       {
+           return new List&lt;UnrealTargetPlatform&gt;();
+       }
+       return new List&lt;UnrealTargetPlatform&gt; { HostPlatform, UnrealTargetPlatform.Win32, UnrealTargetPlatform.Linux };
+   }
+
+   public override List&lt;UnrealTargetConfiguration&gt; GUBP_GetConfigs_MonolithicOnly(UnrealTargetPlatform HostPlatform, UnrealTargetPlatform Platform)
+   {
+       return new List&lt;UnrealTargetConfiguration&gt; { UnrealTargetConfiguration.Development };
+   }
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p>
+<ul><li> Save this file and then close it.* </li>
+<li> In your project folder (without UE4 or Visual Studio running; if they are close them) right-click on the .uproject and select "Generate Visual Studio project files". This will take a second.* </li>
+<li> Then, open the .sln by double-clicking on it, which will open Visual Studio.* </li>
+<li> In your Solution Explorer on the right side of Visual Studio, in the Games -&gt; MyGameName -&gt; Source folder, you should now have the &lt;MyGame&gt;Server.Target.cs file.* </li>
+<li> Open the .uproject for your game and package your project by choosing File-&gt; Package Project -&gt; Windows -&gt; Win64. <a rel="nofollow" class="external free" href="https://docs.unrealengine.com/latest...cts/Packaging/*">https://docs.unrealengine.com/latest...cts/Packaging/*</a> </li>
+<li> When the project is done packaging, again open the .sln for your project and change the build configuration from "Development Editor" to "Development Server".* </li>
+<li> Right click on your game under "Games" and choose "Build". This will take a while, it is building your &lt;MyGame&gt;Server.exe</li>
+<li> When Visual Studio is done, go to your project folder -&gt; Binaries -&gt; Win64 and copy the &lt;MyGame&gt;Server.exe</li>
+<li> Go to the folder where you packaged your game and open WindowsNoEditor-&gt;Binaries-&gt;Win64 and paste &lt;MyGame&gt;Server.exe in this folder</li>
+<li> Right click on &lt;MyGame&gt;Server.exe and copy. Then right-click somewhere else and choose "Paste Shortcut"</li>
+<li> Right click on the shortcut and go to, "Properties".</li>
+<li> At the end of the "Target" line add, -log</li></ul>
+<p>You can now launch the dedicated server for your project with this short cut.
+</p><p>Here is more documentation:
+</p><p>[Networking]
+</p>
+<ul><li> <a rel="nofollow" class="external free" href="https://docs.unrealengine.com/latest...ay/Networking/">https://docs.unrealengine.com/latest...ay/Networking/</a></li>
+<li> <a rel="nofollow" class="external free" href="https://docs.unrealengine.com/latest...ng/Blueprints/">https://docs.unrealengine.com/latest...ng/Blueprints/</a></li>
+<li> <a rel="nofollow" class="external free" href="https://docs.unrealengine.com/latest...es/Networking/">https://docs.unrealengine.com/latest...es/Networking/</a></li>
+<li> <a rel="nofollow" class="external free" href="https://www.unrealengine.com/blog/bl...king-tutorials">https://www.unrealengine.com/blog/bl...king-tutorials</a></li></ul>
+<p>[Dedicated server]
+</p>
+<ul><li> <a rel="nofollow" class="external free" href="https://wiki.unrealengine.com/Dedica...ows_%26_Linux">https://wiki.unrealengine.com/Dedica...ows_%26_Linux</a>)</li></ul>
+<h5><span class="mw-headline" id="Steam">Steam</span></h5>
+<p>You need to do a few things in 4.13.
+</p><p>First, add this to your DefaultEngine.ini file:
+&lt;syntaxhighlight lang="cpp"&gt;
+[/Script/Engine.GameEngine]
+!NetDriverDefinitions=ClearArray
++NetDriverDefinitions=(DefName="GameNetDriver",DriverClassName="/Script/OnlineSubsystemSteam.SteamNetDriver",DriverClassNameFallback="/Script/OnlineSubsystemUtils.IpNetDriver")
+</p><p>[OnlineSubsystem]
+DefaultPlatformService=Steam
+PollingIntervalInMs=20
+</p><p>[OnlineSubsystemSteam]
+bEnabled=true
+SteamDevAppId=480
+GameServerQueryPort=27015
+bRelaunchInSteam=false
+GameVersion=1.0.0.0
+bVACEnabled=1
+bAllowP2PPacketRelay=true
+P2PConnectionTimeout=90
+</p><p>[/Script/OnlineSubsystemSteam.SteamNetDriver]
+NetConnectionClassName="/Script/OnlineSubsystemSteam.SteamNetConnection"
+&lt;/syntaxhighlight&gt;
+</p><p>Secondly:
+</p>
+<ul><li> In UE4, go to Edit-&gt;Plugins</li>
+<li> Select, Online Platform</li>
+<li> Enable, Online Subsystem Steam</li>
+<li> Restart Editor</li></ul>
+<p>Lastly, if you are using a C++ project, add the following to your &lt;GameName&gt;.Build.cs file:
+&lt;syntaxhighlight lang="cpp"&gt;
+PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "OnlineSubsystemUtils" });
+</p><p>PrivateDependencyModuleNames.Add("OnlineSubsystem");
+&lt;/syntaxhighlight&gt;
+Steam should work.
+</p>
+<h5><span class="mw-headline" id="Non-Steam">Non-Steam</span></h5>
+<p>There is a default Online Subsystem with UE4 called, OnlineSubsystemNull. This is used when you do not want to use any other Online Subsystem; such as Steam, Amazon, Oculus, ect...
+</p><p>In your projects DefaultEngine.ini, add the following:
+&lt;syntaxhighlight lang="cpp"&gt;
+[OnlineSubsystem]
+DefaultPlatformService=Null
+&lt;/syntaxhighlight&gt;
+</p><p>If you have a C++ Project, add the following to your &lt;GameName&gt;.build.cs file:
+&lt;syntaxhighlight lang="cpp"&gt;
+PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "OnlineSubsystemUtils" });
+PrivateDependencyModuleNames.Add("OnlineSubsystem");
+&lt;/syntaxhighlight&gt;
+</p>
+<h5><span class="mw-headline" id="Creating.2FFinding.2FJoining_Sessions">Creating/Finding/Joining Sessions</span></h5>
+<p>Once you have a Online Subsystem set, you should be able to create and join sessions. 
+</p><p><i>If you do not have a project setup with a Online Subsystem, look above for instruction.</i>
+</p><p><b>[Blueprint - Character]</b>
+</p><p><a href="/index.php?title=File:Steam_createjoingame.png" class="image"><img alt="Steam createjoingame.png" src="https://d26ilriwvtzlb.cloudfront.net/7/79/Steam_createjoingame.png" width="1532" height="753" /></a>
+</p><p><b>[Blueprint - Player Controller]</b>
+</p><p><a href="/index.php?title=File:Controller_sessions.png" class="image"><img alt="Controller sessions.png" src="https://d26ilriwvtzlb.cloudfront.net/6/6a/Controller_sessions.png" width="830" height="417" /></a>
+</p><p><b>[C++]</b>
+</p><p>There is already an example of how to create sessions via code. You can view that here:
+</p><p><a rel="nofollow" class="external text" href="https://wiki.unrealengine.com/How_To_Use_Sessions_In_C%2B%2B">UE4 Wiki - Sessions with C++</a>
+</p>
+<h2><span class="mw-headline" id="Common_Networking_Issues">Common Networking Issues</span></h2>
+<h5><span class="mw-headline" id="When_replicated_functions_aren.27t_working">When replicated functions aren't working</span></h5>
+<p>To start, with a C++ project, make sure that you include this in your project:
+&lt;syntaxhighlight lang="cpp"&gt;
+</p>
+<ol><li>include "UnrealNetwork.h"</li></ol>
+<p>&lt;/syntaxhighlight&gt;
+</p><p>When only the server/host or client is working, this is generally a sign that you are not replicating anything out to your client(s). This is where you need to ask yourself where in your code / Blueprints are you trying to create your functionality.
+</p><p>As an example, if you are having an issue where when your player presses a button to spawn an actor and that actor is only replicated when the host does it, this is because the host side is the authority so it spawns, whereas when the client (non authority) tries it, it wont replicate because the server in the game (or host) doesn't know to spawn it so it get replicated out.
+</p><p>Make sure that when doing anything game related that if it is the client who is initiating it, to call the server (dedicated or host) so they can do it. This way whatever you are doing will be replicated to the other client(s).
+</p><p>Here is an example of how to handle input in an environment where it could be a host or a client:
+</p><p><a href="/index.php?title=File:Clienthostshoot.png" class="image"><img alt="Clienthostshoot.png" src="https://d26ilriwvtzlb.cloudfront.net/1/13/Clienthostshoot.png" width="855" height="758" /></a>
+</p><p>Another possibility is that the Actor that is not working is also not set to replicates. In Blueprint, in the "Replication" settings, make sure that "replicates" is on.
+</p><p><a href="/index.php?title=File:Blueprint_replicates.png" class="image"><img alt="Blueprint replicates.png" src="https://d26ilriwvtzlb.cloudfront.net/2/27/Blueprint_replicates.png" width="772" height="742" /></a>
+</p><p><i>This is an example, you may not always need anything more than "Replicates" to be checked. Only use what you need, otherwise you may have unnecessary bandwidth uses or have behavior you don't want/need.</i>
+</p><p>In code, you can set replicates in the Constructor with:
+&lt;syntaxhighlight lang="cpp"&gt;
+bReplicates = true;
+&lt;/syntaxhighlight&gt;
+You may also need to add:
+&lt;syntaxhighlight lang="cpp"&gt;
+bAlwaysRelevant= true;
+&lt;/syntaxhighlight&gt;
+</p><p>Looking something like:
+&lt;syntaxhighlight lang="cpp"&gt;
+AMyActor::AMyActor( )
+{
+</p>
+<pre>   PrimaryActorTick.bCanEverTick = true;
+   bReplicates = true;
+   bAlwaysRelevant= true;
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p><p>If you want your Actor to replicate its movement, you would add:
+&lt;syntaxhighlight lang="cpp"&gt;
+bReplicateMovement = true;
+&lt;/syntaxhighlight&gt;
+</p><p>&lt;syntaxhighlight lang="cpp"&gt;
+AMyActor::AMyActor( )
+{
+</p>
+<pre>   PrimaryActorTick.bCanEverTick = true;
+   bReplicates = true;
+   bAlwaysRelevant= true;
+   bReplicateMovement = true;
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p>
+<h5><span class="mw-headline" id="Variables_aren.27t_replicating">Variables aren't replicating</span></h5>
+<p>The first thing to remember is that variables will never replicate unless the authority (server) is what is changing them. If you are a client and want to replicate a variable, make sure you are calling a server side function to do so. UE4 relies on the authority for all replication changes, there is no way for a client to replicate anything unless it asks the authority (server) to do it.
+</p><p>Secondly, should check is to make sure the variable is set to be replicated and that the Actor it belongs to is set so it replicates.
+</p><p>In Blueprint, when you create a variable, on the detail panel on the right side of the Blueprint "Editor Graph", with the variable selected, select the drop down labeled "Replication". You can then change the type of variable replication you want to use.
+</p><p><a href="/index.php?title=File:Blueprint_variable_replicated.png" class="image"><img alt="Blueprint variable replicated.png" src="https://d26ilriwvtzlb.cloudfront.net/5/5b/Blueprint_variable_replicated.png" width="464" height="396" /></a>
+</p><p>If you choose that the variable is RepNotify, you will also get a function called, OnRep_&lt;variablename&gt;. As an example, if your variable name is "Health", your RepNotify function will be "OnRep_Health".
+</p><p><a href="/index.php?title=File:Onrep_health.png" class="image"><img alt="Onrep health.png" src="https://d26ilriwvtzlb.cloudfront.net/b/bf/Onrep_health.png" width="309" height="314" /></a>
+</p><p>In C++, make sure that your project / class has included UnrealNetwork.h (look above for instruction) and that your variable was declared correctly. Such as:
+</p><p><b>[.h]</b>
+&lt;syntaxhighlight lang="cpp"&gt;
+UPROPERTY( Replicated )
+float Health;
+&lt;/syntaxhighlight&gt;
+</p><p><b>[.cpp]</b>
+&lt;syntaxhighlight lang="cpp"&gt;
+void MyCharacter::GetLifetimeReplicatedProps( TArray&lt; FLifetimeProperty &gt; &amp; OutLifetimeProps ) const
+{   
+</p>
+<pre>   Super::GetLifetimeReplicatedProps( OutLifetimeProps );
+   DOREPLIFETIME( MyCharacter, Health);
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p><p>Or, for a RepNotify:
+</p><p><b>[.h]</b>
+&lt;syntaxhighlight lang="cpp"&gt;
+UPROPERTY( ReplicatedUsing=OnRep_Health )
+float Health;
+</p><p>UFUNCTION( )
+void OnRep_Health( );
+&lt;/syntaxhighlight&gt;
+</p><p><b>[.cpp]</b>
+&lt;syntaxhighlight lang="cpp"&gt;
+void MyCharacter::GetLifetimeReplicatedProps( TArray&lt; FLifetimeProperty &gt; &amp; OutLifetimeProps ) const
+{   
+</p>
+<pre>   Super::GetLifetimeReplicatedProps( OutLifetimeProps );
+   DOREPLIFETIME( MyCharacter, Health);
+</pre>
+<p>}
+</p><p>void MyCharacter::OnRep_Health( )
+{
+</p>
+<pre>   // Handle health changed
+</pre>
+<p>}
+&lt;/syntaxhighlight&gt;
+</p><p>RepNotify variables will call their functions on all clients the Actor has been replicated to; this is generally all of them. The client(s) can then use that event to change something, such as a health bar, ammo count, or spawn FX/Sounds.
+</p><p>If you have done this and your variable still isn't replicating, UE4 will only replicate the variable if it has changed. If you continually try to replicate a variable with the same value, it will never be replicated. This is because if the value never changes and all the clients have that value, there is no reason to send any more bandwidth through the network for a value everybody already has.
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20181001163426
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.136 seconds
+Real time usage: 0.435 seconds
+Preprocessor visited node count: 75/1000000
+Preprocessor generated node count: 92/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 -total
+-->
+</div>
+<!-- Saved in parser cache with key wiki_pd05v2:pcache:idhash:193-0!canonical and timestamp 20181001163426 and revision id 387
+ -->
+</div>						<div class="printfooter">
+							Retrieved from "<a dir="ltr" href="https://wiki.unrealengine.com/index.php?title=4_13%2B_Network_Guide&amp;oldid=387">https://wiki.unrealengine.com/index.php?title=4_13%2B_Network_Guide&amp;oldid=387</a>"						</div>
+					<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>					<div class="visualClear"></div>
+									</div>
+			</div>
+		</div>
+		<div id="eg-footer" role="contentinfo">
+			<!DOCTYPE html><html data-baseurl="https://www.unrealengine.com"><head><meta charSet="UTF-8"><meta httpEquiv="X-UA-Compatible" content="IE=9;IE=10;IE=11;IE=Edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui"><meta name="host" content="ue-website-node-prod07-i-02a815c95fb568b8b"><meta name="worker" content="79"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="manifest" href="/manifest.json"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2a2a2a"><meta name="apple-mobile-web-app-title" content="Unreal Engine"><meta name="application-name" content="Unreal Engine"><meta name="msapplication-TileColor" content="#0aaff1"><meta name="msapplication-TileImage" content="/mstile-144x144.png"><meta name="theme-color" content="#0aaff1"><title data-react-helmet="true"></title></head><body><div id="epicGamesFooter"></div><script>window._epicGamesFooter = {"serverUrl":"https://www.unrealengine.com","socialLinks":[{"_type":"Epic Footer Social Link","id":"twitter","href":"https://twitter.com/unrealengine"},{"_type":"Epic Footer Social Link","id":"facebook","href":"https://www.facebook.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.twitch.tv/unrealengine","id":"twitch"},{"_type":"Epic Footer Social Link","id":"instagram","href":"http://instagram.com/UnrealEngine"},{"_type":"Epic Footer Social Link","href":"http://www.youtube.com/unrealengine","id":"youtube"},{"_type":"Epic Footer Social Link","href":"https://www.unrealengine.com/rss","id":"rss"}],"_currentVersion":"1.31","copyrights":["© 2004-{YEAR}, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic’s trademarks or registered trademarks in the US and elsewhere."],"newsLetterConfigs":{"enableNewsLetterCMS":true,"titleMsg":"Sign Up for Unreal Engine News","btnTxt":"Subscribe","_type":"Epic Footer News Letter","logo":"https://cdn2.unrealengine.com/Unreal+Engine%2FUE-Logo-988x988-1dee3bc7f6714edf3c21ee71826ebab54ae02077.png","successMsg":"You have successfully subscribed to Unreal Engine Newsletter.","loginRequired":false},"_type":"Epic Games Footer","newLineCopyrights":false,"epicPropertyName":"unreal_engine","_createdBy":"tony.rossi","_uuid":"dbad9ee8-9ebd-49e5-a448-e930feda5b65","logos":[{"_type":"Epic Footer Logo","href":"https://epicgames.com","id":"eg","title":"Epic Games"},{"_type":"Epic Footer Logo","id":"ue"}],"callToAction":{"_type":"Epic Header Call To Action","useCustomCallback":false,"title":""},"_futureVersion":"none","_created":"2017-08-21T08:59:33.817Z","messages":{"_type":"Epic Footer Messages","tos":"Terms of Service","privacy":"Privacy Policy"},"links":[{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/features","title":"Features"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/branding","title":"Logo & Branding"},{"_type":"Epic Footer Link","useCustomCallback":false,"href":"https://trello.com/b/gHooNW9I/ue4-roadmap","title":"Roadmap"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/education","title":"Education"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/academic-partners","title":"Academic Partners"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/resources","title":"More Resources"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/awards","title":"Awards"},{"_type":"Epic Footer Link","useCustomCallback":true,"href":"http://unrealengine.com/custom-licensing","title":"Custom License Terms"}],"hideDefaultTermsPolicy":false,"_version":{"_comment":"Edit the global content type","_createdBy":"tony.rossi"},"_locale":"en_US","isEu":false,"useServerUrl":true};
+window.__locale = '';
+</script><link key="footer-css" rel="stylesheet" href="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.100bcb10fc821c7c23f8.css"><script src="https://static-assets-prod.epicgames.com/unrealengine/static/webpack/./footer.epic-unreal-engine.100bcb10fc821c7c23f8.js"></script></body></html>		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgPageParseReport":{"limitreport":{"cputime":"0.136","walltime":"0.435","ppvisitednodes":{"value":75,"limit":1000000},"ppgeneratednodes":{"value":92,"limit":1000000},"postexpandincludesize":{"value":0,"limit":2097152},"templateargumentsize":{"value":0,"limit":2097152},"expansiondepth":{"value":2,"limit":40},"expensivefunctioncount":{"value":0,"limit":100},"timingprofile":["100.00%    0.000      1 -total"]},"cachereport":{"timestamp":"20181001163426","ttl":86400,"transientcontent":false}}});});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":188});});</script>
+	<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"93a8bd5691","applicationID":"145396307","transactionName":"MlxXbUBZWkJUAkVQCgsWdFpGUVtfGgBSTQwKVxpPW11D","queueTime":0,"applicationTime":260,"atts":"HhtUGwhDSUw=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>

@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>How To Use Sessions In C++ - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"How_To_Use_Sessions_In_C++","wgTitle":"How To Use Sessions In C++","wgCurRevisionId":20698,"wgRevisionId":20698,"wgArticleId":4205,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Templates","Tutorials","Code"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"How_To_Use_Sessions_In_C++","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["ext.voteNY","mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-How_To_Use_Sessions_In_C skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head"></div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-recentchanges"><a href="/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Community' aria-labelledby='p-Community-label'>
+	<h3 id='p-Community-label'>Community</h3>
+	<div class="body">
+		<ul>
+			<li id="n-UE4-Games"><a href="/Category:Games">UE4 Games</a></li>
+			<li id="n-Dev-Blogs"><a href="/Developer_Blogs">Dev Blogs</a></li>
+			<li id="n-Dev-Livestreams"><a href="/Developer_Livestreams">Dev Livestreams</a></li>
+			<li id="n-Code-Sharing-Hub"><a href="/GitHub_Sharing_Hub">Code Sharing Hub</a></li>
+			<li id="n-UE-User-Groups"><a href="/User_Group_Map">UE User Groups</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Learning_Resources' aria-labelledby='p-Learning_Resources-label'>
+	<h3 id='p-Learning_Resources-label'>Learning Resources</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Example-Projects"><a href="/Category:Example_Projects">Example Projects</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Software_and_Tools' aria-labelledby='p-Software_and_Tools-label'>
+	<h3 id='p-Software_and_Tools-label'>Software and Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Art:-3D"><a href="/3D_Art_Resources">Art: 3D</a></li>
+			<li id="n-Art:-2D"><a href="/2D_Art_Resources">Art: 2D</a></li>
+			<li id="n-Audio"><a href="/Audio_Resources">Audio</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Modding' aria-labelledby='p-Modding-label'>
+	<h3 id='p-Modding-label'>Modding</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Modding-Resources"><a href="/Category:Modding_Resources">Modding Resources</a></li>
+			<li id="n-Moddable-Games"><a href="/Category:Moddable_Games">Moddable Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Epic_Official' aria-labelledby='p-Epic_Official-label'>
+	<h3 id='p-Epic_Official-label'>Epic Official</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Website"><a href="https://www.unrealengine.com" rel="nofollow">Website</a></li>
+			<li id="n-Learning-Resources"><a href="https://docs.unrealengine.com/latest/INT/" rel="nofollow">Learning Resources</a></li>
+			<li id="n-Forums"><a href="https://forums.unrealengine.com/" rel="nofollow">Forums</a></li>
+			<li id="n-Blog"><a href="https://www.unrealengine.com/blog" rel="nofollow">Blog</a></li>
+			<li id="n-YouTube"><a href="https://www.youtube.com/UnrealEngine" rel="nofollow">YouTube</a></li>
+			<li id="n-Twitch"><a href="http://www.twitch.tv/unrealengine" rel="nofollow">Twitch</a></li>
+			<li id="n-Twitter"><a href="https://twitter.com/UnrealEngine" rel="nofollow">Twitter</a></li>
+			<li id="n-Facebook"><a href="https://www.facebook.com/UnrealEngine" rel="nofollow">Facebook</a></li>
+			<li id="n-Instagram"><a href="https://instagram.com/unrealengine/" rel="nofollow">Instagram</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/How_To_Use_Sessions_In_C%2B%2B" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/How_To_Use_Sessions_In_C%2B%2B" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=How_To_Use_Sessions_In_C%2B%2B&amp;oldid=20698&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=How_To_Use_Sessions_In_C%2B%2B&amp;oldid=20698" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=How_To_Use_Sessions_In_C%2B%2B&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/How_To_Use_Sessions_In_C%2B%2B"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk"><span><a href="/Talk:How_To_Use_Sessions_In_C%2B%2B"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/How_To_Use_Sessions_In_C%2B%2B" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=How_To_Use_Sessions_In_C%2B%2B&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=How_To_Use_Sessions_In_C%2B%2B&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=How+To+Use+Sessions+In+C%2B%2B&amp;returntoquery=oldid%3D20698&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=How+To+Use+Sessions+In+C%2B%2B&amp;returntoquery=oldid%3D20698" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">How To Use Sessions In C++</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"><div id="mw-revision-info">Revision as of 00:51, 10 March 2016 by <a href="/index.php?title=User:EXi&amp;action=edit&amp;redlink=1" class="new mw-userlink" title="User:EXi (page does not exist)">EXi</a>  <span class="mw-usertoollinks">(<a href="/index.php?title=User_talk:EXi&amp;action=edit&amp;redlink=1" class="new" title="User talk:EXi (page does not exist)">Talk</a> | <a href="/Special:Contributions/EXi" title="Special:Contributions/EXi">contribs</a>)</span></div><br />
+				<div id="mw-revision-nav">(<a href="/index.php?title=How_To_Use_Sessions_In_C%2B%2B&amp;diff=prev&amp;oldid=20698" title="How To Use Sessions In C++">diff</a>) <a href="/index.php?title=How_To_Use_Sessions_In_C%2B%2B&amp;direction=prev&amp;oldid=20698" title="How To Use Sessions In C++">← Older revision</a> | Latest revision (diff) | Newer revision → (diff)</div></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="aux">
+<div>
+<b>Rate this Page:</b> <div id="rating_"><div class="rating-score"><div class="voteboxrate">5.00</div></div><div class="rating-section"><img class="vote-rating-star" data-vote-the-vote="1" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__1" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="2" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__2" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="3" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__3" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="4" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__4" src="/extensions/VoteNY/images/star_on.gif" alt="" /><img class="vote-rating-star" data-vote-the-vote="5" data-vote-id="" data-vote-action="3" data-vote-rating="5.00" data-vote-voted="0" id="rating__5" src="/extensions/VoteNY/images/star_on.gif" alt="" /> <span class="rating-total">(9 votes)</span></div>
+				<div class="rating-clear">
+			</div></div>
+</div>
+<div>
+<p>Approved for Versions:4.7,4.8,4.9
+</p>
+</div>
+</div>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Known_Issues_and_workarounds"><span class="tocnumber">1</span> <span class="toctext">Known Issues and workarounds</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Features_for_the_future"><span class="tocnumber">2</span> <span class="toctext">Features for the future</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#What_is_this_Tutorial_about.3F"><span class="tocnumber">3</span> <span class="toctext">What is this Tutorial about?</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Getting_Started"><span class="tocnumber">4</span> <span class="toctext">Getting Started</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Prepare_your_Project_to_use_Sessions_and_OnlineSubsystems"><span class="tocnumber">4.1</span> <span class="toctext">Prepare your Project to use Sessions and OnlineSubsystems</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#Changing_the_.22DefaultEngine.ini.22"><span class="tocnumber">4.1.1</span> <span class="toctext">Changing the "DefaultEngine.ini"</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Changing_the_.22YourProjectName.Build.cs.22"><span class="tocnumber">4.1.2</span> <span class="toctext">Changing the "YourProjectName.Build.cs"</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Changing_the_.22YourProjectName.h.22"><span class="tocnumber">4.1.3</span> <span class="toctext">Changing the "YourProjectName.h"</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-9"><a href="#My_TestProject_Setup"><span class="tocnumber">4.2</span> <span class="toctext">My TestProject Setup</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="#Code_to_Create.2C_Find.2C_Join_and_Destroy_Sessions"><span class="tocnumber">5</span> <span class="toctext">Code to Create, Find, Join and Destroy Sessions</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Terms_you_will_read_a_lot_about"><span class="tocnumber">5.1</span> <span class="toctext">Terms you will read a lot about</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Creating_a_Session"><span class="tocnumber">5.2</span> <span class="toctext">Creating a Session</span></a>
+<ul>
+<li class="toclevel-3 tocsection-13"><a href="#Creating_a_Session_.7C_Header_File"><span class="tocnumber">5.2.1</span> <span class="toctext">Creating a Session | Header File</span></a></li>
+<li class="toclevel-3 tocsection-14"><a href="#Creating_a_Session_.7C_CPP_file"><span class="tocnumber">5.2.2</span> <span class="toctext">Creating a Session | CPP file</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-15"><a href="#Searching_and_Finding_a_Session"><span class="tocnumber">5.3</span> <span class="toctext">Searching and Finding a Session</span></a>
+<ul>
+<li class="toclevel-3 tocsection-16"><a href="#Searching_and_Finding_a_Session_.7C_Header_File"><span class="tocnumber">5.3.1</span> <span class="toctext">Searching and Finding a Session | Header File</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#Searching_and_Finding_a_Session_.7C_CPP_File"><span class="tocnumber">5.3.2</span> <span class="toctext">Searching and Finding a Session | CPP File</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-18"><a href="#Joining_a_Session"><span class="tocnumber">5.4</span> <span class="toctext">Joining a Session</span></a>
+<ul>
+<li class="toclevel-3 tocsection-19"><a href="#Joining_a_Session_.7C_Header_file"><span class="tocnumber">5.4.1</span> <span class="toctext">Joining a Session | Header file</span></a></li>
+<li class="toclevel-3 tocsection-20"><a href="#Joining_a_Session_.7C_CPP_file"><span class="tocnumber">5.4.2</span> <span class="toctext">Joining a Session | CPP file</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-21"><a href="#Destroying_a_Session"><span class="tocnumber">5.5</span> <span class="toctext">Destroying a Session</span></a>
+<ul>
+<li class="toclevel-3 tocsection-22"><a href="#Destroying_a_Session_.7C_Header_file"><span class="tocnumber">5.5.1</span> <span class="toctext">Destroying a Session | Header file</span></a></li>
+<li class="toclevel-3 tocsection-23"><a href="#Destroying_a_Session_.7C_CPP_file"><span class="tocnumber">5.5.2</span> <span class="toctext">Destroying a Session | CPP file</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-24"><a href="#BlueprintCallable_Functions_to_test_this_Setup"><span class="tocnumber">6</span> <span class="toctext">BlueprintCallable Functions to test this Setup</span></a>
+<ul>
+<li class="toclevel-2 tocsection-25"><a href="#Creating_a_Session_2"><span class="tocnumber">6.1</span> <span class="toctext">Creating a Session</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="#Searching_and_Finding_a_Session_2"><span class="tocnumber">6.2</span> <span class="toctext">Searching and Finding a Session</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="#Joining_a_Session_2"><span class="tocnumber">6.3</span> <span class="toctext">Joining a Session</span></a></li>
+<li class="toclevel-2 tocsection-28"><a href="#Destroying_a_Session_2"><span class="tocnumber">6.4</span> <span class="toctext">Destroying a Session</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-29"><a href="#Project_Files_to_look_into"><span class="tocnumber">7</span> <span class="toctext">Project Files to look into</span></a></li>
+<li class="toclevel-1 tocsection-30"><a href="#Author_Link"><span class="tocnumber">8</span> <span class="toctext">Author Link</span></a></li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Known_Issues_and_workarounds">Known Issues and workarounds</span></h1>
+<div style="background-color: #F0E7E7; border: 1px solid #C33; border-left: 5px solid #C33; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/b/b3/Icon_template_warning1.png" width="30" height="36" style="vertical-align: top" /> Playing in the Editor can lead to not finding any sessions! This is due to the initial connection the client and the server have when you start the Game with 2 or more players.
+</p>
+</div>
+<div style="background-color: #F0F0E7; border: 1px solid #C93; border-left: 5px solid #C93; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" style="vertical-align: top" /> WORKAROUND #1: To get this still to work, you can go to your Project folder and right click on the *.uproject file. Then you can select something like "Launch Game". Do this twice and you have 2 copies of your Game that are not connect. Now it should work.
+</p>
+</div>
+<div style="background-color: #F0F0E7; border: 1px solid #C93; border-left: 5px solid #C93; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" style="vertical-align: top" /> WORKAROUND #2(not yet tested): (In Editor!) Due to the initial connection of the server and client, they are also on the same session. If you now start a new server directly, you could have a problem with the sessions, because you did not destroy them properly. You can try to use the "DestroySession" before starting a new server in the Editor on both client AND server. For later you want to always Destroy a session if a client get kicked out or leaves the server. Check the "Multiplayer ShootoutGame" and look into the GameInstance. Then you have an example of Network Error handling in BP.
+</p>
+</div>
+<h1><span class="mw-headline" id="Features_for_the_future">Features for the future</span></h1>
+<ul>
+<li> Example of network error handling. Like getting disconnected due to a server shutdown.
+</li>
+<li> Example of getting information into UMG. Like the Serverlist.
+</li>
+<li> Example of extending the GameSession class. Adding more information to your GameSession.
+</li>
+<li> Example of extending several other classes that you can make your Session System unique and you will directly understand the ShooterGame after learning all of this.
+</li>
+</ul>
+<h1><span class="mw-headline" id="What_is_this_Tutorial_about.3F">What is this Tutorial about?</span></h1>
+<p>In this Tutorial, i'm going to show you a very basic Code to Create, Find, Join and Destroy Session in C++.
+So basically we are going to create the Blueprint Session Nodes.
+</p>
+<div style="background-color: #F0F0E7; border: 1px solid #C93; border-left: 5px solid #C93; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" style="vertical-align: top" /> This is 'ONE' setup. There are different ways to approach this and this is also not a complete setup. To use this
+you will want to create some Widgets that use this code.
+</p>
+</div>
+<div style="background-color: #F0E7E7; border: 1px solid #C33; border-left: 5px solid #C33; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/b/b3/Icon_template_warning1.png" width="30" height="36" style="vertical-align: top" /> I'm not going to explain how to code. If you never touched C++, you will better learn the basics first. This tutorial is for a bit more advanced users, who already understand C++, but have a hard time getting a basic Session (Multiplayer) setup to work!
+</p>
+</div>
+<p><br />
+</p>
+<h1><span class="mw-headline" id="Getting_Started">Getting Started</span></h1>
+<h2><span class="mw-headline" id="Prepare_your_Project_to_use_Sessions_and_OnlineSubsystems">Prepare your Project to use Sessions and OnlineSubsystems</span></h2>
+<p>So first of all, we need to get your Project ready to use all of this. I recommend you to start with an empty
+project, so you can first get an idea how this works, before trying to implement this into your already started project!
+</p>
+<div style="background-color: #F0F0E7; border: 1px solid #C93; border-left: 5px solid #C93; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" style="vertical-align: top" /> We are not going to use Steam or anything other than the "OnlineSubsystem=NULL" here.
+</p>
+</div>
+<h3><span class="mw-headline" id="Changing_the_.22DefaultEngine.ini.22">Changing the "DefaultEngine.ini"</span></h3>
+<p>You can find the "DefaultEngine.ini" file in the Config folder in your top most project folder.
+You will want to add the following line to it:
+</p><p><code> 
+</p>
+<pre>[OnlineSubsystem]
+DefaultPlatformService=Null
+</pre>
+<p></code>
+</p>
+<h3><span class="mw-headline" id="Changing_the_.22YourProjectName.Build.cs.22">Changing the "YourProjectName.Build.cs"</span></h3>
+<p>You can find this file in your Project when you opened it with Visual Studio.
+You need to add "OnlineSubsystem", "OnlineSubsystemUtils" (for later usage) and the OnlineSubsystem NULL.
+It should look similar to this:
+</p>
+<pre>
+using UnrealBuildTool;
+
+public class NetworkSessionTest&#160;: ModuleRules
+{
+    public NetworkSessionTest(TargetInfo Target)
+    {
+         PublicDependencyModuleNames.AddRange(new string[] { &quot;Core&quot;, &quot;CoreUObject&quot;, &quot;Engine&quot;, &quot;InputCore&quot;, &quot;OnlineSubsystem&quot;, &quot;OnlineSubsystemUtils&quot; });
+
+         DynamicallyLoadedModuleNames.Add(&quot;OnlineSubsystemNull&quot;);
+    }
+}
+</pre>
+<h3><span class="mw-headline" id="Changing_the_.22YourProjectName.h.22">Changing the "YourProjectName.h"</span></h3>
+<p>This file can also be found in the Project when you open it with Visual Studio.
+You want to change 
+</p>
+<pre><code>#include "EngineMinimal.h"</code> 
+</pre>
+<p>to 
+</p>
+<pre><code>#include "Engine.h"</code>.
+</pre>
+<p>As well as add these two #includes under the "Engine.h" one.
+</p>
+<pre>
+#include &quot;UnrealNetwork.h&quot;
+#include &quot;Online.h&quot;
+</pre>
+<p>So your file looks something like this:
+</p>
+<pre>
+#ifndef __NETWORKSESSIONTEST_H__
+#define __NETWORKSESSIONTEST_H__
+
+#include &quot;Engine.h&quot;
+#include &quot;UnrealNetwork.h&quot;
+#include &quot;Online.h&quot;
+#endif
+</pre>
+<p>And that's it for setting up the Project!
+</p>
+<h2><span class="mw-headline" id="My_TestProject_Setup">My TestProject Setup</span></h2>
+<p>So, i want to let you know how my test project is setup and what i am using.
+I create a new fresh C++ Thirst Person Project and added <b>ONE</b> Class.
+</p><p>I made a child class of "UGameInstance" and called it "UNWGameInstance". (NW = Network).
+This is what i am referring to from now on and what you will read when seeing my function.
+Because every function for Creating, Finding,.. Sessions will be placed here.
+</p><p><br />
+</p>
+<h1><span class="mw-headline" id="Code_to_Create.2C_Find.2C_Join_and_Destroy_Sessions">Code to Create, Find, Join and Destroy Sessions</span></h1>
+<p>We are using a lot of Unreal Engine 4's functions here. All these functions are placed in an "SessionInterface"
+that is designed to handle sessions for different OnlineSubsystems. So although we are using "NULL" here, this
+should also work with Steam and other Subsystems. At least for the basics that all Subsystems share.
+</p><p>These functions all call a so called "delegate" once they are finished doing what they should do. All Session actions
+can take some time, so these functions are important. We will create 1-2 delegates, handles and functions for every one of these 4 Sessions operations. They will give us information like if the action was successful or not.
+</p>
+<h3><span class="mw-headline" id="Terms_you_will_read_a_lot_about">Terms you will read a lot about</span></h3>
+<table class="wikitable" width="300">
+
+<tr>
+<th>Word/Term
+</th>
+<th>Explanation
+</th></tr>
+<tr>
+<td>OnlineSubsystem
+</td>
+<td>OnlineSubsystems are for example "Steam". But you can also use "NULL", which is simply the basic UE4 Subsystem. They all use so called "Wrapper"-Functions. They give us Friend Lists, Unique IDs or Master Server that allow us to find Servers over the Internet and not only on LAN!
+</td></tr>
+<tr>
+<td>Wrapper Functions
+</td>
+<td>Wrapper Functions are something really cool that makes it easy for us to setup the Sessions for all different OnlineSubsystems. While we only need to call "CreateSession", this wrapper function will do the necessary steps to Create a Session in the active Subsystem. So we can create our logic without thinking about Steam or other Subsystems.
+</td></tr>
+<tr>
+<td>Session
+</td>
+<td>A Session is not the Map or the Server itself. A Session is an invisible thing that a Server can Create and a Client can join. They will still need to join the specific Map after joining the Session. A Session is more like an entry in a Database that helps you keeping track of all running Servers.
+</td></tr>
+<tr>
+<td>Session Interface
+</td>
+<td>That is nearly the same as the Session explained above. We will use the Interface instead of the Session itself, because it uses the Wrapper functions we need. We can always get this Internet if we have a valid OnlineSubsystem!
+</td></tr></table>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Creating_a_Session">Creating a Session</span></h2>
+<p>Yes, let's start with creating a simple Session. I will always post the things we put into the Header file first and after that the logic will fill in with the .cpp File! This will all be placed in the UGameInstance Child class i have created. We don't need other classes.
+</p><p><b>So what do we need?</b>
+</p>
+<h4><span class="mw-headline" id="Creating_a_Session_.7C_Header_File">Creating a Session | Header File</span></h4>
+<p>First we need a function we can use to gather all the settings we want to use for our Session. Let's call this function "HostSession".
+</p>
+<pre>
+In our UNWGameInstance.h:
+
+/**
+*	Function to host a game!
+*
+*	@Param		UserID			User that started the request
+*	@Param		SessionName		Name of the Session
+*	@Param		bIsLAN			Is this is LAN Game?
+*	@Param		bIsPresence		&quot;Is the Session to create a presence Session&quot;
+*	@Param		MaxNumPlayers	        Number of Maximum allowed players on this &quot;Session&quot; (Server)
+*/
+bool HostSession(TSharedPtr&lt;const FUniqueNetId&gt; UserId, FName SessionName, bool bIsLAN, bool bIsPresence, int32 MaxNumPlayers);
+</pre>
+<p>The comments explain a lot already, so i will step back from explaining the parameters in the function declarations.
+</p><p>Now we also need the <i>Delegates</i> i talked about earlier. They are used by the "CreateSession" function of the SessionInterface to tell use when the process is done.
+</p>
+<pre>
+In our UNWGameInstance.h:
+
+/* Delegate called when session created */
+FOnCreateSessionCompleteDelegate OnCreateSessionCompleteDelegate;
+/* Delegate called when session started */
+FOnStartSessionCompleteDelegate OnStartSessionCompleteDelegate;
+
+/** Handles to registered delegates for creating/starting a session */
+FDelegateHandle OnCreateSessionCompleteDelegateHandle;
+FDelegateHandle OnStartSessionCompleteDelegateHandle;
+</pre>
+<p>So we have a Delegate and a Handle for Creating and Starting a Session.
+Now we also need a variable we use for the Settings that our Session will have (like LAN or Number of allowed Players):
+</p>
+<pre>
+In our UNWGameInstance.h:
+
+TSharedPtr&lt;class FOnlineSessionSettings&gt; SessionSettings;
+</pre>
+<p>And we will also add a Constructor to our GameInstance class, which is called when the Object is created. We need this to bind the functions to the delegates!
+</p>
+<pre>
+In our UNWGameInstance.h
+
+UNWGameInstance(const FObjectInitializer&amp; ObjectInitializer);
+</pre>
+<p>And finally, we need a function that we bind to the Delegate, so we can perform some actions once we know that the Creation process is complete:
+</p>
+<pre>
+In our UNWGameInstance.h:
+
+/**
+*	Function fired when a session create request has completed
+*
+*	@param SessionName the name of the session this callback is for
+*	@param bWasSuccessful true if the async action completed without error, false if there was an error
+*/
+virtual void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful);
+
+/**
+*	Function fired when a session start request has completed
+*
+*	@param SessionName the name of the session this callback is for
+*	@param bWasSuccessful true if the async action completed without error, false if there was an error
+*/
+void OnStartOnlineGameComplete(FName SessionName, bool bWasSuccessful);
+</pre>
+<p>Again, the Comments explain the parameters. These function will have different values for their parameters depending on if the process was successful or not!
+</p>
+<h4><span class="mw-headline" id="Creating_a_Session_.7C_CPP_file">Creating a Session | CPP file</span></h4>
+<p>Now we fill these functions with logic.
+</p><p>First of all, we will bind the functions to the delegates in our Constructor:
+</p>
+<pre>
+In our UNWGameIntance.cpp:
+
+UNWGameInstance::UNWGameInstance(const FObjectInitializer&amp; ObjectInitializer)
+	: Super(ObjectInitializer)
+{
+	/** Bind function for CREATING a Session */
+	OnCreateSessionCompleteDelegate = FOnCreateSessionCompleteDelegate::CreateUObject(this, &amp;UNWGameInstance::OnCreateSessionComplete);
+	OnStartSessionCompleteDelegate = FOnStartSessionCompleteDelegate::CreateUObject(this, &amp;UNWGameInstance::OnStartOnlineGameComplete);
+}
+</pre>
+<p>All upcoming bindings for the other operations will be placed in this Constructor, under these two binds.
+</p><p>Now let's have a look at the "HostSession" function we created:
+</p>
+<pre>
+In our UNWGameIntance.cpp:
+
+bool UNWGameInstance::HostSession(TSharedPtr&lt;const FUniqueNetId&gt; UserId, FName SessionName, bool bIsLAN, bool bIsPresence, int32 MaxNumPlayers)
+{
+	// Get the Online Subsystem to work with
+	IOnlineSubsystem* const OnlineSub = IOnlineSubsystem::Get();
+
+	if (OnlineSub)
+	{
+		// Get the Session Interface, so we can call the &quot;CreateSession&quot; function on it
+		IOnlineSessionPtr Sessions = OnlineSub-&gt;GetSessionInterface();
+
+		if (Sessions.IsValid() &amp;&amp; UserId.IsValid())
+		{
+			/* 
+				Fill in all the Session Settings that we want to use.
+				
+				There are more with SessionSettings.Set(...);
+				For example the Map or the GameMode/Type.
+			*/
+			SessionSettings = MakeShareable(new FOnlineSessionSettings());
+
+			SessionSettings-&gt;bIsLANMatch = bIsLAN;
+			SessionSettings-&gt;bUsesPresence = bIsPresence;
+			SessionSettings-&gt;NumPublicConnections = MaxNumPlayers;
+			SessionSettings-&gt;NumPrivateConnections = 0;
+			SessionSettings-&gt;bAllowInvites = true;
+			SessionSettings-&gt;bAllowJoinInProgress = true;
+			SessionSettings-&gt;bShouldAdvertise = true;
+			SessionSettings-&gt;bAllowJoinViaPresence = true;
+			SessionSettings-&gt;bAllowJoinViaPresenceFriendsOnly = false;
+
+			SessionSettings-&gt;Set(SETTING_MAPNAME, FString(&quot;NewMap&quot;), EOnlineDataAdvertisementType::ViaOnlineService);
+
+			// Set the delegate to the Handle of the SessionInterface
+			OnCreateSessionCompleteDelegateHandle = Sessions-&gt;AddOnCreateSessionCompleteDelegate_Handle(OnCreateSessionCompleteDelegate);
+
+			// Our delegate should get called when this is complete (doesn't need to be successful!)
+			return Sessions-&gt;CreateSession(*UserId, SessionName, *SessionSettings);
+		}
+	}
+	else
+	{
+		GEngine-&gt;AddOnScreenDebugMessage(-1, 10.f, FColor::Red, TEXT(&quot;No OnlineSubsytem found!&quot;));
+	}
+
+	return false;
+}
+</pre>
+<p>Since i commented everything and this is VERY similar to the upcoming functions, i will only explain this once:
+</p><p>The first thing we do is getting our OnlineSubsystem, because we need the SessionInterface from it. Once we made sure that it is valid, we get the SessionInterface and make sure this and the UsedId are valid.
+</p><p>Then we set a lot of different SessionSettings, like Number of Players etc.
+After we did this, we going to setting the delegate of the "CreateSessionsComplete" handle to the one we create and that we bound a functions to. So we make sure, that this is the one getting used and called once the "CreateSession" process is finished. We will do this for every Session operation from now on, so i won't explain this again.
+</p><p>Once we did this, we are going to call the "CreateSession" function of the Session Interface and we are done.
+Now it could take some seconds until it is finished and the Engine calls our Delegate Functions, which we will fill with logic now:
+</p>
+<pre>
+In our UNWGameIntance.cpp:
+
+void UNWGameInstance::OnCreateSessionComplete(FName SessionName, bool bWasSuccessful)
+{
+	GEngine-&gt;AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT(&quot;OnCreateSessionComplete&#160;%s,&#160;%d&quot;), *SessionName.ToString(), bWasSuccessful));
+
+	// Get the OnlineSubsystem so we can get the Session Interface
+	IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();
+	if (OnlineSub)
+	{
+		// Get the Session Interface to call the StartSession function
+		IOnlineSessionPtr Sessions = OnlineSub-&gt;GetSessionInterface();
+
+		if (Sessions.IsValid())
+		{
+			// Clear the SessionComplete delegate handle, since we finished this call
+			Sessions-&gt;ClearOnCreateSessionCompleteDelegate_Handle(OnCreateSessionCompleteDelegateHandle);
+			if (bWasSuccessful)
+			{
+				// Set the StartSession delegate handle
+				OnStartSessionCompleteDelegateHandle = Sessions-&gt;AddOnStartSessionCompleteDelegate_Handle(OnStartSessionCompleteDelegate);
+
+				// Our StartSessionComplete delegate should get called after this
+				Sessions-&gt;StartSession(SessionName);
+			}
+		}
+		
+	}
+}
+</pre>
+<p>Here again, we will get the OnlineSubsystem and the SessionInterface. This will, again, repeat a lot of times now.
+Once we made sure that the SessionInterface is valid, we clear the Delegate from the handle, because the call is finished and we want to bind it next time we call "CreateSession". That's why we need to clear it.
+</p><p>After that, we can check if the process was "Successful". If yes, we set the Delegate of the "StartSessionComplete" handle and call the "StartSession" function with the "SessionName" we got. This is already the new Session we created!
+</p><p>This will also take an amount of time but once it is finished, the Engine calls the second Delegate function we created:
+</p>
+<pre>
+In our UNWGameIntance.cpp:
+
+void UNWGameInstance::OnStartOnlineGameComplete(FName SessionName, bool bWasSuccessful)
+{
+	GEngine-&gt;AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT(&quot;OnStartSessionComplete&#160;%s,&#160;%d&quot;), *SessionName.ToString(), bWasSuccessful));
+
+	// Get the Online Subsystem so we can get the Session Interface
+	IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();
+	if (OnlineSub)
+	{
+		// Get the Session Interface to clear the Delegate
+		IOnlineSessionPtr Sessions = OnlineSub-&gt;GetSessionInterface();
+		if (Sessions.IsValid())
+		{
+			// Clear the delegate, since we are done with this call
+			Sessions-&gt;ClearOnStartSessionCompleteDelegate_Handle(OnStartSessionCompleteDelegateHandle);
+		}
+	}
+
+	// If the start was successful, we can open a NewMap if we want. Make sure to use &quot;listen&quot; as a parameter!
+	if (bWasSuccessful)
+	{
+		UGameplayStatics::OpenLevel(GetWorld(), &quot;NewMap&quot;, true, &quot;listen&quot;);
+	}
+}
+</pre>
+<p>Similar to the first one, we get, check and clear things. Then, if everything is done and the process was again successful, we open a new Level with "listen" as a parameter. This is important!
+</p><p>And that's it. Now we created a Session and started it, so we are ready to get Clients on our Server/Session.
+But for that we need them to find our Session. So next up is "Finding Sessions".
+</p>
+<h2><span class="mw-headline" id="Searching_and_Finding_a_Session">Searching and Finding a Session</span></h2>
+<p>So, once we are sure that somewhere we have a Session we can find, we can proceed with the following code.
+</p>
+<div style="background-color: #F0F0E7; border: 1px solid #C93; border-left: 5px solid #C93; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" style="vertical-align: top" /> You can only search Sessions like this ONLINE if you have a Subsystem running that is not the standard "NULL" one!
+</p>
+</div>
+<h4><span class="mw-headline" id="Searching_and_Finding_a_Session_.7C_Header_File">Searching and Finding a Session | Header File</span></h4>
+<p>Function to setup our search and start the searching:
+</p>
+<pre>
+In our UNWGameInstance.h:
+
+/**
+*	Find an online session
+*
+*	@param UserId user that initiated the request
+*	@param SessionName name of session this search will generate
+*	@param bIsLAN are we searching LAN matches
+*	@param bIsPresence are we searching presence sessions
+*/
+void FindSessions(TSharedPtr&lt;const FUniqueNetId&gt; UserId, FName SessionName, bool bIsLAN, bool bIsPresence);
+</pre>
+<p>A delegate and a handle for it:
+</p>
+<pre>
+In our UNWGameInstance.h:
+
+/** Delegate for searching for sessions */
+FOnFindSessionsCompleteDelegate OnFindSessionsCompleteDelegate;
+
+/** Handle to registered delegate for searching a session */
+FDelegateHandle OnFindSessionsCompleteDelegateHandle;
+</pre>
+<p>A variable for our SearchSettings which will also contain our SearchResults, once this search is complete and successful:
+</p>
+<pre>
+In our UNWGameInstance.h:
+
+TSharedPtr&lt;class FOnlineSessionSearch&gt; SessionSearch;
+</pre>
+<p>And finally the function we want to bind to the delegate:
+</p>
+<pre>
+In our UNWGameInstance.h:
+
+/**
+*	Delegate fired when a session search query has completed
+*
+*	@param bWasSuccessful true if the async action completed without error, false if there was an error
+*/
+void OnFindSessionsComplete(bool bWasSuccessful);
+</pre>
+<h4><span class="mw-headline" id="Searching_and_Finding_a_Session_.7C_CPP_File">Searching and Finding a Session | CPP File</span></h4>
+<p>Now filling this with logic similar to the creation process:
+</p>
+<pre>
+In our UNWGameInstance.cpp:
+
+void UNWGameInstance::FindSessions(TSharedPtr&lt;const FUniqueNetId&gt; UserId, FName SessionName, bool bIsLAN, bool bIsPresence)
+{
+	// Get the OnlineSubsystem we want to work with
+	IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();
+
+	if (OnlineSub)
+	{
+		// Get the SessionInterface from our OnlineSubsystem
+		IOnlineSessionPtr Sessions = OnlineSub-&gt;GetSessionInterface();
+
+		if (Sessions.IsValid() &amp;&amp; UserId.IsValid())
+		{
+			/*
+				Fill in all the SearchSettings, like if we are searching for a LAN game and how many results we want to have!
+			*/
+			SessionSearch = MakeShareable(new FOnlineSessionSearch());
+
+			SessionSearch-&gt;bIsLanQuery = bIsLAN;
+			SessionSearch-&gt;MaxSearchResults = 20;
+			SessionSearch-&gt;PingBucketSize = 50;
+			
+			// We only want to set this Query Setting if &quot;bIsPresence&quot; is true
+			if (bIsPresence)
+			{
+				SessionSearch-&gt;QuerySettings.Set(SEARCH_PRESENCE, bIsPresence, EOnlineComparisonOp::Equals);
+			}
+
+			TSharedRef&lt;FOnlineSessionSearch&gt; SearchSettingsRef = SessionSearch.ToSharedRef();
+
+			// Set the Delegate to the Delegate Handle of the FindSession function
+			OnFindSessionsCompleteDelegateHandle = Sessions-&gt;AddOnFindSessionsCompleteDelegate_Handle(OnFindSessionsCompleteDelegate);
+			
+			// Finally call the SessionInterface function. The Delegate gets called once this is finished
+			Sessions-&gt;FindSessions(*UserId, SearchSettingsRef);
+		}
+	}
+	else
+	{
+		// If something goes wrong, just call the Delegate Function directly with &quot;false&quot;.
+		OnFindSessionsComplete(false);
+	}
+}
+</pre>
+<p>Getting OnlineSubsystem etc and filling the SearchSettings variable. Then setting the Delegate to the handle and tell the SessionInterface to "FindSessions". That's all (:
+</p><p>Once this is finished, the Delegate functions is called. We still need to connect these in the Constructor:
+</p>
+<pre>
+In our UNWGameInstance.cpp:
+
+/** Bind function for FINDING a Session */
+OnFindSessionsCompleteDelegate = FOnFindSessionsCompleteDelegate::CreateUObject(this, &amp;UNWGameInstance::OnFindSessionsComplete);
+</pre>
+<p>And the function logic:
+</p>
+<pre>
+In our UNWGameInstance.cpp:
+
+void UNWGameInstance::OnFindSessionsComplete(bool bWasSuccessful)
+{
+	GEngine-&gt;AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT(&quot;OFindSessionsComplete bSuccess:&#160;%d&quot;), bWasSuccessful));
+
+	// Get OnlineSubsystem we want to work with
+	IOnlineSubsystem* const OnlineSub = IOnlineSubsystem::Get();
+	if (OnlineSub)
+	{
+		// Get SessionInterface of the OnlineSubsystem
+		IOnlineSessionPtr Sessions = OnlineSub-&gt;GetSessionInterface();
+		if (Sessions.IsValid())
+		{
+			// Clear the Delegate handle, since we finished this call
+			Sessions-&gt;ClearOnFindSessionsCompleteDelegate_Handle(OnFindSessionsCompleteDelegateHandle);
+
+			// Just debugging the Number of Search results. Can be displayed in UMG or something later on
+			GEngine-&gt;AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT(&quot;Num Search Results:&#160;%d&quot;), SessionSearch-&gt;SearchResults.Num()));
+		
+			// If we have found at least 1 session, we just going to debug them. You could add them to a list of UMG Widgets, like it is done in the BP version!
+			if (SessionSearch-&gt;SearchResults.Num() &gt; 0)
+			{
+				// &quot;SessionSearch-&gt;SearchResults&quot; is an Array that contains all the information. You can access the Session in this and get a lot of information.
+				// This can be customized later on with your own classes to add more information that can be set and displayed
+				for (int32 SearchIdx = 0; SearchIdx &lt; SessionSearch-&gt;SearchResults.Num(); SearchIdx++)
+				{
+					// OwningUserName is just the SessionName for now. I guess you can create your own Host Settings class and GameSession Class and add a proper GameServer Name here.
+					// This is something you can't do in Blueprint for example!
+					GEngine-&gt;AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT(&quot;Session Number:&#160;%d | Sessionname:&#160;%s &quot;), SearchIdx+1, *(SessionSearch-&gt;SearchResults[SearchIdx].Session.OwningUserName)));
+				}
+			}
+		}
+	}
+}
+</pre>
+<p>After getting the OnlineSubsystem and the SessionInterface, we clear the DelegateHandle again and now we can work with the SearchResults. They are stored in the "SessionSearch" variable we created. "SessionSearch-&gt;SearchResults" is an array with all found Sessions. You can get several information from this and later on maybe create your own child class of this to add more information! I'm just printing them to the Screen.
+</p><p>That's all for finding Sessions. Now we can go on and try to join one.
+</p>
+<h2><span class="mw-headline" id="Joining_a_Session">Joining a Session</span></h2>
+<p>There are different ways you can Join a session, but we will just use a Session result which we can get from the SearchResult array and joined it with help of the SessionInterface. As easy as possible (:
+</p>
+<h4><span class="mw-headline" id="Joining_a_Session_.7C_Header_file">Joining a Session | Header file</span></h4>
+<p>So the function we are going to use:
+</p>
+<pre>
+In our UNWGameInstance.h:
+
+/**
+*	Joins a session via a search result
+*
+*	@param SessionName name of session
+*	@param SearchResult Session to join
+*
+*	@return bool true if successful, false otherwise
+*/
+bool JoinSession(TSharedPtr&lt;const FUniqueNetId&gt; UserId, FName SessionName, const FOnlineSessionSearchResult&amp; SearchResult);
+</pre>
+<p>The delegates and the function that we bind to it:
+</p>
+<pre>
+In our UNWGameInstance.h:
+
+/** Delegate for joining a session */
+FOnJoinSessionCompleteDelegate OnJoinSessionCompleteDelegate;
+
+/** Handle to registered delegate for joining a session */
+FDelegateHandle OnJoinSessionCompleteDelegateHandle;
+</pre>
+<pre>
+In our UNWGameInstance.h:
+
+/**
+*	Delegate fired when a session join request has completed
+*
+*	@param SessionName the name of the session this callback is for
+*	@param bWasSuccessful true if the async action completed without error, false if there was an error
+*/
+void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
+</pre>
+<p>Nothing fancy as Settings here. Just the functions and the delegates.
+</p>
+<h4><span class="mw-headline" id="Joining_a_Session_.7C_CPP_file">Joining a Session | CPP file</span></h4>
+<pre>
+In our UNWGameInstance.cpp:
+
+bool UNWGameInstance::JoinSession(TSharedPtr&lt;const FUniqueNetId&gt; UserId, FName SessionName, const FOnlineSessionSearchResult&amp; SearchResult)
+{
+	// Return bool
+	bool bSuccessful = false;
+
+	// Get OnlineSubsystem we want to work with
+	IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();
+
+	if (OnlineSub)
+	{
+		// Get SessionInterface from the OnlineSubsystem
+		IOnlineSessionPtr Sessions = OnlineSub-&gt;GetSessionInterface();
+
+		if (Sessions.IsValid() &amp;&amp; UserId.IsValid())
+		{
+			// Set the Handle again
+			OnJoinSessionCompleteDelegateHandle = Sessions-&gt;AddOnJoinSessionCompleteDelegate_Handle(OnJoinSessionCompleteDelegate);
+			
+			// Call the &quot;JoinSession&quot; Function with the passed &quot;SearchResult&quot;. The &quot;SessionSearch-&gt;SearchResults&quot; can be used to get such a
+			// &quot;FOnlineSessionSearchResult&quot; and pass it. Pretty straight forward!
+			bSuccessful = Sessions-&gt;JoinSession(*UserId, SessionName, SearchResult);
+		}
+	}
+		
+	return bSuccessful;
+}
+</pre>
+<p>We are doing nothing new here. Since we have no settings, we are not filling any. We are just taking the SearchResult that was passed and call "JoinSession" once we set the delegate to the handle.
+</p><p>And once this is finished, our function gets called again. Again, don't forget to bind it in the constructor:
+</p>
+<pre>
+In our UNWGameInstance.cpp:
+
+/** Bind function for JOINING a Session */
+OnJoinSessionCompleteDelegate = FOnJoinSessionCompleteDelegate::CreateUObject(this, &amp;UNWGameInstance::OnJoinSessionComplete);
+</pre>
+<p><br />
+</p>
+<pre>
+In our UNWGameInstance.cpp:
+
+void UNWGameInstance::OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result)
+{
+	GEngine-&gt;AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT(&quot;OnJoinSessionComplete&#160;%s,&#160;%d&quot;), *SessionName.ToString(), static_cast&lt;int32&gt;(Result)));
+
+	// Get the OnlineSubsystem we want to work with
+	IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();
+	if (OnlineSub)
+	{
+		// Get SessionInterface from the OnlineSubsystem
+		IOnlineSessionPtr Sessions = OnlineSub-&gt;GetSessionInterface();
+
+		if (Sessions.IsValid())
+		{
+			// Clear the Delegate again
+			Sessions-&gt;ClearOnJoinSessionCompleteDelegate_Handle(OnJoinSessionCompleteDelegateHandle);
+
+			// Get the first local PlayerController, so we can call &quot;ClientTravel&quot; to get to the Server Map
+			// This is something the Blueprint Node &quot;Join Session&quot; does automatically!
+			APlayerController * const PlayerController = GetFirstLocalPlayerController();
+
+			// We need a FString to use ClientTravel and we can let the SessionInterface contruct such a
+			// String for us by giving him the SessionName and an empty String. We want to do this, because
+			// Every OnlineSubsystem uses different TravelURLs
+			FString TravelURL;
+
+			if (PlayerController &amp;&amp; Sessions-&gt;GetResolvedConnectString(SessionName, TravelURL))
+			{
+				// Finally call the ClienTravel. If you want, you could print the TravelURL to see
+				// how it really looks like
+				PlayerController-&gt;ClientTravel(TravelURL, ETravelType::TRAVEL_Absolute);
+			}
+		}
+	}
+}
+</pre>
+<p>Here we are doing something new. After getting the OnlineSubsystem and the SessionInterface, we clear the handle. Then we get the PlayerController of the joining Player. Since we are still on this Player, we can just get the FirstLocal one.
+</p><p>The we create an FString that will hold the TravelURL, which we need for a ClientTravel to the Map of the Server. How do we get the TravelURL? Easy: We tell the SessionInterface to create us one. Just pass the SessionName (which at this point is already the one of the Session we joined!) and the FString. Then we can call the ClientTravel function of the PlayerController and we are on the ServerMap, ready to play!
+</p><p>But now we need to also be able to destroy a Session. This is important, because Sessions take Slots on Servers and prevent us from creating new ones or join others as long as they exist.
+</p>
+<h2><span class="mw-headline" id="Destroying_a_Session">Destroying a Session</span></h2>
+<p>Destroying a Session doesn't need an extra function from us, since we don't need settings or something like that.
+So we only need the delegate, handle and delegate function:
+</p>
+<h4><span class="mw-headline" id="Destroying_a_Session_.7C_Header_file">Destroying a Session | Header file</span></h4>
+<pre>
+In our UNWGameInstance.h:
+
+/** Delegate for destroying a session */
+FOnDestroySessionCompleteDelegate OnDestroySessionCompleteDelegate;
+
+/** Handle to registered delegate for destroying a session */
+FDelegateHandle OnDestroySessionCompleteDelegateHandle;
+</pre>
+<pre>
+In our UNWGameInstance.h:
+
+/**
+*	Delegate fired when a destroying an online session has completed
+*
+*	@param SessionName the name of the session this callback is for
+*	@param bWasSuccessful true if the async action completed without error, false if there was an error
+*/
+virtual void OnDestroySessionComplete(FName SessionName, bool bWasSuccessful);
+</pre>
+<h4><span class="mw-headline" id="Destroying_a_Session_.7C_CPP_file">Destroying a Session | CPP file</span></h4>
+<p>Binding the function in the Constructor!
+</p>
+<pre>
+In our UNWGameInstance.cpp:
+
+/** Bind function for DESTROYING a Session */
+OnDestroySessionCompleteDelegate = FOnDestroySessionCompleteDelegate::CreateUObject(this, &amp;UNWGameInstance::OnDestroySessionComplete);
+</pre>
+<p>And filling the function with logic:
+</p>
+<pre>
+In our UNWGameInstance.cpp:
+
+void UNWGameInstance::OnDestroySessionComplete(FName SessionName, bool bWasSuccessful)
+{
+	GEngine-&gt;AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT(&quot;OnDestroySessionComplete&#160;%s,&#160;%d&quot;), *SessionName.ToString(), bWasSuccessful));
+
+	// Get the OnlineSubsystem we want to work with
+	IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();
+	if (OnlineSub)
+	{
+		// Get the SessionInterface from the OnlineSubsystem
+		IOnlineSessionPtr Sessions = OnlineSub-&gt;GetSessionInterface();
+
+		if (Sessions.IsValid())
+		{
+			// Clear the Delegate
+			Sessions-&gt;ClearOnDestroySessionCompleteDelegate_Handle(OnDestroySessionCompleteDelegateHandle);
+
+			// If it was successful, we just load another level (could be a MainMenu!)
+			if (bWasSuccessful)
+			{
+				UGameplayStatics::OpenLevel(GetWorld(), &quot;ThirdPersonExampleMap&quot;, true);
+			}
+		}
+	}
+}
+</pre>
+<p>Doing the same with the OnlineSubsystem and the SessionInterface again and once the destruction was successful, we Open the start level again, which could be the MainMenu for example.
+</p><p>And that's it, this is all you need for a basic setup. You can now create Widgets or so that can use these functions, <b>BUT</b> you can't make these functions BlueprintCallable. You need a second function for each process that is BlueprintCallable.
+</p>
+<h1><span class="mw-headline" id="BlueprintCallable_Functions_to_test_this_Setup">BlueprintCallable Functions to test this Setup</span></h1>
+<h2><span class="mw-headline" id="Creating_a_Session_2">Creating a Session</span></h2>
+<pre>
+In our UNWGameInstance.h:
+
+UFUNCTION(BlueprintCallable, Category = &quot;Network|Test&quot;)
+void StartOnlineGame();
+</pre>
+<pre>
+In our UNWGameInstance.cpp:
+
+void UNWGameInstance::StartOnlineGame()
+{
+	// Creating a local player where we can get the UserID from
+	ULocalPlayer* const Player = GetFirstGamePlayer();
+	
+	// Call our custom HostSession function. GameSessionName is a GameInstance variable
+	HostSession(Player-&gt;GetPreferredUniqueNetId(), GameSessionName, true, true, 4);
+}
+</pre>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Searching_and_Finding_a_Session_2">Searching and Finding a Session</span></h2>
+<pre>
+In our UNWGameInstance.h:
+
+UFUNCTION(BlueprintCallable, Category = &quot;Network|Test&quot;)
+void FindOnlineGames();
+</pre>
+<pre>
+In our UNWGameInstance.cpp:
+
+void UNWGameInstance::FindOnlineGames()
+{
+	ULocalPlayer* const Player = GetFirstGamePlayer();
+
+	FindSessions(Player-&gt;GetPreferredUniqueNetId(), GameSessionName, true, true);
+}
+</pre>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Joining_a_Session_2">Joining a Session</span></h2>
+<pre>
+In our UNWGameInstance.h:
+
+UFUNCTION(BlueprintCallable, Category = &quot;Network|Test&quot;)
+void JoinOnlineGame();
+</pre>
+<pre>
+In our UNWGameInstance.cpp:
+
+void UNWGameInstance::JoinOnlineGame()
+{
+	ULocalPlayer* const Player = GetFirstGamePlayer();
+
+	// Just a SearchResult where we can save the one we want to use, for the case we find more than one!
+	FOnlineSessionSearchResult SearchResult;
+
+	// If the Array is not empty, we can go through it
+	if (SessionSearch-&gt;SearchResults.Num() &gt; 0)
+	{
+		for (int32 i = 0; i &lt; SessionSearch-&gt;SearchResults.Num(); i++)
+		{
+			// To avoid something crazy, we filter sessions from ourself
+			if (SessionSearch-&gt;SearchResults[i].Session.OwningUserId&#160;!= Player-&gt;GetPreferredUniqueNetId())
+			{
+				SearchResult = SessionSearch-&gt;SearchResults[i];
+
+				// Once we found sounce a Session that is not ours, just join it. Instead of using a for loop, you could
+				// use a widget where you click on and have a reference for the GameSession it represents which you can use
+				// here
+				JoinSession(Player-&gt;GetPreferredUniqueNetId(), GameSessionName, SearchResult);
+				break;
+			}
+		}
+	}	
+}
+</pre>
+<div style="background-color: #F0F0E7; border: 1px solid #C93; border-left: 5px solid #C93; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" style="vertical-align: top" /> We are just joining ONE of the Sessions we found. You could use a Widget similar to the one in the ShootoutGame to display them and join them by clicking. But this is just an easy setup where we don't want any fancy distracting things.
+</p>
+</div>
+<p><br />
+</p>
+<h2><span class="mw-headline" id="Destroying_a_Session_2">Destroying a Session</span></h2>
+<pre>
+In our UNWGameInstance.h:
+
+UFUNCTION(BlueprintCallable, Category = &quot;Network|Test&quot;)
+		void DestroySessionAndLeaveGame();
+</pre>
+<pre>
+In our UNWGameInstance.cpp:
+
+void UNWGameInstance::DestroySessionAndLeaveGame()
+{
+	IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();
+	if (OnlineSub)
+	{
+		IOnlineSessionPtr Sessions = OnlineSub-&gt;GetSessionInterface();
+
+		if (Sessions.IsValid())
+		{
+			Sessions-&gt;AddOnDestroySessionCompleteDelegate_Handle(OnDestroySessionCompleteDelegate);
+
+			Sessions-&gt;DestroySession(GameSessionName);
+		}
+	}
+}
+</pre>
+<div style="background-color: #F0F0E7; border: 1px solid #C93; border-left: 5px solid #C93; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" style="vertical-align: top" /> We perform the binding etc here, because we have no function yet that does that for us. You could create one if you want to keep it similar to the other 3 operations
+</p>
+</div>
+<div style="background-color: #F0F0E7; border: 1px solid #C93; border-left: 5px solid #C93; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" width="30" height="35" style="vertical-align: top" /> These functions can now get called in the Blueprints by getting the GameInstance, casting it and calling the functions with a simple button press.
+</p>
+</div>
+<p><br />
+</p>
+<h1><span class="mw-headline" id="Project_Files_to_look_into">Project Files to look into</span></h1>
+<p>Yes, i share the project which is working for me already:
+</p>
+<div style="background-color: #F0E7E7; border: 1px solid #C33; border-left: 5px solid #C33; padding-left: 5px; margin: 4px 0; min-height: 40px;">
+<p><img alt="Note" src="https://d26ilriwvtzlb.cloudfront.net/b/b3/Icon_template_warning1.png" width="30" height="36" style="vertical-align: top" /> This project is only 4.7 right now!
+</p>
+</div>
+<p><a rel="nofollow" class="external text" href="https://drive.google.com/file/d/0B34nzTE-VVazS0FXbWUwRUtIdHM/view?usp=sharing">Google Drive Download Link!</a>
+</p>
+<h1><span class="mw-headline" id="Author_Link">Author Link</span></h1>
+<p><a href="/index.php?title=User:EXi&amp;action=edit&amp;redlink=1" class="new" title="User:EXi (page does not exist)">eXi</a> (<a href="/index.php?title=User_talk:EXi&amp;action=edit&amp;redlink=1" class="new" title="User talk:EXi (page does not exist)">talk</a>)
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.146 seconds
+Real time usage: 0.189 seconds
+Preprocessor visited node count: 548/1000000
+Preprocessor generated node count: 1166/1000000
+Post‐expand include size: 4967/2097152 bytes
+Template argument size: 2286/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+-->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=How_To_Use_Sessions_In_C%2B%2B&amp;oldid=20698">https://wiki.unrealengine.com/index.php?title=How_To_Use_Sessions_In_C%2B%2B&amp;oldid=20698</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden category: <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?303"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.264 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		

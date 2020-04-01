@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" /><title>C++ Troubleshooting Guide - Epic Wiki</title>
+<meta name="generator" content="MediaWiki 1.22.2" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Epic Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.unrealengine.com/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="Epic Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=epic&amp;*" />
+<link rel="stylesheet" href="/extensions/EpicVideoSystem/CSS/VideoSystem.css" />
+<link rel="stylesheet" href="/skins/epic/resources/screen.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/epic.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/prettify.css?303" media="screen" />
+<link rel="stylesheet" href="/skins/epic/resources/jquery.qtip.css?303" media="screen" /><meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=epic&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: my_wiki:resourceloader:filter:minify-css:7:07b6a8ccf3fd62e770f192d0a6f8e123 */</style>
+
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"C++_Troubleshooting_Guide","wgTitle":"C++ Troubleshooting Guide","wgCurRevisionId":17608,"wgRevisionId":17608,"wgArticleId":5268,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Programming","Epic Created Content","Troubleshooting"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"C++_Troubleshooting_Guide","wgIsProbablyEditable":false,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":true,"previewDialog":false,"publish":true,"toc":false}});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"epic","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"vector-simplesearch":1,"watchcreations":0,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,
+"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"wikieditor-publish":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: my_wiki:resourceloader:filter:minify-js:7:2197af7670c41256853f340e275ede1b */
+}</script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=skins.epic.extras.js%7Cskins.epic.fancybox.js%7Cskins.epic.js%7Cskins.epic.qtip.js%7Cskins.epic.slimscroll.js&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/epic/csshover.min.htc")}</style><![endif]--><script type="text/javascript">
+var experimentID = false;
+var cxApi = null;
+var variation = 0;
+var fancyTitle = "";
+var CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML;
+$(document).ready(function(){
+	if(experimentID != false)
+	{
+		$(head).append('<script src="//www.google-analytics.com/cx/api.js?experiment=' + experimentID + '" />' + '</scr' + 'ipt>');
+		HandleExperiment();
+	}
+	else
+	{
+		CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);	
+	}
+});
+function HandleExperiment()
+{
+	CE_SNAPSHOT_NAME = (fancyTitle != "" ? fancyTitle : document.getElementsByTagName("title")[0].innerHTML);
+	if(cxApi != null)
+	{
+		variation = cxApi.chooseVariation();
+		cxApi.setChosenVariation(variation, experimentID);
+		if(variation != cxApi.ORIGINAL_VARIATION && variation != cxApi.NO_CHOSEN_VARIATION && variation != cxApi.NOT_PARTICIPATING)
+		{
+			//var URL = document.location.href + (document.location.search != '' ? '&var=' : '?var=') + variation;
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+			//document.location.href = URL; 
+			CE_SNAPSHOT_NAME = document.getElementsByTagName("title")[0].innerHTML + ' (variation ' + variation + ')';
+			var test = "";
+		}
+		else
+		{
+			ga('send', 'event', 'A/B', 'ID: ' + experimentID, 'Variation: ' + variation, {'nonInteraction': 1});
+		}
+		ToggleExperimentContent(variation);
+		setTimeout(function () {
+			var a = document.createElement("script");
+			var b = document.getElementsByTagName("script")[0];
+			a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+			a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+		}, 1);
+	}
+	else
+	{
+		setTimeout("HandleExperiment()", 500);
+	}
+}
+
+function ToggleExperimentContent(variation)
+{
+	$('.AB').hide();
+	$('#variation_' + variation).show();
+}
+</script></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-C_Troubleshooting_Guide skin-epic action-view vector-animateLayout">
+		<!--<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>-->
+		<!-- Google Tag Manager -->
+		<noscript>
+			<iframe src="//www.googletagmanager.com/ns.html?id=GTM-KWRD6D"
+					height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+		<script>
+		(function (w, d, s, l, i) {
+		w[l] = w[l] || []; w[l].push({
+		'gtm.start':
+		new Date().getTime(), event: 'gtm.js'
+		}); var f = d.getElementsByTagName(s)[0],
+		j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+		'//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-KWRD6D');</script>
+		<!-- End Google Tag Manager -->
+		<div id="webThree">
+		<div id="head"></div>
+		<div id="pagedefault">		
+                    <div id="pagenav">
+                        <div>
+                            <!-- Start of Other language links -->
+                            <!-- End of Other language links -->
+                            <div class="homelink_container">
+                                <a href="https://wiki.unrealengine.com" title="UE4 Wiki Home" class="homelink">HOME</a>
+                            </div>
+                        </div>
+                        <div style="clear:both;">
+                        </div>
+                    </div>	
+		<div id="mw-navigation" style="max-width:972px;margin:1em auto 0 auto;">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="jumplink" onclick="$('#sidebar').toggle();">
+					Navigation
+				</div>
+				<div id="sidebar">
+					<!-- Start of jump page links -->
+					<div class="largetitle">
+						Quick Links
+					</div>
+					<div class="arrowlist">
+						<!-- End of jump page links -->
+						<!-- Start of related page links -->
+						<!-- End of related page links -->								
+						<div id="mw-panel">
+							<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-recentchanges"><a href="/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Community' aria-labelledby='p-Community-label'>
+	<h3 id='p-Community-label'>Community</h3>
+	<div class="body">
+		<ul>
+			<li id="n-UE4-Games"><a href="/Category:Games">UE4 Games</a></li>
+			<li id="n-Dev-Blogs"><a href="/Developer_Blogs">Dev Blogs</a></li>
+			<li id="n-Dev-Livestreams"><a href="/Developer_Livestreams">Dev Livestreams</a></li>
+			<li id="n-Code-Sharing-Hub"><a href="/GitHub_Sharing_Hub">Code Sharing Hub</a></li>
+			<li id="n-UE-User-Groups"><a href="/User_Group_Map">UE User Groups</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Learning_Resources' aria-labelledby='p-Learning_Resources-label'>
+	<h3 id='p-Learning_Resources-label'>Learning Resources</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Tutorials"><a href="/Category:Tutorials">Tutorials</a></li>
+			<li id="n-Example-Projects"><a href="/Category:Example_Projects">Example Projects</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Software_and_Tools' aria-labelledby='p-Software_and_Tools-label'>
+	<h3 id='p-Software_and_Tools-label'>Software and Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Plug-ins"><a href="/Category:Plug-ins">Plug-ins</a></li>
+			<li id="n-Art:-3D"><a href="/3D_Art_Resources">Art: 3D</a></li>
+			<li id="n-Art:-2D"><a href="/2D_Art_Resources">Art: 2D</a></li>
+			<li id="n-Audio"><a href="/Audio_Resources">Audio</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Modding' aria-labelledby='p-Modding-label'>
+	<h3 id='p-Modding-label'>Modding</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Modding-Resources"><a href="/Category:Modding_Resources">Modding Resources</a></li>
+			<li id="n-Moddable-Games"><a href="/Category:Moddable_Games">Moddable Games</a></li>
+			<li id="n-Unreal-Tournament"><a href="/Category:Unreal_Tournament">Unreal Tournament</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Epic_Official' aria-labelledby='p-Epic_Official-label'>
+	<h3 id='p-Epic_Official-label'>Epic Official</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Website"><a href="https://www.unrealengine.com" rel="nofollow">Website</a></li>
+			<li id="n-Learning-Resources"><a href="https://docs.unrealengine.com/latest/INT/" rel="nofollow">Learning Resources</a></li>
+			<li id="n-Forums"><a href="https://forums.unrealengine.com/" rel="nofollow">Forums</a></li>
+			<li id="n-Blog"><a href="https://www.unrealengine.com/blog" rel="nofollow">Blog</a></li>
+			<li id="n-YouTube"><a href="https://www.youtube.com/UnrealEngine" rel="nofollow">YouTube</a></li>
+			<li id="n-Twitch"><a href="http://www.twitch.tv/unrealengine" rel="nofollow">Twitch</a></li>
+			<li id="n-Twitter"><a href="https://twitter.com/UnrealEngine" rel="nofollow">Twitter</a></li>
+			<li id="n-Facebook"><a href="https://www.facebook.com/UnrealEngine" rel="nofollow">Facebook</a></li>
+			<li id="n-Instagram"><a href="https://instagram.com/unrealengine/" rel="nofollow">Instagram</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/C%2B%2B_Troubleshooting_Guide" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/C%2B%2B_Troubleshooting_Guide" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=C%2B%2B_Troubleshooting_Guide&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=C%2B%2B_Troubleshooting_Guide&amp;oldid=17608" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=C%2B%2B_Troubleshooting_Guide&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+						</div>
+					</div>
+				</div>				
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/C%2B%2B_Troubleshooting_Guide"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:C%2B%2B_Troubleshooting_Guide&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/C%2B%2B_Troubleshooting_Guide" >View</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=C%2B%2B_Troubleshooting_Guide&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=C%2B%2B_Troubleshooting_Guide&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">History</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=C%2B%2B+Troubleshooting+Guide&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=C%2B%2B+Troubleshooting+Guide" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				</div>
+			</div>
+		</div>
+		<div id="maincol">
+		<div class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- Start of crumbs links -->
+			<div class="crumbs">
+			<p>
+							</p>
+			</div>
+			<!-- End of crumbs links -->
+			<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">C++ Troubleshooting Guide</span></h1>
+			<div id="bodyContent">
+				<div id="contentSub"></div>
+																<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
+This page will hold a collection of common code issues that users run into, and steps that can be taken to resolve the issues. It is by no means an exhaustive list of issues, just a list of the ones that come up most frequently. We will be adding to this page as needed in the future. If the issue you are experiencing is not listed here, please visit the <a rel="nofollow" class="external text" href="https://answers.unrealengine.com/index.html">AnswerHub</a> or <a rel="nofollow" class="external text" href="https://forums.unrealengine.com/">Forums</a> for additional assistance. This page is currently only for issues with Windows and Visual Studio.
+</p>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Cannot_Build_Engine_from_Source"><span class="tocnumber">1</span> <span class="toctext">Cannot Build Engine from Source</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Build_Error_Codes"><span class="tocnumber">2</span> <span class="toctext">Build Error Codes</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#C1069"><span class="tocnumber">2.1</span> <span class="toctext">C1069</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#C1083"><span class="tocnumber">2.2</span> <span class="toctext">C1083</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#RC1015"><span class="tocnumber">2.3</span> <span class="toctext">RC1015</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#OtherCompilerError.28.23.29"><span class="tocnumber">2.4</span> <span class="toctext">OtherCompilerError(#)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#UnrealBuildTool_Errors"><span class="tocnumber">3</span> <span class="toctext">UnrealBuildTool Errors</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#FAQ"><span class="tocnumber">4</span> <span class="toctext">FAQ</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#Where_is_RegisterShellCommands.bat.3F"><span class="tocnumber">4.1</span> <span class="toctext">Where is RegisterShellCommands.bat?</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Cannot_Build_Engine_from_Source">Cannot Build Engine from Source</span></h1>
+<p>This section is meant to encompass a variety of build errors that could prevent the Engine from being built. The solutions here should work in most instances, starting with the most common.
+</p>
+<ul>
+<li> Make sure you have the correct dependencies for the version you are trying to build.
+</li>
+</ul>
+<dl>
+<dd><ul>
+<li> If you're building a version on or past 4.6, you should run the Setup.bat (Setup.command for Mac) to download the dependencies. Earlier versions will need to download them separately from Github. These can be found in the readme on the Github page.
+</li>
+<li> Dependencies for 4.3.0 will not work when trying to build 4.4.0, or vice versa.
+</li>
+<li> Dependency zip files all have the same name regardless of Engine version, so it may be less confusing to download the correct dependencies again if there is any question about which version they are for.
+</li>
+<li> If you are using Visual Studio 2012, be sure to also download the Optional dependency file.
+</li>
+</ul>
+</dd>
+</dl>
+<ul>
+<li> If you are using Visual Studio 2013 for any version on 4.10 or higher, you'll need to add the <b>-2013</b> argument to your GenerateProjectFiles.bat to build the project files for 2013.
+<dl>
+<dd> You can add it on this line: "call "%~dp0Engine\Build\BatchFiles\GenerateProjectFiles.bat" <b>-2013</b>&#160;%*
+</dd>
+</dl>
+</li>
+<li> Make sure your VS140COMNTOOLS environment variable is correct.
+</li>
+</ul>
+<dl>
+<dd><ul>
+<li> You can find your environment variables at
+</li>
+</ul>
+</dd>
+</dl>
+<pre> Control Panel\System and Security\System -&gt; Advanced System Settings -&gt; Environment Variables
+</pre>
+<dl>
+<dd><ul>
+<li> This should point to the Tools folder in your Visual Studio 2013/2015 installation.
+</li>
+</ul>
+<dl>
+<dd><ul>
+<li> eg. C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\
+</li>
+</ul>
+</dd>
+</dl>
+<ul>
+<li> If you are using Visual Studio 2013, this variable will be named VS120COMNTOOLS, and will point to your Visual Studio 2013 Tools folder.
+</li>
+<li> If you are using Visual Studio 2012, this variable will be named VS110COMNTOOLS, and will point to your Visual Studio 2012 Tools folder.
+</li>
+</ul>
+</dd>
+</dl>
+<ul>
+<li> Make sure you have the correct version of Visual Studio Express installed, if you are using Express.
+</li>
+</ul>
+<dl>
+<dd><ul>
+<li> Microsoft has several different versions of Visual Studio Express 2015 available.
+</li>
+<li> The current version supported with Unreal Engine 4 is Visual Studio Express 2015 for Desktop (2013 for versions prior to 4.10) <a rel="nofollow" class="external text" href="https://www.visualstudio.com/en-us/products/visual-studio-express-vs.aspx">here</a>.
+</li>
+</ul>
+</dd>
+</dl>
+<ul>
+<li> Make sure you have the June 2010 DirectX Runtimes installed.
+</li>
+</ul>
+<dl>
+<dd><ul>
+<li> These are required for Unreal Engine 4.
+</li>
+<li> Download the Runtimes <a rel="nofollow" class="external text" href="http://www.microsoft.com/en-us/download/details.aspx?id=8109">here</a>.
+</li>
+</ul>
+</dd>
+</dl>
+<ul>
+<li> Make sure only one version of Visual Studio is installed.
+</li>
+</ul>
+<dl>
+<dd><ul>
+<li> Having multiple installations of Visual Studio has caused problems for some users.
+</li>
+<li> Uninstall any unneeded versions of Visual Studio.
+</li>
+</ul>
+</dd>
+</dl>
+<ul>
+<li> Make sure there are no special characters in any Engine file paths (such as é or ô).
+</li>
+</ul>
+<dl>
+<dd><ul>
+<li> This is a limitation internal to Visual Studio that affects how Visual Studio communicates with the UnrealBuildTool.
+</li>
+<li> Install UE4 (and preferably Visual Studio as well) to a location that does not have any special characters in the file path.
+</li>
+<li> Ensure projects are not created in locations containing special characters in the file path.
+</li>
+</ul>
+</dd>
+</dl>
+<h1><span class="mw-headline" id="Build_Error_Codes">Build Error Codes</span></h1>
+<h2><span class="mw-headline" id="C1069">C1069</span></h2>
+<pre> fatal error C1069: cannot read compiler command line
+</pre>
+<ul>
+<li> Check the TMP and TEMP environment variables and make sure there are no spaces in the paths.
+</li>
+</ul>
+<h2><span class="mw-headline" id="C1083">C1083</span></h2>
+<pre> fatal error C1083: Cannot open include file: 'new': No such file or directory
+</pre>
+<ul>
+<li> Often paired with error RC1015.
+</li>
+<li> Ensure Windows SDK is installed.
+</li>
+</ul>
+<dl>
+<dd><ul>
+<li> Download <a rel="nofollow" class="external text" href="http://www.microsoft.com/en-us/download/details.aspx?id=8279">here</a> for Windows 7.
+</li>
+</ul>
+</dd>
+</dl>
+<ul>
+<li> If building the Engine, ensure correct dependencies have been downloaded and extracted.
+</li>
+</ul>
+<h2><span class="mw-headline" id="RC1015">RC1015</span></h2>
+<pre> fatal error RC1015: cannot open include file 'windows.h'
+</pre>
+<ul>
+<li> Often paired with error C1083.
+</li>
+<li> Ensure Windows SDK is installed.
+</li>
+</ul>
+<dl>
+<dd><ul>
+<li> Download <a rel="nofollow" class="external text" href="http://www.microsoft.com/en-us/download/details.aspx?id=8279">here</a> for Windows 7.
+</li>
+</ul>
+</dd>
+</dl>
+<ul>
+<li> Check anti-virus software to make sure it is not interfering.
+</li>
+<li>As a last resort, as editing Environment Variables can be risky, if you're sure that your Windows SDK is installed but Visual Studio isn't seeing it, you can follow these steps to ensure that the Environment Variables are set up correctly:
+</li>
+</ul>
+<ol>
+<li> Find "My Computer" (Or "Computer" in the Start Menu), right-click it, and select Properties.
+</li>
+<li> Select "Advanced System Settings"
+</li>
+<li> Under the "Advanced" tab, select "Environment Variables"
+</li>
+<li> Find the variable labeled "Path" under "System Variables", select it, and then hit Edit
+</li>
+<li> Note that there are multiple file paths listed here, all separated by a semi-colon (;)
+</li>
+<li> Look for the following path "C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\". or the version you're looking for. Please note that the path may change based off the drive you're using and 32-bit vs 64-bit
+</li>
+<li> If it does not exist, add it to the end (Add a semicolon prior to the entry but not after it)
+</li>
+</ol>
+<h2><span class="mw-headline" id="OtherCompilerError.28.23.29">OtherCompilerError(#)</span></h2>
+<ul>
+<li>This line means that the error that occurred isn't something that has an error code related to it. You can check the Output log for more information in the majority of situations that involve this message.
+</li>
+</ul>
+<h1><span class="mw-headline" id="UnrealBuildTool_Errors">UnrealBuildTool Errors</span></h1>
+<pre> UnrealBuildTool Exception: ERROR: Windows SDK v8.1 must be installed in order to build this target.
+</pre>
+<ul>
+<li> Windows SDK 8.1 is missing.
+</li>
+</ul>
+<dl>
+<dd><ul>
+<li> Download <a rel="nofollow" class="external text" href="http://msdn.microsoft.com/en-us/windows/desktop/bg162891.aspx">here</a>.
+</li>
+</ul>
+</dd>
+</dl>
+<pre> UnrealHeaderTool failed for target 'UE4Editor'
+</pre>
+<ul>
+<li> DirectX June 2010 Runtimes are missing.
+</li>
+</ul>
+<dl>
+<dd><ul>
+<li> Download <a rel="nofollow" class="external text" href="http://www.microsoft.com/en-us/download/details.aspx?id=8109">here</a>.
+</li>
+</ul>
+</dd>
+</dl>
+<h1><span class="mw-headline" id="FAQ">FAQ</span></h1>
+<h2><span class="mw-headline" id="Where_is_RegisterShellCommands.bat.3F">Where is RegisterShellCommands.bat?</span></h2>
+<p>This file was removed starting in version 4.1. To update a project to a new Engine version:
+</p>
+<ul>
+<li> Right-click on the .uproject file.
+</li>
+<li> Select "Switch Unreal Engine Version..."
+</li>
+<li> Choose the version of the Engine you would like to associate the project with.
+</li>
+<li> Right-click on the .uproject file.
+</li>
+<li> Select "Generate Visual Studio project files".
+</li>
+<li> Open the solution in Visual Studio.
+</li>
+<li> Build the project.
+</li>
+</ul>
+
+<!-- 
+NewPP limit report
+CPU time usage: 0.008 seconds
+Real time usage: 0.008 seconds
+Preprocessor visited node count: 35/1000000
+Preprocessor generated node count: 40/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key my_wiki:pcache:idhash:5268-0!*!*!!en!*!* and timestamp 20170805013226
+ -->
+</div>												<div class="printfooter">
+				Retrieved from "<a href="https://wiki.unrealengine.com/index.php?title=C%2B%2B_Troubleshooting_Guide&amp;oldid=17608">https://wiki.unrealengine.com/index.php?title=C%2B%2B_Troubleshooting_Guide&amp;oldid=17608</a>"				</div>
+												<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="/index.php?title=Category:Programming&amp;action=edit&amp;redlink=1" class="new" title="Category:Programming (page does not exist)">Programming</a></li><li><a href="/Category:Epic_Created_Content" title="Category:Epic Created Content">Epic Created Content</a></li><li><a href="/Category:Troubleshooting" title="Category:Troubleshooting">Troubleshooting</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		</div>
+		</div>
+		
+		<div id="footer">
+			<div id="brand">
+
+			</div>
+			<div id="legal">
+				<div id="copyright">
+					&copy; 2004-2015, Epic Games, Inc. All rights reserved. Unreal and its logo are Epic's trademarks or registered trademarks in the US and elsewhere.
+				</div>
+				<div id="terms">
+					<a target="_blank" href="http://epicgames.com/tou">TERMS OF USE</a> | <a target="_blank" href="http://epicgames.com/privacynotice">PRIVACY POLICY</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--<div id="footer" role="contentinfo">
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<div name="copyright">&#169; 2004-2014, Epic Games, Inc. All rights reserved. Epic Games, Unreal, Unreal Engine, Unreal Tournament, and their respective logos are Epic's trademarks or registered trademarks in the US and elsewhere.</div>
+					</li>
+					<li id="footer-termsofuseico">
+						<div name="termsofuse"><a href="http://epicgames.com/tou" target="_blank">Terms of Use</a></div>
+					</li>
+					<li id="footer-privacynoticeico">
+						<div name="privacynotice"><a href="http://epicgames.com/privacynotice" target="_blank">Privacy Policy</a></div>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>-->
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/extensions/EpicSearchSystem/Javascript/Search.js?399"></script>
+<script src="https://wiki.unrealengine.com/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=epic&amp;*"></script>
+<!-- Served in 0.049 secs. -->		<img src="https://tracking.unrealengine.com/track.png" width="1" height="1">
+		<!--<script type="text/javascript">
+			setTimeout(function () {
+				var a = document.createElement("script");
+				var b = document.getElementsByTagName("script")[0];
+				a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0028/4572.js?" + Math.floor(new Date().getTime() / 3600000);
+				a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+			}, 1);
+		</script>-->
+	</body>
+</html>
+
+		
