@@ -4,7 +4,12 @@
 set -e
 
 # build
-NODE_OPTIONS="--max-old-space-size=12288" yarn docs:build
+yarn docs:build
+
+# Theme crashes on 12 gig memory and 45 min build when using sidebar
+cd src
+node makeIndex.js
+cd ..
 
 # navigate into the build output directory
 cd docs/.vuepress/dist

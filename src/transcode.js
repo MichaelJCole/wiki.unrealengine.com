@@ -1,11 +1,5 @@
 /**
-
-There are better ways to do much of this.
-
-This is a first draft to see what happens next.  
-
-I've been beating my head against Unreal for a few months, and web data processing is a nice relaxing change :-)
-
+There are better ways to do much of this.  I was in a hurry.
 */
 
 
