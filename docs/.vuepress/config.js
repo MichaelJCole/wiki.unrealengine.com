@@ -2,8 +2,10 @@ const glob = require('glob');
 
 let markdownFiles = glob.sync('docs/**/*.md').map(markdownFile => {
   var path = markdownFile.replace('docs', '').replace('index.md', '')
-  return [path, path]
+  return ['/' + markdownFile, path]
 }); 
+
+console.log(markdownFiles)
 // update the docs/**/*.md pattern with your folder structure 
 
 module.exports = {
