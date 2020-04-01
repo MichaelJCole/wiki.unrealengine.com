@@ -75,7 +75,34 @@ htmlFiles.forEach(htmlFilename => {
   if (/^\.\.\/original\/Version_Notes/.test(htmlFilename)) return
   if (/^\.\.\/original\/Videos\?/.test(htmlFilename)) return
   if (/^\.\.\/original\/Videos\/Player/.test(htmlFilename)) return
+  
+  // Skip some articles that break build
+  skipMe = [
+    '../original/Category:Community_Created_Content',
+    '../original/Entry_Level_Guide_to_UE4_C++',
+    '../original/Logs,_Printing_the_Class_Name,_Function_Name,_Line_Number_of_your_Calling_Code',
+    '../original/Mass_Scale_of_Physics_Mesh,_Dynamically_Update_During_Runtime',
+    '../original/Mass_Scale_of_Physics_Mesh,_Dynamically_Update_During_Runtime!',
+    '../original/Survival_sample_game',
+    '../original/Unreal_Tournament',
+    '../original/Entry_Level_Guide_to_UE4_C++?utm_source=Academic List one&utm_campaign=9b53f822a3-Unreal_Engine_Newsletter-4-2015&utm_medium=email&utm_term=0_fc87d0107c-9b53f822a3-30674041',
+    '../original/Global_Data_Access,_Data_Storage_Class_Accessible_From_Any_CPP_or_BP_Class_During_Runtime',
+    '../original/Global_Data_Access,_Data_Storage_Class_Accessible_From_Any_CPP_or_BP_Class_During_Runtime!',
+    '../original/Survival_sample_game?utm_medium=referral&utm_source=zeef.io',
+    '../original/Unreal_Tournament?month=June&day=15&year=1990&x=47&y=19',
+    'File_Management,_Create_Folders,_Delete_Files,_and_More',
+    'Slate!_Hello',
+    'docs/Draw_3D_Debug_Points,_Lines,_and_Spheres:_Visualize_Your_Algorithm_in_Action!',
+    'docs/Blueprint_Function_Library,_Create_Your_Own_to_Share_With_Community!',
+    'docs/Blueprint_Function_Library,_Create_Your_Own_to_Share_With_Others!',
     
+  ]
+  // This was everythign with a ! or url params I think
+  // TODO FIXME this won't work.  The above folders need to be removed manually, or this part fixed.
+  // I have some other stuff to do and this is over time.
+  if (skipMe.includes(htmlFileName)) return // untested
+  
+  
   // Read the file contents
   fsRead.readFile(htmlFilename, 'utf8', function(err, contents) {
     if (err) return console.log(htmlFilename, err) // read error

@@ -1,5 +1,6 @@
 module.exports = {
   title: 'Hello VuePress',
   description: 'Just playing around',
-  base: '/<REPO>/'
+  base: '/<REPO>/',
+  theme: '@vuepress/theme-default',
 }
