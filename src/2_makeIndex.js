@@ -28,8 +28,8 @@ mdFiles = recFindByExt('../docs','md')
 var readmeContent = fs.readFileSync('../README.md', 'UTF-8');
 
 fileList = mdFiles.reduce((total, item) => {
-  var name = item.replace('../docs', '').replace('/README.md', '').trim()
-  var path = item.replace('../docs', '').trim()
+  var name = item.replace('../docs/', '').replace('/README.md', '').trim()
+  var path = item.replace('../docs', '')
   total += `- [${name}](${path})\n\n`
   return total
 }, '')

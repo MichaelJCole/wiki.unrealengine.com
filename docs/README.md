@@ -12,7 +12,7 @@ Please note this site was taken offline for security reasons, so handle the "ori
 
 ### How this data was collected
 
-The [Internet Archive](https://archive.org] has a wayback machine:
+The [Internet Archive](https://archive.org) has a wayback machine:
 
 ```
 https://web.archive.org/web/*/https://wiki.unrealengine.com/*
