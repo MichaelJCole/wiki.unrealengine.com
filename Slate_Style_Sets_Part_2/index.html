@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/997.15977787.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Slate Style Sets Part 2 - Epic Wiki</p> <h1 id="slate-style-sets-part-2"><a href="#slate-style-sets-part-2" class="header-anchor">#</a> Slate Style Sets Part 2</h1> <p><strong>Rate this Article:</strong></p> <p>5.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""> (3 votes)</p> <p>Approved for Versions:4.9</p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" alt="Note"></p> <p><strong>Some or all of the information on this page is inconsistent, irrelevant or confusing.</strong></p> <p>Please help clean it up if you are able.</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Creating_Menus_with_Slate.2FC.2B.2B.2C_Part_2">1 Creating Menus with Slate/C++, Part 2</a> <ul><li><a href="#Overview">1.1 Overview</a></li> <li><a href="#Step_1:_Style_Set.21">1.2 Step 1: Style Set!</a> <ul><li><a href="#MenuStyles.h">1.2.1 MenuStyles.h</a></li> <li><a href="#MenuStyles.cpp">1.2.2 MenuStyles.cpp</a></li></ul></li> <li><a href="#Step_2:_Tying_into_your_Game_Module">1.3 Step 2: Tying into your Game Module</a></li> <li><a href="#Step_3:_Creating_a_Style_class.21">1.4 Step 3: Creating a Style class!</a> <ul><li><a href="#GlobalMenuStyle.h">1.4.1 GlobalMenuStyle.h</a></li> <li><a href="#GlobalMenuStyle.cpp">1.4.2 GlobalMenuStyle.cpp</a></li></ul></li> <li><a href="#Step_4:_Defining_your_Style">1.5 Step 4: Defining your Style</a></li> <li><a href="#Using_your_Style.21">1.6 Using your Style!</a> <ul><li><a href="#MainMenuUI.h">1.6.1 MainMenuUI.h</a></li> <li><a href="#MainMenuUI.cpp">1.6.2 MainMenuUI.cpp</a></li></ul></li> <li><a href="#Summary">1.7 Summary</a></li></ul></li></ul> <h1 id="creating-menus-with-slate-c-part-2"><a href="#creating-menus-with-slate-c-part-2" class="header-anchor">#</a> Creating Menus with Slate/C++, Part 2</h1> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Original Author</em> <a href="https://forums.unrealengine.com/member.php?1034-Minalien" target="_blank" rel="noopener noreferrer">Minalien<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>Welcome to the second part of my tutorial series on creating game menus with Slate &amp; C++ in Unreal Engine 4! If you’re just joining us, you can catch up with the first tutorial here. In the last tutorial, we created a very simple and rather… bland title screen/main menu for our game using Slate. A lot of you may have been put off, as I was, toward this form of menu creation because the menus at the moment really look more like an application on our system, rather than the type of beautiful interface that should accompany a game! Today, we’re going to solve that problem by introducing Styles! Using these, we can change our generic “application buttons” to look like the types of weapons we want to see in our game! For this tutorial, I am going to use textures from the UI Pack: RPG Extension by Kenney.nl, available over at one of my favorite resources for game art: OpenGameArt.org. Please note that much of what I present here is based heavily on how Epic Games handled things in the Strategy Game sample. You can download the project files here <a href="/File:UIpack_RPG.zip" title="File:UIpack RPG.zip">File:UIpack RPG.zip</a> (~209KB).</p> <ul><li><a href="https://wiki.unrealengine.com/Slate_Introduction_%E2%80%92_Basic_Menu_Part_1" target="_blank" rel="noopener noreferrer">Part 1: Introduction &amp; Basic Menu<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://wiki.unrealengine.com/Slate_Style_Sets_Part_2" target="_blank" rel="noopener noreferrer">Part 2: Style Sets<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://wiki.unrealengine.com/Slate_Data_Binding_Part_3" target="_blank" rel="noopener noreferrer">Part 3: Data Binding<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul> <h2 id="step-1-style-set"><a href="#step-1-style-set" class="header-anchor">#</a> Step 1: Style Set!</h2> <p>The first thing that we’re going to set up is a Style Set, which will be used to load and reference our styles. The styles themselves will be specified within the Unreal Editor, giving us a lot of control over the designs without having to recompile the code (which we currently have to do for both style and layout changes). The Style Set we set up, which I will call MenuStyles, will be a purely static class.</p> <h3 id="menustyles-h"><a href="#menustyles-h" class="header-anchor">#</a> MenuStyles.h</h3> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+// MenuStyles.h - Provides our Style Set and allows us to load and reference UI Styles specified in-editor.
+ 
+#pragma once
+ 
+#include &quot;SlateBasics.h&quot;
+ 
+class FMenuStyles
+{
+public:
+// Initializes the value of MenuStyleInstance and registers it with the Slate Style Registry.
+static void Initialize();
+ 
+// Unregisters the Slate Style Set and then resets the MenuStyleInstance pointer.
+static void Shutdown();
+ 
+// Retrieves a reference to the Slate Style pointed to by MenuStyleInstance.
+static const class ISlateStyle&amp; Get();
+ 
+// Retrieves the name of the Style Set.
+static FName GetStyleSetName();
+ 
+private:
+// Creates the Style Set.
+static TSharedRef&lt;class FSlateStyleSet&gt; Create();
+ 
+// Singleton instance used for our Style Set.
+static TSharedPtr&lt;class FSlateStyleSet&gt; MenuStyleInstance;
+ 
+};</p> <p>The methods here are fairly self-explanatory (when aren’t they?). In a minute, we will add to our Game Module (don’t worry, it’s not as scary as it sounds!) to call our Initialize and Shutdown methods. Get() will be used later when we actually need to use the Style Set to load a particular Style, while GetStyleSetName is used to retrieve the name of our style set for use by the engine. The implementation for these methods is equally simple:</p> <h3 id="menustyles-cpp"><a href="#menustyles-cpp" class="header-anchor">#</a> MenuStyles.cpp</h3> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;SlateTutorials.h&quot;
+#include &quot;MenuStyles.h&quot;
+#include &quot;SlateGameResources.h&quot;
+ 
+TSharedPtr&lt;FSlateStyleSet&gt; FMenuStyles::MenuStyleInstance = NULL;
+ 
+void FMenuStyles::Initialize()
+{
+if (!MenuStyleInstance.IsValid())
+{
+MenuStyleInstance = Create();
+FSlateStyleRegistry::RegisterSlateStyle(*MenuStyleInstance);
+}
+}
+ 
+void FMenuStyles::Shutdown()
+{
+FSlateStyleRegistry::UnRegisterSlateStyle(*MenuStyleInstance);
+ensure(MenuStyleInstance.IsUnique());
+MenuStyleInstance.Reset();
+}
+ 
+FName FMenuStyles::GetStyleSetName()
+{
+static FName StyleSetName(TEXT(&quot;MenuStyles&quot;));
+return StyleSetName;
+}
+ 
+TSharedRef&lt;FSlateStyleSet&gt; FMenuStyles::Create()
+{
+TSharedRef&lt;FSlateStyleSet&gt; StyleRef = FSlateGameResources::New(FMenuStyles::GetStyleSetName(), &quot;/Game/UI/Styles&quot;, &quot;/Game/UI/Styles&quot;);
+return StyleRef;
+}
+ 
+const ISlateStyle&amp; FMenuStyles::Get()
+{
+return *MenuStyleInstance;
+}</p> <p>During Initialize(), we determine if the MenuStyleInstance (our singleton pointer) is valid (that is, not null). If it isn’t valid, we instantiate it and then register the style set with the Slate Style Set Registry. Then, in Shutdown() we do the opposite – we un-register the style, make sure our pointer is unique (it should always be unique, in this case), and then we reset it (setting the pointer to null). For GetStyleSetName, we simply cache an FName for our style as a static variable, and always return that value. Finally, we have a simple accessor method for getting our style set singleton.</p> <h2 id="step-2-tying-into-your-game-module"><a href="#step-2-tying-into-your-game-module" class="header-anchor">#</a> Step 2: Tying into your Game Module</h2> <p>While your code now compiles, it isn’t quite operational yet. We never made calls to our static methods! If you’ve never had reasons to make changes to your game module, you may never even have known you could, but bear with me for a moment – it’s really easy. Jump into your game module’s source file (SlateTutorials.cpp in my case), and you should really only have two lines: one that includes your module’s header and something akin to the following: IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, SlateTutorials, &quot;SlateTutorials&quot; ); Notice the FDefaultGameModuleImpl? That’s the class being used for your game module. Many people will never have to deal with anything else – but we need to tie into the game module to initialize our style set! How do we do this? Well, Epic’s practice (and therefore the one I’m going with) seems to be simply defining the module class right in here – but bear in mind that it will almost always be a better idea to split your class into the header &amp; source file if you’re doing anything more complex than what we’re doing here.</p> <p>#include &quot;SlateTutorials.h&quot;
+#include &quot;MenuStyles.h&quot;
+ 
+//Custom implementation of the Default Game Module.
+class FSlateTutorialsGameModule : public FDefaultGameModuleImpl
+{
+// Called whenever the module is starting up. In here, we unregister any style sets
+// (which may have been added by other modules) sharing our
+// style set's name, then initialize our style set.
+virtual void StartupModule() override
+{
+//Hot reload hack
+FSlateStyleRegistry::UnRegisterSlateStyle(FMenuStyles::GetStyleSetName());
+FMenuStyles::Initialize();
+}
+ 
+// Called whenever the module is shutting down. Here, we simply tell our MenuStyles to shut down.
+virtual void ShutdownModule() override
+{
+FMenuStyles::Shutdown();
+}
+ 
+};
+ 
+IMPLEMENT_PRIMARY_GAME_MODULE(FSlateTutorialsGameModule, SlateTutorials, &quot;SlateTutorials&quot;);</p> <p>Nothing too crazy here, right? We’re simply defining a custom module class that simply extends what we had before, and add in some necessary calls to initialize and shut down our game module. Note that we take the time to un-register any slate styles that share our Style Set’s name — just in case any other modules introduced one with the same name (I… don’t know how necessary that is, to be honest, but it was in the Strategy sample – better to have and not need, I suppose).</p> <h2 id="step-3-creating-a-style-class"><a href="#step-3-creating-a-style-class" class="header-anchor">#</a> Step 3: Creating a Style class!</h2> <p>Now that we have our style set, let’s go ahead and create a class that we can use to establish and customize our menu styles. There are many, many ways you can do this to suit your layout needs. I tend to have a single “global” style that defines things such as standard button styles, then create widget-specific style sets if a custom widget (such as our Main Menu UI) only exists in one or two spaces. So how do we do this? Simple! We’ll create a new GlobalMenuStyle class (and a GlobalStyle struct… you’ll see in a minute).</p> <h3 id="globalmenustyle-h"><a href="#globalmenustyle-h" class="header-anchor">#</a> GlobalMenuStyle.h</h3> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+// GlobalMenuStyle.h - Provides a global menu style!
+ 
+#pragma once
+ 
+#include &quot;SlateWidgetStyleContainerBase.h&quot;
+#include &quot;SlateWidgetStyle.h&quot;
+#include &quot;SlateBasics.h&quot;
+#include &quot;GlobalMenuStyle.generated.h&quot;
+ 
+// Provides a group of global style settings for our game menus!
+USTRUCT()
+struct FGlobalStyle : public FSlateWidgetStyle
+{
+GENERATED_USTRUCT_BODY()
+// Stores a list of Brushes we are using (we aren't using any) into OutBrushes.
+virtual void GetResources(TArray&lt;const FSlateBrush*&gt;&amp; OutBrushes) const override;
+ 
+// Stores the TypeName for our widget style.
+static const FName TypeName;
+ 
+// Retrieves the type name for our global style, which will be used by our Style Set to load the right file.
+virtual const FName GetTypeName() const override;
+ 
+// Allows us to set default values for our various styles.
+static const FGlobalStyle&amp; GetDefault();
+ 
+// Style that define the appearance of all menu buttons.
+UPROPERTY(EditAnywhere, Category = Appearance)
+FButtonStyle MenuButtonStyle;
+ 
+// Style that defines the text on all of our menu buttons.
+UPROPERTY(EditAnywhere, Category = Appearance)
+FTextBlockStyle MenuButtonTextStyle;
+ 
+// Style that defines the text for our menu title.
+UPROPERTY(EditAnywhere, Category = Appearance)
+FTextBlockStyle MenuTitleStyle;
+};
+ 
+// Provides a widget style container to allow us to edit properties in-editor
+UCLASS(hidecategories = Object, MinimalAPI)
+class UGlobalMenuStyle : public USlateWidgetStyleContainerBase
+{
+GENERATED_UCLASS_BODY()
+ 
+public:
+// This is our actual Style object.
+UPROPERTY(EditAnywhere, Category = Appearance, meta = (ShowOnlyInnerProperties))
+FGlobalStyle MenuStyle;
+ 
+// Retrievs the style that this container manages.
+virtual const struct FSlateWidgetStyle* const GetStyle() const override
+{
+return static_cast&lt;const struct FSlateWidgetStyle*&gt;(&amp;MenuStyle);
+}
+ 
+};</p> <p>This one is a little bit lengthy, but (like all of them) isn’t overly complicated. First, we’ve got the GetResources method – if you are using any Slate Brushes (for example, to define properties of an SImage widget), you want to register these with OutBrushes. In our case, our Button &amp; Text Block styles aren’t brushes, so we don’t have to do anything within this method. Next, we have the GetTypeName method – this method gives the name of the type, which should match the actual type name. This is used to reference what type, exactly, this widget is. The GetDefault() method allows us to set some defaults – for example, we could set the default font or size for our title screen, if we wanted. Finally, we have three properties. The first and second both relate to buttons – Buttons (the SButton widget) actually take two styles – one for the button itself, and one for the text block representing the text on the button. The third property, then is, our menu title text. However, this one struct isn’t enough! We actually have a class that acts as the container base – this is what allows us to expose the slate style’s properties as an asset in the editor. Even simpler than the definition is the implementation:</p> <h3 id="globalmenustyle-cpp"><a href="#globalmenustyle-cpp" class="header-anchor">#</a> GlobalMenuStyle.cpp</h3> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;SlateTutorials.h&quot;
+#include &quot;GlobalMenuStyle.h&quot;
+ 
+void FGlobalStyle::GetResources(TArray&lt;const FSlateBrush*&gt;&amp; OutBrushes) const
+{
+}
+ 
+const FName FGlobalStyle::TypeName = TEXT(&quot;FGlobalStyle&quot;);
+ 
+const FName FGlobalStyle::GetTypeName() const
+{
+static const FName TypeName = TEXT(&quot;FGlobalStyle&quot;);
+return TypeName;
+}
+ 
+const FGlobalStyle&amp; FGlobalStyle::GetDefault()
+{
+static FGlobalStyle Default;
+return Default;
+}
+ 
+UGlobalMenuStyle::UGlobalMenuStyle(const FObjectInitializer&amp; ObjectInitializer)
+: Super(ObjectInitializer)
+{
+}</p> <p>Most of these methods are empty – after all, we don’t have any brushes to register and I’m not going to get into setting defaults (it’s literally as easy as changing the properties on your styles within the GetDefault() method). Just make sure that your GetTypeName() returns an FName that matches your style struct’s name!</p> <p><a href="/File:%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82_2015-03-17_17.20.36.png"><img src="https://d26ilriwvtzlb.cloudfront.net/5/53/%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82_2015-03-17_17.20.36.png" alt="Скриншот 2015-03-17 17.20.36.png"></a></p> <h2 id="step-4-defining-your-style"><a href="#step-4-defining-your-style" class="header-anchor">#</a> Step 4: Defining your Style</h2> <p>Now that we’ve got our styles set up, don’t you think it’s time to go in and define them? It is! Start up Unreal, and create a new folder in your Asset Browser called UI, and then a new folder called Styles inside there. To create the actual Style definition, create a new Slate Widget Style asset (User Interface -&gt; Slate Widget Style). You’ll be prompted to select the widget style container – choose GlobalMenuStyle, and name your new asset Global (if you name it something else, remember the name you use for later). Go ahead and open it up, and adjust your properties to something you like – feel free to import some images to use for your buttons! That’s what I’ve done for the sample code available with this tutorial. Don’t get too caught up in it yet, however, as we aren’t actually using our style yet! Which brings us to…</p> <p><a href="/File:%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82_2015-03-17_17.18.21.png"><img src="https://d26ilriwvtzlb.cloudfront.net/c/cc/%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82_2015-03-17_17.18.21.png" alt="Скриншот 2015-03-17 17.18.21.png"></a></p> <h2 id="using-your-style"><a href="#using-your-style" class="header-anchor">#</a> Using your Style!</h2> <p>So we’ve defined our style, set up some pretty settings, but how do we actually use this!? Prepare yourselves… for difficult, arduous challenges await! But only once you’ve finished making your UIs and get started on your gameplay, because assigning styles for your UI is trivial. First, add the following member variable to your Main Menu UI widget: const struct FGlobalStyle* MenuStyle; Then, go into your source file, and add two headers inclusions:</p> <p>#include &quot;GlobalMenuStyle.h&quot;
+#include &quot;MenuStyles.h&quot;</p> <h3 id="mainmenuui-h"><a href="#mainmenuui-h" class="header-anchor">#</a> MainMenuUI.h</h3> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+#pragma once
+ 
+#include &quot;SlateBasics.h&quot;
+ 
+class SLATETUTORIALS_API SMainMenuUI : public SCompoundWidget
+{
+ 
+public:
+SLATE_BEGIN_ARGS(SMainMenuUI)
+{}
+SLATE_ARGUMENT(TWeakObjectPtr&lt;class AMainMenuHUD&gt;, MainMenuHUD)
+SLATE_END_ARGS()
+ 
+void Construct(const FArguments&amp; InArgs);
+ 
+/**
+* Click handler for the Play Game! button – Calls MenuHUD’s PlayGameClicked() event.
+*/
+FReply PlayGameClicked();
+/**
+* Click handler for the Quit Game button – Calls MenuHUD’s QuitGameClicked() event.
+*/
+FReply QuitGameClicked();
+ 
+TWeakObjectPtr&lt;class AMainMenuHUD&gt; MainMenuHUD;
+ 
+const struct FGlobalStyle* MenuStyle;
+ 
+};</p> <h3 id="mainmenuui-cpp"><a href="#mainmenuui-cpp" class="header-anchor">#</a> MainMenuUI.cpp</h3> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+ 
+#include &quot;SlateTutorials.h&quot;
+#include &quot;MainMenuUI.h&quot;
+#include &quot;GlobalMenuStyle.h&quot;
+#include &quot;MenuStyles.h&quot;
+ 
+ 
+BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
+void SMainMenuUI::Construct(const FArguments&amp; args)
+{
+MainMenuHUD = args._MainMenuHUD;
+MenuStyle = &amp;FMenuStyles::Get().GetWidgetStyle&lt;FGlobalStyle&gt;(&quot;Global&quot;);
+ 
+ChildSlot
+[
+SNew(SOverlay)
++ SOverlay::Slot()
+.HAlign(HAlign_Center)
+.VAlign(VAlign_Top)
+[
+SNew(STextBlock)
+.TextStyle(&amp;MenuStyle-&gt;MenuTitleStyle)
+.Text(FText::FromString(&quot;Main Menu&quot;))
+]
++ SOverlay::Slot()
+.HAlign(HAlign_Right)
+.VAlign(VAlign_Bottom)
+[
+SNew(SVerticalBox)
++ SVerticalBox::Slot()
+[
+SNew(SButton)
+.ButtonStyle(&amp;MenuStyle-&gt;MenuButtonStyle)
+.TextStyle(&amp;MenuStyle-&gt;MenuButtonTextStyle)
+.Text(FText::FromString(&quot;Play Game!&quot;))
+.OnClicked(this, &amp;SMainMenuUI::PlayGameClicked)
+]
++ SVerticalBox::Slot()
+[
+SNew(SButton)
+.ButtonStyle(&amp;MenuStyle-&gt;MenuButtonStyle)
+.TextStyle(&amp;MenuStyle-&gt;MenuButtonTextStyle)
+.Text(FText::FromString(&quot;Quit Game&quot;))
+.OnClicked(this, &amp;SMainMenuUI::QuitGameClicked)
+]
+]
+];
+ 
+}
+END_SLATE_FUNCTION_BUILD_OPTIMIZATION
+ 
+ 
+FReply SMainMenuUI::PlayGameClicked()
+{
+if (GEngine)
+{
+GEngine-&gt;AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow, TEXT(&quot;PlayGameClicked&quot;));
+}
+ 
+// actually the BlueprintImplementable function of the HUD is not called; uncomment if you want to handle the OnClick via Blueprint
+//MainMenuHUD-&gt;PlayGameClicked();
+return FReply::Handled();
+}
+ 
+FReply SMainMenuUI::QuitGameClicked()
+{
+if (GEngine)
+{
+GEngine-&gt;AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow, TEXT(&quot;QuitGameClicked&quot;));
+}
+// actually the BlueprintImplementable function of the HUD is not called; uncomment if you want to handle the OnClick via Blueprint
+//MainMenuHUD-&gt;QuitGameClicked();
+return FReply::Handled();
+}</p> <h2 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h2> <p>And voila! Your menu is now styled! Here’s a breakdown of what we’ve done. First, after binding our HUD we actually load the Slate Widget style through our FMenuStyles class from earlier. Next, we adjust the STextBlock that represents our game’s title to add a call to TextStyle(), passing the address of our Title text style. This is exactly the same as property adjustments in Slate! For our two buttons, we actually assign two styles. First, we assign our button style, then we assign the text style – not too much to worry about here, right? MainMenu-Styled Congratulations! You now have a menu with some stylized buttons! Compile and load up your game, then test your main menu!</p> <p><a href="/File:%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82_2015-03-17_17.49.48.png"><img src="https://d26ilriwvtzlb.cloudfront.net/9/99/%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82_2015-03-17_17.49.48.png" alt="Скриншот 2015-03-17 17.49.48.png"></a></p> <p>Source code: <a href="/File:SlateTutorials-2.zip" title="File:SlateTutorials-2.zip">File:SlateTutorials-2.zip</a> (~709KB)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Slate_Style_Sets_Part_2&amp;oldid=23282" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Slate_Style_Sets_Part_2&amp;oldid=23282<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/997.15977787.js" defer></script>
+  </body>
+</html>

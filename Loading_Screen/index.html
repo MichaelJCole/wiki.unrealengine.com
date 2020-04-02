@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/808.6905bff7.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Loading Screen - Epic Wiki</p> <h1 id="loading-screen"><a href="#loading-screen" class="header-anchor">#</a> Loading Screen</h1> <p><strong>Rate this Article:</strong></p> <p>5.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""> (8 votes)</p> <p>Approved for Versions:4.10, 4.11</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Setup">2 Setup</a></li> <li><a href="#Movie_Player_Module">3 Movie Player Module</a></li> <li><a href="#The_Code">4 The Code</a></li> <li><a href="#Explanation">5 Explanation</a></li> <li><a href="#Bonuses_-_Playing_Movies_.26_Custom_Widgets">6 Bonuses - Playing Movies &amp; Custom Widgets</a></li> <li><a href="#Plugin_Version">7 Plugin Version</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>In this tutorial I'll show you how to <strong>properly</strong> setup a self-contained Loading Screen System for your game - which will allow you to safely play movie files, audio clips or load a widget to the screen during any type of map loading. This system supports all platforms from Android -&gt; Windows -&gt; PS4.</p> <p>As a bonus, the system requires no additional calls or setup from the user and is entirely self-contained. Loading a map via any means (other than PIE) will trigger the load visualization seamlessly.</p> <p>This tutorial relies on C++ and there is NO blueprint alternative. However, non-C++ orientated programmers should be able to easily modify their project and copy-paste the code relatively easily.</p> <h2 id="setup"><a href="#setup" class="header-anchor">#</a> Setup</h2> <p>To begin with, we'll need a custom Game Instance. The GameInstance is one of the first objects initialized for a game by the engine, and is persistent for the entire play session. If you don't already have one, you need to create your own overridden version of the 'UGameInstance' class.</p> <p>Next, you'll need to setup your project configuration to use this GameInstance for your game. Open DefaultEngine.ini, and add (or edit) the following entry. This is how it looks in my game:</p> <p>[/Script/EngineSettings.GameMapsSettings]
+GameInstanceClass=/Script/MyGame.MyGameInstance</p> <p>Now when you open the editor or play the game, this GameInstance class will be used in place of the default one.</p> <h2 id="movie-player-module"><a href="#movie-player-module" class="header-anchor">#</a> Movie Player Module</h2> <p>The Movie Player module is what we use to setup the loading screen. This is the same module that plays the startup movies for your game, and is therefore instantiated before almost anything else. Not only that, but the Movie Player can talk to the game engine and tell it when it's finished it's task, allowing the engine to continue.</p> <p>The MoviePlayer runs in its own thread, meaning it can run while the engine is stopped waiting for files to load. Also because it is in a background thread, you have to use Slate widgets, not the newer UMG widgets.</p> <p>In order to use the Movie Player module, we must include it in our project. Open your games' Build.CS file and add the MoviePlayer module, like so:</p> <p>PublicDependencyModuleNames.AddRange(new string[] { &quot;Core&quot;, &quot;CoreUObject&quot;, &quot;Engine&quot;, &quot;InputCore&quot;, &quot;MoviePlayer&quot; });</p> <p>The Movie Player Module also has the required code and setup for a default loading screen. We will use this in this tutorial, but you can also tell the movie player to play movies and audio files if you want something more advanced.</p> <h2 id="the-code"><a href="#the-code" class="header-anchor">#</a> The Code</h2> <p>With only a small bit of code and some delegate bindings, we can now tell the movie player to display a loading screen when we need it to:</p> <p><strong>Header</strong></p> <p>public:
+virtual void Init() override;
+ 
+UFUNCTION()
+virtual void BeginLoadingScreen();
+UFUNCTION()
+virtual void EndLoadingScreen();</p> <p><strong>CPP</strong></p> <p>void UMyGameInstance::Init()
+{
+UGameInstance::Init();
+ 
+FCoreUObjectDelegates::PreLoadMap.AddUObject(this, &amp;UMyGameInstance::BeginLoadingScreen);
+FCoreUObjectDelegates::PostLoadMap.AddUObject(this, &amp;UMyGameInstance::EndLoadingScreen);
+}
+ 
+void UMyGameInstance::BeginLoadingScreen()
+{
+FLoadingScreenAttributes LoadingScreen;
+LoadingScreen.bAutoCompleteWhenLoadingCompletes = false;
+LoadingScreen.WidgetLoadingScreen = FLoadingScreenAttributes::NewTestLoadingScreenWidget();
+ 
+GetMoviePlayer()-&gt;SetupLoadingScreen(LoadingScreen);
+}
+ 
+void UMyGameInstance::EndLoadingScreen()
+{
+ 
+}</p> <p>And it really is as easy as that. The Movie Player will handle destroying the loading screen when map load has completed, but we can add our own functionality to EndLoadingScreen if we want.</p> <p>In my case for example, I have added a full-screen fade from black when loading completes, via a custom Viewport. User Moss posted a tutorial on how to do this fade here:</p> <p><a href="https://wiki.unrealengine.com/Global_Fade_In_out" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/Global_Fade_In_out<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h2 id="explanation"><a href="#explanation" class="header-anchor">#</a> Explanation</h2> <p>FCoreUObjectDelegates is an engine class which contains a series of Delegate bindings that are fired on various events in engine. PreLoadMap and PostLoadMap are the first items called whenever a map load begins and ends, regardless of where the load is called from.</p> <p>We have essentially tied in our loading screen in the most seamless way possible. As the loading screen is created inside of FSlateApplication, it also ticks on it's own thread and therefore can run animation/movies independently of whatever the main game thread is doing.</p> <h2 id="bonuses-playing-movies-custom-widgets"><a href="#bonuses-playing-movies-custom-widgets" class="header-anchor">#</a> Bonuses - Playing Movies &amp; Custom Widgets</h2> <p>FLoadingScreenAttributes contains a variety of options to allow you to customize the behaviour of the loading screen, all of which are self-explanatory. Knock yourselves out 😉</p> <p>/** Struct of all the attributes a loading screen will have. */
+struct MOVIEPLAYER_API FLoadingScreenAttributes
+{
+FLoadingScreenAttributes()
+: MinimumLoadingScreenDisplayTime(-1.0f)
+, bAutoCompleteWhenLoadingCompletes(true)
+, bMoviesAreSkippable(true)
+, bWaitForManualStop(false) {}
+ 
+/** The widget to be displayed on top of the movie or simply standalone if there is no movie. */
+TSharedPtr&lt;class SWidget&gt; WidgetLoadingScreen;
+ 
+/** The movie paths local to the game's Content/Movies/ directory we will play. */
+TArray&lt;FString&gt; MoviePaths;
+ 
+/** The minimum time that a loading screen should be opened for. */
+float MinimumLoadingScreenDisplayTime;
+ 
+/** If true, the loading screen will disappear as soon as all movies are played and loading is done. */
+bool bAutoCompleteWhenLoadingCompletes;
+ 
+/** If true, movies can be skipped by clicking the loading screen as long as loading is done. */
+bool bMoviesAreSkippable;
+ 
+/** If true, movie playback continues until Stop is called. */
+bool bWaitForManualStop;
+ 
+/** True if there is either a standalone widget or any movie paths or both. */
+bool IsValid() const;
+ 
+/** Creates a simple test loading screen widget. */
+static TSharedRef&lt;class SWidget&gt; NewTestLoadingScreenWidget();
+};</p> <h2 id="plugin-version"><a href="#plugin-version" class="header-anchor">#</a> Plugin Version</h2> <p>Nick Darnell (aka Slatelord) from Epic made a Plugin of this system that allows you do to all of this from within the editor with no C++ required.</p> <p>Download the plugin on GitHub here: <a href="https://github.com/ue4plugins/LoadingScreen" target="_blank" rel="noopener noreferrer">https://github.com/ue4plugins/LoadingScreen<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>Hope this helps!</p> <p><a href="/User:TheJamsh" title="User:TheJamsh">TheJamsh</a> (<a href="/User_talk:TheJamsh" title="User talk:TheJamsh">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Loading_Screen&amp;oldid=21055" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Loading_Screen&amp;oldid=21055<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li> <li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/808.6905bff7.js" defer></script>
+  </body>
+</html>

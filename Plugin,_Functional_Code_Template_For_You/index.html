@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/916.f6e08aec.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Plugin, Functional Code Template For You - Epic Wiki</p> <h1 id="plugin-functional-code-template-for-you"><a href="#plugin-functional-code-template-for-you" class="header-anchor">#</a> Plugin, Functional Code Template For You</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Download">2 Download</a></li> <li><a href="#.h">3 .h</a></li> <li><a href="#Conclusion">4 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Authoer</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>Here is a completely functional plugin template that you can download and modify to your liking!</p> <p>It is functional because it is basically a wrapper for some extra BP nodes that I like to give to my clients to use in their BP AI systems.</p> <p>The whole purpose of this wiki is to provide you with a download of a simple and completely usable plugin template that you can load up and see what it does immediately, and then modify to your wishes 😃</p> <h2 id="download"><a href="#download" class="header-anchor">#</a> Download</h2> <p><strong>Rama's AI Plugin Template</strong></p> <p><a href="/File:VictoryAI.zip" title="File:VictoryAI.zip">File:VictoryAI.zip</a></p> <h2 id="h"><a href="#h" class="header-anchor">#</a> .h</h2> <p>Here's the list of BP nodes that come with this plugin!</p> <p>/** SQUARED distanced between actors */
+UFUNCTION(BlueprintPure, Category = &quot;VictoryAILibrary&quot;)
+static float Calculations__SquaredDistanceBetweenActors(AActor* Actor1,AActor* Actor2);
+ 
+ 
+//~~~
+ 
+/** Convert Rotator to Vector */
+UFUNCTION(BlueprintPure, Category = &quot;VictoryBPLibrary&quot;, meta = (FriendlyName = &quot;Vector To Rotator&quot;, CompactNodeTitle = &quot;-&gt;&quot;, Keywords = &quot;convert vector rotator conversion&quot;))
+static FRotator Conversions__VectorToRotator(const FVector&amp; TheVector);
+ 
+/** Convert Vector to Rotator*/
+UFUNCTION(BlueprintPure, Category = &quot;VictoryBPLibrary&quot;, meta = (FriendlyName = &quot;Rotator to Vector&quot;, CompactNodeTitle = &quot;-&gt;&quot;, Keywords = &quot;convert vector rotator conversion&quot;))
+static FVector Conversions__RotatorToVector(const FRotator&amp; TheRotator);
+ 
+//~~~
+ 
+/** Set Max Move Speed. Supply the Character whose Character Movement to change! Returns false if operation could not occur due to invalid Character or MovementComponent could not be obtained.*/
+UFUNCTION(BlueprintCallable, Category = &quot;VictoryAILibrary&quot;, meta=(DefaultToSelf=&quot;TheCharacter&quot;))
+static bool CharacterMovement__SetMaxMoveSpeed(ACharacter* TheCharacter, float NewMaxMoveSpeed);
+ 
+/** Replicated Jump Rama-Style. Use negative values for down, backward, and left. Returns false if operation could not occur. */
+UFUNCTION(BlueprintCallable, Category = &quot;VictoryAILibrary&quot;)
+static bool CharacterMovement__RamaJump(ACharacter* TheCharacter, float UpAmount=3000, float ForwardAmount=3000, float RightAmount=0);
+ 
+/** Replicated Jump Rama-Style. Directions are relative to direction to target. Forward = direct line to target. Use negative values for down, backward, and left. Returns false if operation could not occur. */
+UFUNCTION(BlueprintCallable, Category = &quot;VictoryAILibrary&quot;)
+static bool CharacterMovement__RamaJumpRelativeToTarget(ACharacter* TheCharacter, AActor* Target, float UpAmount=3000, float ForwardAmount=3000, float RightAmount=0);
+ 
+ 
+/** Is Controller's Pawn Falling? Returns the Controller's Pawn as a Character */
+UFUNCTION(BlueprintCallable, Category = &quot;VictoryAILibrary&quot;)
+static ACharacter* CharacterMovement__ControllerPawnIsFalling(AActor* Controller, bool&amp; IsFalling);</p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>Have fun making plugins!</p> <p>♥</p> <p>Rama</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Plugin,_Functional_Code_Template_For_You&amp;oldid=11433" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Plugin,_Functional_Code_Template_For_You&amp;oldid=11433<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Plug-ins" title="Category:Plug-ins">Plug-ins</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/916.f6e08aec.js" defer></script>
+  </body>
+</html>

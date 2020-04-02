@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/876.f84b1d9b.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Networking/Replication - Epic Wiki</p> <h1 id="networking-replication"><a href="#networking-replication" class="header-anchor">#</a> Networking/Replication</h1> <p>From Epic Wiki</p> <p>Jump to: <a href="#mw-head">navigation</a>, <a href="#p-search">search</a></p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Creating_a_server">2 Creating a server</a> <ul><li><a href="#Listen">2.1 Listen</a></li> <li><a href="#Dedicated">2.2 Dedicated</a></li></ul></li> <li><a href="#Joining_a_server">3 Joining a server</a></li> <li><a href="#Play_In_Editor_Support">4 Play In Editor Support</a></li> <li><a href="#Blueprint_support">5 Blueprint support</a></li> <li><a href="#C.2B.2B_examples">6 C++ examples</a> <ul><li><a href="#Sync_character_health_to_all_clients">6.1 Sync character health to all clients</a> <ul><li><a href="#YourCharacter.h">6.1.1 YourCharacter.h</a></li> <li><a href="#YourCharacter.cpp">6.1.2 YourCharacter.cpp</a></li></ul></li> <li><a href="#Command_from_client_to_server">6.2 Command from client to server</a> <ul><li><a href="#YourPlayerController.h">6.2.1 YourPlayerController.h</a></li> <li><a href="#YourPlayerController.cpp">6.2.2 YourPlayerController.cpp</a></li></ul></li></ul></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>Unreal Engine has been designed with networking in mind since Unreal Engine 1.<br>
+This includes:</p> <ul><li>Remote procedure calls (RPC).</li> <li>Replication of variables, including structs &amp; dynamic arrays.</li> <li>Dedicated server support.</li> <li>VOIP</li></ul> <h2 id="creating-a-server"><a href="#creating-a-server" class="header-anchor">#</a> Creating a server</h2> <h3 id="listen"><a href="#listen" class="header-anchor">#</a> Listen</h3> <p>A listen server includes the host as a local player.<br>
+To launch a listen server, use the command line:<br>
+&lt;mygame.exe&gt; <mymap>?listen -game</mymap></p> <h3 id="dedicated"><a href="#dedicated" class="header-anchor">#</a> Dedicated</h3> <p>A dedicated server does not include the host as a local player.<br>
+Renderering, audio, and anything else that isn't required is disabled to use a minimal footprint both in memory and cpu.</p> <p>To launch a dedicated server, use the command line:<br>
+&lt;mygame.exe&gt; <mymap> -server</mymap></p> <p>Games that are ready to ship with cooked data will also include a standalone executable &lt;mygameserver.exe&gt;.<br>
+These are fully optimized for multiple instances per machine.</p> <p>To launch a dedicated server using &lt;mygameserver.exe&gt;, use the command line:<br>
+&lt;mygameserver.exe&gt; <mymap></mymap></p> <h2 id="joining-a-server"><a href="#joining-a-server" class="header-anchor">#</a> Joining a server</h2> <p>To join a server at a specified IP address as a client, use the command line:<br>
+&lt;mygame.exe&gt; <IP address=""> -game</IP></p> <p>To join a server via the in-game console, use the command:<br>
+open <IP address=""></IP></p> <h2 id="play-in-editor-support"><a href="#play-in-editor-support" class="header-anchor">#</a> Play In Editor Support</h2> <p>The editor includes built in support for networked games.</p> <p>This is incredibly handy for quickly testing multiplayer games on a single host machine.</p> <p><a href="/index.php?title=File:EditorPIEOptions.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/7/74/EditorPIEOptions.jpg" alt=""></a></p> <p>PIE Options</p> <p><a href="/index.php?title=File:EditorPIEOptions.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/7/74/EditorPIEOptions.jpg" alt=""></a></p> <p>PIE Advanced Settings</p> <h2 id="blueprint-support"><a href="#blueprint-support" class="header-anchor">#</a> Blueprint support</h2> <p>Blueprints fully support replication, including replication notifications.<br>
+Replication notifications are handy if you want a client to do something when a variable updates.<br>
+eg. Play a particle effect if their health increases.</p> <p><a href="/index.php?title=File:ReplicationBlueprintSupport.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/a/af/ReplicationBlueprintSupport.jpg/300px-ReplicationBlueprintSupport.jpg" alt=""></a></p> <p>Blueprint Replication</p> <p><a href="/index.php?title=File:ReplicationBlueprintOnRep.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/e/e2/ReplicationBlueprintOnRep.jpg/300px-ReplicationBlueprintOnRep.jpg" alt=""></a></p> <p>Blueprint On Rep</p> <h2 id="c-examples"><a href="#c-examples" class="header-anchor">#</a> C++ examples</h2> <h3 id="sync-character-health-to-all-clients"><a href="#sync-character-health-to-all-clients" class="header-anchor">#</a> Sync character health to all clients</h3> <h4 id="yourcharacter-h"><a href="#yourcharacter-h" class="header-anchor">#</a> YourCharacter.h</h4> <div class="language- extra-class"><pre><code>UPROPERTY(Replicated)
+float Health;
+</code></pre></div><h4 id="yourcharacter-cpp"><a href="#yourcharacter-cpp" class="header-anchor">#</a> YourCharacter.cpp</h4> <p>#include &quot;UnrealNetwork.h&quot;
+// ...
+void AYourCharacter::GetLifetimeReplicatedProps(TArray&lt; FLifetimeProperty &gt; &amp; OutLifetimeProps) const
+{
+Super::GetLifetimeReplicatedProps(OutLifetimeProps);</p> <div class="language- extra-class"><pre><code>// Replicate to everyone
+DOREPLIFETIME(AYourCharacter, Health);
+</code></pre></div><p>}</p> <p>The DOREPLIFETIME macro is defined in UnrealNetwork.h, so make sure you #include it in your .cpp file. Your project will need a dependency on the &quot;Engine&quot; module in its Build.cs file to find the header, but most projects will have this dependency already.</p> <h3 id="command-from-client-to-server"><a href="#command-from-client-to-server" class="header-anchor">#</a> Command from client to server</h3> <h4 id="yourplayercontroller-h"><a href="#yourplayercontroller-h" class="header-anchor">#</a> YourPlayerController.h</h4> <div class="language- extra-class"><pre><code>bool bSomeBool;
+
+void SetSomeBool(bool bNewSomeBool);
+
+UFUNCTION(reliable, server, WithValidation)
+void ServerSetSomeBool(bool bNewSomeBool);
+virtual void ServerSetSomeBool\_Implementation(bool bNewSomeBool);
+virtual bool ServerSetSomeBool\_Validate(bool bNewSomeBool);
+</code></pre></div><p>As of UE 4.15 the compile system adds the implementation and validation definitions for you. Making the code for the header as follows</p> <div class="language- extra-class"><pre><code>bool bSomeBool;
+
+void SetSomeBool(bool bNewSomeBool);
+
+UFUNCTION(reliable, server, WithValidation)
+void ServerSetSomeBool(bool bNewSomeBool);
+</code></pre></div><p>You'll still need everything in the cpp file though!</p> <h4 id="yourplayercontroller-cpp"><a href="#yourplayercontroller-cpp" class="header-anchor">#</a> YourPlayerController.cpp</h4> <p>void AYourPlayerController::SetSomeBool(bool bNewSomeBool)
+{
+// Change the value of the bSomeBool property
+bSomeBool = bNewSomeBool;</p> <div class="language- extra-class"><pre><code>// If this next check succeeds, we are \*not\* the authority, meaning we are a network client.
+// In this case we also want to call the server function to tell it to change the bSomeBool property as well.
+if (Role &lt; ROLE\_Authority)
+{
+    ServerSetSomeBool(bNewSomeBool);
+}
+</code></pre></div><p>}</p> <p>bool AYourPlayerController::ServerSetSomeBool_Validate(bool bNewSomeBool)
+{
+return true;
+}</p> <p>void AYourPlayerController::ServerSetSomeBool_Implementation(bool bNewSomeBool)
+{
+// This function is only called on the server (where Role == ROLE_Authority), called over the network by clients.
+// We need to call SetSomeBool() to actually change the value of the bool now!
+// Inside that function, Role == ROLE_Authority, so it won't try to call ServerSetSomeBool() again.
+SetSomeBool(bNewSomeBool);
+}</p> <p><a href="/index.php?title=User:Kris&amp;action=edit&amp;redlink=1" title="User:Kris (page does not exist)">Kris</a></p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Networking/Replication&amp;oldid=161" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Networking/Replication&amp;oldid=161<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/index.php?title=Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/index.php?title=Category:Code" title="Category:Code">Code</a></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/876.f84b1d9b.js" defer></script>
+  </body>
+</html>

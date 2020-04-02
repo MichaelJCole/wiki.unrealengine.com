@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/52.05ee9fa0.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Accessing mesh triangles and vertex positions in build - Epic Wiki</p> <h1 id="accessing-mesh-triangles-and-vertex-positions-in-build"><a href="#accessing-mesh-triangles-and-vertex-positions-in-build" class="header-anchor">#</a> Accessing mesh triangles and vertex positions in build</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Mesh_specific_vertices_and_triangles">2 Mesh specific vertices and triangles</a></li> <li><a href="#Getting_Transformed_Vertex_Positions">3 Getting Transformed Vertex Positions</a></li> <li><a href="#Summary">4 Summary</a></li></ul> <h1 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h1> <p>Author: <a href="http://www.dawidniemiec.com" target="_blank" rel="noopener noreferrer">vebski<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>If you are wondering how to access triangles and vertex positions in packaged project. Here is the solution I found. Accessing this data from Unreal's variables (ex. StaticMesh-&gt;GetPhysicsTriMeshData()) will not work since all vertex data of a mesh is serialized when packaging the project.</p> <p>To do this we will have to use PhysX library inside UE4 (on how to include PhysX module <a href="/PhysX,_Integrating_PhysX_Code_into_Your_Project" title="PhysX, Integrating PhysX Code into Your Project">check out Rama's tutorial</a>).</p> <p>Also remember to include these in your .cpp</p> <p>#include &quot;PhysicsPublic.h&quot;
+#include &quot;PhysXIncludes.h&quot;
+#include &quot;ThirdParty/PhysX/PhysX-3.3/include/geometry/PxTriangleMesh.h&quot;
+#include &quot;ThirdParty/PhysX/PhysX-3.3/include/foundation/PxSimpleTypes.h&quot;</p> <h1 id="mesh-specific-vertices-and-triangles"><a href="#mesh-specific-vertices-and-triangles" class="header-anchor">#</a> Mesh specific vertices and triangles</h1> <p>This method will access data only for specific UMeshComponent.</p> <p>// MyStaticMesh is a UStaticMeshComponent
+PxTriangleMesh* TempTriMesh = MyStaticMesh-&gt;BodyInstance.BodySetup.Get()-&gt;TriMesh;
+ 
+check(TempTriMesh);
+int32 TriNumber = TempTriMesh-&gt;getNbTriangles();
+ 
+const PxVec3* PVertices = TempTriMesh-&gt;getVertices();
+const void* Triangles = TempTriMesh-&gt;getTriangles();
+ 
+// Grab triangle indices
+int32 I0, I1, I2;
+ 
+for (int32 TriIndex = 0; TriIndex &lt; TriNumber; ++TriIndex)
+{
+if (TempTriMesh-&gt;getTriangleMeshFlags() &amp; PxTriangleMeshFlag::eHAS_16BIT_TRIANGLE_INDICES)
+{
+PxU16* P16BitIndices = (PxU16*)Triangles;
+I0 = P16BitIndices[(TriIndex * 3) + 0];
+I1 = P16BitIndices[(TriIndex * 3) + 1];
+I2 = P16BitIndices[(TriIndex * 3) + 2];
+}
+else
+{
+PxU32* P32BitIndices = (PxU32*)Triangles;
+I0 = P32BitIndices[(TriIndex * 3) + 0];
+I1 = P32BitIndices[(TriIndex * 3) + 1];
+I2 = P32BitIndices[(TriIndex * 3) + 2];
+}
+ 
+// Local position
+const FVector V0 = P2UVector(PVertices[I0]);
+const FVector V1 = P2UVector(PVertices[I1]);
+const FVector V2 = P2UVector(PVertices[I2]);
+}</p> <p>There is also way of accessing all meshes (welded) of an actor. It can be done by calling GetAllShapes() in BodyInstance.</p> <h1 id="getting-transformed-vertex-positions"><a href="#getting-transformed-vertex-positions" class="header-anchor">#</a> Getting Transformed Vertex Positions</h1> <p><strong>Author</strong> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Many thanks to vebski for making this wiki and providing this info!</p> <p>I've written this code to get the transformed positions of all vertices of any static mesh component.</p> <p>This will account for actor rotation, translation, and scaling.</p> <p>//Get Transformed Vertex positions of any static mesh! -Rama
+bool UVictoryBPFunctionLibrary::GetStaticMeshVertexLocations(UStaticMeshComponent* Comp, TArray&lt;FVector&gt;&amp; VertexPositions)
+{
+ 
+if(!Comp) 						
+{
+return false;
+}
+ 
+if(!Comp-&gt;IsValidLowLevel())
+{
+return false;
+}
+//~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//Component Transform
+FTransform RV_Transform = Comp-&gt;GetComponentTransform();
+ 
+//Body Setup valid?
+UBodySetup* BodySetup = Comp-&gt;GetBodySetup();
+ 
+if(!BodySetup || !BodySetup-&gt;IsValidLowLevel())
+{
+return false;
+}<br>
+ 
+//array as of 4.9
+for(PxTriangleMesh* EachTriMesh : BodySetup-&gt;TriMeshes)
+{
+if (!EachTriMesh)
+{
+return false;
+}
+//~~~~~~~~~~~~~~~~
+ 
+//Number of vertices
+PxU32 VertexCount = EachTriMesh-&gt;getNbVertices();
+ 
+//Vertex array
+const PxVec3* Vertices = EachTriMesh-&gt;getVertices();
+ 
+//For each vertex, transform the position to match the component Transform
+for (PxU32 v = 0; v &lt; VertexCount; v++)
+{
+VertexPositions.Add(RV_Transform.TransformPosition(P2UVector(Vertices[v])));
+}
+}
+ 
+return true;
+}</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <h1 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h1> <p>I hope it will save you some time, it took me a while of reading source code to figure this out.</p> <p>vebski</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Accessing_mesh_triangles_and_vertex_positions_in_build&amp;oldid=15282" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Accessing_mesh_triangles_and_vertex_positions_in_build&amp;oldid=15282<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/52.05ee9fa0.js" defer></script>
+  </body>
+</html>

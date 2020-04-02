@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1060.e309fac0.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Texture Merging With UCanvasRenderTarget2D - Epic Wiki</p> <h1 id="texture-merging-with-ucanvasrendertarget2d"><a href="#texture-merging-with-ucanvasrendertarget2d" class="header-anchor">#</a> Texture Merging With UCanvasRenderTarget2D</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Motivation">1 Motivation</a></li> <li><a href="#UCanvasRenderTarget2D">2 UCanvasRenderTarget2D</a> <ul><li><a href="#Getting_Started">2.1 Getting Started</a></li></ul></li> <li><a href="#Texture_Merge_Code">3 Texture Merge Code</a> <ul><li><a href="#Code">3.1 Code</a></li> <li><a href="#Usage">3.2 Usage</a></li></ul></li></ul> <h2 id="motivation"><a href="#motivation" class="header-anchor">#</a> Motivation</h2> <p>In multiplayer games, it's quite common to have customizable characters and support changing out different costumes and gear. A common way of doing so is with the <a href="/Modular_Pawn" title="Modular Pawn">Modular Pawn</a> approach. Possibly combined with <a href="https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/FSkeletalMeshMerge/index.html" target="_blank" rel="noopener noreferrer">FSkeletalMeshMerge<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>. For certain types of costume pieces though, using modular pawns is somewhat overkill. Gloves or tight fitting pats for example would be simple to create as a texture. Tattoos/war paint/scars also cannot be easily made as meshes. It would be nice if we were able to make textures in layers and then combine them into a single texture. Blending two textures inside a material could be used for this purpose, but that comes with the cost of extra texture samples and blending.</p> <h2 id="ucanvasrendertarget2d"><a href="#ucanvasrendertarget2d" class="header-anchor">#</a> UCanvasRenderTarget2D</h2> <p>The <a href="https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Engine/UCanvasRenderTarget2D/index.html" target="_blank" rel="noopener noreferrer">UCanvasRenderTarget2D<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> class is an incredibly useful tool for creating textures at runtime. Not much documentation seems to exist for it, but it's incredibly powerful in that <a href="https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Engine/UCanvas/index.html" target="_blank" rel="noopener noreferrer">UCanvas<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> methods can be used to draw into textures. The following section will demonstrate the use of the <a href="https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Engine/UCanvasRenderTarget2D/index.html" target="_blank" rel="noopener noreferrer">UCanvasRenderTarget2D<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> class. If you just want to copy the texture merging code into your project, then skip towards the end.</p> <h3 id="getting-started"><a href="#getting-started" class="header-anchor">#</a> Getting Started</h3> <p>First of all you'll need to create an instance of the canvas render target. It's a texture, so it can be used anywhere that a regular texture could.</p> <p>UCanvasRenderTarget2D* CanvasRenderTarget = Cast&lt;UCanvasRenderTarget2D&gt;(UCanvasRenderTarget2D::CreateCanvasRenderTarget2D(WorldContextObject, UCanvasRenderTarget2D::StaticClass(), Width, Height));</p> <p>The next step is to write a callback method to hook into the canvas render target's drawing delegate. This method is where you actually do the drawing. You can use any of the drawing methods <a href="https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Engine/UCanvas/index.html" target="_blank" rel="noopener noreferrer">UCanvas<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> provides to create your texture.</p> <p>void UWhatever::DrawToCanvasRenderTarget(UCanvas* Canvas, int32 Width, int32 Height)
+{
+//Drawing code with UCanvas goes here...
+}</p> <p>Simply register this with the canvas render target's OnCanvasRenderTargetUpdate delegate:</p> <p>CanvasRenderTarget-&gt;OnCanvasRenderTargetUpdate.AddDynamic(InstanceOfUWhatever, &amp;UWhatever::DrawToCanvasRenderTarget);</p> <p>How often the canvas render target redraws is up to you. You could call it once to generate a texture and slap it on a material instance, or you could call it every frame to make an animated material. To redraw the texture just call</p> <p>CanvasRenderTarget -&gt;UpdateResource();</p> <p>and your DrawToCanvasRenderTarget method will be called when it's ready to redraw the texture.</p> <h2 id="texture-merge-code"><a href="#texture-merge-code" class="header-anchor">#</a> Texture Merge Code</h2> <p>This is the full code for the class I'm currently using to do texture merging on my game's characters. It's derived from <a href="https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Engine/UCanvasRenderTarget2D/index.html" target="_blank" rel="noopener noreferrer">UCanvasRenderTarget2D<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> and is very simple to use.</p> <h3 id="code"><a href="#code" class="header-anchor">#</a> Code</h3> <p><strong>CompositeTexture.h</strong></p> <p>#pragma once
+ 
+#include &quot;Engine/CanvasRenderTarget2D.h&quot;
+#include &quot;CompositeTexture.generated.h&quot;
+ 
+///@brief Class for merging multiple textures into one to reduce texture samples and simplify shaders.
+///Layers can be changed at any time, however after changing them UpdateResource must be called to finalize the changes.
+UCLASS(Blueprintable)
+class UCompositeTexture : public UCanvasRenderTarget2D
+{
+GENERATED_BODY()
+ 
+UCompositeTexture();
+ 
+UFUNCTION()
+void PerformMerge(UCanvas* Canvas, int32 Width, int32 Height);
+ 
+public:
+ 
+///@brief Texture layers
+UPROPERTY(EditAnywhere, Category = &quot;Layers&quot;)
+TArray&lt;UTexture2D*&gt; Layers;
+///@brief Tint applied to texture layers
+UPROPERTY(EditAnywhere, Category = &quot;Layers&quot;)
+TArray&lt;FColor&gt; LayerTints;
+ 
+///@brief Creates a layered texture and updates it based on the passed in layers.
+static UCompositeTexture* Create(UObject* WorldContextObject, const TArray&lt;UTexture2D*&gt;&amp; Layers);
+///@brief Creates a layered texture and updates it like the other version. Also applies tint to layers.
+static UCompositeTexture* Create(UObject* WorldContextObject, const TArray&lt;UTexture2D*&gt;&amp; Layers, const TArray&lt;FColor&gt;&amp; LayerTints);
+};</p> <p><strong>CompositeTexture.cpp</strong></p> <p>#include &quot;Runtime/Engine/Classes/Engine/Canvas.h&quot;
+#include &quot;CompositeTexture.h&quot;
+ 
+UCompositeTexture::UCompositeTexture()
+{
+OnCanvasRenderTargetUpdate.AddDynamic(this, &amp;UCompositeTexture::PerformMerge);
+}
+ 
+void UCompositeTexture::PerformMerge(UCanvas* Canvas, int32 Width, int32 Height)
+{
+for (int32 i = 0; i &lt; Layers.Num(); ++i)
+{
+UTexture* LayerTex = Layers[i];
+if (LayerTex)
+{
+FColor TintColor = FColor::White;
+if (LayerTints.Num() &gt; i)
+{
+TintColor = LayerTints[i];
+}
+ 
+Canvas-&gt;SetDrawColor(TintColor);
+Canvas-&gt;DrawTile(LayerTex, 0, 0, Width, Height, 0, 0, Width, Height);
+}
+}
+}
+ 
+UCompositeTexture* UCompositeTexture::Create(UObject* WorldContextObject, const TArray&lt;UTexture2D*&gt;&amp; Layers)
+{
+TArray&lt;FColor&gt; Colors;
+return UCompositeTexture::Create(WorldContextObject, Layers, Colors);
+}
+ 
+UCompositeTexture* UCompositeTexture::Create(UObject* WorldContextObject, const TArray&lt;UTexture2D*&gt;&amp; Layers, const TArray&lt;FColor&gt;&amp; LayerTints)
+{
+if (Layers.Num() &lt;= 0)
+{
+return NULL;
+}
+ 
+UTexture2D* BaseTexture = Layers[0];
+ 
+UCompositeTexture* RenderTarget = Cast&lt;UCompositeTexture&gt;(UCanvasRenderTarget2D::CreateCanvasRenderTarget2D(WorldContextObject, UCompositeTexture::StaticClass(), BaseTexture-&gt;GetSizeX(), BaseTexture-&gt;GetSizeY()));
+ 
+RenderTarget-&gt;Layers.Append(Layers);
+RenderTarget-&gt;LayerTints.Append(LayerTints);
+ 
+RenderTarget-&gt;UpdateResource();
+return RenderTarget;
+}</p> <h3 id="usage"><a href="#usage" class="header-anchor">#</a> Usage</h3> <p>To use the composite texture class just use one of the static methods to create it and pass in the texture layers to be merged. They will be drawn in the order they appear, so the first texture will be the base, and so on.</p> <p>UCompositeTexture* MergedTexture = UCompositeTexture::Create(this, MergeTextures);</p> <p>You can also optionally pass in an array of tints that will be applied to the layers. The indices correspond 1:1 to the array of textures to merge, and white will draw a layer as if no tint was applied.</p> <p>UCompositeTexture* MergedTexture = UCompositeTexture::Create(this, MergeTextures, MergeTints);</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Texture_Merging_With_UCanvasRenderTarget2D&amp;oldid=14895" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Texture_Merging_With_UCanvasRenderTarget2D&amp;oldid=14895<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1060.e309fac0.js" defer></script>
+  </body>
+</html>

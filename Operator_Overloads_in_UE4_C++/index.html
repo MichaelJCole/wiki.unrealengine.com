@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/888.b8736784.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Operator Overloads - Epic Wiki</p> <h1 id="operator-overloads"><a href="#operator-overloads" class="header-anchor">#</a> Operator Overloads</h1> <p>(Redirected from <a href="/index.php?title=Operator_Overloads_in_UE4_C%2B%2B&amp;redirect=no" title="Operator Overloads in UE4 C++">Operator Overloads in UE4 C++</a>)</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a> <ul><li><a href="#Code_Simplification">1.1 Code Simplification</a></li></ul></li> <li><a href="#UE4_String_Stream">2 UE4 String Stream</a> <ul><li><a href="#Without_Custom_C.2B.2B_Operators">2.1 Without Custom C++ Operators</a></li></ul></li> <li><a href="#Global_Scope">3 Global Scope</a></li> <li><a href="#FORCEINLINE">4 FORCEINLINE</a></li> <li><a href="#The_C.2B.2B">5 The C++</a></li> <li><a href="#Overloading_Comparison_Operators">6 Overloading Comparison Operators</a> <ul><li><a href="#C.2B.2B_Example">6.1 C++ Example</a></li></ul></li> <li><a href="#Summary">7 Summary</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>Dear Community,</p> <p>Sooooo</p> <p>This is one reason why I love UE4 C++ so much!</p> <p>We can do <strong>anything</strong>!</p> <p>Below is the C++ code for making two operators that I've overloaded for use with an FString and a Float</p> <h3 id="code-simplification"><a href="#code-simplification" class="header-anchor">#</a> Code Simplification</h3> <p>This enables me to go from</p> <p>(Str is a FString)</p> <p>Str = FString::SanitizeFloat(TheFloat);</p> <p>to</p> <p>Str &lt;&lt;= TheFloat;</p> <h2 id="ue4-string-stream"><a href="#ue4-string-stream" class="header-anchor">#</a> UE4 String Stream</h2> <p>Using the code I am sharing with you below, I can also now create a UE4 String Stream! Streaming in Float values to Str like this!</p> <p>Str = &quot;&quot;;
+Str &lt;&lt; Float1 &lt;&lt; Float2 &lt;&lt; Float3;</p> <h3 id="without-custom-c-operators"><a href="#without-custom-c-operators" class="header-anchor">#</a> Without Custom C++ Operators</h3> <p>for reference to do the above without my operators I would have to do this</p> <p>Str = &quot;&quot;
+Str += FString::SanitizeFloat(Float1);
+Str += &quot; &quot;;
+Str += FString::SantizeFloat(Float2);
+Str += &quot; &quot;;
+Str += FString::SanitizeFloat(Float3);</p> <h2 id="global-scope"><a href="#global-scope" class="header-anchor">#</a> Global Scope</h2> <p>Please note you must define the operators at the global scope, so whatever .h you put them, dont include any &quot;::&quot; like MyClass::etc</p> <h2 id="forceinline"><a href="#forceinline" class="header-anchor">#</a> FORCEINLINE</h2> <p>FORCEINLINE is a requirement for operator overloads if you want to be able to easily define them in a way that the UE4 compiler will like even when you have code split across multiple .cpp chunks!</p> <p>With operator overloads you can either define them in one place, or use FORCEINLINE, and FORCEINLINE is the much easier approach when multiple header include appearances are involved 😃</p> <h2 id="the-c"><a href="#the-c" class="header-anchor">#</a> The C++</h2> <p>//Str float
+FORCEINLINE	FString&amp;	operator&lt;&lt;(FString &amp;Str, const float&amp; Value )
+{
+if(Str.Len() &gt; 0) Str += &quot; &quot;;
+Str += FString::SanitizeFloat(Value);
+return Str;
+}
+FORCEINLINE	FString&amp;	operator&lt;&lt;=(FString &amp;Str, const float&amp; Value )
+{
+Str = FString::SanitizeFloat(Value);
+return Str;
+}</p> <h2 id="overloading-comparison-operators"><a href="#overloading-comparison-operators" class="header-anchor">#</a> Overloading Comparison Operators</h2> <p>Sometimes, you will want to overload a comparison operator for a special type of struct or class. Every comparison operator must return a boolean return value. Overloading comparison operators can be useful for determining if two objects are the same object based on a particular property rather than pointer reference. If you store a list of actors within a TArray, you may want those objects to be sorted by some particular property. If you overload the &quot;&lt;&quot; operator, you can now call &quot;sort()&quot; on your TArray and the sort method will sort based off your &quot;&lt;&quot; operator logic.</p> <h3 id="c-example"><a href="#c-example" class="header-anchor">#</a> C++ Example</h3> <p>Let's say you have a custom struct for storing a list of creatures and their associated 'aggro' values. Each creature has a TArray which contains a list of sensed creatures and their associated aggro values. Each tick, your creature will try to resense all nearby creatures and update this aggro value data. If the list already contains an aggro record, we want to update the existing record rather than adding a new one. Once all aggro records have been updated, we want to call &quot;sort()&quot; on the creatures list of aggro records.</p> <p>USTRUCT(BlueprintType)
+struct FAggroData
+{
+GENERATED_USTRUCT_BODY()
+public:
+ 
+/*Sort Key: This is the aggro value for this enemy*/
+UPROPERTY(BlueprintReadWrite, Category = &quot;Aggro&quot;)
+int32 Aggro;
+ 
+/*This is the enemy we sensed*/
+UPROPERTY(BlueprintReadWrite, Category = &quot;Aggro&quot;)
+ABaseCreature* Enemy;
+ 
+/*This is the last known position of the enemy*/
+UPROPERTY(BlueprintReadWrite, Category = &quot;Aggro&quot;)
+FVector LastSensePosition;
+ 
+/*This is the last known velocity of the enemy*/
+UPROPERTY(BlueprintReadWrite, Category = &quot;Aggro&quot;)
+FVector LastSenseVelocity;
+ 
+/*This is how old the last sense time was*/
+UPROPERTY(BlueprintReadWrite, Category = &quot;Aggro&quot;)
+float LastSenseAge;
+ 
+//override the &quot;&lt;&quot; operator so that this object can be sorted
+FORCEINLINE bool operator&lt;(const FAggroData &amp;Other) const
+{
+return Aggro &lt; Other.Aggro;
+}
+ 
+//check to see if the aggro record matches another aggro record by overloading the &quot;==&quot; operator.
+FORCEINLINE bool operator==(const FAggroData &amp;Other) const
+{
+return Enemy == Other.Enemy;
+}
+};
+ 
+//ABaseCreature Class header:
+TArray&lt;FAggroData&gt; SensedEnemies;
+ 
+//ABaseCreature Tick:
+//This will sort the list of sensed enemies based on the overloaded &quot;&lt;&quot; operator. In this case, our sort
+//scheme will put the creature with the highest aggro at the very front of the list. If we want to change the sort
+//order, we can just swap the operands in the &quot;&lt;&quot; operator overload
+SensedEnemies.Sort();</p> <h2 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h2> <p>With these operators in your code, no more</p> <p>Str = FString::SanitizeFloat(TheFoat);</p> <p>you can just do</p> <p>Str &lt;&lt;= TheFloat;</p> <p>Yay!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Operator_Overloads&amp;oldid=17324" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Operator_Overloads&amp;oldid=17324<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/888.b8736784.js" defer></script>
+  </body>
+</html>

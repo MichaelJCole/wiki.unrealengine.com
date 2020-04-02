@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/550.d85c0f07.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Global Fade In out - Epic Wiki</p> <h1 id="global-fade-in-out"><a href="#global-fade-in-out" class="header-anchor">#</a> Global Fade In out</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a> <ul><li><a href="#The_custom_UGameViewportClient">1.1 The custom UGameViewportClient</a></li> <li><a href="#Our_fade_logic">1.2 Our fade logic</a></li> <li><a href="#Using_the_screen_fade">1.3 Using the screen fade</a></li> <li><a href="#Summary">1.4 Summary</a></li></ul></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Original Author:</em> <a href="/User:Moss" title="User:Moss">Moss</a></p> <p>Hi guys!</p> <p>Doing a global fade in out is very simple in UE4, you do not need to create any fancy PP materials or using an animation in UMG. The following tutorial will implement the effect by using a custom <strong>UGameViewportClient</strong>.</p> <h3 id="the-custom-ugameviewportclient"><a href="#the-custom-ugameviewportclient" class="header-anchor">#</a> The custom UGameViewportClient</h3> <p>First of all we will create a new C++ class that inherits from <strong>UGameViewportClient</strong>, for now we will just create an empty class and register it in your <strong>DefaultEngine.ini</strong> file.</p> <p>Our header should look similar to the following:</p> <p>// Copyright 2015 Moritz Wundke. All Rights Reserved.
+// Released under MIT
+ 
+#pragma once
+ 
+#include &quot;Engine/GameViewportClient.h&quot;
+#include &quot;CustomGameViewportClient.generated.h&quot;
+ 
+/**
+* A simple UGameViewportClient used to handle a global fade in/out
+*/
+UCLASS()
+class MYGAME_API UCustomGameViewportClient: public UGameViewportClient
+{
+GENERATED_BODY()
+ 
+};</p> <p>And an empty <em>cpp</em> file such as:</p> <p>// Copyright 2015 Moritz Wundke. All Rights Reserved.
+// Released under MIT
+ 
+#include &quot;MyGame.h&quot;
+#include &quot;CustomGameViewportClient.h&quot;</p> <p>To tell the engine to use our custom class instead of the base engine version we have to add the following into the projects <strong>DefaultEngine.ini</strong> file.</p> <p>[/Script/Engine.Engine]
+GameViewportClientClassName=/Script/MyGame.CustomGameViewportClient</p> <h3 id="our-fade-logic"><a href="#our-fade-logic" class="header-anchor">#</a> Our fade logic</h3> <p>The idea is to add the fading logic into our newly created ViewportClient. The <em>cpp</em> and the <em>h</em> should be something like the following.</p> <p>// Copyright 2015 Moritz Wundke. All Rights Reserved.
+// Released under MIT
+ 
+#pragma once
+ 
+#include &quot;Engine/GameViewportClient.h&quot;
+#include &quot;CustomGameViewportClient.generated.h&quot;
+ 
+/**
+* A simple UGameViewportClient used to handle a global fade in/out
+*/
+UCLASS()
+class MYGAME_API UCustomGameViewportClient: public UGameViewportClient
+{
+GENERATED_BODY()
+ 
+public:
+ 
+/**
+* Called after rendering the player views and HUDs to render menus, the console, etc.
+* This is the last rendering call in the render loop
+*
+* @param Canvas        The canvas to use for rendering.
+*/
+virtual void PostRender( UCanvas* Canvas ) override;
+ 
+/** Clear fading state */
+virtual void ClearFade();
+ 
+/** Used for Fade to and from black */
+virtual void Fade(const float Duration, const bool bToBlack);
+ 
+/** Does the actual screen fading */
+void DrawScreenFade(UCanvas* Canvas);
+ 
+private:
+ 
+// Values used by our screen fading
+uint32 bFading : 1;
+uint32 bToBlack : 1; // Fading to black will be applied even if alpha is 1
+float FadeAlpha;
+float FadeStartTime;
+float FadeDuration;
+};</p> <p>// Copyright 2015 Moritz Wundke. All Rights Reserved.
+// Released under MIT
+ 
+#include &quot;MyGame.h&quot;
+#include &quot;CustomGameViewportClient.h&quot;
+ 
+void UCustomGameViewportClient::PostRender(UCanvas* Canvas)
+{
+Super::PostRender(Canvas);
+ 
+// Fade if requested, you could use the same DrawScreenFade method from any canvas such as the HUD
+if (bFading)
+{
+DrawScreenFade(Canvas);
+}
+}
+ 
+void UCustomGameViewportClient::ClearFade()
+{
+bFading = false;
+}
+ 
+void UCustomGameViewportClient::Fade(const float Duration, const bool bToBlack)
+{
+const UWorld* World = GetWorld();
+if (World)
+{
+bFading = true;
+this-&gt;bToBlack = bToBlack;
+FadeDuration = Duration;
+FadeStartTime = World-&gt;GetTimeSeconds();
+}
+}
+ 
+void UCustomGameViewportClient::DrawScreenFade(UCanvas* Canvas)
+{
+if (bFading)
+{
+const UWorld* World = GetWorld();
+if (World)
+{
+const float Time = World-&gt;GetTimeSeconds();
+const float Alpha = FMath::Clamp((Time - FadeStartTime) / FadeDuration, 0.f, 1.f);
+ 
+// Make sure that we stay black in a fade to black
+if (Alpha == 1.f &amp;&amp; !bToBlack)
+{
+bFading = false;
+}
+else
+{
+FColor OldColor = Canvas-&gt;DrawColor;
+FLinearColor FadeColor = FLinearColor::Black;
+FadeColor.A = bToBlack ? Alpha : 1 - Alpha;
+Canvas-&gt;DrawColor = FadeColor.ToFColor(true); // TheJamsh: &quot;4.10 cannot convert directly to FColor, so need to use FLinearColor::ToFColor() 😃
+Canvas-&gt;DrawTile(Canvas-&gt;DefaultTexture, 0, 0, Canvas-&gt;ClipX, Canvas-&gt;ClipY, 0, 0, Canvas-&gt;DefaultTexture-&gt;GetSizeX(), Canvas-&gt;DefaultTexture-&gt;GetSizeY());
+Canvas-&gt;DrawColor = OldColor;
+}
+}
+}
+}</p> <h3 id="using-the-screen-fade"><a href="#using-the-screen-fade" class="header-anchor">#</a> Using the screen fade</h3> <p>Using the fade logic from any <em>Actor</em> is now just a matter of some simple lines:</p> <p>const UWorld* World = GetWorld();
+if (World)
+{
+UCustomGameViewportClient* GameViewportClient = Cast&lt;UCustomGameViewportClient&gt;(World-&gt;GetGameViewport());
+if (GameViewportClient)
+{
+GameViewportClient-&gt;Fade(Duration, bToBlack);
+}
+}</p> <h3 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h3> <p>Now we have a simple yet very effective way on doing a screen fade globally, it will cost you just the overhead of drawing a texture on screen and that's it. You can add more functionality to the whole thingy but the basics are all set.</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Global_Fade_In_out&amp;oldid=17043" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Global_Fade_In_out&amp;oldid=17043<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/550.d85c0f07.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/988.148c7006.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Slate, Edit Text Widget, Custom Rendering &amp; Any TrueTypeFont - Epic Wiki</p> <h1 id="slate-edit-text-widget-custom-rendering-any-truetypefont"><a href="#slate-edit-text-widget-custom-rendering-any-truetypefont" class="header-anchor">#</a> Slate, Edit Text Widget, Custom Rendering &amp; Any TrueTypeFont</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Display_Edit_Text_Contents_Any_Way_You_Want">2 Display Edit Text Contents Any Way You Want</a></li> <li><a href="#Use_Any_True_Type_Font">3 Use Any True Type Font</a></li> <li><a href="#YourHUD">4 YourHUD</a> <ul><li><a href="#.H">4.1 .H</a></li> <li><a href="#.CPP">4.2 .CPP</a></li></ul></li> <li><a href="#SVictoryEditText">5 SVictoryEditText</a> <ul><li><a href="#.H_2">5.1 .H</a></li> <li><a href="#.CPP_2">5.2 .CPP</a></li></ul></li> <li><a href="#Code_Excerpts">6 Code Excerpts</a> <ul><li><a href="#Copy_Paste_to_OS_Clipboard">6.1 Copy Paste to OS Clipboard</a></li> <li><a href="#Toggling_User_Input_to.2Ffrom_Victory_Edit_Text">6.2 Toggling User Input to/from Victory Edit Text</a></li> <li><a href="#Capturing_User_Input">6.3 Capturing User Input</a> <ul><li><a href="#Key_Presses">6.3.1 Key Presses</a></li> <li><a href="#Mouse_Input">6.3.2 Mouse Input</a></li></ul></li></ul></li> <li><a href="#Related_Tutorials">7 Related Tutorials</a></li> <li><a href="#Conclusion">8 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Code Author:</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>In this tutorial I am showing you how to make an Edit Text widget so you can allow users to enter any kind of input while in-game!</p> <p><strong>Special features of my code:</strong></p> <ul><li><p>Set the default font of the Edit Text to use any True Type Font that you prefer!</p></li> <li><p>Easy function to change what True Type Font is being used, during runtime.</p></li> <li><p>Completely customize the actual display of the text that the user is entering, using any alternative text rendering setup that you prefer.</p></li> <li><p>Easy way to show / hide the Edit Text caret (the blinking vertical bar)</p></li> <li><p>Copy / Paste text to and from the OS clipboard!</p></li></ul> <p><a href="/File:Slate1Ingame.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/5/5f/Slate1Ingame.jpg/800px-Slate1Ingame.jpg" alt="Slate1Ingame.jpg"></a></p> <h2 id="display-edit-text-contents-any-way-you-want"><a href="#display-edit-text-contents-any-way-you-want" class="header-anchor">#</a> Display Edit Text Contents Any Way You Want</h2> <p>In my game I did not want to show the <em>Edit Text caret</em> or the <em>actual text</em>, because you cant use shadowing currently with SEditableText.</p> <p>I found a way to <em>completely hide the SEditableText widget</em> and <strong>pass the contents to a different display widget</strong> that had the visual rendering options that I wanted.</p> <p>You can use the same logic I am using in this example to display the SEditableText contents in any way that you like!</p> <p>I have comments in the code for how you can actually enable the Edit Text caret, and display the Edit Text.</p> <h2 id="use-any-true-type-font"><a href="#use-any-true-type-font" class="header-anchor">#</a> Use Any True Type Font</h2> <p>You can use any True Type Font you want with my Edit Text Code !</p> <p>I set up the HUD class so that you can use your HUD BP to enter a path for .ttf files!</p> <p>Obtain .ttf files from windows/fonts by <strong>copying</strong> them 😃</p> <p>Move them into your Content directory, into some subfolder structure, and write out that folder structure in the HUD BP!</p> <p>I also wrote a function for you to easily change the font of the Edit Text during runtime, using a new .ttf!</p> <p><a href="/File:Slate1Editor.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/6/6f/Slate1Editor.jpg/600px-Slate1Editor.jpg" alt="Slate1Editor.jpg"></a></p> <p><a href="/File:Slate1HDD.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/d/d7/Slate1HDD.jpg/600px-Slate1HDD.jpg" alt="Slate1HDD.jpg"></a></p> <h2 id="yourhud"><a href="#yourhud" class="header-anchor">#</a> YourHUD</h2> <h3 id="h"><a href="#h" class="header-anchor">#</a> .H</h3> <p>// Copyright 1998-2013 Epic Games, Inc. All Rights Reserved.
+ 
+#pragma once
+ 
+#include &quot;SVictoryEditText.h&quot;
+ 
+#include &quot;YourHUD.generated.h&quot;
+ 
+ 
+ 
+class AYourHUD : public AHUD
+{
+GENERATED_BODY()
+ 
+/** Default True Type Font. This should be the path off of Content that leads to your chosen TTF. Copy paste .ttf files from Windows/Fonts. Path should not include &quot;Content&quot;.  Ex: &quot;TTF/comicbd.ttf&quot; */
+UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=VictoryChat)
+FString ChatFontTTF;
+ 
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=VictoryChat)
+int32 ChatInputFontSize;
+ 
+/** Set a new .ttf for chat text! This should be the path off of Content that leads to your chosen TTF. Copy paste .ttf files from Windows/Fonts. Path should not include &quot;Content&quot;.  Ex: &quot;TTF/comicbd.ttf&quot; */
+UFUNCTION(BlueprintCallable, Category=VictoryChat)
+void SetChatFont(FString NewFontPath);
+ 
+//Slate Core
+public:
+ 
+TSharedPtr&lt;class SVictoryEditText&gt; VictoryChat;
+ 
+void JoyInit_VictoryChat();
+ 
+//AHUD
+public:
+ 
+//Draw HUD
+virtual void DrawHUD() OVERRIDE;
+};</p> <h3 id="cpp"><a href="#cpp" class="header-anchor">#</a> .CPP</h3> <p>//VictoryHUD extension by Rama
+ 
+#include &quot;VictoryGame.h&quot;
+ 
+#define VICTORY_ALLOW_TICK if(!GEngine) return; if(!GEngine-&gt;GameViewport) return;
+ 
+AYourHUD::AYourHUD(const class FObjectInitializer&amp; PCIP) : Super(PCIP)
+{	
+ChatFontTTF = &quot;TTF/comicbd.ttf&quot;;
+ChatInputFontSize = 24;
+ 
+}
+ 
+//~~~~~~~~~~~~~~
+// Joy Init Victory Chat
+//~~~~~~~~~~~~~~
+ 
+void AYourHUD::JoyInit_VictoryChat()
+{
+if ( ! VictoryChat.IsValid() ) return;
+//~~~~~~~~~~~~~~~~~~~
+ 
+//Visible
+VictoryChat-&gt;SetShowChat(true);
+ 
+//Cursor						//No cursor!
+//VictoryChat-&gt;SetCursor(EMouseCursor::None);//EMouseCursor::TextEditBeam);
+ 
+//Font
+SetChatFont(ChatFontTTF);
+ 
+//Capture User Input immediately upon Creation
+VictoryChat-&gt;SetSlateUIMode(true);
+}
+ 
+//~~~~~~~~~~~~
+//  Set Font
+//~~~~~~~~~~~~
+void AYourHUD::SetChatFont(FString NewFontPath)
+{
+if ( ! VictoryChat.IsValid() ) 			return;
+if( ! VictoryChat-&gt;ChatDisplay.IsValid()) 	return;
+if( ! VictoryChat-&gt;ChatInput.IsValid()) 	return;
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//Get Font from TTF Path
+const FString ChatInputFont = FString( FPaths::GameContentDir() / *NewFontPath );
+ 
+//Create Font Info
+FSlateFontInfo NewFontInfo(ChatInputFont,ChatInputFontSize);
+ 
+//Show / Hide Edit Caret
+FSlateFontInfo CaretSize = NewFontInfo;
+CaretSize.Size = 0;		//set to 1 to show caret.
+ 
+//Set !
+VictoryChat-&gt;ChatInput-&gt;SetFont(CaretSize); //invisible input, just Caret
+VictoryChat-&gt;ChatDisplay-&gt;SetFont(NewFontInfo);		//Display Text
+}
+ 
+//~~~~~~~~~~~~
+// Draw HUD
+//~~~~~~~~~~~~
+void AYourHUD::DrawHUD()
+{
+Super::DrawHUD();
+//~~~~~~~~~
+ 
+//~~~~~~~~~~~~~
+VICTORY_ALLOW_TICK
+//~~~~~~~~~~~~~
+ 
+ 
+ 
+//~~~ Recreate Chat As Needed ~~~
+// Thank you Wraiyth for this code structure!
+if ( !VictoryChat.IsValid() )
+{
+SAssignNew(VictoryChat,SVictoryEditText)
+.JoyHUD(this);
+ 
+if ( VictoryChat.IsValid() )
+{
+GEngine-&gt;GameViewport-&gt;AddViewportWidgetContent(
+SNew(SWeakWidget)
+.PossiblyNullContent(VictoryChat.ToSharedRef())
+);
+ 
+//~~~ Joy Init ~~~
+JoyInit_VictoryChat();
+}
+}
+}</p> <h2 id="svictoryedittext"><a href="#svictoryedittext" class="header-anchor">#</a> SVictoryEditText</h2> <h3 id="h-2"><a href="#h-2" class="header-anchor">#</a> .H</h3> <p>#pragma once
+ 
+//Slate
+#include &quot;Slate.h&quot;
+ 
+//~~~ Forward Declarations ~~~
+class AYourHUD;
+ 
+ 
+ 
+class SVictoryEditText : public SCompoundWidget
+{
+//Slate Init
+public:
+SLATE_BEGIN_ARGS(SVictoryEditText) : _JoyHUD() //, _bKeepVisible(false)
+{}
+ 
+SLATE_ARGUMENT(TWeakObjectPtr&lt;AYourHUD&gt;, JoyHUD)
+ 
+SLATE_END_ARGS()
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//~~~~~~~~
+//  HUD
+//~~~~~~~~
+public:
+//HUD that owns this
+TWeakObjectPtr&lt;class AYourHUD&gt; JoyHUD;
+ 
+//~~~~~~~~
+//Components
+//~~~~~~~~
+public:
+//The edit text widget.
+TSharedPtr&lt; SEditableText &gt; ChatInput;
+ 
+//How the Edit Text is actually displayed
+TSharedPtr&lt; STextBlock &gt; ChatDisplay;
+ 
+//~~~~~~~~~~~~~~~~~
+//  Chat Visibility
+//~~~~~~~~~~~~~~~~~
+public:
+void SetShowChat(bool MakeVisible);
+ 
+ 
+//~~~~~~~~~~~~~~~~~~~~~
+//  Copy/Paste Text
+//~~~~~~~~~~~~~~~~~~~~~
+public:
+FORCEINLINE void CopyToClipboard()
+{
+if(ChatInput.IsValid())
+{
+ChatInput-&gt;CopySelectedTextToClipboard();
+}
+}
+FORCEINLINE void PasteFromClipboard()
+{
+if(ChatInput.IsValid())
+{
+ChatInput-&gt;PasteTextFromClipboard() ;
+}
+}
+ 
+//~~~~~~~~~~~~~~~~~
+// Chat Text Entry
+//~~~~~~~~~~~~~~~~~
+public:
+ 
+//Set Slate UI Mode, Capture User Keyboard Input
+void SetSlateUIMode(bool EnterSlateUI);
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//Delegate called when the text is commited.
+ 
+// @param	InText			The committed text.
+// @Param	InCommitInfo	The type of commit (eg. Pressed enter, changed focus)
+void OnChatTextCommitted(const FText&amp; InText, ETextCommit::Type InCommitInfo);
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//	     Text Changed Delegate!
+void OnChatTextChanged(const FText&amp; InText);
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//~~~~~~~~~~~~~~~~~
+//  Base Input
+//~~~~~~~~~~~~~~~~~
+//SWidget.h
+public:
+//~~~ Keyboard Focused ~~~
+virtual FReply OnKeyboardFocusReceived( const FGeometry&amp; MyGeometry, const FKeyboardFocusEvent&amp; InKeyboardFocusEvent ) OVERRIDE;
+ 
+//~~~ Key Down  ~~~
+virtual FReply OnKeyDown( const FGeometry&amp; MyGeometry, const FKeyboardEvent&amp; InKeyboardEvent ) OVERRIDE;
+ 
+//~~~ Mouse Down  ~~~
+virtual FReply OnMouseButtonDown( const FGeometry&amp; MyGeometry, const FPointerEvent&amp; MouseEvent ) OVERRIDE;
+ 
+ 
+ 
+//Slate Base
+public:
+ 
+//Constructor
+void Construct(const FArguments&amp; InArgs);
+ 
+//As Widget
+TSharedRef&lt;class SWidget&gt; AsWidget();
+ 
+//~~~ Tick ~~~
+void Tick(const FGeometry&amp; AllottedGeometry, const double InCurrentTime, const float InDeltaTime);
+ 
+};</p> <h3 id="cpp-2"><a href="#cpp-2" class="header-anchor">#</a> .CPP</h3> <p>#include &quot;VictoryGame.h&quot;
+#include &quot;SVictoryEditText.h&quot;
+ 
+void SVictoryEditText::Construct(const FArguments&amp; InArgs)
+{
+JoyHUD = InArgs._JoyHUD;
+ 
+ChildSlot
+.VAlign(VAlign_Fill)
+.HAlign(HAlign_Fill)
+//~~~~~~~~~~~~~~~~~~~~
+//  Being Slate Construct Block
+[
+SNew(SOverlay)
++ SOverlay::Slot()
+.VAlign(VAlign_Bottom)
+.HAlign(HAlign_Left)
+[
+ 
+//~~~ Chat Input ~~~
+SAssignNew(ChatInput, SEditableText)
+ 
+//Function to call when text is entered
+.OnTextCommitted(this, &amp;SVictoryEditText::OnChatTextCommitted)
+ 
+ 
+//Function to call when text is changed
+.OnTextChanged(this, &amp;SVictoryEditText::OnChatTextChanged)
+ 
+ 
+//Stay and possibly enter multiple lines
+.ClearKeyboardFocusOnCommit(false)
+ 
+//Optional
+//.MinDesiredWidth(500)
+ 
+.Text(FText::FromString(&quot;Victory!&quot;))
+.Font(FSlateFontInfo(FPaths::EngineContentDir() / TEXT(&quot;Slate/Fonts/Roboto-Bold.ttf&quot;), 24))
+.ColorAndOpacity(FLinearColor(1,0,1,0))    //&lt;~~~
+ 
+//Chat input itself is hidden, display used instead
+//		for the shadowing, and as a demonstration
+//		of accessing the input text and displaying it elsewhere
+//			See Tick Function
+ 
+]
++ SOverlay::Slot()
+.VAlign(VAlign_Bottom)
+.HAlign(HAlign_Left)
+[
+SAssignNew(ChatDisplay, STextBlock)
+.Text(FText::FromString(&quot;Victory!!!!&quot;))
+.Font(FSlateFontInfo(FPaths::EngineContentDir() / TEXT(&quot;Slate/Fonts/Roboto-Bold.ttf&quot;), 24))
+.ColorAndOpacity(FLinearColor(1,0,1,1))
+.ShadowColorAndOpacity(FLinearColor::Black)
+.ShadowOffset(FIntPoint(-2, 2))
+]
+]; //End Slate Construct Block
+//~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+}
+ 
+//~~~~~~~~~~
+//  Base
+//~~~~~~~~~~
+TSharedRef&lt;SWidget&gt; SVictoryEditText::AsWidget()
+{
+return SharedThis(this);
+}
+ 
+//~~~~~~~~~~~~~
+// Base Input
+//~~~~~~~~~~~~~
+//Keyboard Focussed
+FReply SVictoryEditText::OnKeyboardFocusReceived( const FGeometry&amp; MyGeometry, const FKeyboardFocusEvent&amp; InKeyboardFocusEvent )
+{
+//Lock Mouse To Edit
+return FReply::Handled().ReleaseMouseCapture().ReleaseJoystickCapture().LockMouseToWidget( SharedThis( this ) );
+}
+ 
+//~~~ Key Down ~~~
+FReply SVictoryEditText::OnKeyDown( const FGeometry&amp; MyGeometry, const FKeyboardEvent&amp; InKeyboardEvent )
+{
+//Get Key Pressed
+const FKey VKey = InKeyboardEvent.GetKey();
+ 
+//ESC Pressed
+if(VKey == EKeys::Escape)
+{
+//Exit!
+SetSlateUIMode(false);
+return FReply::Handled();
+}
+ 
+if(InKeyboardEvent.IsControlDown())
+{
+if( ! ChatInput.IsValid()) return FReply::Handled();
+//~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//CTRL + V = Paste
+if(VKey == EKeys::V)
+{
+PasteFromClipboard();
+}
+//CTRL + C = Copy
+if(VKey == EKeys::C)
+{
+//Copy All
+FWindowsPlatformMisc::ClipboardCopy(*ChatInput-&gt;GetText().ToString());
+ 
+//or you can use the highlighting of text method
+//CopyToClipboard();
+}
+}
+return FReply::Handled();
+}
+ 
+//~~~ Mouse Down  ~~~
+FReply SVictoryEditText::OnMouseButtonDown( const FGeometry&amp; MyGeometry, const FPointerEvent&amp; MouseEvent )
+{
+//Get Key Pressed
+const FKey VKey = MouseEvent.GetEffectingButton();
+ 
+//LMB Pressed
+if(VKey == EKeys::LeftMouseButton)
+{
+//Exit!
+SetSlateUIMode(false);
+return FReply::Handled();
+}
+ 
+return FReply::Handled();
+}
+ 
+//~~~~~~~~~~~~~~~~
+//   Show Chat
+//~~~~~~~~~~~~~~~~
+void SVictoryEditText::SetShowChat(bool MakeVisible)
+{
+TAttribute&lt;EVisibility&gt; NewVisibility;
+if(MakeVisible)
+{
+NewVisibility = EVisibility::Visible;
+SetVisibility(				NewVisibility);
+ChatInput-&gt;SetVisibility(		NewVisibility);
+ChatDisplay-&gt;SetVisibility(		NewVisibility);
+}
+else
+{
+NewVisibility = EVisibility::Hidden;
+SetVisibility(				NewVisibility);
+ChatInput-&gt;SetVisibility(		NewVisibility);
+ChatDisplay-&gt;SetVisibility(		NewVisibility);
+}
+}
+ 
+//~~~~~~~~~~~~~~~~
+// Chat Text Entered
+//~~~~~~~~~~~~~~~~
+void SVictoryEditText::OnChatTextCommitted(const FText&amp; InText, ETextCommit::Type InCommitInfo)
+{
+if (InCommitInfo == ETextCommit::OnEnter)
+{
+if ( !InText.IsEmpty() )
+{
+if(ChatInput.IsValid())
+{
+// Add the string so we see it too (we will ignore our own strings in the receive function)
+//AddChatLine( InText.ToString() );
+ 
+// Clear the text
+ChatInput-&gt;SetText(FText());
+}
+}
+ 
+//Exit properly! Hides mouse and restores Viewport control
+SetSlateUIMode(false);
+}
+}
+//~~~~~~~~~~~~~~~~
+// Chat Text Changed
+//~~~~~~~~~~~~~~~~
+void SVictoryEditText::OnChatTextChanged(const FText&amp; InText)
+{
+if( ! ChatDisplay.IsValid()) 	return;
+if( ! ChatInput.IsValid()) 		return;
+ 
+//~~~ Update The Chat Display! ~~~
+ChatDisplay-&gt;SetText(ChatInput-&gt;GetText().ToString() + FString(&quot; &quot;));
+ 
+//single space to fix letter clipping, not sure why its clipping.
+ 
+}
+//~~~~~~~~~~~~~~~~
+//  Slate UI Mode
+//~~~~~~~~~~~~~~~~
+void SVictoryEditText::SetSlateUIMode(bool EnterSlateUI)
+{
+if(EnterSlateUI)
+{
+// Enter UI mode
+FSlateApplication::Get().SetKeyboardFocus( SharedThis(this) );
+ 
+if (ChatInput.IsValid())
+{
+FWidgetPath WidgetToFocusPath;
+ 
+bool bFoundPath = FSlateApplication::Get().FindPathToWidget(FSlateApplication::Get().GetInteractiveTopLevelWindows(), ChatInput.ToSharedRef(), WidgetToFocusPath);
+if (bFoundPath &amp;&amp; WidgetToFocusPath.IsValid())
+{
+FSlateApplication::Get().SetKeyboardFocus(WidgetToFocusPath, EKeyboardFocusCause::SetDirectly);
+}
+}
+}
+else
+{
+// Exit UI mode
+FSlateApplication::Get().SetFocusToGameViewport();
+}
+}
+//~~~~~~~~~~~~~~~~
+//	Tick
+//~~~~~~~~~~~~~~~~
+void SVictoryEditText::Tick(const FGeometry&amp; AllottedGeometry, const double InCurrentTime, const float InDeltaTime)
+{
+// Always tick the super.
+SCompoundWidget::Tick(AllottedGeometry, InCurrentTime, InDeltaTime);
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+ 
+}</p> <h2 id="code-excerpts"><a href="#code-excerpts" class="header-anchor">#</a> Code Excerpts</h2> <h3 id="copy-paste-to-os-clipboard"><a href="#copy-paste-to-os-clipboard" class="header-anchor">#</a> Copy Paste to OS Clipboard</h3> <p>//Ctrl is Down
+if(InKeyboardEvent.IsControlDown())
+{
+if( ! ChatInput.IsValid()) return FReply::Handled();
+//~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//CTRL + V = Paste
+if(VKey == EKeys::V)
+{
+PasteFromClipboard();
+}
+//CTRL + C = Copy
+if(VKey == EKeys::C)
+{
+//Copy All
+FWindowsPlatformMisc::ClipboardCopy(*ChatInput-&gt;GetText().ToString());
+ 
+//or you can use the highlighting of text method
+//CopyToClipboard();
+}
+}</p> <h3 id="toggling-user-input-to-from-victory-edit-text"><a href="#toggling-user-input-to-from-victory-edit-text" class="header-anchor">#</a> Toggling User Input to/from Victory Edit Text</h3> <p>void SVictoryEditText::SetSlateUIMode(bool EnterSlateUI)
+{
+if(EnterSlateUI)
+{
+// Enter UI mode
+FSlateApplication::Get().SetKeyboardFocus( SharedThis(this) );
+ 
+if (ChatInput.IsValid())
+{
+FWidgetPath WidgetToFocusPath;
+ 
+bool bFoundPath = FSlateApplication::Get().FindPathToWidget(ChatInput.ToSharedRef(), WidgetToFocusPath);
+if (bFoundPath &amp;&amp; WidgetToFocusPath.IsValid())
+{
+FSlateApplication::Get().SetKeyboardFocus(WidgetToFocusPath, EKeyboardFocusCause::SetDirectly);
+}
+}
+}
+else
+{
+// Exit UI mode
+FSlateApplication::Get().SetFocusToGameViewport();
+}
+}</p> <h3 id="capturing-user-input"><a href="#capturing-user-input" class="header-anchor">#</a> Capturing User Input</h3> <h4 id="key-presses"><a href="#key-presses" class="header-anchor">#</a> Key Presses</h4> <p>I check if the user presses the ESC key to cancel out of Edit Text Mode, restoring input to the main Game Viewport</p> <p>FReply SVictoryEditText::OnKeyDown( const FGeometry&amp; MyGeometry, const FKeyboardEvent&amp; InKeyboardEvent )
+{
+//Get Key Pressed
+const FKey VKey = InKeyboardEvent.GetKey();
+ 
+//ESC Pressed
+if(VKey == EKeys::Escape)
+{
+//Exit!
+SetSlateUIMode(false);
+return FReply::Handled();
+}
+ 
+return FReply::Handled();
+}</p> <h4 id="mouse-input"><a href="#mouse-input" class="header-anchor">#</a> Mouse Input</h4> <p>For my game I want the Edit Text Mode to end if the user presses LMB.</p> <p>You can capture other mouse buttons and movement as well!</p> <p>FReply SVictoryEditText::OnMouseButtonDown( const FGeometry&amp; MyGeometry, const FPointerEvent&amp; MouseEvent )
+{
+//Get Key Pressed
+const FKey VKey = MouseEvent.GetEffectingButton();
+ 
+//LMB Pressed
+if(VKey == EKeys::LeftMouseButton)
+{
+//Exit!
+SetSlateUIMode(false);
+return FReply::Handled();
+}
+ 
+return FReply::Handled();
+}</p> <h2 id="related-tutorials"><a href="#related-tutorials" class="header-anchor">#</a> Related Tutorials</h2> <p><a href="/Slate,_Hello" title="Slate, Hello">Slate,_Hello</a> by Bleakwise!</p> <p><a href="https://forums.unrealengine.com/showthread.php?60-slate-tutorials-from-Wraiyth" target="_blank" rel="noopener noreferrer">Slate Tutorials by Wraiyth<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Slate,_Edit_Text_Widget,_Custom_Rendering_%26_Any_TrueTypeFont&amp;oldid=14493" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Slate,_Edit_Text_Widget,_Custom_Rendering_%26_Any_TrueTypeFont&amp;oldid=14493<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/988.148c7006.js" defer></script>
+  </body>
+</html>

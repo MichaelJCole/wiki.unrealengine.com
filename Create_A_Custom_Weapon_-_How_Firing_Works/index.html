@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/385.e76cd08f.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Create A Custom Weapon - How Firing Works - Epic Wiki</p> <h1 id="create-a-custom-weapon-how-firing-works"><a href="#create-a-custom-weapon-how-firing-works" class="header-anchor">#</a> Create A Custom Weapon - How Firing Works</h1> <p><strong>Rate this Tutorial:</strong></p> <p>4.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""> (one vote)</p> <p>Approved for Versions:4.6, 4.7</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Intro:_How_Firing_Works_in_Unreal_Tournament">1 Intro: How Firing Works in Unreal Tournament</a> <ul><li><a href="#Requirements">1.1 Requirements</a></li> <li><a href="#Classes_Overview">1.2 Classes Overview</a></li></ul></li> <li><a href="#From_Player_to_Weapon">2 From Player to Weapon</a></li> <li><a href="#Weapon_States">3 Weapon States</a></li></ul> <h3 id="intro-how-firing-works-in-unreal-tournament"><a href="#intro-how-firing-works-in-unreal-tournament" class="header-anchor">#</a> Intro: How Firing Works in Unreal Tournament</h3> <p>So you want to create a custom weapon, but you're unsure how to implement in C++/Blueprints the functionality of your weapon design?</p> <p>This tutorial is intended to cover some basics in conceptualizing how the pieces of weapon code work together to create the desired weapon behavior. This can be useful if you want to try implementing weapon behavior that may not exist in any known weapons, and thus extending from those weapons is not appropriate.</p> <h4 id="requirements"><a href="#requirements" class="header-anchor">#</a> Requirements</h4> <ul><li>Access to Unreal Tournament C++ Source / GitHub, &amp; Unreal Engine 4 Editor.</li> <li>Engine version: 4.6</li> <li>Skill level: Beginner</li></ul> <p>At this stage I assume you have all of the Unreal Tournament source files and have successfully compiled the project from source.</p> <h4 id="classes-overview"><a href="#classes-overview" class="header-anchor">#</a> Classes Overview</h4> <p>This tutorial assumes a fairly basic level of knowledge of Unreal Engine classes, so for that purpose I will be outlining the classes featured in this tutorial and their basic functionality.</p> <ul><li>UTPlayerController: The UTPlayerController is an abstract entity that acts as an interface between the player and the world. Think of the PlayerController as a 'spirit' that inhabits bodies within the game world.</li> <li>UTCharacter: The UTCharacter class is the basic class that defines a &quot;body&quot; in the game world. Typically this might be a human, but it may also be an alien, a monster, etc. A character is generally 'possessed' by a PlayerController (or a BotController, if it's an AI Bot).</li> <li>UTCharacterMovement: This object is a component of the Character, it defines movement related properties of a UTCharacter</li> <li>UTWeapon: A UTWeapon is an inventory item, it is held by a UTCharacter.</li> <li>UTWeaponState: A UTWeaponState is an object within UTWeapon used to define its state (being held, being fired, being put away, etc).</li></ul> <h3 id="from-player-to-weapon"><a href="#from-player-to-weapon" class="header-anchor">#</a> From Player to Weapon</h3> <p>What happens between the player pressing the mouse button and the firing of a weapon? How does a mouse click translate into a shock beam or a cluster of flak shards? When you want to implement behavior that differs from standard weapons this is a question you might find yourself asking. Other tutorials demonstrate that we can call the functions <strong>UTWeapon::FireInstantHit()</strong> or <strong>UTWeapon::FireProjectile()</strong> to fire a hitscan beam or to fire a projectile. We can override these functions to change the behavior of each function individually, but how do we get there?</p> <p>The first step is to open the Editor and look under the menu <strong>Edit</strong> -&gt; <strong>Project Settings</strong>. In the <strong>Project Settings</strong> window we should look at the <strong>Input</strong> section.</p> <p>As of the writing of this tutorial, the <strong>Input</strong> section for the Unreal Tournament project looks like so:</p> <p><a href="/File:Editorinput.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/b/be/Editorinput.jpg" alt="Editorinput.jpg"></a></p> <p>This can also be seen in the <strong>UnrealTournament/UnrealTournament/Config/DefaultInput.ini</strong> file:</p> <p>+ActionMappings=(ActionName=&quot;StartFire&quot;, Key=LeftMouseButton)
++ActionMappings=(ActionName=&quot;StopFire&quot;, Key=LeftMouseButton)
++ActionMappings=(ActionName=&quot;StartFire&quot;, Key=Gamepad_RightTrigger)
++ActionMappings=(ActionName=&quot;StopFire&quot;, Key=Gamepad_RightTrigger)
++ActionMappings=(ActionName=&quot;StartFire&quot;, Key=RightControl)
++ActionMappings=(ActionName=&quot;StopFire&quot;, Key=RightControl)
++ActionMappings=(ActionName=&quot;StartAltFire&quot;, Key=RightMouseButton)
++ActionMappings=(ActionName=&quot;StopAltFire&quot;, Key=RightMouseButton)
++ActionMappings=(ActionName=&quot;StartAltFire&quot;, Key=Gamepad_LeftTrigger)
++ActionMappings=(ActionName=&quot;StopAltFire&quot;, Key=Gamepad_LeftTrigger)</p> <p>Whether you're looking in the Editor or at DefaultInput.ini, you'll see that the important thing that occurs when the player presses the default fire input is the action called &quot;StartFire.&quot; So what does StartFire do? Using Visual Studio we can search the entire Unreal Tournament solution (Ctrl+Shift+F) for &quot;StartFire.&quot; These results will be found in <strong>UTPlayerController::SetupInputComponent()</strong> :</p> <div class="language- extra-class"><pre><code>InputComponent\-\&gt;BindAction(&quot;StartFire&quot;, IE\_Pressed, this, &amp;AUTPlayerController::OnFire);
+InputComponent\-\&gt;BindAction(&quot;StopFire&quot;, IE\_Released, this, &amp;AUTPlayerController::OnStopFire);
+InputComponent\-\&gt;BindAction(&quot;StartAltFire&quot;, IE\_Pressed, this, &amp;AUTPlayerController::OnAltFire);
+InputComponent\-\&gt;BindAction(&quot;StopAltFire&quot;, IE\_Released, this, &amp;AUTPlayerController::OnStopAltFire);
+</code></pre></div><p>From here we can see the InputComponent of the PlayerController is binding an action called &quot;StartFire&quot; to the function <strong>UTPlayerController::OnFire()</strong>. This tells us that when the player presses left mouse button, the StartFire binding is called and our <strong>UTPlayerController::OnFire()</strong> function is called.</p> <p>Looking at the implementation of <strong>UTPlayerController::OnFire()</strong> we will see</p> <p>void AUTPlayerController::OnFire()
+{
+if (GetPawn() != NULL)
+{
+new(DeferredFireInputs) FDeferredFireInput(0, true);
+}
+else if (IsInState(NAME_Spectating))
+{
+if ((PlayerState == nullptr || !PlayerState-&gt;bOnlySpectator) &amp;&amp;
+bPlayerIsWaiting)
+{
+ServerRestartPlayer();
+}
+else
+{
+ServerViewNextPlayer();
+}
+}
+else
+{
+ServerRestartPlayer();
+}
+}</p> <p>This might look a little confusing at first, but the key element to point out here is the code that executes when we have a pawn. The majority of this code handles spectating only, so only the line</p> <div class="language- extra-class"><pre><code>	new(DeferredFireInputs) FDeferredFireInput(0, true);
+</code></pre></div><p>Is relevant to the actual firing behavior while the player is alive. What does this line do? In short, it creates an object of type FDeferredFireInput, passing along the FireMode, in this case 0, and whether this input was the start or end of the input.</p> <p>The definition for the FDefferedFireInput can be seen in the UTPlayerController.h</p> <p>struct FDeferredFireInput
+{
+/** the fire mode */
+uint8 FireMode;
+/** if true, call StartFire(), false call StopFire() */
+bool bStartFire;
+ 
+FDeferredFireInput(uint8 InFireMode, bool bInStartFire)
+: FireMode(InFireMode), bStartFire(bInStartFire)
+{}
+};</p> <p>The FDeferredFireInput struct was created so that fire inputs can be applied in a slightly different order than they would normally occur. If you trace down where the DeferredFireInputs are used, you'll see that they are typically processed in the movement component of the UTCharacter, UTCharacterMovement::TickComponent(). This entire process is a bit circuitous, but the long and short of it is that DeferredFireInputs are ultimately resolved in <strong>UTPlayerController::ApplyDeferredFireInputs()</strong>.</p> <p>void AUTPlayerController::ApplyDeferredFireInputs()
+{
+for (FDeferredFireInput&amp; Input : DeferredFireInputs)
+{
+if (Input.bStartFire)
+{
+if (UTCharacter != NULL)
+{
+if (StateName == NAME_Playing)
+{
+UTCharacter-&gt;StartFire(Input.FireMode);
+}
+}
+else if (GetPawn() != nullptr)
+{
+GetPawn()-&gt;PawnStartFire(Input.FireMode);
+}
+}
+else if (UTCharacter != NULL)
+{
+UTCharacter-&gt;StopFire(Input.FireMode);
+}
+}
+DeferredFireInputs.Empty();
+}</p> <p>Now we're getting somewhere. In <strong>UTPlayerController::ApplyDeferredFireInputs()</strong> the standard processing of our player input will have us calling a function on our UTCharacter called StartFire, passing along a numerical value for the firemode we're calling. <strong>UTCharacter::StartFire()</strong> looks like so:</p> <p>void AUTCharacter::StartFire(uint8 FireModeNum)
+{
+UE_LOG(LogUTCharacter, Verbose, TEXT(&quot;StartFire %d&quot;), FireModeNum);
+ 
+if (!IsLocallyControlled())
+{
+UE_LOG(LogUTCharacter, Warning, TEXT(&quot;StartFire() can only be called on the owning client&quot;));
+}
+// when feigning death, attempting to fire gets us out of it
+else if (bFeigningDeath)
+{
+FeignDeath();
+}
+else if (Weapon != NULL &amp;&amp; EmoteCount == 0)
+{
+Weapon-&gt;StartFire(FireModeNum);
+}
+}</p> <p>The important bits here is how UTCharacter passes input to the Weapon class, getting us to our destination at last, calling <strong>UTWeapon::StartFire()</strong>.</p> <p>Here is a small diagram outlining the input flow through these initial classes.</p> <p><a href="/File:InputDiagramTrim1.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/a/ad/InputDiagramTrim1.jpg" alt="InputDiagramTrim1.jpg"></a></p> <h3 id="weapon-states"><a href="#weapon-states" class="header-anchor">#</a> Weapon States</h3> <p>You might be thinking, &quot;That's great, you've shown how a single button press translates into a single function call in my weapon, but what happens next?&quot; This section will walk through the steps of what happens once our player input reaches our weapon.</p> <p>Starting off, our first point of entry into the Weapon class is the <strong>UTWeapon::StartFire()</strong> function:</p> <p>void AUTWeapon::StartFire(uint8 FireModeNum)
+{
+if (!UTOwner-&gt;IsFiringDisabled())
+{
+bool bClientFired = BeginFiringSequence(FireModeNum, false);
+if (Role &lt; ROLE_Authority)
+{
+ServerStartFire(FireModeNum, bClientFired);
+}
+}
+}</p> <p>As you can see, in games where the client is not the authority (e.g. all online games), this redirects to <strong>UTWeapon::ServerStartFire()</strong>. Lets take a brief look there as well:</p> <p>void AUTWeapon::ServerStartFire_Implementation(uint8 FireModeNum, bool bClientFired)
+{
+if (!UTOwner-&gt;IsFiringDisabled())
+{
+BeginFiringSequence(FireModeNum, bClientFired);
+}
+}</p> <p>Both the clientside and serverside functions here call <strong>UTWeapon::BeginFiringSequence()</strong>, so it's important to see how input is passed along through this function to produce the firing behavior.</p> <p>bool AUTWeapon::BeginFiringSequence(uint8 FireModeNum, bool bClientFired)
+{
+if (UTOwner)
+{
+UTOwner-&gt;SetPendingFire(FireModeNum, true);
+if (FiringState.IsValidIndex(FireModeNum) &amp;&amp; CurrentState != EquippingState &amp;&amp; CurrentState != UnequippingState)
+{
+FiringState[FireModeNum]-&gt;PendingFireStarted();
+}
+bool bResult = CurrentState-&gt;BeginFiringSequence(FireModeNum, bClientFired);
+if (CurrentState-&gt;IsFiring() &amp;&amp; CurrentFireMode != FireModeNum)
+{
+OnMultiPress(FireModeNum);
+}
+return bResult;
+}
+return false;
+}</p> <p>The next step to pay attention to is in AUTWeapon::BeginFiringSequence involves looking at this next set of lines to execute,</p> <p>if (FiringState.IsValidIndex(FireModeNum) &amp;&amp; CurrentState != EquippingState &amp;&amp; CurrentState != UnequippingState)
+{
+FiringState[FireModeNum]-&gt;PendingFireStarted();
+}</p> <p>If you look only at the name of this variable you might think to yourself that the FiringState is a state that controls certain firing behaviors of the weapon. If you've looked through the class structure you've likely seen such things as UTWeaponStateFiringBeam, UTWeaponStateFiringBurst, UTWeaponStateFiringSpinUp. It might seem confusing that somehow your weapon already has a so-called FiringState even though we haven't even fired a shot yet!</p> <p>The important thing to recognize here is that FiringState is an object of type UUTWeaponState. UUTWeaponState is an object defined to exist within each UTWeapon, but each UTWeaponState corresponds to more than just a particular firing behavior in a weapon. Imagine that you are playing a game and you have in your inventory the Impact Hammer, the Enforcer, the Shock Rifle, and the Rocket Launcher. If we were to call UTWeapon::BeginFiringSequence() on all of these weapons, they would all have a 'firing state.' However, in Unreal Tournament where the player can only have one active weapon at a time, three of those weapons would be in WeaponState UTWeaponStateInactive. The one &quot;currently-held&quot; weapon would be in UTWeaponStateActive. There are also transitional states used for equipping and unequipping weapons, as we can see from UTWeapon::BeginFiringSequence().</p> <p>Moving on, our code above indicates we should call the PendingFireStarted function of our Weapon State class. As I stated above, a held weapon is in the UTWeaponStateActive class, so looking at the function definition <strong>UTWeaponStateActive::PendingFireStarted()</strong> we see:</p> <p>bool UUTWeaponStateActive::BeginFiringSequence(uint8 FireModeNum, bool bClientFired)
+{
+if (GetOuterAUTWeapon()-&gt;FiringState.IsValidIndex(FireModeNum) &amp;&amp; GetOuterAUTWeapon()-&gt;HasAmmo(FireModeNum))
+{
+GetOuterAUTWeapon()-&gt;CurrentFireMode = FireModeNum;
+GetOuterAUTWeapon()-&gt;GotoState(GetOuterAUTWeapon()-&gt;FiringState[FireModeNum]);
+return true;
+}
+return false;
+}</p> <p>Fortunately this is straightforward, knowing that our weapon initially is in state UTWeaponStateActive, we'll want to use the <strong>UTWeapon::GotoState()</strong> function to go to the state specified by our CurrentFireMode/FireModeNum. These actually will vary per weapon, but in all current examples these Firing States are subclasses of UTWeaponStateFiring.</p> <p>Looking first at <strong>UTWeapon::GotoState()</strong>:</p> <p>void AUTWeapon::GotoState(UUTWeaponState* NewState)
+{
+if (NewState == NULL || !NewState-&gt;IsIn(this))
+{
+UE_LOG(UT, Warning, TEXT(&quot;Attempt to send %s to invalid state %s&quot;), *GetName(), *GetFullNameSafe(NewState));
+}
+else if (ensureMsgf(UTOwner != NULL || NewState == InactiveState, TEXT(&quot;Attempt to send %s to state %s while not owned&quot;), *GetName(), *GetNameSafe(NewState)))
+{
+if (CurrentState != NewState)
+{
+UUTWeaponState* PrevState = CurrentState;
+if (CurrentState != NULL)
+{
+CurrentState-&gt;EndState(); // NOTE: may trigger another GotoState() call
+}
+if (CurrentState == PrevState)
+{
+CurrentState = NewState;
+CurrentState-&gt;BeginState(PrevState); // NOTE: may trigger another GotoState() call
+StateChanged();
+}
+}
+}
+}</p> <p>Again, for the time being we're assuming we will be going to a Weapon State that extends UTWeaponStateFiring. This is the standard base class for firing behavior. <strong>UTWeaponStateFiring::BeginState()</strong> shows us:</p> <p>void UUTWeaponStateFiring::BeginState(const UUTWeaponState* PrevState)
+{
+GetOuterAUTWeapon()-&gt;GetWorldTimerManager().SetTimer(this, &amp;UUTWeaponStateFiring::RefireCheckTimer, GetOuterAUTWeapon()-&gt;GetRefireTime(GetOuterAUTWeapon()-&gt;GetCurrentFireMode()), true);
+ToggleLoopingEffects(true);
+PendingFireSequence = -1;
+bDelayShot = false;
+GetOuterAUTWeapon()-&gt;OnStartedFiring();
+FireShot();
+GetOuterAUTWeapon()-&gt;bNetDelayedShot = false;
+}</p> <p>Here we can see that the function <strong>UTWeaponStateFiring::FireShot()</strong> is called.</p> <p>void UUTWeaponStateFiring::FireShot()
+{
+//float CurrentMoveTime = (GetUTOwner() &amp;&amp; GetUTOwner()-&gt;UTCharacterMovement) ? GetUTOwner()-&gt;UTCharacterMovement-&gt;GetCurrentSynchTime() : GetWorld()-&gt;GetTimeSeconds();
+//UE_LOG(UT, Warning, TEXT(&quot;Fire SHOT at %f (world time %f)&quot;), CurrentMoveTime, GetWorld()-&gt;GetTimeSeconds());
+GetOuterAUTWeapon()-&gt;FireShot();
+}</p> <p>In UTWeaponStateFiring the most basic case of firing behavior is implemented. One button press immediately fires the gun, and on release the gun firing behavior ceases. UTWeaponStateFiring::FireShot() thus calls <strong>UTWeapon::FireShot()</strong>:</p> <p>void AUTWeapon::FireShot()
+{
+UTOwner-&gt;DeactivateSpawnProtection();
+ConsumeAmmo(CurrentFireMode);
+ 
+if (!FireShotOverride() &amp;&amp; GetUTOwner() != NULL) // script event may kill user
+{
+PlayFiringEffects();
+if (ProjClass.IsValidIndex(CurrentFireMode) &amp;&amp; ProjClass[CurrentFireMode] != NULL)
+{
+FireProjectile();
+}
+else if (InstantHitInfo.IsValidIndex(CurrentFireMode) &amp;&amp; InstantHitInfo[CurrentFireMode].DamageType != NULL)
+{
+FireInstantHit();
+}
+}
+if (GetUTOwner() != NULL)
+{
+static FName NAME_FiredWeapon(TEXT(&quot;FiredWeapon&quot;));
+GetUTOwner()-&gt;InventoryEvent(NAME_FiredWeapon);
+}
+}</p> <p>From this point on our weapon code will branch to either <strong>UTWeapon::FireProjectile()</strong> or <strong>UTWeapon::FireInstantHit()</strong>. Other tutorials provide ample examples of utilizing these functions for custom firing behavior, so I leave it to the reader to decide how to implement those functions as necessary to achieve desired behavior. For examples of how the Weapon State is used I recommend looking at the <strong>UTWeaponStateFiringBurst</strong> code to see how overriding the Weapon State can allow the user to create functionality where one button press does not necessarily correspond to one shot, but rather to an arbitrary number of shots. Overriding this functionality can allow the user to implement all kinds of exotic and never-before-seen types of functionality!</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Create_A_Custom_Weapon_-_How_Firing_Works&amp;oldid=12071" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Create_A_Custom_Weapon_-_How_Firing_Works&amp;oldid=12071<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Unreal_Tournament" title="Category:Unreal Tournament">Unreal Tournament</a></li> <li><a href="/Category:UT_Content_Creation" title="Category:UT Content Creation">UT Content Creation</a></li> <li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/385.e76cd08f.js" defer></script>
+  </body>
+</html>

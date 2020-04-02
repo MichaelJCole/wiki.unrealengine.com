@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1025.8d093e8c.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Streamed Levels, Test If Actor Is In Level Bounds - Epic Wiki</p> <h1 id="streamed-levels-test-if-actor-is-in-level-bounds"><a href="#streamed-levels-test-if-actor-is-in-level-bounds" class="header-anchor">#</a> Streamed Levels, Test If Actor Is In Level Bounds</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Calculate_Level_Bounds">2 Calculate Level Bounds</a></li> <li><a href="#IsInside">3 IsInside</a></li> <li><a href="#Getting_the_Streaming_Level_Name">4 Getting the Streaming Level Name</a></li> <li><a href="#Summary">5 Summary</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><strong>Author:</strong> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>Here's how you can determine if an actor is within the bounds of a <strong>streamed in level</strong>!</p> <p>//in playercontroller class</p> <p>//Get the Currently Streamed Levels
+const TArray&lt;ULevelStreaming*&gt;&amp; StreamedLevels = GetWorld()-&gt;StreamingLevels;
+ 
+for(const ULevelStreaming* EachLevelStreaming : StreamedLevels)
+{
+if( !EachLevelStreaming)
+{
+continue;
+}
+ 
+ULevel* EachLevel =  EachLevelStreaming-&gt;GetLoadedLevel();
+ 
+//Is This Level Valid and Visible?
+if( !EachLevel || !EachLevel-&gt;bIsVisible)
+{
+continue;
+}
+ 
+//Print Name of current Level Streaming to know which level the unit is in!
+ClientMessage( EachLevelStreaming-&gt;GetWorldAssetPackageName() );
+ 
+//Is the Player Location Within this Level's Bounds
+if(ALevelBounds::CalculateLevelBounds(EachLevel).IsInside(GetPawn()-&gt;GetActorLocation()))
+{
+ClientMessage(&quot;Yes Player Is Within This Level&quot;);
+}
+}</p> <h2 id="calculate-level-bounds"><a href="#calculate-level-bounds" class="header-anchor">#</a> Calculate Level Bounds</h2> <p>The most notable function here is:</p> <p>FBox ALevelBounds::CalculateLevelBounds</p> <h2 id="isinside"><a href="#isinside" class="header-anchor">#</a> IsInside</h2> <p>CalculateLevelBounds returns an FBox,</p> <p>IsInside is an FBox function that takes in an FVector and sees if the FVector is within that box's bounds</p> <p>ALevelBounds::CalculateLevelBounds(EachLevel).IsInside(GetPawn()-&gt;GetActorLocation())</p> <h2 id="getting-the-streaming-level-name"><a href="#getting-the-streaming-level-name" class="header-anchor">#</a> Getting the Streaming Level Name</h2> <p>Please note as of 4.8 the way to obtain the name of the streaming level is:</p> <p>EachLevelStreaming-&gt;GetWorldAssetPackageName()</p> <h2 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h2> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Streamed_Levels,_Test_If_Actor_Is_In_Level_Bounds&amp;oldid=14820" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Streamed_Levels,_Test_If_Actor_Is_In_Level_Bounds&amp;oldid=14820<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1025.8d093e8c.js" defer></script>
+  </body>
+</html>

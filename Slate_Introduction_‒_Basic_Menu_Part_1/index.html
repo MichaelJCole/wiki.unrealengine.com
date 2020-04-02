@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/996.4ea8d924.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Slate Introduction ‒ Basic Menu Part 1 - Epic Wiki</p> <h1 id="slate-introduction-‒-basic-menu-part-1"><a href="#slate-introduction-‒-basic-menu-part-1" class="header-anchor">#</a> Slate Introduction ‒ Basic Menu Part 1</h1> <p><strong>Rate this Article:</strong></p> <p>5.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""> (4 votes)</p> <p>Approved for Versions:(4.7),(4.9)</p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" alt="Note"></p> <p><strong>Some or all of the information on this page is inconsistent, irrelevant or confusing.</strong></p> <p>Please help clean it up if you are able.</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Creating_Menus_with_Slate.2FC.2B.2B.2C_Part_1">1 Creating Menus with Slate/C++, Part 1</a> <ul><li><a href="#Overview">1.1 Overview</a></li> <li><a href="#Step_1:_Preparing_for_Slate.21">1.2 Step 1: Preparing for Slate!</a></li> <li><a href="#Step_2:_Getting_AHUD.21">1.3 Step 2: Getting AHUD!</a></li> <li><a href="#Step_3:_Creating_our_Main_Menu_widget.">1.4 Step 3: Creating our Main Menu widget.</a></li> <li><a href="#Main_Menu_Widget:_Continued">1.5 Main Menu Widget: Continued</a></li> <li><a href="#Revisiting_our_HUD">1.6 Revisiting our HUD</a></li> <li><a href="#Set_Up_Game_Mode">1.7 Set Up Game Mode</a></li> <li><a href="#Summary">1.8 Summary</a></li></ul></li></ul> <h1 id="creating-menus-with-slate-c-part-1"><a href="#creating-menus-with-slate-c-part-1" class="header-anchor">#</a> Creating Menus with Slate/C++, Part 1</h1> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Original Author</em> <a href="https://forums.unrealengine.com/member.php?1034-Minalien" target="_blank" rel="noopener noreferrer">Minalien<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>Hello, and welcome to the first of a multi-part tutorial series on creating game menus with Slate in Unreal Engine. I've recently spent a lot of time working with Slate to replace some... rather ugly setups and difficult-to-maintain Canvas-based Blueprints that made up all of the menus in a game that I am currently working on with other students at my university. A lot of accounts that I have heard from the Unreal community, unfortunately, have been that Slate is poorly-documented and somewhat unwieldy - and while I'll partially agree to the first part (in the sense that there are few beginner-friendly tutorials for getting up and running with everything you can do in Slate), I personally have to say that I found the sample projects, particularly the Strategy Game sample, to be quite revealing when it comes to working with Slate. In fact, the Strategy Game sample is where I learned most of what I know.</p> <p>Before we get started, I feel it's only fair to warn you that I'm operating with an understanding that I've gleaned from sample code and poring over various portions of <a href="https://docs.unrealengine.com/latest/INT/" target="_blank" rel="noopener noreferrer">the Unreal Engine 4 API Documentation<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>. The practices I use in this tutorial may not be the best practices, and they certainly aren't guaranteed to be the most efficient way to handle things. However, if you're looking to create a game menu that feels good in your game world, this set of tutorials will take you there. If you're up for it, and tire of waiting for my tutorial series to be completed, I can't recommend strongly enough reading through the UI portions of the Strategy Game sample!</p> <p>For this first tutorial, I'm going to keep things quite basic. We're going to create a very basic, unstyled game menu that simply shows a game title and provides two buttons: Play Game and Quit, which will in turn call Blueprints on the HUD associated with the UI in order to handle the actual functionality of the buttons. In the next tutorial, I'm going to get into implementing Slate UI Styles that can be edited within the Unreal Editor, allowing you to adjust the look and feel of your Menus from within the editor itself. After that, we will start to get into Data Binding, which can be great for updating portions of your UI - for example, if you were to set up pages within a shop interface, you might want a text block to display how many items the player currently has in her shopping cart. Finally, I'll end with methods that can be used to create more dynamic, interactive menus such as what you see in the Strategy Game sample.</p> <ul><li><a href="https://wiki.unrealengine.com/Slate_Introduction_%E2%80%92_Basic_Menu_Part_1" target="_blank" rel="noopener noreferrer">Part 1: Introduction &amp; Basic Menu<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://wiki.unrealengine.com/Slate_Style_Sets_Part_2" target="_blank" rel="noopener noreferrer">Part 2: Style Sets<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://wiki.unrealengine.com/Slate_Data_Binding_Part_3" target="_blank" rel="noopener noreferrer">Part 3: Data Binding<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul> <h2 id="step-1-preparing-for-slate"><a href="#step-1-preparing-for-slate" class="header-anchor">#</a> Step 1: Preparing for Slate!</h2> <p>Because this tutorial is focused on C++ and Slate, I am assuming a basic level of understanding with Unreal Engine. I expect you to be able to create a project, add a specific class to your project, and so on - if you don't already know this, you should follow other tutorials (or <a href="https://www.youtube.com/user/UnrealDevelopmentKit/playlists" target="_blank" rel="noopener noreferrer">the Unreal Engine YouTube page<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>) before you touch this one.</p> <p>For the sample in this project, I'm going to assume that you have created a Blank project. With or without starter content really does not matter, as I won't be using any of it in this tutorial. Once you've created your project, make sure you have generated code &amp; Visual Studio or Xcode projects for the project. For the remainder of the tutorial series, I am going to operate under the assumption that SlateTutorials is your project name - remember to replace this with your own project name where appropriate. In your project's source folder, open your <em>SlateTutorials.Build.cs</em> file and uncomment the following line or add it:</p> <p>// Uncomment if you are using Slate UI
+PrivateDependencyModuleNames.AddRange(new string[] { &quot;Slate&quot;, &quot;SlateCore&quot; });</p> <p>This will add the necessary Slate libraries and headers to your project path when you attempt to build. You're now ready to write your first Slate UI!</p> <h2 id="step-2-getting-ahud"><a href="#step-2-getting-ahud" class="header-anchor">#</a> Step 2: Getting AHUD!</h2> <p>The first thing that we want to add to the project is a new HUD class, which we'll call <em>MainMenuHUD</em>:</p> <p>MainMenuHUD.h</p> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+// MainMenuHUD.h – Provides an implementation of the HUD that will embed the Main Menu Slate UI.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/HUD.h&quot;
+#include &quot;MainMenuHUD.generated.h&quot;
+ 
+/**
+* Provides an implementation of the game’s Main Menu HUD, which will embed and respond to events triggered
+* within SMainMenuUI.
+*/
+UCLASS()
+class SLATETUTORIALS_API AMainMenuHUD : public AHUD
+{
+GENERATED_BODY()
+// Initializes the Slate UI and adds it as widget content to the game viewport.
+virtual void PostInitializeComponents() override;
+ 
+// Reference to the Main Menu Slate UI.
+TSharedPtr&lt;class SMainMenuUI&gt; MainMenuUI;
+ 
+public:
+// Called by SMainMenu whenever the Play Game! button has been clicked.
+UFUNCTION(BlueprintImplementableEvent, Category = &quot;Menus|Main Menu&quot;)
+void PlayGameClicked();
+ 
+// Called by SMainMenu whenever the Quit Game button has been clicked.
+UFUNCTION(BlueprintImplementableEvent, Category = &quot;Menus|Main Menu&quot;)
+void QuitGameClicked();
+};</p> <p>MainMenuHUD.cpp</p> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;SlateTutorials.h&quot;
+#include &quot;MainMenuHUD.h&quot;
+ 
+void AMainMenuHUD::PostInitializeComponents()
+{
+Super::PostInitializeComponents();
+}</p> <p>I feel the comments here do a pretty good job of explaining everything, and if you're working with Slate &amp; C++ then most of this should already be familiar to you. If you don't already know what purpose PlayGameClicked() and QuitGameClicked() serve, the UFUNCTION macros should give them away - they're events that will be available to any Blueprint inheriting the MainMenuHUD class, which we can then use to specify what, exactly, happens when these vents are called by our SMainMenuUI. I've seen plenty of tutorials (including <a href="https://wiki.unrealengine.com/Slate,_Hello" target="_blank" rel="noopener noreferrer">the Slate, Hello!<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> tutorial on the UE4 Wiki, which was a great introduction to Slate for me) initialize the UIs in BeginPlay, but I noticed that the Strategy Game sample does so inPostInitializeComponents, so I'm choosing to do the latter. We will revisit the implementation of the PostInitializeComponents() method in a minute.</p> <h2 id="step-3-creating-our-main-menu-widget"><a href="#step-3-creating-our-main-menu-widget" class="header-anchor">#</a> Step 3: Creating our Main Menu widget.</h2> <p>Now, go ahead and add another class to your project: SMainMenuUI, which inherits from SCompoundWidget. This class is a little bit more involved than the HUD class, so I'm going to first show you the code, then explain each part individually.</p> <p>MainMenuUI.h</p> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+/**
+* MainMenuUI.h – Provides an implementation of the Slate UI representing the main menu.
+*/
+ 
+#pragma once
+ 
+#include &quot;SlateBasics.h&quot;
+#include &quot;MainMenuHUD.h&quot;
+ 
+// Lays out and controls the Main Menu UI for our tutorial.
+class SLATETUTORIALS_API SMainMenuUI : public SCompoundWidget
+{
+ 
+public:
+SLATE_BEGIN_ARGS(SMainMenuUI)
+{}
+SLATE_ARGUMENT(TWeakObjectPtr&lt;class AMainMenuHUD&gt;, MainMenuHUD)
+SLATE_END_ARGS()
+ 
+// Constructs and lays out the Main Menu UI Widget.
+// args Arguments structure that contains widget-specific setup information.
+void Construct(const FArguments&amp; args);
+ 
+// Click handler for the Play Game! button – Calls MenuHUD’s PlayGameClicked() event.
+FReply PlayGameClicked();
+ 
+// Click handler for the Quit Game button – Calls MenuHUD’s QuitGameClicked() event.
+FReply QuitGameClicked();
+ 
+// Stores a weak reference to the HUD controlling this class.
+TWeakObjectPtr&lt;class AMainMenuHUD&gt; MainMenuHUD;
+};</p> <p>Most of this should be fairly straightforward. First, notice that we do not specify UCLASS() - this isn't a class that is exported for Blueprints, and in fact it should not be. First, we inherit from SCompoundWidget - a CompoundWidget is a Slate widget that is composed of other widgets - there are many examples of this in the Slate API - SVerticalBox, SHorizontalBox, SOverlay, and several others. The opposite of this is an SLeafWidget, which does not contain other widgets.</p> <div class="language- extra-class"><pre><code>SLATE\_BEGIN\_ARGS(SMainMenuUI)
+{}
+SLATE\_ARGUMENT(TWeakObjectPtr&lt;class AMainMenuHUD\&gt;, MainMenuHUD)
+SLATE\_END\_ARGS()
+</code></pre></div><p>This portion may seem odd if you haven't gotten used to the sheer amount of Macro-magic used by Unreal Engine. All these lines ultimately do is generate a struct that contains a list of arguments that can be passed during setup to this widget. You may have noticed FArguments in the Construct() method - this is defining that structure. In our case, we have a single argument: a weak pointer to the AMainMenuHUD that owns this class. If you're not familiar with smart pointers, this essentially means that we can reference the parent HUD, but avoid creating a strong circular reference (remember, our HUD references this object as well) that could cause both objects to remain in memory even when no longer used.</p> <div class="language- extra-class"><pre><code>    void Construct(const FArguments&amp; args);
+</code></pre></div><p>The Construct() method takes a single argument, the FArguments struct our SLATE_* macros defined a little bit ago that contains all of the arguments used by the widget. This method is called whenever we actually create the widget, and as you'll see in a minute is responsible for laying out the Widget.</p> <div class="language- extra-class"><pre><code>// Click handler for the Play Game! button – Calls MenuHUD’s PlayGameClicked() event.
+FReply PlayGameClicked();
+</code></pre></div><p>// Click handler for the Quit Game button – Calls MenuHUD’s QuitGameClicked() event.
+FReply QuitGameClicked();</p> <p>These methods will serve as event handlers for the Play Game! and Quit Game buttons that we are going to be adding. They conform to the FOnClicked event, which simply returns an FReply (which tells the engine whether the event was handled or not), and accept no parameters. We could, if we'd wanted, have specified a parameter on these methods - I'll show how that can be done &amp; used when we get into data binding in a future tutorial.</p> <h2 id="main-menu-widget-continued"><a href="#main-menu-widget-continued" class="header-anchor">#</a> Main Menu Widget: Continued</h2> <p>Now, we are able to implement our Main Menu widget. This will be a rather easy task, as we only have three methods to implement - but it's going to look very, very strange at first (I recommend, when working with Slate, that you pick up good practices with indentation. Ensuring that things are indented well is absolutely necessary to understanding your layout.</p> <p>MainMenuUI.cpp</p> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;SlateTutorials.h&quot;
+#include &quot;MainMenuUI.h&quot;
+#include &quot;Engine.h&quot;
+ 
+BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
+void SMainMenuUI::Construct(const FArguments&amp; args)
+{
+MainMenuHUD = args._MainMenuHUD;
+ 
+ChildSlot
+[
+SNew(SOverlay)
++ SOverlay::Slot()
+.HAlign(HAlign_Center)
+.VAlign(VAlign_Top)
+[
+SNew(STextBlock)
+.ColorAndOpacity(FLinearColor::White)
+.ShadowColorAndOpacity(FLinearColor::Black)
+.ShadowOffset(FIntPoint(-1, 1))
+.Font(FSlateFontInfo(&quot;Arial&quot;, 26))
+.Text(FText::FromString(&quot;Main Menu&quot;))
+]
++ SOverlay::Slot()
+.HAlign(HAlign_Right)
+.VAlign(VAlign_Bottom)
+[
+SNew(SVerticalBox)
++ SVerticalBox::Slot()
+[
+SNew(SButton)
+.Text(FText::FromString(&quot;Play Game!&quot;))
+.OnClicked(this, &amp;SMainMenuUI::PlayGameClicked)
+]
++ SVerticalBox::Slot()
+[
+SNew(SButton)
+.Text(FText::FromString(&quot;Quit Game&quot;))
+.OnClicked(this, &amp;SMainMenuUI::QuitGameClicked)
+]
+]
+];
+ 
+}
+END_SLATE_FUNCTION_BUILD_OPTIMIZATION
+ 
+FReply SMainMenuUI::PlayGameClicked()
+{
+if (GEngine)
+{
+GEngine-&gt;AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow, TEXT(&quot;PlayGameClicked&quot;));
+}
+ 
+// actually the BlueprintImplementable function of the HUD is not called; uncomment if you want to handle the OnClick via Blueprint
+//MainMenuHUD-&gt;PlayGameClicked();
+return FReply::Handled();
+}
+ 
+FReply SMainMenuUI::QuitGameClicked()
+{
+if (GEngine)
+{
+GEngine-&gt;AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow, TEXT(&quot;QuitGameClicked&quot;));
+}
+ 
+// actually the BlueprintImplementable function of the HUD is not called; uncomment if you want to handle the OnClick via Blueprint
+//MainMenuHUD-&gt;QuitGameClicked();
+return FReply::Handled();
+}</p> <p>You see what I mean about indentation and the potentially awkward structure for defining Slate UI layouts? We'll start with our two event handlers: As expected, they first call the corresponding Blueprint event on the HUD, so that our Blueprint responses to these button clicks can be handled. Then, they return FReply::Handled() - this simply lets the engine know that we've handled the click events - so it doesn't need to do any other processing for the player's mouse input.</p> <p>Now, the Construct() method. As mentioned before, FArguments is a structure defined by our SLATE* macros - in our case, it adds a method we will later use to specify the HUD that owns this widget. Our first order of business is capturing that value - we simply set our local value to the one contained by args. Note that the actual name of the variable here is __MainMenuHUD, not MainMenuHUD - MainMenuHUD is the mutator method for actually setting the variable: all arguments passed through SLATE_ARGUMENT will follow this convention.</p> <p>The entirety of the layout definition is a very pretty magic trick written by Epic to take advantage of operator overloads and other cool functionality for defining our UI layout. To put it simply, we are using the [] operator to define widgets that are children of our custom (compound) widget. For compound widgets, we first start by calling SNew(WidgetClass), and then add widgets using + WidgetClass::Slot(). We may then, within that slot's [] operator, specify children for that slot.</p> <p>In our case, we start with an Overlay widget. You can think of the SOverlay widget as a group of layers - the first ones defined will be under subsequently-declared slots. In our case, we're not going to have any overlap, as we've specified that the first slot should dock to the upper-center of the screen, while the second should dock to the bottom-right. However, you could (and in the next tutorial, will) specify an image that fills the entire viewport as the first slot, then have the buttons appear on subsequent slots to be placed on top of the image.</p> <p>The first child of the SOverlay is an STextBlock, which is fairly similar to TextBlock or Label instances in other GUI APIs. For this, we specify a color, a shadow color, a shadow offset, a font, and some text. All of this is fairly self-explanatory, but notice that we don't have any ::Slot() calls after SNew - this is because a TextBlock is a Leaf widget - it cannot contain children, so we don't have any slots to take up, and therefore we specify the properties on the item itself.</p> <p>Our second child is yet another compound widget - this time, SVerticalBox. The Vertical Box (and its sister-element, the Horizontal Box) will stack elements on top of each other (for the HorizontalBox, they will go left-to-right), taking up an equal amount of space. Inside the Vertical Box's slots (remember, SVerticalBox is a compound widget), we specify SButton instances with two arguments. The first argument is the Text that will be displayed on the button. The second is a binding to the event handler (PlayGameClicked/QuitGameClicked) that will be called whenever the button is clicked. Finally, we end it all with that most beloved of programming keys: the semicolon.</p> <h2 id="revisiting-our-hud"><a href="#revisiting-our-hud" class="header-anchor">#</a> Revisiting our HUD</h2> <p>Now that we've finished setting up our Main Menu UI layout, it's time to go back and tie it into our HUD! Go back and adjust your PostInitializeComponents method:</p> <p>MainMenuHUD.cpp</p> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;SlateTutorials.h&quot;
+#include &quot;MainMenuHUD.h&quot;
+#include &quot;MainMenuUI.h&quot;
+#include &quot;Engine.h&quot;
+ 
+void AMainMenuHUD::PostInitializeComponents()
+{
+Super::PostInitializeComponents();
+ 
+SAssignNew(MainMenuUI, SMainMenuUI).MainMenuHUD(this);
+ 
+if (GEngine-&gt;IsValidLowLevel())
+{
+GEngine-&gt;GameViewport-&gt;AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(MainMenuUI.ToSharedRef()));
+}
+}</p> <p>The setup here is simple - after making sure the Engine and Viewport are valid, we create a new instance of the MainMenuUI, then we add the widget as content to our game's viewport! Notice the .MenuHUD added to SAssignNew - this is once again the result of our SLATE_ macros - remember the MenuHUD portion of our SLATE_ARGUMENT macro? Not only did it set the name of our variable (_MainMenuHUD), but it also generated the mutator method we're using here!</p> <h2 id="set-up-game-mode"><a href="#set-up-game-mode" class="header-anchor">#</a> Set Up Game Mode</h2> <p>The first and easiest way to make a game mode is written here <a href="https://wiki.unrealengine.com/Slate,_Hello#Creating_a_new_Game_Mode_and_Setting_It.27s_Defaults" target="_blank" rel="noopener noreferrer">Creating a new Game Mode and Setting It's Defaults<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>, I will not duplicate here and just give a link.</p> <p>The second way to create a game mode from code, like this:</p> <p>WidgetGameMode.h</p> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/GameMode.h&quot;
+#include &quot;WidgetGameMode.generated.h&quot;
+ 
+UCLASS()
+class SLATETUTORIALS_API AWidgetGameMode : public AGameMode
+{
+GENERATED_UCLASS_BODY()
+ 
+public:
+AWidgetGameMode();
+ 
+};</p> <p>WidgetGameMode.cpp</p> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;SlateTutorials.h&quot;
+#include &quot;WidgetGameMode.h&quot;
+#include &quot;MainMenuHUD.h&quot;
+ 
+AWidgetGameMode::AWidgetGameMode()
+{
+HUDClass = AMainMenuHUD::StaticClass();
+}</p> <p>Then select from Project Settings, &quot;Maps &amp; Modes&quot;</p> <p><a href="/File:%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82_2015-03-18_13.21.16.png"><img src="https://d26ilriwvtzlb.cloudfront.net/8/85/%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82_2015-03-18_13.21.16.png" alt="Скриншот 2015-03-18 13.21.16.png"></a></p> <h2 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h2> <p>Set the appropriate classes on your Game Mode, set your level to use your new game mode, and run! If everything worked out, you should have the following, working (but somewhat ugly) game menu! Don't worry, in the next tutorial, we'll start to get into setting up Styles, which will allow us to massively improve the appearance of our menu items!</p> <p><a href="/File:%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82_2015-03-18_13.28.24.png"><img src="https://d26ilriwvtzlb.cloudfront.net/1/16/%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82_2015-03-18_13.28.24.png" alt="Скриншот 2015-03-18 13.28.24.png"></a></p> <p>Source code: <a href="/File:SlateTutorials-1.zip" title="File:SlateTutorials-1.zip">File:SlateTutorials-1.zip</a> (~244KB)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Slate_Introduction_%E2%80%92_Basic_Menu_Part_1&amp;oldid=23413" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Slate_Introduction_‒_Basic_Menu_Part_1&amp;oldid=23413<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/996.4ea8d924.js" defer></script>
+  </body>
+</html>

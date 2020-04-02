@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/497.086c38ec.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Expose an interface to blueprint - Epic Wiki</p> <h1 id="expose-an-interface-to-blueprint"><a href="#expose-an-interface-to-blueprint" class="header-anchor">#</a> Expose an interface to blueprint</h1> <p><a href="/File:BlueprintInterface.png"><img src="https://d3ar1piqh1oeli.cloudfront.net/5/5a/BlueprintInterface.png/180px-BlueprintInterface.png" alt="BlueprintInterface.png"></a></p> <p><a href="/File:BlueprintInterface.png" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" alt=""></a></p> <p><strong>Rate this Article:</strong></p> <p>3.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""> (one vote)</p> <p>Approved for Versions:(please verify)</p> <p><strong>NOTE: This tutorial is largely out of date, recommend reading this instead</strong> <a href="https://wiki.unrealengine.com/Interfaces_in_C%2B%2B#The_Interface" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/Interfaces_in_C%2B%2B#The_Interface<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>We will create a simple interface that you can use in your blueprints. As you can see in the picture above we will create a simple event called <em>On Interact</em> which exposes your interface &quot;clicked&quot; with argument type <strong>ITargetInterface</strong>. Note that this argument is only needed in this specific example. If you make your own class with your own event, you can make events with an optional number of arguments. With this interface in place we will be able to call it's functions like <em>GetHealth</em>.</p> <p>Header file:</p> <p>#pragma once
+#include &quot;TargetInterface.generated.h&quot;
+UINTERFACE(MinimalAPI)
+class UTargetInterface :
+public UInterface
+{
+GENERATED_UINTERFACE_BODY()
+};
+ 
+class ITargetInterface{
+GENERATED_IINTERFACE_BODY()
+public:
+UFUNCTION(BlueprintImplementableEvent, meta=(FriendlyName = &quot;On Interact&quot;))
+void OnInteract(const TScriptInterface&lt;ITargetInterface&gt; &amp;clicked);
+virtual float GetHealth();
+ 
+};</p> <p>.cpp file:</p> <p>#include &quot;YourProject.h&quot;
+#include &quot;TargetInterface.h&quot;
+ 
+UTargetInterface::UTargetInterface(const class FPostConstructInitializeProperties&amp; PCIP) : Super(PCIP){
+ 
+}
+// Give GetHealth a default implementation
+float ITargetInterface::GetHealth(){
+return 0.0f;
+}</p> <p>The important part here is</p> <p>UFUNCTION(BlueprintImplementableEvent, meta=(FriendlyName = &quot;On Interact&quot;))
+void OnInteract(const TScriptInterface&lt;ITargetInterface&gt; &amp;clicked);</p> <p>1.) BlueprintImplementableEvent turns your function into a blueprint event. This event will be called in blueprint when ever you call it in c++.</p> <p>2.) <em>void OnInteract(const TScriptInterface<ITargetInterface> &amp;clicked);</ITargetInterface></em> . Sometimes simple events are not enough for example in this case we want to know who has started the OnInteract event.</p> <p>3.) The most important part is &quot;<em>const TScriptInterface<ITargetInterface> &amp;clicked</ITargetInterface></em>&quot;. We have to wrap our interface inside of an TScriptInterface to expose it to blueprint.</p> <p>To trigger the event you can from within your C++ code call the function Execute_OnInteract. It always takes the instance of your class as an argument + the optional arguments you defined. In our case this is a TScriptInterface<ITargetInterface> object. Below is the example code, where we have created an instance named actor. We will generate the necessary argument &quot;s&quot; and then call the Execute_OnInteract function.</ITargetInterface></p> <p>auto t = InterfaceCast&lt;ITargetInterface&gt;(actor);
+if (t != nullptr){		
+TScriptInterface&lt;ITargetInterface&gt; s = TScriptInterface&lt;ITargetInterface&gt;();
+s.SetObject(actor);
+s.SetInterface(t);
+t-&gt;Execute_OnInteract(actor,s);
+}</p> <p>InterfaceCast tries to convert your actor to an ITargetInterface. In this case the variable &quot;t&quot; will be null if the cast has failed. The next step is to wrap our actor who implements our ITargetInterface in an TScriptInterface. You do this by creating an TScriptInterface with the default consturctor and use the <em>SetObject</em> method.</p> <p>Now the most important part here is that you should not call the method <em>OnInteract</em> because this will result in an runtime error. Instead you need to call the generated utility function which is called <em>Execute_YourFunctionName</em> in this case it is called <em>Execute_OnInteract</em>. The first argument is always the UObject and the following argument are the arguments of your function.</p> <p>In our case we defined</p> <p>void OnInteract(const TScriptInterface&lt;ITargetInterface&gt; &amp;clicked)</p> <p>So the type signature will look like this</p> <p>Execute_OnInteract(UObject *object, const TScriptInterface&lt;ITargetInterface&gt; &amp;clicked);</p> <p>At this point you can already use your event in your blueprints. The problem is that you have no functions that are working with your newly created interface. Let's fix this.</p> <p>Header code:</p> <p>#pragma once
+ 
+#include &quot;GameFramework/Actor.h&quot;
+#include &quot;TargetInterface.h&quot;
+#include &quot;TargetInterfaceBPFunctionLibrary.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS()
+class UTargetInterfaceBPFunctionLibrary : public UBlueprintFunctionLibrary
+{
+GENERATED_UCLASS_BODY()
+ 
+UFUNCTION(BlueprintCallable, Category=&quot;TargetInterface&quot;)
+static float GetHealth(const TScriptInterface&lt;ITargetInterface&gt; &amp;target);
+};</p> <p>.cpp code:</p> <p>#include &quot;project.h&quot;
+#include &quot;TargetInterfaceBPFunctionLibrary.h&quot;
+ 
+ 
+UTargetInterfaceBPFunctionLibrary::UTargetInterfaceBPFunctionLibrary(const class FPostConstructInitializeProperties&amp; PCIP)
+: Super(PCIP)
+{
+ 
+}
+ 
+float UTargetInterfaceBPFunctionLibrary::GetHealth(const TScriptInterface&lt;ITargetInterface&gt; &amp;target)
+{
+return target-&gt;GetHealth();
+}</p> <p>That's it. Now you can access your interface inside of your blueprints.</p> <p><a href="/index.php?title=User:Maikklein&amp;action=edit&amp;redlink=1" title="User:Maikklein (page does not exist)">Maikklein</a></p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Expose_an_interface_to_blueprint&amp;oldid=15398" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Expose_an_interface_to_blueprint&amp;oldid=15398<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/497.086c38ec.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/422.963c02cb.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Custom Blueprint Class Picker Dialog Settings - Epic Wiki</p> <h1 id="custom-blueprint-class-picker-dialog-settings"><a href="#custom-blueprint-class-picker-dialog-settings" class="header-anchor">#</a> Custom Blueprint Class Picker Dialog Settings</h1> <p><strong>Rate this Page:</strong></p> <p>0.00</p> <p><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""></p> <p>Approved for Versions:4.0</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Purpose">2 Purpose</a></li> <li><a href="#Some_Theory_.28waah.29">3 Some Theory (waah)</a> <ul><li><a href="#Parameters">3.1 Parameters</a></li></ul></li> <li><a href="#The_Tutorial">4 The Tutorial</a></li> <li><a href="#Closing">5 Closing</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>If you are like me, being lazy and all, but still doing everything to support this laziness, than you have come to the right place to be able to right-click onto your Content Browser, click on Blueprint and seeing your most used, beloved, always compiling, and functioning custom C++ classes right away, ready to be clicked on, than rather searching through the Class Browser.</p> <p><a href="/File:UE4Wiki_BlueprintCustomCommonClasses_01.PNG"><img src="https://d26ilriwvtzlb.cloudfront.net/c/c5/UE4Wiki_BlueprintCustomCommonClasses_01.PNG" alt=""></a></p> <p><a href="/File:UE4Wiki_BlueprintCustomCommonClasses_01.PNG" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" alt=""></a></p> <p>Window To Laziness</p> <h2 id="purpose"><a href="#purpose" class="header-anchor">#</a> Purpose</h2> <p>Even though my Project &quot;Nina&quot; is a one man show, I work on other projects with several people, consisting of Designers, Programmers, and coffee addicts called Producers (me). Now having important classes exposed right in the Blueprint Wizard, makes it easy for Designers to know what to pick, especially when it comes down to Actors, Pawns etc. It happens very fast that you need to parent a wrong class again, and if it has already a very extensive Graph, it might not work right away. Also all that greatness a Coder has put into that custom class, is just not available for the Designers.</p> <p>So in the end it is about convenience and ensuring that the correct, most used classes are exposed to have a more efficient and secure workflow and makes everyone happy, especially Producers.</p> <p>This tutorial is for everyone who likes to make their experience a bit more convenient for themselves or their team. In general this tutorial is for everyone who likes to include their C++ Custom Classes into the Picker (Common Classes).</p> <p>For now I will not create a custom Editor Module but basically explain some of the Parameters and where the code is, but than basically just moving ahead adding to the Project ini File. In a later stage I might update this Tutorial to go a bit further, so this is perfectly viable also for people just extending Gameplay Classes, without the need of Editor Localization and Editor Extension. For those who don't want to know where things are coming from and don't want to go along with extending the Editor on their own, can go ahead with the Tutorial part.</p> <p><strong>4.6.1</strong> - Only extending works, doesn't remove standard list, even if so declared, so only use + not -</p> <p><strong>4.7 Preview 5</strong> - works fully</p> <p><strong>Promoted Branch Changelist 2432918</strong> - works fully</p> <h2 id="some-theory-waah"><a href="#some-theory-waah" class="header-anchor">#</a> Some Theory (waah)</h2> <p>Basically, the declaration or in other words setting of the standard list, is part of the BaseEditor.ini of the Engine found in &quot;Engine/Config/&quot;. What we are searching for is +NewAssetDefaultClasses.</p> <p>; Class picker dialog settings
+; LocText refers to the localization id for the descriptive text to show next to the icon in the picker
++NewAssetDefaultClasses=(ClassName=&quot;/Script/Engine.Actor&quot;, LocTextNameID=&quot;ActorName&quot;, LocTextDescriptionID=&quot;ActorDesc&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)
++NewAssetDefaultClasses=(ClassName=&quot;/Script/Engine.Pawn&quot;, LocTextNameID=&quot;PawnName&quot;, LocTextDescriptionID=&quot;PawnDesc&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)
++NewAssetDefaultClasses=(ClassName=&quot;/Script/Engine.Character&quot;, LocTextNameID=&quot;CharacterName&quot;, LocTextDescriptionID=&quot;CharacterDesc&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)
++NewAssetDefaultClasses=(ClassName=&quot;/Script/Engine.PlayerController&quot;, LocTextNameID=&quot;PlayerControllerName&quot;, LocTextDescriptionID=&quot;PlayerControllerDesc&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)
++NewAssetDefaultClasses=(ClassName=&quot;/Script/Engine.GameMode&quot;, LocTextNameID=&quot;GameModeName&quot;, LocTextDescriptionID=&quot;GameModeDesc&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)</p> <p>These settings are part of</p> <p>[/Script/UnrealEd.UnrealEdOptions]</p> <p><strong>Attention</strong>: We are not going to change those in the BaseEditor.ini, but will use our DefaultEditor.ini from our Project instead.</p> <p>Those Parameters are part of the USTRUCT <a href="https://docs.unrealengine.com/latest/INT/API/Editor/UnrealEd/Preferences/FClassPickerDefaults/index.html" target="_blank" rel="noopener noreferrer">FClassPickerDefaults<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><strong>UnrealEdOptions.h</strong></p> <p>/** Default Classes for the Class Picker Dialog*/
+USTRUCT()
+struct FClassPickerDefaults
+{
+GENERATED_USTRUCT_BODY()
+ 
+/** The name of the class to select */
+UPROPERTY()
+FString ClassName;
+ 
+/** The loc text name for the class */
+UPROPERTY()
+FString LocTextNameID;
+ 
+/** The loc text description for the class */
+UPROPERTY()
+FString LocTextDescriptionID;
+ 
+/** The name of the asset type being created */
+UPROPERTY()
+FString AssetClass;
+ 
+/** Gets the localized name text for the class */
+FText GetName() const;
+ 
+/** Gets the localized descriptive text for the class */
+FText GetDescription() const;
+};</p> <h3 id="parameters"><a href="#parameters" class="header-anchor">#</a> Parameters</h3> <p><strong>ClassName</strong> - &quot;/Script/[Module].[ClassName]&quot; - Basically the Class which you want to be called when the Designer is pushing THE BUTTON.</p> <p><strong>LocTextNameID</strong> - Name (Button) - Either referencing directly the definition in the Code, or if its not present, it will use directly the Text set in the ini.</p> <p><strong>UnrealEdOptions.cpp</strong></p> <p>FText FClassPickerDefaults::GetName() const
+{
+static TMap&lt; FString, FText &gt; LocNames;
+ 
+if (LocNames.Num() == 0)
+{
+LocNames.Add( TEXT(&quot;ActorName&quot;), LOCTEXT(&quot;ActorName&quot;, &quot;Actor&quot;) );
+LocNames.Add( TEXT(&quot;PawnName&quot;), LOCTEXT(&quot;PawnName&quot;, &quot;Pawn&quot;) );
+LocNames.Add( TEXT(&quot;CharacterName&quot;), LOCTEXT(&quot;CharacterName&quot;, &quot;Character&quot;) );
+LocNames.Add( TEXT(&quot;PlayerControllerName&quot;), LOCTEXT(&quot;PlayerControllerName&quot;, &quot;PlayerController&quot;) );
+LocNames.Add( TEXT(&quot;GameModeName&quot;), LOCTEXT(&quot;GameModeName&quot;, &quot;Game Mode&quot;) );
+}
+ 
+if ( LocTextNameID.IsEmpty() )
+{
+UClass* ItemClass = LoadClass&lt;UObject&gt;(NULL, *ClassName, NULL, LOAD_None, NULL);
+check( ItemClass );
+return FText::FromString(FName::NameToDisplayString(ItemClass-&gt;GetName(), false));
+}
+ 
+const FText* PreExistingName = LocNames.Find( LocTextNameID );
+if ( PreExistingName )
+{
+return *PreExistingName;
+}
+ 
+FText OutName;
+if ( FText::FindText(TEXT(&quot;UnrealEd&quot;), LocTextNameID, OutName) )
+{
+return OutName;
+}
+ 
+return FText::FromString(LocTextNameID);
+}</p> <p><strong>LocTextDescriptionID</strong> - Description, next to the Button - Either referencing directly the definition in the Code of the ID, or if its not present, it will use directly the Text set in the ini.</p> <p><strong>UnrealEdOptions.cpp</strong></p> <p>FText FClassPickerDefaults::GetDescription() const
+{
+static TMap&lt; FString, FText &gt; LocDescs;
+ 
+if (LocDescs.Num() == 0)
+{
+LocDescs.Add( TEXT(&quot;ActorDesc&quot;), LOCTEXT(&quot;ActorDesc&quot;, &quot;An Actor is an object that can be placed or spawned in the world.&quot;) );
+LocDescs.Add( TEXT(&quot;PawnDesc&quot;), LOCTEXT(&quot;PawnDesc&quot;, &quot;A Pawn is an actor that can be 'possessed' and receieve input from a controller.&quot;) );
+LocDescs.Add( TEXT(&quot;CharacterDesc&quot;), LOCTEXT(&quot;CharacterDesc&quot;, &quot;A character is a type of Pawn that includes the ability to walk around.&quot;) );
+LocDescs.Add( TEXT(&quot;PlayerControllerDesc&quot;), LOCTEXT(&quot;PlayerControllerDesc&quot;, &quot;A Player Controller is an actor responsible for controlling a Pawn used by the player.&quot;) );
+LocDescs.Add( TEXT(&quot;GameModeDesc&quot;), LOCTEXT(&quot;GameModeDesc&quot;, &quot;Game Mode defines the game being played, its rules, scoring, and other facets of the game type.&quot;) );
+}
+ 
+if ( LocTextDescriptionID.IsEmpty() )
+{
+return LOCTEXT(&quot;NoClassPickerDesc&quot;, &quot;No Description.&quot;);
+}
+ 
+const FText* PreExistingDesc = LocDescs.Find( LocTextDescriptionID );
+if ( PreExistingDesc )
+{
+return *PreExistingDesc;
+}
+ 
+FText OutDesc;
+if ( FText::FindText(TEXT(&quot;UnrealEd&quot;), LocTextDescriptionID, OutDesc) )
+{
+return OutDesc;
+}
+ 
+return FText::FromString(LocTextDescriptionID);
+}</p> <p><strong>AssetClass</strong> - Asset type being created - Basically in this case it would be normally be as is, except of course you are extending the Blueprint Engine (What the hell are you doing here!)</p> <p>To have control over the Buttons Tooltip, you need to have a comment in your Header File.</p> <p>/**
+* Custon Nina Actor - Actor is the base class for an Object that can be placed or spawned in a level.
+* Actors may contain a collection of ActorComponents, which can be used to control how actors move, how they are rendered, etc.
+* The other main function of an Actor is the replication of properties and function calls across the network during play.
+*
+* @see https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/Actors/
+* @see UActorComponent
+*/
+UCLASS()
+class NINA_API ANinaActor : public AActor</p> <h2 id="the-tutorial"><a href="#the-tutorial" class="header-anchor">#</a> The Tutorial</h2> <p>This is basically only editing the DefaultEditor.ini without considering for localization, which would require a bit more work, extending the Editor. So if you stick with English or the Standard Language you are using, your are good to go.</p> <p>1. Close the Editor (Really? Yes!)</p> <p>2. First copy all the existing entries of the BaseEngine.ini in &quot;Engine/Config/&quot; (where your Engine is installed not Project) with +NewAssetDefaultClasses under [/Script/UnrealEd.UnrealEdOptions]</p> <p>[/Script/UnrealEd.UnrealEdOptions]
+...
+; Class picker dialog settings
+; LocText refers to the localization id for the descriptive text to show next to the icon in the picker
++NewAssetDefaultClasses=(ClassName=&quot;/Script/Engine.Actor&quot;, LocTextNameID=&quot;ActorName&quot;, LocTextDescriptionID=&quot;ActorDesc&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)
++NewAssetDefaultClasses=(ClassName=&quot;/Script/Engine.Pawn&quot;, LocTextNameID=&quot;PawnName&quot;, LocTextDescriptionID=&quot;PawnDesc&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)
++NewAssetDefaultClasses=(ClassName=&quot;/Script/Engine.Character&quot;, LocTextNameID=&quot;CharacterName&quot;, LocTextDescriptionID=&quot;CharacterDesc&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)
++NewAssetDefaultClasses=(ClassName=&quot;/Script/Engine.PlayerController&quot;, LocTextNameID=&quot;PlayerControllerName&quot;, LocTextDescriptionID=&quot;PlayerControllerDesc&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)
++NewAssetDefaultClasses=(ClassName=&quot;/Script/Engine.GameMode&quot;, LocTextNameID=&quot;GameModeName&quot;, LocTextDescriptionID=&quot;GameModeDesc&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)</p> <p>3. Paste into your DefaultEditor.ini in your Projects Config Folder [ProjectName]\Config</p> <p>4. Replace the + with a - if you don't want those Standard Classes to appear, otherwise leave it.</p> <p>5. Include your own Classes by following this Standard</p> <p>+NewAssetDefaultClasses=(ClassName=&quot;/Script/[YourGameModuleName].[YourClassName]&quot;, LocTextNameID=&quot;[NameOfClass]&quot;, LocTextDescriptionID=&quot;[DescriptionOfClass]&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)</p> <p>Characters are limited for Name and Description, and might get cut when viewing in the Editor.</p> <p>6. Save it, Test it, no compiling required (hurray)</p> <p>My Final Result looks like this:</p> <p>[/Script/UnrealEd.UnrealEdOptions]
+; Old Class picker dialog settings
+; LocText refers to the localization id for the descriptive text to show next to the icon in the picker
+-NewAssetDefaultClasses=(ClassName=&quot;/Script/Engine.Actor&quot;, LocTextNameID=&quot;ActorName&quot;, LocTextDescriptionID=&quot;ActorDesc&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)
+-NewAssetDefaultClasses=(ClassName=&quot;/Script/Engine.Pawn&quot;, LocTextNameID=&quot;PawnName&quot;, LocTextDescriptionID=&quot;PawnDesc&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)
+-NewAssetDefaultClasses=(ClassName=&quot;/Script/Engine.Character&quot;, LocTextNameID=&quot;CharacterName&quot;, LocTextDescriptionID=&quot;CharacterDesc&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)
+-NewAssetDefaultClasses=(ClassName=&quot;/Script/Engine.PlayerController&quot;, LocTextNameID=&quot;PlayerControllerName&quot;, LocTextDescriptionID=&quot;PlayerControllerDesc&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)
+-NewAssetDefaultClasses=(ClassName=&quot;/Script/Engine.GameMode&quot;, LocTextNameID=&quot;GameModeName&quot;, LocTextDescriptionID=&quot;GameModeDesc&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)
+; New Class picker dialog settings
+; LocText refers to the localization id for the descriptive text to show next to the icon in the picker
++NewAssetDefaultClasses=(ClassName=&quot;/Script/Nina.NinaActor&quot;, LocTextNameID=&quot;NinaActor&quot;, LocTextDescriptionID=&quot;Custom AActor</p> <ul><li>An Actor is an object that can be placed or spawned in the world.&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)
++NewAssetDefaultClasses=(ClassName=&quot;/Script/Nina.NinaCharacter&quot;, LocTextNameID=&quot;NinaCharacter&quot;, LocTextDescriptionID=&quot;Custom ACharacter</li> <li>A character is a type of Pawn that includes the ability to walk around&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)
++NewAssetDefaultClasses=(ClassName=&quot;/Script/Nina.NinaPlayerController&quot;, LocTextNameID=&quot;NinaPlayerController&quot;, LocTextDescriptionID=&quot;
+Custom APlayerControler - A Player Controller is an actor responsible for controlling a Pawn used by the player.&quot;, AssetClass=&quot;/Script/Engine.Blueprint&quot;)</li></ul> <h2 id="closing"><a href="#closing" class="header-anchor">#</a> Closing</h2> <p>Hope you enjoyed my Tutorial and being helpful of being lazy! To us! 😃</p> <p>Original Author: <a href="/User:Martin_Egger" title="User:Martin Egger">Martin_Egger</a> (<a href="/User_talk:Martin_Egger" title="User talk:Martin Egger">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Custom_Blueprint_Class_Picker_Dialog_Settings&amp;oldid=11547" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Custom_Blueprint_Class_Picker_Dialog_Settings&amp;oldid=11547<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/422.963c02cb.js" defer></script>
+  </body>
+</html>

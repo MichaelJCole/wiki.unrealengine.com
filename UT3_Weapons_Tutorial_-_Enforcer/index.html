@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1124.e2f9ba1f.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>UT3 Weapons Tutorial - Enforcer - Epic Wiki</p> <h1 id="ut3-weapons-tutorial-enforcer"><a href="#ut3-weapons-tutorial-enforcer" class="header-anchor">#</a> UT3 Weapons Tutorial - Enforcer</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#UT3_Weapons_Tutorial_-_Enforcer">1 UT3 Weapons Tutorial - Enforcer</a> <ul><li><a href="#Requirements">1.1 Requirements</a></li> <li><a href="#Features">1.2 Features</a></li> <li><a href="#Notes">1.3 Notes</a></li> <li><a href="#Contact">1.4 Contact</a></li> <li><a href="#Enforcer">1.5 Enforcer</a> <ul><li><a href="#Primary_Fire">1.5.1 Primary Fire</a></li> <li><a href="#Secondary_Fire">1.5.2 Secondary Fire</a></li></ul></li> <li><a href="#Implementation">1.6 Implementation</a> <ul><li><a href="#Creating_Enforcer_Classes">1.6.1 Creating Enforcer Classes</a></li> <li><a href="#Setting_up_weapon_asset_references">1.6.2 Setting up weapon asset references</a></li> <li><a href="#Weapon_firing_properties">1.6.3 Weapon firing properties</a></li> <li><a href="#Camera_Shake">1.6.4 Camera Shake</a></li> <li><a href="#Adding_custom_weapon_firing_state">1.6.5 Adding custom weapon firing state</a></li> <li><a href="#Implementing_burst_firing_state">1.6.6 Implementing burst firing state</a> <ul><li><a href="#Using_faster_FireInterval_for_burst_firing">1.6.6.1 Using faster FireInterval for burst firing</a></li></ul></li> <li><a href="#Customizing_the_burst_properties_per-weapon">1.6.7 Customizing the burst properties per-weapon</a></li> <li><a href="#Burst_animations_.26_sounds">1.6.8 Burst animations &amp; sounds</a></li> <li><a href="#Dual_weapons">1.6.9 Dual weapons</a></li></ul></li> <li><a href="#Source_Code">1.7 Source Code</a></li></ul></li></ul> <h1 id="ut3-weapons-tutorial-enforcer-2"><a href="#ut3-weapons-tutorial-enforcer-2" class="header-anchor">#</a> UT3 Weapons Tutorial - Enforcer</h1> <p>This tutorial will show you how to create Enforcer from Unreal Tournament 3 using C++ only.</p> <p>NOTE:</p> <ul><li>UT has just upgraded to UE 4.2.1, this tutorial will be verified for compatibility shortly.</li></ul> <h2 id="requirements"><a href="#requirements" class="header-anchor">#</a> Requirements</h2> <p>Some existing C++ &amp; Unreal Engine knowledge is needed.</p> <ul><li>Engine version: 4.2</li> <li>Skill level: intermediate</li> <li>Unreal Tournament commit: <a href="https://github.com/EpicGames/UnrealTournament/commit/9fe9fc679a26a0ea816e9fd3db080255394bf4dc" target="_blank" rel="noopener noreferrer">9fe9fc679a26a0ea816e9fd3db080255394bf4dc<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul> <h2 id="features"><a href="#features" class="header-anchor">#</a> Features</h2> <ul><li>Firing multiple projectiles in a burst</li> <li>Dual weapons</li></ul> <h2 id="notes"><a href="#notes" class="header-anchor">#</a> Notes</h2> <ul><li>When overriding a function in subclass always add a definition to the header file as well.</li> <li>Functions with <a href="https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/Reference/Functions/Specifiers/BlueprintNativeEvent/index.html" target="_blank" rel="noopener noreferrer">BlueprintNativeEvent<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> attribute generate additional virtual function called &quot;FunctionName_Implementation&quot;. Override the _Implementation one instead.</li> <li>Code snippets are located in grey expandable boxes. Click Expand on the right to see the code.</li> <li>Yellow lines in code snippets highlight only the code that needs to be changed.</li></ul> <h2 id="contact"><a href="#contact" class="header-anchor">#</a> Contact</h2> <ul><li>Forum thread; <a href="https://forums.unrealtournament.com/showthread.php?11237-UT3-Enforcer-Tutorial" target="_blank" rel="noopener noreferrer">https://forums.unrealtournament.com/showthread.php?11237-UT3-Enforcer-Tutorial<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul> <p>--<a href="/User:Neai" title="User:Neai">Neai</a> (<a href="/index.php?title=User_talk:Neai&amp;action=edit&amp;redlink=1" title="User talk:Neai (page does not exist)">talk</a>) 17:49, 30 June 2014 (UTC)</p> <h2 id="enforcer"><a href="#enforcer" class="header-anchor">#</a> Enforcer</h2> <p>We'll start by defining what features we want to implement:</p> <h3 id="primary-fire"><a href="#primary-fire" class="header-anchor">#</a> Primary Fire</h3> <ol><li>Standard hitscan</li></ol> <h3 id="secondary-fire"><a href="#secondary-fire" class="header-anchor">#</a> Secondary Fire</h3> <ol><li>Fire burst of 3 hitscan shots</li></ol> <h2 id="implementation"><a href="#implementation" class="header-anchor">#</a> Implementation</h2> <p>To implement such projectile weapon we should create subclasses of <strong>AUTWeapon</strong>, <strong>UUTWeaponStateFiring</strong>, <strong>UUTDamageType</strong> and <strong>AUTWeaponAttachment</strong>.</p> <h3 id="creating-enforcer-classes"><a href="#creating-enforcer-classes" class="header-anchor">#</a> Creating Enforcer Classes</h3> <p>Create classes for all the elements of Enforcer:</p> <ol><li>Weapon
+<ol><li>Create subclass of <strong>AUTWeapon</strong> called <strong>AUTWeap_Enforcer</strong></li></ol></li> <li>3rd person weapon attachment
+<ol><li>Create subclass of <strong>AUTWeaponAttachment</strong> called <strong>AUTAttachment_Enforcer</strong></li></ol></li> <li>Burst firing mode
+<ol><li>Create subclass of <strong>UUTWeaponStateFiring</strong> called <strong>UUTWeaponStateFiringBurst</strong></li></ol></li> <li>Damage Types
+<ol><li>Create subclass of <strong>UUTDamageType</strong> called <strong>UTDmgType_Enforcer</strong></li> <li>Create subclass of <strong>UUTDamageType</strong> called <strong>UTDmgType_DualEnforcers</strong></li></ol></li></ol> <h3 id="setting-up-weapon-asset-references"><a href="#setting-up-weapon-asset-references" class="header-anchor">#</a> Setting up weapon asset references</h3> <p>We will link all the parts together, add asset references and setup basic properties.</p> <p><strong>AUTWeap_Enforcer.cpp</strong> - Setup asset references</p> <ol><li><p>#include &quot;UnrealTournament.h&quot;</p></li> <li><p>#include &quot;UTWeap_Enforcer.h&quot;</p></li> <li><p>#include &quot;UTAttachment_Enforcer.h&quot;</p></li> <li><p>#include &quot;UTDmgType_Enforcer.h&quot;</p></li> <li><p>#include &quot;UTDmgType_DualEnforcer.h&quot;</p></li> <li><p>AUTWeap_Enforcer::AUTWeap_Enforcer(const class FPostConstructInitializeProperties&amp; PCIP)</p></li> <li><p>: Super(PCIP)</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code>// Structure to hold one-time initialization
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>struct FConstructorStatics
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	ConstructorHelpers::FObjectFinder&lt;USkeletalMesh\&gt; SkeletalMesh;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	ConstructorHelpers::FObjectFinder&lt;UAnimBlueprintGeneratedClass\&gt; AnimBlueprintGeneratedClass;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	ConstructorHelpers::FObjectFinder&lt;UParticleSystem\&gt; MuzzleFlash;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	ConstructorHelpers::FObjectFinder&lt;USoundCue\&gt; FireSound0;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	ConstructorHelpers::FObjectFinder&lt;USoundCue\&gt; BurstFireSound1;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	ConstructorHelpers::FObjectFinder&lt;UAnimMontage\&gt; FireAnimation0;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	ConstructorHelpers::FObjectFinder&lt;UAnimMontage\&gt; BurstFireAnimation1;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	ConstructorHelpers::FObjectFinder&lt;UAnimMontage\&gt; BringUpAnim;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	ConstructorHelpers::FObjectFinder&lt;UAnimMontage\&gt; PutDownAnim;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	ConstructorHelpers::FObjectFinder&lt;UParticleSystem\&gt; FireEffect0;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	ConstructorHelpers::FObjectFinder&lt;USoundCue\&gt; PickupSound;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	FConstructorStatics()
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		: SkeletalMesh(TEXT(&quot;SkeletalMesh'/Game/RestrictedAssets/Proto/UT3\_Weapons/WP\_Enforcers/Meshes/SK\_WP\_Enforcers\_1P.SK\_WP\_Enforcers\_1P'&quot;))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		, AnimBlueprintGeneratedClass(TEXT(&quot;AnimBlueprintGeneratedClass'/Game/RestrictedAssets/Proto/UT3\_Weapons/WP\_Enforcers/Anims/Enforcer\_AnimBP.Enforcer\_AnimBP\_C'&quot;))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		, MuzzleFlash(TEXT(&quot;ParticleSystem'/Game/RestrictedAssets/Proto/UT3\_Weapons/WP\_Enforcers/Effects/P\_WP\_Enforcers\_MuzzleFlash.P\_WP\_Enforcers\_MuzzleFlash'&quot;))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		, FireSound0(TEXT(&quot;SoundCue'/Game/RestrictedAssets/Proto/UT3\_Weapons/WP\_Enforcers/Audio/CUE/A\_Weapon\_Enforcer\_Fire\_Cue.A\_Weapon\_Enforcer\_Fire\_Cue'&quot;))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		, BurstFireSound1(TEXT(&quot;SoundCue'/Game/RestrictedAssets/Proto/UT3\_Weapons/WP\_Enforcers/Audio/CUE/A\_Weapon\_Enforcer\_AltFire\_Cue.A\_Weapon\_Enforcer\_AltFire\_Cue'&quot;))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		, FireAnimation0(TEXT(&quot;AnimMontage'/Game/RestrictedAssets/Proto/UT3\_Weapons/WP\_Enforcers/Anims/Enforcer\_ShootSingle\_Montage.Enforcer\_ShootSingle\_Montage'&quot;))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		, BurstFireAnimation1(TEXT(&quot;AnimMontage'/Game/RestrictedAssets/Proto/UT3\_Weapons/WP\_Enforcers/Anims/Enforcer\_ShootSecondary\_Montage.Enforcer\_ShootSecondary\_Montage'&quot;))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		, BringUpAnim(TEXT(&quot;AnimMontage'/Game/RestrictedAssets/Proto/UT3\_Weapons/WP\_Enforcers/Anims/Enforcer\_Equip.Enforcer\_Equip'&quot;))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		, PutDownAnim(TEXT(&quot;AnimMontage'/Game/RestrictedAssets/Proto/UT3\_Weapons/WP\_Enforcers/Anims/Enforcer\_Putdown.Enforcer\_Putdown'&quot;))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		, FireEffect0(TEXT(&quot;ParticleSystem'/Game/RestrictedAssets/Proto/UT3\_Weapons/WP\_Enforcers/Effects/P\_WP\_Enforcers\_Tracer.P\_WP\_Enforcers\_Tracer'&quot;))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		, PickupSound(TEXT(&quot;SoundCue'/Game/RestrictedAssets/Proto/UT3\_Pickups/Audio/Weapons/Cue/A\_Pickup\_Weapons\_Enforcer\_Cue.A\_Pickup\_Weapons\_Enforcer\_Cue'&quot;))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>};
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>static FConstructorStatics ConstructorStatics;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>Mesh\-\&gt;SkeletalMesh \= ConstructorStatics.SkeletalMesh.Object;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>Mesh\-\&gt;AnimBlueprintGeneratedClass \= ConstructorStatics.AnimBlueprintGeneratedClass.Object;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>Mesh\-\&gt;RelativeLocation \= FVector(\-30, 0, \-0);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>TSubobjectPtr&lt;UParticleSystemComponent\&gt; MuzzleComponent \= PCIP.CreateDefaultSubobject&lt;UParticleSystemComponent\&gt;(this, TEXT(&quot;Enforcer-Muzzle&quot;));
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>MuzzleComponent\-\&gt;Template \= ConstructorStatics.MuzzleFlash.Object;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>MuzzleComponent\-\&gt;AttachTo(Mesh, FName(TEXT(&quot;MuzzleFlashSocket&quot;)));
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>// Visual
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>MuzzleFlash.SetNumZeroed(2);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>MuzzleFlash\[0\] \= MuzzleComponent;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>MuzzleFlash\[1\] \= MuzzleComponent;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>AttachmentType \= AUTAttachment\_Enforcer::StaticClass();
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>BringUpAnim \= ConstructorStatics.BringUpAnim.Object;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>PutDownAnim \= ConstructorStatics.PutDownAnim.Object;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>FireAnimation.SetNumZeroed(1);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>FireAnimation\[0\] \= ConstructorStatics.FireAnimation0.Object;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>FireEffect.SetNumZeroed(2);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>FireEffect\[0\] \= ConstructorStatics.FireEffect0.Object;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>FireEffect\[1\] \= ConstructorStatics.FireEffect0.Object;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>// Sounds
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>FireSound.SetNumZeroed(1);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>FireSound\[0\] \= ConstructorStatics.FireSound0.Object;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>PickupSound \= ConstructorStatics.PickupSound.Object;
+</code></pre></div></li> <li><p>}</p></li></ol> <p><strong>AUTAttachment_Enforcer.cpp</strong> - Setup asset references</p> <ol><li><p>AUTAttachment_Enforcer::AUTAttachment_Enforcer(const class FPostConstructInitializeProperties&amp; PCIP)</p></li> <li><div class="language- extra-class"><pre><code> : Super(PCIP)
+</code></pre></div></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code> // Structure to hold one-time initialization
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> struct FConstructorStatics
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> {
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	ConstructorHelpers::FObjectFinder&lt;USkeletalMesh\&gt; SkeletalMesh;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	FConstructorStatics()
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 		: SkeletalMesh(TEXT(&quot;SkeletalMesh'/Game/RestrictedAssets/Proto/UT3\_Weapons/WP\_Enforcers/Meshes/SK\_WP\_Enforcer\_3P\_Mid.SK\_WP\_Enforcer\_3P\_Mid'&quot;))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>};
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>static FConstructorStatics ConstructorStatics;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>Mesh\-\&gt;SkeletalMesh \= ConstructorStatics.SkeletalMesh.Object;
+</code></pre></div></li> <li><p>}</p></li></ol> <h3 id="weapon-firing-properties"><a href="#weapon-firing-properties" class="header-anchor">#</a> Weapon firing properties</h3> <p>We're going to use weapon properties from UT3. Set them in constructors:</p> <p><strong>AUTWeap_Enforcer.cpp</strong> - Add weapon firing properties to constructor</p> <ol><li><div class="language- extra-class"><pre><code> ProjClass.SetNumZeroed(0);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> FInstantHitDamageInfo PrimaryFireInfo;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> PrimaryFireInfo.Momentum \= 1000 \* UT3\_TO\_UT4\_SCALE;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> PrimaryFireInfo.Damage \= 20;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> PrimaryFireInfo.DamageType \= UUTDmgType\_Enforcer::StaticClass();
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> FInstantHitDamageInfo SecondaryFireInfo;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> SecondaryFireInfo.Momentum \= 1000 \* UT3\_TO\_UT4\_SCALE;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>SecondaryFireInfo.Damage \= 20;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>SecondaryFireInfo.DamageType \= UUTDmgType\_Enforcer::StaticClass();
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>InstantHitInfo.SetNumZeroed(2);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>InstantHitInfo\[0\] \= PrimaryFireInfo;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>InstantHitInfo\[1\] \= SecondaryFireInfo;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>FireInterval.SetNumZeroed(2);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>FireInterval\[0\] \= 0.5;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>FireInterval\[1\] \= 1.0;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>AmmoCost.SetNumZeroed(2);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>AmmoCost\[0\] \= 1;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>AmmoCost\[1\] \= 1;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>Ammo \= 20;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>MaxAmmo \= 50;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>FireOffset \= FVector(50, 0, 0);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>Group \= 4;
+</code></pre></div></li></ol> <h3 id="camera-shake"><a href="#camera-shake" class="header-anchor">#</a> Camera Shake</h3> <p>Add camera shake to AUTWeapon. If you already have added this code before, just add default properties for Enforcer.</p> <p><strong>AUTWeapon.h</strong> - Add camera shake properties and function</p> <ol start="2"><li><div class="language- extra-class"><pre><code> /\*\* delay between firing and camera shake being played \*/
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> UPROPERTY(EditAnywhere, BlueprintReadWrite, Category \= &quot;Weapon&quot;)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> TArray&lt;float\&gt; CameraShakeDelay;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> /\*\* how strong camera shake should be \*/
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> UPROPERTY(EditAnywhere, BlueprintReadWrite, Category \= &quot;Weapon&quot;)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> TArray&lt;float\&gt; CameraShakeScale;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>/\*\* camera shake type \*/
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>UPROPERTY(EditAnywhere, BlueprintReadWrite, Category \= &quot;Weapon&quot;)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>TArray&lt; TSubclassOf&lt;class UCameraShake\&gt; \&gt; CameraShakeType;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>/\*\* Plays camera shake immediately \*/
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category \= &quot;Weapon&quot;)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>void PlayCameraShake();
+</code></pre></div></li></ol> <p><strong>AUTWeapon.cpp</strong> - Add PlayCameraShake() implementation</p> <ol><li><p>void AUTWeapon::PlayCameraShake_Implementation()</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code> if (UTOwner !\= NULL)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> {
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	AUTPlayerController\* PC \= Cast&lt;AUTPlayerController\&gt;(UTOwner\-\&gt;Controller);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	if (PC !\= NULL)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 		// Play camera shake
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 		if (CameraShakeType.IsValidIndex(CurrentFireMode) &amp;&amp; CameraShakeType\[CurrentFireMode\] !\= NULL &amp;&amp; CameraShakeScale.IsValidIndex(CurrentFireMode))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>			PC\-\&gt;ClientPlayCameraShake(CameraShakeType\[CurrentFireMode\], CameraShakeScale\[CurrentFireMode\]);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>}
+</code></pre></div></li> <li><p>}</p></li></ol> <p><strong>AUTWeapon.cpp</strong> - Override PlayFiringEffects() so it calls our PlayCameraShake() function</p> <ol><li><p>void AUTWeapon::PlayFiringEffects()</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code> Super::PlayFiringEffects();
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> // Play camera shake after optional delay
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> if (CameraShakeDelay.IsValidIndex(CurrentFireMode) &amp;&amp; CameraShakeDelay\[CurrentFireMode\] \&gt; 0)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> {
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	GetWorldTimerManager().SetTimer(this, &amp;AUTWeapon::PlayCameraShake, CameraShakeDelay\[CurrentFireMode\], false);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> }
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>else
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	PlayCameraShake();
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>}
+</code></pre></div></li> <li><p>}</p></li></ol> <p><strong>AUTWeap_Enforcer.cpp</strong> - Add CameraShake assets &amp; default properties to constructor</p> <ol><li><div class="language- extra-class"><pre><code> struct FConstructorStatics
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> {
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	//...
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	ConstructorHelpers::FClassFinder&lt;UCameraShake\&gt; CameraShakeType0;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	ConstructorHelpers::FClassFinder&lt;UCameraShake\&gt; CameraShakeType1;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	FConstructorStatics()
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 		//...
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 		, CameraShakeType0(TEXT(&quot;BlueprintGeneratedClass'/Game/RestrictedAssets/Blueprints/WIP/Nick/CameraAnims/Camerashake2.Camerashake2\_C'&quot;))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 		, CameraShakeType1(TEXT(&quot;BlueprintGeneratedClass'/Game/RestrictedAssets/Blueprints/WIP/Nick/CameraAnims/Camerashake2.Camerashake2\_C'&quot;))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>};
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>//...
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>CameraShakeType.SetNumZeroed(2);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>CameraShakeType\[0\] \= ConstructorStatics.CameraShakeType0.Class;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>CameraShakeType\[1\] \= ConstructorStatics.CameraShakeType1.Class;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>CameraShakeDelay.SetNumZeroed(2);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>CameraShakeDelay\[0\] \= 0.f;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>CameraShakeDelay\[1\] \= 0.f;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>CameraShakeScale.SetNumZeroed(2);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>CameraShakeScale\[0\] \= 1.f;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>CameraShakeScale\[1\] \= 1.f;
+</code></pre></div></li></ol> <h3 id="adding-custom-weapon-firing-state"><a href="#adding-custom-weapon-firing-state" class="header-anchor">#</a> Adding custom weapon firing state</h3> <p>In the Enforcer's constructor we will disable creation of default weapon firing states and create our own ones instead.</p> <p><strong>AUTWeap_Enforcer.cpp</strong> - Create our own weapon firing states</p> <ol><li><p>AUTWeap_Enforcer::AUTWeap_Enforcer(const class FPostConstructInitializeProperties&amp; PCIP)</p></li> <li><p>: Super(PCIP</p></li> <li><p>.DoNotCreateDefaultSubobject(TEXT(&quot;FiringState0&quot;))</p></li> <li><p>.DoNotCreateDefaultSubobject(TEXT(&quot;FiringState1&quot;))</p></li> <li><p>)</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code> //...
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> if (!GCompilingBlueprint)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	UUTWeaponStateFiring\* PrimaryState \= PCIP.CreateDefaultSubobject&lt;UUTWeaponStateFiring, UUTWeaponStateFiring\&gt;(this, FName(TEXT(&quot;Enforcer-WeaponState0&quot;)), false, false, false);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	if (PrimaryState)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		FiringState.Add(PrimaryState);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		FiringStateType.Add(PrimaryState\-\&gt;StaticClass());
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	UUTWeaponStateFiringBurst\* AlternateState \= PCIP.CreateDefaultSubobject&lt;UUTWeaponStateFiringBurst, UUTWeaponStateFiringBurst\&gt;(this, FName(TEXT(&quot;Enforcer-WeaponState1&quot;)), false, false, false);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	if (AlternateState)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		FiringState.Add(AlternateState);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		FiringStateType.Add(AlternateState\-\&gt;StaticClass());
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>}
+</code></pre></div></li> <li><p>}</p></li></ol> <h3 id="implementing-burst-firing-state"><a href="#implementing-burst-firing-state" class="header-anchor">#</a> Implementing burst firing state</h3> <p>Weapon firing works as follows (simplified):</p> <ol><li>When user holds fire and weapon can fire, weapon goes to WeaponStateFiring state, WeaponStateFiring::BeginState() is called</li> <li>WeaponStateFiring::BeginState() fires a shot and starts a RefireCheckTimer. Weapon can't fire again nor be switched away until this timer finishes.</li> <li>When RefireCheckTimer times out, weapon checks its state. Firing ends when:
+<ol><li>There is a pending weapon change</li> <li>User no longer presses fire</li> <li>There is no more ammo</li></ol></li> <li>Otherwise weapon fires again and timer is restarted.</li></ol> <p>To create a burst firing mode, we're going to count the shots and modify RefireCheckTimer so it will automatically fire again until burst completes.</p> <p><strong>UUTWeaponFiringStateBurst.h</strong> - Add burst count variables</p> <ol><li><div class="language- extra-class"><pre><code> int32 BurstRounds;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> int32 BurstRoundsFired;
+</code></pre></div></li></ol> <p><strong>UUTWeaponFiringStateBurst.cpp</strong> - Add default values for burst count variables in constructor</p> <ol><li><p>UUTWeaponStateFiringBurst::UUTWeaponStateFiringBurst(const class FPostConstructInitializeProperties&amp; PCIP)</p></li> <li><div class="language- extra-class"><pre><code> : Super(PCIP)
+</code></pre></div></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code> BurstRounds \= 3;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> BurstRoundsFired \= 0;
+</code></pre></div></li> <li><p>}</p></li></ol> <p><strong>UUTWeaponFiringStateBurst.cpp</strong> - Override FireShot() to increment burst rounds counter</p> <ol><li><p>void UUTWeaponStateFiringBurst::FireShot()</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code> Super::FireShot();
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> // Increment number of burst rounds fired
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> ++BurstRoundsFired;
+</code></pre></div></li> <li><p>}</p></li></ol> <p><strong>UUTWeaponFiringStateBurst.cpp</strong> - Override RefireCheckTimer() so it will automatically fire remaining burst rounds as long as there is ammo.</p> <ol><li><p>void UUTWeaponStateFiringBurst::RefireCheckTimer()</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code> UE\_LOG(LogTemp, Warning, TEXT(&quot;%s : BurstRoundsFired:%d&quot;), TEXT(\_\_FUNCTION\_\_), BurstRoundsFired);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> if (BurstRoundsFired &lt; BurstRounds)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> {
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	if (!GetOuterAUTWeapon()\-\&gt;HasAmmo(GetOuterAUTWeapon()\-\&gt;GetCurrentFireMode()))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 		GetOuterAUTWeapon()\-\&gt;GotoActiveState();
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	else
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		FireShot();
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>else
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	BurstRoundsFired \= 0;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	Super::RefireCheckTimer();
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>}
+</code></pre></div></li> <li><p>}</p></li></ol> <p>Notice that when burst is finished we reset the burst counter.</p> <p><strong>UUTWeaponFiringStateBurst.cpp</strong> - Override BeginState() to reset burst counter whenever weapon goes to firing state</p> <ol><li><p>void UUTWeaponStateFiringBurst::BeginState(const UUTWeaponState* PrevState)</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code> BurstRoundsFired \= 0;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> Super::BeginState(PrevState);
+</code></pre></div></li> <li><p>}</p></li></ol> <h4 id="using-faster-fireinterval-for-burst-firing"><a href="#using-faster-fireinterval-for-burst-firing" class="header-anchor">#</a> Using faster FireInterval for burst firing</h4> <p>So far the burst works but we want to have a fast refire time for burst shots and longer delay between bursts.</p> <p><strong>UUTWeaponFiringStateBurst.h</strong> - Add BurstRefireRate variable</p> <ol><li><div class="language- extra-class"><pre><code> float BurstRefireRate;
+</code></pre></div></li></ol> <p><strong>UUTWeaponFiringStateBurst.cpp</strong> - Set default value for BurstRefireRate in constructor</p> <ol><li><div class="language- extra-class"><pre><code> BurstRefireRate \= 0.15;
+</code></pre></div></li></ol> <p><strong>UUTWeaponFiringStateBurst.cpp</strong> - Override UpdateTiming() to use custom shorter refire time if next shot is a part of burst</p> <ol><li><p>void UUTWeaponStateFiringBurst::UpdateTiming()</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code> // TODO: we should really restart the timer at the percentage it currently is, but FTimerManager has no facility to do this
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> // If the next round will be a part of this burst, change fire rate to burst rate, otherwise reset it to default.
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> float NextRefireRate \= (BurstRoundsFired &lt; BurstRounds)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	? BurstRefireRate
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	: GetOuterAUTWeapon()\-\&gt;GetRefireTime(GetOuterAUTWeapon()\-\&gt;GetCurrentFireMode());
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> GetOuterAUTWeapon()\-\&gt;GetWorldTimerManager().SetTimer(this, &amp;UUTWeaponStateFiring::RefireCheckTimer, NextRefireRate, true);
+</code></pre></div></li> <li><p>}</p></li></ol> <p><strong>UUTWeaponFiringStateBurst.cpp</strong> - Modify FireShot() to update refire timer after each shot</p> <ol><li><p>void UUTWeaponStateFiringBurst::FireShot()</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code> Super::FireShot();
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> // Increment number of burst rounds fired
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> ++BurstRoundsFired;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> // Burst fire uses different firing rate, update according to current state
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> UpdateTiming();
+</code></pre></div></li> <li><p>}</p></li></ol> <h3 id="customizing-the-burst-properties-per-weapon"><a href="#customizing-the-burst-properties-per-weapon" class="header-anchor">#</a> Customizing the burst properties per-weapon</h3> <p>Should we want to create a blueprint of this weapon to tweak the properties, we need to setup the properties in AUTWeap_Enforer. Weapon state objects are not supported by editor property GUI yet.</p> <p><strong>AUTWeap_Enforcer.h</strong> - Add properties to Enforcer</p> <ol><li><div class="language- extra-class"><pre><code> /\*\* Number of rounds to fire in a burst \*/
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> UPROPERTY(EditAnywhere, BlueprintReadWrite, Category \= &quot;Enforcer&quot;)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> int32 BurstRounds;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> /\*\* Time between each round in a burst \*/
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> UPROPERTY(EditAnywhere, BlueprintReadWrite, Category \= &quot;Enforcer&quot;)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> float BurstRefireRate;
+</code></pre></div></li></ol> <p><strong>AUTWeap_Enforcer.cpp</strong> - Set default properties in Enforcer constructor</p> <ol><li><p>AUTWeap_Enforcer::AUTWeap_Enforcer(const class FPostConstructInitializeProperties&amp; PCIP)</p></li> <li><p>: Super(PCIP</p></li> <li><p>.DoNotCreateDefaultSubobject(TEXT(&quot;FiringState0&quot;))</p></li> <li><p>.DoNotCreateDefaultSubobject(TEXT(&quot;FiringState1&quot;))</p></li> <li><p>)</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code> //...
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> BurstRounds \= 3;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>BurstRefireRate \= 0.15;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>if (!GCompilingBlueprint)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	UUTWeaponStateFiring\* PrimaryState \= PCIP.CreateDefaultSubobject&lt;UUTWeaponStateFiring, UUTWeaponStateFiring\&gt;(this, FName(TEXT(&quot;Enforcer-WeaponState0&quot;)), false, false, false);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	if (PrimaryState)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		FiringState.Add(PrimaryState);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		FiringStateType.Add(PrimaryState\-\&gt;StaticClass());
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	UUTWeaponStateFiringBurst\* AlternateState \= PCIP.CreateDefaultSubobject&lt;UUTWeaponStateFiringBurst, UUTWeaponStateFiringBurst\&gt;(this, FName(TEXT(&quot;Enforcer-WeaponState1&quot;)), false, false, false);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	if (AlternateState)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		AlternateState\-\&gt;BurstRounds \= BurstRounds;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		AlternateState\-\&gt;BurstRefireRate \= BurstRefireRate;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		FiringState.Add(AlternateState);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		FiringStateType.Add(AlternateState\-\&gt;StaticClass());
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>}
+</code></pre></div></li> <li><p>}</p></li></ol> <h3 id="burst-animations-sounds"><a href="#burst-animations-sounds" class="header-anchor">#</a> Burst animations &amp; sounds</h3> <p>We have an animation &amp; firing sound that covers entire burst. Lets add a function that will play animation &amp; sound when weapon first starts firing, and when it refires after completed firing sequence.</p> <p><strong>AUTWeapon.h</strong> - Add properties &amp; functions</p> <ol><li><div class="language- extra-class"><pre><code> /\*\* AnimMontage to play when weapon initially starts firing \*/
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> UPROPERTY(EditAnywhere, BlueprintReadWrite, Category \= &quot;Weapon&quot;)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> TArray&lt;UAnimMontage\*\&gt; StartedFireAnimation;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> /\*\* AnimMontage to play when weapon completes firing sequence and starts firing another one \*/
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> UPROPERTY(EditAnywhere, BlueprintReadWrite, Category \= &quot;Weapon&quot;)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> TArray&lt;UAnimMontage\*\&gt; ContinuedFireAnimation;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> /\*\* Sound to play when weapon initially starts firing \*/
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>UPROPERTY(EditAnywhere, BlueprintReadWrite, Category \= &quot;Weapon&quot;)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>TArray&lt;USoundBase\*\&gt; StartedFireSound;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>/\*\* Sound to play when weapon completes firing sequence and starts firing another one \*/
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>UPROPERTY(EditAnywhere, BlueprintReadWrite, Category \= &quot;Weapon&quot;)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>TArray&lt;USoundBase\*\&gt; ContinuedFireSound;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>/\*\* Called when weapon initially starts firing \*/
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>UFUNCTION(BlueprintCallable, Category \= &quot;Weapon&quot;)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>virtual void PlayStartedFiringEffects();
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>/\*\* Called when weapon completes firing sequence and starts firing another one \*/
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>UFUNCTION(BlueprintCallable, Category \= &quot;Weapon&quot;)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>virtual void PlayContinuedFiringEffects();
+</code></pre></div></li></ol> <p><strong>AUTWeapon.cpp</strong> - Add PlayStartedFiringEffects() &amp; PlayContinuedFiringEffects() implementation</p> <ol><li><p>void AUTWeapon::PlayStartedFiringEffects()</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code> if (GetNetMode() !\= NM\_DedicatedServer &amp;&amp; UTOwner !\= NULL)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> {
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	// try and play the sound if specified
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	if (StartedFireSound.IsValidIndex(CurrentFireMode) &amp;&amp; StartedFireSound\[CurrentFireMode\] !\= NULL)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 		UUTGameplayStatics::UTPlaySound(GetWorld(), StartedFireSound\[CurrentFireMode\], UTOwner, SRT\_AllButOwner);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code> 	}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	// Play animation
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	if (StartedFireAnimation.IsValidIndex(CurrentFireMode) &amp;&amp; StartedFireAnimation\[CurrentFireMode\] !\= NULL)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		UAnimInstance\* AnimInstance \= Mesh\-\&gt;GetAnimInstance();
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		if (AnimInstance !\= NULL)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>			AnimInstance\-\&gt;Montage\_Play(StartedFireAnimation\[CurrentFireMode\], 1.f);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>}
+</code></pre></div></li> <li><p>}</p></li> <li><p>void AUTWeapon::PlayContinuedFiringEffects()</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code>if (GetNetMode() !\= NM\_DedicatedServer &amp;&amp; UTOwner !\= NULL)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	// try and play the sound if specified
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	if (ContinuedFireSound.IsValidIndex(CurrentFireMode) &amp;&amp; ContinuedFireSound\[CurrentFireMode\] !\= NULL)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		UUTGameplayStatics::UTPlaySound(GetWorld(), ContinuedFireSound\[CurrentFireMode\], UTOwner, SRT\_AllButOwner);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	// Play animation
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	if (ContinuedFireAnimation.IsValidIndex(CurrentFireMode) &amp;&amp; ContinuedFireAnimation\[CurrentFireMode\] !\= NULL)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		UAnimInstance\* AnimInstance \= Mesh\-\&gt;GetAnimInstance();
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		if (AnimInstance !\= NULL)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>			AnimInstance\-\&gt;Montage\_Play(ContinuedFireAnimation\[CurrentFireMode\], 1.f);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>		}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>}
+</code></pre></div></li> <li><p>}</p></li></ol> <p><strong>AUTWeapon.cpp</strong> - Modify OnStartedFiring_Implementation() &amp; OnContinuedFiring_Implementation() to make them call our functions</p> <ol><li><p>void AUTWeapon::OnStartedFiring_Implementation()</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code> PlayStartedFiringEffects();
+</code></pre></div></li> <li><p>}</p></li> <li><p>void AUTWeapon::OnContinuedFiring_Implementation()</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code> PlayContinuedFiringEffects();
+</code></pre></div></li> <li><p>}</p></li></ol> <h3 id="dual-weapons"><a href="#dual-weapons" class="header-anchor">#</a> Dual weapons</h3> <p><strong>TODO</strong></p> <h2 id="source-code"><a href="#source-code" class="header-anchor">#</a> Source Code</h2> <ul><li><a href="https://github.com/EpicGames/UnrealTournament/pull/27" target="_blank" rel="noopener noreferrer">https://github.com/EpicGames/UnrealTournament/pull/27<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=UT3_Weapons_Tutorial_-_Enforcer&amp;oldid=10611" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=UT3_Weapons_Tutorial_-_Enforcer&amp;oldid=10611<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Unreal_Tournament" title="Category:Unreal Tournament">Unreal Tournament</a></li> <li><a href="/Category:UT_Content_Creation" title="Category:UT Content Creation">UT Content Creation</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1124.e2f9ba1f.js" defer></script>
+  </body>
+</html>

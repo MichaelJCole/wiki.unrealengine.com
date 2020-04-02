@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/361.a0d164df.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Clear Widgets When Switching Levels - Epic Wiki</p> <h1 id="clear-widgets-when-switching-levels"><a href="#clear-widgets-when-switching-levels" class="header-anchor">#</a> Clear Widgets When Switching Levels</h1> <p><strong>Rate this Article:</strong></p> <p>5.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""> (one vote)</p> <p>Approved for Versions:4.7</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#The_Code">2 The Code</a> <ul><li><a href="#Player_Controller">2.1 Player Controller</a></li> <li><a href="#GameMode">2.2 GameMode</a></li></ul></li> <li><a href="#Get_All_Widgets_of_Class">3 Get All Widgets of Class</a></li> <li><a href="#Final_Word">4 Final Word</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>This tutorial is a quick and easy workaround for removing UMG widgets when travelling between levels in Multiplayer. Currently, Widgets are not destroyed automatically when opening or closing levels, so trying to Server Travel a group of players will put them the game, but their screen will still display the old widget(s), with no <a href="https://wiki.unrealengine.com/Clear_Widgets_When_Switching_Levels#GetAllWidgetsofClass" target="_blank" rel="noopener noreferrer">easy way to remove them!<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/b/b3/Icon_template_warning1.png" alt="Note"> Widgets being left behind during level transitions is likely an Engine bug, and is therefore likely to be fixed or changed in a future engine version. This serves as a workaround for the meantime.</p> <h2 id="the-code"><a href="#the-code" class="header-anchor">#</a> The Code</h2> <p>The code for this is extremely simple, all you need is a custom Gamemode and a custom PlayerController.</p> <h3 id="player-controller"><a href="#player-controller" class="header-anchor">#</a> Player Controller</h3> <p>In our Custom Player Controller, we need to declare a new Client function (call it something useful!) that will be called when our Player is travelling to a new level. It's a simple Object Iterator that checks for any widgets in the Players World, and removes them.</p> <p>Note that because we're using the new GENERATED_BODY() Macro, we must declare the previously auto-generated Server/Client virtual functions now.</p> <p><strong>MyPlayerController.h</strong></p> <p>UCLASS()
+class GESGAME_API AMyPlayerController : public APlayerController
+{
+GENERATED_BODY()
+ 
+public:
+UFUNCTION(Client, Reliable, Category = &quot;Things&quot;)
+void ClearHUDWidgets();
+virtual void ClearHUDWidgets_Implementation();
+};</p> <p><strong>MyPlayerController.cpp</strong></p> <p>void AMyPlayerController::ClearHUDWidgets_Implementation()
+{
+/* Object Iterator for All User Widgets! */
+for (TObjectIterator&lt;UUserWidget&gt; Itr; Itr; ++Itr)
+{
+UUserWidget* LiveWidget = *Itr;
+ 
+/* If the Widget has no World, Ignore it (It's probably in the Content Browser!) */
+if (!LiveWidget-&gt;GetWorld())
+{
+continue;
+}
+else
+{
+LiveWidget-&gt;RemoveFromParent();
+}
+}
+}</p> <h3 id="gamemode"><a href="#gamemode" class="header-anchor">#</a> GameMode</h3> <p>The GameMode change is very minimal. If you haven't already, create a declaration for 'ProcessClientTravel'. It's an existing function within the GameMode, so you'll want to override it like so:</p> <p><strong>MyGameMode.h</strong></p> <p>UCLASS()
+class GESGAME_API AMyGameMode : public AGameMode
+{
+GENERATED_BODY()
+ 
+public:
+virtual APlayerController* ProcessClientTravel(FString&amp; FURL, FGuid NextMapGuid, bool bSeamless, bool bAbsolute) override;
+};</p> <p>Now we're going to add some additional functionality into this GameMode. Unfortunately, we can't just call Super on it, because we need to inject some functionality right in the middle of the existing code. We'll have to copy-paste the code from the function in to start with, then add our modifications. The final code should look like this:</p> <p><strong>MyGameMode.cpp</strong></p> <p>APlayerController* AMyGameMode::ProcessClientTravel(FString&amp; FURL, FGuid NextMapGuid, bool bSeamless, bool bAbsolute)
+{
+// We call PreClientTravel directly on any local PlayerPawns (ie listen server)
+APlayerController* LocalPlayerController = NULL;
+for (FConstPlayerControllerIterator Iterator = GetWorld()-&gt;GetPlayerControllerIterator(); Iterator; ++Iterator)
+{
+APlayerController* PlayerController = *Iterator;
+if (Cast&lt;UNetConnection&gt;(PlayerController-&gt;Player) != NULL)
+{
+/* Check if we're using our Custom Controller */
+AMyPlayerController* MyController = Cast&lt;AMyPlayerController&gt;(PlayerController);
+if (MyController )
+{
+MyController -&gt;ClearHUDWidgets();
+}
+ 
+// REMOTE PLAYER
+PlayerController-&gt;ClientTravel(FURL, TRAVEL_Relative, bSeamless, NextMapGuid);
+}
+else
+{
+// LOCAL PLAYER
+/* Check if we're using a GES Controller */
+AMyPlayerController* MyController = Cast&lt;AMyPlayerController&gt;(PlayerController);
+if (MyController )
+{
+MyController -&gt;ClearHUDWidgets();
+}
+ 
+LocalPlayerController = PlayerController;
+PlayerController-&gt;PreClientTravel(FURL, bAbsolute ? TRAVEL_Absolute : TRAVEL_Relative, bSeamless);
+}
+}
+return LocalPlayerController;
+}</p> <p>All we're doing is casting the Controller to our custom one, and calling ClearHUDWidgets() on it <strong>BEFORE</strong> it starts to transition to the next level.</p> <p>You'll also be able to see from the comments that this works for both Local &amp; Remote players, so should also work in Singleplayer!</p> <h2 id="get-all-widgets-of-class"><a href="#get-all-widgets-of-class" class="header-anchor">#</a> Get All Widgets of Class</h2> <p><strong>Author</strong> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>I submitted a pull request that Epic accepted precisely to make this process easier!</p> <p>You can simply run the blueprint node <strong>&quot;Get All Widgets of Class&quot;</strong> and then use a for each and remove all the widgets from the viewport.</p> <p>The advantage of this is that it can be done client side very easily (game mode is server only) and does not require any C++.</p> <p><a href="/File:RemoveAllWidgetsFromViewport.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/d/d9/RemoveAllWidgetsFromViewport.jpg/900px-RemoveAllWidgetsFromViewport.jpg" alt="RemoveAllWidgetsFromViewport.jpg"></a></p> <p><strong>Get All Widgets of Class</strong> is a static BP node, so you can use this in any blueprint you want!</p> <p>Top-Level Only allows you to specify whether my node should only return widgets that are directly connected to the viewport, or whether to return alllll widgets even if they are subwidgets of a viewport widget!</p> <p>I hope this makes this whole process of removing UMG widgets between levels even easier!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>PS: Special thanks to TheJamsh for creating this wiki to address this issue for all time to come!</p> <h2 id="final-word"><a href="#final-word" class="header-anchor">#</a> Final Word</h2> <p>Hope this helps!</p> <p><a href="/User:TheJamsh" title="User:TheJamsh">TheJamsh</a> (<a href="/User_talk:TheJamsh" title="User talk:TheJamsh">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Clear_Widgets_When_Switching_Levels&amp;oldid=13597" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Clear_Widgets_When_Switching_Levels&amp;oldid=13597<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/361.a0d164df.js" defer></script>
+  </body>
+</html>

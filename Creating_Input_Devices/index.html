@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/396.f9379762.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Creating Input Devices - Epic Wiki</p> <h1 id="creating-input-devices"><a href="#creating-input-devices" class="header-anchor">#</a> Creating Input Devices</h1> <p>From Epic Wiki</p> <p>Jump to: <a href="#mw-navigation">navigation</a>, <a href="#p-search">search</a></p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Example_Code">2 Example Code</a> <ul><li><a href="#Plugin_Code">2.1 Plugin Code</a></li> <li><a href="#uPlugin_Ddefinition">2.2 uPlugin Ddefinition</a></li> <li><a href="#Module_Build_File">2.3 Module Build File</a></li> <li><a href="#IPlugin_Header_File">2.4 IPlugin Header File</a></li> <li><a href="#PCH_File">2.5 PCH File</a></li> <li><a href="#Plugin_Header_File">2.6 Plugin Header File</a></li> <li><a href="#Plugin_Cpp_File">2.7 Plugin Cpp File</a></li> <li><a href="#Input_Device_Header_File">2.8 Input Device Header File</a></li> <li><a href="#Input_Device_Cpp_File">2.9 Input Device Cpp File</a></li></ul></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>This page will detail how to create custom Input Device plugins in order to add support for additional controller/input types. It will also show example code for adding additional Key/Gamepad Input Names. The code will show how to fire events from the existing Input Names via a MessageHandler and how to fire events from any Key/Gamepad Input directly.</p> <p>WARNING: The code is currently unstable! There is a bug with ForceFeedback that is preventing a build. I will have this fixed by 25th July unless someone fixes it before then.</p> <p>(Warning: firing direct messages bypasses 'controller#, and therefore does not support local multilayer)</p> <h2 id="example-code"><a href="#example-code" class="header-anchor">#</a> Example Code</h2> <p>The code will show how to create a plugin for a psudo Input Device which will simulate controller#1 pressing the bottom face button every .1 seconds. It will also create a new custom Gamepad Input called &quot;Psudo Player Weight&quot; and fire events for this input with a value of 75.0 (kg).</p> <p>In your own code you will most likely link your plugin with a static/dynamic library which communicates with you Input Device. When the engine calls FPsudoInputsInputDevice::SendControllerEvents() you can then pass on any events/polled controller states using the MessageHandler in a generic way.</p> <h3 id="plugin-code"><a href="#plugin-code" class="header-anchor">#</a> Plugin Code</h3> <h3 id="uplugin-ddefinition"><a href="#uplugin-ddefinition" class="header-anchor">#</a> uPlugin Ddefinition</h3> <p><strong>/Plugins/PsudoInputs/PsudoInputs.uplugin</strong></p> <p>{
+&quot;FileVersion&quot; : 0,
+ 
+&quot;FriendlyName&quot; : &quot;Psudo Inputs Plugin&quot;
+&quot;Version&quot; : 0,
+&quot;VersionName&quot; : &quot;0.2&quot;,
+&quot;CreatedBy&quot; : &quot;mspe044@gmail.com&quot;,
+&quot;EngineVersion&quot; : 1579795,
+&quot;Description&quot; : &quot;I wish I was a real input! 😢&quot;,
+&quot;Category&quot; : &quot;MyInputs&quot;,
+ 
+&quot;Modules&quot; :
+[
+{
+&quot;Name&quot; : &quot;PsudoInputs&quot;,
+&quot;Type&quot; : &quot;Runtime&quot;,
+&quot;LoadingPhase&quot; : &quot;PreDefault&quot;
+}
+]
+}</p> <h3 id="module-build-file"><a href="#module-build-file" class="header-anchor">#</a> Module Build File</h3> <p>This is where you link to any library supporting your Input Device. There is a sample method 'LoadYourThirdPartyLibraries()' to help you do this however the call to it is currently commented out.</p> <p>This method will will link to a static library in <strong>.../Plugins/PsudoInputs/Source/PsudoInputs/ThirdParty/LibraryDirName/...</strong> with include files in the sub directory <strong>.../include/</strong> and library code in subdirectoires seprated by compile arcitecture I.E. <strong>.../Win64/VS2013/MyLibrary.lib</strong></p> <p><strong>/Plugins/PsudoInputs/Source/PsudoInputs/PsudoInputs.Build.cs</strong></p> <p>namespace UnrealBuildTool.Rules
+{
+using System.IO;
+ 
+public class PsudoInputs : ModuleRules
+{
+public PsudoInputs(TargetInfo Target)
+{
+// I chose not to use PCH, this is proberbly slower and worse
+PCHUsage = PCHUsageMode.NoSharedPCHs;
+ 
+// ... add public include paths required here ...
+PublicIncludePaths.AddRange( new string[] {
+&quot;PsudoInputs/Public&quot;,
+});
+ 
+// ... add other private include paths required here ...
+PrivateIncludePaths.AddRange( new string[] {
+&quot;PsudoInputs/Private&quot;,
+});
+ 
+// ... add other public dependencies that you statically link with here ...
+PublicDependencyModuleNames.AddRange( new string[] {
+&quot;Core&quot;,
+&quot;CoreUObject&quot;,      // Provides Actors and Structs
+&quot;Engine&quot;,           // Used by Actor
+&quot;Slate&quot;,            // Used by InputDevice to fire bespoke FKey events
+&quot;InputCore&quot;,        // Provides LOCTEXT and other Input features
+&quot;InputDevice&quot;,      // Provides IInputInterface
+});
+ 
+// ... add private dependencies that you statically link with here ...
+PrivateDependencyModuleNames.AddRange( new string[] {
+});
+ 
+// ... add any modules that your module loads dynamically here ...
+DynamicallyLoadedModuleNames.AddRange( new string[] {
+});
+ 
+// !!!!!!!!!! UNCOMMENT THIS IF YOU WANT TO CALL A LIBRARY !!!!!!!!!!
+//LoadYourThirdPartyLibraries(Target);
+}
+ 
+public bool LoadYourThirdPartyLibraries(TargetInfo Target)
+{
+bool isLibrarySupported = false;
+ 
+// This will give oyu a relitive path to the module ../PsudoInputs/
+string ModulePath = Path.GetDirectoryName(RulesCompiler.GetModuleFilename(this.GetType().Name));
+// This will give you a relative path to ../PsudoInputs/ThirdParty/&quot;LibraryDirName&quot;/
+string MyLibraryPath = Path.Combine(ModulePath, &quot;ThirdParty&quot;, &quot;LibraryDirName&quot;);
+ 
+// Use this to keep Win32/Win64/e.t.c. library files in seprate subdirectories
+string ArchitecturePath = &quot;&quot;;
+ 
+// When you are building for Win64
+if (Target.Platform == UnrealTargetPlatform.Win64 &amp;&amp;
+WindowsPlatform.Compiler == WindowsCompiler.VisualStudio2013)
+{
+// We will look for the library in ../PsudoInputs/ThirdParty/MyLibrary/Win64/VS20##/
+ArchitecturePath = Path.Combine(&quot;Win64&quot;, &quot;VS&quot; + WindowsPlatform.GetVisualStudioCompilerVersionName());
+ 
+isLibrarySupported = true;
+}
+// When you are building for Win32
+else if (Target.Platform == UnrealTargetPlatform.Win32 &amp;&amp;
+WindowsPlatform.Compiler == WindowsCompiler.VisualStudio2013)
+{
+// We will look for the library in ../PsudoInputs/ThirdParty/MyLibrary/Win32/VS20##/
+ArchitecturePath = Path.Combine(&quot;Win32&quot;, &quot;VS&quot; + WindowsPlatform.GetVisualStudioCompilerVersionName());
+ 
+isLibrarySupported = true;
+}
+// Add mac/linux/mobile support in much the same way
+ 
+// If the current build architecture was supported by the above if statements
+if (isLibrarySupported)
+{
+// Add the architecture spacific path to the library files
+PublicAdditionalLibraries.Add(Path.Combine(MyLibraryPath, &quot;lib&quot;, ArchitecturePath, &quot;MyLibrary.lib&quot;));
+// Add a more generic path to the include header files
+PublicIncludePaths.Add(Path.Combine(MyLibraryPath, &quot;include&quot;));
+}
+ 
+// Defination lets us know whether we successfully found our library!
+Definitions.Add(string.Format(&quot;WITH_MY_LIBRARY_PATH_USE={0}&quot;, isLibrarySupported ? 1 : 0));
+ 
+return isLibrarySupported;
+}
+}
+}</p> <h3 id="iplugin-header-file"><a href="#iplugin-header-file" class="header-anchor">#</a> IPlugin Header File</h3> <p><strong>/Plugins/PsudoInputs/Source/PsudoInputs/Public/PsudoInputsPlugin.h</strong></p> <p>#pragma once
+ 
+#include &quot;ModuleManager.h&quot;
+#include &quot;IInputDeviceModule.h&quot;
+ 
+#include &quot;InputCoreTypes.h&quot;
+ 
+/**
+* The public interface to this module.  In most cases, this interface is only public to sibling modules
+* within this plugin.
+*/
+class IPsudoInputsPlugin : public IInputDeviceModule
+{
+public:
+/**
+* Singleton-like access to this module's interface.  This is just for convenience!
+* Beware of calling this during the shutdown phase, though.  Your module might have been unloaded already.
+*
+* @return Returns singleton instance, loading the module on demand if needed
+*/
+static inline IPsudoInputsPlugin&amp; Get()
+{
+return FModuleManager::LoadModuleChecked&lt; IPsudoInputsPlugin &gt;(&quot;PsudoInputs&quot;);
+}
+ 
+/**
+* Checks to see if this module is loaded and ready.  It is only valid to call Get() if IsAvailable() returns true.
+*
+* @return True if the module is loaded and ready to use
+*/
+static inline bool IsAvailable()
+{
+return FModuleManager::Get().IsModuleLoaded( &quot;PsudoInputs&quot; );
+}
+ 
+// This is where I declare my fancy new output type
+//  - It's pretending to be a set of scales like a poor mans Wii Balance Board)
+static const FKey Psudo_WeighingScales;
+};</p> <h3 id="pch-file"><a href="#pch-file" class="header-anchor">#</a> PCH File</h3> <p><strong>/Plugins/PsudoInputs/Source/PsudoInputs/Private/PsudoInputsPrivatePCH</strong></p> <p>// You should place include statements to your module's private header files here.  You only need to
+// add includes for headers that are used in most of your module's source files though.
+ 
+#include &quot;Core.h&quot;
+#include &quot;CoreUObject.h&quot;
+ 
+#include &quot;IPsudoInputsPlugin.h&quot;</p> <h3 id="plugin-header-file"><a href="#plugin-header-file" class="header-anchor">#</a> Plugin Header File</h3> <p><strong>/Plugins/PsudoInputs/Source/PsudoInputs/Private/PsudoInputsPlugin.h</strong></p> <p>#pragma once
+#include &quot;PsudoInputsPrivatePCH.h&quot;
+ 
+class FPsudoInputsPlugin : public IPsudoInputsPlugin
+{
+public:
+/** IPsudoInputsInterface implementation */
+virtual TSharedPtr&lt; class IInputDevice &gt; CreateInputDevice(const TSharedRef&lt; FGenericApplicationMessageHandler &gt;&amp; InMessageHandler);
+ 
+// This is not required as IInputDeviceModule handels startup!
+//virtual void StartupModule() OVERRIDE;
+virtual void ShutdownModule() OVERRIDE;
+ 
+TSharedPtr&lt; class FPsudoInputsInputDevice &gt; PsudoInputDevice;
+};</p> <h3 id="plugin-cpp-file"><a href="#plugin-cpp-file" class="header-anchor">#</a> Plugin Cpp File</h3> <p><strong>/Plugins/PsudoInputs/Source/PsudoInputs/Private/PsudoInputsPlugin.c</strong></p> <p>#include &quot;PsudoInputsPrivatePCH.h&quot;
+ 
+#include &quot;Internationalization.h&quot; // LOCTEXT
+#include &quot;InputCoreTypes.h&quot;
+ 
+#include &quot;PsudoInputsPlugin.h&quot;
+ 
+#include &quot;Engine.h&quot; // Are these both necessary?
+#include &quot;EngineUserInterfaceClasses.h&quot; // Are these both necessary?
+ 
+#include &quot;IPsudoInputsPlugin.h&quot;
+ 
+#include &quot;PsudoInputs.generated.inl&quot;
+ 
+IMPLEMENT_MODULE(FPsudoInputsPlugin, PsudoInputs)
+DEFINE_LOG_CATEGORY_STATIC(PsudoInputsPlugin, Log, All);
+ 
+#define LOCTEXT_NAMESPACE &quot;InputKeys&quot;
+ 
+const FKey IPsudoInputsPlugin::Psudo_WeighingScales(&quot;Psudo_WeighingScales&quot;);
+ 
+// This function is called by *Application.cpp after startup to instantiate the modules InputDevice
+TSharedPtr&lt; class IInputDevice &gt; FPsudoInputsPlugin::CreateInputDevice(const TSharedRef&lt; FGenericApplicationMessageHandler &gt;&amp; InMessageHandler)
+{
+UE_LOG(PsudoInputsPlugin, Log, TEXT(&quot;Create Input Device&quot;));
+ 
+// EKey: use these sparingly... only when you need a button/axis/motion that doesn't fit any of the input names that already exist
+//  - I'm defineing my poor mans Wii Balance Board, it will be called &quot;Psudo Player Weight&quot; in the editor
+EKeys::AddKey(FKeyDetails(IPsudoInputsPlugin::Psudo_WeighingScales, LOCTEXT(&quot;Psudo_WeighingScales&quot;, &quot;Psudo Player Weight&quot;), FKeyDetails::Axis));
+const_cast&lt;UInputSettings*&gt;(GetDefault&lt;UInputSettings&gt;())-&gt;AddAxisMapping(FInputAxisKeyMapping(&quot;PsudoWeighingScales&quot;, IPsudoInputsPlugin::Psudo_WeighingScales, 1.0F));
+ 
+FPsudoInputsPlugin::PsudoInputDevice = MakeShareable(new FPsudoInputsInputDevice(InMessageHandler));
+ 
+// We return the IInputDevice so that the Application has a handel on it.
+//  - The application will ask for controller updates via 'SendControllerEvents()'
+//  - The application will update the MessageHandler if it changes via 'SetMessageHandler(...)'
+return FPsudoInputsPlugin::PsudoInputDevice;
+}
+ 
+#undef LOCTEXT_NAMESPACE
+ 
+// This function may be called during shutdown to clean up the module.
+void FPsudoInputsPlugin::ShutdownModule()
+{
+FPsudoInputsPlugin::PsudoInputDevice-&gt;~FPsudoInputsInputDevice();
+ 
+UE_LOG(PsudoInputsPlugin, Log, TEXT(&quot;Shutdown Module&quot;));
+}</p> <h3 id="input-device-header-file"><a href="#input-device-header-file" class="header-anchor">#</a> Input Device Header File</h3> <p><strong>/Plugins/PsudoInputs/Source/PsudoInputs/Private/PsudoInputsInputDevice.h</strong></p> <p>#pragma once
+//#include &quot;PsudoInputsPluginPrivatePCH.h&quot;
+ 
+#include &quot;IInputDevice.h&quot;
+ 
+#define MAX_NUM_PSUDO_INPUT_CONTROLLERS	4 // We dont realy have any input controllers, this is a sham! 😛
+#define NUM_PSUDO_INPUT_BUTTONS			4 // I've only used the one button but w/evs
+ 
+/**
+* Type definition for shared pointers to instances of FMessageEndpoint.
+*/
+// ToDo: Is this necessary?
+typedef TSharedPtr&lt;class FPsudoInputsInputDevice&gt; FPsudoInputsInputDevicePtr;
+ 
+/**
+* Type definition for shared references to instances of FMessageEndpoint.
+*/
+// ToDo: Is this necessary?
+typedef TSharedRef&lt;class FPsudoInputsInputDevice&gt; FPsudoInputsInputDeviceRef;
+ 
+/**
+* Interface class for my psudo device
+*/
+class FPsudoInputsInputDevice : public IInputDevice
+{
+public:
+FPsudoInputsInputDevice(const TSharedRef&lt; FGenericApplicationMessageHandler &gt;&amp; MessageHandler);
+ 
+// Tick the interface (e.g. check for new controllers)
+virtual void Tick(float DeltaTime) OVERRIDE;
+ 
+// Poll for controller state and send events if needed
+virtual void SendControllerEvents() OVERRIDE;
+ 
+// Set which MessageHandler will get the events from SendControllerEvents.
+virtual void SetMessageHandler(const TSharedRef&lt; FGenericApplicationMessageHandler &gt;&amp; InMessageHandler) OVERRIDE;
+ 
+// Exec handler to allow console commands to be passed through for debugging
+virtual bool Exec(UWorld* InWorld, const TCHAR* Cmd, FOutputDevice&amp; Ar) OVERRIDE;
+ 
+// IForceFeedbackSystem pass through functions
+virtual void SetChannelValue(int32 ControllerId, FForceFeedbackChannelType ChannelType, float Value) OVERRIDE;
+virtual void SetChannelValues(int32 ControllerId, const FForceFeedbackValues &amp;values) OVERRIDE;
+ 
+virtual ~FPsudoInputsInputDevice();
+private:
+// ToDo: Is this necessary?
+bool Active;
+ 
+/** Delay before sending a repeat message after a button was first pressed */
+float InitialButtonRepeatDelay; // How long a button is held for before you send a 2nd event
+ 
+/** Delay before sending a repeat message after a button has been pressed for a while */
+float ButtonRepeatDelay; // How long a button is held for before you send a 3rd/4th/e.t.c event
+ 
+EControllerButtons::Type PsudoInputButtonMapping[NUM_PSUDO_INPUT_BUTTONS];
+double NextRepeatTime[NUM_PSUDO_INPUT_BUTTONS];
+ 
+TSharedRef&lt; FGenericApplicationMessageHandler &gt; MessageHandler;
+};</p> <h3 id="input-device-cpp-file"><a href="#input-device-cpp-file" class="header-anchor">#</a> Input Device Cpp File</h3> <p><strong>/Plugins/PsudoInputs/Source/PsudoInputs/Private/PsudoInputsInputDevice.cpp</strong></p> <p>#include &quot;PsudoInputsPrivatePCH.h&quot;
+ 
+#include &quot;GenericPlatformMath.h&quot;
+ 
+#include &quot;PsudoInputsInputDevice.h&quot;
+ 
+#include &quot;Slate.h&quot;
+ 
+#include &quot;WindowsApplication.h&quot;
+#include &quot;WindowsWindow.h&quot;
+#include &quot;WindowsCursor.h&quot;
+#include &quot;GenericApplicationMessageHandler.h&quot;
+#include &quot;IInputDeviceModule.h&quot;
+#include &quot;IInputDevice.h&quot;
+ 
+DEFINE_LOG_CATEGORY_STATIC(LogPsudoInputDevice, Log, All);
+ 
+byte pollState[MAX_NUM_PSUDO_INPUT_CONTROLLERS];
+ 
+FPsudoInputsInputDevice::FPsudoInputsInputDevice(const TSharedRef&lt; FGenericApplicationMessageHandler &gt;&amp; InMessageHandler) : Active(true), MessageHandler(InMessageHandler)
+{
+UE_LOG(LogPsudoInputDevice, Log, TEXT(&quot;Starting PsudoInputsInputDevice&quot;));
+ 
+InitialButtonRepeatDelay = 0.2f;
+ButtonRepeatDelay = 0.1f;
+ 
+PsudoInputButtonMapping[0] = EControllerButtons::FaceButtonTop;			// PSUDO_BUTTON_ONE
+NextRepeatTime[0] = -1.0;												// Set to !pressed
+PsudoInputButtonMapping[1] = EControllerButtons::FaceButtonBottom;		// PSUDO_BUTTON_TWO
+NextRepeatTime[1] = -1.0;												// Set to !pressed
+PsudoInputButtonMapping[2] = EControllerButtons::FaceButtonLeft;		// PSUDO_BUTTON_THREE
+NextRepeatTime[2] = -1.0;												// Set to !pressed
+PsudoInputButtonMapping[3] = EControllerButtons::FaceButtonRight;		// PSUDO_BUTTON_FOUR
+NextRepeatTime[3] = -1.0;												// Set to !pressed
+}
+ 
+// This method runs once every game tick, use it if you need a regular polling event
+void FPsudoInputsInputDevice::Tick(float DeltaTime){
+}
+ 
+// This method runs every time the game wants to check for controller updates!
+void FPsudoInputsInputDevice::SendControllerEvents()
+{
+// Commented this out as it will spam the log!
+//UE_LOG(LogPsudoInputDevice, Log, TEXT(&quot;Sending Controller Events&quot;));
+ 
+// Here is where we check the state of our input device proberbly by calling a method in your third party library...
+//  - I dont have a real device (xbox controller, wiimote, e.t.c.) in this tutorial 😢 so im gona fake it!!!
+const double CurrentTime = FPlatformTime::Seconds();
+ 
+// I could make library to read from a fancy set of matrix serebellum jacks and iterate over each of those 'controllers'.. but ill save that for the next tutorial
+int controllerIndex = 0; // Apparantly I was lazy so there is only one controller!
+ 
+// This is how you fire regular boring controller events... the ones like the green xbox 'A' key (EControllerButtons::FaceButtonBottom)
+ 
+int jumpButtonIndex = 0;
+ 
+// This will make the third person tutorial man jump for player one!
+ 
+// IF BUTTON IS CURRENTLY PRESSED DOWN BY USER
+//  - If button pressed has not fired since the user pressed the button
+if (NextRepeatTime[jumpButtonIndex] == -1.0) {
+MessageHandler-&gt;OnControllerButtonPressed(PsudoInputButtonMapping[jumpButtonIndex], controllerIndex, false);
+ 
+NextRepeatTime[jumpButtonIndex] = CurrentTime + InitialButtonRepeatDelay;
+}
+//  - Else If (button pressed has fired &gt; 0 times) &amp;&amp; (time since last event &gt; repeat event time)
+else if (NextRepeatTime[jumpButtonIndex] &lt;= CurrentTime) {
+MessageHandler-&gt;OnControllerButtonPressed(PsudoInputButtonMapping[jumpButtonIndex], controllerIndex, true);
+ 
+NextRepeatTime[jumpButtonIndex] = CurrentTime + ButtonRepeatDelay;
+}
+// ELSE (BUTTON IS CURRENTLY NOT PRESSED BY USER)
+if (NextRepeatTime[jumpButtonIndex] != -1.0) {
+// You would normally test whether the controll is pressed or released, on release you call: (see XInputInterface.cpp for a nice example)
+//MessageHandler-&gt;OnControllerButtonReleased(PsudoInputButtonMapping[jumpButtonIndex], controllerIndex, false);
+//NextRepeatTime[jumpButtonIndex] = -1.0;
+}
+ 
+ 
+InitialButtonRepeatDelay = 0.2f;
+ButtonRepeatDelay = 0.1f;
+ 
+// This is how you fire your fancypantz new controller events... the ones you added because you couldn't find an existing EControllerButton that matched your needs!
+FSlateApplication::Get().OnControllerAnalog(IPsudoInputsPlugin::Psudo_WeighingScales, controllerIndex, 75); // This will spam 75(kg) to my fancy new output type!
+ 
+}
+ 
+// This method is called every time someone changes the message handler (other hacky plugins might change it to customise it.. we haven't cos we're cool like that)
+void FPsudoInputsInputDevice::SetMessageHandler(const TSharedRef&lt; FGenericApplicationMessageHandler &gt;&amp; InMessageHandler)
+{
+UE_LOG(LogPsudoInputDevice, Log, TEXT(&quot;Setting Message Handler&quot;));
+MessageHandler = InMessageHandler;
+}
+ 
+// Exec handler to allow console commands to be passed through for debugging
+bool FPsudoInputsInputDevice::Exec(UWorld* InWorld, const TCHAR* Cmd, FOutputDevice&amp; Ar){
+UE_LOG(LogPsudoInputDevice, Log, TEXT(&quot;Execute Console Command: %s&quot;), Cmd);
+ 
+// Put your fancy custom console command code here... I could have used this to let you fire psudo controller events but im lazy..
+ 
+return true;
+}
+ 
+// IForceFeedbackSystem pass through functions
+//  - I *believe* this is a handel for the game to communicate back to your third party library (i.e. game tells joystick to increase force feedback/vibrate/turn on/off a light)
+void FPsudoInputsInputDevice::SetChannelValue(int32 ControllerId, FForceFeedbackChannelType ChannelType, float Value){
+UE_LOG(LogPsudoInputDevice, Log, TEXT(&quot;Set Force Feedback %f&quot;), Value);
+}
+void FPsudoInputsInputDevice::SetChannelValues(int32 ControllerId, const FForceFeedbackValues &amp;values){
+UE_LOG(LogPsudoInputDevice, Log, TEXT(&quot;Set Force Feedback Values&quot;));
+}
+ 
+// This is where you nicely clean up your plugin when its told to shut down!
+//  - USE THIS PLEASE!!! no one likes a memory leak &gt;_&lt;
+FPsudoInputsInputDevice::~FPsudoInputsInputDevice() {
+UE_LOG(LogPsudoInputDevice, Log, TEXT(&quot;Shutdown Complete&quot;));
+}</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Creating_Input_Devices&amp;oldid=6624" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Creating_Input_Devices&amp;oldid=6624<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/396.f9379762.js" defer></script>
+  </body>
+</html>

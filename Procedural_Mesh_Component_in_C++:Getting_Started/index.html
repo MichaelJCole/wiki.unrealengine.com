@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/927.fd487501.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Procedural Mesh Component in C++:Getting Started - Epic Wiki</p> <h1 id="procedural-mesh-component-in-c-getting-started"><a href="#procedural-mesh-component-in-c-getting-started" class="header-anchor">#</a> Procedural Mesh Component in C++:Getting Started</h1> <p><strong>Rate this Article:</strong></p> <p>4.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""> (one vote)</p> <p>Approved for Versions:4.10</p> <p>The following is a brief guide to getting the experimental plugin &quot;ProceduralMeshComponent&quot; for procedural generation of meshes purely in C++. There doesn't seem to be any information anywhere, so I decided to put what I've done here in hopes others will extend it.</p> <p>Tested with UE4.10</p> <p><a href="/File:UProceduralMeshComponentGeneratedTriangle.png"><img src="https://d26ilriwvtzlb.cloudfront.net/b/bc/UProceduralMeshComponentGeneratedTriangle.png" alt="UProceduralMeshComponentGeneratedTriangle.png"></a></p> <p>I create a simple triangle using the UProceduralMeshComponent API, from there extending it should be easy. Once the class is compiled you can just drag it into your scene.</p> <p>To use include the paths in the build I have the following in my build file.</p> <p>MyProject.Build.cs:</p> <p>PublicDependencyModuleNames.AddRange(new string[] { &quot;Core&quot;, &quot;CoreUObject&quot;, &quot;Engine&quot;, &quot;InputCore&quot;, &quot;ProceduralMeshComponent&quot; });</p> <p>To fix errors with Visual Studio IntelliSense you need to right-click MyProject.uproject and re-generate Visual Studio project files.</p> <p>I've created an Actor class. In my cpp file I have added the following to the constructor:</p> <p>MyActor.cpp</p> <p>#include &quot;ProceduralMeshComponent.h&quot;
+ 
+// Creating a standard root object.
+AMyActor::AMyActor()
+{
+USphereComponent* SphereComponent = CreateDefaultSubobject&lt;USphereComponent&gt;(TEXT(&quot;RootComponent&quot;));
+RootComponent = SphereComponent;
+ 
+UProceduralMeshComponent* mesh = CreateDefaultSubobject&lt;UProceduralMeshComponent&gt;(TEXT(&quot;GeneratedMesh&quot;));
+/**
+*	Create/replace a section for this procedural mesh component.
+*	@param	SectionIndex		Index of the section to create or replace.
+*	@param	Vertices			Vertex buffer of all vertex positions to use for this mesh section.
+*	@param	Triangles			Index buffer indicating which vertices make up each triangle. Length must be a multiple of 3.
+*	@param	Normals				Optional array of normal vectors for each vertex. If supplied, must be same length as Vertices array.
+*	@param	UV0					Optional array of texture co-ordinates for each vertex. If supplied, must be same length as Vertices array.
+*	@param	VertexColors		Optional array of colors for each vertex. If supplied, must be same length as Vertices array.
+*	@param	Tangents			Optional array of tangent vector for each vertex. If supplied, must be same length as Vertices array.
+*	@param	bCreateCollision	Indicates whether collision should be created for this section. This adds significant cost.
+*/
+//UFUNCTION(BlueprintCallable, Category = &quot;Components|ProceduralMesh&quot;, meta = (AutoCreateRefTerm = &quot;Normals,UV0,VertexColors,Tangents&quot;))
+//	void CreateMeshSection(int32 SectionIndex, const TArray<FVector>&amp; Vertices, const TArray<int32>&amp; Triangles, const TArray<FVector>&amp; Normals,
+// const TArray<FVector2D>&amp; UV0, const TArray<FColor>&amp; VertexColors, const TArray<FProcMeshTangent>&amp; Tangents, bool bCreateCollision);
+ 
+TArray&lt;FVector&gt; vertices;
+ 
+vertices.Add(FVector(0, 0, 0));
+vertices.Add(FVector(0, 100, 0));
+vertices.Add(FVector(0, 0, 100));
+ 
+TArray&lt;int32&gt; Triangles;
+Triangles.Add(0);
+Triangles.Add(1);
+Triangles.Add(2);
+ 
+TArray&lt;FVector&gt; normals;
+normals.Add(FVector(1, 0, 0));
+normals.Add(FVector(1, 0, 0));
+normals.Add(FVector(1, 0, 0));
+ 
+TArray&lt;FVector2D&gt; UV0;
+UV0.Add(FVector2D(0, 0));
+UV0.Add(FVector2D(0, 10));
+UV0.Add(FVector2D(10 ,10));
+ 
+TArray&lt;FColor&gt; vertexColors;
+vertexColors.Add(FColor(100,100,100,100));
+vertexColors.Add(FColor(100, 100, 100, 100));
+vertexColors.Add(FColor(100, 100, 100, 100));
+ 
+ 
+TArray&lt;FProcMeshTangent&gt; tangents;
+tangents.Add(FProcMeshTangent(1, 1, 1));
+tangents.Add(FProcMeshTangent(1, 1, 1));
+tangents.Add(FProcMeshTangent(1, 1, 1));
+ 
+ 
+mesh-&gt;CreateMeshSection(1, vertices, Triangles, normals, UV0, vertexColors, tangents, false);
+ 
+// With default options
+//mesh-&gt;CreateMeshSection(1, vertices, Triangles, TArray<FVector>(), TArray<FVector2D>(), TArray<FColor>(), TArray<FProcMeshTangent>(), false);
+ 
+ 
+mesh-&gt;AttachTo(RootComponent);
+}</FProcMeshTangent></FColor></FVector2D></FVector></FProcMeshTangent></FColor></FVector2D></FVector></int32></FVector></p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Procedural_Mesh_Component_in_C%2B%2B:Getting_Started&amp;oldid=17875" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Procedural_Mesh_Component_in_C%2B%2B:Getting_Started&amp;oldid=17875<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/927.fd487501.js" defer></script>
+  </body>
+</html>

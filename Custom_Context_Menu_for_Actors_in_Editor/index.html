@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/427.0df68833.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Custom Context Menu for Actors in Editor - Epic Wiki</p> <h1 id="custom-context-menu-for-actors-in-editor"><a href="#custom-context-menu-for-actors-in-editor" class="header-anchor">#</a> Custom Context Menu for Actors in Editor</h1> <h1 id="description"><a href="#description" class="header-anchor">#</a> Description</h1> <p>This Wiki page will show you how to add a custom context menu for your Actors in the Unreal Editor. Here an example of a menu with a custom entry and tooltip when clicking on a custom Actor in the &quot;Scene Outliner&quot;.</p> <p><a href="/File:Custom_ContextMenu_01.png"><img src="https://d26ilriwvtzlb.cloudfront.net/9/9c/Custom_ContextMenu_01.png" alt=""></a></p> <p><a href="/File:Custom_ContextMenu_01.png" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" alt=""></a></p> <p>An example image</p> <h2 id="engine-code-changes"><a href="#engine-code-changes" class="header-anchor">#</a> Engine Code changes</h2> <p>Some Engine code changes are required. I will probably submit a code pull request to Epic so they can add this code to the Engine, but for now you should be able to simply add this code by yourself. Its not too complicated.</p> <p>First of all we need to add some code that allows us to insert menus into the existing context menu being filled in at engine level. For this purpose in &quot;LevelEditorContextMenu.cpp&quot; you need to add the following struct.</p> <p>struct FLevelActorSpecificContextMenu
+{
+/**
+* Fills in menu options for custom menu entries that can be associated with that actor
+*
+* @param MenuBuilder	The menu to add items to
+* @param InCommandList	The container for all commands
+* @param InCommandList	The container for all selected actors
+*/
+static void AddActorSpecificMenu(class FMenuBuilder&amp; MenuBuilder, const TSharedPtr&lt; FUICommandList &gt;&amp; InCommandList, const TArray&lt;AActor*&gt;&amp; SelectedActors);
+};</p> <p>the function is implemented as follows</p> <p>void FLevelActorSpecificContextMenu::AddActorSpecificMenu(class FMenuBuilder&amp; MenuBuilder, const TSharedPtr&lt; FUICommandList &gt;&amp; InCommandList, const TArray&lt;AActor*&gt;&amp; SelectedActors)
+{
+for (AActor* Actor : SelectedActors)
+{
+if (Actor)
+{
+Actor-&gt;AddCustomMenuEntries(MenuBuilder, InCommandList);
+}
+}
+}</p> <p>and we need to add the function call inside</p> <p>void FLevelEditorContextMenu::FillMenu( FMenuBuilder&amp; MenuBuilder, TWeakPtr&lt;SLevelEditor&gt; LevelEditor, LevelEditorMenuContext ContextType, TSharedPtr&lt;FExtender&gt; Extender )</p> <p>at the end of the method you should now see something like this</p> <div class="language- extra-class"><pre><code>FLevelScriptEventMenuHelper::FillLevelBlueprintEventsMenu(MenuBuilder, SelectedActors);
+</code></pre></div><p>FLevelActorSpecificContextMenu::AddActorSpecificMenu(MenuBuilder, LevelEditorActions, SelectedActors);
+ 
+MenuBuilder.PopCommandList();
+MenuBuilder.PopExtender();</p> <p>Last but not least in Actor.h we need to add the virtual method for &quot;AddCustomMenuEntries&quot;, like this</p> <p>#if WITH_EDITOR
+class FUICommandList;  // Forward declaration - editor only
+#endif</p> <p>and add the method in one of the public places within the AActor class</p> <p>#if WITH_EDITOR
+//Used to add a custom menu for custom actors
+virtual void AddCustomMenuEntries(class FMenuBuilder&amp; MenuBuilder, const TSharedPtr&lt; FUICommandList &gt;&amp; InCommandList) { }
+#endif</p> <p>one more ting that needs to be done is add a method to remove existing commands from the list of commands. In UICommandList.h you need to add this method declaration in the public scope of the &quot;FUICommandList&quot; class.</p> <div class="language- extra-class"><pre><code>bool RemoveCommandAndAction(TSharedPtr&lt;const FUICommandInfo\&gt; Command);
+</code></pre></div><p>and in the FUICommandInfo.cpp add the method implementation.</p> <p>bool FUICommandList::RemoveCommandAndAction(TSharedPtr&lt;const FUICommandInfo&gt; Command)
+{
+const FUIAction* Action = UICommandBindingMap.Find(Command);
+if (Action)
+{
+UICommandBindingMap.Remove(Command);
+return true;
+}
+return false;
+}</p> <p>we are now done modifying the Unreal Engine - lets move on to our own Game code.</p> <h2 id="game-code-changes"><a href="#game-code-changes" class="header-anchor">#</a> Game code changes</h2> <p>First of all we need to define a new command class - something like this Create a new Header File called &quot;MyEditorCommands.h&quot;</p> <p>#pragma once
+ 
+#if WITH_EDITOR
+#include &quot;UnrealEd.h&quot;
+#include &quot;Commands.h&quot;
+#include &quot;UICommandList.h&quot;
+#include &quot;UICommandInfo.h&quot;
+ 
+class FMyEditorCommands : public TCommands &lt; FMyEditorCommands &gt;
+{
+public:
+FMyEditorCommands();
+ 
+virtual void RegisterCommands() override;
+static void MapActions(AActor* InActor, const TSharedPtr&lt; FUICommandList &gt;&amp; InCommandList);
+static void AddToMenu(class FMenuBuilder&amp; MenuBuilder);
+ 
+TSharedPtr&lt; FUICommandInfo &gt; SomeCommandData;   //you need one of these for each command you want to execute
+};
+#endif</p> <p>create a cpp file called &quot;MyEditorCommands.cpp&quot;</p> <p>#include &quot;MyGameProject.h&quot;
+#include &quot;MyEditorCommands.h&quot;
+#include &quot;MyCustomActorObject.h&quot;
+ 
+#if WITH_EDITOR
+ 
+FMyEditorCommands::FMyEditorCommands() :
+TCommands&lt;FMyEditorCommands&gt;(TEXT(&quot;MyEditorCommands&quot;), NSLOCTEXT(&quot;MyEditor&quot;, &quot;MyEditorCommands&quot;, &quot;My-Editor&quot;), NAME_None, FEditorStyle::GetStyleSetName())
+{
+ 
+}
+ 
+void FMyEditorCommands::RegisterCommands()
+{
+UI_COMMAND(SomeCommandData, &quot;Do Some stuff&quot;, &quot;Description of what my stuff is doing.&quot;, EUserInterfaceActionType::Button, FInputGesture());
+}
+ 
+void FMyEditorCommands::MapActions(AActor* InActor, const TSharedPtr&lt; FUICommandList &gt;&amp; InCommandList)
+{
+Register();
+ 
+AMyCustomActorObject* pMyObject = Cast&lt;AMyCustomActorObject&gt;(InActor);
+ 
+if (pMyObject)
+{
+ 
+InCommandList-&gt;RemoveCommandAndAction(Get().SomeCommandData);
+ 
+InCommandList-&gt;MapAction(
+Get().SomeCommandData,
+FExecuteAction::CreateUObject(pMyObject , &amp;AMyCustomActorObject::MyNonStaticMethod));
+}
+}
+ 
+void FMyEditorCommands::AddToMenu(class FMenuBuilder&amp; MenuBuilder)
+{
+MenuBuilder.BeginSection(&quot;MyCustomStuff&quot;, FText::FromString(&quot;MyCustomActor&quot;));
+{
+MenuBuilder.AddMenuEntry(Get().SomeCommandData);
+}
+MenuBuilder.EndSection();
+}
+ 
+#endif</p> <p>all that is left to do is implement and override the method in your custom actor class like this</p> <p>//add these headers to your cpp file
+#if WITH_EDITOR
+#include &quot;UnrealEd.h&quot;
+#include &quot;MultiBox.h&quot;
+#include &quot;Commands.h&quot;
+#include &quot;GlobalEditorCommonCommands.h&quot;
+#include &quot;UICommandList.h&quot;
+#include &quot;Private/Helpers/Tool/AWEditorCommands.h&quot;
+#endif
+ 
+//and then add the implementation here
+ 
+#if WITH_EDITOR
+void AMyCustomActorObject::AddCustomMenuEntries(class FMenuBuilder&amp; MenuBuilder, const TSharedPtr&lt; FUICommandList &gt;&amp; InCommandList)
+{
+FMyEditorCommands::MapActions(this, InCommandList);
+FMyEditorCommands::AddToMenu(MenuBuilder);
+}
+#endif</p> <p>That's it now you can implement as many context menu entries as you want for your custom objects. If we can get Epic to add the necessary code for the engine side then adding custom context menus is a piece of cake.</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Custom_Context_Menu_for_Actors_in_Editor&amp;oldid=10058" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Custom_Context_Menu_for_Actors_in_Editor&amp;oldid=10058<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/427.0df68833.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/798.63b6a0b1.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Line Traces / RayCasts How To Get UV Info From Hits - Epic Wiki</p> <h1 id="line-traces-raycasts-how-to-get-uv-info-from-hits"><a href="#line-traces-raycasts-how-to-get-uv-info-from-hits" class="header-anchor">#</a> Line Traces / RayCasts How To Get UV Info From Hits</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Github_Engine_Version">2 Github Engine Version</a></li> <li><a href="#My_PhysX_C.2B.2B_Code_For_You.21">3 My PhysX C++ Code For You!</a> <ul><li><a href="#EngineTypes.h">3.1 EngineTypes.h</a></li> <li><a href="#CollisionQueryParams.h">3.2 CollisionQueryParams.h</a></li> <li><a href="#PhysXCollision.cpp">3.3 PhysXCollision.cpp</a></li> <li><a href="#PrimitiveComponent.cpp">3.4 PrimitiveComponent.cpp</a></li> <li><a href="#BodyInstance.h">3.5 BodyInstance.h</a></li> <li><a href="#BodyInstance.cpp">3.6 BodyInstance.cpp</a></li></ul></li> <li><a href="#Currently_Supported_Line_Trace_Functions">4 Currently Supported Line Trace Functions</a></li> <li><a href="#Sample_Usage_Code">5 Sample Usage Code</a></li> <li><a href="#Conclusion">6 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><strong>Author:</strong> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>In this wiki I provide you with the code to add the option to return UV information about raycast hits (PhysX) / Line Traces (UE4) !</p> <p>This is an optional flag that you can set, that does not affect performance or change UE4 behavior at all until it is turned on.</p> <p>Even when turned on I have not noticed any performance impact, but if you examine my code you will see that performance of UE4 and the internal works of the PhysX code are entirely unchanged unless the optional flag is enabled.</p> <p><a href="/File:PxUV.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/f/f8/PxUV.jpg/900px-PxUV.jpg" alt="PxUV.jpg"></a></p> <h2 id="github-engine-version"><a href="#github-engine-version" class="header-anchor">#</a> Github Engine Version</h2> <p>You must be using a Github version of UE4 in order to change these files below and recompile the engine.</p> <p>Using a github version of UE4 you can add your own code to the engine and really make UE4 your own!</p> <p>You can follow the steps here to obtain a github version of UE4!</p> <p><strong>How to get Github Version of UE4</strong></p> <p><a href="https://www.unrealengine.com/ue4-on-github" target="_blank" rel="noopener noreferrer">https://www.unrealengine.com/ue4-on-github<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h2 id="my-physx-c-code-for-you"><a href="#my-physx-c-code-for-you" class="header-anchor">#</a> My PhysX C++ Code For You!</h2> <p>I am using line numbers for the .cpp files especially to avoid posting any UE4 engine code publicaly.</p> <p>Please note my line numbers are subject to change as more code is added to the engine.</p> <p><strong>The line numbers below are accurate to version 4.7.3 of UE4</strong>. So you can always download 4.7.3 source code from Github to ensure you are seeing the larger context of my cpp code changes.</p> <p>The code you do see here are my additions to the UE4 engine code to support returning UV information from PhysX <a href="http://docs.nvidia.com/gameworks/content/gameworkslibrary/physx/apireference/files/structPxRaycastHit.html" target="_blank" rel="noopener noreferrer">PxRaycastHits<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>.</p> <h3 id="enginetypes-h"><a href="#enginetypes-h" class="header-anchor">#</a> EngineTypes.h</h3> <p>Around line <strong>1485</strong>, in FHitResult, add this</p> <p>/** If CollisionQueryParams has bReturnUV set to true and the trace is a ray cast / line trace, then this value will be filled with the uv of the hit component at the point of impact */
+UPROPERTY()
+FVector2D UV;</p> <h3 id="collisionqueryparams-h"><a href="#collisionqueryparams-h" class="header-anchor">#</a> CollisionQueryParams.h</h3> <p>Starting around line <strong>38</strong>, make these two changes (emphasized with arrows)</p> <p>/** Whether we want to return the UV at the hit location. Only valid for Line Traces / Ray casts */
+bool bReturnUV;       					//&lt;~~~~~~~~~~~~
+ 
+/** Set of components to ignore during the trace */
+TArray&lt;uint32, TInlineAllocator&lt;1&gt; &gt; IgnoreComponents;
+ 
+// Constructors
+FCollisionQueryParams(bool bInTraceComplex=false)
+{
+bTraceComplex = bInTraceComplex;
+TraceTag = NAME_None;
+bTraceAsyncScene = false;
+bFindInitialOverlaps = true;
+bReturnFaceIndex = false;
+bReturnPhysicalMaterial = false;
+bReturnUV = false;				//&lt;~~~~~~~~~~~~
+}</p> <h3 id="physxcollision-cpp"><a href="#physxcollision-cpp" class="header-anchor">#</a> PhysXCollision.cpp</h3> <p>Around line <strong>858</strong>, add this</p> <p>if(Params.bReturnUV)
+{
+POutputFlags |= PxSceneQueryFlag::eUV;
+}</p> <p>then around line <strong>900</strong> add this:</p> <p>if(Params.bReturnUV)
+{
+OutHit.UV = FVector2D(PHit.u,PHit.v); //u and v are exclusive to PxRaycastHit
+}</p> <h3 id="primitivecomponent-cpp"><a href="#primitivecomponent-cpp" class="header-anchor">#</a> PrimitiveComponent.cpp</h3> <p>Around line <strong>1700</strong>:</p> <p>bool UPrimitiveComponent::LineTraceComponent(struct FHitResult&amp; OutHit, const FVector Start, const FVector End, const struct FCollisionQueryParams&amp; Params)
+{
+bool bHaveHit = BodyInstance.LineTrace(OutHit, Start, End, Params.bTraceComplex, Params.bReturnPhysicalMaterial, Params.bReturnUV);</p> <h3 id="bodyinstance-h"><a href="#bodyinstance-h" class="header-anchor">#</a> BodyInstance.h</h3> <p>Modify this function</p> <p>/**
+*  Trace a ray against just this bodyinstance
+*  @param  OutHit					Information about hit against this component, if true is returned
+*  @param  Start					Start location of the ray
+*  @param  End						End location of the ray
+*	@param	bTraceComplex			Should we trace against complex or simple collision of this body
+*  @param bReturnPhysicalMaterial	Fill in the PhysMaterial field of OutHit
+*  @param bReturnUV					Fill in the UV field of OutHit
+*  @return true if a hit is found
+*/
+bool LineTrace(struct FHitResult&amp; OutHit, const FVector&amp; Start, const FVector&amp; End, bool bTraceComplex, bool bReturnPhysicalMaterial = false, bool bReturnUV = false) const;</p> <h3 id="bodyinstance-cpp"><a href="#bodyinstance-cpp" class="header-anchor">#</a> BodyInstance.cpp</h3> <p>around line <strong>3383</strong> add this</p> <p>if(bReturnUV)
+{
+POutputFlags |= PxSceneQueryFlag::eUV;
+}</p> <p>then around line <strong>3348</strong> add this</p> <p>if(bReturnUV)
+{
+OutHit.UV = FVector2D(BestHit.u,BestHit.v); //u and v are exclusive to PxRaycastHit
+}</p> <h2 id="currently-supported-line-trace-functions"><a href="#currently-supported-line-trace-functions" class="header-anchor">#</a> Currently Supported Line Trace Functions</h2> <p>With the above changes you can retrieve hit information from:</p> <p>UWorld::LineTraceSingle</p> <p>and</p> <p>UPrimitiveComponent::LineTraceComponent.</p> <p>Other line traces that use PxRaycastHit could be altered in similar fashion to support returning UV information.</p> <h2 id="sample-usage-code"><a href="#sample-usage-code" class="header-anchor">#</a> Sample Usage Code</h2> <p>Once you've made the above changes and recompiled your UE4 Engine, you can use this code to get UV information from raycasts!</p> <p>I used this code at the <strong>project-level</strong> in the tick function of my sample character:</p> <p>The results of this code are shown in my picture above (except I am using a screen message)</p> <p>void AISMCharacter::Tick(float DeltaTime)
+{
+Super::Tick(DeltaTime);
+//~~~~~~~~~~~~
+ 
+FVector Start	= GetActorLocation();
+FVector End 	= Start + GetActorRotation().Vector() * 10240;
+ 
+FCollisionQueryParams TraceParams(FName(TEXT(&quot;VictoreCore Trace&quot;)), true, this);
+TraceParams.bTraceComplex = true;
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Focus of this wiki, telling UE4 we want the UV info!
+TraceParams.bReturnUV = true;
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//Ignore Actors
+TraceParams.AddIgnoredActor(this);
+ 
+//Trace!
+FHitResult HitOut;
+GetWorld()-&gt;LineTraceSingle(
+HitOut,		//result
+Start,	//start
+End , //end
+ECC_Pawn, //collision channel
+TraceParams
+);
+ 
+VSCREENMSG2(&quot;UV!&quot;, HitOut.UV.ToString());
+}</p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>With these changes to the UE4 engine you can now get UV information back from line traces!</p> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Line_Traces_/_RayCasts_How_To_Get_UV_Info_From_Hits&amp;oldid=13389" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Line_Traces_/_RayCasts_How_To_Get_UV_Info_From_Hits&amp;oldid=13389<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/798.63b6a0b1.js" defer></script>
+  </body>
+</html>

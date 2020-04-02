@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/570.28655835.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="content__default"><p>How To Make C++ Interfaces Implementable By Blueprints(Tutorial) - Epic Wiki</p> <h1 id="how-to-make-c-interfaces-implementable-by-blueprints-tutorial"><a href="#how-to-make-c-interfaces-implementable-by-blueprints-tutorial" class="header-anchor">#</a> How To Make C++ Interfaces Implementable By Blueprints(Tutorial)</h1> <p><strong>Rate this Tutorial:</strong></p> <p>5.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""> (one vote)</p> <p>Approved for Versions:4.10</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Getting_Started">2 Getting Started</a> <ul><li><a href="#How_to_implement_an_Interface">2.1 How to implement an Interface</a></li> <li><a href="#Creating_an_Actor_which_inherits_from_this_Interface">2.2 Creating an Actor which inherits from this Interface</a></li> <li><a href="#Let_it_grow">2.3 Let it grow</a></li></ul></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>Hello Ladies and Gentlemen,</p> <p>I recently came to the conclusion that it is a bit tricky to make C++ Interfaces also implementable by Blueprints. Because of the lack of Information I could get from the Search Engine I used, I had to gather all this knowledge little by little. So lets begin 😃</p> <h2 id="getting-started"><a href="#getting-started" class="header-anchor">#</a> Getting Started</h2> <p>At first we have to implement our Interface: Unreal Engine has a special way to handle Interfaces so this part was a bit confusing at first. But in the End it was all clear (for me &gt;_&gt;)</p> <p>I assume that you know how to do basic stuff like creating projects and new c++ classes etc.</p> <h3 id="how-to-implement-an-interface"><a href="#how-to-implement-an-interface" class="header-anchor">#</a> How to implement an Interface</h3> <p>Our first step is to create a new C++ Class and let it inherit from our beloved Base Class UObject. Unfortunately one cannot simply inherit from UInterface directly so we have to do it ourselves. Lets call the Interface &quot;Lookable&quot;.</p> <p>Let's make a code example to better visualize:</p> <p><strong>Interface Header File</strong></p> <p>#pragma once
+ 
+#include &quot;Object.h&quot;
+#include &quot;Lookable.generated.h&quot;
+ 
+//Instead of UCLASS() we use UINTERFACE()
+UINTERFACE()
+class IAWESOME_API ULookable: public UInterface
+{
+//Dont forget to use this makro.
+GENERATED_UINTERFACE_BODY()
+ 
+};
+ 
+//Create a new class ILookable and use GENERATED_IINTERFACE_BODY() Makro in class body
+class ILookable
+{
+GENERATED_IINTERFACE_BODY()
+ 
+public:
+UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = Gameplay)
+void ProcessEvent(FName TestParamName, float TestParamFloat);
+};</p> <p>Here you can see that I'm using a BlueprintNativeEvent. This tells Unreal internally that we want to implement this function in Blueprint and/or C++.</p> <p><strong>Interface Source File</strong></p> <p>#include &quot;IAwesome.h&quot;
+#include &quot;Lookable.h&quot;
+ 
+//This constructor is predeclared so you dont have to declare it in your .header file
+//Don't forget to define this constructor so no compiler errors are thrown
+ULookable::ULookable(const FObjectInitializer&amp; ObjectInitializer)
+:Super(ObjectInitializer)
+{
+ 
+}
+ 
+//This is the C++ part of our Event. Just let the Body empty if you don't want to do stuff in your Base Interface<br>
+//😉 !!!Do not forget the _Implementation suffix!!!
+void ILookable::ProcessEvent_Implementation(FName TestParamName, float TestParamFloat)
+{
+ 
+}</p> <h3 id="creating-an-actor-which-inherits-from-this-interface"><a href="#creating-an-actor-which-inherits-from-this-interface" class="header-anchor">#</a> Creating an Actor which inherits from this Interface</h3> <p>So far so good. Let's create a new C++ Class which inherits from AActor. Lets call him LookableActor. In addition to that, we have to let our new LookableActorinherit from ILookable(NOT ULookable) right after we included &quot;Lookable.h&quot;.</p> <p><strong>Actor Header File</strong></p> <p>#pragma once
+ 
+#include &quot;GameFramework/Actor.h&quot;
+#include &quot;Lookable.h&quot;
+#include &quot;LookableActor.generated.h&quot;
+ 
+UCLASS()
+class IAWESOME_API ALookableActor: public AActor, public ILookable
+{
+GENERATED_BODY()
+ 
+public:
+ALookableActor();
+ 
+virtual void BeginPlay() override;
+ 
+virtual void Tick(float DeltaTime) override;
+ 
+virtual void ProcessEvent_Implementation(FName Name, float Float) override;
+};</p> <p>Make sure to override ProcessEvent_Implementation Function. Unfortunately all methods which are provided of our Interface <strong>HAVE TO</strong> be overridden. The Compiler makes sure to tell you if you forget it.</p> <p><strong>Actor Header File</strong></p> <p>#include &quot;IAwesome.h&quot;
+#include &quot;LookableActor.h&quot;
+ 
+ALookableActor::ALookableActor()
+{
+PrimaryActorTick.bCanEverTick = true;
+RootComponent = CreateDefaultSubobject&lt;UStaticMeshComponent&gt;(TEXT(&quot;LookAtMe&quot;));
+}
+ 
+void ALookableActor::BeginPlay()
+{
+Super::BeginPlay();
+}
+ 
+void ALookableActor::Tick(float DeltaTime)
+{
+Super::Tick(DeltaTime);
+}
+ 
+void ALookableActor::ProcessEvent_Implementation(FName Name, float Float)
+{
+UE_LOG(LogTemp, Warning, TEXT(&quot;Parameter (FName) : %s \nParameter (float) : %f&quot;), *Name.ToString(), Float);
+ 
+SetActorScale3D(FVector(GetActorScale.X * 1.05f));
+}</p> <p>This ProcessEvent defines that everytime this is called on our Actor he grows by 5%.</p> <h3 id="let-it-grow"><a href="#let-it-grow" class="header-anchor">#</a> Let it grow</h3> <p>So now we have an Actor which gets bigger and bigger. Unfortunately there isn't an Actor which calls our ProcessEvent Function so our Actor stays small 😦 BUT WAIT (Dramatic Sound Playing) We can do that ourselves because we have hands which create whole new <strong>Worlds</strong> and <strong>Universes</strong> by writing cool <strong>Letters</strong>. ;D For the ones who think I'm weird and I should begin to just write a Tutorial without making stupid jokes. I can't.</p> <p>Let's go on by quickly creating a new Actor which calls our ProcessEvent Function.</p> <p>#pragma once
+ 
+#include &quot;GameFramework/Actor.h&quot;
+#include &quot;LineTraceActor.generated.h&quot;
+ 
+UCLASS()
+class IAWESOME_API ALineTraceActor: public AActor
+{
+GENERATED_BODY()
+ 
+public:	
+// Sets default values for this actor's properties
+ALineTraceActor();
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+UFUNCTION()
+void NotifyEvent();
+ 
+/*
+This Function creates a Raycast and fills the given HitResult
+@param Hit: This Variable will be filled with the Information one needs.
+@return bool value which specifies IF something was hit
+*/
+bool LineTraceFromCamera(FHitResult&amp; Hit);
+ 
+private:
+//A Reference to the Player Camera
+APlayerController* PC;
+ 
+ 
+};</p> <p>At first I create 2 Methods NotifyEvent and LineTraceFromCamera I would say that the names describe their functions pretty well 😃 The next step is to fill our source file:</p> <p>#include &quot;IAwesome.h&quot;
+#include &quot;Interfaced.h&quot;
+#include &quot;LineTraceActor.h&quot;
+ 
+ 
+// Sets default values
+ALineTraceActor::ALineTraceActor()
+{
+// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = false;
+}
+ 
+// Called when the game starts or when spawned
+void ALineTraceActor::BeginPlay()
+{
+Super::BeginPlay();
+}
+ 
+void ALineTraceActor::Tick(float DeltaTime)
+{
+Super::Tick(DeltaTime);
+NotifyEvent();
+}
+ 
+bool ALineTraceActor::LineTraceFromCamera(FHitResult&amp; Hit)
+{
+auto PlayerCameraManager = PC-&gt;PlayerCameraManager;
+ 
+FName TraceTag = Text(&quot;Draw&quot;);
+GetWorld()-&gt;DebugDrawTraceTag = TraceTag;
+ 
+if (PlayerCameraManager)
+{
+FVector CameraForwardVector = PlayerCameraManager-&gt;GetActorForwardVector();
+ 
+FVector LineStart = PlayerCameraManager-&gt;GetCameraLocation();
+FVector LineEnd = LineStart + CameraForwardVector * 1024;
+ 
+FCollisionQueryParams Params;
+Params.bTraceComplex = true;
+Params.bReturnPhysicalMaterial = false;
+Params.bReturnFaceIndex = false;
+Params.TraceTag = TraceTag;
+ 
+return GetWorld()-&gt;LineTraceSingleByChannel(Hit, LineStart, LineEnd, ECollisionChannel::ECC_Visibility, Params);
+}
+ 
+ 
+UE_LOG(LogTemp, Error, TEXT(&quot;PlayerCameraManager is null&quot;));
+return false;
+}</p> <p>Our Tick method just calls NotifyEvent which will be defined next.</p> <p>The LineTraceFromCamera method just generates a LineTrace from the Cameras View. This setting for now should only be used for Ego Perspective games. To see our LineTrace we override the DebugDrawTraceTag of our World to &quot;Draw&quot;. (I don't know if there a predefined Names for it, but just changing it to any Name should give you the expected result) Our next step is to calculate the LineStart and LineEnd of our Trace. In our case the LineStart begins at the WorldLocation of our Camera. The LineEnd should be calculated by using the Forward Vector of the Camera Multiplied by the length of the line PLUS our LineStart. Simple Vector calculation 😃 Our next step is to fill the collision parameters for our linetrace. Make sure to let the TraceTag of your parameter having the same value as the worlds TraceTag.</p> <p>Our next method is NotifyEvent which is the key to notify not only c++ Interactables but also Blueprint's.</p> <p>void ALineTraceActor::NotfiyEvent()
+{
+FHitResult Hit;
+if (LineTraceFromCamera(Hit))
+{
+if(Hit.GetActor()-&gt;Implements&lt;ULookable&gt;())
+{
+ILookable::Execute_ProcessEvent(Hit.GetActor(), Hit.GetActor()-&gt;GetFName(), Hit.Distance);
+}
+}
+}</p> <p>Let's go through this: We create a new variable of type FHitResult which we will fill by giving it into our LineTrace Method. If something was hit we have to check first if the Actor from our Hit Result Implements <strong>ULookable</strong> not ILookable. Please make sure to not forget that 😃 Fortunately the Compiler throws an error if we give ILookable into the template because its not of type UObject 😛</p> <p>Now we use a static method from our ILookable Interface which was generated by Unreal itself. The Parameters are the Actor and the parameters we specified ourselves in our ProcessEvent Function 😃 (FName and float)</p> <p>Our last step is testing this Interface in either C++ and Blueprint</p> <p>Let's place our LineTrace Actor in the Scene. Also our Lookabel Actor should be placed somewhere. Don't forget to give our LookableActor a visual representation by just editing the StaticMesh Value of our Root StaticMeshComponent.</p> <p>Next we will create a Blueprint Actor which also implements from Lookable. You just have to open the Blueprint Editor and go to Class Settings to Add our cool Interface. Then go to the Event Graph and Right Click on an empty spot. Then search &quot;Event ProcessEvent&quot; and define a funny behaviour to see your result. Don't forget to add a Static Mesh to this Actor 😃</p> <p>Now let's place this Blueprint Actor next to our LookableActor in World. Just hit 'Play' and see the result of our hard work 😄</p> <p>I hope you enjoyed this tutorial. I try to edit this further to give more visual examples of the final result 😉</p> <p>Thanks and have fun</p> <p>Greetings Cloudy</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=How_To_Make_C%2B%2B_Interfaces_Implementable_By_Blueprints(Tutorial)&amp;oldid=22091" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=How_To_Make_C%2B%2B_Interfaces_Implementable_By_Blueprints(Tutorial)&amp;oldid=22091<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/570.28655835.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/420.2ba95fe3.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Curves, Create Custom Cubic Curves In Editor For Use In Code - Epic Wiki</p> <h1 id="curves-create-custom-cubic-curves-in-editor-for-use-in-code"><a href="#curves-create-custom-cubic-curves-in-editor-for-use-in-code" class="header-anchor">#</a> Curves, Create Custom Cubic Curves In Editor For Use In Code</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#UE4_Curve_Asset">2 UE4 Curve Asset</a></li> <li><a href="#UE4_Curve_Editor">3 UE4 Curve Editor</a></li> <li><a href="#.h">4 .h</a></li> <li><a href="#.cpp">5 .cpp</a></li> <li><a href="#Character_BP">6 Character BP</a></li> <li><a href="#Conclusion">7 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Author:</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>This wiki tutorial shows you how to get custom hand crafted curves into C++ !</p> <p>This uses a combination of UE4 blueprints and UE4 c++ to enable you to create custom effects and physics movement curves in pure C++ with the ease of UE4's visual curve editor!</p> <p>Below is a picture of the final result!</p> <p>I draw this curve in the editor and and can now use it in C++ !</p> <p><a href="/File:CurveFinal.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/b/b7/CurveFinal.jpg/700px-CurveFinal.jpg" alt="CurveFinal.jpg"></a></p> <h2 id="ue4-curve-asset"><a href="#ue4-curve-asset" class="header-anchor">#</a> UE4 Curve Asset</h2> <p><a href="/File:MiscCurve.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/d/db/MiscCurve.jpg" alt="MiscCurve.jpg"></a></p> <h2 id="ue4-curve-editor"><a href="#ue4-curve-editor" class="header-anchor">#</a> UE4 Curve Editor</h2> <p><a href="/File:CurveAuto.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/e/e4/CurveAuto.jpg/700px-CurveAuto.jpg" alt="CurveAuto.jpg"></a></p> <h2 id="h"><a href="#h" class="header-anchor">#</a> .h</h2> <p>UCLASS()
+class AYourCharacter : public ACharacter
+{
+GENERATED_UCLASS_BODY()
+ 
+ 
+/** Joy Curve */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=&quot;JoyCurve&quot;)
+UCurveFloat* JoyCurve;<br>
+ 
+ 
+//Rama's Draw Point wrapper
+FORCEINLINE void DrawPoint
+(
+const FVector&amp; Loc,
+const float Size = 7,
+const FColor&amp; Color = FColor::Red,
+const float Duration=-1.f
+) const {
+DrawDebugPoint(
+GetWorld(),
+Loc,<br>
+Size, //thickness
+Color,
+false,
+Duration
+);
+}</p> <h2 id="cpp"><a href="#cpp" class="header-anchor">#</a> .cpp</h2> <p>//Tick
+void AYourCharacter::Tick(float DeltaTime)
+{
+Super::Tick(DeltaTime);
+//~~~~~~~~~~~~
+ 
+ 
+//~~~ Draw the Curve! ~~~
+ 
+if(JoyCurve)
+{
+for(float v = 0; v &lt; 1; v+=0.01)
+{
+DrawPoint(GetActorLocation() + FVector(v * 128,0,128 * JoyCurve-&gt;GetFloatValue(v)) );
+}
+}
+else
+{
+//UE_LOG &quot;Joy CURVE IS INVALID!!!!&quot;;
+}
+}</p> <h2 id="character-bp"><a href="#character-bp" class="header-anchor">#</a> Character BP</h2> <p>Compile the above addition to your Character class!</p> <p>Now set the asset reference that you made in the code, in the editor in your character BP!</p> <p><a href="/File:CharBP.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/6/6c/CharBP.jpg/700px-CharBP.jpg" alt="CharBP.jpg"></a></p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Curves,_Create_Custom_Cubic_Curves_In_Editor_For_Use_In_Code&amp;oldid=8830" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Curves,_Create_Custom_Cubic_Curves_In_Editor_For_Use_In_Code&amp;oldid=8830<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/420.2ba95fe3.js" defer></script>
+  </body>
+</html>

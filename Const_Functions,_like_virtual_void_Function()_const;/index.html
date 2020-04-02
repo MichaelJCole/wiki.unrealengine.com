@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/374.6f879893.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Const Functions, like virtual void Function() const; - Epic Wiki</p> <h1 id="const-functions-like-virtual-void-function-const"><a href="#const-functions-like-virtual-void-function-const" class="header-anchor">#</a> Const Functions, like virtual void Function() const;</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a> <ul><li><a href="#Overriding_Const_Functions">1.1 Overriding Const Functions</a> <ul><li><a href="#.H">1.1.1 .H</a></li> <li><a href="#.CPP">1.1.2 .CPP</a></li></ul></li></ul></li> <li><a href="#So_What_Are_Const_Functions_For.3F">2 So What Are Const Functions For?</a> <ul><li><a href="#Clarity">2.1 Clarity</a></li> <li><a href="#Protection">2.2 Protection</a></li></ul></li> <li><a href="#FORCEINLINE_Const_Functions">3 FORCEINLINE Const Functions</a></li> <li><a href="#Summary">4 Summary</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>Const functions can be used to declare intent when writing a function and are also better for performance.</p> <p>Research C++ const functions for more information on how this can lead to more efficient code.</p> <p><strong>Const functions are functions that are not allowed to modify any member variables of the class that they are part of.</strong></p> <h3 id="overriding-const-functions"><a href="#overriding-const-functions" class="header-anchor">#</a> Overriding Const Functions</h3> <p>As you are overriding Epic's viritual functions you might encounter function syntax like this!</p> <p>virtual int32 GetFlowerPetalCount() const;</p> <p>Okay, maybe you're overriding a virtual function in one of my Flower Island plugins 😃</p> <p>But anyway!</p> <p>The point is that when you override const functions like this one, you have to do it like this</p> <h4 id="h"><a href="#h" class="header-anchor">#</a> .H</h4> <p>virtual int32 GetFlowerPetalCount() const OVERRIDE;</p> <h4 id="cpp"><a href="#cpp" class="header-anchor">#</a> .CPP</h4> <p>int32 AMyClass::GetFlowerPetalCount() const
+{
+return 7;
+}</p> <h2 id="so-what-are-const-functions-for"><a href="#so-what-are-const-functions-for" class="header-anchor">#</a> So What Are Const Functions For?</h2> <h3 id="clarity"><a href="#clarity" class="header-anchor">#</a> Clarity</h3> <p>Use a const function any time you are accessing read-only data, or are doing complex analysis of that data, but not modifying the class's member variables.</p> <h3 id="protection"><a href="#protection" class="header-anchor">#</a> Protection</h3> <p>You can use const functions <strong>to protect member variables</strong> that you want users of your code to access, but not modify.</p> <h2 id="forceinline-const-functions"><a href="#forceinline-const-functions" class="header-anchor">#</a> FORCEINLINE Const Functions</h2> <p>FORCEINLINE allows you to declare a function entirely in the .h file and is great for code efficiency, as it means that a function is not added to the stack but is executed in Line.</p> <p><strong>FORCEINLINE + const</strong> is super amazing function efficiency and you will see it often in the UE4 C++ source!</p> <p>//Member variable
+TArray&lt;AStar*&gt; Stars;
+ 
+//inline function that is const
+FORCEINLINE int32 GetStarCount() const
+{
+return Stars.Num();
+}
+ 
+//inline function that is const
+FORCEINLINE FVector GetFirstStarPosition() const
+{
+if (Stars.Num() &lt; 1 ) return FVector::ZeroVector;
+if (!Stars[0]) return FVector::ZeroVector;
+if (!Stars[0].IsValidLowLevel()) return FVector::ZeroVector;
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+return Stars[0]-&gt;GetActorLocation();
+}
+ 
+//inline function that cannot be const
+FORCEINLINE void RemoveLastStar()
+{
+if (Stars.Num() &lt; 1 ) return;
+ 
+//this is a modification to the class member variable
+//		so it cannot be const
+Stars.RemoveAt(Stars.Num() - 1);
+}</p> <h2 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h2> <p>Use const functions to:</p> <p>declare that a function should never modify it's class member variables,
+for anyone who will be extending your viritual function,</p> <p>and also as method of improving code performance!</p> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Const_Functions,_like_virtual_void_Function()_const;&amp;oldid=1589" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Const_Functions,_like_virtual_void_Function()_const;&amp;oldid=1589<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/374.6f879893.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/995.c35cb861.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Slate Data Binding Part 3 - Epic Wiki</p> <h1 id="slate-data-binding-part-3"><a href="#slate-data-binding-part-3" class="header-anchor">#</a> Slate Data Binding Part 3</h1> <p><strong>Rate this Article:</strong></p> <p>5.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""> (one vote)</p> <p>Approved for Versions:(4.7)</p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" alt="Note"></p> <p><strong>Some or all of the information on this page is inconsistent, irrelevant or confusing.</strong></p> <p>Please help clean it up if you are able.</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Creating_Menus_with_Slate.2FC.2B.2B.2C_Part_3">1 Creating Menus with Slate/C++, Part 3</a> <ul><li><a href="#Overview">1.1 Overview</a></li> <li><a href="#Step_1:_Overview_.26_Prep">1.2 Step 1: Overview &amp; Prep</a> <ul><li><a href="#TutorialGameHUDUI.h">1.2.1 TutorialGameHUDUI.h</a></li> <li><a href="#TutorialGameHUDUI.cpp">1.2.2 TutorialGameHUDUI.cpp</a></li> <li><a href="#TutorialGameHUD.h">1.2.3 TutorialGameHUD.h</a></li> <li><a href="#TutorialGameHUD.cpp">1.2.4 TutorialGameHUD.cpp</a></li></ul></li> <li><a href="#Step_3:_Binding_our_Data">1.3 Step 3: Binding our Data</a></li> <li><a href="#Step_4:_Binding_it_to_something_Useful">1.4 Step 4: Binding it to something Useful</a> <ul><li><a href="#TutGameMode.h">1.4.1 TutGameMode.h</a></li> <li><a href="#TutGameMode.cpp">1.4.2 TutGameMode.cpp</a></li> <li><a href="#TutorialCharacter.h">1.4.3 TutorialCharacter.h</a></li> <li><a href="#TutorialCharacter.cpp">1.4.4 TutorialCharacter.cpp</a></li> <li><a href="#TutorialGameHUDUI.cpp_2">1.4.5 TutorialGameHUDUI.cpp</a></li></ul></li></ul></li></ul> <h1 id="creating-menus-with-slate-c-part-3"><a href="#creating-menus-with-slate-c-part-3" class="header-anchor">#</a> Creating Menus with Slate/C++, Part 3</h1> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Original Author</em> <a href="https://forums.unrealengine.com/member.php?1034-Minalien" target="_blank" rel="noopener noreferrer">Minalien<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>Welcome back to my tutorial series on creating menus in Unreal Engine 4 using Slate &amp; C++!</p> <ul><li><a href="https://wiki.unrealengine.com/Slate_Introduction_%E2%80%92_Basic_Menu_Part_1" target="_blank" rel="noopener noreferrer">Part 1: Introduction &amp; Basic Menu<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://wiki.unrealengine.com/Slate_Style_Sets_Part_2" target="_blank" rel="noopener noreferrer">Part 2: Style Sets<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://wiki.unrealengine.com/Slate_Data_Binding_Part_3" target="_blank" rel="noopener noreferrer">Part 3: Data Binding<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul> <h2 id="step-1-overview-prep"><a href="#step-1-overview-prep" class="header-anchor">#</a> Step 1: Overview &amp; Prep</h2> <p>What is data binding? Data binding is a concept from software development where information output, such as the player’s current health, is tied to the information it actually represents. In this way, any time you change the data (for example, by damaging the player) the display is updated automatically. This can have a great many uses, both simple and complex – in Soul Tech, a Mech Action/RPG I am programming for, I use data binding handle the individual pages available in the Mech customization &amp; shop screens. My UI only has to worry about having space to display data from the current page – updating the actual page does not require also sending update messages to the UI.</p> <p>In our case, we are going to create a new Slate UI that will serve as an in-game HUD, displaying the player’s current health and score in the upper corners of the screen. Initially, the HUD will only have static values – we will change it to be bound data in the next step. I’m going to paste the code below, but I will not go into detail on how it works – it’s all pretty simple content that has been covered in past tutorials.</p> <h3 id="tutorialgamehudui-h"><a href="#tutorialgamehudui-h" class="header-anchor">#</a> TutorialGameHUDUI.h</h3> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+// TutorialGameHUDUI.h - Provides an implementation of the Slate UI representing the tutorial game HUD.
+ 
+#pragma once
+ 
+#include &quot;Slate.h&quot;
+ 
+// Lays out and controls the Tutorial HUD UI.
+ 
+class STutorialGameHUDUI : public SCompoundWidget
+{
+SLATE_BEGIN_ARGS(STutorialGameHUDUI)
+: _OwnerHUD()
+{
+}
+ 
+SLATE_ARGUMENT(TWeakObjectPtr&lt;class ATutorialGameHUD&gt;, OwnerHUD);
+ 
+SLATE_END_ARGS()
+ 
+public:
+/**
+* Constructs and lays out the Tutorial HUD UI Widget.
+*
+* \args Arguments structure that contains widget-specific setup information.
+**/
+void Construct(const FArguments&amp; args);
+ 
+private:
+/**
+* Stores a weak reference to the HUD owning this widget.
+**/
+TWeakObjectPtr&lt;class ATutorialGameHUD&gt; OwnerHUD;
+ 
+/**
+* A reference to the Slate Style used for this HUD's widgets.
+**/
+const struct FGlobalStyle* HUDStyle;
+};</p> <h3 id="tutorialgamehudui-cpp"><a href="#tutorialgamehudui-cpp" class="header-anchor">#</a> TutorialGameHUDUI.cpp</h3> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;SlateTutorials.h&quot;
+ 
+#include &quot;TutorialGameHUD.h&quot;
+#include &quot;TutorialGameHUDUI.h&quot;
+ 
+#include &quot;Menus/GlobalMenuStyle.h&quot;
+#include &quot;Menus/MenuStyles.h&quot;
+ 
+void STutorialGameHUDUI::Construct(const FArguments&amp; args)
+{
+OwnerHUD = args._OwnerHUD;
+ 
+HUDStyle = &amp;FMenuStyles::Get().GetWidgetStyle&lt;FGlobalStyle&gt;(&quot;Global&quot;);
+ 
+ChildSlot
+[
+SNew(SOverlay)
++ SOverlay::Slot()
+.HAlign(HAlign_Right)
+.VAlign(VAlign_Top)
+[
+SNew(STextBlock)
+.TextStyle(&amp;HUDStyle-&gt;MenuTitleStyle)
+.Text(FText::FromString(&quot;SCORE: 0&quot;))
+]
++ SOverlay::Slot()
+.HAlign(HAlign_Left)
+.VAlign(VAlign_Top)
+[
+SNew(STextBlock)
+.TextStyle(&amp;HUDStyle-&gt;MenuTitleStyle)
+.Text(FText::FromString(&quot;HEALTH: 100&quot;))
+]
+];
+}</p> <h3 id="tutorialgamehud-h"><a href="#tutorialgamehud-h" class="header-anchor">#</a> TutorialGameHUD.h</h3> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+// TutorialGameHUD.h - Provides an implementation of the HUD that will embed the Tutorial Game UI.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/HUD.h&quot;
+ 
+#include &quot;TutorialGameHUD.generated.h&quot;
+ 
+/**
+* Provides an implementation of the game's in-game HUD, which will display the player's current health and score.
+**/
+UCLASS()
+class ATutorialGameHUD : public AHUD
+{
+GENERATED_UCLASS_BODY()
+ 
+public:
+/**
+* Initializes the Slate UI and adds it as a widget to the game viewport.
+**/
+virtual void PostInitializeComponents() override;
+ 
+private:
+/**
+* Reference to the Game HUD UI.
+**/
+TSharedPtr&lt;class STutorialGameHUDUI&gt; GameHUD;
+};</p> <h3 id="tutorialgamehud-cpp"><a href="#tutorialgamehud-cpp" class="header-anchor">#</a> TutorialGameHUD.cpp</h3> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;SlateTutorials.h&quot;
+ 
+#include &quot;TutorialGameHUD.h&quot;
+#include &quot;TutorialGameHUDUI.h&quot;
+ 
+ATutorialGameHUD::ATutorialGameHUD(const class FPostConstructInitializeProperties&amp; PCIP)
+: Super(PCIP)
+{
+}
+ 
+void ATutorialGameHUD::PostInitializeComponents()
+{
+Super::PostInitializeComponents();
+ 
+if (GEngine &amp;&amp; GEngine-&gt;GameViewport)
+{
+UGameViewportClient* Viewport = GEngine-&gt;GameViewport;
+ 
+SAssignNew(GameHUD, STutorialGameHUDUI)
+.OwnerHUD(TWeakObjectPtr&lt;ATutorialGameHUD&gt;(this));
+ 
+Viewport-&gt;AddViewportWidgetContent(
+SNew(SWeakWidget).PossiblyNullContent(GameHUD.ToSharedRef())
+);
+}
+}</p> <p>Go ahead and build the project and set up a new map and game mode and test the HUD out!</p> <h2 id="step-3-binding-our-data"><a href="#step-3-binding-our-data" class="header-anchor">#</a> Step 3: Binding our Data</h2> <p>We have two bits of information that we want to bind to our UI: Score and Health. Both of these are integers, but they have to be bound as strings for our HUD! I will cover obtaining this information from the Game Mode (Score) and active Character (Health) in a minute, but first we’ll handle the data binding portion. Our binding is going to have two important tasks: first, it is going to obtain the actual data. Next, it will convert it to an FText to be applied to the text block widgets.</p> <p>There are two things needed for each of these: the Attribute, and something to bind it to. In our case, because we need to do extra processing on the data (converting from an integer to a string), we will have a function on our widget class itself to bind to. Add the following private values to the STutorialGameHUDUI class:</p> <p>private:
+/**
+* Attribute storing the binding for the player's score.
+**/
+TAttribute&lt;FText&gt; Score;
+ 
+/**
+* Attribute storing the binding for the player's health.
+**/
+TAttribute&lt;FText&gt; Health;
+ 
+/**
+* Our Score will be bound to this function, which will retrieve the appropriate data and convert it into an FText.
+**/
+FText GetScore() const;
+ 
+/**
+* Our Health will be bound to this function, which will retrieve the appropriate data and convert it into an FText.
+**/
+FText GetHealth() const;</p> <p>The TAttribute type is used in Unreal to provide data binding that only has an accessor/getter. Next, we have two constant functions that will be responsible for retrieving and formatting the data into a form the UI can use! So how do we actually do the binding? Well, it’s quite simple – in fact, you’ve already done it if you’ve ever done input binding within C++ for an Unreal project. In the top of STutorialGameHUDUI’s Construct method, just after capturing HUDStyle, add the following to bind our TAttributes to their appropriate functions:</p> <p>Score.Bind(this, &amp;STutorialGameHUDUI::GetScore);
+Health.Bind(this, &amp;STutorialGameHUDUI::GetHealth);</p> <p>Next, we can use the TAttributes directly in our Text specifications when constructing the UI layout:</p> <ul><li>SOverlay::Slot()
+.HAlign(HAlign_Right)
+.VAlign(VAlign_Top)
+[
+SNew(STextBlock)
+.TextStyle(&amp;HUDStyle-&gt;MenuTitleStyle)
+.Text(Score)
+]</li> <li>SOverlay::Slot()
+.HAlign(HAlign_Left)
+.VAlign(VAlign_Top)
+[
+SNew(STextBlock)
+.TextStyle(&amp;HUDStyle-&gt;MenuTitleStyle)
+.Text(Health)
+]</li></ul> <p>And finally, we’ll put in some placeholder data for our bound functions, just to make sure everything’s worked:</p> <p>FText STutorialGameHUDUI::GetScore() const { return FText::FromString(&quot;SCORE: --&quot;); }
+FText STutorialGameHUDUI::GetHealth() const { return FText::FromString(&quot;HEALTH: --&quot;); }</p> <p>Go ahead and build and make sure everything’s working, and congratulations! You’ve just bound your text blocks! You can do this binding for just about everything in Slate – button text, list items, image backgrounds, styles, etc.</p> <p><a href="/File:%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82_2015-03-18_16.55.25.png"><img src="https://d26ilriwvtzlb.cloudfront.net/4/47/%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82_2015-03-18_16.55.25.png" alt="Скриншот 2015-03-18 16.55.25.png"></a></p> <h2 id="step-4-binding-it-to-something-useful"><a href="#step-4-binding-it-to-something-useful" class="header-anchor">#</a> Step 4: Binding it to something Useful</h2> <p>If you only needed to learn how to do data binding, and don’t care about the specifics for this tutorial then you don’t need to continue past this point – here, we’re just implementing our Score and Health functions. Consider it bonus content!</p> <p>To get the score and health data for this tutorial, I’ve added the following GameMode and Character classes and set them up to be used with the GameMap level.</p> <h3 id="tutgamemode-h"><a href="#tutgamemode-h" class="header-anchor">#</a> TutGameMode.h</h3> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+// TutGameMode.h - Provides a simple game mode providing a Score!
+ 
+#pragma once
+ 
+#include &quot;GameFramework/GameMode.h&quot;
+#include &quot;TutGameMode.generated.h&quot;
+ 
+/**
+* A simple game mode providing a means of retrieving and adjusting a single Score value.
+**/
+UCLASS()
+class ATutGameMode : public AGameMode
+{
+GENERATED_UCLASS_BODY()
+ 
+public:
+/**
+* Retrieves the current Score from the game mode.
+**/
+UFUNCTION(BlueprintPure, BlueprintCallable, Category = &quot;Score&quot;)
+int32 GetScore();
+ 
+/**
+* Adds to the game score.
+**/
+UFUNCTION(BlueprintCallable, Category = &quot;Score&quot;)
+void AddPoints(int32 value);
+ 
+/**
+* Removes from the game score.
+**/
+UFUNCTION(BlueprintCallable, Category = &quot;Score&quot;)
+void DeductPoints(int32 value);
+ 
+private:
+/**
+* Stores the current score.
+**/
+int32 CurrentScore;
+};</p> <h3 id="tutgamemode-cpp"><a href="#tutgamemode-cpp" class="header-anchor">#</a> TutGameMode.cpp</h3> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;SlateTutorials.h&quot;
+ 
+#include <algorithm>
+ 
+#include &quot;TutGameMode.h&quot;
+ 
+ATutGameMode::ATutGameMode(const class FPostConstructInitializeProperties&amp; PCIP)
+: Super(PCIP), CurrentScore(0)
+{
+}
+ 
+int32 ATutGameMode::GetScore()
+{
+return CurrentScore;
+}
+ 
+void ATutGameMode::AddPoints(int32 value)
+{
+if (value &gt; 0)
+CurrentScore += value;
+}
+ 
+void ATutGameMode::DeductPoints(int32 value)
+{
+if (value &gt; 0)
+CurrentScore = std::max(CurrentScore - value, 0);
+}</algorithm></p> <h3 id="tutorialcharacter-h"><a href="#tutorialcharacter-h" class="header-anchor">#</a> TutorialCharacter.h</h3> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+// TutorialCharacter.h - Provides a simple character providing Health!
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Character.h&quot;
+#include &quot;TutorialCharacter.generated.h&quot;
+ 
+/**
+* A simple character providing a means of retrieving and manipulating health.
+**/
+UCLASS()
+class ATutorialCharacter : public ACharacter
+{
+GENERATED_UCLASS_BODY()
+ 
+public:
+/**
+* Stores the character's current health.
+**/
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = &quot;Combat&quot;)
+int32 Health;
+};</p> <h3 id="tutorialcharacter-cpp"><a href="#tutorialcharacter-cpp" class="header-anchor">#</a> TutorialCharacter.cpp</h3> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;SlateTutorials.h&quot;
+ 
+#include &quot;TutorialCharacter.h&quot;
+ 
+ATutorialCharacter::ATutorialCharacter(const class FPostConstructInitializeProperties&amp; PCIP)
+: Super(PCIP)
+{
+Health = 100;
+}</p> <p>Once we’ve got these, retrieving and applying the score and health is simple</p> <h3 id="tutorialgamehudui-cpp-2"><a href="#tutorialgamehudui-cpp-2" class="header-anchor">#</a> TutorialGameHUDUI.cpp</h3> <p>FText STutorialGameHUDUI::GetScore() const
+{
+// NOTE: THIS IS A TERRIBLE WAY TO DO THIS. DO NOT DO IT. IT ONLY WORKS ON SERVERS. USE GAME STATES INSTEAD!
+ATutGameMode* gameMode = Cast&lt;ATutGameMode&gt;(OwnerHUD-&gt;GetWorldSettings()-&gt;GetWorld()-&gt;GetAuthGameMode());
+ 
+if (gameMode == nullptr)
+return FText::FromString(TEXT(&quot;SCORE: --&quot;));
+ 
+FString score = TEXT(&quot;SCORE: &quot;);
+score.AppendInt(gameMode-&gt;GetScore());
+ 
+return FText::FromString(score);
+}
+ 
+FText STutorialGameHUDUI::GetHealth() const
+{
+ATutorialCharacter* character = Cast&lt;ATutorialCharacter&gt;(OwnerHUD-&gt;PlayerOwner-&gt;GetCharacter());
+ 
+if (character == nullptr)
+return FText::FromString(TEXT(&quot;HEALTH: --&quot;));
+ 
+FString health = TEXT(&quot;HEALTH: &quot;);
+health.AppendInt(character-&gt;Health);
+ 
+return FText::FromString(health);
+}</p> <p>Go ahead and run the game, then update the score! (You can do this in the sample files by pressing the Home/End to adjust health &amp; Page Up/Page Down to adjust score).</p> <p>Source code: <a href="/index.php?title=Special:Upload&amp;wpDestFile=SlateTutorials-3" title="File:SlateTutorials-3">File:SlateTutorials-3</a> (~547KB)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Slate_Data_Binding_Part_3&amp;oldid=23279" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Slate_Data_Binding_Part_3&amp;oldid=23279<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Pages_with_broken_file_links" title="Category:Pages with broken file links">Pages with broken file links</a></li> <li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/995.c35cb861.js" defer></script>
+  </body>
+</html>

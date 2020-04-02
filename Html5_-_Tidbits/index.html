@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/593.815d51f1.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Html5 - Tidbits - Epic Wiki</p> <h1 id="html5-tidbits"><a href="#html5-tidbits" class="header-anchor">#</a> Html5 - Tidbits</h1> <p>This page is meant to serve as an archive for assorted information regarding HTML5 development.</p> <h4 id="exporting-c-functions-to-javascript"><a href="#exporting-c-functions-to-javascript" class="header-anchor">#</a> Exporting C functions to Javascript</h4> <p><img src="https://d26ilriwvtzlb.cloudfront.net/b/b3/Icon_template_warning1.png" alt="Note"></p> <p><em>Disclaimer: this is a living document based on current research and experience. This currently does not work.</em></p> <p>Somewhere in the project, define a global C function to be called by Javascript</p> <p>extern &quot;C&quot;
+{
+#if PLATFORM_HTML5_BROWSER
+DEFINE_LOG_CATEGORY_STATIC(LogHTML5, Log, All);
+ 
+void my_func( const char* _string, int _number )
+{
+#ifdef __EMSCRIPTEN_TRACING__
+// Log to emscripten
+emscripten_log( EM_LOG_CONSOLE, TEXT(&quot;my_func( %s, %d )&quot;), _string, _number );
+#endif
+ 
+// Log to UE console
+UE_LOG( LogHTML5, Verbose, TEXT(&quot;my_func( %s, %d )&quot;), _string, _number );
+}
+ 
+#endif
+}</p> <p>Append the C function name with a prefixed '_' to this EXPORTED_FUNCTIONS array</p> <p>// File
+// <Engine>/Source/Programs/UnrealBuildTool/HTML5/HTML5ToolChain.cs(87)
+ 
+Result += &quot; -s EXPORTED_FUNCTIONS=\&quot;['_main', '_resize_game', '_on_fatal', '_my_func']\&quot; &quot;;</Engine></p> <p>The Javascript that handles the web interface gets pulled from a template during build, so any changes should be done to that.</p> <p>// File
+// <Engine>/Build/HTML5/GameX.html.template(223+)
+var UE4 = {
+...
+get my_func() {
+var fn = Module.cwrap('my_func', null, ['string'],['number'] );
+delete UE4[&quot;my_func&quot;];
+UE4.my_func = fn;
+return fn;
+},
+...
+};
+ 
+// Now anywhere inside Javascript, you can call
+UE4.my_func(&quot;mystring&quot;, 1234);</Engine></p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Html5_-_Tidbits&amp;oldid=17912" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Html5_-_Tidbits&amp;oldid=17912<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/593.815d51f1.js" defer></script>
+  </body>
+</html>

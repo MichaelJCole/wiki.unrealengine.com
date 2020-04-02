@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/998.a039744a.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Slate Tabs - Epic Wiki</p> <h1 id="slate-tabs"><a href="#slate-tabs" class="header-anchor">#</a> Slate Tabs</h1> <p><strong>Rate this Article:</strong></p> <p>0.00</p> <p><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""></p> <p>Approved for Versions:(4.7)</p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" alt="Note"></p> <p><strong>Some or all of the information on this page is inconsistent, irrelevant or confusing.</strong></p> <p>Please help clean it up if you are able.</p> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Author</em> <a href="https://forums.unrealengine.com/member.php?31661-Syntopia" target="_blank" rel="noopener noreferrer">Syntopia<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>In this tutorial I show you how to make tabs. There are many ways to do this. With a checkbox or button style change, but for me it was the easiest way.</p> <p><a href="/File:Tabs.png"><img src="https://d26ilriwvtzlb.cloudfront.net/3/3c/Tabs.png" alt="Tabs.png"></a></p> <h2 id="code"><a href="#code" class="header-anchor">#</a> Code:</h2> <p>MyStyle.h</p> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+#pragma once
+ 
+class FMyStyle
+{
+public:
+static void Initialize();
+static void Shutdown();
+ 
+static const ISlateStyle&amp; Get();
+ 
+static TSharedPtr&lt;class ISlateStyle&gt; StylePtr;
+ 
+};</p> <p>MyStyle.cpp</p> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;TabbedView.h&quot;
+#include &quot;MyStyle.h&quot;
+#include &quot;Engine.h&quot;
+#include &quot;SlateBasics.h&quot;
+#include &quot;SlateStyle.h&quot;
+ 
+#define IMAGE_BRUSH(RelativePath, ...)	FSlateImageBrush(Style-&gt;RootToContentDir(RelativePath, TEXT(&quot;.png&quot;)), __VA_ARGS__)
+ 
+TSharedPtr&lt;ISlateStyle&gt; CreateStyle()
+{
+TSharedPtr&lt;FSlateStyleSet&gt; Style = MakeShareable(new FSlateStyleSet(&quot;PreloadStyle&quot;));
+Style-&gt;SetContentRoot(FPaths::GameContentDir() / &quot;Slate&quot;);
+ 
+Style-&gt;Set(&quot;tab_normal&quot;, new IMAGE_BRUSH(&quot;tab_normal&quot;, FVector2D(256, 64)));
+Style-&gt;Set(&quot;tab_active&quot;, new IMAGE_BRUSH(&quot;tab_active&quot;, FVector2D(256, 64)));
+ 
+return Style;
+}
+ 
+#undef IMAGE_BRUSH
+ 
+ 
+TSharedPtr&lt;ISlateStyle&gt; FMyStyle::StylePtr = NULL;
+ 
+void FMyStyle::Initialize()
+{
+if (!StylePtr.IsValid())
+{
+StylePtr = CreateStyle();
+FSlateStyleRegistry::RegisterSlateStyle(*StylePtr);
+}
+}
+ 
+void FMyStyle::Shutdown()
+{
+FSlateStyleRegistry::UnRegisterSlateStyle(*StylePtr);
+ensure(StylePtr.IsUnique());
+StylePtr.Reset();
+}
+ 
+const ISlateStyle&amp; FMyStyle::Get()
+{
+return *StylePtr;	
+}</p> <p>TabbedView.h</p> <p>#pragma once
+ 
+#include &quot;Engine.h&quot;</p> <p>TabbedView.cpp</p> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;TabbedView.h&quot;
+#include &quot;MyStyle.h&quot;
+ 
+class MyModule : public FDefaultGameModuleImpl
+{
+public:
+virtual void StartupModule() override
+{
+FSlateStyleRegistry::UnRegisterSlateStyle(&quot;PreloadStyle&quot;);
+FMyStyle::Initialize();
+}
+ 
+virtual void ShutdownModule() override
+{
+FMyStyle::Shutdown();
+}
+};
+ 
+IMPLEMENT_PRIMARY_GAME_MODULE(MyModule, TabbedView, &quot;TabbedView&quot;);</p> <p>MyGameMode.h</p> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+#pragma once
+ 
+#include &quot;MyGameMode.generated.h&quot;
+ 
+UCLASS(minimalapi)
+class AMyGameMode : public AGameMode
+{
+GENERATED_UCLASS_BODY()
+ 
+};</p> <p>MyGameMode.cpp</p> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;TabbedView.h&quot;
+#include &quot;MyGameMode.h&quot;
+#include &quot;MyHUD.h&quot;
+ 
+ 
+AMyGameMode::AMyGameMode(const FObjectInitializer&amp; ObjectInitializer)
+: Super(ObjectInitializer)
+{
+// use our custom HUD class
+HUDClass = AMyHUD::StaticClass();
+}</p> <p>MyHUD.h</p> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+#pragma once
+ 
+#include &quot;MyHUD.generated.h&quot;
+ 
+class SMyUIWidget : public SCompoundWidget
+{
+SLATE_BEGIN_ARGS(SMyUIWidget)
+{}
+/*See private declaration of OwnerHUD below.*/
+SLATE_ARGUMENT(TWeakObjectPtr&lt;class AMyHUD&gt;, OwnerHUD)
+/** The visual style of the button */
+SLATE_END_ARGS()
+ 
+public:
+void Construct(const FArguments&amp; InArgs);
+ 
+FReply FirstTabClicked();
+FReply SecondTabClicked();
+ 
+const FSlateBrush* GetFirstImageBrush() const;
+const FSlateBrush* GetSecondImageBrush() const;
+ 
+private:
+TWeakObjectPtr&lt;class AMyHUD&gt; OwnerHUD;
+ 
+int32 TabIndex;
+ 
+int32 GetCurrentTabIndex() const
+{
+return TabIndex;
+}
+ 
+};
+ 
+UCLASS()
+class AMyHUD : public AHUD
+{
+GENERATED_UCLASS_BODY()
+ 
+public:
+void BeginPlay();
+ 
+virtual void DrawHUD() override;
+ 
+private:
+TSharedPtr&lt;SMyUIWidget&gt; MyUIWidget;
+ 
+};</p> <p>MyHUD.cpp</p> <p>// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;TabbedView.h&quot;
+#include &quot;MyHUD.h&quot;
+#include &quot;SWidgetSwitcher.h&quot;
+#include &quot;MyStyle.h&quot;
+ 
+int FirstTabActive  = 1;
+int SecondTabActive = 0;
+ 
+int ftClick = 1;
+int stClick = 0;
+ 
+void SMyUIWidget::Construct(const FArguments&amp; InArgs)
+{
+OwnerHUD = InArgs._OwnerHUD;
+ 
+TabIndex = 0;
+ 
+ChildSlot
+[
+SNew(SVerticalBox)
++ SVerticalBox::Slot()
+.FillHeight(0.1)
+ 
++ SVerticalBox::Slot()
+.FillHeight(0.8)
+[
+SNew(SHorizontalBox)
+ 
++ SHorizontalBox::Slot()
+.FillWidth(0.3)
+ 
++ SHorizontalBox::Slot()
+.FillWidth(0.4)
+[
+SNew(SVerticalBox)
++ SVerticalBox::Slot()
+.FillHeight(0.2)
+[
+SNew(SHorizontalBox)
++ SHorizontalBox::Slot()
+[
+SNew(SButton)
+.ContentPadding(-3)
+.OnClicked(this, &amp;SMyUIWidget::FirstTabClicked)
+[
+SNew(SVerticalBox)
++ SVerticalBox::Slot()
+.HAlign(HAlign_Fill)
+.VAlign(VAlign_Fill)
+[
+SNew(SBorder)
+.HAlign(HAlign_Center)
+.VAlign(VAlign_Center)
+.BorderImage(this, &amp;SMyUIWidget::GetFirstImageBrush)
+[
+SNew(STextBlock)
+.Font(FSlateFontInfo(&quot;Veranda&quot;, 54))
+.ColorAndOpacity(FLinearColor(1, 1, 1, 1))
+.Text(FText::FromString(&quot;Page One&quot;))
+]
+]
+]
+]
+ 
++ SHorizontalBox::Slot()
+.FillWidth(0.1)
+ 
++ SHorizontalBox::Slot()
+[
+SNew(SButton)
+.ContentPadding(-3)
+.OnClicked(this, &amp;SMyUIWidget::SecondTabClicked)
+[
+SNew(SVerticalBox)
++ SVerticalBox::Slot()
+.HAlign(HAlign_Fill)
+.VAlign(VAlign_Fill)
+[
+SNew(SBorder)
+.HAlign(HAlign_Center)
+.VAlign(VAlign_Center)
+.BorderImage(this, &amp;SMyUIWidget::GetSecondImageBrush)
+[
+SNew(STextBlock)
+.Font(FSlateFontInfo(&quot;Veranda&quot;, 54))
+.ColorAndOpacity(FLinearColor(1, 1, 1, 1))
+.Text(FText::FromString(&quot;Page Two&quot;))
+]
+]
+]
+]
+]
+ 
++ SVerticalBox::Slot()
+.FillHeight(0.8)
+[
+SNew(SWidgetSwitcher)
+.WidgetIndex(this, &amp;SMyUIWidget::GetCurrentTabIndex)
++ SWidgetSwitcher::Slot()
+[
+SNew(SBorder)
+.BorderImage(FCoreStyle::Get().GetBrush(&quot;ToolPanel.GroupBorder&quot;))
+[
+SNew(SVerticalBox)
++ SVerticalBox::Slot()
+.HAlign(HAlign_Center)
+.VAlign(VAlign_Center)
+[
+SNew(STextBlock)
+.ColorAndOpacity(FLinearColor(1, 1, 1, 1))
+.Font(FSlateFontInfo(&quot;Veranda&quot;, 72))
+.Text(FText::FromString(&quot;Page One&quot;))
+]
++ SVerticalBox::Slot()
+.HAlign(HAlign_Center)
+.VAlign(VAlign_Center)
+[
+SNew(STextBlock)
+.ColorAndOpacity(FLinearColor(1, 1, 1, 1))
+.Font(FSlateFontInfo(&quot;Veranda&quot;, 52))
+.Text(FText::FromString(&quot;Page One&quot;))
+]
++ SVerticalBox::Slot()
+.HAlign(HAlign_Center)
+.VAlign(VAlign_Center)
+[
+SNew(STextBlock)
+.ColorAndOpacity(FLinearColor(1, 1, 1, 1))
+.Font(FSlateFontInfo(&quot;Veranda&quot;, 32))
+.Text(FText::FromString(&quot;Page One&quot;))
+]
+]
+]
++ SWidgetSwitcher::Slot() // Weapons
+[
+SNew(SBorder)
+.BorderImage(FCoreStyle::Get().GetBrush(&quot;ToolPanel.GroupBorder&quot;))
+[
+SNew(SVerticalBox)
++ SVerticalBox::Slot()
+.HAlign(HAlign_Center)
+.VAlign(VAlign_Center)
+[
+SNew(STextBlock)
+.ColorAndOpacity(FLinearColor(1, 1, 1, 1))
+.Font(FSlateFontInfo(&quot;Veranda&quot;, 72))
+.Text(FText::FromString(&quot;Page Two&quot;))
+]
++ SVerticalBox::Slot()
+.HAlign(HAlign_Center)
+.VAlign(VAlign_Center)
+[
+SNew(STextBlock)
+.ColorAndOpacity(FLinearColor(1, 1, 1, 1))
+.Font(FSlateFontInfo(&quot;Veranda&quot;, 52))
+.Text(FText::FromString(&quot;Page Two&quot;))
+]
++ SVerticalBox::Slot()
+.HAlign(HAlign_Center)
+.VAlign(VAlign_Center)
+[
+SNew(STextBlock)
+.ColorAndOpacity(FLinearColor(1, 1, 1, 1))
+.Font(FSlateFontInfo(&quot;Veranda&quot;, 32))
+.Text(FText::FromString(&quot;Page Two&quot;))
+]
+]
+]
+]
+]
+ 
++ SHorizontalBox::Slot()
+.FillWidth(0.3)
+]
+ 
++ SVerticalBox::Slot()
+.FillHeight(0.1)
+];
+}
+ 
+const FSlateBrush* SMyUIWidget::GetFirstImageBrush() const
+{
+FName BrushName;
+(FirstTabActive == 0) ? BrushName = TEXT(&quot;tab_normal&quot;) : BrushName = TEXT(&quot;tab_active&quot;);
+ 
+return FMyStyle::Get().GetBrush(BrushName);
+}
+ 
+const FSlateBrush* SMyUIWidget::GetSecondImageBrush() const
+{
+FName BrushName;
+(SecondTabActive == 0) ? BrushName = TEXT(&quot;tab_normal&quot;) : BrushName = TEXT(&quot;tab_active&quot;);
+ 
+return FMyStyle::Get().GetBrush(BrushName);
+}
+ 
+AMyHUD::AMyHUD(const FObjectInitializer&amp; ObjectInitializer)
+: Super(ObjectInitializer)
+{
+ 
+}
+ 
+void AMyHUD::BeginPlay()
+{
+SAssignNew(MyUIWidget, SMyUIWidget).OwnerHUD(this);
+ 
+if (GEngine-&gt;IsValidLowLevel())
+{
+GEngine-&gt;GameViewport-&gt;AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(MyUIWidget.ToSharedRef()));
+}
+ 
+if (MyUIWidget.IsValid())
+{
+MyUIWidget-&gt;SetVisibility(EVisibility::Visible);
+}
+}
+ 
+void AMyHUD::DrawHUD()
+{
+Super::DrawHUD();
+}
+ 
+FReply SMyUIWidget::FirstTabClicked()
+{
+TabIndex = 0;
+ 
+stClick = 0;
+ftClick++;
+ 
+if (ftClick == 1)
+{
+if (FirstTabActive == 0)
+{
+FirstTabActive = 1;
+SecondTabActive = 0;
+}
+ 
+}
+ 
+return FReply::Handled();
+}
+ 
+FReply SMyUIWidget::SecondTabClicked()
+{
+TabIndex = 1;
+ 
+ftClick = 0;
+stClick++;
+ 
+if (stClick == 1)
+{
+if (SecondTabActive == 0)
+{
+FirstTabActive = 0;
+SecondTabActive = 1;
+}
+ 
+}
+ 
+return FReply::Handled();
+}</p> <h2 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h2> <p>Set your level to use your new game mode, and run!</p> <p>Source code: <a href="/File:TabbedView.zip" title="File:TabbedView.zip">File:TabbedView.zip</a> (~67KB)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Slate_Tabs&amp;oldid=12969" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Slate_Tabs&amp;oldid=12969<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li> <li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/998.a039744a.js" defer></script>
+  </body>
+</html>

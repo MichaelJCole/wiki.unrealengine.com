@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/972.8ee5844c.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="content__default"><p>Save System, Read &amp; Write Any Data to Compressed Binary Files - Epic Wiki</p> <h1 id="save-system-read-write-any-data-to-compressed-binary-files"><a href="#save-system-read-write-any-data-to-compressed-binary-files" class="header-anchor">#</a> Save System, Read &amp; Write Any Data to Compressed Binary Files</h1> <p>From Epic Wiki</p> <p>(Redirected from <a href="/index.php?title=Save_System,_Read_%26_Write_Any_Data_to_Compressed_Binary_Files(Code)&amp;redirect=no" title="Save System, Read &amp; Write Any Data to Compressed Binary Files(Code)">Save System, Read &amp; Write Any Data to Compressed Binary Files(Code)</a>)</p> <p>Jump to: <a href="#mw-navigation">navigation</a>, <a href="#p-search">search</a></p> <p><strong>Rate this Article:</strong></p> <p>0.00</p> <p><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""></p> <p>Approved for Versions:(please verify)</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Custom_Save_System_To_Binary_Files">1 Custom Save System To Binary Files</a> <ul><li><a href="#Pre-Summary">1.1 Pre-Summary</a></li> <li><a href="#Two_Levels_of_Conversions">1.2 Two Levels of Conversions</a> <ul><li><a href="#Binary_Array_.3D_TArray.3Cuint8.3E">1.2.1 Binary Array = TArray<uint8></uint8></a></li> <li><a href="#Step_1:_Variable_Format_-.3E_Binary_Array">1.2.2 Step 1: Variable Format -&gt; Binary Array</a></li> <li><a href="#Step_2:_Binary_Array_-.3E_Hard_Disk">1.2.3 Step 2: Binary Array -&gt; Hard Disk</a></li> <li><a href="#Optinal_Step_3:_Compressed_Binary">1.2.4 Optinal Step 3: Compressed Binary</a></li></ul></li> <li><a href="#Core_Header_Files">1.3 Core Header Files</a> <ul><li><a href="#Archive.h_and_ArchiveBase.h">1.3.1 Archive.h and ArchiveBase.h</a></li> <li><a href="#FileManager.h">1.3.2 FileManager.h</a></li> <li><a href="#BufferArchive">1.3.3 BufferArchive</a></li> <li><a href="#FMemoryReader">1.3.4 FMemoryReader</a></li></ul></li> <li><a href="#The_.3C.3C_Operator">1.4 The &lt;&lt; Operator</a> <ul><li><a href="#Variable_-.3E_Binary">1.4.1 Variable -&gt; Binary</a></li> <li><a href="#Binary_-.3E_Variable">1.4.2 Binary -&gt; Variable</a></li></ul></li> <li><a href="#The_Hardest_Concept_of_UE4_C.2B.2B_Custom_Save_System">1.5 The Hardest Concept of UE4 C++ Custom Save System</a> <ul><li><a href="#Writing_Your_Function_to_Be_Two-Way">1.5.1 Writing Your Function to Be Two-Way</a> <ul><li><a href="#The_order_of_how_you_write_out_data_to_binary_file_must_be_the_exact_order_that_you_read_it_back_in.21">1.5.1.1 The order of how you write out data to binary file must be the exact order that you read it back in!</a></li></ul></li></ul></li> <li><a href="#">1.6</a></li> <li><a href="#SaveLoadData:_Two-Way_Save_System_Function">1.7 SaveLoadData: Two-Way Save System Function</a> <ul><li><a href="#Saving">1.7.1 Saving</a></li> <li><a href="#Loading">1.7.2 Loading</a></li> <li><a href="#Summary">1.7.3 Summary</a></li></ul></li> <li><a href="#My_Binary_Save_System_Functions_For_You">1.8 My Binary Save System Functions For You</a> <ul><li><a href="#Saving_Binary_Files">1.8.1 Saving Binary Files</a></li> <li><a href="#Loading_Binary_Files">1.8.2 Loading Binary Files</a></li> <li><a href="#Saving_Compressed">1.8.3 Saving Compressed</a></li> <li><a href="#Loading_Compressed">1.8.4 Loading Compressed</a></li></ul></li> <li><a href="#_2">1.9</a></li> <li><a href="#Overloading_the_.3C.3C_Operator">1.10 Overloading the &lt;&lt; Operator</a></li> <li><a href="#Crashes.3F">1.11 Crashes?</a></li> <li><a href="#Enjoy.21">1.12 Enjoy!</a></li></ul></li></ul> <h1 id="custom-save-system-to-binary-files"><a href="#custom-save-system-to-binary-files" class="header-anchor">#</a> Custom Save System To Binary Files</h1> <p>Original Author: <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p><strong>Using what I explain in this tutorial you can write your own custom save systems wherein you</strong></p> <ul><li>write out literally any game-related data you want</li> <li>read back in this data any time you want, from hard-disk</li> <li>compress (ZLIB) these files to minimize usage of the end-user's computer hard disk space</li></ul> <p>I've already been writing out and loading back in levels that are zipped binary data files for my in-game editor.</p> <p><strong>I am currently able to save literally any custom data I want, including dynamic arrays, for all my custom classes.</strong></p> <p>I've developed a streamlined method for doing all this by overloading a specific UE4 C++ operator, so yay thank you thank you Epic for C++ access!</p> <h2 id="pre-summary"><a href="#pre-summary" class="header-anchor">#</a> Pre-Summary</h2> <p>There's a lot of concepts in this tutorial, try out each part and get it working before moving on to the next</p> <p>Just copy-pasting code will not work here, you need to understand the basics, because all I am presenting is the basics,</p> <p>and you must apply the basics to your own project's needs.</p> <p>After all, this is about a save system for any arbitrary project-specific custom class data 😃</p> <h2 id="two-levels-of-conversions"><a href="#two-levels-of-conversions" class="header-anchor">#</a> Two Levels of Conversions</h2> <p>When you want to save custom variable data for your custom save system,</p> <p>there are TWO major steps involved</p> <p><strong>Step 1</strong> = variable format -&gt; binary array (serialized by Archive class of UE4)</p> <p><strong>Step 2</strong> = Binary array -&gt; hard disk</p> <p>These steps are then done in reverse to read back in data from hard disk.</p> <h3 id="binary-array-tarray"><a href="#binary-array-tarray" class="header-anchor">#</a> Binary Array = TArray<uint8></uint8></h3> <p>Binary data is represented in a very UE4 C++ friendly looking way as a dynamic array of uint8.</p> <p>So any time you see TArray<uint8> in my code in this tutorial, that literally means &quot;Binary Array&quot; from UE4 C++ standpoint.</uint8></p> <h3 id="step-1-variable-format-binary-array"><a href="#step-1-variable-format-binary-array" class="header-anchor">#</a> Step 1: Variable Format -&gt; Binary Array</h3> <p>An int32 takes up 4 bytes, as does a float A int64 takes up 8 bytes A FString takes up 16 bytes A FName takes up 8 bytes</p> <p>An FVector takes up 3 x Float bytes</p> <p>etc.</p> <p>So even a single int32 is actually an array of bytes, not a single entry.</p> <p>Now let's suppose your save system needs to store</p> <p>- 3 FVector's</p> <p>- 40 int32's</p> <p>- 20 FName's</p> <p>Do all the math and this is a lot of bytes!</p> <p>3 x 3 = 9</p> <p>40 x 4 = 160</p> <p>20 x 8 = 160</p> <p>329</p> <p>So this means that before your data leaves UE4 and goes to hard disk,</p> <p>you need a TArray<uint8> that has 329 entries.</uint8></p> <h3 id="step-2-binary-array-hard-disk"><a href="#step-2-binary-array-hard-disk" class="header-anchor">#</a> Step 2: Binary Array -&gt; Hard Disk</h3> <p>UE4 C++ gives you functions via FileManager.h to write out TArray<uint8> to hard disk!</uint8></p> <h3 id="optinal-step-3-compressed-binary"><a href="#optinal-step-3-compressed-binary" class="header-anchor">#</a> Optinal Step 3: Compressed Binary</h3> <p>UE4 gives you functionality via Archive.h to compress a TArray<uint8> before sending it to the FileManager</uint8></p> <p>C++ Code For You</p> <p>Below I am giving you the functions that I use to to read and write binary files of any custom data I choose</p> <h2 id="core-header-files"><a href="#core-header-files" class="header-anchor">#</a> Core Header Files</h2> <h3 id="archive-h-and-archivebase-h"><a href="#archive-h-and-archivebase-h" class="header-anchor">#</a> Archive.h and ArchiveBase.h</h3> <p>See Archive.h and ArchiveBase.h for all the info you need about getting from your varibles and custom class data to binary format (serialized data)</p> <h3 id="filemanager-h"><a href="#filemanager-h" class="header-anchor">#</a> FileManager.h</h3> <p>All the functions you need to</p> <ul><li>create directories</li> <li>delete directories</li> <li>create files</li> <li>delete files</li> <li>get a listing of all files in a given path</li> <li>get a listing of all folders in a given path</li> <li>get the age of a file</li></ul> <p>and more</p> <p>are found in FileManager.h</p> <p>You access these functions from anywhere using</p> <p>if(GFileManager) GFileManager-&gt;TheFunction()</p> <h3 id="bufferarchive"><a href="#bufferarchive" class="header-anchor">#</a> BufferArchive</h3> <p>The buffer archive is both a binary array (TArray<uint8>), and a MemoryWriter</uint8></p> <p><strong>Archive.h</strong></p> <p>/**
+* Buffer archiver.
+*/
+class FBufferArchive : public FMemoryWriter, public TArray&lt;uint8&gt;
+{</p> <p>Because of this multiple-inheritance, the BufferArchive is my preferred way to write data to binary file.</p> <p>As my code will show, because the GFileManager wants to receive a TArray<uint8>, not a MemoryArchive.</uint8></p> <p>Review my Steps 1 and 2 to see why this is such an awesome class. 😃</p> <p>Thanks UE4 Devs!</p> <h3 id="fmemoryreader"><a href="#fmemoryreader" class="header-anchor">#</a> FMemoryReader</h3> <p>To read Data back from a binary array, that is retrieved by the FileManager, you need a MemoryReader</p> <p><strong>Archive.h</strong></p> <p>/**
+* Archive for reading arbitrary data from the specified memory location
+*/
+class FMemoryReader : public FMemoryArchive
+{
+public:</p> <h2 id="the-operator"><a href="#the-operator" class="header-anchor">#</a> The &lt;&lt; Operator</h2> <p>The BufferArchive/Binary Array needs to retrieve your game's variable data, how do you tell it what you want stored as binary?</p> <p>The &lt;&lt; operator!</p> <h3 id="variable-binary"><a href="#variable-binary" class="header-anchor">#</a> Variable -&gt; Binary</h3> <p>Here's how you would put an FVector into a BufferArchive to then be saved to hard disk.</p> <p>//in player controller class</p> <p>FBufferArchive ToBinary;
+ToBinary &lt;&lt; GetPawn()-&gt;GetActorLocation(); //save player location to hard disk
+ 
+//save ToBinary to hard disk using File Manager,
+//see complete code samples below</p> <h3 id="binary-variable"><a href="#binary-variable" class="header-anchor">#</a> Binary -&gt; Variable</h3> <p>Here's how you would retrieve an FVector from a TArray<uint8> as retrieved by GFileManager.</uint8></p> <p>/</p> <p>/TheBinaryArray was already obtained from FileManager,
+//see code below for full examples
+ 
+//need to supply a variable to be filled with the data
+FVector ToBeFilledWithData;
+ 
+FMemoryReader Ar = FMemoryReader(TheBinaryArray, true); //true, free data after done
+Ar.Seek(0); //make sure we at the beginning
+ 
+Ar &lt;&lt; ToBeFilledWithData;</p> <h2 id="the-hardest-concept-of-ue4-c-custom-save-system"><a href="#the-hardest-concept-of-ue4-c-custom-save-system" class="header-anchor">#</a> The Hardest Concept of UE4 C++ Custom Save System</h2> <p>Compare these two lines</p> <p>ToBinary &lt;&lt; GetPawn()-&gt;GetActorLocation();
+Ar &lt;&lt; ToBeFilledWithData;</p> <p>The hardest concept for me about the UE4 archive system was the fact that the &lt;&lt; operator could mean</p> <p>- getting data out of the archive and putting it into the variable</p> <p>or</p> <p>- putting data from the variable into the archived binary format</p> <p>depending on the context!</p> <p>So that's why I recommend you name your BufferArchive something like ToBinary,</p> <p>and your MemoryReader something <strong>totally different</strong>,</p> <p>you can only discern the difference between writing to binary and reading from binary</p> <p>based on the context as you show it in your code, as the &lt;&lt; operator will tell you nothing from a simple glance.</p> <h3 id="writing-your-function-to-be-two-way"><a href="#writing-your-function-to-be-two-way" class="header-anchor">#</a> Writing Your Function to Be Two-Way</h3> <p>The critical advantage of this system though is that you can write a single function that works both ways.</p> <p>So you can write a single function that loads data from file, or saves to file.</p> <p>But why would you want this?</p> <p>Because:</p> <h4 id="the-order-of-how-you-write-out-data-to-binary-file-must-be-the-exact-order-that-you-read-it-back-in"><a href="#the-order-of-how-you-write-out-data-to-binary-file-must-be-the-exact-order-that-you-read-it-back-in" class="header-anchor">#</a> The order of how you write out data to binary file must be the exact order that you read it back in!</h4> <p>The computer does not have any way of knowing, nor does UE4, what the correct order of variable data should be.</p> <p>You are responsible for telling the computer and UE4 to read data back in in the same order it was written out to file.</p> <p>Thus, having a single function that both reads and writes, using the multi-purpose &lt;&lt; operator, is the safest thing you can do to ensure consistency of writing/reading binary data.</p> <h2 id="saveloaddata-two-way-save-system-function"><a href="#saveloaddata-two-way-save-system-function" class="header-anchor">#</a> SaveLoadData: Two-Way Save System Function</h2> <p>'''.h'''
+ 
+//FArchive is shared base class for FBufferArchive and FMemoryReader
+void SaveLoadData(FArchive&amp; Ar, int32&amp; SaveDataInt32, FVector&amp; SaveDataVector, TArray&lt;FRotator&gt;&amp; SaveDataRotatorArray);
+ 
+'''.cpp'''
+ 
+//I am using controller class for convenience, use any class you want
+ 
+//SaveLoadData
+void YourControllerClass::SaveLoadData(FArchive&amp; Ar,
+int32&amp; SaveDataInt32,
+FVector&amp; SaveDataVector,
+TArray&lt;FRotator&gt;&amp; SaveDataRotatorArray
+)
+{
+Ar &lt;&lt; SaveDataInt32;
+Ar &lt;&lt; SaveDataVector;
+Ar &lt;&lt; SaveDataRotatorArray;
+}</p> <h3 id="saving"><a href="#saving" class="header-anchor">#</a> Saving</h3> <p>Make a BufferArchive and pass it in, it is a Binary Array and also an FArchive</p> <p>FBufferArchive ToBinary;
+SaveLoadData(ToBinary,NumGemsCollected,PlayerLocation,ArrayOfRotationsOfTheStars);
+//save the binary array / FBufferArchive to hard disk, see below</p> <h3 id="loading"><a href="#loading" class="header-anchor">#</a> Loading</h3> <p>//TheBinaryArray already retrieved from file, see full code sapmle</p> <p>FMemoryReader FromBinary = FMemoryReader(TheBinaryArray, true); //true, free data after done
+FromBinary.Seek(0);
+SaveLoadData(FromBinary,NumGemsCollected,PlayerLocation,ArrayOfRotationsOfTheStars);</p> <h3 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h3> <p>Use this setup to avoid crashes due to reading data not in same order that you wrote it to disk!</p> <p>this two way functionality of UE4 &lt;&lt; operator saves the day!</p> <p>Thanks Epic Devs!</p> <h2 id="my-binary-save-system-functions-for-you"><a href="#my-binary-save-system-functions-for-you" class="header-anchor">#</a> My Binary Save System Functions For You</h2> <p>Below I am giving you the functions that I use to save/load binary files!</p> <h3 id="saving-binary-files"><a href="#saving-binary-files" class="header-anchor">#</a> Saving Binary Files</h3> <p>bool ControllerClass::SaveGameDataToFile(const FString&amp; FullFilePath, FBufferArchive&amp; ToBinary)
+{
+//note that the supplied FString must be the entire Filepath
+// 	if writing it out yourself in C++ make sure to use the \\
+// 	for example:
+ 
+// 	FString SavePath = &quot;C:\\MyProject\\MySaveDir&quot;;
+ 
+//Step 1: Variable Data -&gt; Binary
+ 
+//following along from above examples
+FBufferArchive ToBinary;
+SaveLoadData(ToBinary,NumGemsCollected,PlayerLocation,ArrayOfRotationsOfTheStars);
+//presumed to be global var data,
+//could pass in the data too if you preferred
+ 
+//No Data
+if(ToBinary.Num() &lt;= 0) return;
+//~
+ 
+//Step 2: Binary to Hard Disk
+if (FFileHelper::SaveArrayToFile(ToBinary, * FullFilePath))
+{
+// Free Binary Array
+ToBinary.FlushCache();
+ToBinary.Empty();
+ 
+ClientMessage(&quot;Save Success!&quot;);
+return true;
+}
+ 
+// Free Binary Array
+ToBinary.FlushCache();
+ToBinary.Empty();
+ 
+ClientMessage(&quot;File Could Not Be Saved!&quot;);
+ 
+return false;
+}</p> <p>FBufferArchive</p> <h3 id="loading-binary-files"><a href="#loading-binary-files" class="header-anchor">#</a> Loading Binary Files</h3> <p>//I am using the sample save data from above examples as the data being loaded
+bool ControllerClass::LoadGameDataFromFileCompressed(
+const FString&amp; FullFilePath,
+int32&amp; SaveDataInt32,
+FVector&amp; SaveDataVector,
+TArray&lt;FRotator&gt;&amp; SaveDataRotatorArray
+){
+//Load the Compressed data array,
+// 	you do not need to pre-initialize this array,
+//		UE4 C++ is awesome and fills it
+//		with whatever contents of file are,
+//		and however many bytes that is
+TArray&lt;uint8&gt; TheBinaryArray;
+if (!FFileHelper::LoadFileToArray(TheBinaryArray, *FullFilePath))
+{
+ClientMessage(&quot;FFILEHELPER:&gt;&gt; Invalid File&quot;);
+return false;
+//~~
+}
+ 
+//Testing
+ClientMessage(&quot;Loaded File Size&quot;);
+ClientMessage(FString::FromInt(TheBinaryArray.Num()));
+ 
+//File Load Error
+if(TheBinaryArray.Num() &lt;= 0) return false;
+ 
+//~
+//		  Read the Data Retrieved by GFileManager
+//~
+ 
+FMemoryReader FromBinary = FMemoryReader(TheBinaryArray, true); //true, free data after done
+FromBinary.Seek(0);
+SaveLoadData(FromBinary,NumGemsCollected,PlayerLocation,ArrayOfRotationsOfTheStars);
+ 
+//~
+//								Clean up
+//~
+FromBinary.FlushCache();
+ 
+// Empty &amp; Close Buffer
+TheBinaryArray.Empty();
+TheBinaryArray.Close();
+ 
+return true;
+}</p> <h3 id="saving-compressed"><a href="#saving-compressed" class="header-anchor">#</a> Saving Compressed</h3> <p>bool ControllerClass::SaveGameDataToFileCompressed(const FString&amp; FullFilePath,
+int32&amp; SaveDataInt32,
+FVector&amp; SaveDataVector,
+TArray&lt;FRotator&gt;&amp; SaveDataRotatorArray
+){
+FBufferArchive ToBinary;
+SaveLoadData(ToBinary,NumGemsCollected,PlayerLocation,ArrayOfRotationsOfTheStars);
+ 
+//Pre Compressed Size
+ClientMessage(&quot;~ PreCompressed Size ~&quot;);
+ClientMessage(FString::FromInt(ToBinary.Num()));
+ 
+//
+ 
+// Compress File
+//tmp compressed data array
+TArray&lt;uint8&gt; CompressedData;
+FArchiveSaveCompressedProxy Compressor =
+FArchiveSaveCompressedProxy(CompressedData, ECompressionFlags::COMPRESS_ZLIB);
+ 
+//Send entire binary array/archive to compressor
+Compressor &lt;&lt; ToBinary;
+ 
+//send archive serialized data to binary array
+Compressor.Flush();
+ 
+//
+ 
+//Compressed Size
+ClientMessage(&quot;~ Compressed Size ~&quot;);
+ClientMessage(FString::FromInt(CompressedData.Num()));
+ 
+ 
+if (!GFileManager) return false;
+ 
+//vibes to file, return successful or not
+if (FFileHelper::SaveArrayToFile(CompressedData, * FullFilePath))
+{
+// Free Binary Arrays
+Compressor.FlushCache();
+CompressedData.Empty();
+ 
+ToBinary.FlushCache();
+ToBinary.Empty();
+ 
+// Close Buffer
+ToBinary.Close();
+ 
+ClientMessage(&quot;File Save Success!&quot;);
+ 
+return true;
+//
+}
+else
+{
+// Free Binary Arrays
+Compressor.FlushCache();
+CompressedData.Empty();
+ 
+ToBinary.FlushCache();
+ToBinary.Empty();
+ 
+// Close Buffer
+ToBinary.Close();
+ 
+ClientMessage(&quot;File Could Not Be Saved!&quot;);
+ 
+return false;
+//
+}
+}</p> <h3 id="loading-compressed"><a href="#loading-compressed" class="header-anchor">#</a> Loading Compressed</h3> <p>//I am using the sample save data from above examples as the data being loaded
+bool ControllerClass::LoadGameDataFromFileCompressed(
+const FString&amp; FullFilePath,
+int32&amp; SaveDataInt32,
+FVector&amp; SaveDataVector,
+TArray&lt;FRotator&gt;&amp; SaveDataRotatorArray
+){
+//Load the Compressed data array
+TArray&lt;uint8&gt; CompressedData;
+if (!FFileHelper::LoadFileToArray(CompressedData, *FullFilePath))
+{
+Optimize(&quot;FFILEHELPER:&gt;&gt; Invalid File&quot;);
+return false;
+//~~
+}
+ 
+// Decompress File
+FArchiveLoadCompressedProxy Decompressor =
+FArchiveLoadCompressedProxy(CompressedData, ECompressionFlags::COMPRESS_ZLIB);
+ 
+//Decompression Error?
+if(Decompressor.GetError())
+{
+Optimize(&quot;FArchiveLoadCompressedProxy&gt;&gt; ERROR : File Was Not Compressed &quot;);
+return false;
+//
+}
+ 
+//Decompress
+FBufferArchive DecompressedBinaryArray;
+Decompressor &lt;&lt; DecompressedBinaryArray;
+ 
+//~
+//		  Read the Data Retrieved by GFileManager
+//~
+ 
+FMemoryReader FromBinary = FMemoryReader(DecompressedBinaryArray, true); //true, free data after done
+FromBinary.Seek(0);
+SaveLoadData(FromBinary,NumGemsCollected,PlayerLocation,ArrayOfRotationsOfTheStars);
+ 
+//~
+//								Clean up
+//~
+CompressedData.Empty();
+Decompressor.FlushCache();
+FromBinary.FlushCache();
+ 
+// Empty &amp; Close Buffer
+DecompressedBinaryArray.Empty();
+DecompressedBinaryArray.Close();
+ 
+return true;
+}</p> <h2 id="overloading-the-operator"><a href="#overloading-the-operator" class="header-anchor">#</a> Overloading the &lt;&lt; Operator</h2> <p>Create your own &lt;&lt; Operator overloads to simplify the process!</p> <p>Let's say you have your own USTRUCT or your own class, and you want to write a way to</p> <p>simply write</p> <p>ToBinary &lt;&lt; MyEntireSaveSystem;</p> <p>or</p> <p>ToBinary &lt;&lt; MySpecialUStruct;</p> <p>Here's how you overload the &lt;&lt; Operator!</p> <p>Please note this must be in the .h file, and no contents in the .cpp.</p> <p>Also there is no context, such as MyClass::, it must be at the global level.</p> <p>Also the .h file that has this definition must be compiled before any classes that want to use it.</p> <p>You can use UClass(dependson=UYourDefinitionsClass) to ensure this</p> <p>or simply put the .h contents in your public directory</p> <p>and include them as a header somewhere.</p> <p><strong>.h</strong></p> <p>//Make as many Unique Overloads as you want!
+FORCEINLINE FArchive&amp; operator&lt;&lt;(FArchive &amp;Ar, UMySaveGameClass* SaveGameData )
+{
+if(!SaveGameData) return;
+//~
+ 
+Ar &lt;&lt; SaveGameData-&gt;NumGemsCollected;  //int32
+Ar &lt;&lt; SaveGameData-&gt;PlayerLocation;  //FVector
+Ar &lt;&lt; SaveGameData-&gt;ArrayOfRotationsOfTheStars; //TArray<FRotator>
+}</FRotator></p> <p><strong>Note:</strong></p> <p>1. The operator is returning the Ar by reference.</p> <p>2. No const are allowed at global level (its a compile error)</p> <p>3. No const allowed inside because you dont know if you are reading or writing due to nature of &lt;&lt; operator.</p> <h2 id="crashes"><a href="#crashes" class="header-anchor">#</a> Crashes?</h2> <p>If you get crashes you are not reading/writing data in same order,</p> <p>use overloaded &lt;&lt; operator and the idea of a single function like SaveLoadGame to avoid this</p> <p>Also, if you <strong>compress data before saving it</strong> make sure you are loading it using my <strong>compressed function</strong>, not the regular one, and vice versa 😃</p> <h2 id="enjoy"><a href="#enjoy" class="header-anchor">#</a> Enjoy!</h2> <p>Have fun making your very own custom save game system, and saving it to compressed binary file!</p> <p>♥</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Save_System,_Read_%26_Write_Any_Data_to_Compressed_Binary_Files&amp;oldid=8302" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Save_System,_Read_%26_Write_Any_Data_to_Compressed_Binary_Files&amp;oldid=8302<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/972.8ee5844c.js" defer></script>
+  </body>
+</html>

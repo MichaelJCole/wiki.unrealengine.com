@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/54.de6ac1d9.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Actor Components, Making Native &amp; Deferred Attached to Socket - Epic Wiki</p> <h1 id="actor-components-making-native-deferred-attached-to-socket"><a href="#actor-components-making-native-deferred-attached-to-socket" class="header-anchor">#</a> Actor Components, Making Native &amp; Deferred Attached to Socket</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Deferred_Attachment">2 Deferred Attachment</a></li> <li><a href="#.h">3 .h</a></li> <li><a href="#.Cpp_Constructor">4 .Cpp Constructor</a></li> <li><a href="#What_is_Mesh.3F">5 What is Mesh?</a></li> <li><a href="#Conclusion">6 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><strong>Author:</strong> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>Here is my complete code sample for creating and attaching native C++ actor components!</p> <p><a href="/File:Nativecomp.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/9/91/Nativecomp.jpg" alt="Nativecomp.jpg"></a></p> <h2 id="deferred-attachment"><a href="#deferred-attachment" class="header-anchor">#</a> Deferred Attachment</h2> <p>This code follows the Deferred Attachment model, whereby you pick a name and a socket, but the actual attachment occurs after the Character Blueprint has also initialized.</p> <p>(blueprints are not yet setup during the C++ constructor, and their values cannot be relied on)</p> <h2 id="h"><a href="#h" class="header-anchor">#</a> .h</h2> <div class="language- extra-class"><pre><code>//JoyControl
+</code></pre></div><p>TSubobjectPtr&lt;UStaticMeshComponent&gt; JoyfulControl;
+UStaticMesh * AssetSM_JoyControl;
+ 
+FORCEINLINE void SetupSMComponentsWithCollision(UStaticMeshComponent* Comp)
+{
+if(!Comp) return;
+//~~~~~~~~
+ 
+Comp-&gt;bOwnerNoSee = false;
+Comp-&gt;bCastDynamicShadow = true;
+Comp-&gt;CastShadow = true;
+Comp-&gt;BodyInstance.SetObjectType(ECC_WorldDynamic);
+Comp-&gt;BodyInstance.SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+Comp-&gt;BodyInstance.SetResponseToAllChannels(ECR_Ignore);
+Comp-&gt;BodyInstance.SetResponseToChannel(ECC_WorldStatic, ECR_Block);
+Comp-&gt;BodyInstance.SetResponseToChannel(ECC_WorldDynamic, ECR_Block);
+Comp-&gt;BodyInstance.SetResponseToChannel(ECC_Pawn, ECR_Block);
+Comp-&gt;SetHiddenInGame(false);
+}</p> <h2 id="cpp-constructor"><a href="#cpp-constructor" class="header-anchor">#</a> .Cpp Constructor</h2> <div class="language- extra-class"><pre><code>//Asset, Reference Obtained Via Right Click in Editor
+</code></pre></div><p>static ConstructorHelpers::FObjectFinder&lt;UStaticMesh&gt; StaticMeshOb_AW2(TEXT(&quot;StaticMesh'/Game/VictoryGoals/Mechs/JoyControl/JoyControl_WindTurtle.JoyControl_WindTurtle'&quot;));
+ 
+AssetSM_JoyControl = StaticMeshOb_AW2.Object;
+ 
+//Create
+JoyfulControl = ObjectInitializer.CreateDefaultSubobject &lt; UStaticMeshComponent &gt; (this, TEXT(&quot;JoyfulControlYay&quot;));
+ 
+//Set Mesh
+JoyfulControl-&gt;SetStaticMesh(AssetSM_JoyControl);
+ 
+//Setup (see .h)
+SetupSMComponentsWithCollision(JoyfulControl);
+ 
+//Deferred Attachment (Ty Nick W.! Actual attach gets done after blueprint stuff)
+JoyfulControl-&gt;AttachParent = Mesh;
+JoyfulControl-&gt;AttachSocketName = &quot;JoyControl&quot;;</p> <h2 id="what-is-mesh"><a href="#what-is-mesh" class="header-anchor">#</a> What is Mesh?</h2> <p>Mesh is a great choice for a component to attach to if you are deriving from an ACharacter class.</p> <p>If not using ACharacter, and if you have a RootComponent for your actor class already,</p> <p>you can simply replace Mesh with RootComponent</p> <p>JoyfulControl-&gt;AttachParent = RootComponent;</p> <p>If you are making a new actor class that does not have a RootComponent, then make one of your new components into the RootComponent</p> <p>RootComponent = YourComp;</p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Actor_Components,_Making_Native_%26_Deferred_Attached_to_Socket&amp;oldid=12165" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Actor_Components,_Making_Native_%26_Deferred_Attached_to_Socket&amp;oldid=12165<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/54.de6ac1d9.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1038.3309fb46.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="content__default"><p>Survival Sample Game: Section 4 - Epic Wiki</p> <h1 id="survival-sample-game-section-4"><a href="#survival-sample-game-section-4" class="header-anchor">#</a> Survival Sample Game: Section 4</h1> <p><strong>Rate this Tutorial:</strong></p> <p>5.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""> (2 votes)</p> <p>Approved for Versions:4.7</p> <p>C++ Sample project covering common gameplay concepts packed in a small coop survival game.</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Introduction">1 Introduction</a> <ul><li><a href="#Links">1.1 Links</a></li></ul></li> <li><a href="#Time_of_Day_in_Multiplayer">2 Time of Day in Multiplayer</a> <ul><li><a href="#Client-side_smoothing">2.1 Client-side smoothing</a></li> <li><a href="#Level_Setup">2.2 Level Setup</a></li></ul></li> <li><a href="#Showing_HUD_Messages_using_Events">3 Showing HUD Messages using Events</a></li> <li><a href="#Exposing_functions_to_commandline">4 Exposing functions to commandline</a></li> <li><a href="#Spectating_other_players">5 Spectating other players</a></li> <li><a href="#Respawning">6 Respawning</a> <ul><li><a href="#Respawn_at_team_using_the_Navigation_Mesh">6.1 Respawn at team using the Navigation Mesh</a></li> <li><a href="#Respawn_using_Spawnpoints">6.2 Respawn using Spawnpoints</a></li></ul></li> <li><a href="#In_Closing">7 In Closing</a> <ul><li><a href="#Links_2">7.1 Links</a></li> <li><a href="#Notes">7.2 Notes</a></li></ul></li></ul> <h2 id="introduction"><a href="#introduction" class="header-anchor">#</a> Introduction</h2> <p>In section 4 of the ongoing survival game series we introduced a dynamic time of day, advanced player spawning and a basic game loop.</p> <p>If you are not yet familiar with this ongoing project be sure to check out the <a href="https://wiki.unrealengine.com/Survival_sample_game" target="_blank" rel="noopener noreferrer">project overview<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> for information on the series!</p> <p><a href="/File:Survival_section4_banner01.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/5/5f/Survival_section4_banner01.jpg" alt="Survival section4 banner01.jpg"></a></p> <p>Please consider this documentation a reference guide to get additional information on topics covered in the sample game's source itself. If you have any questions or think a documented concept requires more details then feel free to leave your feedback on the <a href="https://forums.unrealengine.com/showthread.php?69308-Announcing-Section-4-for-Survival-Game-Setting-up-the-survival-game-loop" target="_blank" rel="noopener noreferrer">section-specific forum thread!<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h3 id="links"><a href="#links" class="header-anchor">#</a> Links</h3> <ul><li><a href="https://forums.unrealengine.com/showthread.php?63678-Ongoing-C-Gameplay-Example-Series-Making-a-Survival-Game" target="_blank" rel="noopener noreferrer">Forum Thread<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://wiki.unrealengine.com/Survival_sample_game" target="_blank" rel="noopener noreferrer">Project Overview<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://wiki.unrealengine.com/Survival_Sample_Game:_Section_3" target="_blank" rel="noopener noreferrer">Previous Section (Enemy AI with Behavior Trees)<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://github.com/tomlooman/EpicSurvivalGameSeries" target="_blank" rel="noopener noreferrer">Source at GitHub<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul> <h2 id="time-of-day-in-multiplayer"><a href="#time-of-day-in-multiplayer" class="header-anchor">#</a> Time of Day in Multiplayer</h2> <p><a href="/File:Survival_section4_tod01.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/6/6e/Survival_section4_tod01.jpg" alt="Survival section4 tod01.jpg"></a></p> <p>Dynamic time of day is a common feature in (open world) survival games. In this series we use it to drive certain gameplay elements beyond visual aspect such as spawning of enemies and respawning players who died during the night at sunrise. That is entirely GameMode specific and can be omitted if you are only interested in steering your time of day in a networked scenario.</p> <p>Using the existing features, setting up a dynamic time of day is pretty simple. The primary requirements are, a DirectionalLight set to Movable, an instance of BP_SkySphere (automatically added by the default level template) and finally an Actor that holds the time and update the other actors. For this last one I created STimeOfDayManager.cpp, with BP_TimeOfDayManager to update the sun position of the BP_SkySphere which we cannot access from C++ because it's implemented in Blueprint.</p> <p>The time of day value is stored in SGameState.cpp. <a href="https://docs.unrealengine.com/latest/INT/Gameplay/Framework/GameState/index.html" target="_blank" rel="noopener noreferrer">GameState<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> objects exist on both the server and client (unlike GameMode, which is unique to the server) and are a good place to store state data on the world.</p> <p>Replicated values that should appear smooth (like the sun crawling along the horizon) require some additional smoothing on the client side or the result is a choppy motion as data is only received once every few ticks and can be unpredictable with higher latency or packet loss in actual networking scenarios. The Gamemode class controls the sun position on the server side, updated once every second. The client needs to smooth out this 1-second interval by performing some simple prediction which I will explain below.</p> <h3 id="client-side-smoothing"><a href="#client-side-smoothing" class="header-anchor">#</a> Client-side smoothing</h3> <p>The variable that controls the time of day is only updated and replicated once per second in our Gamemode. So we need to apply our own per-frame interpolation to smooth out the sun movement.</p> <p>We smooth out the movement by keeping track of the last time we received and update for ElapsedGameTime variable (stored in SGameState) and applying a prediction to the sun position based on how long ago that was multiplied by the speed the sun is moving.</p> <p>// STimeOfDayManager.cpp
+ 
+void ASTimeOfDayManager::Tick(float DeltaSeconds)
+{
+Super::Tick(DeltaSeconds);
+ 
+ASGameState* MyGameState = Cast&lt;ASGameState&gt;(GetWorld()-&gt;GetGameState());
+if (MyGameState)
+{
+/* Update the position of the sun. */
+if (PrimarySunLight)
+{
+if (LastTimeOfDay == MyGameState-&gt;ElapsedGameMinutes)
+{
+TimeSinceLastIncrement += DeltaSeconds;
+}
+else
+{
+/* Reset prediction */
+TimeSinceLastIncrement = 0;
+}
+ 
+/* Predict the movement of the sun to smooth out the rotations between replication updates of the actual time of day */
+const float PredictedIncrement = MyGameState-&gt;GetTimeOfDayIncrement() * TimeSinceLastIncrement;
+ 
+/* TimeOfDay is expressed in minutes, we need to convert this into a pitch rotation */
+const float MinutesInDay = 24 * 60;
+const float PitchOffset = 90; /* The offset to account for time of day 0 should equal midnight */
+const float PitchRotation = 360 * ((MyGameState-&gt;ElapsedGameMinutes + PredictedIncrement) / MinutesInDay);
+ 
+FRotator NewSunRotation = FRotator(PitchRotation + PitchOffset, 45.0f, 0);
+PrimarySunLight-&gt;SetActorRelativeRotation(NewSunRotation);
+ 
+LastTimeOfDay = MyGameState-&gt;ElapsedGameMinutes;
+}
+}
+}</p> <p>This yields a nice and smooth sun crawling along the sky with a time of day that is only replicated once per second.</p> <h3 id="level-setup"><a href="#level-setup" class="header-anchor">#</a> Level Setup</h3> <p>The dynamic time of day requires a few Actors to exist and be properly configured in your level. The BP_SkySphere, which is included with default map template. A directional light, that must be set to <strong>Movable</strong>. A SkyLight Actor, also set to <strong>Movable</strong> and finally our own Blueprint object BP_TimeOfDayManager (in Content/Base/...)</p> <p><a href="/File:Survival_section4_level01.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/a/aa/Survival_section4_level01.jpg" alt="Survival section4 level01.jpg"></a></p> <p>BP_TimeOfDayManager grabs references to the skylight, directional light and skysphere objects during BeginPlay, so there is no further manual setup required.</p> <h2 id="showing-hud-messages-using-events"><a href="#showing-hud-messages-using-events" class="header-anchor">#</a> Showing HUD Messages using Events</h2> <p><a href="/File:Survival_section4_hudevents.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/0/0d/Survival_section4_hudevents.jpg" alt="Survival section4 hudevents.jpg"></a></p> <p>When an important gameplay event happens we want to notify the player through the HUD. One example is announcing the sun has fallen and the dangerous night just started. We set up the event function in C++ and make it Blueprint accessible. Now when something interesting happens the Blueprint HUD class can respond by updating a text widget with the text data we sent.</p> <p>The function is marked BlueprintImplementableEvent so we can setup the HUD in Blueprint to pass the FString data to the appropriate UMG Widget (which our C++ level has no reference to, so we must do this in Blueprint)</p> <p>// SHUD.cpp
+ 
+/* An event hook to call HUD text events to display in the HUD. Blueprint HUD class must implement how to deal with this event. */
+UFUNCTION(BlueprintImplementableEvent, Category = &quot;HUDEvents&quot;)
+void MessageReceived(const FString&amp; TextMessage);</p> <p>The Blueprint implementation simply redirects this event to the UMG widget where we added a function called SetMessage to internally update a Text Block (and perform some timer logic to fade-out after several sections)</p> <p><a href="/File:Survival_section4_hudBP01.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/9/91/Survival_section4_hudBP01.jpg" alt="Survival section4 hudBP01.jpg"></a></p> <p>This type of event messaging is great for many different interactions between the C++ and your HUD. For example one could use it to display hit notifications when a zombie damaged the player.</p> <h2 id="exposing-functions-to-commandline"><a href="#exposing-functions-to-commandline" class="header-anchor">#</a> Exposing functions to commandline</h2> <p>It's very easy to expose your functions to the command line (~ tilde) input which is incredibly valuable for debugging (eg. infinite ammo, god mode, teleport etc.) All you need is to specify the &quot;exec&quot; keyword with your UFUNCTION() as below.</p> <p><a href="/File:Survival_section4_cmdline.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/a/a8/Survival_section4_cmdline.jpg" alt="Survival section4 cmdline.jpg"></a></p> <p>While in-game, type ~ (tilde) and start typing your function name, you will see it appear in the auto completion and it supports parameter passing like the time of day float in the sample above.</p> <p>// SGameState.cpp
+ 
+/* By passing in &quot;exec&quot; we expose it as a command line (press ~ to open) */
+UFUNCTION(exec)
+void SetTimeOfDay(float NewTimeOfDay);</p> <p>Exposing functions this way is a great tool for debugging, but keep in mind that most commands are only valid on the server.</p> <h2 id="spectating-other-players"><a href="#spectating-other-players" class="header-anchor">#</a> Spectating other players</h2> <p><a href="/File:Survival_section4_spectating.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/0/0b/Survival_section4_spectating.jpg" alt="Survival section4 spectating.jpg"></a></p> <p>When a player dies and another player is still alive he will spectate the player until he respawns. With the current ruleset respawning happens at sunrise (more on that in the next block &quot;Respawning&quot; below)</p> <p>In the following code snippet (taken from SPlayerController) you can see we initiate spectating at the UnFreeze() call (the moment the controller receives access to input) which happens almost immediately after death.</p> <p>The state is updated to Spectating on client and server and by calling ViewAPlayer(direction) we set the spectating focus on on the other player that is (possibly) still alive. Finally the HUD is updated to show the spectator screen.</p> <p>// SPlayerController.cpp
+ 
+void ASPlayerController::UnFreeze()
+{
+Super::UnFreeze();
+ 
+// ...
+ 
+StartSpectating();
+}
+ 
+void ASPlayerController::StartSpectating()
+{
+/* Update the state on server */
+PlayerState-&gt;bIsSpectator = true;
+ChangeState(NAME_Spectating);
+/* Push the state update to the client */
+ClientGotoState(NAME_Spectating);
+ 
+/* Focus on the remaining alive player */
+ViewAPlayer(1);
+ 
+/* Update the HUD to show the spectator screen */
+ClientHUDStateChanged(EHUDState::Spectating);
+}</p> <p>The ViewAPlayer takes care of the camera management of setting it to the 3rd-person view, locked to the remaining player. You can repeatedly call this function to cycle through remaining players while spectating. Keep in mind that we filter out the bots by overwriting the CanSpectate logic of GameMode, see below.</p> <p>bool ASGameMode::CanSpectate(APlayerController* Viewer, APlayerState* ViewTarget)
+{
+/* Don't allow spectating of other non-player bots */
+return (ViewTarget &amp;&amp; !ViewTarget-&gt;bIsABot);
+}</p> <p>This could be further extended to filter by TeamIndex if multiple teams exist on the map or by checking if the player is still alive.</p> <h2 id="respawning"><a href="#respawning" class="header-anchor">#</a> Respawning</h2> <p>By default the gamemode attempts to spawn players and bots at PlayerStart actors. You can add your own logic on how to pick the best player start, for example by checking if a start is exclusive to a specific team, or if it's a player-only spawn or through a weighting system that does line of sight checks so any spawnpoint out of sight of players is preferred. You simply implement any kind of logic in the ChoosePlayerStart function of GameMode, see &quot;Respawn Using Spawnpoints&quot; below for an example.</p> <p>For the coop gamemode we respawn players not at PlayerStarts, but near teammates.</p> <h3 id="respawn-at-team-using-the-navigation-mesh"><a href="#respawn-at-team-using-the-navigation-mesh" class="header-anchor">#</a> Respawn at team using the Navigation Mesh</h3> <p><a href="/File:Survival_section4_navmeshrespawn.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/8/80/Survival_section4_navmeshrespawn.jpg" alt="Survival section4 navmeshrespawn.jpg"></a></p> <p>In the coop ruleset we (re-)spawn at any player that is still alive. For this we utilize the NavigationMesh data that is orignally intended for AI pathfinding. (Press &quot;P&quot; in the map to see the navigation mesh, if your map doesn't have a nav mesh you need to insert a <strong>NavMeshBoundsVolume</strong>) By using this navigation data we know it will get a valid walking position and we don't accidentally spawn our player into a wall or other blocking Actor.</p> <p>The following function to respawn the player can be split into 4 distinct parts. First we try to get a position and rotation from the first alive player we can find. If we failed to find a player, we fall back to using PlayerStart Actors instead (as defined in the base class of GameMode) On success however, we query the navigation system to find a random point in a small radius around the other player. The final part is almost identical to the base GameMode function and it's where we create a new pawn, let the controller possess it and finally adjust rotation to match that of the currently alive player.</p> <p>// SGameMode.cpp
+ 
+void ASGameMode::RestartPlayer(class AController* NewPlayer)
+{
+// ...
+ 
+/* Look for a live player to spawn next to */
+FVector SpawnOrigin = FVector::ZeroVector;
+FRotator StartRotation = FRotator::ZeroRotator;
+for (FConstPawnIterator It = GetWorld()-&gt;GetPawnIterator(); It; It++)
+{
+ASCharacter* MyCharacter = Cast&lt;ASCharacter&gt;(*It);
+if (MyCharacter &amp;&amp; MyCharacter-&gt;IsAlive())
+{
+/* Get the origin of the first player we can find */
+SpawnOrigin = MyCharacter-&gt;GetActorLocation();
+StartRotation = MyCharacter-&gt;GetActorRotation();
+break;
+}
+}
+ 
+/* No player is alive (yet) - spawn using one of the PlayerStarts */
+if (SpawnOrigin == FVector::ZeroVector)
+{
+Super::RestartPlayer(NewPlayer);
+return;
+}
+ 
+/* Get a point on the nav mesh near the other player */
+FVector StartLocation = UNavigationSystem::GetRandomPointInRadius(NewPlayer, SpawnOrigin, 250.0f);
+ 
+// Try to create a pawn to use of the default class for this player
+if (NewPlayer-&gt;GetPawn() == nullptr &amp;&amp; GetDefaultPawnClassForController(NewPlayer) != nullptr)
+{
+FActorSpawnParameters SpawnInfo;
+SpawnInfo.Instigator = Instigator;
+APawn* ResultPawn = GetWorld()-&gt;SpawnActor&lt;APawn&gt;(GetDefaultPawnClassForController(NewPlayer), StartLocation, StartRotation, SpawnInfo);
+if (ResultPawn == nullptr)
+{
+UE_LOG(LogGameMode, Warning, TEXT(&quot;Couldn't spawn Pawn of type %s at %s&quot;), *GetNameSafe(DefaultPawnClass), &amp;StartLocation);
+}
+NewPlayer-&gt;SetPawn(ResultPawn);
+}
+ 
+if (NewPlayer-&gt;GetPawn() == nullptr)
+{
+NewPlayer-&gt;FailedToSpawnPawn();
+}
+else
+{
+NewPlayer-&gt;Possess(NewPlayer-&gt;GetPawn());
+ 
+// If the Pawn is destroyed as part of possession we have to abort
+if (NewPlayer-&gt;GetPawn() == nullptr)
+{
+NewPlayer-&gt;FailedToSpawnPawn();
+}
+else
+{
+// Set initial control rotation to player start's rotation
+NewPlayer-&gt;ClientSetRotation(NewPlayer-&gt;GetPawn()-&gt;GetActorRotation(), true);
+ 
+FRotator NewControllerRot = StartRotation;
+NewControllerRot.Roll = 0.f;
+NewPlayer-&gt;SetControlRotation(NewControllerRot);
+ 
+SetPlayerDefaults(NewPlayer-&gt;GetPawn());
+}
+}
+}</p> <h3 id="respawn-using-spawnpoints"><a href="#respawn-using-spawnpoints" class="header-anchor">#</a> Respawn using Spawnpoints</h3> <p><a href="/File:Survival_section4_spawnpoints.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/6/6c/Survival_section4_spawnpoints.jpg" alt="Survival section4 spawnpoints.jpg"></a></p> <p>To spawn enemies and players into our level we setup PlayerStart actors at appropriate points. To designate a specific PlayerStart as &quot;player only&quot; we setup an extension SPlayerStart.cpp with a boolean bPlayerOnly. The base PlayerStart can still be used to spawn the zombie AI and if the bPlayerOnly is TRUE it's automatically the preferred spawn location for any player.</p> <p>The ChoosePlayerStart function is called by RestartPlayer on respawn. By checking IsSpawnpointAllowed and IsSpawnpointPreferred on all playerstarts we can determine the best spawn position for bots and players.</p> <p>// SGameMode.cpp
+ 
+AActor* ASGameMode::ChoosePlayerStart(AController* Player)
+{
+TArray&lt;APlayerStart*&gt; PreferredSpawns;
+TArray&lt;APlayerStart*&gt; FallbackSpawns;
+ 
+for (int32 i = 0; i &lt; PlayerStarts.Num(); i++)
+{
+APlayerStart* TestStart = PlayerStarts[i];
+if (IsSpawnpointAllowed(TestStart, Player))
+{
+if (IsSpawnpointPreferred(TestStart, Player))
+{
+PreferredSpawns.Add(TestStart);
+}
+else
+{
+FallbackSpawns.Add(TestStart);
+}
+}
+}
+ 
+APlayerStart* BestStart = nullptr;
+if (PreferredSpawns.Num() &gt; 0)
+{
+BestStart = PreferredSpawns[FMath::RandHelper(PreferredSpawns.Num())];
+}
+else if (FallbackSpawns.Num() &gt; 0)
+{
+BestStart = FallbackSpawns[FMath::RandHelper(FallbackSpawns.Num())];
+}
+ 
+return BestStart ? BestStart : Super::ChoosePlayerStart(Player);
+}
+ 
+/* Check to see if a player and/or AI may spawn at the PlayerStart */
+bool ASGameMode::IsSpawnpointAllowed(APlayerStart* SpawnPoint, AController* Controller)
+{
+if (Controller == nullptr || Controller-&gt;PlayerState == nullptr)
+return true;
+ 
+/* Check for extended playerstart class */
+ASPlayerStart* MyPlayerStart = Cast&lt;ASPlayerStart&gt;(SpawnPoint);
+if (MyPlayerStart)
+{
+return MyPlayerStart-&gt;GetIsPlayerOnly() &amp;&amp; !Controller-&gt;PlayerState-&gt;bIsABot;
+}
+ 
+/* Cast failed, Anyone can spawn at the base playerstart class */
+return true;
+}
+ 
+bool ASGameMode::IsSpawnpointPreferred(APlayerStart* SpawnPoint, AController* Controller)
+{
+if (SpawnPoint)
+{
+/* Iterate all pawns to check for collision overlaps with the spawn point */
+const FVector SpawnLocation = SpawnPoint-&gt;GetActorLocation();
+for (FConstPawnIterator It = GetWorld()-&gt;GetPawnIterator(); It; It++)
+{
+ACharacter* OtherPawn = Cast&lt;ACharacter&gt;(*It);
+if (OtherPawn)
+{
+const float CombinedHeight = (SpawnPoint-&gt;GetCapsuleComponent()-&gt;GetScaledCapsuleHalfHeight() + OtherPawn-&gt;GetCapsuleComponent()-&gt;GetScaledCapsuleHalfHeight()) * 2.0f;
+const float CombinedWidth = SpawnPoint-&gt;GetCapsuleComponent()-&gt;GetScaledCapsuleRadius() + OtherPawn-&gt;GetCapsuleComponent()-&gt;GetScaledCapsuleRadius();
+const FVector OtherLocation = OtherPawn-&gt;GetActorLocation();
+ 
+// Check if player overlaps the playerstart
+if (FMath::Abs(SpawnLocation.Z - OtherLocation.Z) &lt; CombinedHeight &amp;&amp; (SpawnLocation - OtherLocation).Size2D() &lt; CombinedWidth)
+{
+return false;
+}
+}
+}
+ 
+/* Check if spawnpoint is exclusive to players */
+ASPlayerStart* MyPlayerStart = Cast&lt;ASPlayerStart&gt;(SpawnPoint);
+if (MyPlayerStart)
+{
+return MyPlayerStart-&gt;GetIsPlayerOnly() &amp;&amp; !Controller-&gt;PlayerState-&gt;bIsABot;
+}
+}
+ 
+return false;
+}</p> <p>This is pretty basic implementation of a spawn system. More advanced spawning could include line of sight checks to make sure we don't spawn enemies when a player is looking at that particular spawn point and take distance between spawns and players into account to either spread players out or keep them closely together.</p> <h2 id="in-closing"><a href="#in-closing" class="header-anchor">#</a> In Closing</h2> <p>In the fourth section we added a basic framework for the gameloop of spawning both players and AI, a replicated time of day, scoring on kills and nights survived as well as a failure state for the game mode.</p> <p>Section 5 will be announced later this week May 22nd, so keep an eye out on the <a href="https://forums.unrealengine.com/forumdisplay.php?8-Announcements-and-Releases" target="_blank" rel="noopener noreferrer">Announcement Forums<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>!</p> <p>If you have feedback or questions on this section, feel free to reach out through the <a href="https://forums.unrealengine.com/showthread.php?69308-Announcing-Section-4-for-Survival-Game-Setting-up-the-survival-game-loop" target="_blank" rel="noopener noreferrer">official forum thread<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>.</p> <h3 id="links-2"><a href="#links-2" class="header-anchor">#</a> Links</h3> <ul><li><a href="https://forums.unrealengine.com/showthread.php?63678-Ongoing-C-Gameplay-Example-Series-Making-a-Survival-Game" target="_blank" rel="noopener noreferrer">Forum Thread<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://wiki.unrealengine.com/Survival_sample_game" target="_blank" rel="noopener noreferrer">Project Overview<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://wiki.unrealengine.com/Survival_Sample_Game:_Section_3" target="_blank" rel="noopener noreferrer">Previous Section (Enemy AI with Behavior Trees)<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://github.com/tomlooman/EpicSurvivalGameSeries" target="_blank" rel="noopener noreferrer">Source at GitHub<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul> <h3 id="notes"><a href="#notes" class="header-anchor">#</a> Notes</h3> <p>Please keep in mind we assigned our SLocalPlayer in DefaultEngine.ini in case you are migrating code into your own project.</p> <p>[/Script/Engine.Engine]
+; Our custom LocalPlayer class
+LocalPlayerClassName=/Script/SurvivalGame.SLocalPlayer</p> <p><strong>Project &amp; Wiki by <a href="http://www.tomlooman.com/" target="_blank" rel="noopener noreferrer">Tom Looman<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></strong></p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Survival_Sample_Game:_Section_4&amp;oldid=26254" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Survival_Sample_Game:_Section_4&amp;oldid=26254<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/index.php?title=Category:SurvivalGameSeries&amp;action=edit&amp;redlink=1" title="Category:SurvivalGameSeries (page does not exist)">SurvivalGameSeries</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1038.3309fb46.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/55.6796769f.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Actor Custom Components, Edit Variables Per Instance In Level Editor - Epic Wiki</p> <h1 id="actor-custom-components-edit-variables-per-instance-in-level-editor"><a href="#actor-custom-components-edit-variables-per-instance-in-level-editor" class="header-anchor">#</a> Actor Custom Components, Edit Variables Per Instance In Level Editor</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Custom_Component">2 Custom Component</a></li> <li><a href="#Actor_Class_To_Store_Component">3 Actor Class To Store Component</a></li> <li><a href="#Conclusion">4 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Author:</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>In this wiki I am showing you how you can make a custom C++ Actor Component whose variables can be edited on a per-instance basis in the Level Editor!</p> <p>I used the setup I am showing here to make my own navigation system from scratch that allows me to add or remove objects from the nav mesh at any time by clicking on instanced objects in the level editor.</p> <p>It's really useful to be able to edit your C++ component on a per-instance basis in the level editor!</p> <p>You need two things:</p> <p>1. A Custom C++ Component</p> <p>2. A C++ Actor Base Class to house your custom component.</p> <h2 id="custom-component"><a href="#custom-component" class="header-anchor">#</a> Custom Component</h2> <p>//Choosing a class group and making it BlueprintSpawnableComponent
+UCLASS(ClassGroup=JoyMech, meta=(BlueprintSpawnableComponent))
+class UJoyNavComp : public UActorComponent
+{
+GENERATED_BODY()
+public:
+UJoyNavComp(const FObjectInitializer&amp; ObjectInitializer);
+ 
+//UPROPERTY(EditAnywhere, BlueprintReadWrite,Category=&quot;JoyNav&quot;)
+//FString CustomNavGroup;
+ 
+/** Density Core Value, the smaller the more dense, density = 360/JoyNavDensity */
+UPROPERTY(EditAnywhere, BlueprintReadWrite,Category=&quot;JoyNav&quot;)
+float JoyNavDensity;
+ 
+/** Draw Units! */
+UPROPERTY(EditAnywhere, BlueprintReadWrite,Category=&quot;JoyNav&quot;)
+bool DoDrawUnits;
+ 
+UPROPERTY(EditAnywhere, BlueprintReadWrite,Category=&quot;JoyNav&quot;)
+bool DoDrawJoyNavDisplayInfo;
+ 
+/** Each radius gets its own layers of units! */
+UPROPERTY(EditAnywhere, BlueprintReadWrite,Category=&quot;JoyNav&quot;)
+TArray&lt;int32&gt; RadiusLevels;
+ 
+/** Trim out units that are closer than Radius * TrimPercent */
+UPROPERTY(EditAnywhere, BlueprintReadWrite,Category=&quot;JoyNav&quot;)
+float TrimPercent;
+ 
+//.. etc</p> <h2 id="actor-class-to-store-component"><a href="#actor-class-to-store-component" class="header-anchor">#</a> Actor Class To Store Component</h2> <p>UCLASS()
+class AJoySMAHighest : public AStaticMeshActor
+{
+GENERATED_BODY()
+public:
+UPROPERTY(VisibleAnywhere, Category=JoySMAHighest,meta=(ExposeFunctionCategories=&quot;JoyNav&quot;, AllowPrivateAccess = &quot;true&quot;))
+UJoyNavComp* JoyNavComp;
+ 
+};</p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>By using a C++ Actor base class for your custom C++ component, you can provide your Level Designers and yourself with the fastest possible workflow for your project!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Actor_Custom_Components,_Edit_Variables_Per_Instance_In_Level_Editor&amp;oldid=12617" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Actor_Custom_Components,_Edit_Variables_Per_Instance_In_Level_Editor&amp;oldid=12617<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/55.6796769f.js" defer></script>
+  </body>
+</html>

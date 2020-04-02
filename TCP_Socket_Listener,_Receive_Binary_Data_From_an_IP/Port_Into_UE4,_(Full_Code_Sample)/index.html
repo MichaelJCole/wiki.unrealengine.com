@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1047.e986d1de.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="content__default"><p>TCP Socket Listener, Receive Binary Data From an IP/Port Into UE4, (Full Code Sample) - Epic Wiki</p> <h1 id="tcp-socket-listener-receive-binary-data-from-an-ip-port-into-ue4-full-code-sample"><a href="#tcp-socket-listener-receive-binary-data-from-an-ip-port-into-ue4-full-code-sample" class="header-anchor">#</a> TCP Socket Listener, Receive Binary Data From an IP/Port Into UE4, (Full Code Sample)</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Build.CS">2 Build.CS</a></li> <li><a href="#.h">3 .h</a></li> <li><a href="#.cpp">4 .cpp</a></li> <li><a href="#How_It_Works">5 How It Works</a></li> <li><a href="#Another_TCP_Source_Code.2C_by_alfalfasprossen">6 Another TCP Source Code, by alfalfasprossen</a></li> <li><a href="#Another_TCP_Source.2C_by_Phi.WOP">7 Another TCP Source, by Phi.WOP</a></li> <li><a href="#UDP">8 UDP</a></li> <li><a href="#Conclusion">9 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Author:</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>In this tutorial I am giving you the code I used to enable a python script to communicate with UE4 over a TCP socket!</p> <p>That's right!</p> <p><strong>I am just straight up giving you my whole source code that I spent the past several hours writing!</strong></p> <p>♥</p> <p>Rama</p> <p><strong><em>COMMUNITY CAVEAT</em> [02/06/2017, UE4.14.3]</strong> From the readme found in the Networking module (<em>&lt;Path_to_Engine&gt;/Source/Runtime/Networking/Readme.txt</em>):</p> <p><em>&quot;This module is an internal R&amp;D effort to explore how the socket subsystem could be improved. Production use is NOT encouraged at this point.&quot;</em></p> <p>For the reader of this tutorial this means the module will likely perpetually change as development on the UE4 is progressing. For example, since the initial writing of this wiki tutorial the <em>FTcpListener</em> class has been added which makes a lot of Rama's delightful work redundant. However, in the future this class may again be changed or removed entirely.</p> <p><a href="/File:PythonToUE4Socket.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/c/c3/PythonToUE4Socket.jpg/1000px-PythonToUE4Socket.jpg" alt="PythonToUE4Socket.jpg"></a></p> <h2 id="build-cs"><a href="#build-cs" class="header-anchor">#</a> Build.CS</h2> <p>You will need at least this to work with sockets in UE4</p> <p>PublicDependencyModuleNames.AddRange(new string[] {
+&quot;Core&quot;,
+&quot;CoreUObject&quot;,
+&quot;Engine&quot;,
+&quot;InputCore&quot;,
+ 
+&quot;Sockets&quot;,&quot;Networking&quot;
+});</p> <h2 id="h"><a href="#h" class="header-anchor">#</a> .h</h2> <p>#include &quot;Networking.h&quot;
+ 
+//AYourClass definition
+ 
+public:
+ 
+FSocket* ListenerSocket;
+FSocket* ConnectionSocket;
+FIPv4Endpoint RemoteAddressForConnection;
+ 
+bool StartTCPReceiver(
+const FString&amp; YourChosenSocketName,
+const FString&amp; TheIP,
+const int32 ThePort
+);
+ 
+FSocket* CreateTCPConnectionListener(
+const FString&amp; YourChosenSocketName,
+const FString&amp; TheIP,
+const int32 ThePort,
+const int32 ReceiveBufferSize = 2*1024*1024
+);
+ 
+//Timer functions, could be threads
+void TCPConnectionListener(); 	//can thread this eventually
+void TCPSocketListener();		//can thread this eventually
+ 
+ 
+//Format String IP4 to number array
+bool FormatIP4ToNumber(const FString&amp; TheIP, uint8 (&amp;Out)[4]);
+ 
+//Rama's StringFromBinaryArray
+FString StringFromBinaryArray(const TArray&lt;uint8&gt;&amp; BinaryArray);</p> <h2 id="cpp"><a href="#cpp" class="header-anchor">#</a> .cpp</h2> <p>The flow goes basically from the top down, you can probably guess the purpose of this first function.</p> <p>void AYourClass::Laaaaaauuuunch()
+{
+//IP = 127.0.0.1, Port = 8890 for my Python test case
+if( ! StartTCPReceiver(&quot;RamaSocketListener&quot;, &quot;127.0.0.1&quot;, 8890))
+{
+//UE_LOG  &quot;TCP Socket Listener Created!&quot;
+return;
+}
+ 
+//UE_LOG  &quot;TCP Socket Listener Created! Yay!&quot;
+}
+ 
+//Rama's Start TCP Receiver
+bool AYourClass::StartTCPReceiver(
+const FString&amp; YourChosenSocketName,
+const FString&amp; TheIP,
+const int32 ThePort
+){
+//Rama's CreateTCPConnectionListener
+ListenerSocket = CreateTCPConnectionListener(YourChosenSocketName,TheIP, ThePort);
+ 
+//Not created?
+if(!ListenerSocket)
+{
+GEngine-&gt;AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT(&quot;StartTCPReceiver&gt;&gt; Listen socket could not be created! ~&gt; %s %d&quot;), *TheIP, ThePort));
+return false;
+}
+ 
+//Start the Listener! //thread this eventually
+GetWorldTimerManager().SetTimer(this,
+&amp;AYourClass::TCPConnectionListener, 0.01, true);	
+ 
+return true;
+}
+//Format IP String as Number Parts
+bool AYourClass::FormatIP4ToNumber(const FString&amp; TheIP, uint8 (&amp;Out)[4])
+{
+//IP Formatting
+TheIP.Replace( TEXT(&quot; &quot;), TEXT(&quot;&quot;) );
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//						   IP 4 Parts
+ 
+//String Parts
+TArray&lt;FString&gt; Parts;
+TheIP.ParseIntoArray( &amp;Parts, TEXT(&quot;.&quot;), true );
+if ( Parts.Num() != 4 )
+return false;
+ 
+//String to Number Parts
+for ( int32 i = 0; i &lt; 4; ++i )
+{
+Out[i] = FCString::Atoi( *Parts[i] );
+}
+ 
+return true;
+}
+//Rama's Create TCP Connection Listener
+FSocket* AYourClass::CreateTCPConnectionListener(const FString&amp; YourChosenSocketName,const FString&amp; TheIP, const int32 ThePort,const int32 ReceiveBufferSize)
+{
+uint8 IP4Nums[4];
+if( ! FormatIP4ToNumber(TheIP, IP4Nums))
+{
+VShow(&quot;Invalid IP! Expecting 4 parts separated by .&quot;);
+return false;
+}
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//Create Socket
+FIPv4Endpoint Endpoint(FIPv4Address(IP4Nums[0], IP4Nums[1], IP4Nums[2], IP4Nums[3]), ThePort);
+FSocket* ListenSocket = FTcpSocketBuilder(*YourChosenSocketName)
+.AsReusable()
+.BoundToEndpoint(Endpoint)
+.Listening(8);
+ 
+//Set Buffer Size
+int32 NewSize = 0;
+ListenSocket-&gt;SetReceiveBufferSize(ReceiveBufferSize, NewSize);
+ 
+//Done!
+return ListenSocket;	
+}
+//Rama's TCP Connection Listener
+void AYourClass::TCPConnectionListener()
+{
+//~~~~~~~~~~~~~
+if(!ListenerSocket) return;
+//~~~~~~~~~~~~~
+ 
+//Remote address
+TSharedRef&lt;FInternetAddr&gt; RemoteAddress = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)-&gt;CreateInternetAddr();
+bool Pending;
+ 
+// handle incoming connections
+if (ListenerSocket-&gt;HasPendingConnection(Pending) &amp;&amp; Pending)
+{
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//Already have a Connection? destroy previous
+if(ConnectionSocket)
+{
+ConnectionSocket-&gt;Close();
+ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)-&gt;DestroySocket(ConnectionSocket);
+}
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//New Connection receive!
+ConnectionSocket = ListenerSocket-&gt;Accept(*RemoteAddress, TEXT(&quot;RamaTCP Received Socket Connection&quot;));
+ 
+if (ConnectionSocket != NULL)
+{
+//Global cache of current Remote Address
+RemoteAddressForConnection = FIPv4Endpoint(RemoteAddress);
+ 
+//UE_LOG &quot;Accepted Connection! WOOOHOOOO!!!&quot;;
+ 
+//can thread this too
+GetWorldTimerManager().SetTimer(this,
+&amp;AYourClass::TCPSocketListener, 0.01, true);	
+}
+}
+}
+ 
+//Rama's String From Binary Array
+FString AYourClass::StringFromBinaryArray(TArray&lt;uint8&gt; BinaryArray)
+{
+BinaryArray.Add(0); // Add 0 termination. Even if the string is already 0-terminated, it doesn't change the results.
+// Create a string from a byte array. The string is expected to be 0 terminated (i.e. a byte set to 0).
+// Use UTF8_TO_TCHAR if needed.
+// If you happen to know the data is UTF-16 (USC2) formatted, you do not need any conversion to begin with.
+// Otherwise you might have to write your own conversion algorithm to convert between multilingual UTF-16 planes.
+return FString(ANSI_TO_TCHAR(reinterpret_cast&lt;const char*&gt;(BinaryArray.GetData()));
+}
+ 
+//Rama's TCP Socket Listener
+void AYourClass::TCPSocketListener()
+{
+//~~~~~~~~~~~~~
+if(!ConnectionSocket) return;
+//~~~~~~~~~~~~~
+ 
+ 
+//Binary Array!
+TArray&lt;uint8&gt; ReceivedData;
+ 
+uint32 Size;
+while (ConnectionSocket-&gt;HasPendingData(Size))
+{
+ReceivedData.Init(FMath::Min(Size, 65507u));
+ 
+int32 Read = 0;
+ConnectionSocket-&gt;Recv(ReceivedData.GetData(), ReceivedData.Num(), Read);
+ 
+//GEngine-&gt;AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT(&quot;Data Read! %d&quot;), ReceivedData.Num()));
+}
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+if(ReceivedData.Num() &lt;= 0)
+{
+//No Data Received
+return;
+}
+ 
+VShow(&quot;Total Data read!&quot;, ReceivedData.Num() );
+GEngine-&gt;AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT(&quot;Data Bytes Read ~&gt; %d&quot;), ReceivedData.Num()));
+ 
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//						Rama's String From Binary Array
+const FString ReceivedUE4String = StringFromBinaryArray(ReceivedData);
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+ 
+VShow(&quot;As String!!!!! ~&gt;&quot;,ReceivedUE4String);	
+GEngine-&gt;AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT(&quot;As String Data ~&gt; %s&quot;), *ReceivedUE4String));
+}</p> <h2 id="how-it-works"><a href="#how-it-works" class="header-anchor">#</a> How It Works</h2> <p>The first socket listens on the port and IP supplied, and if a connection is received on this port, then the actual ListenerSocket is created.</p> <p>The ListenerSocket is run in very short looping timer of 0.01 seconds.</p> <p>You could also use a thread for this 😃</p> <p><strong><a href="/Multi-Threading:_How_to_Create_Threads_in_UE4" title="Multi-Threading: How to Create Threads in UE4">Rama's Tutorial on Multi-Threading, Create Threads in UE4</a></strong></p> <p>Whenever the ListenerSocket receives data, it makes sure to gather all of it using the while loop, and then I convert the results into a FString.</p> <p>//Binary Array!
+TArray&lt;uint8&gt; ReceivedData;
+ 
+uint32 Size;
+while (ConnectionSocket-&gt;HasPendingData(Size))
+{
+ReceivedData.Init(FMath::Min(Size, 65507u));
+ 
+int32 Read = 0;
+ConnectionSocket-&gt;Recv(ReceivedData.GetData(), ReceivedData.Num(), Read);
+ 
+//GEngine-&gt;AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT(&quot;Data Read! %d&quot;), ReceivedData.Num()));
+}</p> <p>If you are not receiving string data you can skip that part and just pass out the binary array itself 😃</p> <h2 id="another-tcp-source-code-by-alfalfasprossen"><a href="#another-tcp-source-code-by-alfalfasprossen" class="header-anchor">#</a> Another TCP Source Code, by alfalfasprossen</h2> <p>Community Member alfalfasprossen has been developing a communication interface between UE4 and Maya since 2014 using TCP sockets. Check out his code and see if you can learn some more!</p> <p><a href="https://github.com/m2u/m2uUE4Plugin" target="_blank" rel="noopener noreferrer">alfalfa's m2u Plugin<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h2 id="another-tcp-source-by-phi-wop"><a href="#another-tcp-source-by-phi-wop" class="header-anchor">#</a> Another TCP Source, by Phi.WOP</h2> <p>Here is another implementation you can check out from a UE4 Community member!</p> <p><a href="https://forums.unrealengine.com/showthread.php?18566-TCP-Socket-Listener-Receiving-Binary-Data-into-UE4-From-a-Python-Script!&amp;p=708455&amp;viewfull=1#post708455" target="_blank" rel="noopener noreferrer">https://forums.unrealengine.com/showthread.php?18566-TCP-Socket-Listener-Receiving-Binary-Data-into-UE4-From-a-Python-Script!&amp;p=708455&amp;viewfull=1#post708455<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h2 id="udp"><a href="#udp" class="header-anchor">#</a> UDP</h2> <p>I have written a wiki on communicating via UDP from one UE4 instance to another here! <a href="/UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another" title="UDP Socket Sender Receiver From One UE4 Instance To Another">UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another</a></p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>I am sharing my last several hours of research with you in fully functional C++ code format!</p> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=TCP_Socket_Listener,_Receive_Binary_Data_From_an_IP/Port_Into_UE4,_(Full_Code_Sample)&amp;oldid=25110" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=TCP_Socket_Listener,_Receive_Binary_Data_From_an_IP/Port_Into_UE4,_(Full_Code_Sample)&amp;oldid=25110<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1047.e986d1de.js" defer></script>
+  </body>
+</html>

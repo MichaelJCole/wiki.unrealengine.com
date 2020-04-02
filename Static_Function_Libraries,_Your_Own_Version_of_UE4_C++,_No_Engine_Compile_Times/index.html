@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1015.f672290a.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Static Function Libraries, Your Own Version of UE4 C++, No Engine Compile Times - Epic Wiki</p> <h1 id="static-function-libraries-your-own-version-of-ue4-c-no-engine-compile-times"><a href="#static-function-libraries-your-own-version-of-ue4-c-no-engine-compile-times" class="header-anchor">#</a> Static Function Libraries, Your Own Version of UE4 C++, No Engine Compile Times</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#.H">2 .H</a></li> <li><a href="#.CPP">3 .CPP</a></li> <li><a href="#Example_Usage">4 Example Usage</a></li> <li><a href="#Include">5 Include</a></li> <li><a href="#Why_UObject.3F">6 Why UObject?</a> <ul><li><a href="#USTRUCT.28.29_Library">6.1 USTRUCT() Library</a></li></ul></li> <li><a href="#Related_Tutorials">7 Related Tutorials</a></li> <li><a href="#Summary">8 Summary</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Original Author:</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>Building up your own static library of functions enables you to create your own version of UE4 C++ without having to modify the engine code and recompile it constantly.</p> <p>A static library can have FORCEINLINE functions as well as .cpp functions that utilize your entire Game's compiled header structure!</p> <p>Whenever you have a core function that you want to use in many classes,
+you can make it into a Static Library function
+so it can be used any time anywhere!</p> <h2 id="h"><a href="#h" class="header-anchor">#</a> .H</h2> <p>#pragma once
+ 
+#include &quot;MyStaticLibrary.generated.h&quot;
+ 
+UCLASS()
+class UMyStaticLibrary : public UObject
+{
+GENERATED_UCLASS_BODY()
+ 
+//FORCEINLNE function
+static FORCEINLINE bool IsValid(AActor* TheActor)
+{
+if(!TheActor) return false;
+if(!TheActor-&gt;IsValidLowLevel()) return false;
+return true;
+}
+ 
+//cpp function
+static int32 ComplicatedGameDataAnalysis();
+};</p> <h2 id="cpp"><a href="#cpp" class="header-anchor">#</a> .CPP</h2> <p>// Copyright 1998-2013 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;VictoryGame.h&quot;
+ 
+//////////////////////////////////////////////////////////////////////////
+// MyStaticLibrary
+ 
+UMyStaticLibrary::UMyStaticLibrary(const FObjectInitializer&amp; ObjectInitializer)
+: Super(ObjectInitializer)
+{
+ 
+}
+ 
+int32 UMyStaticLibrary::ComplicatedGameDataAnalysis()
+{
+//Do lots of stuff that requires the entire Game's compiled header source,
+//  involving lots of your custom project-specific classes,
+//    classes that have not been compiled in the .h of this library
+//    since they depend on it.
+return 9000;
+}</p> <h2 id="example-usage"><a href="#example-usage" class="header-anchor">#</a> Example Usage</h2> <p>In any class, in the .h, or the .cpp, anywhere really (if the class depends on your static library</p> <p>//Anywhere, in .h or .cpp, in any class!
+if(UMyStaticLibrary::IsValid(MyCharacter))
+{
+//Celebrate
+ClientMessage( FString::FromInt(UMyStaticLibrary::ComplicatedGameDataAnalysis()) );
+}</p> <h2 id="include"><a href="#include" class="header-anchor">#</a> Include</h2> <p>All of the classes that want to use your Static Library must include it</p> <p>#include &quot;MyStaticLibrary.h&quot;</p> <h2 id="why-uobject"><a href="#why-uobject" class="header-anchor">#</a> Why UObject?</h2> <p>Because then you can also define USTRUCTS() in your static library, the very best place for them, if many classes want to use them!</p> <h3 id="ustruct-library"><a href="#ustruct-library" class="header-anchor">#</a> USTRUCT() Library</h3> <p>//My 2D Rectangle data type
+//  because this is defined in your static library that all your classes depend on,
+//  you can use this USTRUCT() data type in any class, even in  .h FORCEINLINE functions!
+ 
+USTRUCT()
+struct FVRect
+{
+GENERATED_USTRUCT_BODY()
+ 
+UPROPERTY()
+FVector2D Min;
+ 
+UPROPERTY()
+FVector2D Max;
+ 
+//overloaded constructor
+FVRect(const FVector2D&amp; VPoint1, const FVector2D&amp; VPoint2)
+{
+//drag topleft to bottom right
+if(VPoint1.X &lt; VPoint2.X &amp;&amp;
+VPoint1.Y &lt; VPoint2.Y
+){
+Min 	= VPoint1;
+Max 	= VPoint2;
+}
+ 
+//drag from bottom right to top left
+else if(VPoint1.X &gt; VPoint2.X &amp;&amp;
+VPoint1.Y &gt; VPoint2.Y
+){
+Min 	= VPoint2;
+Max 	= VPoint1;
+}
+ 
+//drag from bottom left to top right
+else if(VPoint1.X &lt; VPoint2.X &amp;&amp;
+VPoint1.Y &gt; VPoint2.Y
+){
+Min 	= FVector2D(VPoint1.X, VPoint2.Y);
+Max 	= FVector2D(VPoint2.X, VPoint1.Y);
+}
+ 
+//etc...
+}
+ 
+//base constructor
+FVRect()
+{
+Min = FVector2D(0,0);
+Max = FVector2D(500,500);
+}
+};
+ 
+USTRUCT()
+struct FQuadVRect
+{
+GENERATED_USTRUCT_BODY()
+ 
+UPROPERTY()
+FVRect Rects[4];
+ 
+//base constructor
+FQuadVRect()
+{
+}
+};
+ 
+//And many
+//many
+//many
+//many more USTRUCTS() !
+ 
+UCLASS()
+class UMyStaticLibrary : public UObject
+{
+GENERATED_UCLASS_BODY()
+ 
+};</p> <h2 id="related-tutorials"><a href="#related-tutorials" class="header-anchor">#</a> Related Tutorials</h2> <p><a href="/Linking_Static_Libraries_Using_The_Build_System" title="Linking Static Libraries Using The Build System">Linking Static Libraries Using The Build System</a></p> <p>Great tutorial by <a href="/User:Bob_Gneu" title="User:Bob Gneu">Bob Gneu</a>!</p> <h2 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h2> <p>Now you have an easy way to write your own version of UE4 C++ to include essential project-specific function tools,</p> <p>without having to recompile the entire engine code constantly!</p> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Static_Function_Libraries,_Your_Own_Version_of_UE4_C%2B%2B,_No_Engine_Compile_Times&amp;oldid=14770" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Static_Function_Libraries,_Your_Own_Version_of_UE4_C%2B%2B,_No_Engine_Compile_Times&amp;oldid=14770<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1015.f672290a.js" defer></script>
+  </body>
+</html>

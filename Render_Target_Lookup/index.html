@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/953.2299de77.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Render Target Lookup - Epic Wiki</p> <h1 id="render-target-lookup"><a href="#render-target-lookup" class="header-anchor">#</a> Render Target Lookup</h1> <p><strong>Rate this Article:</strong></p> <p>3.88</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_half.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""> (8 votes)</p> <p>Approved for Versions:(please verify)</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Strategy">2 Strategy</a></li> <li><a href="#Generating_the_Heightmap">3 Generating the Heightmap</a></li> <li><a href="#Setting_up_the_Render_Target">4 Setting up the Render Target</a></li> <li><a href="#Render_Target_Reader">5 Render Target Reader</a> <ul><li><a href="#.h">5.1 .h</a></li> <li><a href="#.cpp">5.2 .cpp</a></li></ul></li> <li><a href="#Aligning_the_heightmap">6 Aligning the heightmap</a></li> <li><a href="#Using_the_HeightMapReader">7 Using the HeightMapReader</a></li> <li><a href="#Summary">8 Summary</a></li> <li><a href="#Non-blocking_UpdateBuffer.28.29">9 Non-blocking UpdateBuffer()</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>This tutorial covers a mostly blueprint, with a tiny bit of C++, approach to creating a dynamic heightmap that is driven by a <strong>material</strong>. Keep in mind that as the Unreal Engine evolves there will probably be a better technique for doing this but right now this is targeting version 4.1. There are many applications to dynamic heightmaps but this tutorial will focus on making a dynamic ocean.</p> <p><a href="/File:DynamicHeightmapOverview.png"><img src="https://d26ilriwvtzlb.cloudfront.net/4/41/DynamicHeightmapOverview.png" alt=""></a></p> <p>Dynamic Ocean</p> <h2 id="strategy"><a href="#strategy" class="header-anchor">#</a> Strategy</h2> <p>The strategy used is:</p> <ol><li>Create an ocean material and apply to a tessellated plane.</li> <li>Render its displacement to a render target at every frame.</li> <li>Read the render target's values to a buffer at every frame.</li> <li>For every actor affected by the water, look up the current wave height in the buffer.</li> <li>Add appropriate forces to the actor.</li></ol> <h2 id="generating-the-heightmap"><a href="#generating-the-heightmap" class="header-anchor">#</a> Generating the Heightmap</h2> <p>The heightmap material can be anything, in my case I used a noise normal map and bumpmap blended with itself at two different scales. The coordinates are hooked up to a panner to give the illusion of the waves moving. It is not very sophisticated but for now it does the job.</p> <p><a href="/File:DynamicHeightmapHeightmapBlueprint_updated.png"><img src="https://d26ilriwvtzlb.cloudfront.net/6/6d/DynamicHeightmapHeightmapBlueprint_updated.png" alt=""></a></p> <p>Heightmap blueprint</p> <p><a href="/File:DynamicHeightmapNoise_Normal.png"><img src="https://d26ilriwvtzlb.cloudfront.net/a/a6/DynamicHeightmapNoise_Normal.png" alt=""></a></p> <p>Wave Normal Map</p> <p><a href="/File:DynamicHeightmapNoise_Bump.png"><img src="https://d26ilriwvtzlb.cloudfront.net/4/44/DynamicHeightmapNoise_Bump.png" alt=""></a></p> <p>Wave Bump Map</p> <p>The height map is used twice, once in the ocean material with a Fresnel node connected to the diffuse channel and another material used to fill the render target that only sends the bumpmap to the emmisive channel.</p> <h2 id="setting-up-the-render-target"><a href="#setting-up-the-render-target" class="header-anchor">#</a> Setting up the Render Target</h2> <p>We need to fill a render target with our heightmap. There are multiple ways to do it but I wanted to stay on the blueprint side of things as much as possible so I created an actor blueprint containing a <strong>SceneCapture2D</strong> and a <strong>MaterialBillboard</strong>. Align these two components together and and set the render target to the SceneCapture2D and you are good to go.</p> <p>Do not forget to add this actor to your level.</p> <p><strong>*As of 4.13 this step can be replaced by using a &quot;Draw Material to Render Target&quot; node to update the render target.</strong></p> <h2 id="render-target-reader"><a href="#render-target-reader" class="header-anchor">#</a> Render Target Reader</h2> <p>This is the only C++ part of the whole tutorial. We need to be able to read the values from the render target to be able to return them your actors. The class contains two functions: Update and GetRenderTargetValue.</p> <p>The level contains an instance of the HeightMapReader actor and Update is called at every tick. Beacause Update uses ReadPixel, it is very slow. The larger the render target the slower it gets. To mitigate this Update could not be called every frame with very little impact on the simulation. Also it is possible to only read parts of the render target and thus limit reading to only pixels that are likely to be requested by an actor.</p> <p><a href="/File:DynamicHeightmapLevelBlueprint.png"><img src="https://d26ilriwvtzlb.cloudfront.net/8/83/DynamicHeightmapLevelBlueprint.png" alt=""></a></p> <p>Level Blueprint</p> <h4 id="h"><a href="#h" class="header-anchor">#</a> .h</h4> <p>UCLASS()
+class AHeightMapReader : public AActor
+{
+GENERATED_UCLASS_BODY()
+ 
+UPROPERTY(Category = HeightMap, EditAnywhere)
+UTextureRenderTarget2D* RenderTarget;
+ 
+UFUNCTION(BlueprintCallable, Category = &quot;HeightMap|Update&quot;)
+void UpdateBuffer();
+ 
+UFUNCTION(BlueprintCallable, Category = &quot;HeightMap|Texture Helper&quot;)
+FColor GetRenderTargetValue(float x, float y);
+ 
+private:
+ 
+TArray&lt;FColor&gt; ColorBuffer;
+ 
+};</p> <h4 id="cpp"><a href="#cpp" class="header-anchor">#</a> .cpp</h4> <p>void AHeightMapReader::UpdateBuffer()
+{
+ColorBuffer.Reset();
+ 
+if (RenderTarget != NULL)
+{
+ 
+FTextureRenderTarget2DResource* textureResource = (FTextureRenderTarget2DResource*)RenderTarget-&gt;Resource;
+if (textureResource-&gt;ReadPixels(ColorBuffer))
+{
+ 
+}
+}
+}
+ 
+ 
+FColor AHeightMapReader::GetRenderTargetValue(float x, float y)
+{
+float size = 10000;
+ 
+if (RenderTarget == NULL || ColorBuffer.Num() == 0)
+return FColor(0);
+ 
+float width = RenderTarget-&gt;GetSurfaceWidth();
+float height = RenderTarget-&gt;GetSurfaceHeight();
+ 
+//Conver coordinates to texture space
+float normalizedX = (x / size) + 0.5f;
+float normalizedY = (y / size) + 0.5f;
+ 
+int i = (int)(normalizedX * width);
+int j = (int)(normalizedY * height);
+ 
+if (i &lt; 0) i = 0;
+if (i &gt;= width) i = width - 1;
+if (j &lt; 0) j = 0;
+if (j &gt;= height) j = height - 1;
+ 
+int index = i + j * width;
+if (index &lt; 0) index = 0;
+if (index &gt;= ColorBuffer.Num()) index = ColorBuffer.Num();
+ 
+return ColorBuffer[index];
+}</p> <p><strong>*See the section 'Non-blocking UpdateBuffer()' below for a method that is faster (or that at least does not block the game thread).</strong></p> <h2 id="aligning-the-heightmap"><a href="#aligning-the-heightmap" class="header-anchor">#</a> Aligning the heightmap</h2> <p>This is probably the most tedious part of the implementation. Depending on the mesh used as the water surface and which way the texture is oriented when rendering to render target there will be adjustments to be made to heightmap material. In my case I had to rotate it 90 degrees due to a rendering bug in the MaterialBillboard. I also needed to shift texture coordinates by (0.5,0.5). Take note that the current implementation limits the water plane to the worlds origin and the zone covered by the heightmap is only 10000 units wide.</p> <p>Another useful trick to make sure everything is lined up is to create a simple black and white texture with arrows and words and use it as the bump map in the heightmap material. This allows to easily identify if something is pointing or scaled the wrong way. Also creating a grid of debug spheres set at the height returned by the HeightMapReader allows to quickly line everything up.</p> <h2 id="using-the-heightmapreader"><a href="#using-the-heightmapreader" class="header-anchor">#</a> Using the HeightMapReader</h2> <p>To make my boat float, it contains a collection of test points (array of vectors) setup around its hull. I loop through each point and call GetRenderTargetValue from the HeightMapReader at the coordinates of that point transformed by the ship's transform. I then compare the height of each point with the returned height and if the value is above water I apply a downward force (gravity) at that location and if the point is underwater I apply an upward force at that location (buoyancy). These different forces will apply torque to the whole ship and make it sway and bob with the waves. To increase stability of the ship I increase linear and angular dampening based on the number of test points located underwater.</p> <h2 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h2> <p>With this technique it is easy to make actors react to a dynamic heightmap generated from a material.</p> <p>Here is a video of what was shown in this tutorial</p> <p>Here is a video tutorial to add buoyancy to pawns.</p> <p>There are many areas left for improvements:</p> <ul><li>Using a faster technique to read the render target in code.</li> <li>Allow the water plane to move with the actor instead of staying at the world center.</li> <li>Interpolate the values read from the render target to get a smoother transition when a test point is located between pixels.</li></ul> <p>Due to requests, here is the water plane model used in the demo: <a href="/File:WaterPlane.zip" title="File:WaterPlane.zip">File:WaterPlane.zip</a></p> <h2 id="non-blocking-updatebuffer"><a href="#non-blocking-updatebuffer" class="header-anchor">#</a> Non-blocking UpdateBuffer()</h2> <p>The above code uses 'FRenderTarget::ReadPixels()', which will block the game thread until the rendering thread has caught up. This caused noticeable hiccups in my project. I worked around this by adding a modified ReadPixels() that does not call 'FlushRenderingCommands()' to my class.</p> <p>Here are the relevant portions of my code. I have not tested it with the rest of the code on this page so you might have to modify it a bit to get it to work for you.</p> <p>void UTargeterComponent::ReadPixels()
+{
+//borrowed from RenderTarget::ReadPixels()
+FTextureRenderTarget2DResource* RenderResource = (FTextureRenderTarget2DResource*)RenderTarget-&gt;Resource;
+ 
+// Read the render target surface data back.
+struct FReadSurfaceContext
+{
+FRenderTarget* SrcRenderTarget;
+TArray&lt;FColor&gt;* OutData;
+FIntRect Rect;
+FReadSurfaceDataFlags Flags;
+};
+ 
+Pixels.Reset();
+FReadSurfaceContext ReadSurfaceContext =
+{
+RenderResource,
+&amp;Pixels,
+FIntRect(0, 0, RenderResource-&gt;GetSizeXY().X, RenderResource-&gt;GetSizeXY().Y),
+FReadSurfaceDataFlags(RCM_UNorm, CubeFace_MAX)
+};
+ 
+ENQUEUE_UNIQUE_RENDER_COMMAND_ONEPARAMETER(
+ReadSurfaceCommand,
+FReadSurfaceContext, Context, ReadSurfaceContext,
+{
+RHICmdList.ReadSurfaceData(
+Context.SrcRenderTarget-&gt;GetRenderTargetTexture(),
+Context.Rect,
+*Context.OutData,
+Context.Flags
+);
+});
+}</p> <p>A result of this function being non-blocking is that we the result is not immediately available to us. One way to determine if the result is ready is to use a 'FRenderCommandFence'.</p> <p>I added the following members to my class in my header file:</p> <div class="language- extra-class"><pre><code>bool bReadPixelsStarted \= false;
+FRenderCommandFence ReadPixelFence;
+</code></pre></div><p>Then I use them like this:</p> <p>// to i initiate reading
+ReadPixels();
+ReadPixelFence.BeginFence();
+bReadPixelsStarted = true;
+...
+// To check if we are done reading:
+// I do this in my tick function
+if (bReadPixelsStarted &amp;&amp; ReadPixelFence.IsFenceComplete())
+{
+// do something with the pixels
+}</p> <p>We need 'bReadPixelsStarted' since 'IsFenceComplete() returns true if it is called before 'BeginFence()'</p> <p>--<a href="/index.php?title=User:Larsjsol&amp;action=edit&amp;redlink=1" title="User:Larsjsol (page does not exist)">User:Larsjsol</a></p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Render_Target_Lookup&amp;oldid=24286" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Render_Target_Lookup&amp;oldid=24286<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/index.php?title=Category:RenderTarget&amp;action=edit&amp;redlink=1" title="Category:RenderTarget (page does not exist)">RenderTarget</a></li> <li><a href="/index.php?title=Category:DynamicHeightmap&amp;action=edit&amp;redlink=1" title="Category:DynamicHeightmap (page does not exist)">DynamicHeightmap</a></li> <li><a href="/Category:Community_Videos" title="Category:Community Videos">Community Videos</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li> <li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/953.2299de77.js" defer></script>
+  </body>
+</html>

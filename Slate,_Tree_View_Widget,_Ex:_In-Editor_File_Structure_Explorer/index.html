@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/993.503d7f8a.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Slate, Tree View Widget, Ex: In-Editor File Structure Explorer - Epic Wiki</p> <h1 id="slate-tree-view-widget-ex-in-editor-file-structure-explorer"><a href="#slate-tree-view-widget-ex-in-editor-file-structure-explorer" class="header-anchor">#</a> Slate, Tree View Widget, Ex: In-Editor File Structure Explorer</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Video">2 Video</a></li> <li><a href="#The_Core_Data">3 The Core Data</a></li> <li><a href="#Slate_.h">4 Slate .h</a> <ul><li><a href="#Constructor_and_DDEdEngine">4.1 Constructor and DDEdEngine</a></li></ul></li> <li><a href="#Instancing_the_Slate_Widget">5 Instancing the Slate Widget</a></li> <li><a href="#Slate_.cpp">6 Slate .cpp</a></li> <li><a href="#Important_Functions">7 Important Functions</a> <ul><li><a href="#On_Generate_Row">7.1 On Generate Row</a></li> <li><a href="#On_Get_Children">7.2 On Get Children</a></li> <li><a href="#User_Input">7.3 User Input</a></li></ul></li> <li><a href="#Core_Function">8 Core Function</a></li> <li><a href="#Core_Data">9 Core Data</a></li> <li><a href="#Summary">10 Summary</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Author:</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>Here's a tutorial to help you get started with Slate tree views!</p> <p>This is the widget that has those arrows you can click to expand/contract subcategories!</p> <p>In this example, I was making a hard drive file structure viewer, and I saved off a version that would be a great starting point 😃</p> <h2 id="video"><a href="#video" class="header-anchor">#</a> Video</h2> <p>This video shows the entire finished code that this code I am giving you here was the foundation for!</p> <p>I wanted to keep this example simple, and also, not too implementation-specific.</p> <p>You can use this coding as a starting point for your project-specific tree-view needs!</p> <h2 id="the-core-data"><a href="#the-core-data" class="header-anchor">#</a> The Core Data</h2> <p>Trees are branching structures composed of a fundamental node data structure.</p> <p>Here is that data structure for this example:</p> <p>//Tree view data structure by Rama
+ 
+#pragma once
+ 
+ 
+typedef TSharedPtr&lt; class FDDFileTreeItem &gt; FDDFileTreeItemPtr;
+ 
+ 
+/**
+* The Data for a single node in the Directory Tree
+*/
+class FDDFileTreeItem
+{
+ 
+public:
+ 
+/** @return Returns the parent or NULL if this is a root */
+const FDDFileTreeItemPtr GetParentCategory() const
+{
+return ParentDir.Pin();
+}
+ 
+/** @return the path on hard disk, read-only */
+const FString&amp; GetDirectoryPath() const
+{
+return DirectoryPath;
+}
+ 
+/** @return name to display in file tree view! read-only */
+const FString&amp; GetDisplayName() const
+{
+return DisplayName;
+}
+ 
+/** @return Returns all subdirectories, read-only */
+const TArray&lt; FDDFileTreeItemPtr &gt;&amp; GetSubDirectories() const
+{
+return SubDirectories;
+}
+ 
+/** @return Returns all subdirectories, read or write */
+TArray&lt; FDDFileTreeItemPtr &gt;&amp; AccessSubDirectories()
+{
+return SubDirectories;
+}
+ 
+/** Add a subdirectory to this node in the tree! */
+void AddSubDirectory(const FDDFileTreeItemPtr NewSubDir)
+{
+SubDirectories.Add(NewSubDir);
+}
+ 
+public:
+ 
+/** Constructor for FDDFileTreeItem */
+FDDFileTreeItem(const FDDFileTreeItemPtr IN_ParentDir, const FString&amp; IN_DirectoryPath, const FString&amp; IN_DisplayName)
+: ParentDir( 	 IN_ParentDir)
+, DirectoryPath( IN_DirectoryPath)
+, DisplayName(	 IN_DisplayName)
+{
+}
+ 
+ 
+private:
+ 
+/** Parent item or NULL if this is a root  */
+TWeakPtr&lt; FDDFileTreeItem &gt; ParentDir;
+ 
+/** Full path of this directory in the tree */
+FString DirectoryPath;
+ 
+/** Display name of the category */
+FString DisplayName;
+ 
+/** Child categories */
+TArray&lt; FDDFileTreeItemPtr &gt; SubDirectories;
+};</p> <h2 id="slate-h"><a href="#slate-h" class="header-anchor">#</a> Slate .h</h2> <p>// File Tree Viewer by Rama
+ 
+#pragma once
+ 
+//DD File Tree Item
+#include &quot;DDFileTreeItem.h&quot;
+ 
+//~~~ Forward Declarations ~~~
+class UDDEdEngine;
+ 
+ 
+typedef STreeView&lt; FDDFileTreeItemPtr &gt; SDDFileTreeView;
+ 
+/**
+* File Tree View
+*/
+class SDDFileTree : public SCompoundWidget
+{
+ 
+public:
+ 
+SLATE_BEGIN_ARGS( SDDFileTree )
+{}
+ 
+SLATE_END_ARGS()
+ 
+ 
+//~~~~~~~~
+//		DDEdEngine
+//~~~~~~~~
+public:
+//owns this
+TWeakObjectPtr&lt;class UDDEdEngine&gt; DDEdEngine;
+ 
+ 
+/** Refresh the Tree */
+//bool DoRefresh;
+ 
+ 
+//~~~
+public:
+/** Widget constructor */
+void Construct( const FArguments&amp; Args, TWeakObjectPtr&lt;class UDDEdEngine&gt; IN_DDEdEngine );
+ 
+/** Destructor */
+~SDDFileTree();
+ 
+/** @return Returns the currently selected category item */
+FDDFileTreeItemPtr GetSelectedDirectory() const;
+ 
+/** Selects the specified category */
+void SelectDirectory( const FDDFileTreeItemPtr&amp; CategoryToSelect );
+ 
+/** @return Returns true if the specified item is currently expanded in the tree */
+bool IsItemExpanded( const FDDFileTreeItemPtr Item ) const;
+ 
+private:
+ 
+/** Called to generate a widget for the specified tree item */
+TSharedRef&lt;ITableRow&gt; DDFileTree_OnGenerateRow( FDDFileTreeItemPtr Item, const TSharedRef&lt;STableViewBase&gt;&amp; OwnerTable );
+ 
+/** Given a tree item, fills an array of child items */
+void DDFileTree_OnGetChildren( FDDFileTreeItemPtr Item, TArray&lt; FDDFileTreeItemPtr &gt;&amp; OutChildren );
+ 
+/** Called when the user clicks on an  item, or when selection changes by some other means */
+void DDFileTree_OnSelectionChanged( FDDFileTreeItemPtr Item, ESelectInfo::Type SelectInfo );
+ 
+/** Rebuilds the category tree from scratch */
+void RebuildFileTree();
+ 
+/** SWidget overrides */
+virtual void Tick( const FGeometry&amp; AllottedGeometry, const double InCurrentTime, const float InDeltaTime ) OVERRIDE;
+ 
+ 
+private:
+ 
+ 
+/** The tree view widget*/
+TSharedPtr&lt; SDDFileTreeView &gt; DDFileTreeView;
+ 
+/** The Core Data for the Tree Viewer! */
+TArray&lt; FDDFileTreeItemPtr &gt; Directories;
+};</p> <h3 id="constructor-and-ddedengine"><a href="#constructor-and-ddedengine" class="header-anchor">#</a> Constructor and DDEdEngine</h3> <p>In my case I am calling this widget from within a custom version of the engine via a custom class that extends UnrealEdEngine.</p> <p>I am passing in pointer to the UnrealEdEngine when the widget is first constructed.</p> <p>You could use your HUD class instead!</p> <p>I dont rely on any EdEngine functionality for this code sample, replace EdEngine with your own chosen parenting class.</p> <p>/** Widget constructor */
+void Construct( const FArguments&amp; Args, TWeakObjectPtr&lt;class UDDEdEngine&gt; IN_DDEdEngine );</p> <h2 id="instancing-the-slate-widget"><a href="#instancing-the-slate-widget" class="header-anchor">#</a> Instancing the Slate Widget</h2> <p>Here's an example of creating the widget:</p> <p>//in the .h of parent class:
+ 
+//TSharedPtr<class SDDFileTree=""> DDFileTree;
+ 
+//in your parent class in which you want to create the widget
+if( !DDFileTree.IsValid() )
+{	
+SAssignNew(	DDFileTree,	SDDFileTree,	Cast&lt;UDDEdEngine&gt;(this)	);
+}</class></p> <h2 id="slate-cpp"><a href="#slate-cpp" class="header-anchor">#</a> Slate .cpp</h2> <p>// File Tree Viewer by Rama
+ 
+#include &quot;VictoryGame.h&quot;
+ 
+//This header
+#include &quot;SDDFileTree.h&quot;
+ 
+//The Data
+#include &quot;DDFileTreeItem.h&quot;
+ 
+void SDDFileTree::Construct(const FArguments&amp; Args,TWeakObjectPtr&lt;class UDDEdEngine&gt; IN_DDEdEngine)
+{
+//Set DDEdEngine
+DDEdEngine = IN_DDEdEngine;
+//~~~~~~~~~~~~~~~~~~~
+ 
+//Build Core Data
+RebuildFileTree();
+ 
+//Build the tree view of the above core data
+DDFileTreeView =
+SNew( SDDFileTreeView )
+ 
+// For now we only support selecting a single folder in the tree
+.SelectionMode( ESelectionMode::Single )
+.ClearSelectionOnClick( false )		// Don't allow user to select nothing.
+ 
+.TreeItemsSource( &amp;Directories )
+.OnGenerateRow( this, &amp;SDDFileTree::DDFileTree_OnGenerateRow )
+.OnGetChildren( this, &amp;SDDFileTree::DDFileTree_OnGetChildren )
+ 
+.OnSelectionChanged( this, &amp;SDDFileTree::DDFileTree_OnSelectionChanged )
+;
+ 
+/*
+// Expand the root  by default
+for( auto RootDirIt( Directories.CreateConstIterator() ); RootDirIt; ++RootDirIt )
+{
+const auto&amp; Dir = *RootDirIt;
+DDFileTreeView-&gt;SetItemExpansion( Dir, true );
+}
+ 
+// Select the first item by default
+if( Directories.Num() &gt; 0 )
+{
+DDFileTreeView-&gt;SetSelection( Directories[ 0 ] );
+}
+*/
+ 
+ChildSlot.Widget = DDFileTreeView.ToSharedRef();
+}
+ 
+ 
+SDDFileTree::~SDDFileTree()
+{
+}
+ 
+ 
+ 
+void SDDFileTree::RebuildFileTree()
+{
+ 
+Directories.Empty();
+ 
+//~~~~~~~~~~~~~~~~~~~
+//Root Level
+TSharedRef&lt;FDDFileTreeItem&gt; RootDir = MakeShareable(new FDDFileTreeItem(NULL, TEXT(&quot;RootDir&quot;), FString(&quot;RootDir&quot;)));
+Directories.Add( RootDir );
+ 
+TSharedRef&lt;FDDFileTreeItem&gt; RootDir2 = MakeShareable(new FDDFileTreeItem(NULL, TEXT(&quot;RootDir2&quot;), FString(&quot;RootDir2&quot;)));
+Directories.Add( RootDir2 );
+//~~~~~~~~~~~~~~~~~~~
+ 
+//Root Category
+FDDFileTreeItemPtr ParentCategory = RootDir;
+ 
+ 
+//Add
+FDDFileTreeItemPtr EachSubDir = MakeShareable(new FDDFileTreeItem(ParentCategory,  &quot;Joy&quot;, &quot;Joy&quot;));
+RootDir-&gt;AddSubDirectory(EachSubDir);
+ 
+//Add
+EachSubDir = MakeShareable(new FDDFileTreeItem(ParentCategory, &quot;Song&quot;, &quot;Song&quot;));
+RootDir-&gt;AddSubDirectory(EachSubDir);
+ 
+//Add
+FDDFileTreeItemPtr SongDir = MakeShareable(new FDDFileTreeItem(ParentCategory,  &quot;Dance&quot;, &quot;Dance&quot;));
+EachSubDir-&gt;AddSubDirectory(SongDir);
+ 
+//Add
+SongDir = MakeShareable(new FDDFileTreeItem(ParentCategory, &quot;Rainbows&quot;, &quot;Rainbows&quot;));
+EachSubDir-&gt;AddSubDirectory(SongDir);
+ 
+//Add
+EachSubDir = MakeShareable(new FDDFileTreeItem(ParentCategory, &quot;Butterflies&quot;, &quot;Butterflies&quot;));
+RootDir-&gt;AddSubDirectory(EachSubDir);
+ 
+ 
+//Refresh
+if( DDFileTreeView.IsValid() )
+{
+DDFileTreeView-&gt;RequestTreeRefresh();
+}
+}
+ 
+TSharedRef&lt;ITableRow&gt; SDDFileTree::DDFileTree_OnGenerateRow( FDDFileTreeItemPtr Item, const TSharedRef&lt;STableViewBase&gt;&amp; OwnerTable )
+{
+if(!Item.IsValid())
+{
+return SNew( STableRow&lt; FDDFileTreeItemPtr &gt;, OwnerTable )
+[
+SNew(STextBlock)
+.Text( FString(&quot;THIS WAS NULL SOMEHOW&quot;) )
+];
+}
+return SNew( STableRow&lt; FDDFileTreeItemPtr &gt;, OwnerTable )
+[
+SNew(STextBlock)
+.Text( Item-&gt;GetDisplayName() )
+.Font(FSlateFontInfo(FPaths::EngineContentDir() / TEXT(&quot;Slate/Fonts/Roboto-Bold.ttf&quot;), 12))
+.ColorAndOpacity(FLinearColor(1,0,1,1))
+.ShadowColorAndOpacity(FLinearColor::Black)
+.ShadowOffset(FIntPoint(-2, 2))
+];
+}
+ 
+ 
+void SDDFileTree::DDFileTree_OnGetChildren( FDDFileTreeItemPtr Item, TArray&lt; FDDFileTreeItemPtr &gt;&amp; OutChildren )
+{
+const auto&amp; SubCategories = Item-&gt;GetSubDirectories();
+OutChildren.Append( SubCategories );
+}
+ 
+ 
+//Key function for interaction with user!
+void SDDFileTree::DDFileTree_OnSelectionChanged( FDDFileTreeItemPtr Item, ESelectInfo::Type SelectInfo )
+{
+//Selection Changed! Tell DDEdEngine!
+UE_LOG(YourLog,Warning,TEXT(&quot;Item Selected: %s&quot;), *Item-&gt;GetDisplayName());
+}
+ 
+ 
+FDDFileTreeItemPtr SDDFileTree::GetSelectedDirectory() const
+{
+if( DDFileTreeView.IsValid() )
+{
+auto SelectedItems = DDFileTreeView-&gt;GetSelectedItems();
+if( SelectedItems.Num() &gt; 0 )
+{
+const auto&amp; SelectedCategoryItem = SelectedItems[ 0 ];
+return SelectedCategoryItem;
+}
+}
+ 
+return NULL;
+}
+ 
+ 
+void SDDFileTree::SelectDirectory( const FDDFileTreeItemPtr&amp; CategoryToSelect )
+{
+if( ensure( DDFileTreeView.IsValid() ) )
+{
+DDFileTreeView-&gt;SetSelection( CategoryToSelect );
+}
+}
+ 
+//is the tree item expanded to show children?
+bool SDDFileTree::IsItemExpanded( const FDDFileTreeItemPtr Item ) const
+{
+return DDFileTreeView-&gt;IsItemExpanded( Item );
+}
+ 
+ 
+ 
+void SDDFileTree::Tick( const FGeometry&amp; AllottedGeometry, const double InCurrentTime, const float InDeltaTime )
+{
+// Call parent implementation
+SCompoundWidget::Tick( AllottedGeometry, InCurrentTime, InDeltaTime );
+ 
+//can do things here every tick
+}</p> <h2 id="important-functions"><a href="#important-functions" class="header-anchor">#</a> Important Functions</h2> <h3 id="on-generate-row"><a href="#on-generate-row" class="header-anchor">#</a> On Generate Row</h3> <p>This is the function that decides how each item in the tree gets displayed visually!</p> <p>You could make it so each item in the tree is its own very fancy Slate widget, I just used TextBlock.</p> <p>TSharedRef&lt;ITableRow&gt; SDDFileTree::DDFileTree_OnGenerateRow( FDDFileTreeItemPtr Item, const TSharedRef&lt;STableViewBase&gt;&amp; OwnerTable )
+{
+if(!Item.IsValid())
+{
+return SNew( STableRow&lt; FDDFileTreeItemPtr &gt;, OwnerTable )
+[
+SNew(STextBlock)
+.Text( FString(&quot;THIS WAS NULL SOMEHOW&quot;) )
+];
+}
+return SNew( STableRow&lt; FDDFileTreeItemPtr &gt;, OwnerTable )
+[
+SNew(STextBlock)
+.Text( Item-&gt;GetDisplayName() )
+.Font(FSlateFontInfo(FPaths::EngineContentDir() / TEXT(&quot;Slate/Fonts/Roboto-Bold.ttf&quot;), 12))
+.ColorAndOpacity(FLinearColor(1,0,1,1))
+.ShadowColorAndOpacity(FLinearColor::Black)
+.ShadowOffset(FIntPoint(-2, 2))
+];
+}</p> <h3 id="on-get-children"><a href="#on-get-children" class="header-anchor">#</a> On Get Children</h3> <p>Get children is specific to the Tree View Slate widget, and determines what appears when a tree view item is expanded using the arrow, assuming it has any children.</p> <p>This function tells Tree view whether the node has any children!</p> <p>Note that GetSubDirectories() is my own custom function for my data type, but because OnGetChildren uses it, the Tree View knows when one of my custom data structure nodes has any children, and so the arrow should appear and the children should appear when the arrow is expanded.</p> <p>void SDDFileTree::DDFileTree_OnGetChildren( FDDFileTreeItemPtr Item, TArray&lt; FDDFileTreeItemPtr &gt;&amp; OutChildren )
+{
+const auto&amp; SubCategories = Item-&gt;GetSubDirectories();
+OutChildren.Append( SubCategories );
+}</p> <h3 id="user-input"><a href="#user-input" class="header-anchor">#</a> User Input</h3> <p>When the user clicks on an item in the tree view, this function below is run!</p> <p>void SDDFileTree::DDFileTree_OnSelectionChanged( FDDFileTreeItemPtr Item, ESelectInfo::Type SelectInfo )
+{
+//Selection Changed! Tell DDEdEngine!
+UE_LOG(YourLog,Warning,TEXT(&quot;Item clicked! %s&quot;), *Item-&gt;GetDisplayName());
+}</p> <h2 id="core-function"><a href="#core-function" class="header-anchor">#</a> Core Function</h2> <p>The core function where the tree is made is below!</p> <p>void SDDFileTree::RebuildFileTree()
+{
+ 
+Directories.Empty();
+ 
+//~~~~~~~~~~~~~~~~~~~
+//Root Level
+TSharedRef&lt;FDDFileTreeItem&gt; RootDir = MakeShareable(new FDDFileTreeItem(NULL, TEXT(&quot;RootDir&quot;), FString(&quot;RootDir&quot;)));
+Directories.Add( RootDir );
+ 
+TSharedRef&lt;FDDFileTreeItem&gt; RootDir2 = MakeShareable(new FDDFileTreeItem(NULL, TEXT(&quot;RootDir2&quot;), FString(&quot;RootDir2&quot;)));
+Directories.Add( RootDir2 );
+//~~~~~~~~~~~~~~~~~~~
+ 
+//Root Category
+FDDFileTreeItemPtr ParentCategory = RootDir;
+ 
+ 
+//Add
+FDDFileTreeItemPtr EachSubDir = MakeShareable(new FDDFileTreeItem(ParentCategory,  &quot;Joy&quot;, &quot;Joy&quot;));
+RootDir-&gt;AddSubDirectory(EachSubDir);
+ 
+//Add
+EachSubDir = MakeShareable(new FDDFileTreeItem(ParentCategory, &quot;Song&quot;, &quot;Song&quot;));
+RootDir-&gt;AddSubDirectory(EachSubDir);
+ 
+//Add
+FDDFileTreeItemPtr SongDir = MakeShareable(new FDDFileTreeItem(ParentCategory,  &quot;Dance&quot;, &quot;Dance&quot;));
+EachSubDir-&gt;AddSubDirectory(SongDir);
+ 
+//Add
+SongDir = MakeShareable(new FDDFileTreeItem(ParentCategory, &quot;Rainbows&quot;, &quot;Rainbows&quot;));
+EachSubDir-&gt;AddSubDirectory(SongDir);
+ 
+//Add
+EachSubDir = MakeShareable(new FDDFileTreeItem(ParentCategory, &quot;Butterflies&quot;, &quot;Butterflies&quot;));
+RootDir-&gt;AddSubDirectory(EachSubDir);
+ 
+ 
+//Refresh
+if( DDFileTreeView.IsValid() )
+{
+DDFileTreeView-&gt;RequestTreeRefresh();
+}
+}</p> <h2 id="core-data"><a href="#core-data" class="header-anchor">#</a> Core Data</h2> <p>The core data is set to be used in the constructor, here:</p> <p>.TreeItemsSource( &amp;Directories )</p> <h2 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h2> <p>Now you know the basics of using a tree view!</p> <p>You need</p> <p>1. your own custom data structure that is a node in the tree</p> <p>2. tree view .h</p> <p>3. tree view .cpp</p> <p>and that's all!</p> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Slate,_Tree_View_Widget,_Ex:_In-Editor_File_Structure_Explorer&amp;oldid=10406" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Slate,_Tree_View_Widget,_Ex:_In-Editor_File_Structure_Explorer&amp;oldid=10406<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/993.503d7f8a.js" defer></script>
+  </body>
+</html>

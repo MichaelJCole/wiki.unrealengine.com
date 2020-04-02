@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/939.5f122d5f.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>RESTRICT, Keyword for Low-Level Pointer Efficiency - Epic Wiki</p> <h1 id="restrict-keyword-for-low-level-pointer-efficiency"><a href="#restrict-keyword-for-low-level-pointer-efficiency" class="header-anchor">#</a> RESTRICT, Keyword for Low-Level Pointer Efficiency</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Pointer_Aliasing">2 Pointer Aliasing</a></li> <li><a href="#Unique_Memory_Strips">3 Unique Memory Strips</a></li> <li><a href="#Pointer_Restriction">4 Pointer Restriction</a></li> <li><a href="#UE4_RESTRICT_Macro">5 UE4 RESTRICT Macro</a></li> <li><a href="#My_Own_UObject_Pointer_RESTRICT_Example">6 My Own UObject Pointer RESTRICT Example</a></li> <li><a href="#Avoid_Aliasing_in_the_First_Place">7 Avoid Aliasing in the First Place</a></li> <li><a href="#Network_Code">8 Network Code</a></li> <li><a href="#Link:_Extensive_Information_on_restrict_in_C.2B.2B">9 Link: Extensive Information on _restrict in C++</a></li> <li><a href="#Conclusion">10 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Original Author:</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>In this wiki tutorial, I discuss a pointer-only optimization technique that can improve low level code involving multiple pointers that have the same data type.</p> <p>The special keyword involved ( <strong>_restrict</strong> ) helps the compiler produce more efficient code whenever multiple pointers of the same data type are used within the same context.</p> <p>If you search the UE4 code base you will see examples of this optimization (<strong>RESTRICT and _restrict</strong>) in use!</p> <h2 id="pointer-aliasing"><a href="#pointer-aliasing" class="header-anchor">#</a> Pointer Aliasing</h2> <p>Pointer Aliasing means 2+ pointers are pointing to the same memory address, in the same context.</p> <p>The compiler cannot ever assume aliasing is <strong>not</strong> occurring if multiple pointers in the same context have the same data type:</p> <p>SomeContext
+{
+float* Ptr1;
+float* Ptr2;
+float* Ptr3;
+}</p> <p>When the compiler sees 3 pointers of the same data type in the same context, it cannot assume that these pointes are not aliases of each other.</p> <p>for example:</p> <p>SomeContext
+{
+float TheData
+float* Ptr1 = &amp;TheData;
+float* Ptr2 = &amp;TheData;
+float* Ptr3 = &amp;TheData;
+ 
+//All 3 pointers are aliases of each other! They all point to the same data
+}</p> <h2 id="unique-memory-strips"><a href="#unique-memory-strips" class="header-anchor">#</a> Unique Memory Strips</h2> <p>When 3 pointers are pointing to unique memory strips, and are not aliasing each other, the compiler could perform some optimization if it knew this was the case:</p> <p>SomeContext
+{
+float Time;
+float Space;
+float Stars;
+ 
+float* Ptr1 = &amp;Time;
+float* Ptr2 = &amp;Space;
+float* Ptr3 = &amp;Stars;
+ 
+//All 3 pointers point to unique memory strips, but the compiler cannot assume this
+}</p> <h2 id="pointer-restriction"><a href="#pointer-restriction" class="header-anchor">#</a> Pointer Restriction</h2> <p>The c++ keyword <strong>_restrict</strong> enables you to tell the compiler that you are quite positive that each of the pointers have unique access to their respective memory strips.</p> <p><strong>This keyword should only be used if you are absolutely sure that the pointers do actually have unique access to their memory location, within their context!</strong></p> <p>Use of _restrict example:</p> <p>SomeContext
+{
+float Time;
+float Space;
+float Stars;
+ 
+float* __restrict Ptr1 = &amp;Time;
+float* __restrict Ptr2 = &amp;Space;
+float* __restrict Ptr3 = &amp;Stars;
+ 
+//All 3 pointers point to unique memory strips,
+//	AND THE COMPILER KNOWS IT!
+//		Optimization can now occur.
+}</p> <h2 id="ue4-restrict-macro"><a href="#ue4-restrict-macro" class="header-anchor">#</a> UE4 RESTRICT Macro</h2> <p>If you search the code base you will find</p> <p>#define RESTRICT _restrict</p> <p>in a couple of places 😃</p> <p>SomeContext
+{
+float Time;
+float Space;
+float Stars;
+ 
+//The UE4 Way
+float* RESTRICT Ptr1 = &amp;Time;
+float* RESTRICT Ptr2 = &amp;Space;
+float* RESTRICT Ptr3 = &amp;Stars;
+ 
+//All 3 pointers point to unique memory strips,
+//	AND THE COMPILER KNOWS IT!
+//		Optimization can now occur.
+}</p> <h2 id="my-own-uobject-pointer-restrict-example"><a href="#my-own-uobject-pointer-restrict-example" class="header-anchor">#</a> My Own UObject Pointer RESTRICT Example</h2> <p>In this code sample, I have two pointers of the same data type, passed into the same function context.</p> <p>In my code below, the compiler knows that <strong>OldCharacter</strong> and <em>NewCharacter</em> are distinct entities with distinct memory strips, and can optimize actions performed to these memory addresses.</p> <p>void AMyPC::SwitchCharacters(
+AMyCharacter* RESTRICT OldCharacter,
+AMyCharacter* RESTRICT NewCharacter
+){
+if(!OldCharacter || !NewCharacter)
+{
+return;
+}
+ 
+//Hide Old Character
+OldCharacter-&gt;SetActorHiddenInGame(true);
+ 
+//Remove Collision Old Char
+OldCharacter-&gt;SetActorEnableCollision(false);
+ 
+//Show New Character
+NewCharacter-&gt;SetActorHiddenInGame(false);
+ 
+NewCharacter-&gt;SetActorEnableCollision(true);
+ 
+NewCharacter-&gt;CharacterMovement-&gt;GravityScale = NewCharacter-&gt;VictoryGravityScale;
+ 
+}</p> <h2 id="avoid-aliasing-in-the-first-place"><a href="#avoid-aliasing-in-the-first-place" class="header-anchor">#</a> Avoid Aliasing in the First Place</h2> <p>You can avoid needing to use the RESTRICT keyword in many places if you simply only define your pointers at the narrowest possible scope</p> <p>//Global
+float TheData;
+//float* DataPtr; // not good!
+//float* DataPtr2;
+//float* DataPtr3;
+ 
+ 
+//function context
+Some Function
+{
+//do other stuff
+ 
+for loop
+{
+float* LocalPtr = &amp;TheData; //pointer only exists in smallest context, no aliasing
+*LocalPtr += 5;
+}
+}
+ 
+//function context
+Some Function2
+{
+//do other stuff
+ 
+for loop
+{
+float* LocalPtr2 = &amp;TheData; //pointer only exists in smallest context, no aliasing
+*LocalPtr += 12;
+}
+}
+ 
+//function context
+Some Function3
+{
+//do other stuff
+ 
+for loop
+{
+float* LocalPtr3 = &amp;TheData; //pointer only exists in smallest context, no aliasing
+*LocalPtr += 9000;
+}
+}</p> <p>In the above case, you can avoid a lot of aliasing concerns by not having global pointers to the same data type.</p> <p>Instead, in each function where you need the pointer, declare it locally and only for as long as it is needed.</p> <p>This avoids ever needing the RESTRICT keyword 😃</p> <h2 id="network-code"><a href="#network-code" class="header-anchor">#</a> Network Code</h2> <p>RESTRICT does not currently work with Server/Client function parameters.</p> <h2 id="link-extensive-information-on-restrict-in-c"><a href="#link-extensive-information-on-restrict-in-c" class="header-anchor">#</a> Link: Extensive Information on _restrict in C++</h2> <p><strong><a href="http://cellperformance.beyond3d.com/articles/2006/05/demystifying-the-restrict-keyword.html" target="_blank" rel="noopener noreferrer">Demystifying _restrict keyword<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></strong></p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>Use the UE4 macro RESTRICT any time you are absolutely sure that multiple pointers of the same data type, in the same context, are always pointing to unique memory strips.</p> <p>Doing this improves performance, especially for low level code that is writing/reading to long memory strips, like saving and loading binary arrays, image data processing, etc.</p> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=RESTRICT,_Keyword_for_Low-Level_Pointer_Efficiency&amp;oldid=7970" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=RESTRICT,_Keyword_for_Low-Level_Pointer_Efficiency&amp;oldid=7970<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/939.5f122d5f.js" defer></script>
+  </body>
+</html>

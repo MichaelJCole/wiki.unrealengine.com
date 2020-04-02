@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/913.9155de04.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Physics Constraints, Create New Constraints Dynamically During Runtime - Epic Wiki</p> <h1 id="physics-constraints-create-new-constraints-dynamically-during-runtime"><a href="#physics-constraints-create-new-constraints-dynamically-during-runtime" class="header-anchor">#</a> Physics Constraints, Create New Constraints Dynamically During Runtime</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Video_of_Dynamic_Physics_Constraints">2 Video of Dynamic Physics Constraints</a></li> <li><a href="#Video_of_Destructible_Dynamic_Physics_Constraints">3 Video of Destructible Dynamic Physics Constraints</a></li> <li><a href="#C.2B.2B_for_Making_a_Dynamic_Physics_Constraint">4 C++ for Making a Dynamic Physics Constraint</a></li> <li><a href="#My_C.2B.2B_Physics_Constraint_Library_Functions">5 My C++ Physics Constraint Library Functions</a> <ul><li><a href="#Free.2CLimited.2CLocked">5.1 Free,Limited,Locked</a></li> <li><a href="#Example_Usage">5.2 Example Usage</a></li> <li><a href="#My_C.2B.2B_Functions_For_You">5.3 My C++ Functions For You</a></li></ul></li> <li><a href="#Conclusion">6 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Author:</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>This is a tutorial on how to dynamically create Physics constraints during runtime!</p> <p>See my videos below for examples of what you can do with dynamic physics constraints!</p> <p>The focus of my videos is enabling a user of my In-game editor to make their own physics objects....<strong>and then destroy them into dynamic physics pieces!</strong></p> <h2 id="video-of-dynamic-physics-constraints"><a href="#video-of-dynamic-physics-constraints" class="header-anchor">#</a> Video of Dynamic Physics Constraints</h2> <p>In this video I am showing how you can make composite physics shapes that will act as a coordinated larger physics constraint, and you can make this combinations dynamically during runtime from user input!</p> <h2 id="video-of-destructible-dynamic-physics-constraints"><a href="#video-of-destructible-dynamic-physics-constraints" class="header-anchor">#</a> Video of Destructible Dynamic Physics Constraints</h2> <p>In this video I demonstrate dynamic setting and detaching of physics constraints to make a composite destructible shape that can be destroyed into partial subsections that act like physics sub objects of the original whole.</p> <h2 id="c-for-making-a-dynamic-physics-constraint"><a href="#c-for-making-a-dynamic-physics-constraint" class="header-anchor">#</a> C++ for Making a Dynamic Physics Constraint</h2> <p>void ASomeClass::CreateNewPhysicsConstraintBetween(AStaticMeshActor* RootSMA, AStaticMeshActor* TargetSMA)
+{
+//set up the constraint instance with all the desired values
+FConstraintInstance ConstraintInstance;
+ 
+//set values here, see functions I am sharing with you below
+//UYourStaticLibrary::SetLinearLimits(ConstraintInstance, ...); //or make the functions below non static
+//UYourStaticLibrary::SetAngularLimits(ConstraintInstance, ...);
+ 
+//New Object
+UPhysicsConstraintComponent* ConstraintComp = NewObject&lt;UPhysicsConstraintComponent&gt;(RootSMA);
+if(!ConstraintComp)
+{
+//UE_LOG constraint UObject could not be created!
+return;
+}
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~
+//Set Constraint Instance!
+ConstraintComp-&gt;ConstraintInstance = ConstraintInstance;
+//~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//Set World Location
+ConstraintComp-&gt;SetWorldLocation(RootSMA-&gt;GetActorLocation());
+ 
+//Attach to Root!
+ConstraintComp-&gt;AttachTo(RootSMA-&gt;GetRootComponent(), NAME_None, EAttachLocation::KeepWorldPosition);
+ 
+//~~~ Init Constraint ~~~
+ConstraintComp-&gt;SetConstrainedComponents(RootSMA-&gt;StaticMeshComponent, NAME_None, TargetSMA-&gt;StaticMeshComponent,NAME_None);
+}</p> <h2 id="my-c-physics-constraint-library-functions"><a href="#my-c-physics-constraint-library-functions" class="header-anchor">#</a> My C++ Physics Constraint Library Functions</h2> <p>I've tested these and used them in the videos above!</p> <h3 id="free-limited-locked"><a href="#free-limited-locked" class="header-anchor">#</a> Free,Limited,Locked</h3> <p>For ease of use I just pass in bytes for the free, limited or locked enums.</p> <p>0 = Free
+1 = Limited
+2 = Locked</p> <h3 id="example-usage"><a href="#example-usage" class="header-anchor">#</a> Example Usage</h3> <p>//A new constraint instance!
+FConstraintInstance ConstraintInstance;
+ 
+//Set Angular Limits of Constraint that was just created
+UYourStaticLibrary::SetAngularLimits( //or make functions below non static, put in .h
+ConstraintInstance,
+1, //swing 1 limited
+1, //swing 2 limited
+0, //twist is free
+60, //swing 1 angle limit
+30 //swing 2 angle limit
+10 //twist limit (not used cause its free)
+);</p> <h3 id="my-c-functions-for-you"><a href="#my-c-functions-for-you" class="header-anchor">#</a> My C++ Functions For You</h3> <p>static FORCEINLINE void SetLinearLimits(
+FConstraintInstance&amp; Constraint,
+bool bDisableCollision,
+const uint8 XLim, const uint8 YLim, const uint8 ZLim,
+const float Size,
+bool SoftLimit=true,
+const float SoftStiffness=0,
+const float SoftDampening=0
+)
+{
+//Collision
+Constraint.bDisableCollision = bDisableCollision;
+ 
+switch (XLim)
+{
+case 0 : Constraint.LinearXMotion = ELinearConstraintMotion::LCM_Free; break;
+case 1 : Constraint.LinearXMotion = ELinearConstraintMotion::LCM_Limited; break;
+case 2 : Constraint.LinearXMotion = ELinearConstraintMotion::LCM_Locked; break;
+}
+switch (YLim)
+{
+case 0 : Constraint.LinearYMotion = ELinearConstraintMotion::LCM_Free; break;
+case 1 : Constraint.LinearYMotion = ELinearConstraintMotion::LCM_Limited; break;
+case 2 : Constraint.LinearYMotion = ELinearConstraintMotion::LCM_Locked; break;
+}
+switch (ZLim)
+{
+case 0 : Constraint.LinearZMotion = ELinearConstraintMotion::LCM_Free; break;
+case 1 : Constraint.LinearZMotion = ELinearConstraintMotion::LCM_Limited; break;
+case 2 : Constraint.LinearZMotion = ELinearConstraintMotion::LCM_Locked; break;
+}
+//~~~~~~~~~~
+ 
+Constraint.LinearLimitSize = Size;
+ 
+if(SoftLimit) Constraint.bLinearLimitSoft = 1;
+else Constraint.bLinearLimitSoft = 0;
+ 
+Constraint.LinearLimitStiffness 	= SoftStiffness;
+Constraint.LinearLimitDamping 	= SoftDampening;
+}
+ 
+static FORCEINLINE void SetAngularLimits(
+FConstraintInstance&amp; Constraint,
+const uint8 S1Lim, const uint8 S2Lim, const uint8 TLim,
+const float Swing1LimitAngle,
+const float Swing2LimitAngle,
+const float TwistLimitAngle,
+ 
+bool SoftSwingLimit=true, bool SoftTwistLimit=true,
+const float SwingStiff=0, const float SwingDamp=0,
+const float TwistStiff=0, const float TwistDamp=0
+)
+{
+switch (S1Lim)
+{
+case 0 : Constraint.AngularSwing1Motion = EAngularConstraintMotion::ACM_Free; break;
+case 1 : Constraint.AngularSwing1Motion = EAngularConstraintMotion::ACM_Limited; break;
+case 2 : Constraint.AngularSwing1Motion = EAngularConstraintMotion::ACM_Locked; break;
+}
+switch (S2Lim)
+{
+case 0 : Constraint.AngularSwing2Motion = EAngularConstraintMotion::ACM_Free; break;
+case 1 : Constraint.AngularSwing2Motion = EAngularConstraintMotion::ACM_Limited; break;
+case 2 : Constraint.AngularSwing2Motion = EAngularConstraintMotion::ACM_Locked; break;
+}
+switch (TLim)
+{
+case 0 : Constraint.AngularTwistMotion = EAngularConstraintMotion::ACM_Free; break;
+case 1 : Constraint.AngularTwistMotion = EAngularConstraintMotion::ACM_Limited; break;
+case 2 : Constraint.AngularTwistMotion = EAngularConstraintMotion::ACM_Locked; break;
+}
+//~~~~~~~~~~
+ 
+//Soft Lmit?
+if(SoftSwingLimit) Constraint.bSwingLimitSoft = 1;
+else Constraint.bSwingLimitSoft = 0;
+ 
+if(SoftTwistLimit) Constraint.bTwistLimitSoft = 1;
+else Constraint.bTwistLimitSoft = 0;
+ 
+//Limit Angles
+Constraint.Swing1LimitAngle 	= Swing1LimitAngle;
+Constraint.Swing2LimitAngle 	= Swing2LimitAngle;
+Constraint.TwistLimitAngle 	= TwistLimitAngle;
+ 
+Constraint.SwingLimitStiffness 	= SwingStiff;
+Constraint.SwingLimitDamping	= SwingDamp;
+Constraint.TwistLimitStiffness 	= TwistStiff;
+Constraint.TwistLimitDamping 	= TwistDamp;
+}</p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>Now you have the basic code to do all sorts of fancy things with Dynamic Physics Constraints that you set up at runtime from c++ !</p> <p>Play with the values of the two functions I am sharing with you to get all sorts of different effects!</p> <p><strong>Basics:</strong></p> <p><strong>Linear Constraints</strong> limit physical motion of the target SMA through space</p> <p><strong>Angular Constraints</strong> control the rotation of the target SMA.</p> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Physics_Constraints,_Create_New_Constraints_Dynamically_During_Runtime&amp;oldid=5509" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Physics_Constraints,_Create_New_Constraints_Dynamically_During_Runtime&amp;oldid=5509<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Videos" title="Category:Community Videos">Community Videos</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/913.9155de04.js" defer></script>
+  </body>
+</html>

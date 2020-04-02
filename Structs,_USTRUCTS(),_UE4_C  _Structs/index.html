@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1029.f4c68f21.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Structs, USTRUCTS(), They're Awesome - Epic Wiki</p> <h1 id="structs-ustructs-they-re-awesome"><a href="#structs-ustructs-they-re-awesome" class="header-anchor">#</a> Structs, USTRUCTS(), They're Awesome</h1> <p>From Epic Wiki</p> <p>(Redirected from <a href="/index.php?title=Structs,_USTRUCTS(),_UE4_C%2B%2B_Structs&amp;redirect=no" title="Structs, USTRUCTS(), UE4 C++ Structs">Structs, USTRUCTS(), UE4 C++ Structs</a>)</p> <p>Jump to: <a href="#mw-navigation">navigation</a>, <a href="#p-search">search</a></p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Core_Syntax">2 Core Syntax</a></li> <li><a href="#Examples">3 Examples</a> <ul><li><a href="#Example_1">3.1 Example 1</a></li> <li><a href="#Example_2">3.2 Example 2</a> <ul><li><a href="#C.2B.2B">3.2.1 C++</a></li> <li><a href="#Particle_Data_Tracker">3.2.2 Particle Data Tracker</a></li> <li><a href="#Garbage_Collection">3.2.3 Garbage Collection</a></li></ul></li></ul></li> <li><a href="#Structs_With_Struct_Member_Variables">4 Structs With Struct Member Variables</a></li> <li><a href="#Struct_Assignment">5 Struct Assignment</a> <ul><li><a href="#.H">5.1 .H</a></li> <li><a href="#.CPP">5.2 .CPP</a></li></ul></li> <li><a href="#Deep_Copy.2C_Epic_is_Awesome">6 Deep Copy, Epic is Awesome</a> <ul><li><a href="#.H_2">6.1 .H</a></li> <li><a href="#.CPP_2">6.2 .CPP</a></li></ul></li> <li><a href="#Automatic_Make.2FBreak_in_BP">7 Automatic Make/Break in BP</a></li> <li><a href="#Replication">8 Replication</a> <ul><li><a href="#.H_3">8.1 .H</a></li> <li><a href="#.CPP_3">8.2 .CPP</a></li></ul></li> <li><a href="#Thank_You_Epic_for_USTRUCTS.28.29">9 Thank You Epic for USTRUCTS()</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Original Author:</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>Structs enable you to create custom variable types to organize your data, by relating other c++ or UE4 C++ data types to each other.</p> <p>The power of structs is <strong>extreme organization</strong>,</p> <p>as well as ability to have functions for <strong>internal data type operations!</strong></p> <p>Structs should be used for simple data type combining and data management purposes.</p> <p>For complex interactions with the game world,
+you should make a UObject or AActor subclass instead 😃</p> <h2 id="core-syntax"><a href="#core-syntax" class="header-anchor">#</a> Core Syntax</h2> <p>USTRUCT()
+struct FJoyStruct
+{
+GENERATED_USTRUCT_BODY()
+ 
+//Always make USTRUCT variables into UPROPERTY()
+//    any non-UPROPERTY() struct vars are not replicated
+ 
+// So to simplify your life for later debugging, always use UPROPERTY()
+UPROPERTY()
+int32 SampleInt32;
+ 
+UPROPERTY()
+AActor* TargetActor;
+ 
+//Set
+void SetInt(const int32 NewValue)
+{
+SampleInt32 = NewValue;
+}
+ 
+//Get
+AActor* GetActor()
+{
+return TargetActor;
+}
+ 
+//Check
+bool ActorIsValid() const
+{
+if(!TargetActor) return false;
+return TargetActor-&gt;IsValidLowLevel();
+}
+ 
+//Constructor
+FJoyStruct()
+{
+//Always initialize your USTRUCT variables!
+//   exception is if you know the variable type has its own default constructor
+SampleInt32 	= 5;
+TargetActor = NULL;
+}
+};  //Always remember this ;  at the end! You will get odd compile errors otherwise</p> <h2 id="examples"><a href="#examples" class="header-anchor">#</a> Examples</h2> <h3 id="example-1"><a href="#example-1" class="header-anchor">#</a> Example 1</h3> <p>You want to relate a float brightness value with a world space location FVector, both of which are interpolated using an Alpha value.</p> <ul><li><p>And you want to do this for 100 different game locations simultaneously.</p></li> <li><p>And you want to do this process repeatedly over time!</p></li> <li><p>You need to store the incremental interpolation values between game events.</p></li> <li><p>AActors/UObjects are not involved (You could just subclass AActor/UObject and store the data per instance)</p></li></ul> <p>USTRUCT()
+struct FMyInterpStruct
+{
+GENERATED_USTRUCT_BODY()
+ 
+UPROPERTY()
+float Brightness;
+ 
+UPROPERTY()
+float BrightnessGoal; //interping to
+ 
+UPROPERTY()
+FVector Location;
+ 
+UPROPERTY()
+FVector LocationGoal;
+ 
+UPROPERTY()
+float Alpha;
+ 
+void InterpInternal()
+{
+Location = FMath::Lerp&lt;FVector&gt;(Location,LocationGoal,Alpha);
+Brightness = FMath::Lerp&lt;float&gt;(Brightness,BrightnessGoal,Alpha);
+}
+ 
+//Brightness out is returned, FVector is returned by reference
+float Interp(const float&amp; NewAlpha, FVector&amp; Out)
+{
+//value received from rest of your game engine
+Alpha = NewAlpha;
+ 
+//Internal data structure management
+InterpInternal();
+ 
+//Return Values
+Out = Location;
+return Brightness;
+}
+FMyInterpStruct()
+{
+Brightness = 2;
+BrightnessGoal = 100;
+ 
+Alpha = 0;
+ 
+Location = FVector::ZeroVector;
+LocationGoal = FVector(0,0,200000);
+}
+};</p> <h3 id="example-2"><a href="#example-2" class="header-anchor">#</a> Example 2</h3> <p>You want to track information about particle system components that you have spawned into the world</p> <p>UGameplayStatics::SpawnEmitterAtLocation()</p> <p>which returns a UParticleSystemComponent,</p> <p>and you want to track the lifetime of the particle and apply parameter changes from the C++.</p> <p>You could write your own class,</p> <p>but if your needs are simple,</p> <p>or you do not have project-permissions to make a subclass of UParticleSystemComponent,</p> <p>you can just make a USTRUCT to relate the various data types!</p> <h4 id="c"><a href="#c" class="header-anchor">#</a> C++</h4> <p>USTRUCT()
+struct FParticleStruct
+{
+GENERATED_USTRUCT_BODY()
+ 
+UPROPERTY()
+UParticleSystemComponent* PSCPtr;
+ 
+UPROPERTY()
+float LifeTime;
+ 
+void SetColor()
+{
+//
+}
+FLinearColor GetCurrentColor() const
+{
+//
+}
+ 
+//For GC
+void Destroy()
+{
+PSCPtr = nullptr;
+}
+ 
+//Constructor
+FParticleStruct()
+{
+PSCPtr = NULL;
+LifeTime = -1;
+}
+};</p> <h4 id="particle-data-tracker"><a href="#particle-data-tracker" class="header-anchor">#</a> Particle Data Tracker</h4> <p>Now you can have an array of these USTRUCTS for each particle that you spawn!</p> <p>//Particle Data Tracking Array
+TArray&lt;FParticleStruct&gt; PSCArray;</p> <h4 id="garbage-collection"><a href="#garbage-collection" class="header-anchor">#</a> Garbage Collection</h4> <p>Because all of your USTRUCT variables are UPROPERTY(), you must be careful to null them out when you are ready to destroy the particle system component.</p> <p>void Destroy()
+{
+PSCPtr = nullptr;
+}</p> <h2 id="structs-with-struct-member-variables"><a href="#structs-with-struct-member-variables" class="header-anchor">#</a> Structs With Struct Member Variables</h2> <p>The struct that wants to use another struct must be defined below the struct it wants to include.</p> <p>USTRUCT()
+struct FFlowerStruct
+{
+GENERATED_USTRUCT_BODY()
+ 
+UPROPERTY()
+int32 NumPetals;
+ 
+UPROPERTY()
+FLinearColor Color;
+ 
+UPROPERTY()
+FVector Scale3D;
+ 
+void SetFlowerColor(const FLinearColor&amp; NewColor)
+{
+Color = NewColor;
+}
+ 
+FFlowerStruct()
+{
+NumPetals 	= 5;
+Scale3D 		= FVector(1,1,1);
+Color 			= FLinearColor(1,0,0,1);
+}
+};
+ 
+USTRUCT()
+struct FIslandStruct
+{
+GENERATED_USTRUCT_BODY()
+ 
+UPROPERTY()
+int32 Type;
+ 
+UPROPERTY()
+TArray&lt;FVector&gt; StarLocations;
+ 
+UPROPERTY()
+float RainAlpha;
+ 
+//Dynamic Array of Flower Custom USTRUCT()
+UPROPERTY()
+TArray&lt;FFlowerStruct&gt; FlowersOnThisIsland;
+ 
+void SetRainAlpha(const float&amp; NewAlpha)
+{
+RainAlpha = NewAlpha;
+}
+ 
+int32 GetStarCount() const
+{
+return StarLocations.Num();
+}
+FIslandStruct()
+{
+Type = 0;
+Percent = 1;
+}
+};</p> <h2 id="struct-assignment"><a href="#struct-assignment" class="header-anchor">#</a> Struct Assignment</h2> <p>My personal favorite thing about structs is that unlike UObject or AActor classes, which must be utilized via pointers (AActor*)</p> <p>You can directly copy the entire contents of a USTRUCT
+to another USTRUCT of the same type with a single line of assignment!</p> <h3 id="h"><a href="#h" class="header-anchor">#</a> .H</h3> <p>FFlowerStruct ExistingFlower;</p> <h3 id="cpp"><a href="#cpp" class="header-anchor">#</a> .CPP</h3> <p>FFlowerStruct NewFlower;
+NewFlower = ExistingFlower;
+ 
+//now NewFlower contains exactly the same data as ExistingFlower!</p> <h2 id="deep-copy-epic-is-awesome"><a href="#deep-copy-epic-is-awesome" class="header-anchor">#</a> Deep Copy, Epic is Awesome</h2> <p>My next favorite thing about USTRUCTS is that if you do use struct assignment,</p> <p>deep copying of all dynamic arrays and static arrays is done for you!</p> <h3 id="h-2"><a href="#h-2" class="header-anchor">#</a> .H</h3> <p>USTRUCT()
+struct FDeepCopyStruct
+{
+GENERATED_USTRUCT_BODY()
+ 
+UPROPERTY()
+TArray&lt;FVector&gt; Locations;
+ 
+UPROPERTY()
+FLinearColor Colors[1024];
+ 
+FDeepCopyStruct()
+{
+}
+};
+ 
+ 
+FDeepCopyStruct MyExistingDeepCopyStruct;</p> <h3 id="cpp-2"><a href="#cpp-2" class="header-anchor">#</a> .CPP</h3> <p>FDeepCopyStruct NewStruct;
+NewStruct = MyExistingDeepCopyStruct;
+ 
+//now all of the dynamic array and static array data has also been copied
+//   Thank You Epic!</p> <h2 id="automatic-make-break-in-bp"><a href="#automatic-make-break-in-bp" class="header-anchor">#</a> Automatic Make/Break in BP</h2> <p>If you add</p> <p>EditAnywhere,BlueprintReadWrite,Category(&quot;your category&quot;)</p> <p>to your USTRUCT variables then then an automatic Make and Break functions will be added in Blueprints, allowing you to construct or extract data from your custom USTRUCT!</p> <p>Special thanks to Community member Iniside for pointing this out 😃</p> <p>USTRUCT()
+struct FFlowerStruct
+{
+GENERATED_USTRUCT_BODY()
+ 
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=&quot;Flower Struct&quot;)
+int32 NumPetals;
+ 
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=&quot;Flower Struct&quot;)
+FLinearColor Color;
+ 
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=&quot;Flower Struct&quot;)
+FVector Scale3D;
+};</p> <p><a href="/File:CustomUStructMakeBreak.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/0/0d/CustomUStructMakeBreak.jpg/1000px-CustomUStructMakeBreak.jpg" alt="CustomUStructMakeBreak.jpg"></a></p> <h2 id="replication"><a href="#replication" class="header-anchor">#</a> Replication</h2> <hr> <hr> <hr> <p>Remember that only UPROPERTY() variables of USTRUCTS() are considered for replication!</p> <hr> <hr> <hr> <h3 id="h-3"><a href="#h-3" class="header-anchor">#</a> .H</h3> <p>Use RepRetry to guarantee all contents of the struct are replicated, if you need to</p> <p>//in your AYourSimulatedProxy class .h
+ 
+UPROPERTY(Replicated,RepRetry)
+FFlowerStruct MyReppedFlower;</p> <h3 id="cpp-3"><a href="#cpp-3" class="header-anchor">#</a> .CPP</h3> <p>DOREPLIFETIME(AYourSimulatedProxy, MyReppedFlower);</p> <h2 id="thank-you-epic-for-ustructs"><a href="#thank-you-epic-for-ustructs" class="header-anchor">#</a> Thank You Epic for USTRUCTS()</h2> <p>I love USTRUCTS(), thank you Epic!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Structs,_USTRUCTS(),_They%27re_Awesome&amp;oldid=5771" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Structs,_USTRUCTS(),_They%27re_Awesome&amp;oldid=5771<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1029.f4c68f21.js" defer></script>
+  </body>
+</html>

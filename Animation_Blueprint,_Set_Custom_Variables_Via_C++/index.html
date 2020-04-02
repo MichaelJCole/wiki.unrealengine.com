@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/68.84323507.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Animation Blueprint, Set Custom Variables Via C++ - Epic Wiki</p> <h1 id="animation-blueprint-set-custom-variables-via-c"><a href="#animation-blueprint-set-custom-variables-via-c" class="header-anchor">#</a> Animation Blueprint, Set Custom Variables Via C++</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Extending_AnimInstance">2 Extending AnimInstance</a> <ul><li><a href="#YourAnimInstance_.h">2.1 YourAnimInstance .h</a></li> <li><a href="#YourAnimInstance_.cpp">2.2 YourAnimInstance .cpp</a></li></ul></li> <li><a href="#Reparent_Your_AnimBluePrint">3 Reparent Your AnimBluePrint</a></li> <li><a href="#Connect_your_custom_variables_to_your_anim_node_chain">4 Connect your custom variables to your anim node chain</a></li> <li><a href="#Accessing_Anim_Instance_in_C.2B.2B">5 Accessing Anim Instance in C++</a></li> <li><a href="#In-Depth_Code_Sample">6 In-Depth Code Sample</a></li> <li><a href="#Conclusion">7 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>Dear Community,</p> <p>Here's the basic code you need to control the variables of your AnimBluePrint via c++ code. This is very useful if you just want to use the animblueprint for the actual skeletal controllers or other nodes of interest to you, but you want to do all the calculations of what their values should be each tick via code. My example is a foot placement system!</p> <p>It's much easier for me to do traces and get normals and account for various foot size offsets and max limb stretching etc via C++, so <strong>I wanted to set the Anim BP vars from code</strong>.</p> <h2 id="extending-animinstance"><a href="#extending-animinstance" class="header-anchor">#</a> Extending AnimInstance</h2> <p>During Game Time an AnimInstance is created based on your AnimBlueprint, and it is this class that you want to extend to include your variables so you can easily edit them in C++ and get their values in the AnimBluePrint in the Editor.</p> <p>Here's my code that I am using for my footplacement system:</p> <h3 id="youraniminstance-h"><a href="#youraniminstance-h" class="header-anchor">#</a> YourAnimInstance .h</h3> <p>Here's an example of the kind of header you'd use for your extended AnimInstance class. Make sure to change the #include to your exact name! Also make sure to include some extra spaces at the end of the .h and .cpp file so Visual Studio compiler is happy.</p> <p>// Copyright 1998-2013 Epic Games, Inc. All Rights Reserved.
+ 
+#pragma once
+ 
+#include &quot;YourAnimInstance.generated.h&quot;
+ 
+UCLASS(transient, Blueprintable, hideCategories=AnimInstance, BlueprintType)
+class UYourAnimInstance : public UAnimInstance
+{
+GENERATED_UCLASS_BODY()
+ 
+/** Left Lower Leg Offset From Ground, Set in Character.cpp Tick */
+UPROPERTY(EditAnywhere,BlueprintReadWrite,Category=FootPlacement)
+FVector SkelControl_LeftLowerLegPos;
+ 
+/** Left Foot Rotation, Set in Character.cpp Tick */
+UPROPERTY(EditAnywhere,BlueprintReadWrite,Category=FootPlacement)
+FRotator SkelControl_LeftFootRotation;
+ 
+/** Left Upper Leg Offset, Set in Character.cpp Tick */
+UPROPERTY(EditAnywhere,BlueprintReadWrite,Category=FootPlacement)
+FVector SkelControl_LeftUpperLegPos;
+};</p> <h3 id="youraniminstance-cpp"><a href="#youraniminstance-cpp" class="header-anchor">#</a> YourAnimInstance .cpp</h3> <p>// Copyright 1998-2013 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;YourGame.h&quot;
+ 
+//////////////////////////////////////////////////////////////////////////
+// UYourAnimInstance
+ 
+UYourAnimInstance::UYourAnimInstance(const FObjectInitializer&amp; ObjectInitializer)
+: Super(ObjectInitializer)
+{
+//set any default values for your variables here
+SkelControl_LeftUpperLegPos = FVector(0, 0, 0);
+}</p> <h2 id="reparent-your-animblueprint"><a href="#reparent-your-animblueprint" class="header-anchor">#</a> Reparent Your AnimBluePrint</h2> <p>Now that you've added new variables you need to compile your C++ code to create your extended AnimInstance, and then load the editor and reparent your current AnimBluePrint to your subclass:</p> <p>Once you do this, you can now access your variables from your .h file, and their tooltip in the context menu will be your comment that you set in code!</p> <p><a href="/File:Reparentbp.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/e/e2/Reparentbp.jpg/637px-Reparentbp.jpg" alt="Reparentbp.jpg"></a></p> <h2 id="connect-your-custom-variables-to-your-anim-node-chain"><a href="#connect-your-custom-variables-to-your-anim-node-chain" class="header-anchor">#</a> Connect your custom variables to your anim node chain</h2> <p>The variables can be accessed via the right click menu now!</p> <p><a href="/File:AnimBPCPPVars.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/7/71/AnimBPCPPVars.jpg/800px-AnimBPCPPVars.jpg" alt="AnimBPCPPVars.jpg"></a></p> <h2 id="accessing-anim-instance-in-c"><a href="#accessing-anim-instance-in-c" class="header-anchor">#</a> Accessing Anim Instance in C++</h2> <p>Animation Blueprints are still blueprints,
+you must access the instance of the blueprint per-Character.
+This is the Animation Instance!</p> <p>if(!Mesh) return;
+//~~~~~~~~~~~~~~~
+ 
+UYourAnimInstance * Animation =
+Cast&lt;UYourAnimInstance&gt;( Mesh-&gt;GetAnimInstance() );
+if(!Animation) return;
+ 
+Animation-&gt;YourInt32Var = 1200;</p> <h2 id="in-depth-code-sample"><a href="#in-depth-code-sample" class="header-anchor">#</a> In-Depth Code Sample</h2> <p>Here's an example of accessing the Anim Instance from the Character class, which is where I am doing it for my foot placement system to easily access socket locations and rotations etc.</p> <p>Example Uses In C++ Code Character.cpp</p> <p>//Never assume the mesh or anim instance was acquired, always check,
+//or you can crash your game to desktop
+ 
+void AYourGameCharacter::ResetFootPlacement()
+{
+//No Mesh?
+if (!Mesh) return;
+ 
+UYourAnimInstance * Animation =
+Cast&lt;UYourAnimInstance&gt;( Mesh-&gt;GetAnimInstance() );
+ 
+//No Anim Instance Acquired?
+if(!Animation) return;
+ 
+//~~
+ 
+Animation-&gt;SkelControl_LeftLowerLegPos 	= FVector(0,0,0);
+Animation-&gt;SkelControl_LeftUpperLegPos 	= FVector(0,0,0);
+Animation-&gt;SkelControl_LeftFootRotation       = FRotator(0,0,0);
+}
+ 
+void AYourGameCharacter::DoLeftFootAngleAdjustment(FRotator&amp; FootRot)
+{
+//No Mesh?
+if (!Mesh) return;
+ 
+UYourAnimInstance * Animation =
+Cast&lt;UYourAnimInstance&gt;( Mesh-&gt;GetAnimInstance() );
+ 
+//No Anim Instance Acquired?
+if (!Animation) return;
+ 
+//
+ 
+//Set Animblueprint node rot
+Animation-&gt;SkelControl_LeftFootRotation = FootRot;	
+}</p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Animation_Blueprint,_Set_Custom_Variables_Via_C%2B%2B&amp;oldid=14398" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Animation_Blueprint,_Set_Custom_Variables_Via_C%2B%2B&amp;oldid=14398<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/68.84323507.js" defer></script>
+  </body>
+</html>

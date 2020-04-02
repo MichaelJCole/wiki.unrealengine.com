@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/992.b9058a3e.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Slate, Simple C++ Chat System - Epic Wiki</p> <h1 id="slate-simple-c-chat-system"><a href="#slate-simple-c-chat-system" class="header-anchor">#</a> Slate, Simple C++ Chat System</h1> <p><strong>Rate this Article:</strong></p> <p>0.00</p> <p><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""></p> <p>Approved for Versions:4.10</p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" alt="Note"></p> <p><strong>Some or all of the information on this page is inconsistent, irrelevant or confusing.</strong></p> <p>Please help clean it up if you are able.</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Getting_Started">2 Getting Started</a></li> <li><a href="#Adding_Classes">3 Adding Classes</a> <ul><li><a href="#MyGameMode.h">3.1 MyGameMode.h</a></li> <li><a href="#MyGameMode.cpp">3.2 MyGameMode.cpp</a></li> <li><a href="#MyHUD.h">3.3 MyHUD.h</a></li> <li><a href="#MyHUD.cpp">3.4 MyHUD.cpp</a></li> <li><a href="#MyPlayerState.h">3.5 MyPlayerState.h</a></li> <li><a href="#MyPlayerState.cpp">3.6 MyPlayerState.cpp</a></li> <li><a href="#MyChatWidget.h">3.7 MyChatWidget.h</a></li> <li><a href="#MyChatWidget.cpp">3.8 MyChatWidget.cpp</a></li></ul></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Author:</em> <a href="//forums.unrealengine.com/member.php?43891-WhooKid">WhooKid</a> (<a href="//forums.unrealengine.com/showthread.php?94453-Simple-C-Chat-System&amp;p=438276">talk</a>)</p> <p><a href="/File:Ue4chat7.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/8/8f/Ue4chat7.jpg/400px-Ue4chat7.jpg" alt=""></a></p> <p><a href="/File:Ue4chat7.jpg" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" alt=""></a></p> <p>Simple C++ Chat System with Slate</p> <p>I made a lightweight simple chat system with Slate widgets and server RPCs.</p> <p>The way it works is a widget is created then attached in the Hud class. The user presses enter to focus the inputbox and when he submits the message is passed to the player state then is replicated on the server and then to all players with a multicast server call.</p> <p>You will have to enable slate and extend 4 classes.</p> <ul><li><em>MyGameMode</em> extends <em>AGameMode</em></li> <li><em>MyHUD</em> extends <em>AHUD</em></li> <li><em>MyPlayerState</em> extends <em>APlayerState</em></li> <li><em>MyChatWidget</em> extends <em>SCompoundWidget</em></li></ul> <h2 id="getting-started"><a href="#getting-started" class="header-anchor">#</a> Getting Started</h2> <p><a href="/File:Ue4chat8.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/d/d5/Ue4chat8.jpg/400px-Ue4chat8.jpg" alt=""></a></p> <p><a href="/File:Ue4chat8.jpg" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" alt=""></a></p> <p>Enable Slate in your PROJECT.Build.cs file</p> <p>First thing you have to do is enable the Slate module.<br>
+It can be done with this tutorial <a href="/Slate,_Hello" title="Slate, Hello">Slate,_Hello</a>.<br>
+To enable slate you need to open your PROJECT.Build.cs in your source/PROJECT folder and uncomment the line:<br>
+PrivateDependencyModuleNames.AddRange(new string[] { &quot;Slate&quot;, &quot;SlateCore&quot; });</p> <h2 id="adding-classes"><a href="#adding-classes" class="header-anchor">#</a> Adding Classes</h2> <p>Now you need to extend the 4 classes and add the code. You may already have these classes extended so you may have to add this code to your existing classes.<br>
+To extend a class go to File &gt; New C++ Class...<br>
+The first 3 classes are extending main classes so you can find them in the main search area.</p> <p>The Last class MyChatWidget extends SCompoundWidget add you will have to click the Show All Classes button and type in SCompoundWidget.</p> <p>Once you have all the classes extended you need to add the code. You will have to rename the include files to your project name and possible some other class names if you chose different ones.</p> <p>Note you will also have to change the Project name in each .h file to your project name. (ex CHATTUTORIAL_API to MYGAME_API)</p> <ul><li><p><a href="/File:Ue4chat3.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/4/46/Ue4chat3.jpg/120px-Ue4chat3.jpg" alt=""></a></p> <p>Extending the AGameMode class in Editor.</p></li> <li><p><a href="/File:Ue4chat9.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/5/57/Ue4chat9.jpg/120px-Ue4chat9.jpg" alt=""></a></p> <p>Extending the SCompoundWidget class with Show All Classes enabled.</p></li></ul> <h3 id="mygamemode-h"><a href="#mygamemode-h" class="header-anchor">#</a> MyGameMode.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/GameMode.h&quot;
+#include &quot;MyGameMode.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS()
+class CHATTUTORIAL_API AMyGameMode : public AGameMode
+{
+GENERATED_BODY()
+ 
+public:
+AMyGameMode();
+ 
+};</p> <h3 id="mygamemode-cpp"><a href="#mygamemode-cpp" class="header-anchor">#</a> MyGameMode.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;ChatTutorial.h&quot;
+#include &quot;MyGameMode.h&quot;
+ 
+#include &quot;MyHUD.h&quot;
+#include &quot;MyPlayerState.h&quot;
+ 
+AMyGameMode::AMyGameMode()
+{
+// assign our custom classes above their parents
+HUDClass = AMyHUD::StaticClass();
+PlayerStateClass = AMyPlayerState::StaticClass();
+ 
+/* use this is you wish to extend the c++ into a bp and assign the bp to the class
+static ConstructorHelpers::FClassFinder<AMyHUD> hudclassobj(TEXT(&quot;Blueprint'/MyHUD.MyHUD_C'&quot;));
+if (hudclassobj.Class != NULL)
+HUDClass = hudclassobj.Class;
+ 
+static ConstructorHelpers::FClassFinder<AMyPlayerState> psclassobj(TEXT(&quot;Blueprint'/MyPlayerState.MyPlayerState_C'&quot;));
+if (psclassobj.Class != NULL)
+PlayerStateClass = psclassobj.Class;
+*/
+}</AMyPlayerState></AMyHUD></p> <h3 id="myhud-h"><a href="#myhud-h" class="header-anchor">#</a> MyHUD.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/HUD.h&quot;
+#include &quot;MyHUD.generated.h&quot;
+ 
+USTRUCT()
+struct FSChatMsg // Struct to hold the message data to be passed between classes
+{
+GENERATED_USTRUCT_BODY()
+ 
+UPROPERTY() // UProperty means this variable will be replicated
+int32 Type;
+ 
+UPROPERTY()
+FText Username;
+ 
+UPROPERTY()
+FText Text;
+ 
+FText Timestamp; // Dont replicate time because we can set it locally once we receive the struct
+ 
+double Created;
+ 
+void Init(int32 NewType, FText NewUsername, FText NewText) // Assign only the vars we wish to replicate
+{
+Type = NewType;
+Username = NewUsername;
+Text = NewText;
+}
+void SetTime(FText NewTimestamp, double NewCreated)
+{
+Timestamp = NewTimestamp;
+Created = NewCreated;
+}
+void Destroy()
+{
+Type = NULL;
+Username.GetEmpty();
+Text.GetEmpty();
+Timestamp.GetEmpty();
+Created = NULL;
+}
+};
+ 
+/**
+*
+*/
+UCLASS()
+class CHATTUTORIAL_API AMyHUD : public AHUD
+{
+GENERATED_BODY()
+ 
+public:
+ 
+AMyHUD();
+ 
+TSharedPtr&lt;class SMyChatWidget&gt; MyUIWidget; // Reference to the main chat widget
+ 
+APlayerController* MyPC;
+ 
+UFUNCTION(BlueprintCallable, Category = &quot;User&quot;)
+void AddMessageBP(const int32 Type, const FString&amp; Username, const FString&amp; Text, const bool Replicate); // A Blueprint function you can use to place messages in the chat box during runtime
+ 
+protected:
+ 
+virtual void PostInitializeComponents() override; // All game elements are created, add our chat box
+ 
+virtual void DrawHUD() override; // The HUD is drawn on our screen
+};</p> <h3 id="myhud-cpp"><a href="#myhud-cpp" class="header-anchor">#</a> MyHUD.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;ChatTutorial.h&quot;
+#include &quot;MyHUD.h&quot;
+ 
+#include &quot;MyChatWidget.h&quot;
+#include &quot;MyPlayerState.h&quot;
+ 
+AMyHUD::AMyHUD()
+{
+ 
+}
+ 
+void AMyHUD::PostInitializeComponents()
+{
+Super::PostInitializeComponents();
+ 
+if (GEngine &amp;&amp; GEngine-&gt;GameViewport) // make sure our screen is ready for the widget
+{
+SAssignNew(MyUIWidget, SMyChatWidget).OwnerHUD(this); // add the widget and assign it to the var
+GEngine-&gt;GameViewport-&gt;AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(MyUIWidget.ToSharedRef()));
+}
+}
+ 
+void AMyHUD::DrawHUD()
+{
+Super::DrawHUD();
+ 
+if (!MyPC)
+{
+MyPC = GetOwningPlayerController();
+AddMessageBP(2, TEXT(&quot;&quot;), TEXT(&quot;Welcome. Press Enter to chat.&quot;), false); // random Welcome message shown to the local player. To be deleted. note type 2 is system message and username is blank
+return;
+}
+ 
+if (MyPC-&gt;WasInputKeyJustPressed(EKeys::Enter))
+if (MyUIWidget.IsValid() &amp;&amp; MyUIWidget-&gt;ChatInput.IsValid())
+FSlateApplication::Get().SetKeyboardFocus(MyUIWidget-&gt;ChatInput); // When the user presses Enter he will focus his keypresses on the chat input bar
+}
+ 
+void AMyHUD::AddMessageBP(const int32 Type, const FString&amp; Username, const FString&amp; Text, const bool Replicate)
+{
+if (!MyPC || !MyUIWidget.IsValid())
+return;
+ 
+FSChatMsg newmessage;
+newmessage.Init(Type, FText::FromString(Username), FText::FromString(Text)); // initialize our struct and prep the message
+if (newmessage.Type &gt; 0)
+if (Replicate)
+{
+AMyPlayerState* MyPS = Cast&lt;AMyPlayerState&gt;(MyPC-&gt;PlayerState);
+if (MyPS)
+MyPS-&gt;UserChatRPC(newmessage); // Send the complete chat message to the PlayerState so it can be replicated then displayed
+}
+else
+MyUIWidget-&gt;AddMessage(newmessage); // Send a local message to this client only, no one else receives it
+}</p> <h3 id="myplayerstate-h"><a href="#myplayerstate-h" class="header-anchor">#</a> MyPlayerState.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/PlayerState.h&quot;
+ 
+#include &quot;MyHUD.h&quot;
+ 
+#include &quot;MyPlayerState.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS()
+class CHATTUTORIAL_API AMyPlayerState : public APlayerState
+{
+GENERATED_BODY()
+ 
+public:
+ 
+AMyPlayerState();
+ 
+UFUNCTION(Server, Reliable, WithValidation) // for player to player rpc you need to first call the message on the server
+virtual void UserChatRPC(const FSChatMsg&amp; newmessage); // first rpc for the server
+UFUNCTION(NetMulticast, Reliable, WithValidation) // then the server calls the function with a multicast that executes on all clients and the server
+virtual void UserChat(const FSChatMsg&amp; newmessage); // second rpc for all the clients
+};</p> <h3 id="myplayerstate-cpp"><a href="#myplayerstate-cpp" class="header-anchor">#</a> MyPlayerState.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;ChatTutorial.h&quot;
+#include &quot;MyPlayerState.h&quot;
+ 
+#include &quot;MyHUD.h&quot;
+#include &quot;MyChatWidget.h&quot;
+ 
+AMyPlayerState::AMyPlayerState()
+{
+ 
+}
+ 
+bool AMyPlayerState::UserChatRPC_Validate(const FSChatMsg&amp; newmessage)
+{
+return true;
+}
+void AMyPlayerState::UserChatRPC_Implementation(const FSChatMsg&amp; newmessage)
+{
+UserChat(newmessage);
+}
+bool AMyPlayerState::UserChat_Validate(const FSChatMsg&amp; newmessage)
+{
+return true;
+}
+void AMyPlayerState::UserChat_Implementation(const FSChatMsg&amp; newmessage)
+{
+APlayerController* MyCon;
+AMyHUD* MyHud;
+ 
+for (FConstPlayerControllerIterator Iterator = GetWorld()-&gt;GetPlayerControllerIterator(); Iterator; ++Iterator) // find all controllers
+{
+MyCon = Cast&lt;APlayerController&gt;(*Iterator);
+if (MyCon)
+{
+MyHud = Cast&lt;AMyHUD&gt;(MyCon-&gt;GetHUD());
+if (MyHud &amp;&amp; MyHud-&gt;MyUIWidget.IsValid())
+MyHud-&gt;MyUIWidget-&gt;AddMessage(newmessage); // place the chat message on this player controller
+}
+}
+}</p> <h3 id="mychatwidget-h"><a href="#mychatwidget-h" class="header-anchor">#</a> MyChatWidget.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;MyHUD.h&quot;
+#include &quot;SlateBasics.h&quot;
+ 
+/**
+*
+*/
+class CHATTUTORIAL_API SMyChatWidget : public SCompoundWidget
+{
+SLATE_BEGIN_ARGS(SMyChatWidget) : _OwnerHUD(){} // the OwnerHUD var is passed to the widget so the owner can be set.
+ 
+SLATE_ARGUMENT(TWeakObjectPtr&lt;class AMyHUD&gt;, OwnerHUD)
+ 
+SLATE_END_ARGS()
+ 
+public:
+ 
+void Construct(const FArguments&amp; InArgs);
+ 
+TSharedRef&lt;ITableRow&gt; OnGenerateRowForList(TSharedPtr&lt;FSChatMsg&gt; Item, const TSharedRef&lt;STableViewBase&gt;&amp; OwnerTable); // the function that is called for each chat element to be displayed in the chatbox
+TArray&lt;TSharedPtr&lt;FSChatMsg&gt;&gt; Items; // array of all the current items in this players chat box
+TSharedPtr&lt; SListView&lt; TSharedPtr&lt;FSChatMsg&gt; &gt; &gt; ListViewWidget; // the acutall widgets for each chat element
+ 
+const FSlateFontInfo fontinfo = FSlateFontInfo(FPaths::EngineContentDir() / TEXT(&quot;UI/Fonts/Comfortaa-Regular.ttf&quot;), 15); // Font, Font Size  for the chatbox
+ 
+TWeakObjectPtr&lt;class AMyHUD&gt; OwnerHUD;
+ 
+TSharedPtr&lt; SVerticalBox &gt; ChatBox;
+TSharedPtr&lt; SEditableText &gt; ChatInput;
+ 
+void OnChatTextChanged(const FText&amp; InText);
+void OnChatTextCommitted(const FText&amp; InText, ETextCommit::Type CommitMethod);
+ 
+void AddMessage(const FSChatMsg&amp; newmessage); // the final stage, this function takes the input and does the final placement in the chatbox
+ 
+void Tick(const FGeometry&amp; AllottedGeometry, const double InCurrentTime, const float InDeltaTime); // The full widget ticks and deletes messages
+};</p> <h3 id="mychatwidget-cpp"><a href="#mychatwidget-cpp" class="header-anchor">#</a> MyChatWidget.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;ChatTutorial.h&quot;
+#include &quot;MyChatWidget.h&quot;
+ 
+#include &quot;MyHUD.h&quot;
+#include &quot;MyPlayerState.h&quot;
+ 
+#define LOCTEXT_NAMESPACE &quot;SMyChatWidget&quot;
+ 
+void SMyChatWidget::Construct(const FArguments&amp; InArgs)
+{
+OwnerHUD = InArgs._OwnerHUD;
+ 
+ChildSlot // Build the base for the chatbox
+.VAlign(VAlign_Bottom)
+.HAlign(HAlign_Left)
+.Padding(15) // move the chat box out from the corner
+[
+SNew(SVerticalBox) // outter container
++ SVerticalBox::Slot()
+.AutoHeight()
+.MaxHeight(408.f)
+.VAlign(VAlign_Bottom)
+[
+SAssignNew(ListViewWidget, SListView&lt; TSharedPtr&lt; FSChatMsg &gt; &gt;) // a ListView widget that takes the array of messages and draws them on the hud
+.ListItemsSource(&amp;Items) //The Items array is the source of this listview
+.OnGenerateRow(this, &amp;SMyChatWidget::OnGenerateRowForList) // The widget is trying to draw, give the elements
+.ScrollbarVisibility(EVisibility::Hidden)
+]
++ SVerticalBox::Slot()
+.AutoHeight()
+.FillHeight(30.f)
+[
+SNew(SHorizontalBox)
++ SHorizontalBox::Slot()
+.AutoWidth()
+.MaxWidth(600.f)
+[
+SAssignNew(ChatInput, SEditableText) // the widget for player input
+.OnTextCommitted(this, &amp;SMyChatWidget::OnChatTextCommitted) // function to call when text is entered
+.OnTextChanged(this, &amp;SMyChatWidget::OnChatTextChanged) // function to call when text is changed
+.ClearKeyboardFocusOnCommit(true)
+.Text(FText::FromString(&quot;&quot;))
+.Font(FSlateFontInfo(fontinfo.FontMaterial, fontinfo.Size + 2)) // set the font for the input and add 2 font size
+.ColorAndOpacity(FLinearColor(1.f, 1.f, 1.f, 0.9f)) // send color and alpha R G B A
+.HintText(FText::FromString(&quot;Send a message to everyone.&quot;)) // hint message (optional)
+]
+]
+];
+}
+ 
+TSharedRef&lt;ITableRow&gt; SMyChatWidget::OnGenerateRowForList(TSharedPtr&lt; FSChatMsg &gt; Item, const TSharedRef&lt;STableViewBase&gt;&amp; OwnerTable)
+{
+if (!Items.IsValidIndex(0) || !Item.IsValid() || !Item.Get()) // Error catcher
+return
+SNew(STableRow&lt; TSharedPtr&lt; FSChatMsg &gt; &gt;, OwnerTable)
+[
+SNew(SBox)
+];
+ 
+if (Item.Get()-&gt;Type === 1) // Type 1 is for player chat messages
+return
+SNew(STableRow&lt; TSharedPtr&lt; FSChatMsg &gt; &gt;, OwnerTable)
+[
+SNew(SWrapBox)
+.PreferredWidth(600.f)
++ SWrapBox::Slot()
+[
+SNew(STextBlock) // places the timestamp
+.Text(Item.Get()-&gt;Timestamp)
+.ColorAndOpacity(FLinearColor(0.25f, 0.25f, 0.25f, 1.f))
+.Font(fontinfo)
+.ShadowColorAndOpacity(FLinearColor::Black)
+.ShadowOffset(FIntPoint(1, 1))
+]
++ SWrapBox::Slot()
+[
+SNew(STextBlock) // places the username
+.Text(Item.Get()-&gt;Username)
+.ColorAndOpacity(FLinearColor::White)
+.Font(fontinfo)
+.ShadowColorAndOpacity(FLinearColor::Black)
+.ShadowOffset(FIntPoint(1, 1))
+]
++ SWrapBox::Slot()
+[
+SNew(STextBlock) // adds the : between the username and chat text
+.Text(FText::FromString(&quot; :  &quot;))
+.ColorAndOpacity(FLinearColor(0.5f, 0.5f, 0.5f, 1.f))
+.Font(fontinfo)
+.ShadowColorAndOpacity(FLinearColor::Black)
+.ShadowOffset(FIntPoint(1, 1))
+]
++ SWrapBox::Slot()
+[
+SNew(STextBlock) // places the user text
+.Text(Item.Get()-&gt;Text)
+.ColorAndOpacity(FLinearColor(0.5f, 0.5f, 0.5f, 1.f))
+.Font(fontinfo)
+.ShadowColorAndOpacity(FLinearColor::Black)
+.ShadowOffset(FIntPoint(1, 1))
+]
+];
+else // 2 is for server messages, add more types for whispers friendslists etc
+return
+SNew(STableRow&lt; TSharedPtr&lt; FSChatMsg &gt; &gt;, OwnerTable)
+[
+SNew(SWrapBox)
+.PreferredWidth(600.f)
++ SWrapBox::Slot()
+[
+SNew(STextBlock)
+.Text(Item.Get()-&gt;Timestamp)
+.ColorAndOpacity(FLinearColor(0.25f, 0.25f, 0.25f, 1.f))
+.Font(fontinfo)
+.ShadowColorAndOpacity(FLinearColor::Black)
+.ShadowOffset(FIntPoint(1, 1))
+]
++ SWrapBox::Slot()
+[
+SNew(STextBlock)
+.Text(Item.Get()-&gt;Text)
+.ColorAndOpacity(FLinearColor(0.75f, 0.75f, 0.75f, 1.f))
+.Font(fontinfo)
+.ShadowColorAndOpacity(FLinearColor::Black)
+.ShadowOffset(FIntPoint(1, 1))
+]
+];
+}
+ 
+void SMyChatWidget::OnChatTextChanged(const FText&amp; InText) // Called everytime the user presses a key on the input bar
+{
+FString SText = InText.ToString();
+if (SText.Len() &gt; 120) // if there are more that 120 characters in the char box, remove the rest
+{
+SText = SText.Left(120);
+if (ChatInput.IsValid())
+ChatInput-&gt;SetText(FText::FromString(SText));
+}
+}
+ 
+void SMyChatWidget::OnChatTextCommitted(const FText&amp; InText, ETextCommit::Type CommitMethod) // The chat box is submitted
+{
+if (CommitMethod != ETextCommit::OnEnter) // only complete if the textbox was comitted with enter
+return;
+ 
+if (ChatInput.IsValid())
+{
+FText NFText = FText::TrimPrecedingAndTrailing(InText); // remove whitespace
+if (!NFText.IsEmpty())
+{
+AMyPlayerState* MyPS = Cast&lt;AMyPlayerState&gt;(OwnerHUD-&gt;MyPC-&gt;PlayerState); // cast to our player state that contains the rpc functions
+if (MyPS)
+{
+// Insert code here if you wish to have / commands
+FSChatMsg newmessage; // make a new struct to send for replication
+newmessage.Init(1, FText::FromString(MyPS-&gt;PlayerName), NFText); // initialize the message struct for replication
+if (newmessage.Type &gt; 0)
+MyPS-&gt;UserChatRPC(newmessage); // Send the complete chat message to the PlayerState so it can be replicated then displayed
+}
+}
+ChatInput-&gt;SetText(FText()); // clear the chat box now were done with it
+}
+ 
+FSlateApplication::Get().SetUserFocusToGameViewport(0, EFocusCause::SetDirectly); // set the players focus back to the gameport
+}
+ 
+void SMyChatWidget::AddMessage(const FSChatMsg&amp; newmessage) // this function is the last in line and does the actual placing of the message
+{
+int32 index = Items.Add(MakeShareable(new FSChatMsg())); // add a new message to the chatbox array
+if (Items[index].IsValid())
+{
+Items[index]-&gt;Init(newmessage.Type, newmessage.Username, newmessage.Text); // intiate our new message with the passed message
+ 
+int32 Year, Month, Day, DayOfWeek, Hour, Minute, Second, Millisecond; // set the timestamp and decay timer
+FPlatformTime::SystemTime(Year, Month, DayOfWeek, Day, Hour, Minute, Second, Millisecond);
+Items[index]-&gt;SetTime(FText::FromString(FString::Printf(TEXT(&quot;[ %02d:%02d:%02d ] &quot;), Hour, Minute, Second)), FPlatformTime::Seconds()); // Comment this line to remove timestamps or replace FPlatformTime::Seconds() with 0 to slow decay the messages
+ 
+ListViewWidget-&gt;RequestListRefresh(); // update the chatbox widget with our new array element
+ListViewWidget-&gt;ScrollToBottom(); // scroll the chatbox to the bottom so our new message pops up
+}
+}
+ 
+void SMyChatWidget::Tick(const FGeometry&amp; AllottedGeometry, const double InCurrentTime, const float InDeltaTime) // called everyframe and used for our gamelogic
+{
+SCompoundWidget::Tick(AllottedGeometry, InCurrentTime, InDeltaTime);
+ 
+if (Items.Num()) // make sure there is atleast one element in the chatbox array
+{
+if (!Items[0]-&gt;Created) // this element doesnt have a creation time and will last forever so lets set the creation time now and it was start decaying
+Items[0]-&gt;Created = InCurrentTime;
+if (InCurrentTime - Items[0]-&gt;Created &gt; 20) // the first message in the array is older that 20 seconds
+{
+Items[0]-&gt;Destroy(); // clear the vars and pointers
+Items.RemoveAt(0); // remove the item from the array
+Items.Shrink();
+}
+}
+}</p> <p>Once you compile all the classes. Make sure your game is using your new GameMode in the Project Settings Maps&amp;Modes setting.</p> <p>thanks to <a href="/User:Rama" title="User:Rama">Rama</a>!</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Slate,_Simple_C%2B%2B_Chat_System&amp;oldid=18817" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Slate,_Simple_C%2B%2B_Chat_System&amp;oldid=18817<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li> <li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/992.b9058a3e.js" defer></script>
+  </body>
+</html>

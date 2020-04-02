@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/381.fc0c77c6.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Coordinate mapping from leap motion to unreal world - Epic Wiki</p> <h1 id="coordinate-mapping-from-leap-motion-to-unreal-world"><a href="#coordinate-mapping-from-leap-motion-to-unreal-world" class="header-anchor">#</a> Coordinate mapping from leap motion to unreal world</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Requirements">2 Requirements</a></li> <li><a href="#Tutorials">3 Tutorials</a></li> <li><a href="#Problem_with_this_method">4 Problem with this method</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><strong>Rate this Video:</strong></p> <p>5.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""> (one vote)</p> <p>Approved for Versions:4.8,4.9</p> <p>This page provides a way to change coordinate mapping from leap motion world to unreal world in <strong>official</strong> leap motion plug-in. In the current leap motion plug in, there is no obvious way to change the mapping. It is inconvenient if you want to move your hand farther in unreal world.</p> <h2 id="requirements"><a href="#requirements" class="header-anchor">#</a> Requirements</h2> <p>This tutorial requires to change leap motion plug in code; Therefore, You need to use &quot;build from source&quot; version of unreal engine from unreal github. To apply the change in leap motion plug-in code, in unreal editor, you can go to Windows-&gt;Developer Tools-&gt;Modules, and find &quot;LeapMotionController&quot; and click recompile <a href="//https://www.unrealengine.com/ue4-on-github">How to build unreal engine from source</a>.</p> <h2 id="tutorials"><a href="#tutorials" class="header-anchor">#</a> Tutorials</h2> <p>Open Visual studio of your project and open LeapMotionHandActor.cpp from Engine/Runtime/LeapMotionController\Source\Private The Relative code is at around line 153, UpdateBones() function.</p> <p>void ALeapMotionHandActor::UpdateBones(float DeltaSeconds)
+{
+if (BoneActors.Num() == 0) { return; }</p> <p>float CombinedScale = GetCombinedScale();</p> <p>FLeapMotionDevice* Device = FLeapMotionControllerPlugin::GetLeapDeviceSafe();
+if (Device &amp;&amp; Device-&gt;IsConnected())
+{
+int BoneArrayIndex = 0;
+for (ELeapBone LeapBone = bShowArm ? ELeapBone::Forearm : ELeapBone::Palm; LeapBone &lt;= ELeapBone::Finger4Tip;      ((int8&amp;)LeapBone)++)
+{
+FVector TargetPosition;
+FRotator TargetOrientation;</p> <div class="language- extra-class"><pre><code>     bool Success = Device-&gt;GetBonePostionAndOrientation(HandId, LeapBone, TargetPosition, TargetOrientation);
+     if (Success)
+       {
+       // Offset target position &amp; rotation by the SpawnReference actor's transform
+       const FQuat RefQuat = GetRootComponent()-&gt;GetComponentQuat();
+       TargetPosition = RefQuat \* TargetPosition \* CombinedScale + GetRootComponent()-&gt;GetComponentLocation();
+       TargetOrientation = (RefQuat \* TargetOrientation.Quaternion()).Rotator();
+
+       // Get current position &amp; rotation
+       ALeapMotionBoneActor\* BoneActor = BoneActors\[BoneArrayIndex++\];
+       UPrimitiveComponent\* PrimitiveComponent = Cast&lt;UPrimitiveComponent&gt;(BoneActor-&gt;GetRootComponent());
+       if (PrimitiveComponent)
+       {
+       PrimitiveComponent-&gt;SetRelativeLocationAndRotation(TargetPosition, TargetOrientation, true);
+			}
+		}
+	}
+}
+</code></pre></div><p>}</p> <p>To start with, in the last line, I recommend you change &quot;PrimitiveComponent-&gt;SetRelativeLocationAndRotation(TargetPosition, TargetOrientation, true)&quot; to &quot;PrimitiveComponent-&gt;SetWorldLocationAndRotation(TargetPosition, TargetOrientation, true)&quot;</p> <p>You might find a problem that you put LeapMotioncontroller actor into the unreal world but hand does not show up in the location you put the controller but some location far away. With the change above, hand can correctly show up in the position you placed LeapMotioncontroller actor.</p> <p>Then we can start to change the coordinate mapping. My method is to only multiply the first bone's location by a factor and change other bones according to the first bone.</p> <p>void ALeapMotionHandActor::UpdateBones(float DeltaSeconds)
+{
+//MODIFICATION.This array to record each bone's position. The first bone's position is boneLocationData[0]
+TArray<FVector> boneLocationData;</FVector></p> <p>if (BoneActors.Num() == 0) { return; }</p> <p>float CombinedScale = GetCombinedScale();</p> <p>FLeapMotionDevice* Device = FLeapMotionControllerPlugin::GetLeapDeviceSafe();
+if (Device &amp;&amp; Device-&gt;IsConnected())
+{
+int BoneArrayIndex = 0;
+for (ELeapBone LeapBone = bShowArm ? ELeapBone::Forearm : ELeapBone::Palm; LeapBone &lt;= ELeapBone::Finger4Tip;       ((int8&amp;)LeapBone)++)
+{
+FVector TargetPosition;
+FRotator TargetOrientation;</p> <div class="language- extra-class"><pre><code>     bool Success = Device-&gt;GetBonePostionAndOrientation(HandId, LeapBone, TargetPosition, TargetOrientation);
+     if (Success)
+      {
+       // Offset target position &amp; rotation by the SpawnReference actor's transform
+        const FQuat RefQuat = GetRootComponent()-&gt;GetComponentQuat();
+        TargetPosition = RefQuat \* TargetPosition \* CombinedScale + GetRootComponent()-&gt;GetComponentLocation();
+        TargetOrientation = (RefQuat \* TargetOrientation.Quaternion()).Rotator();
+
+        // Get current position &amp; rotation
+        ALeapMotionBoneActor\* BoneActor = BoneActors\[BoneArrayIndex++\];
+        UPrimitiveComponent\* PrimitiveComponent = Cast&lt;UPrimitiveComponent&gt;(BoneActor-&gt;GetRootComponent());
+        if (PrimitiveComponent)
+         {
+          //MODIFICATION. you can substitute 15 with the factor you like 
+           PrimitiveComponent-&gt;SetWorldLocationAndRotation(TargetPosition + FVector(boneLocationData\[0\].X \* 15, boneLocationData\[0\].Y \* 15, boneLocationData\[0\].Z\*15), TargetOrientation, true);
+				
+			}
+		}
+	}
+	
+
+
+}
+</code></pre></div><p>}</p> <h2 id="problem-with-this-method"><a href="#problem-with-this-method" class="header-anchor">#</a> Problem with this method</h2> <p>The Starting location will also change by this mapping. You maybe need some calculation to find out the starting location. If you find out a way not to change starting point, please feel free to change this page. I feel the possible solution is related to the <a href="/wiki.unrealengine.com//https:/developer.leapmotion.com/documentation/csharp/devguide/Leap_Coordinate_Mapping.html">interaction box</a>.</p> <p>-ywj7931</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Coordinate_mapping_from_leap_motion_to_unreal_world&amp;oldid=17199" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Coordinate_mapping_from_leap_motion_to_unreal_world&amp;oldid=17199<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/381.fc0c77c6.js" defer></script>
+  </body>
+</html>

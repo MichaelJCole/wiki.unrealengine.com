@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1021.7fcecd91.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Steam workshop - Epic Wiki</p> <h1 id="steam-workshop"><a href="#steam-workshop" class="header-anchor">#</a> Steam workshop</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Requirements">2 Requirements</a></li> <li><a href="#Basic_structure_to_interact_with_steam">3 Basic structure to interact with steam</a></li> <li><a href="#First_Steps_with_Steam">4 First Steps with Steam</a></li> <li><a href="#Steam_workshop">5 Steam workshop</a> <ul><li><a href="#The_count_of_subscribed_items">5.1 The count of subscribed items</a></li> <li><a href="#Getting_file_ids_for_subscribed_items">5.2 Getting file ids for subscribed items</a></li> <li><a href="#Requesting_details">5.3 Requesting details</a></li></ul></li> <li><a href="#Conclusion">6 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>Hello to my first Unreal wiki entry 😃 This one is about using the SteamAPI so you can interact with it pretty easily using the <a href="https://partner.steamgames.com/home/steamworks" target="_blank" rel="noopener noreferrer">Steamworks documentation<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> as your friend. In this one, I'll talk about the Steam workshop, which is a pretty neat feature in Steam, and it's 100% usable in Unreal Engine 4. Most of the features can also be written inside a Blueprint Function library which allows you to access Steam functions through blueprints! In the following examples, I just show how to use this in general, in my case, the Game instance which allows me to get Steam things at startup, but you can simply move the code to where-ever you want to have it!</p> <h2 id="requirements"><a href="#requirements" class="header-anchor">#</a> Requirements</h2> <p>Because we are using Steam, you need to follow some steps to get Steam working. If you already see the Steam overlay in your game, then you can skip this part. If not, read <a href="https://wiki.unrealengine.com/Steam,_Using_the_Steam_SDK_During_Development" target="_blank" rel="noopener noreferrer">this<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>. For a successful compiling, I'll write a few things here aswell because the wiki is not complete at that point.</p> <ul><li><p>You need to include the main steam_api header file into your code file so it can find the functions. To do that, just include <strong>&quot;ThirdParty/Steamworks/Steamv132/sdk/public/steam/steam_api.h&quot;</strong>. Note that the v132 may change due to later Unreal engine versions!</p></li> <li><p>You need to compile the game with Steamworks, otherwise you'll get errors like UNRESOLVED EXTERNALS. To do this, simply go to your GameName.Build.cs file and add the following:</p> <div class="language- extra-class"><pre><code>PublicDependencyModuleNames.AddRange(new string\[\] {
+    &quot;OnlineSubsystem&quot;,
+    &quot;OnlineSubsystemUtils&quot;,
+    &quot;Steamworks&quot;
+});
+</code></pre></div></li></ul> <p>DynamicallyLoadedModuleNames.Add(&quot;OnlineSubsystemSteam&quot;);</p> <p>Thats all, so now your game should compile fine with using native SteamAPI functions!</p> <h2 id="basic-structure-to-interact-with-steam"><a href="#basic-structure-to-interact-with-steam" class="header-anchor">#</a> Basic structure to interact with steam</h2> <p>So if we interact with Steam, we always need to make sure that Steam is up and running, otherwise the game will crash (for example if you test something in the editor, which will obviously not work). To be on the safe side:</p> <p>if (SteamAPI_Init())
+{
+//do my steam stuff
+}
+else
+{
+//push an error or something
+}</p> <p>SteamAPI_Init() will return true if Steam is good to go, and false if not.</p> <h2 id="first-steps-with-steam"><a href="#first-steps-with-steam" class="header-anchor">#</a> First Steps with Steam</h2> <p>So in this article I go with the Steam workshop, but I'll just introduce you to a quick example so you see how to interact with Steam. The API delivers many interfaces like SteamFriends, SteamUtils, SteamUGC and many others. On the Steamworks page you find anything and how to use it. So a small test to get the players steam name:</p> <p>if (SteamAPI_Init())
+{
+const char* name = SteamFriends()-&gt;GetPersonaName();
+GEngine-&gt;AddOnScreenDebugMessage(-1, 5, FColor::Red, name);
+}</p> <p>This prints my Steam name onto the screen!</p> <h2 id="steam-workshop-2"><a href="#steam-workshop-2" class="header-anchor">#</a> Steam workshop</h2> <p>Finally, lets get to the hot topic: Steam Workshop. Nearly all interactions with the Steam workshop via the API use the SteamUGC interface (UGC = <strong>U</strong>ser <strong>G</strong>enerated <strong>C</strong>ontent). I start by just getting the amount of items I have subscribed. We can use for testing the AppID 480, which is Spacewar, because that has Steam workshop support. Neat!</p> <h3 id="the-count-of-subscribed-items"><a href="#the-count-of-subscribed-items" class="header-anchor">#</a> The count of subscribed items</h3> <p>Getting the amount of items I have subscribed to is really easy. In those examples here I won't show you a header file, because thats self-explaining. The full code:</p> <p>int32 UMyGameInstance::GetSubscribedItemCount()
+{
+if (SteamAPI_Init())
+{
+return SteamUGC()-&gt;GetNumSubscribedItems();
+}
+else
+{
+return 0;
+}
+}</p> <p>So, this is pretty simple. If the SteamAPI is valid, he just returns the output of the function <strong>SteamUGC()-&gt;GetNumSubscribedItems();</strong> which is from the SteamUGC interface, as you can see. If Steam is not valid for some reason, I just output 0.</p> <h3 id="getting-file-ids-for-subscribed-items"><a href="#getting-file-ids-for-subscribed-items" class="header-anchor">#</a> Getting file ids for subscribed items</h3> <p>The Steam workshop operates with File IDs, so every workshop object has it's own Workshop ID. In this example, I will return a TArray<int32> containing all IDs. This would also be blueprint node ready. The code:</int32></p> <p>TArray&lt;int32&gt; UMyGameInstance::GetSubscribedItemIDs()
+{
+TArray&lt;int32&gt; outArray;
+ 
+if (SteamAPI_Init())
+{
+PublishedFileId_t fileIds[16];
+int32 subItems = SteamUGC()-&gt;GetSubscribedItems(fileIds, 16);
+ 
+for (int i = 0; i &lt; subItems; i++)
+{
+PublishedFileId_t id = fileIds[i];
+outArray.Add(id);
+}
+}
+else
+{
+outArray.Add(0);
+}
+return outArray;
+}</p> <p>Lets go over it step-by-step. First I create an empty TArray of type int32 where I can store the IDs inside, because Steam will return an own type. After the check if steam is valid, I create a standard C++ array (it's different from Unreal arrays!) of the type <strong>PublishedFileId_t</strong> which is Steam's type for those IDs. The array has an fixed size of 16 in this example, so 16 is the maximum output I want to have. Like a limit. Then, we'll execute <strong>SteamUGC()-&gt;GetSubscribedItems()</strong>, whereas the first argument is my array where all file ids should go, and the 16 is my limit again. Cool thing about this function is that it actually returns the amount of subscribed items he filled, so if you subscribed to 3 items, my variable subItems will be 3. Thats cool, because you need this now. I just run a simple for loop going from zero to the amount of subscribed items he got. Then I can just get one ID out of the array, and store this inside the <strong>id</strong> variable. Then, to make this unreal friendly, I add this id into the TArray. At the end, we'll just return this array, and done! Note the outArray.Add(0); which I made if steam is not valid! Pretty easy! Now, having an ID, we can go on with requesting details from items!</p> <h3 id="requesting-details"><a href="#requesting-details" class="header-anchor">#</a> Requesting details</h3> <p>So, in this example, we want the name of this object. This one is a bit harder because we use Callbacks for this. The way it works:</p> <ul><li>We send a request to the Steam Servers to get details for a specific file id</li> <li>We need to wait till we have an answer from Steam</li> <li>If we have received the answer, we call a function which processes the received data</li> <li>We extract the name out of the received data</li></ul> <p>In this case, I show you the header part of this:</p> <p>/* Steam UGC details */
+void OnUGCRequestUGCDetails(SteamUGCRequestUGCDetailsResult_t *pResult, bool bIOFailure);
+CCallResult&lt;UMyGameInstance, SteamUGCRequestUGCDetailsResult_t&gt; m_callResultUGCRequestDetails;</p> <p>The <strong>OnUGCRequestUGCDetails</strong> is the method we call if we got an answer. You see it takes two arguments. They are described <a href="https://partner.steamgames.com/documentation/ugc#ConsumeContent" target="_blank" rel="noopener noreferrer">here<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>. I also have the variable <strong>m_callResultUGCRequestDetails</strong> which is the CallResult handler we will use to receive callbacks. Notice the structure of it:</p> <p>CCallResult&lt;yourClass, theResult&gt; someName;</p> <p>yourClass is then equal to the class name where you specify the result function and theResult is just the type of the result you want to get! Okey, after telling you this, lets get to the code!</p> <p>SteamAPICall_t hSteamAPICall = SteamUGC()-&gt;RequestUGCDetails(fileids[0], 20);
+m_callResultUGCRequestDetails.Set(hSteamAPICall, this, &amp;UMyGameInstance::OnUGCRequestUGCDetails);</p> <p>Every operation which has something to do with requests return an <strong>SteamAPICall_t</strong>. In this case, I name it hSteamAPICall (h stands for handle). We use <strong>SteamUGC()-&gt;RequestUGCDetails(fileId, maxAge)</strong> for the requesting. fileID is the fileID where you want to get the details for (see the file id section above), and maxAge is actually a value in seconds which acts like a timeout. If we don't get an answer from steam for X seconds, he will terminate listening for that. Creating the callback then is relatively easy. We use our <strong>m_callResultUGCRequestDetails</strong> callResult and execute the <strong>.Set(apiCall, class, method)</strong>. apiCall is as I said, the returned call of the request, class is equal to the class were listening at, in this case, we can use <strong>this</strong>, and method is the method we call when we have the result (we defined this in the header already!). The result method is then:</p> <p>void UMyGameInstance::OnUGCRequestUGCDetails(SteamUGCRequestUGCDetailsResult_t *pResult, bool bIOFailure)
+{
+if (bIOFailure)
+{
+return; //Something went wrong
+}
+ 
+SteamUGCDetails_t hUGCDetails = pResult-&gt;m_details;
+GEngine-&gt;AddOnScreenDebugMessage(-1, 10, FColor::Green, hUGCDetails.m_rgchTitle);
+}</p> <p>Pretty simple setup. If we have an IOFailure, then we just return, because thats an error. If not, we go on. I store the details in the variable called <strong>hUGCDetails</strong>, which is from type <strong>SteamUGCDetails_T</strong>. We can get the details easily by taking a look at the <strong>pResult</strong> variable we get back. It has the member <strong>m_details</strong>, which contains all the details for an item. Then, I just get the title and print it to screen. Examples for getting different values of an item:</p> <p>void UMyGameInstance::OnUGCRequestUGCDetails(SteamUGCRequestUGCDetailsResult_t *pResult, bool bIOFailure)
+{
+itemName = hUGCDetails.m_rgchTitle; //Title
+itemDesc = hUGCDetails.m_rgchDescription; //Description (max 8000 chars long)
+itemLikes = hUGCDetails.m_unVotesUp; //How many upvotes we got on this item
+}</p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>This is all I wanted to show you. Thanks to Steam, we don't need to mess around with downloading, because Steam does that on his own. With the details you should be able to create a simple UI showing all subscribed items, and If you create a blueprint library out of this, contact me, as I want to see what people do with this information 😃</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Steam_workshop&amp;oldid=17577" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Steam_workshop&amp;oldid=17577<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1021.7fcecd91.js" defer></script>
+  </body>
+</html>

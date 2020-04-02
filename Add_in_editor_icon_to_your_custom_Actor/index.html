@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/56.c5eaed56.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Add in editor Icon to your Custom Actor - Epic Wiki</p> <h1 id="add-in-editor-icon-to-your-custom-actor"><a href="#add-in-editor-icon-to-your-custom-actor" class="header-anchor">#</a> Add in editor Icon to your Custom Actor</h1> <p><strong>Rate this Article:</strong></p> <p>5.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""> (one vote)</p> <p>Approved for Versions:(please verify)</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#MyActor.h">2 MyActor.h</a></li> <li><a href="#MyActor.cpp">3 MyActor.cpp</a></li> <li><a href="#Conclusion">4 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>Greetings!</p> <p>This is a code snippets show you how to add in editor icon to your custom Actor.</p> <p>Just like this:</p> <ul><li><p><a href="/File:CustomActorIcon.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/b/b7/CustomActorIcon.jpg/120px-CustomActorIcon.jpg" alt=""></a></p> <p>Custom Actor Icon</p></li></ul> <p>I add some comment for reference.</p> <h2 id="myactor-h"><a href="#myactor-h" class="header-anchor">#</a> MyActor.h</h2> <p>// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Actor.h&quot;
+#include &quot;MyActor.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS()
+class AMyActor : public AActor
+{
+GENERATED_UCLASS_BODY()
+virtual void BeginPlay() OVERRIDE;
+ 
+ 
+UPROPERTY()
+// A UBillboardComponent to hold Icon sprite
+TSubobjectPtr&lt;UBillboardComponent&gt; SpriteComponent;
+ 
+// Icon sprite
+UTexture2D* SpriteTexture;;
+};</p> <h2 id="myactor-cpp"><a href="#myactor-cpp" class="header-anchor">#</a> MyActor.cpp</h2> <p>// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;MyActor.h&quot;
+ 
+AMyActor::AMyActor(const class FPostConstructInitializeProperties&amp; PCIP)
+: Super(PCIP)
+{
+// Structure to hold one-time initialization
+struct FConstructorStatics
+{
+// A helper class object we use to find target UTexture2D object in resource package
+ConstructorHelpers::FObjectFinderOptional&lt;UTexture2D&gt; NoteTextureObject;
+ 
+// Icon sprite category name
+FName ID_Notes;
+ 
+// Icon sprite display name
+FText NAME_Notes;
+ 
+FConstructorStatics()
+// Use helper class object to find the texture
+// &quot;/Engine/EditorResources/S_Note&quot; is resource path
+: NoteTextureObject(TEXT(&quot;/Engine/EditorResources/S_Note&quot;))
+, ID_Notes(TEXT(&quot;Notes&quot;))
+, NAME_Notes(NSLOCTEXT(&quot;SpriteCategory&quot;, &quot;Notes&quot;, &quot;Notes&quot;))
+{
+}
+};
+static FConstructorStatics ConstructorStatics;
+ 
+// We need a scene component to attach Icon sprite
+TSubobjectPtr&lt;USceneComponent&gt; SceneComponent = PCIP.CreateDefaultSubobject&lt;USceneComponent&gt;(this, TEXT(&quot;SceneComp&quot;));
+RootComponent = SceneComponent;
+RootComponent-&gt;Mobility = EComponentMobility::Static;
+ 
+#if WITH_EDITORONLY_DATA
+SpriteComponent = PCIP.CreateEditorOnlyDefaultSubobject&lt;UBillboardComponent&gt;(this, TEXT(&quot;Sprite&quot;));
+if (SpriteComponent)
+{
+ 
+SpriteComponent-&gt;Sprite = ConstructorStatics.NoteTextureObject.Get();		// Get the sprite texture from helper class object
+SpriteComponent-&gt;SpriteInfo.Category = ConstructorStatics.ID_Notes;		// Assign sprite category name
+SpriteComponent-&gt;SpriteInfo.DisplayName = ConstructorStatics.NAME_Notes;	// Assign sprite display name
+SpriteComponent-&gt;AttachParent = RootComponent;				        // Attach sprite to scene component
+SpriteComponent-&gt;Mobility = EComponentMobility::Static;
+}
+#endif // WITH_EDITORONLY_DATA
+ 
+}</p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>Please refer to Engine\Source\Runtime\Engine\Private\Note.cpp for more information.</p> <p>Enjoy!</p> <p><a href="/User:Eros" title="User:Eros">Eros</a> (<a href="/index.php?title=User_talk:Eros&amp;action=edit&amp;redlink=1" title="User talk:Eros (page does not exist)">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Add_in_editor_Icon_to_your_Custom_Actor&amp;oldid=8212" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Add_in_editor_Icon_to_your_Custom_Actor&amp;oldid=8212<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/56.c5eaed56.js" defer></script>
+  </body>
+</html>

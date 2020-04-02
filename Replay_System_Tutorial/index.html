@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/955.6b407bda.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Replay System Tutorial - Epic Wiki</p> <h1 id="replay-system-tutorial"><a href="#replay-system-tutorial" class="header-anchor">#</a> Replay System Tutorial</h1> <p>From Epic Wiki</p> <p>Jump to: <a href="#mw-head">navigation</a>, <a href="#p-search">search</a></p> <p><a href="/index.php?title=Template:Rating&amp;action=edit&amp;redlink=1" title="Template:Rating (page does not exist)">Template:Rating</a></p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Initial_Setup">2 Initial Setup</a></li> <li><a href="#Replication">3 Replication</a></li> <li><a href="#Adding_our_C.2B.2B_code">4 Adding our C++ code</a> <ul><li><a href="#ReplayTutorial.Build.cs">4.1 ReplayTutorial.Build.cs</a></li> <li><a href="#MyGameInstance.h">4.2 MyGameInstance.h</a></li> <li><a href="#MyGameInstance.cpp">4.3 MyGameInstance.cpp</a></li></ul></li> <li><a href="#Blueprint_.28UI.29_Implementation">5 Blueprint (UI) Implementation</a> <ul><li><a href="#Additional_Setup">5.1 Additional Setup</a></li> <li><a href="#FirstPersonCharacter_Input">5.2 FirstPersonCharacter Input</a></li></ul></li> <li><a href="#MainMenuUI">6 MainMenuUI</a> <ul><li><a href="#WID_ReplaySlot">6.1 WID_ReplaySlot</a></li> <li><a href="#WID_MainMenu">6.2 WID_MainMenu</a></li></ul></li> <li><a href="#Testing_it">7 Testing it</a></li> <li><a href="#Adding_the_ReplaySpectator_Controller">8 Adding the ReplaySpectator Controller</a> <ul><li><a href="#PC_ReplaySpectator.h">8.1 PC_ReplaySpectator.h</a></li> <li><a href="#PC_ReplaySpectator.cpp">8.2 PC_ReplaySpectator.cpp</a></li> <li><a href="#WID_ReplaySpectator">8.3 WID_ReplaySpectator</a></li> <li><a href="#BP_PC_ReplaySpectator">8.4 BP_PC_ReplaySpectator</a></li></ul></li> <li><a href="#Conclusion.2C_Bugs">9 Conclusion, Bugs</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>This tutorial is intended to show you how to easily create a basic replay system, enabling you to record game data to a hard drive and play it back at a later time. I spent quite some time reading through the engine code to be able to implement this in my own projects and was surprised that no one covered it in a tutorial yet, so here goes... My method might not be the optimal one, but it works and I'd like to share it with those who want to work with replays as well. While the tutorial does include some c++ code, I will show you how to expose the necessary methods, so that they can be called from blueprints.</p> <p>(NOTE: Replays can't be recorded or played back in PIE mode. Use Standalone instead!)</p> <ol><li>In the Initial Setup I'll show you how a new project is initially configured to be able to deal with Replays.</li> <li>The section &quot;Replication&quot; sets up the First Person Example to replicate its Projectiles, Cube Meshes and to let Clients call Server_Fire</li> <li>In &quot;Adding our C++ code&quot; I introduce some functions to a new GameInstance class that will start/stop recording and Find, Rename, Watch and Delete Replays from Hard Disk</li> <li>In &quot;Blueprint (UI) Implementation you will find a minimalistic Set-Up to start/stop Recording from Blueprints</li> <li>In &quot;MainMenuUI&quot; I show you how to make a simple Replay Browser to manipulate previous records</li> <li>The section &quot;Testing it&quot; is a good spot to make a break from this tutorial and an invitation to play around.</li> <li>The last section &quot;Adding the ReplaySpectator Controller&quot; introduces a PlayerController to handle a Replay Playback and a Widget to interface between User and PlayBack.</li> <li>Finally, there is still bug that needs to be fixed, this is described in &quot;Conclusion, Bugs&quot;</li></ol> <h2 id="initial-setup"><a href="#initial-setup" class="header-anchor">#</a> Initial Setup</h2> <p>To begin with, create a project of your liking. I chose the &quot;First Person Example&quot; as a base, however any Example should do. You can also include this tutorial in your own project, but for the sake of simplicity I will display it for a clean one. After the project is created, open the project folder on your hard drive and navigate to ReplayTutorial/Config/DefaultEngine.ini, open it, and add the following statement at the end of this file:</p> <p>[/Script/Engine.GameEngine]</p> <p>+NetDriverDefinitions=(DefName=&quot;DemoNetDriver&quot;,DriverClassName=&quot;/Script/Engine.DemoNetDriver&quot;,DriverClassNameFallback=&quot;/Script/Engine.DemoNetDriver&quot;)</p> <p>This step will enable and load the DemoNetDriver for you, which is the actual recorder.</p> <h2 id="replication"><a href="#replication" class="header-anchor">#</a> Replication</h2> <p>In order to let the engine record gameplay, you need to make sure that our actors are properly replicated. The engine treats the replay recorder like a networked client, even in a single player game, so that replicated data is automatically recorded. You can safely skip to the next section if your project is already set up for multiplayer games.</p> <p>In the level's &quot;World Outliner&quot;, select all of the EditorCubeXX-actors and set their property &quot;Static Mesh Replicate Movement&quot; to true. The movement of these cubes will be recorded this way.</p> <p><a href="/index.php?title=File:ReplayTutorial_ReplicateMeshes.png"><img src="https://d26ilriwvtzlb.cloudfront.net/7/72/ReplayTutorial_ReplicateMeshes.png" alt=""></a></p> <p>Setting the Cubes in the Level to Replicate</p> <p>After that, open the Blueprint &quot;FirstPersonProjectile&quot; and set the properties of &quot;Replicates&quot; and &quot;Replicate Movement&quot; to true. This will make sure that the projectile balls will be seen on clients and in the records. Now, when the server shoots, others will see it. Additionally, clients might shoot, but they can't replicate data to the other clients OR the recorder. To ammend that, open the Blueprint &quot;FirstPersonCharacter&quot; and verify that &quot;Replicate Movement&quot; and &quot;Replicates&quot; is set. Then, locate the event called &quot;InputAction Fire&quot; and add a custom event called &quot;Server_Fire&quot; near it. Set this event to &quot;Run on Server&quot; and &quot;Reliable&quot;, since this is important gameplay input. We need to restructure (see Images) the &quot;InputAction Fire&quot; event in order to make it network-enabled. Put the nodes &quot;Montage Play&quot; and &quot;Play Sound At Location&quot; directly after the &quot;InputAction Fire&quot; event. Then drag a node called &quot;Switch Has Authority&quot; out of the sound node. From the &quot;Remote&quot; Execute-Pin, call the previously created method &quot;Server_Fire&quot; and from the &quot;Authority&quot; Pin, spawn the projectile. This concludes our preparations.</p> <p><a href="/index.php?title=File:ReplayTutorial_ReplicateCharacter1.png"><img src="https://d3ar1piqh1oeli.cloudfront.net/1/13/ReplayTutorial_ReplicateCharacter1.png/940px-ReplayTutorial_ReplicateCharacter1.png" alt=""></a></p> <p>Server_Fire Function Part 1</p> <p><a href="/index.php?title=File:ReplayTutorial_ReplicateCharacter2.png"><img src="https://d3ar1piqh1oeli.cloudfront.net/3/37/ReplayTutorial_ReplicateCharacter2.png/940px-ReplayTutorial_ReplicateCharacter2.png" alt=""></a></p> <p>Server_Fire Function Part 2</p> <h2 id="adding-our-c-code"><a href="#adding-our-c-code" class="header-anchor">#</a> Adding our C++ code</h2> <p>All of the recording and playback methods can be found within the engine. What we have to do in order to use them is to correctly expose these methods to blueprint. To achieve this, right click in the &quot;Content Browser&quot; and add a new c++ class. Click on &quot;Show All Classes&quot; in the upper right corner and search for GameInstance. Since this will be our parent class, select it. You can choose a name when you select Next, then create the new class.</p> <p>This will open Visual Studio (if you installed it – I will skip this step here 😉), where you will see the newly created <name>.h (definition) and <name>.cpp (code) files. In my case, they are named MyGameInstance.x</name></name></p> <h3 id="replaytutorial-build-cs"><a href="#replaytutorial-build-cs" class="header-anchor">#</a> ReplayTutorial.Build.cs</h3> <p>Before creating any code, make sure that you include &quot;Json&quot; in the PublicDependencyModules, a definition that can be found in the Solution Explorer under Solution/Games/ReplayTutorial/Source/ReplayTutorial.Build.cs. Open it and add &quot;Json&quot;, like so:</p> <p>PublicDependencyModuleNames.AddRange(new string[] { &quot;Core&quot;, &quot;CoreUObject&quot;, &quot;Engine&quot;, &quot;InputCore&quot;, &quot;Json&quot; });</p> <h3 id="mygameinstance-h"><a href="#mygameinstance-h" class="header-anchor">#</a> MyGameInstance.h</h3> <p>The .h (definition file) will contain our definitions of the necessary methods and properties. You will need to add an include at the beginning of this file, so that these three are available:</p> <p>#include &quot;Engine/GameInstance.h&quot;
+#include &quot;NetworkReplayStreaming.h&quot;
+#include &quot;MyGameInstance.generated.h&quot;</p> <p>Afterwards, in the class body, add the following function definitions. Their names will already tell you what the functions are intended for:</p> <p>public:
+/** Start recording a replay from blueprint. ReplayName = Name of file on disk, FriendlyName = Name of replay in UI */
+UFUNCTION(BlueprintCallable, Category = &quot;Replays&quot;)
+void StartRecordingReplayFromBP(FString ReplayName, FString FriendlyName);</p> <div class="language- extra-class"><pre><code>/\*\* Start recording a running replay and save it, from blueprint. \*/
+UFUNCTION(BlueprintCallable, Category = &quot;Replays&quot;)
+	void StopRecordingReplayFromBP();
+
+/\*\* Start playback for a previously recorded Replay, from blueprint \*/
+UFUNCTION(BlueprintCallable, Category = &quot;Replays&quot;)
+	void PlayReplayFromBP(FString ReplayName);
+
+/\*\* Start looking for/finding replays on the hard drive \*/
+UFUNCTION(BlueprintCallable, Category = &quot;Replays&quot;)
+	void FindReplays();
+
+/\*\* Apply a new custom name to the replay (for UI only) \*/
+UFUNCTION(BlueprintCallable, Category = &quot;Replays&quot;)
+	void RenameReplay(const FString &amp;ReplayName, const FString &amp;NewFriendlyReplayName);
+
+/\*\* Delete a previously recorded replay \*/
+UFUNCTION(BlueprintCallable, Category = &quot;Replays&quot;)
+	void DeleteReplay(const FString &amp;ReplayName);
+</code></pre></div><p>We also need additional functions for our FindReplays() and DeleteReplay(..) methods, since they rely on async callbacks. To support these, add the following:</p> <div class="language- extra-class"><pre><code>virtual void Init() override;
+</code></pre></div><p>private:</p> <div class="language- extra-class"><pre><code>// for FindReplays() 
+TSharedPtr&lt;INetworkReplayStreamer&gt; EnumerateStreamsPtr;
+FOnEnumerateStreamsComplete OnEnumerateStreamsCompleteDelegate;
+
+void OnEnumerateStreamsComplete(const TArray&lt;FNetworkReplayStreamInfo&gt;&amp; StreamInfos);
+
+// for DeleteReplays(..)
+FOnDeleteFinishedStreamComplete OnDeleteFinishedStreamCompleteDelegate;
+
+void OnDeleteFinishedStreamComplete(const bool bDeleteSucceeded);
+</code></pre></div><p>Further, it will be necessary to display Information about replays to the user interface. Since this is in blueprint, let us create a struct to hold these data. Add the following definition at the beginning of the file (or before our UMyGameInstance class definition):</p> <p>USTRUCT(BlueprintType)
+struct FS_ReplayInfo
+{
+GENERATED_USTRUCT_BODY()</p> <div class="language- extra-class"><pre><code>UPROPERTY(BlueprintReadOnly)
+	FString ReplayName;
+
+UPROPERTY(BlueprintReadOnly)
+	FString FriendlyName;
+
+UPROPERTY(BlueprintReadOnly)
+	FDateTime Timestamp;
+
+UPROPERTY(BlueprintReadOnly)
+	int32 LengthInMS;
+
+UPROPERTY(BlueprintReadOnly)
+	bool bIsValid;
+
+FS\_ReplayInfo(FString NewName, FString NewFriendlyName, FDateTime NewTimestamp, int32 NewLengthInMS)
+{
+	ReplayName = NewName;
+	FriendlyName = NewFriendlyName;
+	Timestamp = NewTimestamp;
+	LengthInMS = NewLengthInMS;
+	bIsValid = true;
+}
+
+FS\_ReplayInfo()
+{
+	ReplayName = &quot;Replay&quot;;
+	FriendlyName = &quot;Replay&quot;;
+	Timestamp = FDateTime::MinValue();
+	LengthInMS = 0;
+	bIsValid = false;
+}
+</code></pre></div><p>};</p> <p>And lastly, add another function to our UMyGameInstance class, that we call when finding replays has completed:</p> <p>protected:
+UFUNCTION(BlueprintImplementableEvent, Category = &quot;Replays&quot;)
+void BP_OnFindReplaysComplete(const TArray&lt;FS_ReplayInfo&gt; &amp;AllReplays);</p> <h3 id="mygameinstance-cpp"><a href="#mygameinstance-cpp" class="header-anchor">#</a> MyGameInstance.cpp</h3> <p>This file will contain our actual code which carries out the previously defined methods. To begin with, lets include the following two definitions:</p> <p>#include &quot;ReplayTutorial.h&quot;
+#include &quot;Runtime/NetworkReplayStreaming/NullNetworkReplayStreaming/Public/NullNetworkReplayStreaming.h&quot;
+#include &quot;NetworkVersion.h&quot;
+#include &quot;MyGameInstance.h&quot;</p> <p>Then, lets create our Init() function first, since this is the place were we can safely link the OnDelete...- and OnEnumerate...-Delegates before a user will call any of our functions:</p> <p>void UMyGameInstance::Init()
+{
+Super::Init();</p> <div class="language- extra-class"><pre><code>// create a ReplayStreamer for FindReplays() and DeleteReplay(..)
+EnumerateStreamsPtr = FNetworkReplayStreaming::Get().GetFactory().CreateReplayStreamer();
+// Link FindReplays() delegate to function
+OnEnumerateStreamsCompleteDelegate = FOnEnumerateStreamsComplete::CreateUObject(this, &amp;UMyGameInstance::OnEnumerateStreamsComplete);
+// Link DeleteReplay() delegate to function
+OnDeleteFinishedStreamCompleteDelegate = FOnDeleteFinishedStreamComplete::CreateUObject(this, &amp;UMyGameInstance::OnDeleteFinishedStreamComplete);
+</code></pre></div><p>}</p> <p>Some of our functions are actually only calling functions that are already present in the GameInstance, like the following:</p> <p>void UMyGameInstance::StartRecordingReplayFromBP(FString ReplayName, FString FriendlyName)
+{
+StartRecordingReplay(ReplayName, FriendlyName);
+}</p> <p>void UMyGameInstance::StopRecordingReplayFromBP()
+{
+StopRecordingReplay();
+}</p> <p>void UMyGameInstance::PlayReplayFromBP(FString ReplayName)
+{
+PlayReplay(ReplayName);
+}</p> <p>FindReplays() on the other hand needs an additional (our previously created) ReplayStreamer, called &quot;EnumerateStreamsPtr&quot;. It starts looking for replays on your hard disc and asynchronously calls &quot; OnEnumerateStreamsComplete&quot; when ready:</p> <p>void UMyGameInstance::FindReplays()
+{
+if (EnumerateStreamsPtr.Get())
+{
+EnumerateStreamsPtr.Get()-&gt;EnumerateStreams(FNetworkReplayVersion(), FString(), FString(), OnEnumerateStreamsCompleteDelegate);
+}
+}</p> <p>void UMyGameInstance::OnEnumerateStreamsComplete(const TArray<FNetworkReplayStreamInfo>&amp; StreamInfos)
+{
+TArray&lt;FS_ReplayInfo&gt; AllReplays;</FNetworkReplayStreamInfo></p> <div class="language- extra-class"><pre><code>for (FNetworkReplayStreamInfo StreamInfo : StreamInfos)
+{
+	if (!StreamInfo.bIsLive)
+	{
+		AllReplays.Add(FS\_ReplayInfo(StreamInfo.Name, StreamInfo.FriendlyName, StreamInfo.Timestamp, StreamInfo.LengthInMS));
+	}
+}
+
+BP\_OnFindReplaysComplete(AllReplays);
+</code></pre></div><p>}</p> <p>In order to rename replays I have stumbled upon the Engine-functions that create, write and read data to the actual files on our hard disk. I've put together a solution to setting a &quot;Friendly-Name&quot; (for UI) in a previously recorded replay, so that users can put their own nametags on their replays. However, I think this is a bit of a hack because the filestrings are merely put together like in the engine. If the methods in the engine ever change then this will obviously not work anymore:</p> <p>void UMyGameInstance::RenameReplay(const FString &amp;ReplayName, const FString &amp;NewFriendlyReplayName)
+{	
+// Get File Info
+FNullReplayInfo Info;</p> <div class="language- extra-class"><pre><code>const FString DemoPath = FPaths::Combine(\*FPaths::GameSavedDir(), TEXT(&quot;Demos/&quot;));
+const FString StreamDirectory = FPaths::Combine(\*DemoPath, \*ReplayName);
+const FString StreamFullBaseFilename = FPaths::Combine(\*StreamDirectory, \*ReplayName);
+const FString InfoFilename = StreamFullBaseFilename + TEXT(&quot;.replayinfo&quot;);
+
+TUniquePtr&lt;FArchive&gt; InfoFileArchive(IFileManager::Get().CreateFileReader(\*InfoFilename));
+
+if (InfoFileArchive.IsValid() &amp;&amp; InfoFileArchive-&gt;TotalSize() != 0)
+{
+	FString JsonString;
+	\*InfoFileArchive &lt;&lt; JsonString;
+
+	Info.FromJson(JsonString);
+	Info.bIsValid = true;
+
+	InfoFileArchive-&gt;Close();
+}
+
+// Set FriendlyName
+Info.FriendlyName = NewFriendlyReplayName;
+
+// Write File Info
+TUniquePtr&lt;FArchive&gt; ReplayInfoFileAr(IFileManager::Get().CreateFileWriter(\*InfoFilename));
+
+if (ReplayInfoFileAr.IsValid())
+{
+	FString JsonString = Info.ToJson();
+	\*ReplayInfoFileAr &lt;&lt; JsonString;
+
+	ReplayInfoFileAr-&gt;Close();
+}
+</code></pre></div><p>}</p> <p>Last but not least, add the code for our DeleteReplay(..) call, pray to the Compiler Gods (at your own discretion, do not anger real gods and blame me for it!) and hit compile afterwards:</p> <p>void UMyGameInstance::DeleteReplay(const FString &amp;ReplayName)
+{
+if (EnumerateStreamsPtr.Get())
+{
+EnumerateStreamsPtr.Get()-&gt;DeleteFinishedStream(ReplayName, OnDeleteFinishedStreamCompleteDelegate);
+}
+}</p> <p>void UMyGameInstance::OnDeleteFinishedStreamComplete(const bool bDeleteSucceeded)
+{
+FindReplays();
+}</p> <h2 id="blueprint-ui-implementation"><a href="#blueprint-ui-implementation" class="header-anchor">#</a> Blueprint (UI) Implementation</h2> <p>Now that all of that code is compiled and out of the way, let's finally turn to the Unreal Editor again. I will try to show you a very minimalistic implementation of these Replay System calls, you can get creative and do it in a different way, but a few things must be done first.</p> <h3 id="additional-setup"><a href="#additional-setup" class="header-anchor">#</a> Additional Setup</h3> <ol><li>n our content browser, right click and add a new blueprint class. Click on &quot;Display All Classes&quot; and select the c++ GameInstance we created, then call it something senseful to distinguish it from its parent, like &quot;BP_MyGameInstance&quot;. Open the new blueprint and override the BP_OnFindReplaysComplete(..) function. We will use this function to display a list of Replays in our UI later.</li> <li>Create a new map and call it something like &quot;MainMenuMap&quot;</li> <li>Open the Project Settings and under &quot;Project – Maps &amp; Modes&quot; set DefaultGameMode to &quot;GameModeBase&quot;. Then, set the Editor StartUp Map, Game Default Map and Server Default Map to &quot;MainMenuMap&quot;. Afterwards set GameInstance to BP_MyGameInstance</li> <li>Open the FirstPersonExampleMap and verify that it overrides the GameMode with the &quot;FirstPersonGameMode&quot;.</li></ol> <p><a href="/index.php?title=File:ReplayTutorial_OverrideFindReplays.png"><img src="https://d26ilriwvtzlb.cloudfront.net/b/bb/ReplayTutorial_OverrideFindReplays.png" alt=""></a></p> <p>Where to find Override Function</p> <p>After these steps, open the &quot;FirstPersonCharacter&quot; blueprint.</p> <h3 id="firstpersoncharacter-input"><a href="#firstpersoncharacter-input" class="header-anchor">#</a> FirstPersonCharacter Input</h3> <p>For the sake of the simplicity of this tutorial, I will call the Replay functions here. You might want to do that from the GameMode or GameState instead, for example when the game begins or ends. If you want to follow the tutorial, just add two Input Events &quot;Page Up&quot; and &quot;Page Down&quot;. Drag a &quot;Switch Has Authority&quot; node out from each of them and add Game Instance Casts like in the image to the two events. From Page Up, call Start Recording Replay and from Page Down call Stop Recording. For the ReplayName I tend to use strings like &quot;Replay_2017-04-29_01-54-03&quot; and the Friendly-Name usually stays empty for automatic recording. For the purpose of this tutorial I have put test in. Now we already should be able to record Replays (found in ProjectFolder/Saved/Demos), by pressing our PageUp or PageDown Keys.</p> <p>NOTE: Replays can't be recorded or played back in PIE mode. Use Standalone!</p> <p><a href="/index.php?title=File:ReplayTutorial_SetupInput.png"><img src="https://d26ilriwvtzlb.cloudfront.net/a/a8/ReplayTutorial_SetupInput.png" alt=""></a></p> <p>Set up Input to Start and Stop Recording</p> <h2 id="mainmenuui"><a href="#mainmenuui" class="header-anchor">#</a> MainMenuUI</h2> <p>For the sake of completeness I also want to show you how to browse, rename and delete Replays that were previously recorded. To do that, we need two Widget Blueprints. In the content Browser, create two Widgets called &quot;WID_MainMenu&quot; and &quot;WID_ReplaySlot&quot;.</p> <h3 id="wid-replayslot"><a href="#wid-replayslot" class="header-anchor">#</a> WID_ReplaySlot</h3> <p>Set up the ReplaySlot Widget to look like this:</p> <p><a href="/index.php?title=File:ReplayTutorial_ReplaySlotWID.png"><img src="https://d26ilriwvtzlb.cloudfront.net/e/e7/ReplayTutorial_ReplaySlotWID.png" alt=""></a></p> <p>Widget Designer</p> <p>Then, switch over to the Event Graph and add two String variables &quot;ReplayName&quot; and &quot;ReplayFriendlyName&quot; to the Widget, both set to be &quot;Editable&quot; and &quot;Exposed On Spawn&quot;. From the &quot;Event Construct&quot;, initialize the TextBox text like in the Image. Then, create Events for the two Buttons (OnClicked) and the TextBox (OnTextCommited) and call the GameInstance Functions we created all the way in the beginning of this tutorial. By comparing to NotEqual (OnCleared) - again, see image - we allow users to hit ESC and keep the old name.</p> <p><a href="/index.php?title=File:ReplayTutorial_ReplaySlotWIDGraph1.png"><img src="https://d3ar1piqh1oeli.cloudfront.net/e/e3/ReplayTutorial_ReplaySlotWIDGraph1.png/940px-ReplayTutorial_ReplaySlotWIDGraph1.png" alt=""></a></p> <p>Widget Event Construct</p> <p><a href="/index.php?title=File:ReplayTutorial_ReplaySlotWIDGraph2.png"><img src="https://d3ar1piqh1oeli.cloudfront.net/5/5c/ReplayTutorial_ReplaySlotWIDGraph2.png/940px-ReplayTutorial_ReplaySlotWIDGraph2.png" alt=""></a></p> <p>Widget Additional Behavior (Buttons)</p> <h3 id="wid-mainmenu"><a href="#wid-mainmenu" class="header-anchor">#</a> WID_MainMenu</h3> <p>In the WID_MainMenu, create a UI similar to that in the images. Make sure that the AllReplaysScrollBox is set to be a variable for the EventGraph:</p> <p><a href="/index.php?title=File:ReplayTutorial_MainMenuWID.png"><img src="https://d3ar1piqh1oeli.cloudfront.net/3/3b/ReplayTutorial_MainMenuWID.png/940px-ReplayTutorial_MainMenuWID.png" alt=""></a></p> <p>Main Menu Widget Part 1</p> <p><a href="/index.php?title=File:ReplayTutorial_MainMenuWID2.png"><img src="https://d3ar1piqh1oeli.cloudfront.net/7/70/ReplayTutorial_MainMenuWID2.png/940px-ReplayTutorial_MainMenuWID2.png" alt=""></a></p> <p>Main Menu Widget Part 2 - WidgetSwitcher Alternate View</p> <p>Now switch to the event graph and create a custom event &quot;OnFindReplays&quot; with an input of type &quot;Array of S_ReplayInfo&quot;. Clear the children of the AllReplaysScrollBox, then create a new ReplaySlot for each of the Replays, feed the two strings in it and add the new widget as a child of the Scrollbox, like so:</p> <p><a href="/index.php?title=File:ReplayTutorial_MainMenuGraph1.png"><img src="https://d3ar1piqh1oeli.cloudfront.net/8/84/ReplayTutorial_MainMenuGraph1.png/940px-ReplayTutorial_MainMenuGraph1.png" alt=""></a></p> <p>Main Menu Widget OnFindReplays Event</p> <p>Also add functionality to the other buttons:</p> <p><a href="/index.php?title=File:ReplayTutorial_MainMenuGraph2.png"><img src="https://d3ar1piqh1oeli.cloudfront.net/4/43/ReplayTutorial_MainMenuGraph2.png/940px-ReplayTutorial_MainMenuGraph2.png" alt=""></a></p> <p>Main Menu Widget Other Buttons</p> <p>Now we need to display the main menu when our main menu map loads. To do that, open the level blueprint of the mainmenumap and insert the following event:</p> <p><a href="/index.php?title=File:ReplayTutorial_LevelBlueprint.png"><img src="https://d3ar1piqh1oeli.cloudfront.net/2/2c/ReplayTutorial_LevelBlueprint.png/940px-ReplayTutorial_LevelBlueprint.png" alt=""></a></p> <p>Main Menu Level Blueprint</p> <p>Now, if you launch the game and press Browse Replays you will not see any entries. This is because we still have not connected our GameInstance to our UI. To do this, go to BP_MyGameInstance and fill in the code of our prepared event like so:</p> <p><a href="/index.php?title=File:ReplayTutorial_GameInstanceBP.png"><img src="https://d3ar1piqh1oeli.cloudfront.net/4/4c/ReplayTutorial_GameInstanceBP.png/940px-ReplayTutorial_GameInstanceBP.png" alt=""></a></p> <p>GameInstance to UI forward Replay Info</p> <h2 id="testing-it"><a href="#testing-it" class="header-anchor">#</a> Testing it</h2> <p>This is the easy part. In order to test the system, all you need to do is open a standalone game and press page up, upon which the game will start recording. If you press page down it will put a Replay under Saved/Demos. Because I did not build a function to go back to the main menu just close and open the game (in standalone again!). From the MainMenu you should be able to see an entry in your Replay Browser. If you press Playback on an entry, the game will immediately start playing the replay back for you. Delete will delete it. If you start to rename it and switch to another widget or press Enter, the name will be saved.</p> <h2 id="adding-the-replayspectator-controller"><a href="#adding-the-replayspectator-controller" class="header-anchor">#</a> Adding the ReplaySpectator Controller</h2> <p>In order to manipulate our Replay during Playback, we will need to add a new PlayerController specifically for this task. Right click in the Content Browser and select &quot;New C++ class&quot;, scroll down to &quot;Player Controller&quot; and select it. Click on Next and give the new Player Controller a descriptive name like &quot;PC_ReplaySpectator&quot;. This will open up Visual Studio again.</p> <h3 id="pc-replayspectator-h"><a href="#pc-replayspectator-h" class="header-anchor">#</a> PC_ReplaySpectator.h</h3> <p>In our definitions file we need to set some default values in the constructor. We also need to provide two integers to store console variables, because the game will be a blurry mess when pausing it, due to how Motion Blur and Temporal Anti-Aliasing work. To prevent artifacts, we will switch off Motion Blur and change Anti-Aliasing during a Pause, only to switch it back afterwards. Additionally we will need some methods to interface between User-Input and the Replay Payback. To this end, add the following code to your definition file:</p> <p>public:
+/** we must set some Pause-Behavior values in the ctor */
+APC_ReplaySpectator(const FObjectInitializer&amp; ObjectInitializer);</p> <p>protected:</p> <div class="language- extra-class"><pre><code>/\*\* for saving Anti-Aliasing and Motion-Blur settings during Pause State \*/
+int32 PreviousAASetting;
+int32 PreviousMBSetting;
+</code></pre></div><p>public:</p> <div class="language- extra-class"><pre><code>/\*\* Set the Paused State of the Running Replay to bDoPause. Return new Pause State \*/
+UFUNCTION(BlueprintCallable, Category = &quot;CurrentReplay&quot;)
+	bool SetCurrentReplayPausedState(bool bDoPause);
+
+/\*\* Gets the Max Number of Seconds that were recorded in the current Replay \*/
+UFUNCTION(BlueprintCallable, Category = &quot;CurrentReplay&quot;)
+	int32 GetCurrentReplayTotalTimeInSeconds() const;
+
+/\*\* Gets the Second we are currently watching in the Replay \*/
+UFUNCTION(BlueprintCallable, Category = &quot;CurrentReplay&quot;)
+	int32 GetCurrentReplayCurrentTimeInSeconds() const;
+
+/\*\* Jumps to the specified Second in the Replay we are watching \*/
+UFUNCTION(BlueprintCallable, Category = &quot;CurrentReplay&quot;)
+	void SetCurrentReplayTimeToSeconds(int32 Seconds);
+
+/\*\* Changes the PlayRate of the Replay we are watching, enabling FastForward or SlowMotion \*/
+UFUNCTION(BlueprintCallable, Category = &quot;CurrentReplay&quot;)
+	void SetCurrentReplayPlayRate(float PlayRate = 1.f);
+</code></pre></div><h3 id="pc-replayspectator-cpp"><a href="#pc-replayspectator-cpp" class="header-anchor">#</a> PC_ReplaySpectator.cpp</h3> <p>Now, lets focus on the code file, beginning with the following include statement. The only thing that was added is the include to the DemoNetDriver (which is the &quot;Interface&quot; to our Playback)</p> <p>#include &quot;TP_StrategyWithSteam.h&quot;
+#include &quot;Engine/DemoNetDriver.h&quot;
+#include &quot;PC_ReplaySpectator.h&quot;</p> <p>In the constructor, we must make sure that the Player Controller keeps Tick-ing during a Game Pause. To do that, add the following Ctor:</p> <p>APC_ReplaySpectator::APC_ReplaySpectator(const FObjectInitializer&amp; ObjectInitializer) : Super(ObjectInitializer)
+{
+bShowMouseCursor = true;
+PrimaryActorTick.bTickEvenWhenPaused = true;
+bShouldPerformFullTickWhenPaused = true;
+}</p> <p>Now we will implement switching into and out of the Pause State. All you have to do to enable Pause is set the WorldSettings-&gt;Pauser PlayerState to our current one. In order to quit the Pause State we will then Nullify this Setting. Additionally you can see that we will store our AntiAliasing and MotionBlur Console Variables</p> <p>bool APC_ReplaySpectator::SetCurrentReplayPausedState(bool bDoPause)
+{
+AWorldSettings* WorldSettings = GetWorldSettings();</p> <div class="language- extra-class"><pre><code>// Set MotionBlur off and Anti Aliasing to FXAA in order to bypass the pause-bug of both
+static const auto CVarAA = IConsoleManager::Get().FindConsoleVariable(TEXT(&quot;r.DefaultFeature.AntiAliasing&quot;));
+
+static const auto CVarMB = IConsoleManager::Get().FindConsoleVariable(TEXT(&quot;r.DefaultFeature.MotionBlur&quot;));
+
+if (bDoPause)
+{
+	PreviousAASetting = CVarAA-&gt;GetInt();
+	PreviousMBSetting = CVarMB-&gt;GetInt();
+
+	// Set MotionBlur to OFF, Anti-Aliasing to FXAA
+	CVarAA-&gt;Set(1);
+	CVarMB-&gt;Set(0);
+
+	WorldSettings-&gt;Pauser = PlayerState;
+	return true;
+}
+// Rest MotionBlur and AA
+CVarAA-&gt;Set(PreviousAASetting);
+CVarMB-&gt;Set(PreviousMBSetting);
+
+WorldSettings-&gt;Pauser = NULL;
+return false;
+</code></pre></div><p>}</p> <p>Lastly, we will implement the &quot;Interface&quot; between User and DemoNetDriver. These functions simply forward requests that will be called from our UI to the DemoNetDriver. The actual work was already done In-Engine. After copying the following, hit compile and switch to the Unreal Editor:</p> <p>int32 APC_ReplaySpectator::GetCurrentReplayTotalTimeInSeconds() const
+{
+if (GetWorld())
+{
+if (GetWorld()-&gt;DemoNetDriver)
+{
+return GetWorld()-&gt;DemoNetDriver-&gt;DemoTotalTime;
+}
+}</p> <div class="language- extra-class"><pre><code>return 0.f;
+</code></pre></div><p>}</p> <p>int32 APC_ReplaySpectator::GetCurrentReplayCurrentTimeInSeconds() const
+{
+if (GetWorld())
+{
+if (GetWorld()-&gt;DemoNetDriver)
+{
+return GetWorld()-&gt;DemoNetDriver-&gt;DemoCurrentTime;
+}
+}</p> <div class="language- extra-class"><pre><code>return 0.f;
+</code></pre></div><p>}</p> <p>void APC_ReplaySpectator::SetCurrentReplayTimeToSeconds(int32 Seconds)
+{
+if (GetWorld())
+{
+if (GetWorld()-&gt;DemoNetDriver)
+{
+GetWorld()-&gt;DemoNetDriver-&gt;GotoTimeInSeconds(Seconds);
+}
+}
+}</p> <p>void APC_ReplaySpectator::SetCurrentReplayPlayRate(float PlayRate)
+{
+if (GetWorld())
+{
+if (GetWorld()-&gt;DemoNetDriver)
+{
+GetWorld()-&gt;GetWorldSettings()-&gt;DemoPlayTimeDilation = PlayRate;
+}
+}
+}</p> <h3 id="wid-replayspectator"><a href="#wid-replayspectator" class="header-anchor">#</a> WID_ReplaySpectator</h3> <p>Now we need to call the previously created functions from somewhere in the UI. To do that, simply create another widget called WID_ReplaySpectator or similar. To correctly use the functions you'll need two Text Fields to display Current and Max Game Time, a Slider to Change it (and display the Current Progress as a Fraction), a Pause-Button and a ComboBox to select the PlayRate. I've certainly set this up to be minimalistic but you will likely design it your own way anyways:</p> <p><a href="/index.php?title=File:ReplayTutorial_ReplaySpectatorWID.png"><img src="https://d3ar1piqh1oeli.cloudfront.net/b/bc/ReplayTutorial_ReplaySpectatorWID.png/940px-ReplayTutorial_ReplaySpectatorWID.png" alt=""></a></p> <p>Replay Spectator Widget Designer</p> <p>Now switch to the Event Graph and build the following Events/Functions. Starting from the Event Construct, you'll save a Reference to the Replay PC and obtain the total Game Time In Seconds as a new Integer Variable. Then, from Event Tick, obtain the Current Game Time In Seconds. To display them, switch to the Designer and click on the CurrentTime Text. In its properties press the DropDown labelled as &quot;Bind&quot; and create a new Binding. Rename it so that the functions called &quot;CurrentGameTimeToText&quot; and fill in the functionality like in the picture. Then, do the same for the TotalGameTime-Text field.</p> <p><a href="/index.php?title=File:ReplayTutorial_ReplaySpectatorGameTimes.png"><img src="https://d3ar1piqh1oeli.cloudfront.net/e/e9/ReplayTutorial_ReplaySpectatorGameTimes.png/940px-ReplayTutorial_ReplaySpectatorGameTimes.png" alt=""></a></p> <p>Replay Spectator Widget, Game Time Related Functions</p> <p>You might also want to display the current Progress as a fraction. To this end open the designer, select the Slider and under Value, create a new Binding. This will need two more variables that are created now, a Released At value as a float (we will change this later) and a Boolean to decide whether the user has picked up the Slider. Make sure that this bool is set to False as a Standard Value:</p> <p><a href="/index.php?title=File:ReplayTutorial_ReplaySpectatorSlider.png"><img src="https://d3ar1piqh1oeli.cloudfront.net/4/47/ReplayTutorial_ReplaySpectatorSlider.png/940px-ReplayTutorial_ReplaySpectatorSlider.png" alt=""></a></p> <p>Replay Spectator Widget, Slider Value Binding</p> <p>To enable and disable Pause, implement the Button Clicked Function and Bind the Text on this Button according to the following:</p> <p><a href="/index.php?title=File:ReplayTutorial_ReplaySpectatorPause.png"><img src="https://d3ar1piqh1oeli.cloudfront.net/1/13/ReplayTutorial_ReplaySpectatorPause.png/940px-ReplayTutorial_ReplaySpectatorPause.png" alt=""></a></p> <p>Replay Spectator Widget, Pause Manipulation Functions</p> <p>To manipulate the current Playback Rate, simply do the following:</p> <p><a href="/index.php?title=File:ReplayTutorial_ReplaySpectatorPlayRate.png"><img src="https://d26ilriwvtzlb.cloudfront.net/6/6b/ReplayTutorial_ReplaySpectatorPlayRate.png" alt=""></a></p> <p>Replay Spectator Widget, PlayRate Manipulation Event</p> <p>The last thing to do for this widget is to let the users directly manipulate the Slider we provided. We need three events that are linked to the Slider to do this, CaptureBegin, ValueChanged and CaptureEnd. When the Capture Begins, we'll set the PickedUp Boolean to true. On Value Changed, we will store the ReleaseAt Value and on CaptureEnd we will tell the PlayerController-&gt;DemoNetDriver and reset the Boolean.</p> <p><a href="/index.php?title=File:ReplayTutorial_ReplaySpectatorSlider2.png"><img src="https://d3ar1piqh1oeli.cloudfront.net/4/4a/ReplayTutorial_ReplaySpectatorSlider2.png/940px-ReplayTutorial_ReplaySpectatorSlider2.png" alt=""></a></p> <p>Replay Spectator Widget, Slider Manipulation</p> <h3 id="bp-pc-replayspectator"><a href="#bp-pc-replayspectator" class="header-anchor">#</a> BP_PC_ReplaySpectator</h3> <p>We are slowly coming to an end of this tutorial. What is still left missing has to do with our ReplaySpectator-Player Controller. You will need to create a child Blueprint of the C++ class that we created. Right click in the Content Browser and create a Blueprint Class. From here, search for PC_ReplaySpectator and select it as a parent. Call the new Blueprint &quot;BP_PC_ReplaySpectator&quot; or similar, then open it.</p> <p>From Event BeginPlay, drag out the Execution Pin and create a &quot;Create Widget&quot; node, with Class set to WID_ReplaySpectator and Owner to Self. Then drag out the Return Value and create a &quot;Add to Viewport&quot; node. Close the Blueprint.</p> <p>Navigate to the &quot;FirstPersonGameMode&quot; Blueprint from the First Person Example and open it. In here, set the Replay Spectator Player Controller class to the new BP_PC_ReplaySpectator.</p> <h2 id="conclusion-bugs"><a href="#conclusion-bugs" class="header-anchor">#</a> Conclusion, Bugs</h2> <p>I hope that this tutorial can be of any help to someone, especially since nothing comparable was in the wiki at this point. Of course the UI is very minimalistic, but this was a design choice for the tutorial, since the actual UI you'd use would depend on your own projects.</p> <p>You will notice that when you switch to a different time, the Cube Meshes and the Player are not initially in the correct position. This is especially apparent if you have your replay set to paused. I'm not quite sure why this happens, yet, but I will update the tutorial when I find it out.</p> <p><a href="/index.php?title=User:MrBurgerAt&amp;action=edit&amp;redlink=1" title="User:MrBurgerAt (page does not exist)">MrBurgerAt</a></p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Replay_System_Tutorial&amp;oldid=143" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Replay_System_Tutorial&amp;oldid=143<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/index.php?title=Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/index.php?title=Category:Tutorials&amp;action=edit&amp;redlink=1" title="Category:Tutorials (page does not exist)">Tutorials</a></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/955.6b407bda.js" defer></script>
+  </body>
+</html>

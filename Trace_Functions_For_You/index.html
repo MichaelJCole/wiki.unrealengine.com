@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1084.482f9beb.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Trace Functions - Epic Wiki</p> <h1 id="trace-functions"><a href="#trace-functions" class="header-anchor">#</a> Trace Functions</h1> <p>(Redirected from <a href="/index.php?title=Trace_Functions_For_You&amp;redirect=no" title="Trace Functions For You">Trace Functions For You</a>)</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Static">2 Static</a></li> <li><a href="#Overloads">3 Overloads</a></li> <li><a href="#Trace">4 Trace</a> <ul><li><a href="#Example_Usage">4.1 Example Usage</a></li></ul></li> <li><a href="#FHitResult_Now_Returns_Exact_Distance">5 FHitResult Now Returns Exact Distance</a> <ul><li><a href="#Example_Code">5.1 Example Code</a></li></ul></li> <li><a href="#Trace_With_Ignore_Actors_Array">6 Trace With Ignore Actors Array</a> <ul><li><a href="#Example_Usage_2">6.1 Example Usage</a></li></ul></li> <li><a href="#Trace_Component">7 Trace Component</a> <ul><li><a href="#Example_Usage_3">7.1 Example Usage</a></li></ul></li> <li><a href="#Why_Use_Trace_Component.3F">8 Why Use Trace Component?</a></li> <li><a href="#">9</a></li> <li><a href="#Video_of_Component_Level_Tracing">10 Video of Component Level Tracing</a></li> <li><a href="#_2">11</a></li> <li><a href="#Summary">12 Summary</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Author:</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>I wrote these functions for myself to simplify the process of doing Traces in UE4 C++.</p> <p>I hope you enjoy them!</p> <p>I also demonstrate the use of the Distance propery of FHitResult, which I submitted as a pull request that Epic accepted as of 4.9.0</p> <h2 id="static"><a href="#static" class="header-anchor">#</a> Static</h2> <p>If you are just starting out and want to test these functions you can remove the word static,</p> <p>and put these in the .h file of your choosing.</p> <p>I recommend that you make a Static Function Library for yourself though and put these functions there.</p> <p><strong><a href="/Static_Function_Libraries,_Your_Own_Version_of_UE4_C%2B%2B,_No_Engine_Compile_Times" title="Static Function Libraries, Your Own Version of UE4 C++, No Engine Compile Times">Static Function Library Tutorial</a></strong></p> <h2 id="overloads"><a href="#overloads" class="header-anchor">#</a> Overloads</h2> <p>Two of the functions below have the same name because one is an overload of the other.</p> <p>This means that the two functions differ only by parameters, and the compiler will choose which one you mean based on the parameters that you supply.</p> <h2 id="trace"><a href="#trace" class="header-anchor">#</a> Trace</h2> <p>static FORCEINLINE bool Trace(
+UWorld* World,
+AActor* ActorToIgnore,	
+const FVector&amp; Start,
+const FVector&amp; End,
+FHitResult&amp; HitOut,
+ECollisionChannel CollisionChannel = ECC_Pawn,
+bool ReturnPhysMat = false
+) {
+if(!World)
+{
+return false;
+}
+ 
+FCollisionQueryParams TraceParams(FName(TEXT(&quot;VictoreCore Trace&quot;)), true, ActorToIgnore);
+TraceParams.bTraceComplex = true;
+//TraceParams.bTraceAsyncScene = true;
+TraceParams.bReturnPhysicalMaterial = ReturnPhysMat;
+ 
+//Ignore Actors
+TraceParams.AddIgnoredActor(ActorToIgnore);
+ 
+//Re-initialize hit info
+HitOut = FHitResult(ForceInit);
+ 
+//Trace!
+World-&gt;LineTraceSingle(
+HitOut,		//result
+Start,	//start
+End , //end
+CollisionChannel, //collision channel
+TraceParams
+);
+ 
+//Hit any Actor?
+return (HitOut.GetActor() != NULL) ;
+}</p> <h3 id="example-usage"><a href="#example-usage" class="header-anchor">#</a> Example Usage</h3> <p>//In player controller class
+ 
+//location the PC is focused on
+const FVector Start = GetFocalLocation();
+ 
+//256 units in facing direction of PC (256 units in front of the camera)
+const FVector End = Start + GetControlRotation().Vector() * 256;
+ 
+//The trace data is stored here
+FHitResult HitData(ForceInit);
+ 
+//If Trace Hits anything
+if(  UMyStaticFunctionLibrary::Trace(GetWorld(),GetPawn(),Start,End,HitData)  )
+{
+//Print out the name of the traced actor
+if(HitData.GetActor())
+{
+ClientMessage(HitData.GetActor()-&gt;GetName());
+ 
+//Print out distance from start of trace to impact point
+ClientMessage(&quot;Trace Distance: &quot; + FString::SanitizeFloat(HitData.Distance));
+}
+}</p> <h2 id="fhitresult-now-returns-exact-distance"><a href="#fhitresult-now-returns-exact-distance" class="header-anchor">#</a> FHitResult Now Returns Exact Distance</h2> <p>I made a pull request that Epic has accepted as of 4.9.0 to add a Distance parameter to FHitResult that lets you know the distance from the start of the trace to the ImpactPoint!</p> <p>PhysX was always returning this information, I did not cause any extra performance impact by implementing this change to the Engine code.</p> <h3 id="example-code"><a href="#example-code" class="header-anchor">#</a> Example Code</h3> <p>//In player controller class
+ 
+//location the PC is focused on
+const FVector Start = GetFocalLocation();
+ 
+//2000 units in facing direction of PC (in front of the camera)
+const FVector End = Start + GetControlRotation().Vector() * 2000;
+ 
+//The trace data is stored here
+FHitResult HitData(ForceInit);
+ 
+//If Trace Hits anything (ignore the controlled pawn)
+if(  UMyStaticFunctionLibrary::Trace(GetWorld(),GetPawn(),Start,End,HitData) &amp;&amp; HitData.GetActor()  )
+{
+ClientMessage(HitData.GetActor()-&gt;GetName());
+ 
+//Print out the distance from the trace start to the impact point!
+ClientMessage(&quot;Distance from Trace Start to Impact: &quot; + FString::SanitizeFloat(HitData.Distance));
+}</p> <h2 id="trace-with-ignore-actors-array"><a href="#trace-with-ignore-actors-array" class="header-anchor">#</a> Trace With Ignore Actors Array</h2> <p>//Trace with an Array of Actors to Ignore
+//   Ignore as many actors as you want!
+static FORCEINLINE bool Trace(
+UWorld* World,
+TArray&lt;AActor*&gt;&amp; ActorsToIgnore,
+const FVector&amp; Start,
+const FVector&amp; End,
+FHitResult&amp; HitOut,
+ECollisionChannel CollisionChannel = ECC_Pawn,
+bool ReturnPhysMat = false
+) {
+if(!World)
+{
+return false;
+}
+ 
+FCollisionQueryParams TraceParams(FName(TEXT(&quot;VictoryCore Trace&quot;)), true, ActorsToIgnore[0]);
+TraceParams.bTraceComplex = true;
+ 
+//TraceParams.bTraceAsyncScene = true;
+TraceParams.bReturnPhysicalMaterial = ReturnPhysMat;
+ 
+//Ignore Actors
+TraceParams.AddIgnoredActors(ActorsToIgnore);
+ 
+//Re-initialize hit info
+HitOut = FHitResult(ForceInit);
+ 
+World-&gt;LineTraceSingle(
+HitOut,		//result
+Start,	//start
+End , //end
+CollisionChannel, //collision channel
+TraceParams
+);
+ 
+return (HitOut.GetActor() != NULL) ;
+}</p> <h3 id="example-usage-2"><a href="#example-usage-2" class="header-anchor">#</a> Example Usage</h3> <p>//In player controller class
+ 
+//location the PC is focused on
+const FVector Start = GetFocalLocation();
+ 
+//256 units in facing direction of PC (256 units in front of the camera)
+const FVector End = Start + GetControlRotation().Vector() * 256;
+ 
+//The trace data is stored here
+FHitResult HitData(ForceInit);
+ 
+//Actors to Ignore
+//  Ignore all AFlowers
+TArray&lt;AActor*&gt; ActorsToIgnore;
+for(TObjectIterator&lt;AFlower&gt; It; It; ++It)
+{
+ActorsToIgnore.Add(*It);
+}
+ 
+//Ignore the player character too!
+ActorsToIgnore.Add(GetPawn());
+ 
+//If Trace Hits anything
+if(  UMyStaticFunctionLibrary::Trace(GetWorld(),GetPawn(),Start,End,ActorsToIgnore)  )
+{
+//Print out the name of the traced actor
+if(HitData.GetActor())
+{
+ClientMessage(HitData.GetActor()-&gt;GetName());
+ 
+//Print out distance from start of trace to impact point
+ClientMessage(&quot;Trace Distance: &quot; + FString::SanitizeFloat(HitData.Distance));
+}
+}</p> <h2 id="trace-component"><a href="#trace-component" class="header-anchor">#</a> Trace Component</h2> <p>//Component-level trace, do a trace against just 1 component
+static FORCEINLINE bool TraceComponent(
+UPrimitiveComponent* TheComp,
+const FVector&amp; Start,
+const FVector&amp; End,
+FHitResult&amp; HitOut
+) {
+if(!TheComp) return false;
+if(!TheComp-&gt;IsValidLowLevel()) return false;
+//~~~~~~~~~~~~~~~~~~~~~
+ 
+FCollisionQueryParams TraceParams(FName(TEXT(&quot;VictoreCore Comp Trace&quot;)), true, NULL);
+TraceParams.bTraceComplex = true;
+//TraceParams.bTraceAsyncScene = true;
+TraceParams.bReturnPhysicalMaterial = false;
+ 
+//Ignore Actors
+//TraceParams.AddIgnoredActors(ActorsToIgnore);
+ 
+//Re-initialize hit info
+HitOut = FHitResult(ForceInit);
+ 
+return TheComp-&gt;LineTraceComponent(
+HitOut,
+Start,
+End,
+TraceParams
+);
+}</p> <h3 id="example-usage-3"><a href="#example-usage-3" class="header-anchor">#</a> Example Usage</h3> <p>//In player controller class
+ 
+ACharacter* CharacterToTrace = //set to some character
+ 
+if(!CharacterToTrace) return;
+if(!CharacterToTrace-&gt;IsValidLowLevel()) return;
+//~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//location the PC is focused on
+const FVector Start = GetFocalLocation();
+ 
+//256 units in facing direction of PC (256 units in front of the camera)
+const FVector End = Start + GetControlRotation().Vector() * 256;
+ 
+//The trace data is stored here
+FHitResult HitData(ForceInit);
+ 
+//If Trace Hits any part of the Mesh of the Character To Trace
+if(  UMyStaticFunctionLibrary::Trace(CharacterToTrace-&gt;GetMesh(),Start,End,HitData)  )
+{
+//Print out the location of the impact on the Character's Mesh
+ClientMessage(HitData.ImpactPoint.ToString());
+ 
+//Print out distance from start of trace to impact point
+ClientMessage(&quot;Trace Distance: &quot; + FString::SanitizeFloat(HitData.Distance));
+}</p> <h2 id="why-use-trace-component"><a href="#why-use-trace-component" class="header-anchor">#</a> Why Use Trace Component?</h2> <p>Regular traces, like the first two, will hit collision capsules, which is not very precise if you are doing sword collision or per-bone accurate hits of any kind.</p> <p>Once you've identified the actor that has been hit with a regular trace,
+you can use a TraceComponent on the hit Character's Mesh to get bone-level accurate traces!</p> <h2 id="video-of-component-level-tracing"><a href="#video-of-component-level-tracing" class="header-anchor">#</a> Video of Component Level Tracing</h2> <p>I used component traces in my <strong><a href="/Victory_Game#Per-Bone_Sword_Collision" title="Victory Game">Per-Bone Accurate Sword Collision System!</a></strong></p> <h2 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h2> <p>I hope you enjoy using my Trace functions, and have enjoyed my examples!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Trace_Functions&amp;oldid=15320" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Trace_Functions&amp;oldid=15320<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1084.482f9beb.js" defer></script>
+  </body>
+</html>

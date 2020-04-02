@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1144.5a268f66.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Unions, Different Data Types, Same Memory - Epic Wiki</p> <h1 id="unions-different-data-types-same-memory"><a href="#unions-different-data-types-same-memory" class="header-anchor">#</a> Unions, Different Data Types, Same Memory</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a> <ul><li><a href="#My_Example">1.1 My Example</a></li></ul></li> <li><a href="#Syntax">2 Syntax</a></li> <li><a href="#My_Example:_Converting_to_Float_From_Binary">3 My Example: Converting to Float From Binary</a></li> <li><a href="#Conclusion">4 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Author:</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>Unions enable you to have a shape-shifting data type 😃</p> <p>The same memory space can be used to store different variable types, but only 1 of the data types is ever active at any one time.</p> <p>The amount of memory set aside for the union is the amount needed for the largest data type.</p> <p>Search the code base for example uses of unions!</p> <p>For lots of info on unions, google <strong>&quot;unions c++&quot;</strong>, or check out <a href="http://msdn.microsoft.com/en-us/library/5dxy4b7b.aspx" target="_blank" rel="noopener noreferrer">MSDN: Unions<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h3 id="my-example"><a href="#my-example" class="header-anchor">#</a> My Example</h3> <p>In my example below, I am extracting binary data from a binary array, and storing it into the union space of a float/long union.</p> <p>Then once the data is transferred to the union, as a long, then I am switching it to its float value to get the float data!</p> <p><strong>The result:</strong></p> <p>Converting binary data to a float variable type using a union 😃</p> <p>My example covers Platform Endian-ness</p> <h2 id="syntax"><a href="#syntax" class="header-anchor">#</a> Syntax</h2> <p>typedef union floatdata {
+float AsFloat;
+unsigned long byteData;
+} FloatUnionData;
+ 
+UCLASS()
+class AVictoryPC : public APlayerController
+{
+GENERATED_UCLASS_BODY()
+ 
+float BinaryToFloat( const TArray&lt;uint8&gt; BinaryData, const int64 BinaryStart) const
+ 
+//FloatUnionData FloatUnion;
+//Could be declared Globally here
+};</p> <h2 id="my-example-converting-to-float-from-binary"><a href="#my-example-converting-to-float-from-binary" class="header-anchor">#</a> My Example: Converting to Float From Binary</h2> <p>float AVictoryPC::BinaryToFloat( const TArray&lt;uint8&gt; BinaryData, const int64 BinaryStart) const
+{
+ 
+//***************************************************************
+//Set end based on BinaryStart and fact that we're making a float
+const int64 BinaryEnd = BinaryStart + sizeof(	float	);
+//***************************************************************
+ 
+ 
+//check valid range for BinaryStart, BinaryEnd
+if (! BinaryData.IsValidIndex(BinaryStart) || ! BinaryData.IsValidIndex(BinaryEnd-1))
+{
+return -1;
+}
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//The float union!
+FloatUnionData FloatUnion;
+FloatUnion.AsFloat = 0;
+ 
+if (PLATFORM_LITTLE_ENDIAN)
+{
+//the float union's long version
+FloatUnion.byteData = (BinaryData[ BinaryStart + 3 ] &lt;&lt; 24) | (BinaryData[ BinaryStart + 2 ] &lt;&lt; 16) | (BinaryData[ BinaryStart + 1 ]  &lt;&lt; 8) | BinaryData[ BinaryStart  ] ;
+}
+else
+{
+//the float union's long version
+FloatUnion.byteData = (BinaryData[ BinaryStart ] &lt;&lt; 24) | (BinaryData[ BinaryStart + 1 ] &lt;&lt; 16) | (BinaryData[ BinaryStart + 2 ]  &lt;&lt; 8) | BinaryData[ BinaryStart + 3 ] ;
+}
+ 
+//switch and get float value from union
+//	thus we return the float that was reconstructed from binary
+return FloatUnion.AsFloat;
+}</p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>This is a fully functional example of where using a union comes in handy!</p> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Unions,_Different_Data_Types,_Same_Memory&amp;oldid=4521" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Unions,_Different_Data_Types,_Same_Memory&amp;oldid=4521<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1144.5a268f66.js" defer></script>
+  </body>
+</html>

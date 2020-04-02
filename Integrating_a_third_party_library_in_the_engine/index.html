@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/602.3f5d39f1.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Integrating a third party library in the engine - Epic Wiki</p> <h1 id="integrating-a-third-party-library-in-the-engine"><a href="#integrating-a-third-party-library-in-the-engine" class="header-anchor">#</a> Integrating a third party library in the engine</h1> <p>From Epic Wiki</p> <p>Jump to: <a href="#mw-navigation">navigation</a>, <a href="#p-search">search</a></p> <p>This page results from my experience integrating Coherent UI directly into the Engine, rather than in a Game project. The knowledge was mostly gathered by obversing other modules, and whomever knows better should update this wiki to promote the best practices.</p> <p>Let's call the dependency &quot;CoherentUI&quot;.</p> <p>First, you will be adding 2 directories for the dependency:</p> <ol><li>One in Engine/Binaries/ThirdParty/CoherentUI. It will contain <strong>dynamic</strong> libraries into subdirectories for each platform (e.g. &quot;Mac&quot;, &quot;Win64/VS2013&quot;, etc.)</li> <li>One in Engine/Source/ThirdParty/CoherentUI. This will contain the rest of the files from the library, or at least the includes and static or import libraries.</li></ol> <p>You should add the Binaries one to your gitignore as checking in binary files in Git is recipe for trouble in the long term. Do the same for the second directory, except for a file you'll create called &quot;CoherentUI.Build.cs&quot;. We'll cover it soon. I suggest managing the content of these 2 folders with a zip file as is done with the &quot;Required&quot; and &quot;Optional&quot; archives when using the Git distribution method for Unreal Engine.</p> <p>In CoherentUI.Build.c, add this:</p> <p>using UnrealBuildTool;</p> <p>public class CoherentUI : ModuleRules
+{
+public CoherentUI(TargetInfo Target)
+{
+Type = ModuleType.External;</p> <div class="language- extra-class"><pre><code>    string CoherentUIPath = UEBuildConfiguration.UEThirdPartyDirectory + &quot;CoherentUI/&quot;;
+
+    string CoherentUIIncludePath = CoherentUIPath + &quot;include/&quot;;
+    PublicSystemIncludePaths.Add(CoherentUIIncludePath); // PublicSystemIncludePaths is for &quot;stable&quot; headers that don't change
+
+    string CoherentUILibPath = CoherentUIPath + &quot;lib/&quot;;
+    if (Target.Platform == UnrealTargetPlatform.Win64)
+    {
+        CoherentUILibPath += &quot;Win64/VS&quot; + WindowsPlatform.GetVisualStudioCompilerVersionName();
+        PublicLibraryPaths.Add(CoherentUILibPath);
+
+        PublicAdditionalLibraries.Add(&quot;CoherentUI64.lib&quot;);
+
+        PublicDelayLoadDLLs.Add(&quot;CoherentUI64.dll&quot;);
+    }
+    else if (Target.Platform == UnrealTargetPlatform.Win32)
+    {
+        CoherentUILibPath += &quot;Win32/VS&quot; + WindowsPlatform.GetVisualStudioCompilerVersionName();
+        PublicLibraryPaths.Add(CoherentUILibPath);
+
+        PublicAdditionalLibraries.Add(&quot;CoherentUI.lib&quot;);
+
+        PublicDelayLoadDLLs.Add(&quot;CoherentUI.dll&quot;);
+    }
+}
+</code></pre></div><p>}</p> <p>To be continued tomorrow...</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Integrating_a_third_party_library_in_the_engine&amp;oldid=2286" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Integrating_a_third_party_library_in_the_engine&amp;oldid=2286<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/602.3f5d39f1.js" defer></script>
+  </body>
+</html>

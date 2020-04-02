@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/571.c71b673f.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>How To Modify Blueprint Variable References In C++ Without Copying - Epic Wiki</p> <h1 id="how-to-modify-blueprint-variable-references-in-c-without-copying"><a href="#how-to-modify-blueprint-variable-references-in-c-without-copying" class="header-anchor">#</a> How To Modify Blueprint Variable References In C++ Without Copying</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Non-Const_Input_Variable_by_Reference.3F">2 Non-Const Input Variable by Reference?</a></li> <li><a href="#Example_1:_Increment_Integer_by_Reference">3 Example 1: Increment Integer by Reference</a></li> <li><a href="#Example_2:_Sort_Integer_Array_by_Reference">4 Example 2: Sort Integer Array by Reference</a></li> <li><a href="#Example_3:_Sort_Float_Array_by_Reference">5 Example 3: Sort Float Array by Reference</a></li> <li><a href="#Efficiency_And_Stability">6 Efficiency And Stability</a></li> <li><a href="#Conclusion">7 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><strong>Author</strong> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>As you know, if you pass an BP array or other variable reference to C++ by reference, you have to make it const or the variable will appear as an output, not an input!</p> <p>ex:</p> <p>//This parameter will show as an out parameter because it is a non-const reference
+UFUNCTION(BlueprintPure, Category = &quot;VictoryBPLibrary|Transform&quot;)
+FRotator TransformVectorToActorSpaceAngle(AActor* Actor, FVector&amp; ShouldBeInVector);</p> <p>//In this case InVector will indeed show up as an input parameter because it is const
+UFUNCTION(BlueprintPure, Category = &quot;VictoryBPLibrary|Transform&quot;)
+FRotator TransformVectorToActorSpaceAngle(AActor* Actor, const FVector&amp; InVector);</p> <h2 id="non-const-input-variable-by-reference"><a href="#non-const-input-variable-by-reference" class="header-anchor">#</a> Non-Const Input Variable by Reference?</h2> <p>Well what if you want to modify the BP array in C++ and send it back to Blueprints, as is ideal since C++ can do calculations faster than BP?</p> <p>Your team gives you a BP array and wants you to sort it, or modify it, and you should be able to do so without creating a copy of the data just to send it back to blueprints!</p> <p>Well UPARAM(ref) is the solution!</p> <p>I have 3 real-life examples for you!</p> <h2 id="example-1-increment-integer-by-reference"><a href="#example-1-increment-integer-by-reference" class="header-anchor">#</a> Example 1: Increment Integer by Reference</h2> <p>/** Easily increment an integer! */
+UFUNCTION(BlueprintCallable, meta = (CompactNodeTitle = &quot;++&quot;,Keywords = &quot;increment integer&quot;), Category = &quot;VictoryBPLibrary|Math|Integer&quot;)
+static void VictoryIntIncrement(UPARAM(ref) int32&amp; Int, int32&amp; IntOut);
+ 
+//~~~
+ 
+void UVictoryBPFunctionLibrary::VictoryIntIncrement(UPARAM(ref) int32&amp; Int, int32&amp; IntOut)
+{<br>
+Int++;
+IntOut = Int;
+}</p> <h2 id="example-2-sort-integer-array-by-reference"><a href="#example-2-sort-integer-array-by-reference" class="header-anchor">#</a> Example 2: Sort Integer Array by Reference</h2> <p>/** Sort an integer array, smallest value will be at index 0 after sorting. Modifies the input array, no new data created. ❤️ Rama */
+UFUNCTION(BlueprintCallable, meta = (Keywords = &quot;sort integer array&quot;), Category = &quot;VictoryBPLibrary|Array&quot;)
+static void VictorySortIntArray(UPARAM(ref) TArray&lt;int32&gt;&amp; IntArray, TArray&lt;int32&gt;&amp; IntArrayRef);
+ 
+//~~~
+ 
+void UVictoryBPFunctionLibrary::VictorySortIntArray(UPARAM(ref) TArray&lt;int32&gt;&amp; IntArray, TArray&lt;int32&gt;&amp; IntArrayRef)
+{
+IntArray.Sort();
+IntArrayRef = IntArray;
+}</p> <h2 id="example-3-sort-float-array-by-reference"><a href="#example-3-sort-float-array-by-reference" class="header-anchor">#</a> Example 3: Sort Float Array by Reference</h2> <p>/** Sort a float array, smallest value will be at index 0 after sorting. Modifies the input array, no new data created. */
+UFUNCTION(BlueprintCallable, meta = (Keywords = &quot;sort float array&quot;), Category = &quot;VictoryBPLibrary|Array&quot;)
+static void VictorySortFloatArray(UPARAM(ref) TArray&lt;float&gt;&amp; FloatArray, TArray&lt;float&gt;&amp; FloatArrayRef);
+ 
+//~~~
+ 
+void UVictoryBPFunctionLibrary::VictorySortFloatArray(UPARAM(ref) TArray&lt;float&gt;&amp; FloatArray, TArray&lt;float&gt;&amp; FloatArrayRef)
+{
+FloatArray.Sort();
+FloatArrayRef = FloatArray;
+}</p> <h2 id="efficiency-and-stability"><a href="#efficiency-and-stability" class="header-anchor">#</a> Efficiency And Stability</h2> <p>Because the variables are references rather than hard data, these operations are very efficient, because no new data is being created!</p> <p>The array data is never duplicated, only sorted and a reference to the array passed back out to BP!</p> <p>Yay!</p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>Now you know how you can perform high-speed calculations on BP variables in C++ and then send the results back to BP in the most efficient and stable way possible: by reference!</p> <p>Enjoy!</p> <p>Rama</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=How_To_Modify_Blueprint_Variable_References_In_C%2B%2B_Without_Copying&amp;oldid=15963" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=How_To_Modify_Blueprint_Variable_References_In_C%2B%2B_Without_Copying&amp;oldid=15963<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/571.c71b673f.js" defer></script>
+  </body>
+</html>

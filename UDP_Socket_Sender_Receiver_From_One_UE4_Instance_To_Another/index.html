@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1091.dc070ad9.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>UDP Socket Sender Receiver From One UE4 Instance To Another - Epic Wiki</p> <h1 id="udp-socket-sender-receiver-from-one-ue4-instance-to-another"><a href="#udp-socket-sender-receiver-from-one-ue4-instance-to-another" class="header-anchor">#</a> UDP Socket Sender Receiver From One UE4 Instance To Another</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a> <ul><li><a href="#Setup">1.1 Setup</a></li> <li><a href="#Build_CS">1.2 Build CS</a></li></ul></li> <li><a href="#Custom_Data">2 Custom Data</a></li> <li><a href="#Sender">3 Sender</a> <ul><li><a href="#.h">3.1 .h</a></li> <li><a href="#.cpp">3.2 .cpp</a></li></ul></li> <li><a href="#Receiver">4 Receiver</a> <ul><li><a href="#.h_2">4.1 .h</a></li> <li><a href="#.cpp_2">4.2 .cpp</a></li></ul></li> <li><a href="#TCP">5 TCP</a></li> <li><a href="#Conclusion">6 Conclusion</a></li> <li><a href="#Post_4.12">7 Post 4.12</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><strong>Author:</strong> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>) <a href="http://www.ue4code.com" target="_blank" rel="noopener noreferrer">www.ue4code.com<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>In this tutorial I give you the core code for how you can send any custom data structure you want, BP-exposed, from one instance of UE4 to another!</p> <p>The implications are vast, the use cases are nearly infinite!</p> <p>You can send any data you want from any 1 UE4 instance to any other!</p> <p><a href="/File:UDPVictory.jpg" title="px=900"><img src="https://d26ilriwvtzlb.cloudfront.net/7/78/UDPVictory.jpg" alt="px=900"></a> <a href="/File:UDPGraph.jpg" title="px=900"><img src="https://d26ilriwvtzlb.cloudfront.net/a/a2/UDPGraph.jpg" alt="px=900"></a></p> <h3 id="setup"><a href="#setup" class="header-anchor">#</a> Setup</h3> <p>Below are two actor classes, you should spawn 1 in your sending instance of UE4 and 1 in your receiving instance of UE4, of the respective types.</p> <p>The reason they are actors is to allow them to be easily blueprintable and have async BP event responses via BlueprintImplementable event.</p> <p>I used this ip,port</p> <p>IP = 127.0.0.1</p> <p>Port = 8890</p> <p>The IP is passed in an FString</p> <h3 id="build-cs"><a href="#build-cs" class="header-anchor">#</a> Build CS</h3> <p>Make sure to include the extra dependencies!</p> <p>PublicDependencyModuleNames.AddRange(new string[] {
+&quot;Core&quot;, &quot;CoreUObject&quot;, &quot;Engine&quot;, &quot;InputCore&quot;,
+ 
+&quot;Sockets&quot;, &quot;Networking&quot;   //&lt;~~~~~
+});</p> <h2 id="custom-data"><a href="#custom-data" class="header-anchor">#</a> Custom Data</h2> <p>The core of my method is that your data structure must have its own serialization function defined, here is the code for a BP exposed serializable data structure in UE4.</p> <p>#pragma once
+ 
+#include &quot;AnyCustomData.generated.h&quot;
+ 
+USTRUCT(BlueprintType)
+struct FAnyCustomData
+{
+GENERATED_USTRUCT_BODY()
+ 
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=&quot;Joy Color&quot;)
+FString Name = &quot;Victory!&quot;;
+ 
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=&quot;Joy Color&quot;)
+int32 Count = 1;
+ 
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=&quot;Joy Color&quot;)
+float Scale = 1.f;
+ 
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=&quot;Joy Color&quot;)
+FLinearColor Color = FLinearColor::Red;
+ 
+FAnyCustomData()
+{}
+};
+ 
+FORCEINLINE FArchive&amp; operator&lt;&lt;(FArchive &amp;Ar, FAnyCustomData&amp; TheStruct )
+{
+Ar &lt;&lt; TheStruct.Name;
+Ar &lt;&lt; TheStruct.Count;
+Ar &lt;&lt; TheStruct.Scale;
+Ar &lt;&lt; TheStruct.Color;
+ 
+return Ar;
+}</p> <p>As you can see am using a C++ operator overload of operator&lt;&lt; to tell UE4's FArchive how to serialize my data structure.</p> <p>Because the data types are simple I can rely on UE4's existing serialization overloads for each simple data type.</p> <h2 id="sender"><a href="#sender" class="header-anchor">#</a> Sender</h2> <h3 id="h"><a href="#h" class="header-anchor">#</a> .h</h3> <p>/*
+ 
+By Rama
+ 
+*/
+#pragma once
+ 
+//Networking
+#include &quot;Networking.h&quot;
+ 
+//Base
+#include &quot;RamaUDPSender.generated.h&quot;
+ 
+UCLASS()
+class ARamaUDPSender : public AActor
+{
+GENERATED_UCLASS_BODY()
+ 
+bool IsUDP;
+ 
+//UFUNCTION(BlueprintCallable, Category=RamaUDPSender)
+bool RamaUDPSender_SendString(FString ToSend);
+ 
+public:
+TSharedPtr&lt;FInternetAddr&gt;	RemoteAddr;
+FSocket* SenderSocket;
+ 
+bool StartUDPSender(
+const FString&amp; YourChosenSocketName,
+const FString&amp; TheIP,
+const int32 ThePort,
+bool UDP = false
+);
+ 
+public:
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=&quot;Rama UDP Sender&quot;)
+bool ShowOnScreenDebugMessages;
+ 
+ 
+//ScreenMsg
+FORCEINLINE void ScreenMsg(const FString&amp; Msg)
+{
+if(!ShowOnScreenDebugMessages) return;
+GEngine-&gt;AddOnScreenDebugMessage(-1, 5.f, FColor::Red, *Msg);
+}
+FORCEINLINE void ScreenMsg(const FString&amp; Msg, const float Value)
+{
+if(!ShowOnScreenDebugMessages) return;
+GEngine-&gt;AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT(&quot;%s %f&quot;), *Msg, Value));
+}
+FORCEINLINE void ScreenMsg(const FString&amp; Msg, const FString&amp; Msg2)
+{
+if(!ShowOnScreenDebugMessages) return;
+GEngine-&gt;AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT(&quot;%s %s&quot;), *Msg, *Msg2));
+}
+ 
+ 
+public:
+ 
+/** Called whenever this actor is being removed from a level */
+virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+};</p> <h3 id="cpp"><a href="#cpp" class="header-anchor">#</a> .cpp</h3> <p>/*
+ 
+RamaUDPSender
+ 
+by Rama
+*/
+#include &quot;UDPSendReceive.h&quot;
+#include &quot;RamaUDPSender.h&quot;
+ 
+ARamaUDPSender::ARamaUDPSender(const FObjectInitializer&amp; ObjectInitializer)
+: Super(ObjectInitializer)
+{	
+SenderSocket = NULL;
+ 
+ShowOnScreenDebugMessages = true;
+}
+ 
+void ARamaUDPSender::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+Super::EndPlay(EndPlayReason);
+//~~~~~~~~~~~~~~~~
+ 
+if(SenderSocket)
+{
+SenderSocket-&gt;Close();
+ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)-&gt;DestroySocket(SenderSocket);
+}
+}
+ 
+bool ARamaUDPSender::StartUDPSender(
+const FString&amp; YourChosenSocketName,
+const FString&amp; TheIP,
+const int32 ThePort
+){	
+//Create Remote Address.
+RemoteAddr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)-&gt;CreateInternetAddr();
+ 
+bool bIsValid;
+RemoteAddr-&gt;SetIp(*TheIP, bIsValid);
+RemoteAddr-&gt;SetPort(ThePort);
+ 
+if(!bIsValid)
+{
+ScreenMsg(&quot;Rama UDP Sender&gt;&gt; IP address was not valid!&quot;, TheIP);
+return false;
+}
+ 
+SenderSocket = FUdpSocketBuilder(*YourChosenSocketName)
+.AsReusable()
+.WithBroadcast()
+;
+ 
+ 
+//check(SenderSocket-&gt;GetSocketType() == SOCKTYPE_Datagram);
+ 
+//Set Send Buffer Size
+int32 SendSize = 2*1024*1024;
+SenderSocket-&gt;SetSendBufferSize(SendSize,SendSize);
+SenderSocket-&gt;SetReceiveBufferSize(SendSize, SendSize);
+ 
+UE_LOG(LogTemp,Log,TEXT(&quot;\n\n\n~<s><s><s><s><s><s><s><s><s><s><s><s><s><s>&quot;));
+UE_LOG(LogTemp,Log,TEXT(&quot;Rama ****UDP**** Sender Initialized Successfully!!!&quot;));
+UE_LOG(LogTemp,Log,TEXT(&quot;</s></s></s></s></s></s></s></s></s></s></s></s></s></s>~\n\n\n&quot;));
+ 
+return true;
+}
+ 
+bool ARamaUDPSender::RamaUDPSender_SendString(FString ToSend)
+{
+if(!SenderSocket)
+{
+ScreenMsg(&quot;No sender socket&quot;);
+return false;
+}
+//~~~~~~~~~~~~~~~~
+ 
+int32 BytesSent = 0;
+ 
+FAnyCustomData NewData;
+NewData.Scale = FMath::FRandRange(0,1000);
+NewData.Count = FMath::RandRange(0,100);
+NewData.Color = FLinearColor(FMath::FRandRange(0,1),FMath::FRandRange(0,1),FMath::FRandRange(0,1),1);
+ 
+FArrayWriter Writer;
+ 
+Writer &lt;&lt; NewData; //Serializing our custom data, thank you UE4!
+ 
+SenderSocket-&gt;SendTo(Writer.GetData(),Writer.Num(),BytesSent,*RemoteAddr);
+ 
+if(BytesSent &lt;= 0)
+{
+const FString Str = &quot;Socket is valid but the receiver received 0 bytes, make sure it is listening properly!&quot;;
+UE_LOG(LogTemp,Error,TEXT(&quot;%s&quot;),*Str);
+ScreenMsg(Str);
+return false;
+}
+ 
+ScreenMsg(&quot;UDP~ Send Succcess! Bytes Sent = &quot;,BytesSent );
+ 
+return true;
+}</p> <p>The core here is:</p> <p>FArrayWriter Writer;
+ 
+Writer &lt;&lt; NewData; //Serializing our custom data, thank you UE4!
+ 
+SenderSocket-&gt;SendTo(Writer.GetData(),Writer.Num(),BytesSent,*RemoteAddr);</p> <p>I am using UE4's ArrayWriter to do the serializtion and then send this serialized data over the network.</p> <h2 id="receiver"><a href="#receiver" class="header-anchor">#</a> Receiver</h2> <h3 id="h-2"><a href="#h-2" class="header-anchor">#</a> .h</h3> <p>/*
+ 
+By Rama
+ 
+*/
+#pragma once
+ 
+//Networking
+#include &quot;Networking.h&quot;
+ 
+//Base
+#include &quot;RamaUDPReceiver.generated.h&quot;
+ 
+UCLASS()
+class ARamaUDPReceiver : public AActor
+{
+GENERATED_UCLASS_BODY()
+ 
+//====================================================
+//		Data Received Events!
+public:
+/** Data has been received!! */
+UFUNCTION(BlueprintImplementableEvent)
+void BPEvent_DataReceived(const FAnyCustomData&amp; ReceivedData );
+ 
+//====================================================
+ 
+public:
+FSocket* ListenSocket;
+ 
+FUdpSocketReceiver* UDPReceiver = nullptr;
+void Recv(const FArrayReaderPtr&amp; ArrayReaderPtr, const FIPv4Endpoint&amp; EndPt);
+ 
+bool StartUDPReceiver(
+const FString&amp; YourChosenSocketName,
+const FString&amp; TheIP,
+const int32 ThePort
+);
+ 
+//ScreenMsg
+FORCEINLINE void ScreenMsg(const FString&amp; Msg)
+{
+GEngine-&gt;AddOnScreenDebugMessage(-1, 5.f, FColor::Red, *Msg);
+}
+FORCEINLINE void ScreenMsg(const FString&amp; Msg, const float Value)
+{
+GEngine-&gt;AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT(&quot;%s %f&quot;), *Msg, Value));
+}
+FORCEINLINE void ScreenMsg(const FString&amp; Msg, const FString&amp; Msg2)
+{
+GEngine-&gt;AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT(&quot;%s %s&quot;), *Msg, *Msg2));
+}
+ 
+ 
+public:
+ 
+/** Called whenever this actor is being removed from a level */
+virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+};</p> <h3 id="cpp-2"><a href="#cpp-2" class="header-anchor">#</a> .cpp</h3> <p>/*
+ 
+RamaUDPReceiver
+ 
+by Rama
+*/
+#include &quot;UDPSendReceive.h&quot;
+#include &quot;RamaUDPReceiver.h&quot;
+ 
+ARamaUDPReceiver::ARamaUDPReceiver(const FObjectInitializer&amp; ObjectInitializer)
+: Super(ObjectInitializer)
+{	
+ListenSocket = NULL;
+}
+ 
+void ARamaUDPReceiver::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+Super::EndPlay(EndPlayReason);
+//~~~~~~~~~~~~~~~~
+ 
+delete UDPReceiver;
+UDPReceiver = nullptr;
+ 
+//Clear all sockets!
+//		makes sure repeat plays in Editor dont hold on to old sockets!
+if(ListenSocket)
+{
+ListenSocket-&gt;Close();
+ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)-&gt;DestroySocket(ListenSocket);
+}
+}
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//Rama's Start TCP Receiver
+bool ARamaUDPReceiver::StartUDPReceiver(
+const FString&amp; YourChosenSocketName,
+const FString&amp; TheIP,
+const int32 ThePort
+){
+ 
+ScreenMsg(&quot;RECEIVER INIT&quot;);
+ 
+//~~~
+ 
+FIPv4Address Addr;
+FIPv4Address::Parse(TheIP, Addr);
+ 
+//Create Socket
+FIPv4Endpoint Endpoint(Addr, ThePort);
+ 
+//BUFFER SIZE
+int32 BufferSize = 2*1024*1024;
+ 
+ListenSocket = FUdpSocketBuilder(*YourChosenSocketName)
+.AsNonBlocking()
+.AsReusable()
+.BoundToEndpoint(Endpoint)
+.WithReceiveBufferSize(BufferSize);
+;
+ 
+FTimespan ThreadWaitTime = FTimespan::FromMilliseconds(100);
+UDPReceiver = new FUdpSocketReceiver(ListenSocket, ThreadWaitTime, TEXT(&quot;UDP RECEIVER&quot;));
+UDPReceiver-&gt;OnDataReceived().BindUObject(this, &amp;ARamaUDPReceiver::Recv);
+ 
+return true;
+}
+ 
+void ARamaUDPReceiver::Recv(const FArrayReaderPtr&amp; ArrayReaderPtr, const FIPv4Endpoint&amp; EndPt)
+{
+ScreenMsg(&quot;Received bytes&quot;, ArrayReaderPtr-&gt;Num() );
+ 
+FAnyCustomData Data;
+*ArrayReaderPtr &lt;&lt; Data;		//Now de-serializing! See AnyCustomData.h
+ 
+//BP Event
+BPEvent_DataReceived(Data);
+}</p> <p>The core here is the binding of the receiver thread delegate:</p> <p>UDPReceiver-&gt;OnDataReceived().BindUObject(this, &amp;ARamaUDPReceiver::Recv);</p> <p>and then deserializing inside this delegate binded function:</p> <p>FAnyCustomData Data;
+*ArrayReaderPtr &lt;&lt; Data;		//Now de-serializing! See AnyCustomData.h
+ 
+//BP Event
+BPEvent_DataReceived(Data);</p> <h2 id="tcp"><a href="#tcp" class="header-anchor">#</a> TCP</h2> <p>I have a wiki on communicating via TCP here! <a href="/TCP_Socket_Listener,_Receive_Binary_Data_From_an_IP/Port_Into_UE4,_(Full_Code_Sample)" title="TCP Socket Listener, Receive Binary Data From an IP/Port Into UE4, (Full Code Sample)">TCP_Socket_Listener,_Receive_Binary_Data_From_an_IP/Port_Into_UE4,_(Full_Code_Sample)</a></p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>As you can see I am using my custom USTRUCT serialization function to send any data I want from one instance of UE4 to another, and straight into Blueprints!</p> <p>Now you can too!</p> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>) <a href="http://www.ue4code.com" target="_blank" rel="noopener noreferrer">www.ue4code.com<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h2 id="post-4-12"><a href="#post-4-12" class="header-anchor">#</a> Post 4.12</h2> <p>If your receiver doesn't receive anything, you might want to try add this line:</p> <p>Receiver-&gt;Start();</p> <p>Thanks to David_88 here: <a href="https://forums.unrealengine.com/showthread.php?125064-FUdpSocketReceiver-not-receiving-data" target="_blank" rel="noopener noreferrer">https://forums.unrealengine.com/showthread.php?125064-FUdpSocketReceiver-not-receiving-data<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>Another thing might help you: if you want to spawn actor or set timer in your blueprint after receiving data, you'll have to call the blueprint event BPEvent_DataReceived(...) in game thread. Rama has another tutorial about multithreading here: <a href="https://wiki.unrealengine.com/Multi-Threading:_How_to_Create_Threads_in_UE4" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/Multi-Threading:_How_to_Create_Threads_in_UE4<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>What's needed here, is the last bit of that tutorial:</p> <p>#include &quot;Async.h&quot;
+...
+AsyncTask(ENamedThreads::GameThread, [&amp;]() {
+BPEvent_DataReceived(Data); // call your event this way so it'll be executed on game thread
+});</p> <p>This'll call your blueprint event in game thread.</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another&amp;oldid=23922" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=UDP_Socket_Sender_Receiver_From_One_UE4_Instance_To_Another&amp;oldid=23922<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1091.dc070ad9.js" defer></script>
+  </body>
+</html>

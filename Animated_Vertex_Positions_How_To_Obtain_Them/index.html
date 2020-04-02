@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/63.0ad74056.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Animated Vertex Positions of Character Mesh, How To Obtain Them - Epic Wiki</p> <h1 id="animated-vertex-positions-of-character-mesh-how-to-obtain-them"><a href="#animated-vertex-positions-of-character-mesh-how-to-obtain-them" class="header-anchor">#</a> Animated Vertex Positions of Character Mesh, How To Obtain Them</h1> <p>(Redirected from <a href="/index.php?title=Animated_Vertex_Positions_How_To_Obtain_Them&amp;redirect=no" title="Animated Vertex Positions How To Obtain Them">Animated Vertex Positions How To Obtain Them</a>)</p> <p><a href="/File:AnimatedVertexLocations3.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/0/04/AnimatedVertexLocations3.jpg/900px-AnimatedVertexLocations3.jpg" alt="AnimatedVertexLocations3.jpg"></a></p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Transforming_Vertices_To_World_Space">2 Transforming Vertices To World Space</a></li> <li><a href="#Velocity_Correction">3 Velocity Correction</a></li> <li><a href="#Conclusion">4 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><strong>Author:</strong> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>Here is the C++ code that you can use to obtain animated vertex positions!</p> <p>This is the code from my free <a href="https://forums.unrealengine.com/showthread.php?3851-(39)-Rama-s-Extra-Blueprint-Nodes-for-You-as-a-Plugin-No-C-Required!&amp;p=341965&amp;viewfull=1#post341965" target="_blank" rel="noopener noreferrer">Victory BP Library plugin BP node<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> that obtains velocity-corrected animated vertex positions for Pawns and Characters!</p> <p>bool UVictoryBPFunctionLibrary::AnimatedVertex__GetAnimatedVertexLocations(
+USkeletalMeshComponent* Mesh,
+TArray&lt;FVector&gt;&amp; Locations,
+bool PerformPawnVelocityCorrection
+){
+if(!Mesh || !Mesh-&gt;SkeletalMesh)<br>
+{
+return false;
+}
+ 
+//~~~~~~~~~~~~~
+Locations.Empty();
+//~~~~~~~~~~~~~
+ 
+Mesh-&gt;ComputeSkinnedPositions(Locations);
+ 
+FTransform ToWorld = Mesh-&gt;GetComponentTransform();
+FVector WorldLocation = ToWorld.GetLocation();
+ 
+//Pawn Velocity Correction
+UPawnMovementComponent* MovementComp = nullptr;
+if(PerformPawnVelocityCorrection)
+{
+APawn* Pawn = Cast&lt;APawn&gt;(Mesh-&gt;GetOwner());
+MovementComp = (Pawn) ? Pawn-&gt;GetMovementComponent() : NULL;
+}
+bool DoVelocityCorrection = PerformPawnVelocityCorrection &amp;&amp; MovementComp;
+//Pawn Velocity Correction
+ 
+for(FVector&amp; EachVertex : Locations)
+{
+EachVertex = WorldLocation + ToWorld.TransformVector(EachVertex);
+if(DoVelocityCorrection)
+{
+EachVertex += MovementComp-&gt;Velocity * FApp::GetDeltaTime();
+}
+}
+ 
+return true;
+}</p> <h2 id="transforming-vertices-to-world-space"><a href="#transforming-vertices-to-world-space" class="header-anchor">#</a> Transforming Vertices To World Space</h2> <p>If you read the API notes on USkinnedMeshComponent::ComputeSkinnedPositions you will see that the vertex positions are obtained in component space.</p> <p>In order to provide world space postions I have to transform each vertex by the world transform of the skeletal mesh component:</p> <p>FTransform ToWorld = Mesh-&gt;GetComponentTransform();
+FVector WorldLocation = ToWorld.GetLocation();
+ 
+EachVertex = WorldLocation + ToWorld.TransformVector(Each);</p> <h2 id="velocity-correction"><a href="#velocity-correction" class="header-anchor">#</a> Velocity Correction</h2> <p>The animated vertex positions obtained by the skeletal mesh are obtained on the CPU thread before the character movement update has occurred for characters, and thus vertices always lag behind if you just use USkinnedMeshComponent::ComputeSkinnedPositions.</p> <p>I use this code below to add in the tick update from the pawn or character movement component so that animated vertex positions are accurate for moving characters!</p> <p>if(DoVelocityCorrection)
+{
+EachVertex += MovementComp-&gt;Velocity * FApp::GetDeltaTime();
+}</p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Animated_Vertex_Positions_of_Character_Mesh,_How_To_Obtain_Them&amp;oldid=23387" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Animated_Vertex_Positions_of_Character_Mesh,_How_To_Obtain_Them&amp;oldid=23387<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/63.0ad74056.js" defer></script>
+  </body>
+</html>

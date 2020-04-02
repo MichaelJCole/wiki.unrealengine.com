@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/868.c3b178c1.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Multi-Threading: How to Create Threads in UE4 - Epic Wiki</p> <h1 id="multi-threading-how-to-create-threads-in-ue4"><a href="#multi-threading-how-to-create-threads-in-ue4" class="header-anchor">#</a> Multi-Threading: How to Create Threads in UE4</h1> <p>From Epic Wiki</p> <p>Jump to: <a href="#mw-head">navigation</a>, <a href="#p-search">search</a></p> <p><a href="/index.php?title=Template:Rating&amp;action=edit&amp;redlink=1" title="Template:Rating (page does not exist)">Template:Rating</a></p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a> <ul><li><a href="#What_The_Code_Below_Does">1.1 What The Code Below Does</a></li> <li><a href="#Static_Functions">1.2 Static Functions</a></li> <li><a href="#Performance">1.3 Performance</a></li> <li><a href="#Video">1.4 Video</a></li></ul></li> <li><a href="#.H">2 .H</a></li> <li><a href="#.CPP">3 .CPP</a></li> <li><a href="#Starting_the_thread">4 Starting the thread</a></li> <li><a href="#Thread_Management">5 Thread Management</a> <ul><li><a href="#Using_Sleep_for_Thread_Management">5.1 Using Sleep for Thread Management</a></li></ul></li> <li><a href="#What_Not_to_Do">6 What Not to Do</a></li> <li><a href="#Timer_Functions_in_GameThread">7 Timer Functions in GameThread</a></li> <li><a href="#How_to_Support_Single_Threaded_Platforms.3F">8 How to Support Single Threaded Platforms?</a></li> <li><a href="#Conclusion">9 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><strong>Author</strong> <a href="/index.php?title=User:Rama" title="User:Rama">Rama</a> (<a href="/index.php?title=User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>Here is how you can create your own threads in UE4!</p> <p>This is the code you'd use for a very large task.</p> <p>For small incremental tasks that can be divided into chunks check out my Task Graph Tutorial:</p> <p><strong><a href="/index.php?title=Multi-Threading:_Task_Graph_System" title="Multi-Threading: Task Graph System">Multi-Threading:_Task_Graph_System</a></strong></p> <p><em>Note start (<a href="/index.php?title=User:Zyr&amp;action=edit&amp;redlink=1" title="User:Zyr (page does not exist)">Zyr</a> | <a href="/index.php?title=User_talk:Zyr&amp;action=edit&amp;redlink=1" title="User talk:Zyr (page does not exist)">talk</a>)</em></p> <p>The <em>FRunnable</em> and <em>FRunnableThread</em> approach Rama presents here is certainly a viable solution for most problems. However, when creating many tasks you might hit the upper limit of concurrency a CPU can handle, at which point the concurrent threads are actually going to hinder each other while fighting for CPU time. It might then be worth looking at the <a href="https://docs.unrealengine.com/latest/INT/API/Runtime/Core/Misc/FQueuedThreadPool/index.html" target="_blank" rel="noopener noreferrer">FQueuedThreadPool<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> to limit the number of threads available to your tasks.</p> <p>The Unreal Engine 4 also provides a global <em>GThreadPool</em>, however this thread pool is set to only a single thread (UE4.14.3). It seems to be intended for simply running a concurrent task on another core.</p> <p><em>Note end</em></p> <h3 id="what-the-code-below-does"><a href="#what-the-code-below-does" class="header-anchor">#</a> What The Code Below Does</h3> <ul><li>Creates a thread to compute the first 50,000 prime numbers</li> <li>Sends incremental completion data back to the Game Thread</li> <li>Has static accessors for starting, shutting down, and finding out if thread is done.</li></ul> <h3 id="static-functions"><a href="#static-functions" class="header-anchor">#</a> Static Functions</h3> <p>You will note in the code below I am using static functions to easily start the new thread, and I could also use a static Shutdown() function from the GameThread if I ever needed to shut the thread down in a hurry (such as player exiting the game)</p> <h3 id="performance"><a href="#performance" class="header-anchor">#</a> Performance</h3> <p>I first computed the first 50,000 prime numbers using the Task Graph System, and creating 50,000 tasks (1 for each prime to find).</p> <p>In the code you see in this tutorial, I instead created a dedicated thread to calculate the first 50,000 prime numbers!</p> <p><strong>The performance benefit was phenomenal!</strong></p> <p>My fps stayed solid 90 (my chosen max fps) for the entire running of this thread in code below.</p> <p>Whereas for with the task graph system, as I got closer to 50,000 the fps dropped by a max of 40.</p> <p>For larger tasks make sure to try out actual multi-threading!</p> <h3 id="video"><a href="#video" class="header-anchor">#</a> Video</h3> <p>The below is video for the multi-task version, which had marked fps drop as compared with this method of creating an actual thread.</p> <p>It's the same general idea though, the first 50,000 prime numbers get computed while you continue to do whatever you want in main game thread 😃</p> <p>I show my results at the end of the video.</p> <p>You can compare them with this webpage!</p> <p>My multi-threading system did actually calculate the first 50,000 (+1) prime numbers!</p> <p><strong><a href="http://www.cs.arizona.edu/icon/oddsends/primes.htm" target="_blank" rel="noopener noreferrer">|First 50,000 Prime Numbers<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></strong></p> <p><youtube><a href="https://www.youtube.com/watch?v=cgELOodtoSU&amp;feature=youtu.be" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=cgELOodtoSU&amp;feature=youtu.be<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></youtube></p> <h2 id="h"><a href="#h" class="header-anchor">#</a> .H</h2> <p>//~~~~~ Multi Threading ~~~
+class FPrimeNumberWorker : public FRunnable
+{	
+/** Singleton instance, can access the thread any time via static accessor, if it is active! */
+static  FPrimeNumberWorker* Runnable;</p> <div class="language- extra-class"><pre><code>/\*\* Thread to run the worker FRunnable on \*/
+FRunnableThread\* Thread;
+
+/\*\* The Data Ptr \*/
+TArray&lt;uint32\&gt;\* PrimeNumbers;
+
+/\*\* The PC \*/
+AVictoryGamePlayerController\* ThePC;
+
+/\*\* Stop this thread? Uses Thread Safe Counter \*/
+FThreadSafeCounter StopTaskCounter;
+
+//The actual finding of prime numbers
+int32 FindNextPrimeNumber();
+</code></pre></div><p>private:
+int32				PrimesFoundCount;
+public:</p> <div class="language- extra-class"><pre><code>int32				TotalPrimesToFind;
+
+//Done?
+bool IsFinished() const
+{
+	return PrimesFoundCount \&gt;= TotalPrimesToFind;
+}
+
+//~~~ Thread Core Functions ~~~
+
+//Constructor / Destructor
+FPrimeNumberWorker(TArray&lt;uint32\&gt;&amp; TheArray, const int32 IN\_PrimesToFindPerTick, AVictoryGamePlayerController\* IN\_PC);
+virtual ~FPrimeNumberWorker();
+
+// Begin FRunnable interface.
+virtual bool Init();
+virtual uint32 Run();
+virtual void Stop();
+// End FRunnable interface
+
+/\*\* Makes sure this thread has stopped properly \*/
+void EnsureCompletion();
+
+
+
+//~~~ Starting and Stopping Thread ~~~
+
+
+
+/\* 
+</code></pre></div><p>Start the thread and the worker from static (easy access)!
+This code ensures only 1 Prime Number thread will be able to run at a time.
+This function returns a handle to the newly started instance.
+*/
+static FPrimeNumberWorker* JoyInit(TArray&lt;uint32&gt;&amp; TheArray, const int32 IN_TotalPrimesToFind, AVictoryGamePlayerController* IN_PC);</p> <div class="language- extra-class"><pre><code>/\*\* Shuts down the thread. Static so it can easily be called from outside the thread context \*/
+static void Shutdown();
+
+    static bool IsThreadFinished();
+</code></pre></div><p>};</p> <h2 id="cpp"><a href="#cpp" class="header-anchor">#</a> .CPP</h2> <p>//***********************************************************
+//Thread Worker Starts as NULL, prior to being instanced
+//		This line is essential! Compiler error without it
+FPrimeNumberWorker* FPrimeNumberWorker::Runnable = NULL;
+//***********************************************************</p> <p>FPrimeNumberWorker::FPrimeNumberWorker(TArray&lt;uint32&gt;&amp; TheArray, const int32 IN_TotalPrimesToFind, AVictoryGamePlayerController* IN_PC)
+: ThePC(IN_PC)
+, TotalPrimesToFind(IN_TotalPrimesToFind)
+, StopTaskCounter(0)
+, PrimesFoundCount(0)
+{
+//Link to where data should be stored
+PrimeNumbers = &amp;TheArray;</p> <div class="language- extra-class"><pre><code>Thread \= FRunnableThread::Create(this, TEXT(&quot;FPrimeNumberWorker&quot;), 0, TPri\_BelowNormal); //windows default = 8mb for thread, could specify more
+</code></pre></div><p>}</p> <p>FPrimeNumberWorker::~FPrimeNumberWorker()
+{
+delete Thread;
+Thread = NULL;
+}</p> <p>//Init
+bool FPrimeNumberWorker::Init()
+{
+//Init the Data
+PrimeNumbers-&gt;Empty();
+PrimeNumbers-&gt;Add(2);
+PrimeNumbers-&gt;Add(3);</p> <div class="language- extra-class"><pre><code>if(ThePC) 
+{
+	ThePC\-&gt;ClientMessage(&quot;\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*&quot;);
+	ThePC\-&gt;ClientMessage(&quot;Prime Number Thread Started!&quot;);
+	ThePC\-&gt;ClientMessage(&quot;\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*&quot;);
+}
+return true;
+</code></pre></div><p>}</p> <p>//Run
+uint32 FPrimeNumberWorker::Run()
+{
+//Initial wait before starting
+FPlatformProcess::Sleep(0.03);</p> <div class="language- extra-class"><pre><code>//While not told to stop this thread 
+//		and not yet finished finding Prime Numbers
+while (StopTaskCounter.GetValue() \== 0 &amp;&amp; ! IsFinished())
+{
+	PrimeNumbers\-&gt;Add(FindNextPrimeNumber());
+	PrimesFoundCount++;
+	
+	//\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+	//Show Incremental Results in Main Game Thread!
+	
+	//	Please note you should not create, destroy, or modify UObjects here.
+	//	  Do those sort of things after all thread are completed.
+	
+	//	  All calcs for making stuff can be done in the threads
+	//	     But the actual making/modifying of the UObjects should be done in main game thread.
+	ThePC\-&gt;ClientMessage(FString::FromInt(PrimeNumbers\-&gt;Last()));
+	//\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	//prevent thread from using too many resources
+	//FPlatformProcess::Sleep(0.01);
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+
+//Run FPrimeNumberWorker::Shutdown() from the timer in Game Thread that is watching
+    //to see when FPrimeNumberWorker::IsThreadFinished()
+
+return 0;
+</code></pre></div><p>}</p> <p>//stop
+void FPrimeNumberWorker::Stop()
+{
+StopTaskCounter.Increment();
+}</p> <p>FPrimeNumberWorker* FPrimeNumberWorker::JoyInit(TArray&lt;uint32&gt;&amp; TheArray, const int32 IN_TotalPrimesToFind, AVictoryGamePlayerController* IN_PC)
+{
+//Create new instance of thread if it does not exist
+//		and the platform supports multi threading!
+if (!Runnable &amp;&amp; FPlatformProcess::SupportsMultithreading())
+{
+Runnable = new FPrimeNumberWorker(TheArray,IN_TotalPrimesToFind,IN_PC);			
+}
+return Runnable;
+}</p> <p>void FPrimeNumberWorker::EnsureCompletion()
+{
+Stop();
+Thread-&gt;WaitForCompletion();
+}</p> <p>void FPrimeNumberWorker::Shutdown()
+{
+if (Runnable)
+{
+Runnable-&gt;EnsureCompletion();
+delete Runnable;
+Runnable = NULL;
+}
+}</p> <p>bool FPrimeNumberWorker::IsThreadFinished()
+{
+if(Runnable) return Runnable-&gt;IsFinished();
+return true;
+}
+int32 FPrimeNumberWorker::FindNextPrimeNumber()
+{
+//Last known prime number  + 1
+int32 TestPrime = PrimeNumbers-&gt;Last();</p> <div class="language- extra-class"><pre><code>bool NumIsPrime \= false;
+while( ! NumIsPrime)
+{
+	NumIsPrime \= true;
+	
+	//Try Next Number
+	TestPrime++;
+	
+	//Modulus from 2 to current number - 1 
+	for(int32 b \= 2; b &lt; TestPrime; b++)
+	{
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		//prevent thread from using too many resources
+		//FPlatformProcess::Sleep(0.01);
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+		if(TestPrime % b \== 0) 
+		{
+			NumIsPrime \= false;
+			break;
+			//~~~
+		}
+	}
+}
+
+//Success!
+return TestPrime;
+</code></pre></div><p>}</p> <h2 id="starting-the-thread"><a href="#starting-the-thread" class="header-anchor">#</a> Starting the thread</h2> <p>//In the .h for the player controller
+// this is the actual data
+TArray&lt;uint32&gt; PrimeNumbers;</p> <p>//player controller .cpp
+//Multi-threading, returns handle that could be cached.
+//		use static function FPrimeNumberWorker::Shutdown() if necessary
+FPrimeNumberWorker::JoyInit(PrimeNumbers, 50000, this);</p> <h2 id="thread-management"><a href="#thread-management" class="header-anchor">#</a> Thread Management</h2> <p>You should look in the code base for &quot;FRunnable&quot; to see expanded uses of multi threading and lock / unlocking protection.</p> <p>I used a simple example to get you started, but there's a lot to consider when multi-threading 😃</p> <h3 id="using-sleep-for-thread-management"><a href="#using-sleep-for-thread-management" class="header-anchor">#</a> Using Sleep for Thread Management</h3> <p>You should consider using</p> <p>FPlatformProcess::Sleep(seconds);</p> <p>to prevent 1 thread from taking too many system resources 😃</p> <h2 id="what-not-to-do"><a href="#what-not-to-do" class="header-anchor">#</a> What Not to Do</h2> <ul><li>Do not try to modify, create, or delete UObjects from other threads!</li></ul> <p>You can prepare all the data / do all the calculations, but only the game thread should be actually spawning / modifying / deleting UObjects / AActors.</p> <ul><li><p>Dont try to use TimerManager outside of the game thread 😃</p></li> <li><p>Don't try to draw debug lines/points etc, as it will likely crash, ie DrawDebugLine(etc...)</p></li></ul> <p>Notice (since 4.11):</p> <p>If you want to use the timer, remove, and modify variables use it:</p> <p>#include &quot;Async.h&quot;
+...
+AsyncTask(ENamedThreads::GameThread, []() {
+// code to execute on game thread here
+});</p> <h2 id="timer-functions-in-gamethread"><a href="#timer-functions-in-gamethread" class="header-anchor">#</a> Timer Functions in GameThread</h2> <p>You can run a timer function in the game thread to periodically check on the data being gathered by the other threads you create.</p> <h2 id="how-to-support-single-threaded-platforms"><a href="#how-to-support-single-threaded-platforms" class="header-anchor">#</a> How to Support Single Threaded Platforms?</h2> <p>If your code absolutely has to run even in a single threaded environment such as HTML5, then check out</p> <p><strong>AsyncIOSystemBase.h</strong></p> <p>struct CORE_API FAsyncIOSystemBase : public FIOSystem, FRunnable, FSingleThreadRunnable</p> <p>A Runnable can extend SingleThreadRunnable and return itself for FRunnable's hook for single threaded cases:</p> <p>/**
+* Gets single thread interface pointer used for ticking this runnable when multi-threading is disabled.
+* If the interface is not implemented, this runnable will not be ticked when FPlatformProcess::SupportsMultithreading() is false.
+*
+* @return Pointer to the single thread interface or nullptr if not implemented.
+*/
+virtual class FSingleThreadRunnable* GetSingleThreadInterface( )
+{
+return nullptr;
+}</p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>Enjoy!</p> <p><a href="/index.php?title=User:Rama" title="User:Rama">Rama</a> (<a href="/index.php?title=User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Multi-Threading:_How_to_Create_Threads_in_UE4&amp;oldid=49" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Multi-Threading:_How_to_Create_Threads_in_UE4&amp;oldid=49<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/index.php?title=Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/index.php?title=Category:Tutorials&amp;action=edit&amp;redlink=1" title="Category:Tutorials (page does not exist)">Tutorials</a></li> <li><a href="/index.php?title=Category:Code" title="Category:Code">Code</a></li> <li><a href="/index.php?title=Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/868.c3b178c1.js" defer></script>
+  </body>
+</html>

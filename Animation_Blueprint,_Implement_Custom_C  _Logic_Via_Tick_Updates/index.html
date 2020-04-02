@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/65.e811b522.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Animation Blueprint, Implement Custom C++ Logic Via Tick Updates - Epic Wiki</p> <h1 id="animation-blueprint-implement-custom-c-logic-via-tick-updates"><a href="#animation-blueprint-implement-custom-c-logic-via-tick-updates" class="header-anchor">#</a> Animation Blueprint, Implement Custom C++ Logic Via Tick Updates</h1> <p>From Epic Wiki</p> <p>Jump to: <a href="#mw-navigation">navigation</a>, <a href="#p-search">search</a></p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Example:_An_Anim-BP-Accessible_Variable:_IsMoving">2 Example: An Anim-BP-Accessible Variable: IsMoving</a> <ul><li><a href="#.h">2.1 .h</a></li> <li><a href="#.cpp">2.2 .cpp</a></li></ul></li> <li><a href="#Final_Step:_Reparenting_your_Character.27s_Anim_Blueprint">3 Final Step: Reparenting your Character's Anim Blueprint</a></li> <li><a href="#Conclusion">4 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>Dear Community,</p> <p>Extending AnimInstance is a wonderful way to create all sorts of custom animation systems and also efficiently utilize the existing UE4 anim blueprint functions.</p> <p>It's very useful to know how you can do certain actions when the Anim Instance for a Character is first created, and how to do actions every tick while the anim instance exists!</p> <p>Below are the two Anim Instance functions that are similar to PostInitializeComponents and Tick(DeltaTime) for Actors</p> <p>virtual void NativeInitializeAnimation() OVERRIDE;
+ 
+virtual void NativeUpdateAnimation(float DeltaTimeX) OVERRIDE;</p> <h2 id="example-an-anim-bp-accessible-variable-ismoving"><a href="#example-an-anim-bp-accessible-variable-ismoving" class="header-anchor">#</a> Example: An Anim-BP-Accessible Variable: IsMoving</h2> <p>Here is a complete example that obtains the Owning Pawn in the Init function (to avoid reobtaining the reference every tick).</p> <p>Then, every tick / moment of the anim instance's existance, the boolean variable IsMoving is updated to reflect the velocity of the Owning pawn.</p> <p>IsMoving can now be obtained from within the Anim Blueprint because of its UPROPERTY settings, and used in your animation blueprint logic.</p> <p>Enjoy!</p> <h3 id="h"><a href="#h" class="header-anchor">#</a> .h</h3> <p>// Copyright 1998-2013 Epic Games, Inc. All Rights Reserved.
+ 
+#pragma once
+ 
+#include &quot;VictoryAnimInstance.generated.h&quot;
+ 
+UCLASS(transient, Blueprintable, hideCategories=AnimInstance, BlueprintType)
+class UVictoryAnimInstance : public UAnimInstance
+{
+GENERATED_UCLASS_BODY()
+ 
+/** Is Moving */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Movement)
+bool IsMoving;
+ 
+//socket names
+public:
+ 
+//example of property that can be set in constructor
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=SocketNames)
+FName HeadSocket;
+ 
+//init and tick
+public:
+ 
+APawn * OwningPawn;
+ 
+virtual void NativeInitializeAnimation() OVERRIDE;
+ 
+virtual void NativeUpdateAnimation(float DeltaTimeX) OVERRIDE;
+ 
+};</p> <h3 id="cpp"><a href="#cpp" class="header-anchor">#</a> .cpp</h3> <p>// Copyright 1998-2013 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;VictoryGame.h&quot;
+ 
+//////////////////////////////////////////////////////////////////////////
+// UVictoryAnimInstance
+ 
+UVictoryAnimInstance::UVictoryAnimInstance(const class FPostConstructInitializeProperties&amp; PCIP)
+: Super(PCIP)
+{
+ 
+//can set this here because it does not depend on other objects
+HeadSocket = FName(TEXT(&quot;Head&quot;));
+}
+ 
+//Init
+void UVictoryAnimInstance::NativeInitializeAnimation()
+{
+//Very Important Line
+Super::NativeInitializeAnimation();
+ 
+//Has to be set in KismetInit because it depends on the Owning Actor
+//to have already been constructed
+ 
+//So this function is like PostInitAnimtree in UE3
+ 
+OwningPawn = TryGetPawnOwner();
+}
+ 
+//Tick
+void UVictoryAnimInstance::NativeUpdateAnimation(float DeltaTimeX)
+{
+//Very Important Line
+Super::NativeUpdateAnimation(DeltaTimeX);
+ 
+//Always Check Pointers
+if (!OwningPawn) return;
+//~~
+ 
+if (OwningPawn-&gt;GetVelocity().SizeSquared() &gt; 25) IsMoving = true;
+else IsMoving = false;
+}</p> <h2 id="final-step-reparenting-your-character-s-anim-blueprint"><a href="#final-step-reparenting-your-character-s-anim-blueprint" class="header-anchor">#</a> Final Step: Reparenting your Character's Anim Blueprint</h2> <p>You need to make sure your Character is using your extended version of AnimInstance 😃</p> <p>For more information on reparenting Anim BPs, and making custom Animation Blueprint classes, see this code sample:</p> <p><strong><a href="/Animation_Blueprint,_Set_Custom_Variables_Via_C%2B%2B" title="Animation Blueprint, Set Custom Variables Via C++">Animation Blueprints, Custom C++ Variables</a></strong></p> <p><a href="/File:Reparentbp.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/e/e2/Reparentbp.jpg/637px-Reparentbp.jpg" alt="Reparentbp.jpg"></a></p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>Now you know what functions to override to create complicated Anim Blueprint logic with assistance from the C++ code,</p> <p>or run your anim instance mostly from the C++ code (especially the event graph part)!</p> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Animation_Blueprint,_Implement_Custom_C%2B%2B_Logic_Via_Tick_Updates&amp;oldid=3395" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Animation_Blueprint,_Implement_Custom_C%2B%2B_Logic_Via_Tick_Updates&amp;oldid=3395<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/65.e811b522.js" defer></script>
+  </body>
+</html>

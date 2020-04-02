@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/22.c4a0165d.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>AI Dodge, Rotate Vector Along Axis By Angle - Epic Wiki</p> <h1 id="ai-dodge-rotate-vector-along-axis-by-angle"><a href="#ai-dodge-rotate-vector-along-axis-by-angle" class="header-anchor">#</a> AI Dodge, Rotate Vector Along Axis By Angle</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Rotate_Vector_On_Axis_By_Angle">2 Rotate Vector On Axis By Angle</a></li> <li><a href="#AI_Dodge">3 AI Dodge</a></li> <li><a href="#Get_Safe_Normal">4 Get Safe Normal</a></li> <li><a href="#Picking_Dodge_Direction">5 Picking Dodge Direction</a></li> <li><a href="#Working_With_UE4_Nav_Mesh_System">6 Working With UE4 Nav Mesh System</a> <ul><li><a href="#UE4_Nav_Mesh_Projection">6.1 UE4 Nav Mesh Projection</a></li></ul></li> <li><a href="#Conclusion">7 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><strong>Author</strong> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>In this wiki I show you a simple way to create an AI dodge mechanic where the unit moves along the peridicular of the direction to its target.</p> <p>The direction from the AI unit to its target is a what I call a &quot;direction vector&quot; because it is an FVector that is storing normalized direction data.</p> <p>&quot;Normalized&quot; means the length of the vector is 1, which makes it easy to multiply with a float to create a total distance you want to move along a direction vector.</p> <h2 id="rotate-vector-on-axis-by-angle"><a href="#rotate-vector-on-axis-by-angle" class="header-anchor">#</a> Rotate Vector On Axis By Angle</h2> <p>If you want to rotate a direction vector around an axis quickly and easily you can use this handy function found in Vector.h</p> <p>/**
+* Rotates around Axis (assumes Axis.Size() == 1).
+*
+* @param Angle Angle to rotate (in degrees).
+* @param Axis Axis to rotate around.
+* @return Rotated Vector.
+*/
+FVector RotateAngleAxis( const float AngleDeg, const FVector&amp; Axis ) const;</p> <h2 id="ai-dodge"><a href="#ai-dodge" class="header-anchor">#</a> AI Dodge</h2> <p>void AIDodge(bool DodgeRight=true, float Distance=256); //.h
+ 
+void AYourAIClass::AIDodge(bool DodgeRight, float Distance)
+{
+//Location of unit who wants to dodge sideways, presumed to be facing target already
+FVector UnitLocation = GetActorLocation();
+FVector DirectionToActor = (OtherActor-&gt;GetActorLocation() - UnitLocation ).GetSafeNormal();
+ 
+//Optional, remove Z value for ground-based play, ensure UE4 Nav mesh point will be found.
+DirectionToActor.Z = 0;
+ 
+//Rotate the direction by 90 to get perpendicular of direction to actor
+FVector Perpendicular = DirectionToActor.RotateAngleAxis(90,FVector(0,0,1));
+ 
+//Dodging to relative Left or Right?
+Perpendicular *= (DodgeRight) ? 1 : -1;
+ 
+//Tell Unit to move 256 units along this perpendicular
+FVector GoalLocation = UnitLocation + Perpendicular * Distance;
+ 
+//Tell unit to move to this location
+AAIController* AIControl = Cast&lt;AAIController&gt;(GetController());
+if(AIControl)
+{
+AIControl-&gt;MoveToLocation(GoalLocation,0); //Optional Acceptance Radius
+}
+}</p> <p>Note that by using FVector::RotateAngleAxis you can implement an AI dodge function in just a few lines of code!</p> <p>//Rotate the direction by 90 to get perpendicular of direction to actor
+FVector Perpendicular = DirectionToActor.RotateAngleAxis(90,FVector(0,0,1));</p> <p>The reason the axis is FVector(0,0,1) is because that's the vertical axis, so you can imagine a vertical pole that the direction vector is rotating around.</p> <p>You could just as easily use any axis of your own choosing, for your own game's needs 😃</p> <h2 id="get-safe-normal"><a href="#get-safe-normal" class="header-anchor">#</a> Get Safe Normal</h2> <p>Notice I am using GetSafeNormal() to remove all length/distance information from the vector between the AI unit and its target. This ensures that I can the multiply by the Distance parameter later and get a vector of exactly the desired length.</p> <p>//Location of unit who wants to dodge sideways, presumed to be facing target already
+FVector UnitLocation = GetActorLocation();
+FVector DirectionToActor = (OtherActor-&gt;GetActorLocation() - UnitLocation ).GetSafeNormal();</p> <h2 id="picking-dodge-direction"><a href="#picking-dodge-direction" class="header-anchor">#</a> Picking Dodge Direction</h2> <p>Notice I am using the ternary operator ? : to switch dodge directions based on input parameter:</p> <p>//Dodging to relative Left or Right?
+Perpendicular *= (DodgeRight) ? 1 : -1;</p> <h2 id="working-with-ue4-nav-mesh-system"><a href="#working-with-ue4-nav-mesh-system" class="header-anchor">#</a> Working With UE4 Nav Mesh System</h2> <p>To ensure that the final dodge point will be easy for the UE4 Navigation system to find, I remove all Z information of the direction of AI unit to its target:</p> <p>//Optional, remove Z value for ground-based play, ensure UE4 Nav mesh point will be found.
+DirectionToActor.Z = 0;</p> <p>Imagine the AI unit wants to dodge a target that 45 degrees above the AI unit on a ledge. If you rotate that vector with z value intact, the final goal may be beneath the ground, or in the case of AI unit being above target, then the goal will be in the air somewhere.</p> <p>By removing Z information I ensure that the AI unit is querying the UE4 navigation system for a point that is on its own level.</p> <h3 id="ue4-nav-mesh-projection"><a href="#ue4-nav-mesh-projection" class="header-anchor">#</a> UE4 Nav Mesh Projection</h3> <p>Alternatively, if you dont want to remove the Z information, you can use UE4 function ProjectPointToNav with an appropriate extent if you want to make absolutely sure the dodge point is going to be found on the nav mesh.</p> <p>The &quot;Extent&quot; defines the shape of the trace that is performed, so an Extent with a Z of 512 will find destinations on the nav mesh above and below the queried location by 512.</p> <p>Keep in mind Extent is the half-size of the final trace, because it goes in both directions along the axis.</p> <p>//NavigationSystem.h
+bool ProjectPointToNavigation(const FVector&amp; Point, FNavLocation&amp; OutLocation, const FVector&amp; Extent = INVALID_NAVEXTENT, const FNavAgentProperties* AgentProperties = NULL, TSharedPtr&lt;const FNavigationQueryFilter&gt; QueryFilter = NULL)
+{
+return ProjectPointToNavigation(Point, OutLocation, Extent, AgentProperties != NULL ? GetNavDataForProps(*AgentProperties) : GetMainNavData(FNavigationSystem::DontCreate), QueryFilter);
+}
+ 
+bool ProjectPointToNavigation(const FVector&amp; Point, FNavLocation&amp; OutLocation, const FVector&amp; Extent = INVALID_NAVEXTENT, const ANavigationData* NavData = NULL, TSharedPtr&lt;const FNavigationQueryFilter&gt; QueryFilter = NULL) const;</p> <p>This projection functionality is also built into the AIController MoveTo function, if you set that parameter to true!</p> <p>/** Makes AI go toward specified Dest location
+*  @param AcceptanceRadius - finish move if pawn gets close enough
+*  @param bStopOnOverlap - add pawn's radius to AcceptanceRadius
+*  @param bUsePathfinding - use navigation data to calculate path (otherwise it will go in straight line)
+*  @param bProjectDestinationToNavigation - project location on navigation data before using it
+*  @param bCanStrafe - set focus related flag: bAllowStrafe
+*  @param FilterClass - navigation filter for pathfinding adjustments
+*  @param bAllowPartialPath - use incomplete path when goal can't be reached
+*	@note AcceptanceRadius has default value or -1 due to Header Parser not being able to recognize UPathFollowingComponent::DefaultAcceptanceRadius
+*/
+UFUNCTION(BlueprintCallable, Category = &quot;AI|Navigation&quot;, Meta = (AdvancedDisplay = &quot;bStopOnOverlap,bCanStrafe,bAllowPartialPath&quot;))
+EPathFollowingRequestResult::Type MoveToLocation(const FVector&amp; Dest, float AcceptanceRadius = -1, bool bStopOnOverlap = true,
+bool bUsePathfinding = true, bool bProjectDestinationToNavigation = false, bool bCanStrafe = true,
+TSubclassOf&lt;UNavigationQueryFilter&gt; FilterClass = NULL, bool bAllowPartialPath = true);</p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>In just a few lines of code I've shown you a way to tell your AI unit to move perpendicular to the direction to its target, thus implementing a dodge mechanic that you can use no matter how the AI unit and its target are positioned in world space.</p> <p>Enjoy!</p> <p>Rama</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=AI_Dodge,_Rotate_Vector_Along_Axis_By_Angle&amp;oldid=15144" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=AI_Dodge,_Rotate_Vector_Along_Axis_By_Angle&amp;oldid=15144<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/22.c4a0165d.js" defer></script>
+  </body>
+</html>

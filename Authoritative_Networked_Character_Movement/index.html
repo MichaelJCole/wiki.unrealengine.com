@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/103.fa38d0d3.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Authoritative Networked Character Movement - Epic Wiki</p> <h1 id="authoritative-networked-character-movement"><a href="#authoritative-networked-character-movement" class="header-anchor">#</a> Authoritative Networked Character Movement</h1> <p>From Epic Wiki</p> <p>Jump to: <a href="#mw-head">navigation</a>, <a href="#p-search">search</a></p> <p><a href="/index.php?title=Template:Rating&amp;action=edit&amp;redlink=1" title="Template:Rating (page does not exist)">Template:Rating</a></p> <p>Original Author: <a href="/index.php?title=User:DarthCoder&amp;action=edit&amp;redlink=1" title="User:DarthCoder (page does not exist)">DarthCoder</a> (<a href="/index.php?title=User_talk:DarthCoder&amp;action=edit&amp;redlink=1" title="User talk:DarthCoder (page does not exist)">talk</a>)</p> <p>Implementing proper authoritative character movement is a very complex, yet under documented task. This tutorial serves as an introduction to implementing networked movement features in Unreal 4 by extending the <a href="https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/GameFramework/UCharacterMovementComponent/index.html" target="_blank" rel="noopener noreferrer">UCharacterMovementComponent<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>. This will be an intermediate to advanced tutorial, and will require using C++ since saved moves do not appear to be supported in Blueprint. Most of my knowledge of the character movement system comes from the Unreal Tournament 4 source code, so some similarities will be apparent.</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Initial_Setup">1 Initial Setup</a></li> <li><a href="#Implementing_Movement_Abilities">2 Implementing Movement Abilities</a> <ul><li><a href="#Sprint">2.1 Sprint</a> <ul><li><a href="#Unlimited_Sprint">2.1.1 Unlimited Sprint</a></li> <li><a href="#Only_Sprint_Forward">2.1.2 Only Sprint Forward</a></li></ul></li> <li><a href="#Boost_Dodge">2.2 Boost Dodge</a></li> <li><a href="#Double_Jump">2.3 Double Jump</a></li></ul></li> <li><a href="#Cooldown_Timers">3 Cooldown Timers</a></li> <li><a href="#Conclusion">4 Conclusion</a></li> <li><a href="#Other_Resources">5 Other Resources</a></li></ul> <h2 id="initial-setup"><a href="#initial-setup" class="header-anchor">#</a> Initial Setup</h2> <p>To implement custom networked character movement, you must extend the <a href="https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/GameFramework/UCharacterMovementComponent/index.html" target="_blank" rel="noopener noreferrer">UCharacterMovementComponent<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> and saved move classes. For starters let's get a class setup with all the boilerplate code out of the way. (thanks to antsonthetree for providing the code to fix this for the latest Unreal 4 version) <a href="/index.php?title=File:Create-character-movement-class.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/b/b5/Create-character-movement-class.jpg" alt="Create-character-movement-class.jpg"></a></p> <p><em>MyCharacterMovement.h</em></p> <p>#pragma once</p> <p>#include &quot;GameFramework/CharacterMovementComponent.h&quot;
+#include &quot;MyCharacterMovement.generated.h&quot;</p> <p>UCLASS()
+class UMyCharacterMovement : public UCharacterMovementComponent
+{
+GENERATED_UCLASS_BODY()</p> <div class="language- extra-class"><pre><code>//============================================================================================
+//Replication
+//============================================================================================
+</code></pre></div><p>public:</p> <div class="language- extra-class"><pre><code>friend class FSavedMove\_ExtendedMyMovement;
+
+virtual void UpdateFromCompressedFlags(uint8 Flags) override;
+
+virtual class FNetworkPredictionData\_Client\* GetPredictionData\_Client() const override;
+</code></pre></div><p>};</p> <p>class FSavedMove_MyMovement : public FSavedMove_Character
+{
+public:</p> <div class="language- extra-class"><pre><code>typedef FSavedMove\_Character Super;
+
+///@brief Resets all saved variables.
+virtual void Clear() override;
+
+///@brief Store input commands in the compressed flags.
+virtual uint8 GetCompressedFlags() const override;
+
+///@brief This is used to check whether or not two moves can be combined into one.
+///Basically you just check to make sure that the saved variables are the same.
+virtual bool CanCombineWith(const FSavedMovePtr&amp; NewMove, ACharacter\* Character, float MaxDelta) const override;
+
+///@brief Sets up the move before sending it to the server. 
+virtual void SetMoveFor(ACharacter\* Character, float InDeltaTime, FVector const&amp; NewAccel, class FNetworkPredictionData\_Client\_Character &amp; ClientData) override;
+///@brief Sets variables on character movement component before making a predictive correction.
+virtual void PrepMoveFor(class ACharacter\* Character) override;
+</code></pre></div><p>};</p> <p>class FNetworkPredictionData_Client_MyMovement : public FNetworkPredictionData_Client_Character
+{
+public:
+FNetworkPredictionData_Client_MyMovement(const UCharacterMovementComponent&amp; ClientMovement);</p> <div class="language- extra-class"><pre><code>typedef FNetworkPredictionData\_Client\_Character Super;
+
+///@brief Allocates a new copy of our custom saved move
+virtual FSavedMovePtr AllocateNewMove() override;
+</code></pre></div><p>};</p> <p><em>MyCharacterMovement.cpp</em></p> <p>#include &quot;MyCharacterMovement.h&quot;</p> <p>UMyCharacterMovement::UMyCharacterMovement(const FObjectInitializer&amp; ObjectInitializer)
+:Super(ObjectInitializer)
+{</p> <p>}</p> <p>//============================================================================================
+//Replication
+//============================================================================================</p> <p>//Set input flags on character from saved inputs
+void UMyCharacterMovement::UpdateFromCompressedFlags(uint8 Flags)//Client only
+{
+Super::UpdateFromCompressedFlags(Flags);</p> <p>}</p> <p>class FNetworkPredictionData_Client* UMyCharacterMovement::GetPredictionData_Client() const
+{
+check(PawnOwner != NULL);
+check(PawnOwner-&gt;Role &lt; ROLE_Authority);</p> <div class="language- extra-class"><pre><code>if (!ClientPredictionData)
+{
+	UMyCharacterMovement\* MutableThis \= const\_cast&lt;UMyCharacterMovement\*&gt;(this);
+
+	MutableThis\-&gt;ClientPredictionData \= new FNetworkPredictionData\_Client\_MyMovement(\*this);
+	MutableThis\-&gt;ClientPredictionData\-&gt;MaxSmoothNetUpdateDist \= 92.f;
+	MutableThis\-&gt;ClientPredictionData\-&gt;NoSmoothNetUpdateDist \= 140.f;
+}
+
+return ClientPredictionData;
+</code></pre></div><p>}</p> <p>void FSavedMove_MyMovement::Clear()
+{
+Super::Clear();</p> <p>}</p> <p>uint8 FSavedMove_MyMovement::GetCompressedFlags() const
+{
+uint8 Result = Super::GetCompressedFlags();</p> <div class="language- extra-class"><pre><code>return Result;
+</code></pre></div><p>}</p> <p>bool FSavedMove_MyMovement::CanCombineWith(const FSavedMovePtr&amp; NewMove, ACharacter* Character, float MaxDelta) const
+{</p> <div class="language- extra-class"><pre><code>return Super::CanCombineWith(NewMove, Character, MaxDelta);
+</code></pre></div><p>}</p> <p>void FSavedMove_MyMovement::SetMoveFor(ACharacter* Character, float InDeltaTime, FVector const&amp; NewAccel, class FNetworkPredictionData_Client_Character &amp; ClientData)
+{
+Super::SetMoveFor(Character, InDeltaTime, NewAccel, ClientData);</p> <div class="language- extra-class"><pre><code>UMyCharacterMovement\* CharMov \= Cast&lt;UMyCharacterMovement\&gt;(Character\-&gt;GetCharacterMovement());
+if (CharMov)
+{
+	
+}
+</code></pre></div><p>}</p> <p>void FSavedMove_MyMovement::PrepMoveFor(class ACharacter* Character)
+{
+Super::PrepMoveFor(Character);</p> <div class="language- extra-class"><pre><code>UMyCharacterMovement\* CharMov \= Cast&lt;UMyCharacterMovement\&gt;(Character\-&gt;GetCharacterMovement());
+if (CharMov)
+{
+	
+}
+</code></pre></div><p>}</p> <p>FNetworkPredictionData_Client_MyMovement::FNetworkPredictionData_Client_MyMovement(const UCharacterMovementComponent&amp; ClientMovement)
+: Super(ClientMovement)
+{</p> <p>}</p> <p>FSavedMovePtr FNetworkPredictionData_Client_MyMovement::AllocateNewMove()
+{
+return FSavedMovePtr(new FSavedMove_MyMovement());
+}</p> <p>In order to actually use the custom component we'll have to set the default subobject class in the character class constructor.</p> <p><em>MyCharacter.cpp</em></p> <p>AMyCharacter::AMyCharacter(const FObjectInitializer&amp; ObjectInitializer)
+:Super(ObjectInitializer.SetDefaultSubobjectClass&lt;UMyCharacterMovement&gt;(ACharacter::CharacterMovementComponentName))
+{
+//Do normal stuff in constructor...
+}</p> <h2 id="implementing-movement-abilities"><a href="#implementing-movement-abilities" class="header-anchor">#</a> Implementing Movement Abilities</h2> <h3 id="sprint"><a href="#sprint" class="header-anchor">#</a> Sprint</h3> <p>Sprint is an example of an ability that can be implemented quite easily using just the compressed flags. To start with, we'll implement a basic unlimited sprint ability. We'll gradually improve it as we go along.</p> <h4 id="unlimited-sprint"><a href="#unlimited-sprint" class="header-anchor">#</a> Unlimited Sprint</h4> <p>The first thing to do is add the input events to the character class.</p> <p><em>MyCharacter.cpp</em></p> <p>void AMyCharacter::SetupPlayerInputComponent(class UInputComponent* InputComponent)
+{
+check(InputComponent);</p> <div class="language- extra-class"><pre><code>InputComponent\-&gt;BindAction(&quot;Sprint&quot;, IE\_Pressed, this, &amp;AMyCharacter::StartSprinting);
+InputComponent\-&gt;BindAction(&quot;Sprint&quot;, IE\_Released, this, &amp;AMyCharacter::StopSprinting);
+
+//Other input bindings...
+</code></pre></div><p>}</p> <p>void AMyCharacter::StartSprinting()
+{
+UMyCharacterMovement* MoveComp = Cast&lt;UMyCharacterMovement&gt;(GetCharacterMovement());
+if (MoveComp)
+{
+MoveComp-&gt;SetSprinting(true);
+}
+}</p> <p>void AMyCharacter::StopSprinting()
+{
+UMyCharacterMovement* MoveComp = Cast&lt;UMyCharacterMovement&gt;(GetCharacterMovement());
+if (MoveComp)
+{
+MoveComp-&gt;SetSprinting(false);
+}
+}</p> <p>The character movement component will need to have the SetSprinting method, and also a few properties. Add the following properties and methods to <em>MyCharacterMovement.h</em></p> <p>UPROPERTY(EditAnywhere, Category = &quot;Sprint&quot;)
+float SprintSpeedMultiplier;
+UPROPERTY(EditAnywhere, Category = &quot;Sprint&quot;)
+float SprintAccelerationMultiplier;</p> <p>///@brief Activate or deactivate sprint.
+void SetSprinting(bool bSprinting);</p> <p>///@brief Flag for activating sprint.
+uint8 bWantsToSprint : 1;</p> <p>///@brief Override maximum speed during sprint.
+virtual float GetMaxSpeed() const override;
+///@brief Override maximum acceleration for sprint.
+virtual float GetMaxAcceleration() const override;</p> <p>SetSprinting will be called to activate the sprint ability, and should need no explanation. GetMaxSpeed and GetMaxAcceleration use the sprint flag to determine whether or not to apply the speed and acceleration multipliers. This is all you need for a single player game, but try to run this in a networked game you'll quickly discover it doesn't work. The client can't sprint because the server doesn't know it's trying to, so it keeps getting corrected back to the normal walking speed.</p> <p><em>MyCharacterMovement.cpp</em></p> <p>void UMyCharacterMovement::SetSprinting(bool bSprinting)
+{
+bWantsToSprint = bSprinting;
+}</p> <p>float UMyCharacterMovement::GetMaxSpeed() const
+{
+float MaxSpeed = Super::GetMaxSpeed();</p> <div class="language- extra-class"><pre><code>if (bWantsToSprint)
+{
+	MaxSpeed \*= SprintSpeedMultiplier;
+}
+
+return MaxSpeed;
+</code></pre></div><p>}</p> <p>float UMyCharacterMovement::GetMaxAcceleration() const
+{
+float MaxAccel = Super::GetMaxAcceleration();</p> <div class="language- extra-class"><pre><code>if (bWantsToSprint)
+{
+	MaxAccel \*= SprintAccelerationMultiplier;
+}
+
+return MaxAccel;
+</code></pre></div><p>}</p> <p>To make this replicate to the server and work with the prediction system we'll finally need to use the saved move class we inherited from earlier. We need to add a flag corresponding to the character movement component's sprint flag. This flag is used to re-trigger the ability later if a network correction forces us to resimulate the move.</p> <p><em>MyCharacterMovement.h</em></p> <p>class FSavedMove_MyMovement : public FSavedMove_Character
+{
+public:</p> <div class="language- extra-class"><pre><code>typedef FSavedMove\_Character Super;
+
+///@brief Resets all saved variables.
+virtual void Clear() override;
+
+///@brief Store input commands in the compressed flags.
+virtual uint8 GetCompressedFlags() const override;
+
+///@brief This is used to check whether or not two moves can be combined into one.
+///Basically you just check to make sure that the saved variables are the same.
+virtual bool CanCombineWith(const FSavedMovePtr&amp; NewMove, ACharacter\* Character, float MaxDelta) const override;
+
+///@brief Sets up the move before sending it to the server. 
+virtual void SetMoveFor(ACharacter\* Character, float InDeltaTime, FVector const&amp; NewAccel, class FNetworkPredictionData\_Client\_Character &amp; ClientData) override;
+///@brief Sets variables on character movement component before making a predictive correction.
+virtual void PrepMoveFor(class ACharacter\* Character) override;
+
+uint8 bSavedWantsToSprint : 1;
+</code></pre></div><p>};</p> <p>The character movement component will create these saved moves and fill them with data needed to replay moves on the server. The implementation of the saved move is pretty much just responsible for copying the variables needed to make the movement calculations back and forth between the saved move and the character movement component. Also, the SprintSpeedMultiplier and SprintAccelerationMultiplier should be given sensible default values in the constructor (2.0f should work fine).</p> <p><em>MyCharacterMovement.cpp</em></p> <p>void UMyCharacterMovement::UpdateFromCompressedFlags(uint8 Flags)
+{
+Super::UpdateFromCompressedFlags(Flags);</p> <div class="language- extra-class"><pre><code>//The Flags parameter contains the compressed input flags that are stored in the saved move.
+//UpdateFromCompressed flags simply copies the flags from the saved move into the movement component.
+//It basically just resets the movement component to the state when the move was made so it can simulate from there.
+bWantsToSprint \= (Flags&amp;FSavedMove\_Character::FLAG\_Custom\_0) != 0;
+</code></pre></div><p>}</p> <p>void FSavedMove_MyMovement::SetMoveFor(ACharacter* Character, float InDeltaTime, FVector const&amp; NewAccel, class FNetworkPredictionData_Client_Character&amp; ClientData)
+{
+Super::SetMoveFor(Character, InDeltaTime, NewAccel, ClientData);</p> <div class="language- extra-class"><pre><code>UExtendedCharacterMovement\* CharMov \= Cast&lt;UExtendedCharacterMovement\&gt;(Character\-&gt;GetCharacterMovement());
+if (CharMov)
+{
+	//This is literally just the exact opposite of UpdateFromCompressed flags. We're taking the input
+	//from the player and storing it in the saved move.
+	bSavedWantsToSprint \= CharMov\-&gt;bWantsToSprint;
+}
+</code></pre></div><p>}</p> <p>void FSavedMove_MyMovement::Clear()
+{
+Super::Clear();</p> <div class="language- extra-class"><pre><code>//Clear variables back to their default values.
+bSavedWantsToSprint \= false;
+</code></pre></div><p>}</p> <p>//This is where we compress the flags saved in SetMoveFor. We're basically just ORing a bunch of them together.
+uint8 FSavedMove_ExtendedMovement::GetCompressedFlags() const
+{
+uint8 Result = Super::GetCompressedFlags();</p> <div class="language- extra-class"><pre><code>if (bSavedWantsToSprint)
+{
+	Result |= FLAG\_Custom\_0;
+}
+
+return Result;
+</code></pre></div><p>}</p> <p>bool FSavedMove_ExtendedMovement::CanCombineWith(const FSavedMovePtr&amp; NewMove, ACharacter* Character, float MaxDelta) const
+{
+//This pretty much just tells the engine if it can optimize by combining saved moves. There doesn't appear to be
+//any problem with leaving it out, but it seems that it's good practice to implement this anyways.
+if (bSavedWantsToSprint != ((FSavedMove_ExtendedMovement*)&amp;NewMove)-&gt;bSavedWantsToSprint)
+{
+return false;
+}</p> <div class="language- extra-class"><pre><code>return Super::CanCombineWith(NewMove, Character, MaxDelta);
+</code></pre></div><p>}</p> <p>At this point you should have a basic sprint ability that can be triggered from either the client, or server. However, the sprint ability right now isn't very customizable. The player can sprint sideways and backwards just as easily as forwards, and can also sprint forever with no breaks between.</p> <h4 id="only-sprint-forward"><a href="#only-sprint-forward" class="header-anchor">#</a> Only Sprint Forward</h4> <p>Disclaimer: This is only my current implementation. If I come up with a better way then I'll update this tutorial.</p> <p>There are a couple ways to prevent the player from sprinting sideways and backwards. One way would be to store the forward key state in the compressed flags just like we did with bWantsToSprint. This is fairly easy to do, but it uses up a flag that could be used for other abilities. It's actually possible to prevent the player from sprinting in other directions without sending any additional data.</p> <p>Since inputs are handled by the saved move, as long as our calculations only rely on things that are replicated (velocity and rotation in this example), then we can make calculations based on them. Start by adding a method to check that we're moving forward.</p> <p><em>MyCharacterMovement.h</em></p> <p>///@return Whether or not the character is currently moving in a forward direction.
+bool IsMovingForward() const;</p> <p><em>MyCharacterMovement.cpp</em></p> <p>bool UMyCharacterMovement::IsMovingForward() const
+{
+if (!PawnOwner)
+{
+return false;
+}</p> <div class="language- extra-class"><pre><code>FVector Forward \= PawnOwner\-&gt;GetActorForwardVector();
+FVector MoveDirection \= Velocity.GetSafeNormal();
+
+//Ignore vertical movement
+Forward.Z \= 0.0f;
+MoveDirection.Z \= 0.0f;
+
+float VelocityDot \= FVector::DotProduct(Forward, MoveDirection);
+return VelocityDot \&gt; 0.7f;//Check to make sure difference between headings is not too great.
+</code></pre></div><p>}</p> <p>Then we simply check to make sure we're moving forward before applying the sprint speed boost in GetMaxSpeed and GetMaxAcceleration</p> <p><em>MyCharacterMovement.cpp</em></p> <p>float UMyCharacterMovement::GetMaxSpeed() const
+{
+float MaxSpeed = Super::GetMaxSpeed();</p> <div class="language- extra-class"><pre><code>if (bWantsToSprint &amp;&amp; IsMovingForward())
+{
+	MaxSpeed \*= SprintSpeedMultiplier;
+}
+
+return MaxSpeed;
+</code></pre></div><p>}</p> <p>float UMyCharacterMovement::GetMaxAcceleration() const
+{
+float MaxAccel = Super::GetMaxAcceleration();</p> <div class="language- extra-class"><pre><code>if (bWantsToSprint &amp;&amp; IsMovingForward())
+{
+	MaxAccel \*= SprintAccelerationMultiplier;
+}
+
+return MaxAccel;
+</code></pre></div><p>}</p> <h3 id="boost-dodge"><a href="#boost-dodge" class="header-anchor">#</a> Boost Dodge</h3> <p>A popular feature lately in FPS games is to have boost dodges/thruster packs basically your character quickly boosts horizontally to avoid damage, close the distance for a melee, make a long jump, or whatever else the player wants to try and use it for. Two prime examples of recent games with this ability being Halo 5 and Call of Duty: Advanced Warfare. The boost dodge ability is one example of an ability that can benefit from sending extra data alongside the typical activation flags. In Unreal Tournament 4 the ability is implemented using four flags: one for each boost direction, but in this implementation we'll be sending along the character's movement vector to the server, since we can reuse it for other abilities as well.</p> <p>To start with we'll deal with how to send additional input data to use in prediction. First add a variable to store it in the character movement component, then add the corresponding saved direction vector to the FSavedMove_MyMovement class. We'll also need to override the OnMovementUpdated method. The ability activation flag is handled just like bWantsToSprint. Don't forget to give DodgeStrength and GroundDodgeStrengthMultiplier some sane default values in the constructor.</p> <p><em>MyCharacterMovement.h</em></p> <p>//Inside UMyCharacterMovement class...
+UPROPERTY(EditAnywhere, Category = &quot;Dodge&quot;)
+float DodgeStrength;
+UPROPERTY(EditAnywhere, Category = &quot;Dodge&quot;)
+float GroundDodgeStrengthMultiplier;</p> <p>UFUNCTION(Unreliable, Server, WithValidation)
+void ServerSetMoveDirection(const FVector&amp; MoveDir);</p> <p>///@brief Triggers the dodge action.
+void DoDodge();</p> <p>///@brief Event triggered at the end of a movement update
+virtual void OnMovementUpdated(float DeltaSeconds, const FVector &amp; OldLocation, const FVector &amp; OldVelocity) override;</p> <p>FVector MoveDirection;
+uint8 bWantsToDodge : 1;</p> <p>//Inside FSavedMove_MyMovement class...
+FVector SavedMoveDirection;
+uint8 bSavedWantsToDodge : 1;</p> <p>///@brief This is used to copy state from the saved move to the character movement component.
+///This is ONLY used for predictive corrections, the actual data must be sent through RPC.
+virtual void PrepMoveFor(class ACharacter* Character) override;</p> <p>For sending extra client inputs to the server, we'll need to use RPC functions in place of the compressed flags. A convenient place to send the inputs is in the beginning of the OnMovementUpdated method.</p> <p><em>MyCharacterMovement.cpp</em></p> <p>bool UMyCharacterMovement::ServerSetMoveDirection_Validate(const FVector&amp; MoveDir)
+{
+return true;
+}</p> <p>void UMyCharacterMovement::ServerSetMoveDirection_Implementation(const FVector&amp; MoveDir)
+{
+MoveDirection = DodgeDir;
+}</p> <p>void UMyCharacterMovement::OnMovementUpdated(float DeltaSeconds, const FVector&amp; OldLocation, const FVector&amp; OldVelocity)
+{
+Super::OnMovementUpdated(DeltaSeconds, OldLocation, OldVelocity);</p> <div class="language- extra-class"><pre><code>if (!CharacterOwner)
+{
+	return;
+}
+
+//Store movement vector
+if (PawnOwner\-&gt;IsLocallyControlled())
+{
+	MoveDirection \= PawnOwner\-&gt;GetLastMovementInputVector();
+}
+//Send movement vector to server
+if (PawnOwner\-&gt;Role &lt; ROLE\_Authority)
+{
+	ServerSetMoveDirection(MoveDirection);
+}
+</code></pre></div><p>}</p> <p>The input will also need to be added to the saved moves. The implementation is very similar to adding an input flag to the saved moves, but does not involve compressed flag methods. The only difference is that PrepMoveFor needs to be implemented to allow for client corrections to be made.</p> <p><em>MyCharacterMovement.cpp</em></p> <p>void FSavedMove_MyMovement::SetMoveFor(ACharacter* Character, float InDeltaTime, FVector const&amp; NewAccel, class FNetworkPredictionData_Client_Character&amp; ClientData)
+{
+Super::SetMoveFor(Character, InDeltaTime, NewAccel, ClientData);</p> <div class="language- extra-class"><pre><code>UMyCharacterMovement\* CharMov \= Cast&lt;UMyCharacterMovement\&gt;(Character\-&gt;GetCharacterMovement());
+if (CharMov)
+{
+	//This is literally just the exact opposite of UpdateFromCompressed flags. We're taking the input
+	//from the player and storing it in the saved move.
+	bSavedWantsToSprint \= CharMov\-&gt;bWantsToSprint;
+
+	//Again, just taking the player movement component's state and storing it for later it in the saved move.
+	SavedMoveDirection \= CharMov\-&gt;MoveDirection;
+}
+</code></pre></div><p>}</p> <p>void FSavedMove_MyMovement::Clear()
+{
+Super::Clear();</p> <div class="language- extra-class"><pre><code>//Clear variables back to their default values.
+bSavedWantsToSprint \= false;
+SavedMoveDirection \= FVector::ZeroVector;
+</code></pre></div><p>}</p> <p>bool FSavedMove_MyMovement::CanCombineWith(const FSavedMovePtr&amp; NewMove, ACharacter* Character, float MaxDelta) const
+{
+//This pretty much just tells the engine if it can optimize by combining saved moves. There doesn't appear to be
+//any problem with leaving it out, but it seems that it's good practice to implement this anyways.
+if (bSavedWantsToSprint != ((FSavedMove_ExtendedMovement*)&amp;NewMove)-&gt;bSavedWantsToSprint)
+{
+return false;
+}</p> <div class="language- extra-class"><pre><code>if (SavedMoveDirection != ((FSavedMove\_ExtendedMovement\*)&amp;NewMove)\-&gt;SavedMoveDirection)
+{
+	return false;
+}
+
+return Super::CanCombineWith(NewMove, Character, MaxDelta);
+</code></pre></div><p>}</p> <p>void FSavedMove_MyMovement::PrepMoveFor(class ACharacter* Character)
+{
+Super::PrepMoveFor(Character);</p> <div class="language- extra-class"><pre><code>UMyCharacterMovement\* CharMov \= Cast&lt;UMyCharacterMovement\&gt;(Character\-&gt;GetCharacterMovement());
+if (CharMov)
+{
+	//This is just the exact opposite of SetMoveFor. It copies the state from the saved move to the movement
+	//component before a correction is made to a client.
+	CharMov\-&gt;MoveDirection \= SavedMoveDirection;
+	
+	//Don't update flags here. They're automatically setup before corrections using the compressed flag methods.
+}
+</code></pre></div><p>}</p> <p>Now we have all the data needed in order to implement the actual ability in OnMovementUpdated. We'll also need to implement the method to trigger the ability and hook it up to the character's input component. For the sake of brevity, and my own sanity, it's assumed that you can figure out how to hook up the DoDodge method to the input component by now if you've already made it this far, so that bit of code has been omitted.</p> <p><em>MyCharacterMovement.cpp</em></p> <p>void UMyCharacterMovement::OnMovementUpdated(float DeltaSeconds, const FVector&amp; OldLocation, const FVector&amp; OldVelocity)
+{
+Super::OnMovementUpdated(DeltaSeconds, OldLocation, OldVelocity);</p> <div class="language- extra-class"><pre><code>if (!CharacterOwner)
+{
+	return;
+}
+
+//Store movement vector
+if (PawnOwner\-&gt;IsLocallyControlled())
+{
+	MoveDirection \= PawnOwner\-&gt;GetLastMovementInputVector();
+}
+//Send movement vector to server
+if (PawnOwner\-&gt;Role &lt; ROLE\_Authority)
+{
+	ServerSetMoveDirection(MoveDirection);
+}
+
+//Update dodge movement
+if (bWantsToDodge)
+{		
+	MoveDirection.Normalize();
+	FVector DodgeVel \= MoveDirection\*DodgeStrength;
+	DodgeVel.Z \= 0.0f;
+
+	if (IsMovingOnGround())
+	{
+		DodgeVel \*= GroundDodgeStrengthMultiplier;
+	}
+
+	Launch(DodgeVel);
+
+	bWantsToDodge \= false;
+}
+</code></pre></div><p>}</p> <p>void UMyCharacterMovement::DoDodge()
+{
+bWantsToDodge = true;
+}</p> <p>Now you should be able to test the character movement and boost around using whatever key you've assigned boost to. To keep things simple, this is just a basic boost implementation. You could get more advanced and average the velocities in OnMovementUpdated so that you boost faster when going forward, or use all sorts of other math to make things more interesting.</p> <h3 id="double-jump"><a href="#double-jump" class="header-anchor">#</a> Double Jump</h3> <p>A simple double jump is actually quite easy to implement. The first thing is to override the CanJumpInternal_Implementation method in the character class so that we can actually trigger the extra jump.</p> <p><em>MyCharacter.cpp</em></p> <p>bool AMyCharacter::CanJumpInternal_Implementation() const
+{
+bool bCanJump = Super::CanJumpInternal_Implementation();</p> <div class="language- extra-class"><pre><code>UMyCharacterMovement\* MyMovementComp \= Cast&lt;UMyCharacterMovement\&gt;(GetCharacterMovement());
+if (!bCanJump &amp;&amp; MyMovementComp)
+{
+	bCanJump \= MyMovementComp\-&gt;CanJump();
+}
+
+return bCanJump;
+</code></pre></div><p>}</p> <p>It's much more convenient to check for double jumping capability inside the character movement component, so we'll just call into a CanJump method we'll add to it. Additionally, we'll want to override a couple methods, and add a couple properties. We'll also need to add a member to the saved move for corrections to work.</p> <p><em>MyCharacterMovement.h</em></p> <p>//Inside UMyCharacterMovement...</p> <p>///@brief Override DoJump to trigger the extra jumps.
+virtual bool DoJump(bool bReplayingMoves) override;
+///@return Whether or not the character can currently jump.
+bool CanJump();
+///@brief This is called whenever the character lands on the ground, and will be used to reset the jump counter.
+virtual void ProcessLanded(const FHitResult&amp; Hit, float remainingTime, int32 Iterations) override;</p> <p>UPROPERTY(Category = &quot;Multijump&quot;, EditAnywhere, BlueprintReadWrite, meta = (DisplayName = &quot;Max Multijump Count&quot;))
+int32 MaxJumpCount;
+UPROPERTY(Category = &quot;Multijump&quot;, BlueprintReadWrite, meta = (DisplayName = &quot;Current jump count&quot;))
+int32 JumpCount;</p> <p>//Inside FSavedMove_MyMovement...
+int32 SavedJumpCount;</p> <p>Okay, I lied. It's not necessarily a double jump, because you can set the MaxJumpCount property higher than 2 to let your character jump as many times as you want. It turns out it's easier to implement this way though, so you basically get extra functionality for free.</p> <p>First of all just get all the saved move stuff out of the way. Not much special here, just the same as before. The only difference being we don't have to bother sending the JumpCount through an RPC, because it just gets incremented on both the client and server whenever a jump is triggered.</p> <p><em>MyCharacterMovement.cpp</em></p> <p>void FSavedMove_MyMovement::Clear()
+{
+Super::Clear();</p> <div class="language- extra-class"><pre><code>//Omitted variables from previous abilities...
+
+SavedJumpCount \= 0;
+</code></pre></div><p>}</p> <p>bool FSavedMove_MyMovement::CanCombineWith(const FSavedMovePtr&amp; NewMove, ACharacter* Character, float MaxDelta) const
+{
+//Omitted variables from previous abilities...</p> <div class="language- extra-class"><pre><code>if (SavedJumpCount != ((FSavedMove\_MyMovement\*)&amp;NewMove)\-&gt;SavedJumpCount)
+{
+	return false;
+}
+
+return Super::CanCombineWith(NewMove, Character, MaxDelta);
+</code></pre></div><p>}</p> <p>void FSavedMove_MyMovement::SetMoveFor(ACharacter* Character, float InDeltaTime, FVector const&amp; NewAccel, class FNetworkPredictionData_Client_Character &amp; ClientData)
+{
+Super::SetMoveFor(Character, InDeltaTime, NewAccel, ClientData);</p> <div class="language- extra-class"><pre><code>UMyCharacterMovement\* CharMov \= Cast&lt;UMyCharacterMovement\&gt;(Character\-&gt;GetCharacterMovement());
+if (CharMov)
+{
+	//Omitted variables from previous abilities...
+
+	SavedJumpCount \= CharMov\-&gt;JumpCount;
+}
+</code></pre></div><p>}</p> <p>void FSavedMove_MyMovement::PrepMoveFor(class ACharacter* Character)
+{
+Super::PrepMoveFor(Character);</p> <div class="language- extra-class"><pre><code>UMyCharacterMovement\* CharMov \= Cast&lt;UMyCharacterMovement\&gt;(Character\-&gt;GetCharacterMovement());
+if (CharMov)
+{
+	//Omitted variables from previous abilities...
+
+	CharMov\-&gt;JumpCount \= SavedJumpCount;
+}
+</code></pre></div><p>}</p> <p>Now comes the actual extra jump implementation. To let the player even trigger the jump, the CanJump method we call into from the character class needs to be implemented. It's pretty self explanatory.</p> <p><em>MyCharacterMovement.cpp</em></p> <p>bool UExtendedCharacterMovement::CanJump()
+{
+return (IsMovingOnGround() || JumpCount &lt; MaxJumpCount) &amp;&amp; CanEverJump();
+}</p> <p>Now all that remains is to increment the jump count whenever an extra jump is triggered, and reset it on landing. The character movement component has a DoJump method for incrementing the counter, and a convenient ProcessLanded method we can override to reset the counter.</p> <p><em>MyCharacterMovement.cpp</em></p> <p>bool UMyCharacterMovement::DoJump(bool bReplayingMoves)
+{
+if (Super::DoJump(bReplayingMoves))
+{
+JumpCount++;</p> <div class="language- extra-class"><pre><code>	return true;
+}
+
+return false;
+</code></pre></div><p>}</p> <p>void UMyCharacterMovement::ProcessLanded(const FHitResult&amp; Hit, float remainingTime, int32 Iterations)
+{
+JumpCount = 0;</p> <div class="language- extra-class"><pre><code>Super::ProcessLanded(Hit, remainingTime, Iterations);
+</code></pre></div><p>}</p> <p>The double jump will work now if all you want to do is add an extra jump. The only problem is you can't really change directions while jumping. The good news is, we sent the movement vector earlier so that we could boost in different directions, so we can just reuse that here to make whatever velocity calculations we want to.</p> <p><em>MyCharacterMovement.cpp</em></p> <p>bool UMyCharacterMovement::DoJump(bool bReplayingMoves)
+{
+if (Super::DoJump(bReplayingMoves))
+{
+JumpCount++;</p> <div class="language- extra-class"><pre><code>	//Adjust midair velocity using the input direction
+	if (JumpCount \&gt; 1)
+	{
+		//Calculate lateral speed to use in adjusting trajectory in midair
+		FVector LateralVelocity \= Velocity;
+		LateralVelocity.Z \= 0.0f;//Don't care about vertical velocity
+		float LateralSpeed \= LateralVelocity.Size();
+
+		//Average the actual velocity with the target velocity
+		FVector NewVelocity \= MoveDirection\*LateralSpeed;
+		NewVelocity.Z \= 0.0f;
+		NewVelocity += LateralVelocity;
+		NewVelocity \*= 0.5f;
+
+		Velocity \= NewVelocity;
+		Velocity.Z \= JumpZVelocity;
+	}
+
+	return true;
+}
+
+return false;
+</code></pre></div><p>}</p> <p>Now jumping while holding in a different direction will cause the character to change directions mid jump.</p> <h2 id="cooldown-timers"><a href="#cooldown-timers" class="header-anchor">#</a> Cooldown Timers</h2> <p>The last example for character movement is cooldown timers on abilities. The boost dodge ability will be used to demonstrate how to implement a simple cooldown timer. The same concept applies to sprint energy and other timer/energy type effects as well.</p> <p>Timers are just calculated on both the client and the server independently, because they don't really need to match up perfectly since the server is authoritative. The only reason they need to be calculated on the client too is so that players don't try to spam the boost button and see their character getting corrected back to its original position. If you have a timer that really needs to be synchronized, then you could probably set it to be replicated, but in the interest of not wasting bandwidth the boost timer won't be replicated.</p> <p><em>MyCharacterMovement.h</em></p> <p>//Inside UMyCharacterMovement class...</p> <p>UPROPERTY(EditAnywhere, Category = &quot;Dodge&quot;)
+float DodgeCooldown;</p> <p>float DodgeCooldownTimer;</p> <p>//Inside FSavedMove_MyMovement class...
+float SavedDodgeCooldownTimer;</p> <p>DodgeCooldown should be initialized to something like 2.0f or whatever you want the cooldown time to be. DodgeCooldownTimer is what will actually be doing the timing, so set it to 0.0f in the constructor. We'll use OnMovementUpdated to update our timers.</p> <p><em>MyCharacterMovement.cpp</em></p> <p>void UMyCharacterMovement::OnMovementUpdated(float DeltaSeconds, const FVector&amp; OldLocation, const FVector&amp; OldVelocity)
+{
+//...</p> <div class="language- extra-class"><pre><code>//Update dodge movement
+if (bWantsToDodge &amp;&amp; DodgeCooldownTimer &lt;= 0.0f)
+{		
+	MoveDirection.Normalize();
+	FVector DodgeVel \= MoveDirection\*DodgeStrength;
+	DodgeVel.Z \= 0.0f;
+
+	if (IsMovingOnGround())
+	{
+		DodgeVel \*= GroundDodgeStrengthMultiplier;
+	}
+
+	Launch(DodgeVel);
+
+	bWantsToDodge \= false;
+
+	//Reset cooldown timer
+	DodgeCooldownTimer \= DodgeCooldown;
+}
+
+//Update cooldown timers
+{
+	if (DodgeCooldownTimer \&gt; 0.0f)
+	{
+		DodgeCooldownTimer \-= DeltaSeconds;
+	}
+}
+
+//...
+</code></pre></div><p>}</p> <p>We pretty much just update and check against the timers all in the OnMovementUpdated method. After a while this can get kind of messy, so in a larger project with lots of movement abilities it can be beneficial to refactor things a bit and maybe split stuff up into more methods, but for the sake of this example this will work fine.</p> <p>Finally, just do the usual with the saved moves.</p> <p>void FSavedMove_MyMovement::Clear()
+{
+Super::Clear();</p> <div class="language- extra-class"><pre><code>//Omitted other variables...
+
+SavedDodgeCooldownTimer\= 0;
+</code></pre></div><p>}</p> <p>bool FSavedMove_MyMovement::CanCombineWith(const FSavedMovePtr&amp; NewMove, ACharacter* Character, float MaxDelta) const
+{
+//Omitted other variables...</p> <div class="language- extra-class"><pre><code>if (SavedDodgeCooldownTimer!= ((FSavedMove\_MyMovement\*)&amp;NewMove)\-&gt;SavedDodgeCooldownTimer)
+{
+	return false;
+}
+
+return Super::CanCombineWith(NewMove, Character, MaxDelta);
+</code></pre></div><p>}</p> <p>void FSavedMove_MyMovement::SetMoveFor(ACharacter* Character, float InDeltaTime, FVector const&amp; NewAccel, class FNetworkPredictionData_Client_Character &amp; ClientData)
+{
+Super::SetMoveFor(Character, InDeltaTime, NewAccel, ClientData);</p> <div class="language- extra-class"><pre><code>UMyCharacterMovement\* CharMov \= Cast&lt;UMyCharacterMovement\&gt;(Character\-&gt;GetCharacterMovement());
+if (CharMov)
+{
+	//Omitted other variables...
+
+	SavedDodgeCooldownTimer \= CharMov\-&gt;DodgeCooldownTimer;
+}
+</code></pre></div><p>}</p> <p>void FSavedMove_MyMovement::PrepMoveFor(class ACharacter* Character)
+{
+Super::PrepMoveFor(Character);</p> <div class="language- extra-class"><pre><code>UMyCharacterMovement\* CharMov \= Cast&lt;UMyCharacterMovement\&gt;(Character\-&gt;GetCharacterMovement());
+if (CharMov)
+{
+	//Omitted other variables...
+
+	CharMov\-&gt;DodgeCooldownTimer \= SavedDodgeCooldownTimer;
+}
+</code></pre></div><p>}</p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>Most movement abilities should be easy to implement in quite a similar fashion. A jetpack would just need to use the compressed flags to set some sort of bWantsToJetpack on the movement component, then just use OnMovementUpdated to adjust the velocity.</p> <p>If you find any errors, or have any questions or suggestions about this tutorial then just drop them in the <a href="https://forums.unrealengine.com/showthread.php?79646-Wiki-Authoritative-Networked-Character-Movement-Tutorial&amp;p=351317#post351317" target="_blank" rel="noopener noreferrer">forum thread<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> and I'll try to update accordingly.</p> <h2 id="other-resources"><a href="#other-resources" class="header-anchor">#</a> Other Resources</h2> <p>This section just includes links to various useful resources relating to the character movement component. I'll be updating this whenever I find more.</p> <p><a href="/index.php?title=Custom_Character_Movement_Component" title="Custom Character Movement Component">Custom Character Movement Component</a></p> <p><a href="https://docs.unrealengine.com/latest/INT/Gameplay/Networking/CharacterMovementComponent/index.html" target="_blank" rel="noopener noreferrer">Character Movement Component docs<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><a href="http://error454.com/2015/03/20/ue4/movement/replication/" target="_blank" rel="noopener noreferrer">Error545's Character Movement Replication in UE4 blog post<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><a href="https://forums.unrealengine.com/showthread.php?5047-How-to-add-a-movement-type-inherited-from-Walking-Like-Covering" target="_blank" rel="noopener noreferrer">Custom Movement Modes<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><a href="https://github.com/EpicGames/UnrealTournament/blob/clean-master/UnrealTournament/Source/UnrealTournament/Public/UTCharacterMovement.h" target="_blank" rel="noopener noreferrer">UTCharacterMovement.h<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><a href="https://github.com/EpicGames/UnrealTournament/blob/clean-master/UnrealTournament/Source/UnrealTournament/Private/UTCharacterMovement.cpp" target="_blank" rel="noopener noreferrer">UTCharacterMovement.cpp<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><a href="https://github.com/EpicGames/UnrealTournament/blob/clean-master/UnrealTournament/Source/UnrealTournament/Public/UTCharacter.h" target="_blank" rel="noopener noreferrer">UTCharacter.h<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><a href="https://github.com/EpicGames/UnrealTournament/blob/clean-master/UnrealTournament/Source/UnrealTournament/Private/UTCharacter.cpp" target="_blank" rel="noopener noreferrer">UTCharacter.cpp<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><a href="https://github.com/EpicGames/UnrealTournament/blob/clean-master/UnrealTournament/Source/UnrealTournament/Private/UTCharMovementReplication.cpp" target="_blank" rel="noopener noreferrer">UTCharMovementReplication.cpp<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><a href="/index.php?title=User:DarthCoder&amp;action=edit&amp;redlink=1" title="User:DarthCoder (page does not exist)">DarthCoder</a> (<a href="/index.php?title=User_talk:DarthCoder&amp;action=edit&amp;redlink=1" title="User talk:DarthCoder (page does not exist)">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Authoritative_Networked_Character_Movement&amp;oldid=321" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Authoritative_Networked_Character_Movement&amp;oldid=321<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/index.php?title=Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/index.php?title=Category:Tutorials&amp;action=edit&amp;redlink=1" title="Category:Tutorials (page does not exist)">Tutorials</a></li> <li><a href="/index.php?title=Category:Code" title="Category:Code">Code</a></li> <li><a href="/index.php?title=Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/103.fa38d0d3.js" defer></script>
+  </body>
+</html>

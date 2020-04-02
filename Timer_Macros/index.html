@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1081.29c585d6.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Timer Macros - Epic Wiki</p> <h1 id="timer-macros"><a href="#timer-macros" class="header-anchor">#</a> Timer Macros</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#YourProject.h">2 YourProject.h</a></li> <li><a href="#Examples">3 Examples</a> <ul><li><a href="#Dummy_handle">3.1 Dummy handle</a> <ul><li><a href="#SomeActor.h">3.1.1 SomeActor.h</a></li> <li><a href="#SomeActor.cpp">3.1.2 SomeActor.cpp</a></li></ul></li> <li><a href="#Predefined_handle">3.2 Predefined handle</a> <ul><li><a href="#YourPlayerController.h">3.2.1 YourPlayerController.h</a></li> <li><a href="#YourPlayerController.cpp">3.2.2 YourPlayerController.cpp</a></li></ul></li></ul></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Authors:</em> <a href="/User:Rama" title="User:Rama">Rama</a>, <a href="/User:Kris" title="User:Kris">Kris</a></p> <p>Convenience macros initially created by Rama and extended by Kris, for working with the timer system introduced from UE4.7 onwards.</p> <h2 id="yourproject-h"><a href="#yourproject-h" class="header-anchor">#</a> YourProject.h</h2> <p>#define SETTIMER(param1, param2, param3) \
+{ \
+FTimerHandle TimerHandle; \
+GetWorldTimerManager().SetTimer(TimerHandle, this, &amp;param1, param2, param3); \
+}
+ 
+#define SETTIMERH(handle, param1, param2, param3) (GetWorldTimerManager().SetTimer(handle, this, &amp;param1, param2, param3))
+#define CLEARTIMER(handle) (GetWorldTimerManager().ClearTimer(handle))
+#define ISTIMERACTIVE(handle) (GetWorldTimerManager().IsTimerActive(handle))
+ 
+#define GETTIMERREMAINING(handle) (GetWorldTimerManager().GetTimerRemaining(handle))
+#define GETTIMERELAPSED(handle) (GetWorldTimerManager().GetTimerElapsed(handle))</p> <h2 id="examples"><a href="#examples" class="header-anchor">#</a> Examples</h2> <h3 id="dummy-handle"><a href="#dummy-handle" class="header-anchor">#</a> Dummy handle</h3> <p>Use the SETTIMER() macro to create a timer based off a dummy FTimerHandle variable.<br>
+Once created, you cannot interact with this kind of timer in any way.</p> <p>You will find plenty of cases where a dummy handle is used in the UE4 engine code base, this is a common case.</p> <p>If you need to track a timer in any way, such as clearing it at a time of your choosing, or checking if it is active, make sure to use SETTIMERH() and a handle that you store as a global variable.</p> <h4 id="someactor-h"><a href="#someactor-h" class="header-anchor">#</a> SomeActor.h</h4> <p>protected:
+UFUNCTION()
+void SomeFunction();</p> <h4 id="someactor-cpp"><a href="#someactor-cpp" class="header-anchor">#</a> SomeActor.cpp</h4> <div class="language- extra-class"><pre><code>SETTIMER(ASomeActor::SomeFunction, 0.25f, false);
+</code></pre></div><h3 id="predefined-handle"><a href="#predefined-handle" class="header-anchor">#</a> Predefined handle</h3> <p>Use the SETTIMERH() macro when to create a timer based off an existing FTimerHandle variable.<br>
+Once created, you can interact with this timer by passing the FTimerHandle variable into other macros, such as CLEARTIMER() or ISTIMERACTIVE().</p> <h4 id="yourplayercontroller-h"><a href="#yourplayercontroller-h" class="header-anchor">#</a> YourPlayerController.h</h4> <p>protected:
+FTimerHandle TimerHandle_Taunt;
+float LastTauntTime;
+ 
+UFUNCTION()
+void TauntTimer();</p> <h4 id="yourplayercontroller-cpp"><a href="#yourplayercontroller-cpp" class="header-anchor">#</a> YourPlayerController.cpp</h4> <p>void AYourPlayerController::ServerTaunt_Implementation()
+{
+// Only allow Taunt its been awhile since we last tried to commit Taunt.
+// TIMEXXX macros from https://wiki.unrealengine.com/Time_Macros
+if (TIMESINCE(LastTauntTime) &gt; 5.0)
+{
+LastTauntTime = TIMENOW;
+// Don't commit Taunt if a Taunt attempt is already pending.
+if (!ISTIMERACTIVE(TimerHandle_Taunt))
+{
+// Delay the Taunt attempt a random amount to prevent trolling.
+SETTIMERH(TimerHandle_Taunt, AYourPlayerController::TauntTimer, FMath::FRandRange(1.5f, 3.0f), false);
+}
+}
+}</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Timer_Macros&amp;oldid=14645" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Timer_Macros&amp;oldid=14645<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1081.29c585d6.js" defer></script>
+  </body>
+</html>

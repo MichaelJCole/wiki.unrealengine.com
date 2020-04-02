@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/559.be7cc50a.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>HUD: Unity 3D OnGUI Remake - Epic Wiki</p> <h1 id="hud-unity-3d-ongui-remake"><a href="#hud-unity-3d-ongui-remake" class="header-anchor">#</a> HUD: Unity 3D OnGUI Remake</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a> <ul><li><a href="#Functions_Matching_Unity.27s_GUI_class">1.1 Functions Matching Unity's GUI class</a></li> <li><a href="#Transparency">1.2 Transparency</a></li> <li><a href="#Centering">1.3 Centering</a></li> <li><a href="#Input">1.4 Input</a></li></ul></li> <li><a href="#Demos">2 Demos</a></li> <li><a href="#Credit">3 Credit</a></li> <li><a href="#Pre-requisites">4 Pre-requisites</a> <ul><li><a href="#Font">4.1 Font</a></li> <li><a href="#Texture">4.2 Texture</a></li> <li><a href="#Button_Material">4.3 Button Material</a></li> <li><a href="#Animated_Button_Material">4.4 Animated Button Material</a></li> <li><a href="#Slider_Background_Material">4.5 Slider Background Material</a></li> <li><a href="#Slider_Button_Material">4.6 Slider Button Material</a></li></ul></li> <li><a href="#C.2B.2B_Code">5 C++ Code</a> <ul><li><a href="#HUDObjects.h">5.1 HUDObjects.h</a></li> <li><a href="#HUDObjects.cpp">5.2 HUDObjects.cpp</a></li> <li><a href="#GUI.h">5.3 GUI.h</a></li> <li><a href="#GUI.cpp">5.4 GUI.cpp</a></li> <li><a href="#YourHUD.h">5.5 YourHUD.h</a></li> <li><a href="#YourHUD.cpp">5.6 YourHUD.cpp</a></li></ul></li> <li><a href="#BluePrint.2FEditor_End">6 BluePrint/Editor End</a> <ul><li><a href="#Text_Section">6.1 Text Section</a></li> <li><a href="#Buttons_Section">6.2 Buttons Section</a></li> <li><a href="#Textures_Section">6.3 Textures Section</a></li> <li><a href="#Materials_Section">6.4 Materials Section</a></li> <li><a href="#Animations_Section">6.5 Animations Section</a></li></ul></li> <li><a href="#Conclusion">7 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Code Author:</em> <a href="https://forums.unrealengine.com/member.php?4329-Loken01" target="_blank" rel="noopener noreferrer">Loken01<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>For a while I had taken a break from UDK and had been using Unity3D for a bit, and even though it will never quite match up with AutoDesk ScaleForm, I thought I'd give it a whirl at making a more simplistic HUD system for users.</p> <p>The basics of AHUD I learnt from Rama's awesome tutorials! <a href="/HUD,_Canvas,_Code_Sample_of_800%2B_Lines,_Create_Buttons_%26_Draw_Materials" title="HUD, Canvas, Code Sample of 800+ Lines, Create Buttons &amp; Draw Materials">HUD, Canvas, Code Sample of 800+ Lines</a></p> <p>Everything in this is based on objects, so everything can handle it's own instance! Makes things super easy for us!</p> <h3 id="functions-matching-unity-s-gui-class"><a href="#functions-matching-unity-s-gui-class" class="header-anchor">#</a> Functions Matching Unity's GUI class</h3> <ul><li>Labels</li> <li>Textures</li> <li>Materials</li> <li>Animated Materials</li> <li>Buttons</li> <li>Animated Buttons</li> <li>Horizontal Sliders</li> <li>Vertical Sliders</li> <li>Movable Windows (Coming soon)</li></ul> <h3 id="transparency"><a href="#transparency" class="header-anchor">#</a> Transparency</h3> <p>Everything in this entire HUD system has full control over transparency. Materials are handled in the material editor. Textures work best if their LOD group is set to 'UI'.</p> <h3 id="centering"><a href="#centering" class="header-anchor">#</a> Centering</h3> <p>I wanted to make sure everything could be scaled according to screen size so I made four functions:</p> <ul><li>Scale Width</li> <li>Scale Height</li> <li>Center Horizontal</li> <li>Center Vertical</li></ul> <p>These work based on getting the sizes from the Canvas, and then doing a check against the relative position of 1920x1080. It means no matter the screen size, everything will stay exactly the same relative to the edges of the screen.</p> <h3 id="input"><a href="#input" class="header-anchor">#</a> Input</h3> <p>Currently the only form of input is the mouse. But you can use your PlayerController or Character class to bind other actions and simply tweak this code. My personal version works using the controller and simulating mouse movement, but I wanted to generalize as much as possible for this tutorial.</p> <h2 id="demos"><a href="#demos" class="header-anchor">#</a> Demos</h2> <p>So I made a few gifs just to show what could be done in about 2-3 minutes with this HUD system!</p> <p>Labels:</p> <p><a href="/File:Label.png" title="Label"><img src="https://d26ilriwvtzlb.cloudfront.net/0/06/Label.png" alt="Label"></a></p> <p>Buttons:</p> <p><a href="/File:Button.gif" title="Button"><img src="https://d26ilriwvtzlb.cloudfront.net/7/7a/Button.gif" alt="Button"></a></p> <p>Animated Buttons:</p> <p><a href="/File:AnimatedButton.gif" title="Animated Buttons"><img src="https://d26ilriwvtzlb.cloudfront.net/2/2e/AnimatedButton.gif" alt="Animated Buttons"></a></p> <p>Horizontal Sliders:</p> <p><a href="/File:HorizontalSlider.gif" title="Slider"><img src="https://d26ilriwvtzlb.cloudfront.net/2/23/HorizontalSlider.gif" alt="Slider"></a></p> <p>Vertical Sliders:</p> <p><a href="/File:VerticalSlider.gif" title="Slider"><img src="https://d26ilriwvtzlb.cloudfront.net/f/f0/VerticalSlider.gif" alt="Slider"></a></p> <h2 id="credit"><a href="#credit" class="header-anchor">#</a> Credit</h2> <p>Everything I learnt about the standard AHUD system came directly from Rama, so this is like an extension to his work</p> <p>Apart from a few tiny bits here and there, (Rama's) almost all of this is my own creation.</p> <p>Also a big thanks to <a href="https://forums.unrealengine.com/member.php?10846-DroseGaming" target="_blank" rel="noopener noreferrer">DroseGaming<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> for helping me with some bug issues!</p> <p><strong>Why Did I make this system?</strong></p> <p>I wanted it to be easier to make an easy to use object based system that could be easily managed in memory, handle their own animations, etc dynamically, without cluttering up your HUD class.</p> <h2 id="pre-requisites"><a href="#pre-requisites" class="header-anchor">#</a> Pre-requisites</h2> <p>As in Rama's tutorial, you need to have a few things:</p> <h3 id="font"><a href="#font" class="header-anchor">#</a> Font</h3> <p>Creat a font in your content browser. Right click, and make a new font, and give it a large default size. I tend to just stick it to the highest.</p> <h3 id="texture"><a href="#texture" class="header-anchor">#</a> Texture</h3> <p>Literally any texture would do.</p> <h3 id="button-material"><a href="#button-material" class="header-anchor">#</a> Button Material</h3> <p>Create a new material and set it to be Transparent and Unlit. You will need a button 'Up' and button 'Down' texture. You will need two parameters called 'Highlight' and 'Click'</p> <p>And finally plug everything together like so:</p> <p><a href="/File:ButtonMaterial.png" title="Button Material Editor"><img src="https://d26ilriwvtzlb.cloudfront.net/4/42/ButtonMaterial.png" alt="Button Material Editor"></a></p> <h3 id="animated-button-material"><a href="#animated-button-material" class="header-anchor">#</a> Animated Button Material</h3> <p>This can be done exactly the same as above, but the textures would need to be in a sprite sheet like layout.</p> <h3 id="slider-background-material"><a href="#slider-background-material" class="header-anchor">#</a> Slider Background Material</h3> <p>Create a material that is Transparent and Unlit. Only really needs the one texture.</p> <h3 id="slider-button-material"><a href="#slider-button-material" class="header-anchor">#</a> Slider Button Material</h3> <p>For this you can simply use any &quot;Button Material&quot;</p> <h2 id="c-code"><a href="#c-code" class="header-anchor">#</a> C++ Code</h2> <p>The code below assumes you have created a new class named &quot;YourHud&quot;. Although you can rename to whatever you want. Just clean up any references. Simply replace any references to &quot;YourGame.h&quot; to be whatever your game has been called.</p> <h3 id="hudobjects-h"><a href="#hudobjects-h" class="header-anchor">#</a> HUDObjects.h</h3> <p>153 Lines</p> <p>#pragma once
+ 
+#include &quot;GameFramework/HUD.h&quot;
+#include &quot;HUDObjects.generated.h&quot;
+ 
+USTRUCT()
+struct FShapeStruct
+{
+GENERATED_USTRUCT_BODY()
+ 
+//Vars
+float x;
+float y;
+float w;
+float h;
+ 
+//default properties
+FShapeStruct()
+{
+x = 0;
+y = 0;
+w = 0;
+h = 0;
+}
+};
+ 
+UCLASS()
+class UHUDObjects : public UObject
+{
+GENERATED_UCLASS_BODY()
+ 
+protected:
+//State handler
+bool IsButton;
+ 
+//Shape and positioning of this object
+FShapeStruct BGShapeAndPos;
+ 
+//Shape and positioning of this object
+FShapeStruct ShapeAndPos;
+ 
+//Background material reference
+UPROPERTY()
+UMaterialInterface* BackGround;
+ 
+//Slider background material reference
+UPROPERTY()
+UMaterialInterface* SliderBackGround;
+ 
+//Created material instance reference
+UPROPERTY()
+UMaterialInstanceDynamic* MIObj;
+ 
+//Created material instance for a slider background
+UPROPERTY()
+UMaterialInstanceDynamic* BGMIObj;
+ 
+//Name of the highlight parameter
+FString HighLightName;
+ 
+//Name of the click parameter
+FString ClickName;
+ 
+//Whether or not this has an animation
+bool bHasAnim;
+ 
+//Scale of the text
+float ScaleAmount;
+ 
+//Text
+FString Text;
+ 
+//Reference to the font used
+UPROPERTY()
+UFont* Font;
+ 
+//Animation
+FVector2D AnimTiling;
+//Number of tiles in total
+int NumTiles;
+//Time between frame updates
+float FrameUpdateDelay;
+//Current time taken from the last frame update
+float currentTime;
+ 
+//CurrentAnimTile
+int Tile;
+float MatU;
+float MatV;
+float MatUWidth;
+float MatVHeight;
+ 
+float CropU;
+float CropV;
+float CropX;
+float CropY;
+ 
+UPROPERTY()
+UTexture2D* Texture;
+ 
+//Functions
+public:
+//State of button
+bool IsInside;
+bool bGrabbed;
+ 
+//If the passed position is within the screen bounds of this object
+bool Hovered();
+ 
+//Update and Draw depending on how the object was initialised
+//SHOULD BE CALLED WITH CARE
+void Update(AHUD* HUDRef, FVector2D MousePos, float x, float y, float w, float h, float Scale, FLinearColor TextColour = FLinearColor::White);
+ 
+//Draw the horizontal slider
+float DrawHorizontalSlider(AHUD* HUDRef, float Amount, float MinAmount, float MaxAmount, FVector2D MousePos, float x, float y, float w, float h, float Scale);
+ 
+//Draw the vertical slider
+float DrawVerticalSlider(AHUD* HUDRef, float Amount, float MinAmount, float MaxAmount, FVector2D MousePos, float x, float y, float w, float h, float Scale);
+ 
+//Check for click on slider BG
+bool CheckInsideSliderBG(FVector2D MousePos);
+ 
+//Draw the texture that this object was initialised with.
+//SHOULD BE CALLED WITH CARE
+void DrawTexture(AHUD* HUDRef, float x, float y, float w, float h, FColor pColour);
+ 
+//Crops the U/V sizes. 0=No crop, 1=MaxCrop
+//This will only work on Texture or Animation Objects
+void CropObjectUV(FVector2D UVCrop);
+ 
+//Crops the X/Y sizes. 0=No crop, 1=MaxCrop
+//This will only work on Texture or Animation Objects
+void CropObjectXY(FVector2D XYCrop);
+ 
+//Initialise this object with only Text
+void Init(FString pText, UFont* pFont);
+//Initialise this object with only a texture
+void Init(UTexture2D* pTexture);
+//Initialise this object with a highlightable material
+void Init(bool pIsButton, UMaterialInterface* BackgroundMaterial, FString pHighLightName, FString pClickName);
+//Initialise this object with a slider button and background
+void Init(bool pIsButton, UMaterialInterface* SliderMaterial, FString pHighLightName, FString pClickName, UMaterialInterface* BackgroundMaterial);
+//Initialise this object with a highlightable material with text
+void Init(bool pIsButton, UMaterialInterface* BackgroundMaterial, FString pHighLightName, FString pClickName, FString pText, UFont* pFont);
+//Initialise this object with a highlightable animated material
+void Init(bool pIsButton, UMaterialInterface* BackgroundMaterial, FString pHighLightName, FString pClickName, FVector2D pAnimTiling, int pNumTiles, float pFrameUpdateDelay);
+//Initialise this object with a highlightable animated material with text
+void Init(bool pIsButton, UMaterialInterface* BackgroundMaterial, FString pHighLightName, FString pClickName, FString pText, UFont* pFont, FVector2D pAnimTiling, int pNumTiles, float pFrameUpdateDelay);
+ 
+protected:
+void UpdateAnim();
+void CheckInside(FVector2D MousePos);
+};</p> <h3 id="hudobjects-cpp"><a href="#hudobjects-cpp" class="header-anchor">#</a> HUDObjects.cpp</h3> <p>487 Lines</p> <p>#include &quot;YourGame.h&quot;
+#include &quot;HUDObjects.h&quot;
+ 
+UHUDObjects::UHUDObjects(const class FPostConstructInitializeProperties&amp; PCIP) : Super(PCIP)
+{}
+ 
+void UHUDObjects::Init(UTexture2D* pTexture)
+{
+//Pass the texture
+Texture = pTexture;
+}
+ 
+void UHUDObjects::Init(bool pIsButton, UMaterialInterface* BackgroundMaterial, FString pHighLightName, FString pClickName)
+{
+//Initialise global variables with passed parameters
+IsButton = pIsButton;
+ 
+//This material pointer is assigned as another pointer isn't it?
+//So how would I make is it's own dynamic instance?
+BackGround = BackgroundMaterial;
+ 
+//Set the highlight and click names
+HighLightName = pHighLightName;
+ClickName = pClickName;
+ 
+//If the material exists
+if (BackGround != NULL)
+{
+//Create an instance of it
+MIObj = UMaterialInstanceDynamic::Create(BackGround-&gt;GetMaterial(), this);
+}//if
+}//Init
+ 
+void UHUDObjects::Init(bool pIsButton, UMaterialInterface* SliderMaterial, FString pHighLightName, FString pClickName, UMaterialInterface* BackgroundMaterial)
+{
+//pass vars
+Init(pIsButton, SliderMaterial, pHighLightName, pClickName);
+//set slider background
+SliderBackGround = BackgroundMaterial;
+ 
+//if it exists
+if (SliderBackGround != NULL)
+{
+//create an instance of it
+BGMIObj = UMaterialInstanceDynamic::Create(SliderBackGround-&gt;GetMaterial(), this);
+}//if
+}//Init
+ 
+void UHUDObjects::Init(bool pIsButton, UMaterialInterface* BackgroundMaterial, FString pHighLightName, FString pClickName, FVector2D pAnimTiling, int pNumTiles, float pFrameUpdateDelay)
+{
+//pass vars
+Init(pIsButton, BackgroundMaterial, pHighLightName, pClickName);
+ 
+//set anim tilings
+AnimTiling = pAnimTiling;
+//set number of anim tiles
+NumTiles = pNumTiles;
+//set that we have an anim
+bHasAnim = true;
+//set up frame delay
+FrameUpdateDelay = pFrameUpdateDelay;
+//set current time to the max
+currentTime = FrameUpdateDelay;
+//set current tile to 0
+Tile = 0;
+//calculate the u width of the material
+MatUWidth = 1 / AnimTiling.X;
+//calculate the v width of the material
+MatVHeight = 1 / AnimTiling.Y;
+}//Init
+ 
+void UHUDObjects::Init(bool pIsButton, UMaterialInterface* BackgroundMaterial, FString pHighLightName, FString pClickName, FString pText, UFont* pFont, FVector2D pAnimTiling, int pNumTiles, float pFrameUpdateDelay)
+{
+//pass vars
+Init(pIsButton, BackgroundMaterial, pHighLightName, pClickName, pAnimTiling, pNumTiles, pFrameUpdateDelay);
+ 
+//set text
+Text = pText;
+//set font
+Font = pFont;
+}//Init
+ 
+void UHUDObjects::Init(FString pText, UFont* pFont)
+{
+//Initialise global variables with passed parameters
+IsButton = false;
+Text = pText;
+Font = pFont;
+}//Init
+ 
+void UHUDObjects::Init(bool pIsButton, UMaterialInterface* BackgroundMaterial, FString pHighLightName, FString pClickName, FString pText, UFont* pFont)
+{
+//pass vars
+Init(pIsButton, BackgroundMaterial, pHighLightName, pClickName);
+//Set text
+Text = pText;
+//Set font
+Font = pFont;
+}//Init
+ 
+void UHUDObjects::CheckInside(FVector2D MousePos)
+{
+//If within the X area
+if (MousePos.X &gt; ShapeAndPos.x &amp;&amp; MousePos.X &lt; ShapeAndPos.x + ShapeAndPos.w)
+{
+//If within the Y area
+if (MousePos.Y &gt; ShapeAndPos.y &amp;&amp; MousePos.Y &lt; ShapeAndPos.y + ShapeAndPos.h)
+{
+//Mouse is inside
+IsInside = true;
+}//if
+else
+{
+//Mouse is not inside
+IsInside = false;
+}//else
+}//if
+else
+{
+//Mouse is not inside
+IsInside = false;
+}//else
+ 
+//If the material instance exists and the highlight name exists
+if (MIObj != NULL &amp;&amp; IsButton &amp;&amp; HighLightName.Len() &gt; 0)
+{
+//Set up var
+float TmpVar;
+//Get highlight value, to be sure it exists
+if (MIObj-&gt;GetScalarParameterValue(FName(*HighLightName), TmpVar))
+{
+//if we are inside
+if (IsInside)
+{
+//set it to 1
+MIObj-&gt;SetScalarParameterValue(FName(*HighLightName), 1);
+}//if
+else
+{
+//otherwise set it to 0
+MIObj-&gt;SetScalarParameterValue(FName(*HighLightName), 0);
+}//else
+}//if
+}//if
+ 
+//If the material instance exists and the click name exists
+if (MIObj != NULL &amp;&amp; IsButton &amp;&amp; ClickName.Len() &gt; 0)
+{
+//Set up var
+float TmpVar;
+//Get click value, to be sure it exists
+if (MIObj-&gt;GetScalarParameterValue(FName(*ClickName), TmpVar))
+{
+//if it has been grabbed
+if (bGrabbed)
+{
+//set it to 1
+MIObj-&gt;SetScalarParameterValue(FName(*ClickName), 1);
+}//if
+else
+{
+//otherwise set it to 0
+MIObj-&gt;SetScalarParameterValue(FName(*ClickName), 0);
+}//else
+}//if
+}//if
+ 
+}//CheckInside
+ 
+bool UHUDObjects::CheckInsideSliderBG(FVector2D MousePos)
+{
+//If within the X area
+if (MousePos.X &gt; BGShapeAndPos.x &amp;&amp; MousePos.X &lt; BGShapeAndPos.x + BGShapeAndPos.w)
+{
+//If within the Y area
+if (MousePos.Y &gt;(BGShapeAndPos.y - BGShapeAndPos.h) &amp;&amp; MousePos.Y &lt; BGShapeAndPos.y + (BGShapeAndPos.h * 2))
+{
+//Mouse is inside
+return true;
+}//if
+else
+{
+//Mouse is not inside
+return false;
+}//else
+}//if
+else
+{
+//Mouse is not inside
+return false;
+}//else
+}
+ 
+bool UHUDObjects::Hovered()
+{
+return IsInside;
+}//Hovered
+ 
+void UHUDObjects::UpdateAnim()
+{
+//if the time is greater than 0
+if (currentTime &gt; 0)
+{
+//decrement it
+currentTime -= 0.01f;
+}//if
+else
+{
+//otherwise reset it
+currentTime = FrameUpdateDelay;
+ 
+//if the current tile is less than the max number of tiles
+if (Tile &lt; (NumTiles - 1))
+{
+//increment it
+Tile += 1;
+ 
+//increment the u position
+MatU += MatUWidth;
+ 
+//if the u position is now equal to or greater than 1
+if (MatU &gt;= 1)
+{
+//reset it to 0
+MatU = 0;
+ 
+//increment the v position
+MatV += MatVHeight;
+ 
+//if the v position is now equal to or greater than 1
+if (MatV &gt;= 1)
+{
+//reset it
+MatV = 0;
+}//if
+}//if
+}//if
+else
+{
+//otherwise reset everything
+Tile = 0;
+MatU = 0;
+MatV = 0;
+}//else
+}//else
+}//UpdateAnim
+ 
+void UHUDObjects::Update(AHUD* HUDRef, FVector2D MousePos, float x, float y, float w, float h, float Scale, FLinearColor TextColour)
+{
+//Set vars
+ShapeAndPos.x = x;
+ShapeAndPos.y = y;
+ShapeAndPos.w = w;
+ShapeAndPos.h = h;
+ScaleAmount = Scale;
+ 
+//Check if the mouse is inside the object
+CheckInside(MousePos);
+ 
+//If the BG material reference  isn't null, and the passed HUD isn't null
+if (HUDRef != NULL)
+{
+if (MIObj != NULL)
+{
+//if this is an animation
+if (bHasAnim)
+{
+//Update the animation
+UpdateAnim();
+ 
+HUDRef-&gt;DrawMaterial(MIObj,
+ShapeAndPos.x, ShapeAndPos.y,								//X and Y
+ShapeAndPos.w - (ShapeAndPos.w * CropX),					//Width Minus cropped percentage
+ShapeAndPos.h - (ShapeAndPos.h * CropY),					//Height Minus cropped percentage
+MatU + (MatUWidth * CropX),									//U start plus percentage of U Width
+MatV + (MatVHeight * CropY),								//V start plus percentage of V Height
+(MatUWidth * (1 - CropU)) - (MatUWidth * CropX),			//Width is percentage of cropped U,
+(MatVHeight * (1 - CropV)) - (MatVHeight * CropY),			//Height is percentage of cropped V,
+1, false);													//Other bits
+}//if
+else
+{
+//Draw the material as assigned
+HUDRef-&gt;DrawMaterialSimple(MIObj, ShapeAndPos.x, ShapeAndPos.y, ShapeAndPos.w, ShapeAndPos.h, 1, false);
+}//else
+}//If
+ 
+//if the text isn't empty
+if (!Text.IsEmpty())
+{
+//if the font exists
+if (Font != NULL)
+{
+//Get the font text size
+float tWidth, tHeight;
+HUDRef-&gt;GetTextSize(Text, tWidth, tHeight, Font, ScaleAmount);
+ 
+//Calculate spaceing around the text inside the button
+float newX = (ShapeAndPos.w - tWidth) / 2;
+float newY = (ShapeAndPos.h - tHeight) / 2;
+ 
+//Draw text and adjust for center
+HUDRef-&gt;DrawText(Text, TextColour, ShapeAndPos.x + newX, ShapeAndPos.y + newY, Font, ScaleAmount, false);
+}//if
+}//if
+}//if
+ 
+}//Update
+ 
+float UHUDObjects::DrawHorizontalSlider(AHUD* HUDRef, float Amount, float MinAmount, float MaxAmount, FVector2D MousePos, float x, float y, float w, float h, float Scale)
+{
+//Set vars
+BGShapeAndPos.x = x;
+BGShapeAndPos.y = y;
+BGShapeAndPos.w = w;
+BGShapeAndPos.h = h;
+ScaleAmount = Scale;
+ 
+//Work out how much to extend the slider to make it fit correctly
+float BGWidener = BGShapeAndPos.w * 0.08f;
+//If the BG material reference  isn't null, and the passed HUD isn't null
+if (HUDRef != NULL)
+{
+if (BGMIObj != NULL)
+{
+//Draw the material as assigned
+HUDRef-&gt;DrawMaterialSimple(BGMIObj, BGShapeAndPos.x - BGWidener, BGShapeAndPos.y, BGShapeAndPos.w + (BGWidener * 2), BGShapeAndPos.h, 1, false);
+}//if
+}//if
+ 
+//Get a percentage between 0-1
+float PercentageAlong = Amount / (MaxAmount - MinAmount);
+ 
+//Work out the size/position of the slider, based off of the total size
+ShapeAndPos.w = BGShapeAndPos.w*0.05f;
+ShapeAndPos.x = (BGShapeAndPos.x + (BGShapeAndPos.w * PercentageAlong)) - (ShapeAndPos.w/2);
+ShapeAndPos.h = BGShapeAndPos.h * 2.5f;
+ShapeAndPos.y = BGShapeAndPos.y - ((ShapeAndPos.h - BGShapeAndPos.h)/2);
+ 
+//Check if the mouse is inside the object
+CheckInside(MousePos);
+ 
+//if the object has been grabbed
+if (bGrabbed)
+{
+//then we are inside
+IsInside = true;
+ 
+//calculate slider ranges
+float Left = (BGShapeAndPos.x + (BGShapeAndPos.w * 0)) - (ShapeAndPos.w / 2);
+float Right = (BGShapeAndPos.x + (BGShapeAndPos.w * 1)) - (ShapeAndPos.w / 2);
+ 
+//Update the object to match the mouse pos
+ShapeAndPos.x = (MousePos.X) - (ShapeAndPos.w / 2);
+//Clamp within ranges
+ShapeAndPos.x = FMath::Clamp&lt;float&gt;(ShapeAndPos.x, Left, Right);
+ 
+//work out the new percentage to return
+PercentageAlong = ((ShapeAndPos.x - BGShapeAndPos.x) + (ShapeAndPos.w / 2)) / BGShapeAndPos.w;
+ 
+//Calculate the amount to return
+Amount = MaxAmount * PercentageAlong;
+//Clamp again just to be sure
+Amount = FMath::Clamp&lt;float&gt;(Amount, MinAmount, MaxAmount);
+}//if
+ 
+//If the BG material reference  isn't null, and the passed HUD isn't null
+if (HUDRef != NULL)
+{
+if (MIObj != NULL)
+{
+//Draw the material as assigned
+HUDRef-&gt;DrawMaterialSimple(MIObj, ShapeAndPos.x, ShapeAndPos.y, ShapeAndPos.w, ShapeAndPos.h, 1, false);
+}//if
+}//if
+return Amount;
+}//DrawHorizontalSlider
+ 
+float UHUDObjects::DrawVerticalSlider(AHUD* HUDRef, float Amount, float MinAmount, float MaxAmount, FVector2D MousePos, float x, float y, float w, float h, float Scale)
+{
+//Set vars
+BGShapeAndPos.x = x;
+BGShapeAndPos.y = y;
+BGShapeAndPos.w = w;
+BGShapeAndPos.h = h;
+ScaleAmount = Scale;
+ 
+//Work out how much to extend the slider to make it fit correctly
+float BGHeightAdd = BGShapeAndPos.h * 0.08f;
+//If the BG material reference  isn't null, and the passed HUD isn't null
+if (HUDRef != NULL)
+{
+if (BGMIObj != NULL)
+{
+//Draw the material as assigned
+HUDRef-&gt;DrawMaterialSimple(BGMIObj, BGShapeAndPos.x, BGShapeAndPos.y - BGHeightAdd, BGShapeAndPos.w, BGShapeAndPos.h + (BGHeightAdd * 2), 1, false);
+}//if
+}//if
+ 
+//Get a percentage between 0-1
+float PercentageAlong = Amount / (MaxAmount - MinAmount);
+ 
+//Inverting
+PercentageAlong = 1 - PercentageAlong;
+ 
+//Work out the size/position of the slider, based off of the total size
+ShapeAndPos.h = BGShapeAndPos.h*0.05f;
+ShapeAndPos.y = (BGShapeAndPos.y + (BGShapeAndPos.h * PercentageAlong)) - (ShapeAndPos.h / 2);
+ShapeAndPos.w = BGShapeAndPos.w * 2.5f;
+ShapeAndPos.x = BGShapeAndPos.x - ((ShapeAndPos.w - BGShapeAndPos.w) / 2);
+ 
+//Check if the mouse is inside the object
+CheckInside(MousePos);
+ 
+//if the object has been grabbed
+if (bGrabbed)
+{
+//then we are inside the button
+IsInside = true;
+ 
+//Work out the ranges the slider can meet
+float Top = (BGShapeAndPos.y + (BGShapeAndPos.h * 0)) - (ShapeAndPos.h / 2);
+float Bottom = (BGShapeAndPos.y + (BGShapeAndPos.h * 1)) - (ShapeAndPos.h / 2);
+ 
+//Update the object to match the mouse pos
+ShapeAndPos.y = (MousePos.Y) - (ShapeAndPos.h / 2);
+//Clamp within ranges
+ShapeAndPos.y = FMath::Clamp&lt;float&gt;(ShapeAndPos.y, Top, Bottom);
+ 
+//Work out the percentage to return
+PercentageAlong = ((ShapeAndPos.y - BGShapeAndPos.y) + (ShapeAndPos.h / 2)) / BGShapeAndPos.h;
+ 
+//Inverting
+PercentageAlong = 1 - PercentageAlong;
+ 
+//Calculate the amount
+Amount = MaxAmount * PercentageAlong;
+//Clamp it just to be sure
+Amount = FMath::Clamp&lt;float&gt;(Amount, MinAmount, MaxAmount);
+}//if
+ 
+//If the BG material reference  isn't null, and the passed HUD isn't null
+if (HUDRef != NULL)
+{
+if (MIObj != NULL)
+{
+//Draw the material as assigned
+HUDRef-&gt;DrawMaterialSimple(MIObj, ShapeAndPos.x, ShapeAndPos.y, ShapeAndPos.w, ShapeAndPos.h, 1, false);
+}//if
+}//if
+return Amount;
+}//DrawVerticalSlider
+ 
+void UHUDObjects::DrawTexture(AHUD* HUDRef, float x, float y, float w, float h, FColor pColour)
+{
+//if the hud exists
+if (HUDRef != NULL)
+{
+//if the texture exists
+if (Texture != NULL)
+{
+//Draw the texture
+HUDRef-&gt;DrawTexture(Texture, x, y,
+w - (w * CropX),
+h - (h * CropY),
+0 + CropX,
+0 + CropY,
+(1 - CropU) + CropX,
+(1 - CropV) + CropY,
+pColour);
+}//if
+}//if
+}
+ 
+void UHUDObjects::CropObjectUV(FVector2D UVCrop)
+{
+//Pass in vars within clamped ranges
+CropU = FMath::Clamp&lt;float&gt;(UVCrop.X, 0, 1);
+CropV = FMath::Clamp&lt;float&gt;(UVCrop.Y, 0, 1);
+}//CropObjectUV
+ 
+void UHUDObjects::CropObjectXY(FVector2D XYCrop)
+{
+//Pass in vars within clamped ranges
+CropX = FMath::Clamp&lt;float&gt;(XYCrop.X, 0, 1);
+CropY = FMath::Clamp&lt;float&gt;(XYCrop.Y, 0, 1);
+}//CropObjectXY</p> <h3 id="gui-h"><a href="#gui-h" class="header-anchor">#</a> GUI.h</h3> <p>251 Lines</p> <p>#pragma once
+ 
+#include &quot;GameFramework/HUD.h&quot;
+#include &quot;HUDObjects.h&quot;
+#include &quot;GUI.generated.h&quot;
+ 
+USTRUCT()
+struct FButtonMaterial
+{
+GENERATED_USTRUCT_BODY()
+ 
+//The material to be used for this HUD object
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Buttons)
+UMaterialInterface* Material;
+ 
+//Name of the material var for toggling Highlighting
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Buttons)
+FString HighLightVarName;
+ 
+//Name of the material var for toggling Selection
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+FString ClickVarName;
+ 
+FButtonMaterial()
+{
+//Defaults
+HighLightVarName = &quot;HighLight&quot;;
+ClickVarName = &quot;Click&quot;;
+}
+};
+ 
+USTRUCT()
+struct FAnimationStruct
+{
+GENERATED_USTRUCT_BODY()
+ 
+//The material to be used for this HUD object
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+UMaterialInterface* Material;
+ 
+//Name of the material var for toggling Highlighting
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+FString HighLightVarName;
+ 
+//Name of the material var for toggling Selection
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+FString ClickVarName;
+ 
+//Animation Rows and Columns
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+FVector2D AnimColRows;
+ 
+//Total Number of tiles in the animation
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+float TotalAnimTiles;
+ 
+//Time between each frame
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+float FrameDelaySeconds;
+ 
+FAnimationStruct()
+{
+//Defaults
+TotalAnimTiles = 0;
+FrameDelaySeconds = 0.5f;
+HighLightVarName = &quot;&quot;;
+ClickVarName = &quot;&quot;;
+}
+};
+ 
+UCLASS()
+class AGUI : public AHUD
+{
+GENERATED_UCLASS_BODY()
+ 
+// Infiltrace
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Text)
+TArray&lt;UFont*&gt; Fonts;
+ 
+//Font scale
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Text)
+float DefaultFontScale;
+ 
+//Button Materials
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Buttons)
+TArray&lt;FButtonMaterial&gt; ButtonMaterials;
+ 
+//Image Textures
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Textures)
+TArray&lt;UTexture2D*&gt; ImageTextures;
+ 
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Materials)
+TArray&lt;UMaterialInterface*&gt; Materials;
+ 
+//Animated Materials
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Animations)
+TArray&lt;FAnimationStruct&gt; AnimationMaterials;
+ 
+// Draw Hud?
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Options)
+bool NoHUD;
+ 
+public:
+//Reference to the Player Controller
+UPROPERTY()
+APlayerController* ThePC;
+ 
+protected:
+ 
+//Screen Sizes
+UPROPERTY()
+float SizeX;
+UPROPERTY()
+float SizeY;
+ 
+/*
+* GUI Object that creates a label with simple, centered text
+* @param Object (out) - The object to be instantiated and/or updated
+* @param pHUDRef - The hud pointer to be passed : this
+* @param pText - The text to be displayed
+* @param FontIndex - The font to be used from this HUD's FONT array
+* @param TextColour - The colour of the font to be displayed
+* @param x - The start horizontal position of the object in pixels
+* @param y - The start vertical position of the object in pixels
+* @param w - The width of the object in pixels
+* @param h - The height of the object in pixels
+* @param pScale - Standard AHUD scaling		
+*/
+void Label(/* Out */ UHUDObjects* &amp; Object, AHUD* pHUDRef, FString pText, int FontIndex, FLinearColor TextColour, float x, float y, float w, float h, float pScale = 1);
+ 
+/*
+* GUI Object that creates a texture at a specified location, with a given size and colour
+* @param Object (out) - The object to be instantiated and/or updated
+* @param pHUDRef - The hud pointer to be passed : this
+* @param TextureIndex - The texture to be used from this HUD's TEXTURE array
+* @param x - The start horizontal position of the object in pixels
+* @param y - The start vertical position of the object in pixels
+* @param w - The width of the object in pixels
+* @param h - The height of the object in pixels
+* @param pColour - The colour adjustment that should be applied to the texture
+*/
+void Texture(/* Out */ UHUDObjects* &amp; Object, AHUD* pHUDRef, int TextureIndex, float x, float y, float w, float h, FColor pColour = FColor::White);
+ 
+/*
+* GUI Object that creates a basic material, with a given size and position
+* @param Object (out) - The object to be instantiated and/or updated
+* @param pHUDRef - The hud pointer to be passed : this
+* @param MatIndex - The material to be used from this HUD's MATERIAL array
+* @param pText - The text to be displayed
+* @param FontIndex - The font to be used from this HUD's FONT array
+* @param TextColour - The colour of the font to be displayed
+* @param x - The start horizontal position of the object in pixels
+* @param y - The start vertical position of the object in pixels
+* @param w - The width of the object in pixels
+* @param h - The height of the object in pixels
+* @param pScale - Standard AHUD scaling
+*/
+void Material(/* Out */ UHUDObjects* &amp; Object, AHUD* pHUDRef, int MatIndex, FString pText, int FontIndex, FLinearColor TextColour, float x, float y, float w, float h, float pScale = 1);
+ 
+/*
+* GUI Object that creates an Animated Sprite Sheet Material, with a given size and position
+* @param Object (out) - The object to be instantiated and/or updated
+* @param pHUDRef - The hud pointer to be passed : this
+* @param AnimIndex - The animated material to be used from this HUD's ANIMATEDMATERIAL array
+* @param x - The start horizontal position of the object in pixels
+* @param y - The start vertical position of the object in pixels
+* @param w - The width of the object in pixels
+* @param h - The height of the object in pixels
+* @param pScale - Standard AHUD scaling
+*/
+void AnimatedMaterial(/* Out */ UHUDObjects* &amp; Object, AHUD* pHUDRef, int AnimIndex, float x, float y, float w, float h, float pScale = 1);
+ 
+/*
+* GUI Object that acts as a button, with 3 states: Normal, Highlighted and Clicked. Returns a bool if clicked
+* @param Object (out) - The object to be instantiated and/or updated
+* @param pHUDRef - The hud pointer to be passed : this
+* @param ButtonIndex - The button material to be used from this HUD's BUTTONMATERIAL array
+* @param pText - The text to be displayed
+* @param FontIndex - The font to be used from this HUD's FONT array
+* @param TextColour - The colour of the font to be displayed
+* @param pMousePos - The position of the mouse in screen space
+* @param x - The start horizontal position of the object in pixels
+* @param y - The start vertical position of the object in pixels
+* @param w - The width of the object in pixels
+* @param h - The height of the object in pixels
+* @param pScale - Standard AHUD scaling
+*/
+bool Button(/* Out */ UHUDObjects* &amp; Object, AHUD* pHUDRef, int ButtonIndex, FString pText, int FontIndex, FLinearColor TextColour, FVector2D pMousePos, float x, float y, float w, float h, float pScale = 1);
+ 
+/*
+* GUI Object that acts as a button, with 3 animated sprite sheet states: Normal, Highlighted and Clicked. Returns a bool if clicked
+* @param Object (out) - The object to be instantiated and/or updated
+* @param pHUDRef - The hud pointer to be passed : this
+* @param AnimButtonIndex - The button material to be used from this HUD's ANIMATEDMATERIAL array
+* @param pText - The text to be displayed
+* @param FontIndex - The font to be used from this HUD's FONT array
+* @param TextColour - The colour of the font to be displayed
+* @param pMousePos - The position of the mouse in screen space
+* @param x - The start horizontal position of the object in pixels
+* @param y - The start vertical position of the object in pixels
+* @param w - The width of the object in pixels
+* @param h - The height of the object in pixels
+* @param pScale - Standard AHUD scaling
+*/
+bool AnimatedButton(/* Out */ UHUDObjects* &amp; Object, AHUD* pHUDRef, int AnimButtonIndex, FString pText, int FontIndex, FLinearColor TextColour, FVector2D pMousePos, float x, float y, float w, float h, float pScale = 1);
+ 
+/*
+* GUI Object that returns the updated value of the slider
+* @param Object (out) - The object to be instantiated and/or updated
+* @param pHUDRef - The hud pointer to be passed : this
+* @param SliderButtonIndex - The button material to be used from this HUD's BUTTONMATERIAL array
+* @param SliderBackgroundMaterialIndex - The button material to be used from this HUD's MATERIAL array
+* @param pMousePos - The position of the mouse in screen space
+* @param x - The start horizontal position of the object in pixels
+* @param y - The start vertical position of the object in pixels
+* @param w - The width of the object in pixels
+* @param h - The height of the object in pixels
+* @param Amount - The amount to be passed in on this update pass
+* @param MinAmount - The minimum amount to be used in this slider
+* @param MaxAmount - The maximum amount to be used in this slider
+*/
+float HorizontalSlider(/* Out */ UHUDObjects* &amp; Object, AHUD* pHUDRef, int SliderButtonIndex, int SliderBackgroundMaterialIndex, FVector2D pMousePos, float x, float y, float w, float h, float Amount = 0, float MinAmount = 0, float MaxAmount = 1);
+ 
+ 
+/*
+* GUI Object that returns the updated value of the slider
+* @param Object (out) - The object to be instantiated and/or updated
+* @param pHUDRef - The hud pointer to be passed : this
+* @param SliderButtonIndex - The button material to be used from this HUD's BUTTONMATERIAL array
+* @param SliderBackgroundMaterialIndex - The button material to be used from this HUD's MATERIAL array
+* @param pMousePos - The position of the mouse in screen space
+* @param x - The start horizontal position of the object in pixels
+* @param y - The start vertical position of the object in pixels
+* @param w - The width of the object in pixels
+* @param h - The height of the object in pixels
+* @param Amount - The amount to be passed in on this update pass
+* @param MinAmount - The minimum amount to be used in this slider
+* @param MaxAmount - The maximum amount to be used in this slider
+*/
+float VerticalSlider(/* Out */ UHUDObjects* &amp; Object, AHUD* pHUDRef, int SliderButtonIndex, int SliderBackgroundMaterialIndex, FVector2D pMousePos, float x, float y, float w, float h, float Amount = 0, float MinAmount = 0, float MaxAmount = 1);
+ 
+//Scaling
+float CenterHorizontal(float Width);
+float CenterVertical(float Height);
+float ScaleWidth(float Width);
+float ScaleHeight(float Height);
+ 
+/** after all game elements are created */
+virtual void PostInitializeComponents() OVERRIDE;
+virtual void DrawHUD() OVERRIDE;
+};</p> <h3 id="gui-cpp"><a href="#gui-cpp" class="header-anchor">#</a> GUI.cpp</h3> <p>346 Lines</p> <p>#include &quot;YourGame.h&quot;
+#include &quot;GUI.h&quot;
+ 
+//Constructor
+AGUI::AGUI(const class FPostConstructInitializeProperties&amp; PCIP) : Super(PCIP)
+{
+//Draw HUD?
+NoHUD = false;
+ 
+//Scale
+DefaultFontScale = 0.7;
+}//Constructor
+ 
+//SCALING
+float AGUI::ScaleWidth(float Width)
+{
+return (Width / 1920)*SizeX;
+}///Scale Width
+ 
+float AGUI::CenterHorizontal(float Width)
+{
+return (SizeX / 2) - (ScaleWidth(Width) / 2);
+}//CenterHorizontal
+ 
+float AGUI::ScaleHeight(float Height)
+{
+return (Height / 1920)*SizeY;
+}//ScaleHeight
+ 
+float AGUI::CenterVertical(float Height)
+{
+return (SizeY / 2) - (ScaleHeight(Height) / 2);
+}//CenterVertical
+ 
+//CORE
+void AGUI::PostInitializeComponents()
+{
+Super::PostInitializeComponents();
+ 
+//Grab the PC
+ThePC = GetOwningPlayerController();
+}//PostInitializeComponents
+ 
+void AGUI::DrawHUD()
+{
+//If the PC is NULL
+if (!ThePC)
+{
+//Try to get the PC
+ThePC = GetOwningPlayerController();
+ 
+//If there still isn't a PC, then return
+if (!ThePC) return;
+}//if
+ 
+//Check that the PC's input exists, otherwise, return
+if (!ThePC-&gt;PlayerInput) return;
+ 
+//Draw HUD?
+if (NoHUD) return;
+ 
+//Super
+Super::DrawHUD();
+ 
+//No Canvas?
+if (!Canvas) return;
+ 
+//Assign the canvas sizes to the global vars for use outside of DrawHUD
+SizeX = Canvas-&gt;SizeX;
+SizeY = Canvas-&gt;SizeY;
+}//DrawHUD
+ 
+//GUI WIDGETS
+void AGUI::Label(UHUDObjects* &amp; Object, AHUD* pHUDRef, FString pText, int FontIndex, FLinearColor TextColour, float x, float y, float w, float h, float pScale)
+{
+//Instantiate new object and assign reference to the pointer
+if (Object == NULL)
+{
+//If the pointer has an object
+if (Fonts.IsValidIndex(FontIndex) &amp;&amp; Fonts[FontIndex] != nullptr)
+{
+Object = NewObject&lt;UHUDObjects&gt;(this);
+if (Object != NULL)
+{
+//Set up the HUD Object
+Object-&gt;Init(pText, Fonts[FontIndex]);
+}//if
+}//if
+}//if
+else
+{
+//Update the object
+Object-&gt;Update(pHUDRef, FVector2D(0, 0), x, y, w, h, pScale, TextColour);
+}//else
+}//Label
+ 
+void AGUI::Texture(/* Out */ UHUDObjects* &amp; Object, AHUD* pHUDRef, int TextureIndex, float x, float y, float w, float h, FColor pColour)
+{
+if (Object == NULL)
+{
+//If the pointer has an object
+if (ImageTextures.IsValidIndex(TextureIndex) &amp;&amp; ImageTextures[TextureIndex] != nullptr)
+{
+Object = NewObject&lt;UHUDObjects&gt;(this);
+if (Object != NULL)
+{
+//Set up the HUD Object
+Object-&gt;Init(ImageTextures[TextureIndex]);
+}//if
+}//if
+}//if
+else
+{
+//Update the object
+Object-&gt;DrawTexture(pHUDRef, x, y, w, h, FColor::White);
+}//else
+}//Texture
+ 
+void AGUI::Material(UHUDObjects* &amp; Object, AHUD* pHUDRef, int MatIndex, FString pText, int FontIndex, FLinearColor TextColour, float x, float y, float w, float h, float pScale)
+{
+if (Object == NULL)
+{
+//If the pointer has an object
+if (ButtonMaterials.IsValidIndex(MatIndex) &amp;&amp; ButtonMaterials[MatIndex].Material != nullptr &amp;&amp; Fonts.IsValidIndex(FontIndex) &amp;&amp; Fonts[FontIndex] != nullptr)
+{
+Object = NewObject&lt;UHUDObjects&gt;(this);
+if (Object != NULL)
+{
+//Set up the HUD Object
+Object-&gt;Init(false, Materials[MatIndex], &quot;&quot;, &quot;&quot;, pText, Fonts[FontIndex]);
+}//if
+}//if
+}//if
+else
+{
+//Update object
+Object-&gt;Update(pHUDRef, FVector2D(0, 0), x, y, w, h, pScale, TextColour);
+}//else
+}//Material
+ 
+void AGUI::AnimatedMaterial(UHUDObjects* &amp; Object, AHUD* pHUDRef, int AnimIndex, float x, float y, float w, float h, float pScale)
+{
+//Instantiate new object and assign reference to the pointer
+if (Object == NULL)
+{
+//If the pointer has an object
+if (AnimationMaterials.IsValidIndex(AnimIndex) &amp;&amp; AnimationMaterials[AnimIndex].Material != nullptr)
+{
+Object = NewObject&lt;UHUDObjects&gt;(this);
+if (Object != NULL)
+{
+//Set up the HUD Object
+Object-&gt;Init(false, AnimationMaterials[AnimIndex].Material, AnimationMaterials[AnimIndex].HighLightVarName, AnimationMaterials[AnimIndex].ClickVarName, AnimationMaterials[AnimIndex].AnimColRows, AnimationMaterials[AnimIndex].TotalAnimTiles, AnimationMaterials[AnimIndex].FrameDelaySeconds);
+}
+}//if
+}//if
+else
+{
+//Update the object
+Object-&gt;Update(pHUDRef, FVector2D(0,0), x, y, w, h, pScale);
+}//else
+}//Animated Material
+ 
+bool AGUI::Button(UHUDObjects* &amp; Object, AHUD* pHUDRef, int ButtonIndex, FString pText, int FontIndex, FLinearColor TextColour, FVector2D pMousePos, float x, float y, float w, float h, float pScale)
+{
+//If the object doesn't exit
+if (Object == NULL)
+{
+//If the pointer has an object
+if (ButtonMaterials.IsValidIndex(ButtonIndex) &amp;&amp; ButtonMaterials[ButtonIndex].Material != nullptr &amp;&amp; Fonts.IsValidIndex(FontIndex) &amp;&amp; Fonts[FontIndex] != nullptr)
+{
+//create a new version of the object
+Object = NewObject&lt;UHUDObjects&gt;(this);
+if (Object != NULL)
+{
+//Set up the HUD Object
+Object-&gt;Init(true, ButtonMaterials[ButtonIndex].Material, ButtonMaterials[ButtonIndex].HighLightVarName, ButtonMaterials[ButtonIndex].ClickVarName, pText, Fonts[FontIndex]);
+}//if
+}//if
+ 
+return false;
+}//if
+else
+{
+//Update the object
+Object-&gt;Update(pHUDRef, pMousePos, x, y, w, h, pScale, TextColour);
+ 
+//If the left mouse button is down
+if (ThePC-&gt;IsInputKeyDown(EKeys::LeftMouseButton))
+{
+//if the object is hovered and the button was just pressed
+if (Object-&gt;Hovered() &amp;&amp; ThePC-&gt;WasInputKeyJustPressed(EKeys::LeftMouseButton))
+{
+//we have grabbed the object
+Object-&gt;bGrabbed = true;
+}//if
+}//if
+else
+{
+//if the object has been grabbed
+if (Object-&gt;bGrabbed)
+{
+//set it to false
+Object-&gt;bGrabbed = false;
+return Object-&gt;Hovered();
+}//if
+return false;
+}//else
+return false;
+}//else
+}//button
+ 
+bool AGUI::AnimatedButton(UHUDObjects* &amp; Object, AHUD* pHUDRef, int AnimButtonIndex, FString pText, int FontIndex, FLinearColor TextColour, FVector2D pMousePos, float x, float y, float w, float h, float pScale)
+{
+//Instantiate new object and assign reference to the pointer
+if (Object == NULL)
+{
+//If the pointer has an object
+if (AnimationMaterials.IsValidIndex(AnimButtonIndex) &amp;&amp; AnimationMaterials[AnimButtonIndex].Material != nullptr &amp;&amp; Fonts.IsValidIndex(FontIndex) &amp;&amp; Fonts[FontIndex] != nullptr)
+{
+//create a new object
+Object = NewObject&lt;UHUDObjects&gt;(this);
+if (Object != NULL)
+{
+//Set up the HUD Object
+Object-&gt;Init(true, AnimationMaterials[AnimButtonIndex].Material, AnimationMaterials[AnimButtonIndex].HighLightVarName, AnimationMaterials[AnimButtonIndex].ClickVarName, pText, Fonts[FontIndex], AnimationMaterials[AnimButtonIndex].AnimColRows, AnimationMaterials[AnimButtonIndex].TotalAnimTiles, AnimationMaterials[AnimButtonIndex].FrameDelaySeconds);
+}//if
+}//if
+ 
+return false;
+}//if
+else
+{
+//update object
+Object-&gt;Update(pHUDRef, pMousePos, x, y, w, h, pScale, TextColour);
+ 
+//if the left mouse button is down
+if (ThePC-&gt;IsInputKeyDown(EKeys::LeftMouseButton))
+{
+//if the mouse is over the object and the button was pressed during this frame
+if (Object-&gt;Hovered() &amp;&amp; ThePC-&gt;WasInputKeyJustPressed(EKeys::LeftMouseButton))
+{
+//we have grabbed the object
+Object-&gt;bGrabbed = true;
+}//if
+}//if
+else
+{
+//if the object has been grabbed
+if (Object-&gt;bGrabbed)
+{
+//set it to false
+Object-&gt;bGrabbed = false;
+return Object-&gt;Hovered();
+}//if
+return false;
+}//else
+return false;
+}//else
+}//AnimatedButton
+ 
+float AGUI::HorizontalSlider(UHUDObjects* &amp; Object, AHUD* pHUDRef, int SliderButtonIndex, int SliderBackgroundMaterialIndex, FVector2D pMousePos, float x, float y, float w, float h, float Amount, float MinAmount, float MaxAmount)
+{
+if (Object == NULL)
+{
+//If the pointer has an object
+if (ButtonMaterials.IsValidIndex(SliderButtonIndex) &amp;&amp; ButtonMaterials[SliderButtonIndex].Material != nullptr &amp;&amp; Materials.IsValidIndex(SliderBackgroundMaterialIndex) &amp;&amp; Materials[SliderBackgroundMaterialIndex] != nullptr)
+{
+Object = NewObject&lt;UHUDObjects&gt;(this);
+if (Object != NULL)
+{
+//Set up the HUD Object
+Object-&gt;Init(true, ButtonMaterials[SliderButtonIndex].Material, ButtonMaterials[SliderButtonIndex].HighLightVarName, ButtonMaterials[SliderButtonIndex].ClickVarName, Materials[SliderBackgroundMaterialIndex]);
+}//if
+}//if
+ 
+return Amount;
+}//if
+else
+{
+if (ThePC-&gt;IsInputKeyDown(EKeys::LeftMouseButton))
+{
+if ((Object-&gt;Hovered() || Object-&gt;CheckInsideSliderBG(pMousePos)) &amp;&amp; ThePC-&gt;WasInputKeyJustPressed(EKeys::LeftMouseButton))
+{
+Object-&gt;bGrabbed = true;
+}//if
+}//if
+else
+{
+if (Object-&gt;bGrabbed)
+{
+Object-&gt;bGrabbed = false;
+}//if
+}//else
+ 
+//Clamp the range just to be sure
+Amount = FMath::Clamp&lt;float&gt;(Amount, MinAmount, MaxAmount);
+ 
+//Draw slider button
+return Object-&gt;DrawHorizontalSlider(pHUDRef, Amount, MinAmount, MaxAmount, pMousePos, x, y, w, h, 1);
+}//else
+return Amount;
+}//HorizontalSlider
+ 
+float AGUI::VerticalSlider(UHUDObjects* &amp; Object, AHUD* pHUDRef, int SliderButtonIndex, int SliderBackgroundMaterialIndex, FVector2D pMousePos, float x, float y, float w, float h, float Amount, float MinAmount, float MaxAmount)
+{
+if (Object == NULL)
+{
+//If the pointer has an object
+if (ButtonMaterials.IsValidIndex(SliderButtonIndex) &amp;&amp; ButtonMaterials[SliderButtonIndex].Material != nullptr &amp;&amp; Materials.IsValidIndex(SliderBackgroundMaterialIndex) &amp;&amp; Materials[SliderBackgroundMaterialIndex] != nullptr)
+{
+Object = NewObject&lt;UHUDObjects&gt;(this);
+if (Object != NULL)
+{
+//Set up the HUD Object
+Object-&gt;Init(true, ButtonMaterials[SliderButtonIndex].Material, ButtonMaterials[SliderButtonIndex].HighLightVarName, ButtonMaterials[SliderButtonIndex].ClickVarName, Materials[SliderBackgroundMaterialIndex]);
+}//if
+}//if
+ 
+return Amount;
+}//if
+else
+{
+if (ThePC-&gt;IsInputKeyDown(EKeys::LeftMouseButton))
+{
+if ((Object-&gt;Hovered() || Object-&gt;CheckInsideSliderBG(pMousePos)) &amp;&amp; ThePC-&gt;WasInputKeyJustPressed(EKeys::LeftMouseButton))
+{
+Object-&gt;bGrabbed = true;
+}//if
+}//if
+else
+{
+if (Object-&gt;bGrabbed)
+{
+Object-&gt;bGrabbed = false;
+}//if
+}//else
+ 
+//Clamp the range just to be sure
+Amount = FMath::Clamp&lt;float&gt;(Amount, MinAmount, MaxAmount);
+ 
+//Draw slider button
+return Object-&gt;DrawVerticalSlider(pHUDRef, Amount, MinAmount, MaxAmount, pMousePos, x, y, w, h, 1);
+}//else
+return Amount;
+}//VerticalSlider</p> <h3 id="yourhud-h"><a href="#yourhud-h" class="header-anchor">#</a> YourHUD.h</h3> <p>42 Lines</p> <p>#pragma once
+ 
+#include &quot;GUI.h&quot;
+#include &quot;YourHUD.generated.h&quot;
+ 
+UCLASS()
+class AYourHUD : public AGUI
+{
+GENERATED_UCLASS_BODY()
+ 
+public:
+ 
+//Objects we will be using to demonstrate each type of object
+UPROPERTY()
+UHUDObjects* TestLabel;
+UPROPERTY()
+UHUDObjects* TestTexture;
+UPROPERTY()
+UHUDObjects* TestMaterial;
+UPROPERTY()
+UHUDObjects* TestAnimMaterial;
+UPROPERTY()
+UHUDObjects* TestButton;
+UPROPERTY()
+UHUDObjects* TestAnimButton;
+UPROPERTY()
+UHUDObjects* TestHorizontalSlider;
+UPROPERTY()
+UHUDObjects* TestVerticalSlider;
+ 
+//Variables to hold for the sliders
+float horizontalSlideValue;
+float verticalSlideValue;
+ 
+//Variable to hold mouse position
+UPROPERTY()
+FVector2D MousePos;
+ 
+protected:
+//Draw HUD
+virtual void DrawHUD() OVERRIDE;
+};</p> <h3 id="yourhud-cpp"><a href="#yourhud-cpp" class="header-anchor">#</a> YourHUD.cpp</h3> <p>72 Lines</p> <p>#include &quot;YourGame.h&quot;
+#include &quot;YourHUD.h&quot;
+ 
+//Constructor
+AYourHUD::AYourHUD(const class FPostConstructInitializeProperties&amp; PCIP) : Super(PCIP)
+{
+//Default the mouse positions
+MousePos.X = 0;
+MousePos.Y = 0;
+ 
+//Default the slider values
+horizontalSlideValue = 0;
+verticalSlideValue = 0;
+}//Constructor
+ 
+void AYourHUD::DrawHUD()
+{
+//If the PC is NULL
+if (!ThePC)
+{
+//Try to get the PC
+ThePC = GetOwningPlayerController();
+ 
+//If there still isn't a PC, then return
+if (!ThePC) return;
+}//if
+ 
+//Check that the PC's input exists, otherwise, return
+if (!ThePC-&gt;PlayerInput) return;
+ 
+//Draw HUD?
+if (NoHUD) return;
+ 
+//Super
+Super::DrawHUD();
+ 
+//No Canvas?
+if (!Canvas) return;
+ 
+//Grab the mouse position
+ThePC-&gt;GetMousePosition(MousePos.X, MousePos.Y);
+ 
+//This works by passing the object, this hud, the text, the index of the font array you want to use, the mouse position, then rectangle positioning, using scaling functions, and then the font size, scaled to the screen.
+Label(TestLabel, this, &quot;This is a label!&quot;, 0, FLinearColor::White, CenterHorizontal(300), ScaleHeight(120), ScaleWidth(300), ScaleHeight(120), ScaleWidth(0.75f));
+ 
+//This works by passing the object, this hud, the index of the texture array you want to use, then rectangle positioning, and finally a tint colour
+Texture(TestTexture, this, 0, CenterHorizontal(300), ScaleHeight(240), ScaleWidth(300), ScaleHeight(120), FColor::White);
+ 
+//This works by passing the object, this hud, the index of the material array you want to use, the text, the index of the font array you want to use, rectangle positioning, and font/material scaling
+Material(TestMaterial, this, 0, &quot;This is a material!&quot;, 0, FLinearColor::White, CenterHorizontal(300), ScaleHeight(360), ScaleWidth(300), ScaleHeight(120), ScaleWidth(0.75f));
+ 
+//This works by passing the object, this hud, the index of the animated material array you want to use, rectangle positions, and font/material scaling
+AnimatedMaterial(TestAnimMaterial, this, 0, CenterHorizontal(300), ScaleHeight(480), ScaleWidth(300), ScaleHeight(120), ScaleWidth(0.75f));
+ 
+//This works by passing the object, this hud, then index of the button material array you want to use, the text, the index of the font, the font colour, the mouse position, rectangle positioning and font/material scaling
+if(Button(TestButton, this, 0, &quot;This is a button!&quot;, 0, FLinearColor::White, MousePos, CenterHorizontal(300), ScaleHeight(600), ScaleWidth(300), ScaleHeight(120), ScaleWidth(0.75f)))
+{
+//Stuff goes here for when button is clicked
+}//if
+ 
+//This works by passing the object, this hud, then index of the animated button material array you want to use, the text, the index of the font, the font colour, the mouse position, rectangle positioning and font/material scaling
+if(AnimatedButton(TestAnimButton, this, 0, &quot;This is an animated button!&quot;, 0, FLinearColor::White, MousePos, CenterHorizontal(300), ScaleHeight(720), ScaleWidth(300), ScaleHeight(120), ScaleWidth(0.75f)))
+{
+//Stuff goes here for when button is clicked
+}//if
+ 
+//This works by passing the object, this hud, the index of the button for the slider, the index for the material for the background, rectangle positioning, the current value, the min value and the max value.
+horizontalSlideValue = HorizontalSlider(TestHorizontalSlider, this, 0, 0, MousePos, CenterHorizontal(300), ScaleHeight(840), ScaleWidth(300), ScaleHeight(7.5f), horizontalSlideValue, 0, 1);
+ 
+//This works by passing the object, this hud, the index of the button for the slider, the index for the material for the background, rectangle positioning, the current value, the min value and the max value.
+verticalSlideValue = HorizontalSlider(TestVerticalSlider, this, 0, 0, MousePos, CenterHorizontal(400), CenterVertical(300), ScaleWidth(7.5f), ScaleHeight(300), verticalSlideValue, 0, 1);	
+}//DrawHUD</p> <h2 id="blueprint-editor-end"><a href="#blueprint-editor-end" class="header-anchor">#</a> BluePrint/Editor End</h2> <p>Once you have compild your new project, make a new Class BluePrint of &quot;YourHUD&quot; and set the new BP to be your HUD System. Open the BluePrint and go into the defaults.</p> <h3 id="text-section"><a href="#text-section" class="header-anchor">#</a> Text Section</h3> <p>Drop down the Text section, add an element to the Fonts array, and add in the font you created earlier. Any time the script asks for a 'Font Index', it's referring to the element number of this array. (On the left)</p> <p><a href="/File:TextHUD.png" title="Fonts"><img src="https://d26ilriwvtzlb.cloudfront.net/5/51/TextHUD.png" alt="Fonts"></a></p> <h3 id="buttons-section"><a href="#buttons-section" class="header-anchor">#</a> Buttons Section</h3> <p>Drop down the Button section, add an element to the Button Materials array, and add in the button material you created earlier. Set the Highlight and Click names to be the respective parameters in that material. Any time the script asks for a 'Button Index' or 'Slider Button Index', it's referring to the element number of this array. (On the left)</p> <p><a href="/File:ButtonHUD.png" title="Buttons"><img src="https://d26ilriwvtzlb.cloudfront.net/d/df/ButtonHUD.png" alt="Buttons"></a></p> <h3 id="textures-section"><a href="#textures-section" class="header-anchor">#</a> Textures Section</h3> <p>Drop down the Textures section, add an element to the Image Textures array, and add in the texture you want. Any time the script asks for a 'Texture Index', it's referring to the element number of this array. (On the left)</p> <p><a href="/File:TextureHUD.png" title="Textures"><img src="https://d26ilriwvtzlb.cloudfront.net/a/a7/TextureHUD.png" alt="Textures"></a></p> <h3 id="materials-section"><a href="#materials-section" class="header-anchor">#</a> Materials Section</h3> <p>Drop down the Materials section, add an element to the Materials array, and add in the simple material you made earlier. Any time the script asks for a 'Material Index' or 'Slider Background Material Index', it's referring to the element number of this array. (On the left)</p> <p><a href="/File:MaterialHUD.png" title="Materials"><img src="https://d26ilriwvtzlb.cloudfront.net/a/a0/MaterialHUD.png" alt="Materials"></a></p> <h3 id="animations-section"><a href="#animations-section" class="header-anchor">#</a> Animations Section</h3> <p>Drop down the Animations section, add an element to the Animation Materials array, and add in the simple or button material you created earlier. NOTE: This expects the textures of the material to be in a sprite sheet layout. If its a Button, then set the Highlight and Click names to be the respective parameters in that material. Any time the script asks for a 'Anim Button Index' or 'Anim Index', it's referring to the element number of this array. (On the left)</p> <p>The 'Anim Col Rows' is how many sprites across the texture is, then how many down. Total anim tiles is how many tiles there are altogether, in case it doesn't go all the way to the end. The Frame Delay Seconds is how much time you want there to be between frame updates.</p> <p><a href="/File:AnimationHUD.png" title="Animations"><img src="https://d26ilriwvtzlb.cloudfront.net/a/af/AnimationHUD.png" alt="Animations"></a></p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>You can take this code and make whatever kind of HUD system you want. I never demonstrated it, but there are functions in the GUI class that can crop animated materials, so you can have an animated health bar thats cropped from the left, making it look like it's decreasing without cutting off at the right. 'CropXY(FVector2D)' and 'CropUV(FVector2D)'</p> <p>You can also set up your own mouse system that doesn't use 'ThePC-&gt;GetMousePosition()' and implement a cool feature like gamepad control, etc.</p> <p>-Peace</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=HUD:_Unity_3D_OnGUI_Remake&amp;oldid=5469" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=HUD:_Unity_3D_OnGUI_Remake&amp;oldid=5469<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/559.be7cc50a.js" defer></script>
+  </body>
+</html>

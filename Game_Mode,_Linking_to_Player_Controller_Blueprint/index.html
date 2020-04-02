@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/525.196c1c55.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Game Mode, Linking to Player Controller Blueprint - Epic Wiki</p> <h1 id="game-mode-linking-to-player-controller-blueprint"><a href="#game-mode-linking-to-player-controller-blueprint" class="header-anchor">#</a> Game Mode, Linking to Player Controller Blueprint</h1> <p><strong>Original Author:</strong> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>If anyone is doing any fancy experiments, or cannot figure out how to get their custom player controller class to be used, here is the basic setup!</p> <p>If you start a new UE4 code-based project,</p> <p>the player controller and Game Mode classes should be set up for you,</p> <p>but <strong>here are the inner workings just in case you need to re-link something manually.</strong></p> <p>What I am explaining here could also be applied to the Character and HUD classes, which are also set in GameMode class.</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Blueprinted_Base_C.2B.2B_Class">1 Blueprinted Base C++ Class</a></li> <li><a href="#YourPlayerController">2 YourPlayerController</a> <ul><li><a href="#YourPlayerController.h">2.1 YourPlayerController.h</a></li> <li><a href="#YourPlayerController.cpp">2.2 YourPlayerController.cpp</a></li></ul></li> <li><a href="#Blueprinted_Player_Controller">3 Blueprinted Player Controller</a></li> <li><a href="#GameMode">4 GameMode</a></li> <li><a href="#Copy_Reference">5 Copy Reference</a></li> <li><a href="#Summary">6 Summary</a></li></ul> <h2 id="blueprinted-base-c-class"><a href="#blueprinted-base-c-class" class="header-anchor">#</a> Blueprinted Base C++ Class</h2> <p>Also this code sample is showing you how to use the Blueprinted version of your base C++ player controller class</p> <h2 id="yourplayercontroller"><a href="#yourplayercontroller" class="header-anchor">#</a> YourPlayerController</h2> <p>Here is the essential skeleton you need to create your own player controller class 😃</p> <h3 id="yourplayercontroller-h"><a href="#yourplayercontroller-h" class="header-anchor">#</a> YourPlayerController.h</h3> <p>#pragma once
+ 
+//Input
+#include &quot;InputCoreTypes.h&quot;
+ 
+#include &quot;YourPlayerController.generated.h&quot;
+ 
+UCLASS(config=Game)
+class AYourPlayerController : public APlayerController
+{
+GENERATED_BODY()
+public:
+AYourPlayerController(const FObjectInitializer&amp; ObjectInitializer);
+};</p> <h3 id="yourplayercontroller-cpp"><a href="#yourplayercontroller-cpp" class="header-anchor">#</a> YourPlayerController.cpp</h3> <p>#include &quot;YourGame.h&quot;
+AYourPlayerController::AYourPlayerController(const FObjectInitializer&amp; ObjectInitializer)
+: Super(ObjectInitializer)
+{
+ 
+}</p> <h2 id="blueprinted-player-controller"><a href="#blueprinted-player-controller" class="header-anchor">#</a> Blueprinted Player Controller</h2> <p>If your project did not start with one, make sure to make a blueprint of your game's player controller class!</p> <p>Then you can add properties to your C++ controller class, but make updates easily in the Editor using blueprints 😃</p> <h2 id="gamemode"><a href="#gamemode" class="header-anchor">#</a> GameMode</h2> <p>You need to tell your GameMode class to use your custom player controller.</p> <p>GameMode itself should be properly setup for you if you start a new Code-based UE4 project!</p> <p>// Failsafe
+PlayerControllerClass = AYourPlayerController::StaticClass();
+ 
+// Blueprinted Version, relies on the asset path obtained from the editor
+static ConstructorHelpers::FClassFinder&lt;AYourPlayerController&gt; VictoryPCOb(TEXT(&quot;AYourPlayerController'/Game/VictoryEditor/VictoryPlayerControllerBP.VictoryPlayerControllerBP_C'&quot;));
+if (VictoryPCOb.Class != NULL)
+{
+PlayerControllerClass = VictoryPCOb.Class;
+}</p> <h2 id="copy-reference"><a href="#copy-reference" class="header-anchor">#</a> Copy Reference</h2> <p>You can obtain the path of your blueprinted controller by right clicking on its blueprint in the editor and choosing &quot;Copy Reference&quot;. You should then edit the path obtained by adding the &quot;_C&quot; suffix, which distinguishes the actual class used by the game from the Blueprint asset, which is an editor-only concept.</p> <p>static ConstructorHelpers::FClassFinder&lt;AYourPlayerController&gt; VictoryPCOb(TEXT(&quot;AYourPlayerController'/Game/VictoryEditor/VictoryPlayerControllerBP.VictoryPlayerControllerBP_C'&quot;));</p> <h2 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h2> <p>In case your project's core blueprints ever get miswired with your c++ Game Mode,</p> <p>here is all the info you needed to know!</p> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Game_Mode,_Linking_to_Player_Controller_Blueprint&amp;oldid=23253" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Game_Mode,_Linking_to_Player_Controller_Blueprint&amp;oldid=23253<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/525.196c1c55.js" defer></script>
+  </body>
+</html>

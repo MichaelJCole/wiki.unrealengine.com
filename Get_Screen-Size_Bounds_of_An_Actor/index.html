@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/538.817197ad.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Get Screen-Size Bounds of An Actor - Epic Wiki</p> <h1 id="get-screen-size-bounds-of-an-actor"><a href="#get-screen-size-bounds-of-an-actor" class="header-anchor">#</a> Get Screen-Size Bounds of An Actor</h1> <p><strong>Rate this Article:</strong></p> <p>5.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""> (4 votes)</p> <p>Approved for Versions:4.7</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#The_Code">2 The Code</a></li> <li><a href="#Pre-Processor_Explanation">3 Pre-Processor Explanation</a></li> <li><a href="#How_To_Use_It">4 How To Use It</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>In this tutorial I'll show you how you can get a float variable of any objects size on-screen. This has a number of useful applications, for example: scaling a UMG widget to match the size of an object. The images below show the same object at two different distances, and the same widget is being scaled per-frame to keep the object inside the widget.</p> <p><a href="/File:ScaledUMGWidgetExample.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/b/b2/ScaledUMGWidgetExample.jpg" alt="ScaledUMGWidgetExample.jpg"></a></p> <h2 id="the-code"><a href="#the-code" class="header-anchor">#</a> The Code</h2> <p><strong>MyPlayerController.h</strong></p> <p>public:
+UFUNCTION(BlueprintPure, Category = &quot;Hud&quot;)
+float GetObjectScreenRadius(AActor* InActor);</p> <p><strong>MyPlayerController.cpp</strong></p> <p>#if WITH_EDITOR
+/* Get Screen Percentage */
+static const auto CVarScreenPercentage = IConsoleManager::Get().FindTConsoleVariableDataFloat(TEXT(&quot;r.SCreenPercentage&quot;));
+#endif WITH_EDITOR
+ 
+float AMyPlayerController::GetObjectScreenRadius(AActor* InActor)
+{
+float ScreenRadius;
+int32 Width, Height;
+FVector Viewlocation;
+FRotator ViewRotation; // Not Used, but required for Function call
+float CamFOV = 90.0f; //TODO: Replace With Function that returns camera FOV
+#if WITH_EDITOR
+float ScreenPerc = CVarScreenPercentage-&gt;GetValueOnGameThread() / 100.0f;
+#endif WITH_EDITOR
+ 
+/* Get the size of the viewport, and the player cameras location. */
+GetViewportSize(Width, Height);
+GetPlayerViewPoint(Viewlocation, ViewRotation);
+ 
+#if WITH_EDITOR
+/* Factor in Screen Percentage &amp; Quality Settings */
+Width *= ScreenPerc;
+Height *= ScreenPerc;
+#endif WITH_EDITOR
+ 
+/* Easy Way To Return The Size, Create a vector and scale it. Alternative would be to use FMath::Max3 */
+float SRad = FVector2D(Width, Height).Size();
+ 
+/* Get Object Bounds (R) */
+float BoundingRadius = InActor-&gt;GetRootComponent()-&gt;Bounds.SphereRadius;
+float DistanceToObject = FVector(InActor-&gt;GetActorLocation() - Viewlocation).Size();
+ 
+/* Get Projected Screen Radius */
+ScreenRadius = FMath::Atan(BoundingRadius / DistanceToObject);
+ScreenRadius *= SRad / FMath::DegreesToRadians(CamFOV);
+ 
+return ScreenRadius;
+}</p> <h2 id="pre-processor-explanation"><a href="#pre-processor-explanation" class="header-anchor">#</a> Pre-Processor Explanation</h2> <p>If you're new to C++ you're probably wondering what the #if WITH_EDITOR and #endif WITH_EDITOR lines are doing. These are <a href="http://en.wikipedia.org/wiki/C_preprocessor" target="_blank" rel="noopener noreferrer">pre-processor<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> commands, and tell the compiler to not include these lines of code if we're building a packaged version of our game.</p> <p>The reason for their existence here, is that the Scalability settings are not safe to call without the editor (since they don't exist), meaning your code will <a href="http://en.wikipedia.org/wiki/Assertion_%28software_development%29" target="_blank" rel="noopener noreferrer">assert<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>. The preprocessor commands will safeguard against it.</p> <h2 id="how-to-use-it"><a href="#how-to-use-it" class="header-anchor">#</a> How To Use It</h2> <p>In my use-case I have used the size of the object as a scale for an Image component inside a UMG widget. Simply set the images 'Size X' and 'Size Y' values to <strong>1.0</strong> Although it will appear miniscule in the UMG editor, it will scale correctly when we use it in-game thanks to the code in the Blueprint (see below).</p> <p>For the use-case in the image below, I have packed the Objects Location (Using GetWorldLocationAsScreenPosition) and it's Screen-Size from the code shown above, into a single vector in the players HUD. When the widget is created by the HUD, I set the 'BZHud' variable to the same HUD.</p> <p>Using Event Tick in the UMG Widget, I then use that to set the widgets position and size in the view-port.</p> <p><a href="/File:UMGScreenFollowingWidget.PNG"><img src="https://d26ilriwvtzlb.cloudfront.net/a/a7/UMGScreenFollowingWidget.PNG" alt="UMGScreenFollowingWidget.PNG"></a></p> <p>Hope this helps!</p> <p><a href="/User:TheJamsh" title="User:TheJamsh">TheJamsh</a> (<a href="/User_talk:TheJamsh" title="User talk:TheJamsh">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Get_Screen-Size_Bounds_of_An_Actor&amp;oldid=13241" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Get_Screen-Size_Bounds_of_An_Actor&amp;oldid=13241<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/538.817197ad.js" defer></script>
+  </body>
+</html>

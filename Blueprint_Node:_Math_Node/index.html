@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/235.aa2f5786.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="content__default"><p>Blueprint Node: Math Node - Epic Wiki</p> <h1 id="blueprint-node-math-node"><a href="#blueprint-node-math-node" class="header-anchor">#</a> Blueprint Node: Math Node</h1> <p><strong>Rate this Article:</strong></p> <p>0.00</p> <p><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""></p> <p>Approved for Versions:(please verify)</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Random_Cone_vector">2 Random Cone vector</a> <ul><li><a href="#Radians">2.1 Radians</a></li> <li><a href="#Degrees">2.2 Degrees</a></li></ul></li> <li><a href="#Angle_to_Angle">3 Angle to Angle</a> <ul><li><a href="#Degrees_to_Radians">3.1 Degrees to Radians</a></li> <li><a href="#Radians_to_Degrees">3.2 Radians to Degrees</a></li></ul></li> <li><a href="#Is_Float_nearly_equal_to">4 Is Float nearly equal to</a> <ul><li><a href="#IsNearlyEqual">4.1 IsNearlyEqual</a></li> <li><a href="#IsEqualZero">4.2 IsEqualZero</a></li></ul></li> <li><a href="#IsPowerOfTwo">5 IsPowerOfTwo</a></li> <li><a href="#Full_code">6 Full code</a> <ul><li><a href="#Header">6.1 Header</a></li> <li><a href="#C.2B.2B">6.2 C++</a></li></ul></li></ul> <h1 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h1> <p>This is a node that exposes a couple of extra math functions to blueprints, which may be of use.</p> <p>I've detailed each node individually, explaining the node's inputs and its uses. I've also put the full source at the bottom, which you can just copy and paste into a .h/.cpp file and compile directly. The only change that must be done is in the .cpp where it reads &quot;#include &quot;HyperPro.h&quot;&quot; - this must be changed to the project header, which is the name of your project - i.e if your project is called &quot;MyAwesomeGame&quot; then the header you want to use should be &quot;MyAwesomeGame.h&quot;</p> <p>- <a href="/User:G-Rath" title="User:G-Rath">G-Rath</a> (<a href="/User_talk:G-Rath" title="User talk:G-Rath">talk</a>)</p> <h1 id="random-cone-vector"><a href="#random-cone-vector" class="header-anchor">#</a> Random Cone vector</h1> <p>This node returns a random vector in the shape of a cone.</p> <p>Note the bIsSquished - This is for if you have a cone thats not uniform. While HorizontalConeHalfAngleRad / HorizontalConeHalfAngleDeg has the word Horizontal in it, if bIsSquished is false then HorizontalConeHalfAngleRad /HorizontalConeHalfAngleDeg will be used for all axes.</p> <h2 id="radians"><a href="#radians" class="header-anchor">#</a> Radians</h2> <p>This version takes the angles as radians:</p> <p><a href="/File:BlueNode_RanVCone_1.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/f/f5/BlueNode_RanVCone_1.jpg" alt="BlueNode RanVCone 1.jpg"></a></p> <p>UFUNCTION(BlueprintPure, meta = (HidePin = &quot;WorldContextObject&quot;, DefaultToSelf = &quot;WorldContextObject&quot;, FriendlyName = &quot;Random VCone&quot;, CompactNodeTitle = &quot;RanVCone&quot;, Keywords = &quot;random vector cone radians&quot;), Category = Math)
+static FVector VRandomConeFromRad(const FVector&amp; Dir, float HorizontalConeHalfAngleRad, bool bIsSquished, float VerticalConeHalfAngleRad);</p> <h2 id="degrees"><a href="#degrees" class="header-anchor">#</a> Degrees</h2> <p>This version takes the angles in degrees:</p> <p><a href="/File:BlueNode_RanVConeDeg_1.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/b/bf/BlueNode_RanVConeDeg_1.jpg" alt="BlueNode RanVConeDeg 1.jpg"></a></p> <p>UFUNCTION(BlueprintPure, meta = (HidePin = &quot;WorldContextObject&quot;, DefaultToSelf = &quot;WorldContextObject&quot;, FriendlyName = &quot;Random VCone From Degrees&quot;, CompactNodeTitle = &quot;RanVConeDeg&quot;, Keywords = &quot;random vector cone degrees&quot;), Category = Math)
+static FVector VRandomConeFromDeg(const FVector&amp; Dir, float HorizontalConeHalfAngleDeg, bool bIsSquished, float VerticalConeHalfAngleDeg);</p> <h1 id="angle-to-angle"><a href="#angle-to-angle" class="header-anchor">#</a> Angle to Angle</h1> <p>This just converts from one angle type to another.</p> <h2 id="degrees-to-radians"><a href="#degrees-to-radians" class="header-anchor">#</a> Degrees to Radians</h2> <p><a href="/File:BlueNode_DegToRad_1.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/d/d8/BlueNode_DegToRad_1.jpg" alt="BlueNode DegToRad 1.jpg"></a></p> <p>UFUNCTION(BlueprintPure, meta = (HidePin = &quot;WorldContextObject&quot;, DefaultToSelf = &quot;WorldContextObject&quot;, FriendlyName = &quot;Convert Degrees to Radians&quot;, CompactNodeTitle = &quot;DegToRad&quot;, Keywords = &quot;convert radians degrees&quot;), Category = Math)
+static float FDegToRad(float AngleInDegrees);</p> <h2 id="radians-to-degrees"><a href="#radians-to-degrees" class="header-anchor">#</a> Radians to Degrees</h2> <p><a href="/File:BlueNode_RadToDeg_1.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/e/ed/BlueNode_RadToDeg_1.jpg" alt="BlueNode RadToDeg 1.jpg"></a></p> <p>UFUNCTION(BlueprintPure, meta = (HidePin = &quot;WorldContextObject&quot;, DefaultToSelf = &quot;WorldContextObject&quot;, FriendlyName = &quot;Convert Radians to Degrees&quot;, CompactNodeTitle = &quot;RadToDeg&quot;, Keywords = &quot;convert radians degrees&quot;), Category = Math)
+static float FRadToDeg(float AngleInRadians);</p> <h1 id="is-float-nearly-equal-to"><a href="#is-float-nearly-equal-to" class="header-anchor">#</a> Is Float nearly equal to</h1> <p>These two nodes take a float and check if it equals zero or another number within range. This is very reason for eliminating what's known as machine epsilon.</p> <p>Its an error caused by rounding when doing math with floating points and an issue I had when working with UDK + UnrealScript. If you add 0.004 enough times you'll get something like 0.x999 with x being the number of times you added -1. For me, in unrealscript it was normally about 4 times, so:</p> <p>0.001+ 0.001 = 0.002</p> <p>0.002+ 0.001 = 0.003</p> <p>0.003+ 0.001 = 0.39999999999</p> <p>This is a massive pain when doing things such as math animations or movement, where you compare if x == y. The computer will be comparing 0.00399999999 == 0.004 and thus return false. These two nodes are very useful for eliminating that, because you can do &quot;Does X equal Y +- 1?&quot;. Note that machine epsilon can't be eliminated by rounding as you would lose decimal precision - You can use very careful rounding to eliminate the issue, but its easy to get confused and mix up your numbers. Thus this is a useful shortcut both in Blueprints and C++.</p> <h2 id="isnearlyequal"><a href="#isnearlyequal" class="header-anchor">#</a> IsNearlyEqual</h2> <p><a href="/File:BlueNode_IsNear%3D_1.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/b/b8/BlueNode_IsNear%3D_1.jpg" alt="BlueNode IsNear= 1.jpg"></a></p> <p>UFUNCTION(BlueprintPure, meta = (HidePin = &quot;WorldContextObject&quot;, DefaultToSelf = &quot;WorldContextObject&quot;, FriendlyName = &quot;Is float nearly equal&quot;, CompactNodeTitle = &quot;IsNear=&quot;, Keywords = &quot;nearly equal float&quot;), Category = Math)
+static bool IsNearlyEqual(float A, float B, float ErrorTolerance);</p> <h2 id="isequalzero"><a href="#isequalzero" class="header-anchor">#</a> IsEqualZero</h2> <p>This is the same, but it just compares to zero, instead of a given number.</p> <p><a href="/File:BlueNode_IsNear0.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/c/cc/BlueNode_IsNear0.jpg" alt="BlueNode IsNear0.jpg"></a></p> <p>UFUNCTION(BlueprintPure, meta = (HidePin = &quot;WorldContextObject&quot;, DefaultToSelf = &quot;WorldContextObject&quot;, FriendlyName = &quot;Is float nearly zero&quot;, CompactNodeTitle = &quot;IsNear0&quot;, Keywords = &quot;nearly zero float&quot;), Category = Math)
+static bool IsNearlyZero(float Value, float ErrorTolerance);</p> <h1 id="ispoweroftwo"><a href="#ispoweroftwo" class="header-anchor">#</a> IsPowerOfTwo</h1> <p>This tells you quickly if a number is a power of two or not.</p> <p><a href="/File:BlueNode_IsPowOf2_1.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/0/05/BlueNode_IsPowOf2_1.jpg" alt="BlueNode IsPowOf2 1.jpg"></a></p> <p>UFUNCTION(BlueprintPure, meta = (HidePin = &quot;WorldContextObject&quot;, DefaultToSelf = &quot;WorldContextObject&quot;, FriendlyName = &quot;Is power of two&quot;, CompactNodeTitle = &quot;IsPowOf2&quot;, Keywords = &quot;is power two&quot;), Category = Math)
+static bool IsPowerOfTwo(float Value);</p> <h1 id="full-code"><a href="#full-code" class="header-anchor">#</a> Full code</h1> <h2 id="header"><a href="#header" class="header-anchor">#</a> Header</h2> <p>// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.
+ 
+#pragma once
+ 
+#include &quot;EdGraph/EdGraphNode.h&quot;
+#include &quot;EdGraph/EdGraphSchema.h&quot;
+#include &quot;BlueprintMath.generated.h&quot;
+ 
+/**
+* Created by Gareth &quot;G-Rath&quot; Jones, 06/04/2014L
+*/
+UCLASS()
+class UBlueprintMath : public UEdGraphNode
+{
+GENERATED_UCLASS_BODY()
+ 
+public:
+ 
+/*
+* Returns a random unit vector, uniformly distributed, within the specified cone.
+* HorizontalConeHalfAngleRad is the half-angle of cone, in radians.  Returns a normalized vector.
+*
+* If bIsSquished is true then it creates a random cone with different angle limits in the Y and Z axes.
+* Set by HorizontalConeHalfAngleRad and VerticalConeHalfAngleRad respectively
+*	Otherwise only HorizontalConeHalfAngleRad is used.
+*
+* Assumes world Y and Z, although this could be extended to handle arbitrary rotations.
+*/
+UFUNCTION(BlueprintPure, meta = (HidePin = &quot;WorldContextObject&quot;, DefaultToSelf = &quot;WorldContextObject&quot;, FriendlyName = &quot;Random VCone&quot;, CompactNodeTitle = &quot;RanVCone&quot;, Keywords = &quot;random vector cone radians&quot;), Category = Math)
+static FVector VRandomConeFromRad(const FVector&amp; Dir, float HorizontalConeHalfAngleRad, bool bIsSquished, float VerticalConeHalfAngleRad);
+ 
+/*
+* Returns a random unit vector, uniformly distributed, within the specified cone.
+* HorizontalConeHalfAngleDeg is the half-angle of cone, in degrees.  Returns a normalized vector.
+*
+* If bIsSquished is true then it creates a random cone with different angle limits in the Y and Z axes.
+* Set by HorizontalConeHalfAngleDeg and VerticalConeHalfAngleDeg respectively.
+*	Otherwise only HorizontalConeHalfAngleDeg is used.
+*
+* Assumes world Y and Z, although this could be extended to handle arbitrary rotations.
+*/
+UFUNCTION(BlueprintPure, meta = (HidePin = &quot;WorldContextObject&quot;, DefaultToSelf = &quot;WorldContextObject&quot;, FriendlyName = &quot;Random VCone From Degrees&quot;, CompactNodeTitle = &quot;RanVConeDeg&quot;, Keywords = &quot;random vector cone degrees&quot;), Category = Math)
+static FVector VRandomConeFromDeg(const FVector&amp; Dir, float HorizontalConeHalfAngleDeg, bool bIsSquished, float VerticalConeHalfAngleDeg);
+ 
+/** Convets a angle in degrees into radians */
+UFUNCTION(BlueprintPure, meta = (HidePin = &quot;WorldContextObject&quot;, DefaultToSelf = &quot;WorldContextObject&quot;, FriendlyName = &quot;Convert Degrees to Radians&quot;, CompactNodeTitle = &quot;DegToRad&quot;, Keywords = &quot;convert radians degrees&quot;), Category = Math)
+static float FDegToRad(float AngleInDegrees);
+ 
+/** Convets a angle in radians into degrees */
+UFUNCTION(BlueprintPure, meta = (HidePin = &quot;WorldContextObject&quot;, DefaultToSelf = &quot;WorldContextObject&quot;, FriendlyName = &quot;Convert Radians to Degrees&quot;, CompactNodeTitle = &quot;RadToDeg&quot;, Keywords = &quot;convert radians degrees&quot;), Category = Math)
+static float FRadToDeg(float AngleInRadians);
+ 
+/**
+*	Checks if two floating point numbers are nearly equal.
+*	@param A				First number to compare
+*	@param B				Second number to compare
+*	@param ErrorTolerance	Maximum allowed difference for considering them as 'nearly equal'
+*	@return					true if A and B are nearly equal
+*/
+UFUNCTION(BlueprintPure, meta = (HidePin = &quot;WorldContextObject&quot;, DefaultToSelf = &quot;WorldContextObject&quot;, FriendlyName = &quot;Is float nearly equal&quot;, CompactNodeTitle = &quot;IsNear=&quot;, Keywords = &quot;nearly equal float&quot;), Category = Math)
+static bool IsNearlyEqual(float A, float B, float ErrorTolerance);
+ 
+/**
+*	Checks if a floating point number is nearly zero.
+*	@param Value			Number to compare
+*	@param ErrorTolerance	Maximum allowed difference for considering Value as 'nearly zero'
+*	@return					true if Value is nearly zero
+*/
+UFUNCTION(BlueprintPure, meta = (HidePin = &quot;WorldContextObject&quot;, DefaultToSelf = &quot;WorldContextObject&quot;, FriendlyName = &quot;Is float nearly zero&quot;, CompactNodeTitle = &quot;IsNear0&quot;, Keywords = &quot;nearly zero float&quot;), Category = Math)
+static bool IsNearlyZero(float Value, float ErrorTolerance);
+ 
+/**
+*	Checks whether a number is a power of two.
+*	@param Value	Number to check
+*	@return			true if Value is a power of two
+*/
+UFUNCTION(BlueprintPure, meta = (HidePin = &quot;WorldContextObject&quot;, DefaultToSelf = &quot;WorldContextObject&quot;, FriendlyName = &quot;Is power of two&quot;, CompactNodeTitle = &quot;IsPowOf2&quot;, Keywords = &quot;is power two&quot;), Category = Math)
+static bool IsPowerOfTwo(float Value);
+ 
+};</p> <h2 id="c"><a href="#c" class="header-anchor">#</a> C++</h2> <p>// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;HyperPro.h&quot; //Change this to your project's header file (Its the file thats got the same name as your project and ends with .h)
+#include &quot;UnrealMathVectorCommon.h&quot;
+#include &quot;BlueprintMath.h&quot;
+ 
+#define SMALL_NUMBER		(1.e-8f)
+ 
+UBlueprintMath::UBlueprintMath(const class FPostConstructInitializeProperties&amp; PCIP)
+: Super(PCIP)
+{
+}
+ 
+FVector UBlueprintMath::VRandomConeFromRad(const FVector&amp; Dir, float HorizontalConeHalfAngleRad, bool bIsSquished, float VerticalConeHalfAngleRad)
+{
+if (bIsSquished)
+return FMath::VRandCone(Dir, HorizontalConeHalfAngleRad, VerticalConeHalfAngleRad);
+else
+return FMath::VRandCone(Dir, HorizontalConeHalfAngleRad);
+}
+ 
+FVector UBlueprintMath::VRandomConeFromDeg(const FVector&amp; Dir, float HorizontalConeHalfAngleDeg, bool bIsSquished,  float VerticalConeHalfAngleDeg)
+{
+if (bIsSquished)
+return FMath::VRandCone(Dir, FMath::DegreesToRadians(HorizontalConeHalfAngleDeg), FMath::DegreesToRadians(VerticalConeHalfAngleDeg));
+else
+return FMath::VRandCone(Dir, FMath::DegreesToRadians(HorizontalConeHalfAngleDeg));
+}
+ 
+float UBlueprintMath::FDegToRad(float AngleInDegrees)
+{
+return FMath::DegreesToRadians(AngleInDegrees);
+}
+ 
+float UBlueprintMath::FRadToDeg(float AngleInRadians)
+{
+return FMath::RadiansToDegrees(AngleInRadians);
+}
+ 
+bool UBlueprintMath::IsNearlyEqual(float A, float B, float ErrorTolerance = SMALL_NUMBER)
+{
+return FMath::IsNearlyEqual(A, B, ErrorTolerance);
+}
+ 
+bool UBlueprintMath::IsNearlyZero(float Value, float ErrorTolerence = SMALL_NUMBER)
+{
+return FMath::IsNearlyZero(Value, ErrorTolerence);
+}
+ 
+bool UBlueprintMath::IsPowerOfTwo(float Value)
+{
+return FMath::IsPowerOfTwo(Value);
+}</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Blueprint_Node:_Math_Node&amp;oldid=8231" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Blueprint_Node:_Math_Node&amp;oldid=8231<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Blueprint" title="Category:Blueprint">Blueprint</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/235.aa2f5786.js" defer></script>
+  </body>
+</html>

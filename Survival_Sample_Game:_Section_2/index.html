@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1036.6ed5c33a.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="content__default"><p>Survival Sample Game: Section 2 - Epic Wiki</p> <h1 id="survival-sample-game-section-2"><a href="#survival-sample-game-section-2" class="header-anchor">#</a> Survival Sample Game: Section 2</h1> <p><strong>Rate this Tutorial:</strong></p> <p>5.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""> (4 votes)</p> <p>Approved for Versions:4.7</p> <p>Be sure to first read the <a href="https://wiki.unrealengine.com/Survival_sample_game" target="_blank" rel="noopener noreferrer"><strong>project overview page</strong><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> for information on the project series, recommended documentation and a section overview! The best place for questions and feedback is the <a href="https://forums.unrealengine.com/showthread.php?63678-Upcoming-C-Gameplay-Example-Series-Making-a-Survival-Game" target="_blank" rel="noopener noreferrer"><strong>official forum thread</strong><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>, it is monitored (the community is often kind enough to help out too!) and will try to answer any question as quickly as possible.</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Introduction">1 Introduction</a> <ul><li><a href="#Additional_concepts_introduced_in_code">1.1 Additional concepts introduced in code</a></li></ul></li> <li><a href="#Concepts">2 Concepts</a> <ul><li><a href="#Manipulating_materials_in_C.2B.2B">2.1 Manipulating materials in C++</a></li> <li><a href="#Driving_FX_with_Physical_Materials">2.2 Driving FX with Physical Materials</a></li> <li><a href="#Attaching.2FDetaching_Actors_using_Sockets">2.3 Attaching/Detaching Actors using Sockets</a></li> <li><a href="#Dealing_.26_handling_damage">2.4 Dealing &amp; handling damage</a></li></ul></li> <li><a href="#Closing">3 Closing</a></li></ul> <h1 id="introduction"><a href="#introduction" class="header-anchor">#</a> Introduction</h1> <p>This section adds weapon support for the character, a flashlight, UT-style inventory with on-character visual representation of the carried items and deals with damage, death and respawns for players.</p> <p>Please consider this documentation a reference guide to get additional information on topics covered in the sample game's source itself. If you are missing a topic or think a specific topic requires more details then feel free to leave your feedback on the <a href="https://forums.unrealengine.com/showthread.php?66263-Announcing-Section-2-for-Survival-Game" target="_blank" rel="noopener noreferrer"><strong>section-specific forum thread</strong><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>!</p> <p><a href="/File:Section2_overview02.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/c/c9/Section2_overview02.jpg" alt="Section2 overview02.jpg"></a></p> <p><a href="/File:Flashlight_01..jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/7/71/Flashlight_01..jpg" alt="Flashlight 01..jpg"></a></p> <p>View &amp; download <a href="https://github.com/tomlooman/EpicSurvivalGameSeries" target="_blank" rel="noopener noreferrer"><strong>latest project source</strong><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> on GitHub</p> <h2 id="additional-concepts-introduced-in-code"><a href="#additional-concepts-introduced-in-code" class="header-anchor">#</a> Additional concepts introduced in code</h2> <ul><li>Arrays (See: SCharacter.h - Inventory)</li> <li>Structs (See: STypes.h - FTakeHitInfo)</li> <li>Enums (See: STypes.h - EInventorySlot)</li></ul> <h1 id="concepts"><a href="#concepts" class="header-anchor">#</a> Concepts</h1> <h2 id="manipulating-materials-in-c"><a href="#manipulating-materials-in-c" class="header-anchor">#</a> Manipulating materials in C++</h2> <p><a href="/File:Section2_materialinstances.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/d/d9/Section2_materialinstances.jpg" alt="Section2 materialinstances.jpg"></a></p> <p>To alter a single object's material during gameplay we have to create a <a href="https://docs.unrealengine.com/latest/INT/Engine/Rendering/Materials/MaterialInstances/index.html#materialinstancedynamic" target="_blank" rel="noopener noreferrer">MaterialInstanceDynamic<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>. This gives us a unique instance to change parameters like the flashlight brightness.</p> <p>First we create the instance. Any new instance must be applied to the mesh, CreateAndSetMaterialInstanceDynamic takes care of both. The first parameter for the material index is usually 0 - your StaticMesh may have more than one material applied using multiple indices (see the Weapons/SK_Rifle mesh for an example)</p> <p>void ASFlashlight::BeginPlay()
+{
+Super::BeginPlay();
+ 
+/* Create an instance unique to this actor instance to manipulate emissive intensity */
+USkeletalMeshComponent* MeshComp = GetWeaponMesh();
+if (MeshComp)
+{
+MatDynamic = MeshComp-&gt;CreateAndSetMaterialInstanceDynamic(0);
+}
+}</p> <p>If you didn't create this MaterialInstanceDynamic, changing a parameter on a material, would change it on all meshes that use the same material since by default instances of the same materials are shared between meshes.</p> <p>Now that we have a material to play around with, we can update the brightness of our flashlight like so:</p> <p>void ASFlashlight::UpdateLight(bool Enabled)
+{
+/* Update material parameter */
+if (MatDynamic)
+{		
+/* &quot; Enabled ? MaxEmissiveIntensity : 0.0f &quot; picks between first or second value based on &quot;Enabled&quot; boolean */
+MatDynamic-&gt;SetScalarParameterValue(EmissiveParamName, Enabled ? MaxEmissiveIntensity : 0.0f);	
+}
+}</p> <p>The EmissiveParamName contains the FName of the parameter, in this case &quot;Brightness&quot;.</p> <p>The second parameter field may look strange to you, here is a code snippet to explain what it does:</p> <p>/* This line is a shorthand for the if-statement below */
+Enabled ? MaxEmissiveIntensity : 0.0f
+ 
+float Intensity;
+if (Enabled)
+{
+Intensity = MaxEmissiveIntensity;
+}
+else
+{
+Intensity = 0.0f;
+}</p> <h2 id="driving-fx-with-physical-materials"><a href="#driving-fx-with-physical-materials" class="header-anchor">#</a> Driving FX with Physical Materials</h2> <p><a href="/File:Section2_DrivingFXphysmats.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/9/98/Section2_DrivingFXphysmats.jpg" alt="Section2 DrivingFXphysmats.jpg"></a></p> <p>To spawn particle FX based on the surface we hit, or play a sound based on the surface we standing on we need to know the PhysicalMaterial of a StaticMesh or SkeletalMesh. For StaticMesh this is specified in the shader material in the MaterialEditor, for SkeletalMeshes it's set using the <a href="https://docs.unrealengine.com/latest/INT/Engine/Physics/PhAT/index.html" target="_blank" rel="noopener noreferrer">PhatTool<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> on the PhysicsAsset assigned to the SkeletalMesh.</p> <p>You need to define your own custom Physics Material first. (See: SurvivalGame.h) Default already exists, but for convenience we assign a C++ definition to it. Don't forget to add them to DefaultEngine.ini or the engine won't recognize the types (the C++ code below is only for convenience, the .ini file it where the actual defining is done)</p> <p>/** when you modify this, please note that this information can be saved with instances
+* also DefaultEngine.ini [/Script/Engine.PhysicsSettings] should match with this list **/
+#define SURFACE_DEFAULT				SurfaceType_Default
+#define SURFACE_FLESH				SurfaceType1</p> <p>We assign these types to PhysicalMaterial assets. (See: '/Base/PhysMat_Flesh') And the assets are then applied to either (shader) materials or PhysicsAsset (See: '/AnimStarterPack/Character/HeroTPP_Physics')</p> <p>Now there is one step remaining, our code needs to check the type we hit, and spawn a particle effect, or play a sound based on what we just hit. (See: SImpactEffect.cpp)</p> <p>void ASImpactEffect::PostInitializeComponents()
+{
+Super::PostInitializeComponents();
+ 
+/* Figure out what we hit (SurfaceHit is setting during actor instantiation in weapon class) */
+UPhysicalMaterial* HitPhysMat = SurfaceHit.PhysMaterial.Get();
+EPhysicalSurface HitSurfaceType = UPhysicalMaterial::DetermineSurfaceType(HitPhysMat);
+ 
+UParticleSystem* ImpactFX = GetImpactFX(HitSurfaceType);
+if (ImpactFX)
+{
+UGameplayStatics::SpawnEmitterAtLocation(this, ImpactFX, GetActorLocation(), GetActorRotation());
+}
+ 
+USoundCue* ImpactSound = GetImpactSound(HitSurfaceType);
+if (ImpactSound)
+{
+UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation());
+}
+}</p> <p>The SurfaceHit variable is applied by SWeaponInstant.cpp.</p> <p>void ASWeaponInstant::SpawnImpactEffects(const FHitResult&amp; Impact)
+{
+if (ImpactTemplate &amp;&amp; Impact.bBlockingHit)
+{
+/* This function prepares an actor to spawn, but requires another call to finish the actual spawn progress. This allows manipulation of properties before entering into the level */
+ASImpactEffect* EffectActor = GetWorld()-&gt;SpawnActorDeferred&lt;ASImpactEffect&gt;(ImpactTemplate, Impact.ImpactPoint, Impact.ImpactPoint.Rotation());
+if (EffectActor)
+{
+EffectActor-&gt;SurfaceHit = Impact;
+UGameplayStatics::FinishSpawningActor(EffectActor, FTransform(Impact.ImpactNormal.Rotation(), Impact.ImpactPoint));
+}
+}
+}</p> <p>We retrieved this surface information by performing a ray-trace with bReturnPhysicalMaterial = true. (See: SWeapon.cpp)</p> <p>FHitResult ASWeapon::WeaponTrace(const FVector&amp; TraceFrom, const FVector&amp; TraceTo) const
+{
+FCollisionQueryParams TraceParams(TEXT(&quot;WeaponTrace&quot;), true, Instigator);
+TraceParams.bTraceAsyncScene = true;
+TraceParams.bReturnPhysicalMaterial = true;
+ 
+FHitResult Hit(ForceInit);
+GetWorld()-&gt;LineTraceSingle(Hit, TraceFrom, TraceTo, COLLISION_WEAPON, TraceParams);
+ 
+return Hit;
+}</p> <h2 id="attaching-detaching-actors-using-sockets"><a href="#attaching-detaching-actors-using-sockets" class="header-anchor">#</a> Attaching/Detaching Actors using Sockets</h2> <p><a href="/File:Section2_attachedmeshsockets.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/f/f2/Section2_attachedmeshsockets.jpg" alt="Section2 attachedmeshsockets.jpg"></a></p> <p>Sockets are great for creating your own attach points on skeletal meshes. To use a socket in C++ you must know the name of the socket as specified through the Skeletal Mesh Editor. See the <a href="https://docs.unrealengine.com/latest/INT/Engine/Content/Types/SkeletalMeshes/Sockets/index.html" target="_blank" rel="noopener noreferrer">Docs on how to setup and name Sockets<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>.</p> <p>In this project we are using it for a couple of things. To attach a weapon to our character's hands, back and pelvis and on the weapon mesh to define the muzzle location. You can use it for many other things too, such as spawning particle FX on your jetpack.</p> <p>In the code snippet below we retrieve an FName for the slot we wish to attach our weapon to. The AttachTo() function doesn't require you to specify a Bone or Socket, if you omit this value, it will use the root (or pivot) instead.</p> <p>void ASWeapon::AttachMeshToPawn(EInventorySlot Slot)
+{
+if (MyPawn)
+{
+// Remove and hide
+DetachMeshFromPawn();
+ 
+USkeletalMeshComponent* PawnMesh = MyPawn-&gt;GetMesh();
+FName AttachPoint = MyPawn-&gt;GetInventoryAttachPoint(Slot);
+Mesh-&gt;SetHiddenInGame(false);
+Mesh-&gt;AttachTo(PawnMesh, AttachPoint, EAttachLocation::SnapToTarget);
+}
+}</p> <p>Detaching is even simpler:</p> <p>void ASWeapon::DetachMeshFromPawn()
+{
+Mesh-&gt;DetachFromParent();
+Mesh-&gt;SetHiddenInGame(true);
+}</p> <h2 id="dealing-handling-damage"><a href="#dealing-handling-damage" class="header-anchor">#</a> Dealing &amp; handling damage</h2> <p><a href="/File:Section2_dealingdamage.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/1/18/Section2_dealingdamage.jpg" alt="Section2 dealingdamage.jpg"></a></p> <p>The engine already have a base framework to support damage. If you're new to Unreal Engine, check out the blog post on <a href="https://www.unrealengine.com/blog/damage-in-ue4" target="_blank" rel="noopener noreferrer">Damage in UE4<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>.</p> <p>An example on dealing damage to an Actor is available in SWeaponInstant.cpp (Note that Actor already includes the function TakeDamage() ) We override and extend this function in our SCharacter.cpp to update Hitpoints and handle death.</p> <p>void ASWeaponInstant::DealDamage(const FHitResult&amp; Impact, const FVector&amp; ShootDir)
+{
+FPointDamageEvent PointDmg;
+PointDmg.DamageTypeClass = DamageType;
+PointDmg.HitInfo = Impact;
+PointDmg.ShotDirection = ShootDir;
+PointDmg.Damage = HitDamage;
+ 
+Impact.GetActor()-&gt;TakeDamage(PointDmg.Damage, PointDmg, MyPawn-&gt;Controller, this);
+}</p> <p>Another way to deal damage is through UGameplayStatics::ApplyRadialDamage (variations exist like ApplyPointDamage and ApplyRadialDamageWithFalloff) The SBombActor uses it to apply damage to anything within the explosion radius.</p> <p>void ASBombActor::OnExplode()
+{
+if (bExploded)
+return;
+ 
+// Notify the clients to simulate the explosion
+bExploded = true;
+ 
+// Run on server side
+SimulateExplosion();
+ 
+// Apply damage to player, enemies and environmental objects
+TArray&lt;AActor*&gt; IgnoreActors;
+UGameplayStatics::ApplyRadialDamage(this, ExplosionDamage, GetActorLocation(), ExplosionRadius, DamageType, IgnoreActors, this, nullptr);
+}</p> <p>You can specify your own DamageTypes in content and deal with different types individually (eg. ExplosionDamage, FallDamage etc.) and have each type specify different magnitudes of impulse, if any.</p> <h1 id="closing"><a href="#closing" class="header-anchor">#</a> Closing</h1> <p>In this section we've added the basics for our gameloop. In the upcoming sections we will introduce enemies and game objective to put all this to use. If you are confused on a particular feature that was covered, feel free to ask about it in the <a href="https://forums.unrealengine.com/showthread.php?66263-Announcing-Section-2-for-Survival-Game" target="_blank" rel="noopener noreferrer">official section 2 thread<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> for this project.</p> <ul><li><a href="https://wiki.unrealengine.com/Survival_sample_game" target="_blank" rel="noopener noreferrer">Main Project Page<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://forums.unrealengine.com/showthread.php?63678-Upcoming-C-Gameplay-Example-Series-Making-a-Survival-Game" target="_blank" rel="noopener noreferrer">Main Forum Thread<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li><a href="https://github.com/tomlooman/EpicSurvivalGameSeries" target="_blank" rel="noopener noreferrer">Source on GitHub<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li></ul> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Survival_Sample_Game:_Section_2&amp;oldid=26252" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Survival_Sample_Game:_Section_2&amp;oldid=26252<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1036.6ed5c33a.js" defer></script>
+  </body>
+</html>

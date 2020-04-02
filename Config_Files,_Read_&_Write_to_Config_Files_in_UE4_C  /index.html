@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/373.f3a87a3c.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Config Files, Read &amp; Write to Config Files - Epic Wiki</p> <h1 id="config-files-read-write-to-config-files"><a href="#config-files-read-write-to-config-files" class="header-anchor">#</a> Config Files, Read &amp; Write to Config Files</h1> <p>From Epic Wiki</p> <p>(Redirected from <a href="/index.php?title=Config_Files,_Read_%26_Write_to_Config_Files_in_UE4_C%2B%2B&amp;redirect=no" title="Config Files, Read &amp; Write to Config Files in UE4 C++">Config Files, Read &amp; Write to Config Files in UE4 C++</a>)</p> <p>Jump to: <a href="#mw-navigation">navigation</a>, <a href="#p-search">search</a></p> <p><strong>Rate this Article:</strong></p> <p>3.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""> (one vote)</p> <p>Approved for Versions:(please verify)</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#ConfigCacheIni.h">2 ConfigCacheIni.h</a></li> <li><a href="#Code_Samples">3 Code Samples</a> <ul><li><a href="#Reading_From_Config_File">3.1 Reading From Config File</a></li> <li><a href="#Writing_to_Config_File">3.2 Writing to Config File</a></li></ul></li> <li><a href="#Of_Great_Importance">4 Of Great Importance</a></li> <li><a href="#Conclusion">5 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>Dear Community,</p> <p>In this tutorial I am showing you working code samples you can plug into your player controller class (or any class if you remove the ClientMessage() parts).</p> <p>In these samples I retrieve various bits of information, including the Near Clip Pane value, from the Game and Engine inis, and I also write a new section into the Game.ini called Victory.Core and store some data there.</p> <p><strong>The main advantage of config files is that the user can go in and edit the data in a human-readible format any time they want!</strong></p> <p>Please note that when you write out info to config files, the data is not stored in YourGame\Config where the defaultconfig files are.</p> <p>Your data will be written to</p> <p>YourGame\Saved\Config\Windows</p> <p>Here's were you can edit the data outside your game and then launch your game and read that changed data into your game system 😃</p> <p>Enjoy!</p> <h2 id="configcacheini-h"><a href="#configcacheini-h" class="header-anchor">#</a> ConfigCacheIni.h</h2> <p>Check out this header for all the function definitions and options available to you, for writing out arrays or reading in entire file as a FString, many, many useful functions</p> <h2 id="code-samples"><a href="#code-samples" class="header-anchor">#</a> Code Samples</h2> <p>Quoting Solid Snake:</p> <p>&quot; There is a bunch of globals that you can use here to quickly grab the core configuration files:</p> <ul><li>GEngineIni</li> <li>GInputIni</li> <li>GGameIni</li> <li>GGameUserSettingsIni</li></ul> <p>&quot;</p> <p>This is very useful info!</p> <p>You will see in the functions below I rely on these global FStrings to more quickly write out the filename function parameter</p> <h3 id="reading-from-config-file"><a href="#reading-from-config-file" class="header-anchor">#</a> Reading From Config File</h3> <p>//in your player controller class
+void AVictoryController::VictoryConfigGetTests()
+{
+//Basic Syntax
+/*
+bool GetString(
+const TCHAR* Section,
+const TCHAR* Key,
+FString&amp; Value,
+const FString&amp; Filename
+);
+*/
+ 
+if(!GConfig) return;
+//~~
+ 
+//Retrieve Default Game Type
+FString ValueReceived;
+GConfig-&gt;GetString(
+TEXT(&quot;/Script/Engine.WorldInfo&quot;),
+TEXT(&quot;GlobalDefaultGameType&quot;),
+ValueReceived,
+GGameIni
+);
+ 
+ClientMessage(&quot;GlobalDefaultGameType&quot;);
+ClientMessage(ValueReceived);
+ 
+//Retrieve Max Objects not considered by GC
+int32 IntValueReceived = 0;
+GConfig-&gt;GetInt(
+TEXT(&quot;Core.System&quot;),
+TEXT(&quot;MaxObjectsNotConsideredByGC&quot;),
+IntValueReceived,
+GEngineIni
+);
+ 
+ClientMessage(&quot;MaxObjectsNotConsideredByGC&quot;);
+ClientMessage(FString::FromInt(IntValueReceived));
+ 
+//Retrieve Near Clip Plane (how close things can get to camera)
+float floatValueReceived = 0;
+GConfig-&gt;GetFloat(
+TEXT(&quot;/Script/Engine.Engine&quot;),
+TEXT(&quot;NearClipPlane&quot;),
+floatValueReceived,
+GEngineIni
+);
+ 
+ClientMessage(&quot;NearClipPlane&quot;);
+ClientMessage(FString::SanitizeFloat(floatValueReceived));
+}</p> <h3 id="writing-to-config-file"><a href="#writing-to-config-file" class="header-anchor">#</a> Writing to Config File</h3> <p>//write to existing Game.ini
+//the results get stored in YourGameDir\Saved\Config\Windows
+void AVictoryController::VictoryConfigSetTests()
+{
+if(!GConfig) return;
+//~~
+ 
+//New Section to Add
+FString VictorySection = &quot;Victory.Core&quot;;
+ 
+//String
+GConfig-&gt;SetString (
+*VictorySection,
+TEXT(&quot;RootDir&quot;),
+TEXT(&quot;E:\UE4\IsAwesome&quot;),
+GGameIni
+);
+ 
+//FColor
+GConfig-&gt;SetColor (
+*VictorySection,
+TEXT(&quot;Red&quot;),
+FColor(255,0,0,255),
+GGameIni
+);
+ 
+//FVector
+GConfig-&gt;SetVector (
+*VictorySection,
+TEXT(&quot;PlayerStartLocation&quot;),
+FVector(0,0,512),
+GGameIni
+);
+ 
+//FRotator
+GConfig-&gt;SetRotator (
+*VictorySection,
+TEXT(&quot;SunRotation&quot;),
+FRotator(-90,0,0),
+GGameIni
+);
+ 
+//ConfigCacheIni.h
+//void Flush( bool Read, const FString&amp; Filename=TEXT(&quot;&quot;) );
+GConfig-&gt;Flush(false,GGameIni);
+}</p> <h2 id="of-great-importance"><a href="#of-great-importance" class="header-anchor">#</a> Of Great Importance</h2> <p>This line is very important</p> <p>GConfig-&gt;Flush(false,GGameIni);</p> <p>Sometimes the config file wont save changes if you don't call this function after you've set all your config keys.</p> <p>Many thanks to Solid Snake for telling me about this, I might have spent an hour or two trying to figure out why my config file was only saving sometimes!</p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>Now you know how to retrieve or edit any config file you want!</p> <p><strong>And you can even add new sections to existing config files!</strong></p> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Config_Files,_Read_%26_Write_to_Config_Files&amp;oldid=8249" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Config_Files,_Read_%26_Write_to_Config_Files&amp;oldid=8249<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/373.f3a87a3c.js" defer></script>
+  </body>
+</html>

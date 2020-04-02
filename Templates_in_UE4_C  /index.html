@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1054.537ef4c1.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Templates in C++ - Epic Wiki</p> <h1 id="templates-in-c"><a href="#templates-in-c" class="header-anchor">#</a> Templates in C++</h1> <p>From Epic Wiki</p> <p>(Redirected from <a href="/index.php?title=Templates_in_UE4_C%2B%2B&amp;redirect=no" title="Templates in UE4 C++">Templates in UE4 C++</a>)</p> <p>Jump to: <a href="#mw-navigation">navigation</a>, <a href="#p-search">search</a></p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Spawn_Actor_From_Blueprint">2 Spawn Actor From Blueprint</a> <ul><li><a href="#Static">2.1 Static</a></li> <li><a href="#.H">2.2 .H</a></li> <li><a href="#Template_Return_Type">2.3 Template Return Type</a></li></ul></li> <li><a href="#Calling_SpawnBP_Function">3 Calling SpawnBP Function</a></li> <li><a href="#Base_Class_for_the_Template.2C_not_the_BP">4 Base Class for the Template, not the BP</a></li> <li><a href="#Summary">5 Summary</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>Dear Community,</p> <p>Here's how you make template classes!</p> <p>Basic format:</p> <p>You put templates in your .h file, not the .cpp</p> <p>This means they should be FORCEINLINE.</p> <p>FORCEINLINE is actually a great optimization, look up &quot;c++ inline functions&quot;</p> <p>So using the method I am showing, these are the core parts of the delcaration and definition:</p> <p>template &lt;typename YourTemplateType&gt;
+FORCEINLINE void YourFunction()
+{
+//function body
+}</p> <h2 id="spawn-actor-from-blueprint"><a href="#spawn-actor-from-blueprint" class="header-anchor">#</a> Spawn Actor From Blueprint</h2> <p>I wrote a templated SpawnBP function to simplify and streamline the process of spawning actors from a blueprint!</p> <p>I put this function in the .h of a static library of functions I created.</p> <p>template &lt;typename VictoryObjType&gt;
+static FORCEINLINE VictoryObjType* SpawnBP(
+UWorld* TheWorld,
+UClass* TheBP,
+const FVector&amp; Loc,
+const FRotator&amp; Rot,
+const bool bNoCollisionFail = true,
+AActor* Owner = NULL,
+APawn* Instigator = NULL
+){
+if(!TheWorld) return NULL;
+if(!TheBP) return NULL;
+//~~
+ 
+FActorSpawnParameters SpawnInfo;
+SpawnInfo.bNoCollisionFail 		= bNoCollisionFail;
+SpawnInfo.Owner 				= Owner;
+SpawnInfo.Instigator				= Instigator;
+SpawnInfo.bDeferConstruction 	= false;
+ 
+return TheWorld-&gt;SpawnActor&lt;VictoryObjType&gt;(TheBP, Loc ,Rot, SpawnInfo );
+}</p> <h3 id="static"><a href="#static" class="header-anchor">#</a> Static</h3> <p>You could remove the static keyword and put this function in any .h file of your choosing, if that class is actually instanced, such as HUD, PlayerController, or Character (perhaps just for testing).</p> <h3 id="h"><a href="#h" class="header-anchor">#</a> .H</h3> <p>Again keep in mind this is all occurring in a .h file somewhere, no .cpp involved.</p> <h3 id="template-return-type"><a href="#template-return-type" class="header-anchor">#</a> Template Return Type</h3> <p>Notice I am returning the templated type as a pointer</p> <h2 id="calling-spawnbp-function"><a href="#calling-spawnbp-function" class="header-anchor">#</a> Calling SpawnBP Function</h2> <p>From a Static Library, in an actor class (for use of GetWorld())</p> <p>&quot;SpawnLoc&quot; and &quot;SpawnRot&quot; are calculated by you based on your needs</p> <p>AActorBaseClass* NewActor = UFunctionLibrary::SpawnBP&lt;AActorBaseClass&gt;(GetWorld(), TheActorBluePrint, SpawnLoc, SpawnRot);</p> <p>From an instanced Actor class</p> <p>AActorBaseClass* NewActor = SpawnBP&lt;AActorBaseClass&gt;(GetWorld(), TheActorBluePrint, SpawnLoc, SpawnRot);</p> <p>Specific UE4 example:</p> <p>AStaticMeshActor* NewActor = SpawnBP&lt;AStaticMeshActor&gt;(GetWorld(), TheSMABluePrint, SpawnLoc, SpawnRot);</p> <h2 id="base-class-for-the-template-not-the-bp"><a href="#base-class-for-the-template-not-the-bp" class="header-anchor">#</a> Base Class for the Template, not the BP</h2> <p>Note that I am using the Base Class from which the BP was made as the templated type!</p> <p>TheActorBluePrint was made in the Editor, from the Base Class.</p> <p>In order to use the spawn function in a templated way I have to use the base class which is known at compile time as the templated type.</p> <h2 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h2> <p>Now you know how to make C++ templates!</p> <p>And you also have a convenient helper function for spawning actors from a BP !</p> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Templates_in_C%2B%2B&amp;oldid=2335" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Templates_in_C%2B%2B&amp;oldid=2335<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1054.537ef4c1.js" defer></script>
+  </body>
+</html>

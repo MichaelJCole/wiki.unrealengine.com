@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/234.14a3e363.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Blueprint Node: Create Object from Blueprint - Epic Wiki</p> <h1 id="blueprint-node-create-object-from-blueprint"><a href="#blueprint-node-create-object-from-blueprint" class="header-anchor">#</a> Blueprint Node: Create Object from Blueprint</h1> <p><strong>Rate this Article:</strong></p> <p>0.00</p> <p><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""></p> <p>Approved for Versions:4.8</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Note:_Using_4.9.2B">2 Note: Using 4.9+</a></li> <li><a href="#The_Code">3 The Code</a></li> <li><a href="#Result_in_editor">4 Result in editor</a></li></ul> <h1 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h1> <p>This snippet shows you how to make a custom blueprint node that instantiates an object from a blueprint (that extends Object). It was created with assistance from MonsOlympus.</p> <p>Being able to instantiate an object class from Blueprints like this is useful as objects provide a nice way to store data without any having any of the overhead that actor classes create.</p> <p>This snippet won't go into major detail, as you should <a href="/Custom_Blueprint_Node_Creation" title="Custom Blueprint Node Creation">read this tutorial</a> first - It explains how to create your own custom nodes, and the features available (and what they do). - <a href="/User:G-Rath" title="User:G-Rath">G-Rath</a> (<a href="/User_talk:G-Rath" title="User talk:G-Rath">talk</a>)</p> <p>I have updated this tutorial to work for 4.8, as well as added a note about using 4.9. - <a href="/index.php?title=User:Joshcamas&amp;action=edit&amp;redlink=1" title="User:Joshcamas (page does not exist)">joshcamas</a> (<a href="/index.php?title=User_talk:Joshcamas&amp;action=edit&amp;redlink=1" title="User talk:Joshcamas (page does not exist)">talk</a>)</p> <h1 id="note-using-4-9"><a href="#note-using-4-9" class="header-anchor">#</a> Note: Using 4.9+</h1> <p>In 4.9, Epic has added a blueprint node to do just this. It's called &quot;Construct Object from class&quot;, and it's pretty useful. If your wanting to know how to create objects within c++, or interact c++ and blueprints, this tutorial is still useful: however if you want to create an object from blueprint, I advise you use the new built in blueprint function. Good luck!</p> <h1 id="the-code"><a href="#the-code" class="header-anchor">#</a> The Code</h1> <p><a href="/File:CustBluePNode_CreateObject.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/c/c3/CustBluePNode_CreateObject.jpg" alt="CustBluePNode CreateObject.jpg"></a></p> <p>(Note that the &quot;HyperPro.h&quot; should be replaced with your project name) CPP file:</p> <p>//Copyleft under the creative commons license
+//For details see http://creativecommons.org/licenses/by-sa/4.0/
+ 
+#include &quot;HyperPro.h&quot;
+#include &quot;CreateNewObject.h&quot;
+ 
+ 
+UObject* UCreateNewObject::NewObjectFromBlueprint(UObject* WorldContextObject, UClass* UC)
+{
+UWorld* World = GEngine-&gt;GetWorldFromContextObject(WorldContextObject);
+UObject* tempObject = NewObject&lt;UObject&gt;(UC);
+ 
+return tempObject;
+}</p> <p>Header file (.h):</p> <p>//Copyleft under the creative commons license
+//For details see http://creativecommons.org/licenses/by-sa/4.0/
+ 
+#pragma once
+ 
+#include &quot;Kismet/BlueprintFunctionLibrary.h&quot;
+#include &quot;CreateNewObject.generated.h&quot;
+ 
+UCLASS()
+class UCreateNewObject : public UBlueprintFunctionLibrary
+{
+GENERATED_BODY()
+ 
+UFUNCTION(BlueprintPure, meta = (HidePin = &quot;WorldContextObject&quot;, DefaultToSelf = &quot;WorldContextObject&quot;, DisplayName = &quot;Create Object From Blueprint&quot;, CompactNodeTitle = &quot;Create&quot;, Keywords = &quot;new create blueprint&quot;), Category = Game)
+static UObject* NewObjectFromBlueprint(UObject* WorldContextObject, UClass* UC);
+};</p> <h1 id="result-in-editor"><a href="#result-in-editor" class="header-anchor">#</a> Result in editor</h1> <p>Using a Blueprint extending object named &quot;TestObject&quot;:</p> <p><a href="/File:CustBluePNode_CreateObject_Layout.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/0/0d/CustBluePNode_CreateObject_Layout.jpg" alt="CustBluePNode CreateObject Layout.jpg"></a></p> <p><a href="/File:CustBluePNode_CreateObject_Testing.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/9/91/CustBluePNode_CreateObject_Testing.jpg" alt="CustBluePNode CreateObject Testing.jpg"></a></p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Blueprint_Node:_Create_Object_from_Blueprint&amp;oldid=15394" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Blueprint_Node:_Create_Object_from_Blueprint&amp;oldid=15394<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Blueprint" title="Category:Blueprint">Blueprint</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/234.14a3e363.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/580.8f1e2872.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>How To Use Sessions In C++ - Epic Wiki</p> <h1 id="how-to-use-sessions-in-c"><a href="#how-to-use-sessions-in-c" class="header-anchor">#</a> How To Use Sessions In C++</h1> <p><strong>Rate this Page:</strong></p> <p>5.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""> (8 votes)</p> <p>Approved for Versions:4.7,4.8,4.9</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Known_Issues_and_workarounds">1 Known Issues and workarounds</a></li> <li><a href="#Features_for_the_future">2 Features for the future</a></li> <li><a href="#What_is_this_Tutorial_about.3F">3 What is this Tutorial about?</a></li> <li><a href="#Getting_Started">4 Getting Started</a> <ul><li><a href="#Prepare_your_Project_to_use_Sessions_and_OnlineSubsystems">4.1 Prepare your Project to use Sessions and OnlineSubsystems</a> <ul><li><a href="#Changing_the_.22DefaultEngine.ini.22">4.1.1 Changing the &quot;DefaultEngine.ini&quot;</a></li> <li><a href="#Changing_the_.22YourProjectName.Build.cs.22">4.1.2 Changing the &quot;YourProjectName.Build.cs&quot;</a></li> <li><a href="#Changing_the_.22YourProjectName.h.22">4.1.3 Changing the &quot;YourProjectName.h&quot;</a></li></ul></li> <li><a href="#My_TestProject_Setup">4.2 My TestProject Setup</a></li></ul></li> <li><a href="#Code_to_Create.2C_Find.2C_Join_and_Destroy_Sessions">5 Code to Create, Find, Join and Destroy Sessions</a> <ul><li><a href="#Terms_you_will_read_a_lot_about">5.1 Terms you will read a lot about</a></li> <li><a href="#Creating_a_Session">5.2 Creating a Session</a> <ul><li><a href="#Creating_a_Session_.7C_Header_File">5.2.1 Creating a Session | Header File</a></li> <li><a href="#Creating_a_Session_.7C_CPP_file">5.2.2 Creating a Session | CPP file</a></li></ul></li> <li><a href="#Searching_and_Finding_a_Session">5.3 Searching and Finding a Session</a> <ul><li><a href="#Searching_and_Finding_a_Session_.7C_Header_File">5.3.1 Searching and Finding a Session | Header File</a></li> <li><a href="#Searching_and_Finding_a_Session_.7C_CPP_File">5.3.2 Searching and Finding a Session | CPP File</a></li></ul></li> <li><a href="#Joining_a_Session">5.4 Joining a Session</a> <ul><li><a href="#Joining_a_Session_.7C_Header_file">5.4.1 Joining a Session | Header file</a></li> <li><a href="#Joining_a_Session_.7C_CPP_file">5.4.2 Joining a Session | CPP file</a></li></ul></li> <li><a href="#Destroying_a_Session">5.5 Destroying a Session</a> <ul><li><a href="#Destroying_a_Session_.7C_Header_file">5.5.1 Destroying a Session | Header file</a></li> <li><a href="#Destroying_a_Session_.7C_CPP_file">5.5.2 Destroying a Session | CPP file</a></li></ul></li></ul></li> <li><a href="#BlueprintCallable_Functions_to_test_this_Setup">6 BlueprintCallable Functions to test this Setup</a> <ul><li><a href="#Creating_a_Session_2">6.1 Creating a Session</a></li> <li><a href="#Searching_and_Finding_a_Session_2">6.2 Searching and Finding a Session</a></li> <li><a href="#Joining_a_Session_2">6.3 Joining a Session</a></li> <li><a href="#Destroying_a_Session_2">6.4 Destroying a Session</a></li></ul></li> <li><a href="#Project_Files_to_look_into">7 Project Files to look into</a></li> <li><a href="#Author_Link">8 Author Link</a></li></ul> <h1 id="known-issues-and-workarounds"><a href="#known-issues-and-workarounds" class="header-anchor">#</a> Known Issues and workarounds</h1> <p><img src="https://d26ilriwvtzlb.cloudfront.net/b/b3/Icon_template_warning1.png" alt="Note"> Playing in the Editor can lead to not finding any sessions! This is due to the initial connection the client and the server have when you start the Game with 2 or more players.</p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" alt="Note"> WORKAROUND #1: To get this still to work, you can go to your Project folder and right click on the *.uproject file. Then you can select something like &quot;Launch Game&quot;. Do this twice and you have 2 copies of your Game that are not connect. Now it should work.</p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" alt="Note"> WORKAROUND #2(not yet tested): (In Editor!) Due to the initial connection of the server and client, they are also on the same session. If you now start a new server directly, you could have a problem with the sessions, because you did not destroy them properly. You can try to use the &quot;DestroySession&quot; before starting a new server in the Editor on both client AND server. For later you want to always Destroy a session if a client get kicked out or leaves the server. Check the &quot;Multiplayer ShootoutGame&quot; and look into the GameInstance. Then you have an example of Network Error handling in BP.</p> <h1 id="features-for-the-future"><a href="#features-for-the-future" class="header-anchor">#</a> Features for the future</h1> <ul><li>Example of network error handling. Like getting disconnected due to a server shutdown.</li> <li>Example of getting information into UMG. Like the Serverlist.</li> <li>Example of extending the GameSession class. Adding more information to your GameSession.</li> <li>Example of extending several other classes that you can make your Session System unique and you will directly understand the ShooterGame after learning all of this.</li></ul> <h1 id="what-is-this-tutorial-about"><a href="#what-is-this-tutorial-about" class="header-anchor">#</a> What is this Tutorial about?</h1> <p>In this Tutorial, i'm going to show you a very basic Code to Create, Find, Join and Destroy Session in C++. So basically we are going to create the Blueprint Session Nodes.</p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" alt="Note"> This is 'ONE' setup. There are different ways to approach this and this is also not a complete setup. To use this you will want to create some Widgets that use this code.</p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/b/b3/Icon_template_warning1.png" alt="Note"> I'm not going to explain how to code. If you never touched C++, you will better learn the basics first. This tutorial is for a bit more advanced users, who already understand C++, but have a hard time getting a basic Session (Multiplayer) setup to work!</p> <h1 id="getting-started"><a href="#getting-started" class="header-anchor">#</a> Getting Started</h1> <h2 id="prepare-your-project-to-use-sessions-and-onlinesubsystems"><a href="#prepare-your-project-to-use-sessions-and-onlinesubsystems" class="header-anchor">#</a> Prepare your Project to use Sessions and OnlineSubsystems</h2> <p>So first of all, we need to get your Project ready to use all of this. I recommend you to start with an empty project, so you can first get an idea how this works, before trying to implement this into your already started project!</p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" alt="Note"> We are not going to use Steam or anything other than the &quot;OnlineSubsystem=NULL&quot; here.</p> <h3 id="changing-the-defaultengine-ini"><a href="#changing-the-defaultengine-ini" class="header-anchor">#</a> Changing the &quot;DefaultEngine.ini&quot;</h3> <p>You can find the &quot;DefaultEngine.ini&quot; file in the Config folder in your top most project folder. You will want to add the following line to it:</p> <p><code>[OnlineSubsystem] DefaultPlatformService=Null</code></p> <h3 id="changing-the-yourprojectname-build-cs"><a href="#changing-the-yourprojectname-build-cs" class="header-anchor">#</a> Changing the &quot;YourProjectName.Build.cs&quot;</h3> <p>You can find this file in your Project when you opened it with Visual Studio. You need to add &quot;OnlineSubsystem&quot;, &quot;OnlineSubsystemUtils&quot; (for later usage) and the OnlineSubsystem NULL. It should look similar to this:</p> <p>using UnrealBuildTool;</p> <p>public class NetworkSessionTest : ModuleRules
+{
+public NetworkSessionTest(TargetInfo Target)
+{
+PublicDependencyModuleNames.AddRange(new string[] { &quot;Core&quot;, &quot;CoreUObject&quot;, &quot;Engine&quot;, &quot;InputCore&quot;, &quot;OnlineSubsystem&quot;, &quot;OnlineSubsystemUtils&quot; });</p> <div class="language- extra-class"><pre><code>     DynamicallyLoadedModuleNames.Add(&quot;OnlineSubsystemNull&quot;);
+}
+</code></pre></div><p>}</p> <h3 id="changing-the-yourprojectname-h"><a href="#changing-the-yourprojectname-h" class="header-anchor">#</a> Changing the &quot;YourProjectName.h&quot;</h3> <p>This file can also be found in the Project when you open it with Visual Studio. You want to change</p> <div class="language- extra-class"><pre><code>#include &quot;EngineMinimal.h&quot;
+</code></pre></div><p>to</p> <div class="language- extra-class"><pre><code>#include &quot;Engine.h&quot;
+</code></pre></div><p>As well as add these two #includes under the &quot;Engine.h&quot; one.</p> <p>#include &quot;UnrealNetwork.h&quot;
+#include &quot;Online.h&quot;</p> <p>So your file looks something like this:</p> <p>#ifndef __NETWORKSESSIONTEST_H__
+#define __NETWORKSESSIONTEST_H__</p> <p>#include &quot;Engine.h&quot;
+#include &quot;UnrealNetwork.h&quot;
+#include &quot;Online.h&quot;
+#endif</p> <p>And that's it for setting up the Project!</p> <h2 id="my-testproject-setup"><a href="#my-testproject-setup" class="header-anchor">#</a> My TestProject Setup</h2> <p>So, i want to let you know how my test project is setup and what i am using. I create a new fresh C++ Thirst Person Project and added <strong>ONE</strong> Class.</p> <p>I made a child class of &quot;UGameInstance&quot; and called it &quot;UNWGameInstance&quot;. (NW = Network). This is what i am referring to from now on and what you will read when seeing my function. Because every function for Creating, Finding,.. Sessions will be placed here.</p> <h1 id="code-to-create-find-join-and-destroy-sessions"><a href="#code-to-create-find-join-and-destroy-sessions" class="header-anchor">#</a> Code to Create, Find, Join and Destroy Sessions</h1> <p>We are using a lot of Unreal Engine 4's functions here. All these functions are placed in an &quot;SessionInterface&quot; that is designed to handle sessions for different OnlineSubsystems. So although we are using &quot;NULL&quot; here, this should also work with Steam and other Subsystems. At least for the basics that all Subsystems share.</p> <p>These functions all call a so called &quot;delegate&quot; once they are finished doing what they should do. All Session actions can take some time, so these functions are important. We will create 1-2 delegates, handles and functions for every one of these 4 Sessions operations. They will give us information like if the action was successful or not.</p> <h3 id="terms-you-will-read-a-lot-about"><a href="#terms-you-will-read-a-lot-about" class="header-anchor">#</a> Terms you will read a lot about</h3> <p>Word/Term</p> <p>Explanation</p> <p>OnlineSubsystem</p> <p>OnlineSubsystems are for example &quot;Steam&quot;. But you can also use &quot;NULL&quot;, which is simply the basic UE4 Subsystem. They all use so called &quot;Wrapper&quot;-Functions. They give us Friend Lists, Unique IDs or Master Server that allow us to find Servers over the Internet and not only on LAN!</p> <p>Wrapper Functions</p> <p>Wrapper Functions are something really cool that makes it easy for us to setup the Sessions for all different OnlineSubsystems. While we only need to call &quot;CreateSession&quot;, this wrapper function will do the necessary steps to Create a Session in the active Subsystem. So we can create our logic without thinking about Steam or other Subsystems.</p> <p>Session</p> <p>A Session is not the Map or the Server itself. A Session is an invisible thing that a Server can Create and a Client can join. They will still need to join the specific Map after joining the Session. A Session is more like an entry in a Database that helps you keeping track of all running Servers.</p> <p>Session Interface</p> <p>That is nearly the same as the Session explained above. We will use the Interface instead of the Session itself, because it uses the Wrapper functions we need. We can always get this Internet if we have a valid OnlineSubsystem!</p> <h2 id="creating-a-session"><a href="#creating-a-session" class="header-anchor">#</a> Creating a Session</h2> <p>Yes, let's start with creating a simple Session. I will always post the things we put into the Header file first and after that the logic will fill in with the .cpp File! This will all be placed in the UGameInstance Child class i have created. We don't need other classes.</p> <p><strong>So what do we need?</strong></p> <h4 id="creating-a-session-header-file"><a href="#creating-a-session-header-file" class="header-anchor">#</a> Creating a Session | Header File</h4> <p>First we need a function we can use to gather all the settings we want to use for our Session. Let's call this function &quot;HostSession&quot;.</p> <p>In our UNWGameInstance.h:</p> <p>/**
+*	Function to host a game!
+*
+*	@Param		UserID			User that started the request
+*	@Param		SessionName		Name of the Session
+*	@Param		bIsLAN			Is this is LAN Game?
+*	@Param		bIsPresence		&quot;Is the Session to create a presence Session&quot;
+*	@Param		MaxNumPlayers	        Number of Maximum allowed players on this &quot;Session&quot; (Server)
+*/
+bool HostSession(TSharedPtr<const FUniqueNetId=""> UserId, FName SessionName, bool bIsLAN, bool bIsPresence, int32 MaxNumPlayers);</const></p> <p>The comments explain a lot already, so i will step back from explaining the parameters in the function declarations.</p> <p>Now we also need the <em>Delegates</em> i talked about earlier. They are used by the &quot;CreateSession&quot; function of the SessionInterface to tell use when the process is done.</p> <p>In our UNWGameInstance.h:</p> <p>/* Delegate called when session created */
+FOnCreateSessionCompleteDelegate OnCreateSessionCompleteDelegate;
+/* Delegate called when session started */
+FOnStartSessionCompleteDelegate OnStartSessionCompleteDelegate;</p> <p>/** Handles to registered delegates for creating/starting a session */
+FDelegateHandle OnCreateSessionCompleteDelegateHandle;
+FDelegateHandle OnStartSessionCompleteDelegateHandle;</p> <p>So we have a Delegate and a Handle for Creating and Starting a Session. Now we also need a variable we use for the Settings that our Session will have (like LAN or Number of allowed Players):</p> <p>In our UNWGameInstance.h:</p> <p>TSharedPtr<class FOnlineSessionSettings=""> SessionSettings;</class></p> <p>And we will also add a Constructor to our GameInstance class, which is called when the Object is created. We need this to bind the functions to the delegates!</p> <p>In our UNWGameInstance.h</p> <p>UNWGameInstance(const FObjectInitializer&amp; ObjectInitializer);</p> <p>And finally, we need a function that we bind to the Delegate, so we can perform some actions once we know that the Creation process is complete:</p> <p>In our UNWGameInstance.h:</p> <p>/**
+*	Function fired when a session create request has completed
+*
+*	@param SessionName the name of the session this callback is for
+*	@param bWasSuccessful true if the async action completed without error, false if there was an error
+*/
+virtual void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful);</p> <p>/**
+*	Function fired when a session start request has completed
+*
+*	@param SessionName the name of the session this callback is for
+*	@param bWasSuccessful true if the async action completed without error, false if there was an error
+*/
+void OnStartOnlineGameComplete(FName SessionName, bool bWasSuccessful);</p> <p>Again, the Comments explain the parameters. These function will have different values for their parameters depending on if the process was successful or not!</p> <h4 id="creating-a-session-cpp-file"><a href="#creating-a-session-cpp-file" class="header-anchor">#</a> Creating a Session | CPP file</h4> <p>Now we fill these functions with logic.</p> <p>First of all, we will bind the functions to the delegates in our Constructor:</p> <p>In our UNWGameIntance.cpp:</p> <p>UNWGameInstance::UNWGameInstance(const FObjectInitializer&amp; ObjectInitializer)
+: Super(ObjectInitializer)
+{
+/** Bind function for CREATING a Session */
+OnCreateSessionCompleteDelegate = FOnCreateSessionCompleteDelegate::CreateUObject(this, &amp;UNWGameInstance::OnCreateSessionComplete);
+OnStartSessionCompleteDelegate = FOnStartSessionCompleteDelegate::CreateUObject(this, &amp;UNWGameInstance::OnStartOnlineGameComplete);
+}</p> <p>All upcoming bindings for the other operations will be placed in this Constructor, under these two binds.</p> <p>Now let's have a look at the &quot;HostSession&quot; function we created:</p> <p>In our UNWGameIntance.cpp:</p> <p>bool UNWGameInstance::HostSession(TSharedPtr<const FUniqueNetId=""> UserId, FName SessionName, bool bIsLAN, bool bIsPresence, int32 MaxNumPlayers)
+{
+// Get the Online Subsystem to work with
+IOnlineSubsystem* const OnlineSub = IOnlineSubsystem::Get();</const></p> <div class="language- extra-class"><pre><code>if (OnlineSub)
+{
+	// Get the Session Interface, so we can call the &quot;CreateSession&quot; function on it
+	IOnlineSessionPtr Sessions = OnlineSub-&gt;GetSessionInterface();
+
+	if (Sessions.IsValid() &amp;&amp; UserId.IsValid())
+	{
+		/\* 
+			Fill in all the Session Settings that we want to use.
+			
+			There are more with SessionSettings.Set(...);
+			For example the Map or the GameMode/Type.
+		\*/
+		SessionSettings = MakeShareable(new FOnlineSessionSettings());
+
+		SessionSettings-&gt;bIsLANMatch = bIsLAN;
+		SessionSettings-&gt;bUsesPresence = bIsPresence;
+		SessionSettings-&gt;NumPublicConnections = MaxNumPlayers;
+		SessionSettings-&gt;NumPrivateConnections = 0;
+		SessionSettings-&gt;bAllowInvites = true;
+		SessionSettings-&gt;bAllowJoinInProgress = true;
+		SessionSettings-&gt;bShouldAdvertise = true;
+		SessionSettings-&gt;bAllowJoinViaPresence = true;
+		SessionSettings-&gt;bAllowJoinViaPresenceFriendsOnly = false;
+
+		SessionSettings-&gt;Set(SETTING\_MAPNAME, FString(&quot;NewMap&quot;), EOnlineDataAdvertisementType::ViaOnlineService);
+
+		// Set the delegate to the Handle of the SessionInterface
+		OnCreateSessionCompleteDelegateHandle = Sessions-&gt;AddOnCreateSessionCompleteDelegate\_Handle(OnCreateSessionCompleteDelegate);
+
+		// Our delegate should get called when this is complete (doesn't need to be successful!)
+		return Sessions-&gt;CreateSession(\*UserId, SessionName, \*SessionSettings);
+	}
+}
+else
+{
+	GEngine-&gt;AddOnScreenDebugMessage(-1, 10.f, FColor::Red, TEXT(&quot;No OnlineSubsytem found!&quot;));
+}
+
+return false;
+</code></pre></div><p>}</p> <p>Since i commented everything and this is VERY similar to the upcoming functions, i will only explain this once:</p> <p>The first thing we do is getting our OnlineSubsystem, because we need the SessionInterface from it. Once we made sure that it is valid, we get the SessionInterface and make sure this and the UsedId are valid.</p> <p>Then we set a lot of different SessionSettings, like Number of Players etc. After we did this, we going to setting the delegate of the &quot;CreateSessionsComplete&quot; handle to the one we create and that we bound a functions to. So we make sure, that this is the one getting used and called once the &quot;CreateSession&quot; process is finished. We will do this for every Session operation from now on, so i won't explain this again.</p> <p>Once we did this, we are going to call the &quot;CreateSession&quot; function of the Session Interface and we are done. Now it could take some seconds until it is finished and the Engine calls our Delegate Functions, which we will fill with logic now:</p> <p>In our UNWGameIntance.cpp:</p> <p>void UNWGameInstance::OnCreateSessionComplete(FName SessionName, bool bWasSuccessful)
+{
+GEngine-&gt;AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT(&quot;OnCreateSessionComplete %s, %d&quot;), *SessionName.ToString(), bWasSuccessful));</p> <div class="language- extra-class"><pre><code>// Get the OnlineSubsystem so we can get the Session Interface
+IOnlineSubsystem\* OnlineSub = IOnlineSubsystem::Get();
+if (OnlineSub)
+{
+	// Get the Session Interface to call the StartSession function
+	IOnlineSessionPtr Sessions = OnlineSub-&gt;GetSessionInterface();
+
+	if (Sessions.IsValid())
+	{
+		// Clear the SessionComplete delegate handle, since we finished this call
+		Sessions-&gt;ClearOnCreateSessionCompleteDelegate\_Handle(OnCreateSessionCompleteDelegateHandle);
+		if (bWasSuccessful)
+		{
+			// Set the StartSession delegate handle
+			OnStartSessionCompleteDelegateHandle = Sessions-&gt;AddOnStartSessionCompleteDelegate\_Handle(OnStartSessionCompleteDelegate);
+
+			// Our StartSessionComplete delegate should get called after this
+			Sessions-&gt;StartSession(SessionName);
+		}
+	}
+	
+}
+</code></pre></div><p>}</p> <p>Here again, we will get the OnlineSubsystem and the SessionInterface. This will, again, repeat a lot of times now. Once we made sure that the SessionInterface is valid, we clear the Delegate from the handle, because the call is finished and we want to bind it next time we call &quot;CreateSession&quot;. That's why we need to clear it.</p> <p>After that, we can check if the process was &quot;Successful&quot;. If yes, we set the Delegate of the &quot;StartSessionComplete&quot; handle and call the &quot;StartSession&quot; function with the &quot;SessionName&quot; we got. This is already the new Session we created!</p> <p>This will also take an amount of time but once it is finished, the Engine calls the second Delegate function we created:</p> <p>In our UNWGameIntance.cpp:</p> <p>void UNWGameInstance::OnStartOnlineGameComplete(FName SessionName, bool bWasSuccessful)
+{
+GEngine-&gt;AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT(&quot;OnStartSessionComplete %s, %d&quot;), *SessionName.ToString(), bWasSuccessful));</p> <div class="language- extra-class"><pre><code>// Get the Online Subsystem so we can get the Session Interface
+IOnlineSubsystem\* OnlineSub = IOnlineSubsystem::Get();
+if (OnlineSub)
+{
+	// Get the Session Interface to clear the Delegate
+	IOnlineSessionPtr Sessions = OnlineSub-&gt;GetSessionInterface();
+	if (Sessions.IsValid())
+	{
+		// Clear the delegate, since we are done with this call
+		Sessions-&gt;ClearOnStartSessionCompleteDelegate\_Handle(OnStartSessionCompleteDelegateHandle);
+	}
+}
+
+// If the start was successful, we can open a NewMap if we want. Make sure to use &quot;listen&quot; as a parameter!
+if (bWasSuccessful)
+{
+	UGameplayStatics::OpenLevel(GetWorld(), &quot;NewMap&quot;, true, &quot;listen&quot;);
+}
+</code></pre></div><p>}</p> <p>Similar to the first one, we get, check and clear things. Then, if everything is done and the process was again successful, we open a new Level with &quot;listen&quot; as a parameter. This is important!</p> <p>And that's it. Now we created a Session and started it, so we are ready to get Clients on our Server/Session. But for that we need them to find our Session. So next up is &quot;Finding Sessions&quot;.</p> <h2 id="searching-and-finding-a-session"><a href="#searching-and-finding-a-session" class="header-anchor">#</a> Searching and Finding a Session</h2> <p>So, once we are sure that somewhere we have a Session we can find, we can proceed with the following code.</p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" alt="Note"> You can only search Sessions like this ONLINE if you have a Subsystem running that is not the standard &quot;NULL&quot; one!</p> <h4 id="searching-and-finding-a-session-header-file"><a href="#searching-and-finding-a-session-header-file" class="header-anchor">#</a> Searching and Finding a Session | Header File</h4> <p>Function to setup our search and start the searching:</p> <p>In our UNWGameInstance.h:</p> <p>/**
+*	Find an online session
+*
+*	@param UserId user that initiated the request
+*	@param SessionName name of session this search will generate
+*	@param bIsLAN are we searching LAN matches
+*	@param bIsPresence are we searching presence sessions
+*/
+void FindSessions(TSharedPtr<const FUniqueNetId=""> UserId, FName SessionName, bool bIsLAN, bool bIsPresence);</const></p> <p>A delegate and a handle for it:</p> <p>In our UNWGameInstance.h:</p> <p>/** Delegate for searching for sessions */
+FOnFindSessionsCompleteDelegate OnFindSessionsCompleteDelegate;</p> <p>/** Handle to registered delegate for searching a session */
+FDelegateHandle OnFindSessionsCompleteDelegateHandle;</p> <p>A variable for our SearchSettings which will also contain our SearchResults, once this search is complete and successful:</p> <p>In our UNWGameInstance.h:</p> <p>TSharedPtr<class FOnlineSessionSearch=""> SessionSearch;</class></p> <p>And finally the function we want to bind to the delegate:</p> <p>In our UNWGameInstance.h:</p> <p>/**
+*	Delegate fired when a session search query has completed
+*
+*	@param bWasSuccessful true if the async action completed without error, false if there was an error
+*/
+void OnFindSessionsComplete(bool bWasSuccessful);</p> <h4 id="searching-and-finding-a-session-cpp-file"><a href="#searching-and-finding-a-session-cpp-file" class="header-anchor">#</a> Searching and Finding a Session | CPP File</h4> <p>Now filling this with logic similar to the creation process:</p> <p>In our UNWGameInstance.cpp:</p> <p>void UNWGameInstance::FindSessions(TSharedPtr<const FUniqueNetId=""> UserId, FName SessionName, bool bIsLAN, bool bIsPresence)
+{
+// Get the OnlineSubsystem we want to work with
+IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();</const></p> <div class="language- extra-class"><pre><code>if (OnlineSub)
+{
+	// Get the SessionInterface from our OnlineSubsystem
+	IOnlineSessionPtr Sessions = OnlineSub-&gt;GetSessionInterface();
+
+	if (Sessions.IsValid() &amp;&amp; UserId.IsValid())
+	{
+		/\*
+			Fill in all the SearchSettings, like if we are searching for a LAN game and how many results we want to have!
+		\*/
+		SessionSearch = MakeShareable(new FOnlineSessionSearch());
+
+		SessionSearch-&gt;bIsLanQuery = bIsLAN;
+		SessionSearch-&gt;MaxSearchResults = 20;
+		SessionSearch-&gt;PingBucketSize = 50;
+		
+		// We only want to set this Query Setting if &quot;bIsPresence&quot; is true
+		if (bIsPresence)
+		{
+			SessionSearch-&gt;QuerySettings.Set(SEARCH\_PRESENCE, bIsPresence, EOnlineComparisonOp::Equals);
+		}
+
+		TSharedRef&lt;FOnlineSessionSearch&gt; SearchSettingsRef = SessionSearch.ToSharedRef();
+
+		// Set the Delegate to the Delegate Handle of the FindSession function
+		OnFindSessionsCompleteDelegateHandle = Sessions-&gt;AddOnFindSessionsCompleteDelegate\_Handle(OnFindSessionsCompleteDelegate);
+		
+		// Finally call the SessionInterface function. The Delegate gets called once this is finished
+		Sessions-&gt;FindSessions(\*UserId, SearchSettingsRef);
+	}
+}
+else
+{
+	// If something goes wrong, just call the Delegate Function directly with &quot;false&quot;.
+	OnFindSessionsComplete(false);
+}
+</code></pre></div><p>}</p> <p>Getting OnlineSubsystem etc and filling the SearchSettings variable. Then setting the Delegate to the handle and tell the SessionInterface to &quot;FindSessions&quot;. That's all (:</p> <p>Once this is finished, the Delegate functions is called. We still need to connect these in the Constructor:</p> <p>In our UNWGameInstance.cpp:</p> <p>/** Bind function for FINDING a Session */
+OnFindSessionsCompleteDelegate = FOnFindSessionsCompleteDelegate::CreateUObject(this, &amp;UNWGameInstance::OnFindSessionsComplete);</p> <p>And the function logic:</p> <p>In our UNWGameInstance.cpp:</p> <p>void UNWGameInstance::OnFindSessionsComplete(bool bWasSuccessful)
+{
+GEngine-&gt;AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT(&quot;OFindSessionsComplete bSuccess: %d&quot;), bWasSuccessful));</p> <div class="language- extra-class"><pre><code>// Get OnlineSubsystem we want to work with
+IOnlineSubsystem\* const OnlineSub = IOnlineSubsystem::Get();
+if (OnlineSub)
+{
+	// Get SessionInterface of the OnlineSubsystem
+	IOnlineSessionPtr Sessions = OnlineSub-&gt;GetSessionInterface();
+	if (Sessions.IsValid())
+	{
+		// Clear the Delegate handle, since we finished this call
+		Sessions-&gt;ClearOnFindSessionsCompleteDelegate\_Handle(OnFindSessionsCompleteDelegateHandle);
+
+		// Just debugging the Number of Search results. Can be displayed in UMG or something later on
+		GEngine-&gt;AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT(&quot;Num Search Results: %d&quot;), SessionSearch-&gt;SearchResults.Num()));
+	
+		// If we have found at least 1 session, we just going to debug them. You could add them to a list of UMG Widgets, like it is done in the BP version!
+		if (SessionSearch-&gt;SearchResults.Num() &gt; 0)
+		{
+			// &quot;SessionSearch-&gt;SearchResults&quot; is an Array that contains all the information. You can access the Session in this and get a lot of information.
+			// This can be customized later on with your own classes to add more information that can be set and displayed
+			for (int32 SearchIdx = 0; SearchIdx &lt; SessionSearch-&gt;SearchResults.Num(); SearchIdx++)
+			{
+				// OwningUserName is just the SessionName for now. I guess you can create your own Host Settings class and GameSession Class and add a proper GameServer Name here.
+				// This is something you can't do in Blueprint for example!
+				GEngine-&gt;AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT(&quot;Session Number: %d | Sessionname: %s &quot;), SearchIdx+1, \*(SessionSearch-&gt;SearchResults\[SearchIdx\].Session.OwningUserName)));
+			}
+		}
+	}
+}
+</code></pre></div><p>}</p> <p>After getting the OnlineSubsystem and the SessionInterface, we clear the DelegateHandle again and now we can work with the SearchResults. They are stored in the &quot;SessionSearch&quot; variable we created. &quot;SessionSearch-&gt;SearchResults&quot; is an array with all found Sessions. You can get several information from this and later on maybe create your own child class of this to add more information! I'm just printing them to the Screen.</p> <p>That's all for finding Sessions. Now we can go on and try to join one.</p> <h2 id="joining-a-session"><a href="#joining-a-session" class="header-anchor">#</a> Joining a Session</h2> <p>There are different ways you can Join a session, but we will just use a Session result which we can get from the SearchResult array and joined it with help of the SessionInterface. As easy as possible (:</p> <h4 id="joining-a-session-header-file"><a href="#joining-a-session-header-file" class="header-anchor">#</a> Joining a Session | Header file</h4> <p>So the function we are going to use:</p> <p>In our UNWGameInstance.h:</p> <p>/**
+*	Joins a session via a search result
+*
+*	@param SessionName name of session
+*	@param SearchResult Session to join
+*
+*	@return bool true if successful, false otherwise
+*/
+bool JoinSession(TSharedPtr<const FUniqueNetId=""> UserId, FName SessionName, const FOnlineSessionSearchResult&amp; SearchResult);</const></p> <p>The delegates and the function that we bind to it:</p> <p>In our UNWGameInstance.h:</p> <p>/** Delegate for joining a session */
+FOnJoinSessionCompleteDelegate OnJoinSessionCompleteDelegate;</p> <p>/** Handle to registered delegate for joining a session */
+FDelegateHandle OnJoinSessionCompleteDelegateHandle;</p> <p>In our UNWGameInstance.h:</p> <p>/**
+*	Delegate fired when a session join request has completed
+*
+*	@param SessionName the name of the session this callback is for
+*	@param bWasSuccessful true if the async action completed without error, false if there was an error
+*/
+void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);</p> <p>Nothing fancy as Settings here. Just the functions and the delegates.</p> <h4 id="joining-a-session-cpp-file"><a href="#joining-a-session-cpp-file" class="header-anchor">#</a> Joining a Session | CPP file</h4> <p>In our UNWGameInstance.cpp:</p> <p>bool UNWGameInstance::JoinSession(TSharedPtr<const FUniqueNetId=""> UserId, FName SessionName, const FOnlineSessionSearchResult&amp; SearchResult)
+{
+// Return bool
+bool bSuccessful = false;</const></p> <div class="language- extra-class"><pre><code>// Get OnlineSubsystem we want to work with
+IOnlineSubsystem\* OnlineSub = IOnlineSubsystem::Get();
+
+if (OnlineSub)
+{
+	// Get SessionInterface from the OnlineSubsystem
+	IOnlineSessionPtr Sessions = OnlineSub-&gt;GetSessionInterface();
+
+	if (Sessions.IsValid() &amp;&amp; UserId.IsValid())
+	{
+		// Set the Handle again
+		OnJoinSessionCompleteDelegateHandle = Sessions-&gt;AddOnJoinSessionCompleteDelegate\_Handle(OnJoinSessionCompleteDelegate);
+		
+		// Call the &quot;JoinSession&quot; Function with the passed &quot;SearchResult&quot;. The &quot;SessionSearch-&gt;SearchResults&quot; can be used to get such a
+		// &quot;FOnlineSessionSearchResult&quot; and pass it. Pretty straight forward!
+		bSuccessful = Sessions-&gt;JoinSession(\*UserId, SessionName, SearchResult);
+	}
+}
+	
+return bSuccessful;
+</code></pre></div><p>}</p> <p>We are doing nothing new here. Since we have no settings, we are not filling any. We are just taking the SearchResult that was passed and call &quot;JoinSession&quot; once we set the delegate to the handle.</p> <p>And once this is finished, our function gets called again. Again, don't forget to bind it in the constructor:</p> <p>In our UNWGameInstance.cpp:</p> <p>/** Bind function for JOINING a Session */
+OnJoinSessionCompleteDelegate = FOnJoinSessionCompleteDelegate::CreateUObject(this, &amp;UNWGameInstance::OnJoinSessionComplete);</p> <p>In our UNWGameInstance.cpp:</p> <p>void UNWGameInstance::OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result)
+{
+GEngine-&gt;AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT(&quot;OnJoinSessionComplete %s, %d&quot;), *SessionName.ToString(), static_cast<int32>(Result)));</int32></p> <div class="language- extra-class"><pre><code>// Get the OnlineSubsystem we want to work with
+IOnlineSubsystem\* OnlineSub = IOnlineSubsystem::Get();
+if (OnlineSub)
+{
+	// Get SessionInterface from the OnlineSubsystem
+	IOnlineSessionPtr Sessions = OnlineSub-&gt;GetSessionInterface();
+
+	if (Sessions.IsValid())
+	{
+		// Clear the Delegate again
+		Sessions-&gt;ClearOnJoinSessionCompleteDelegate\_Handle(OnJoinSessionCompleteDelegateHandle);
+
+		// Get the first local PlayerController, so we can call &quot;ClientTravel&quot; to get to the Server Map
+		// This is something the Blueprint Node &quot;Join Session&quot; does automatically!
+		APlayerController \* const PlayerController = GetFirstLocalPlayerController();
+
+		// We need a FString to use ClientTravel and we can let the SessionInterface contruct such a
+		// String for us by giving him the SessionName and an empty String. We want to do this, because
+		// Every OnlineSubsystem uses different TravelURLs
+		FString TravelURL;
+
+		if (PlayerController &amp;&amp; Sessions-&gt;GetResolvedConnectString(SessionName, TravelURL))
+		{
+			// Finally call the ClienTravel. If you want, you could print the TravelURL to see
+			// how it really looks like
+			PlayerController-&gt;ClientTravel(TravelURL, ETravelType::TRAVEL\_Absolute);
+		}
+	}
+}
+</code></pre></div><p>}</p> <p>Here we are doing something new. After getting the OnlineSubsystem and the SessionInterface, we clear the handle. Then we get the PlayerController of the joining Player. Since we are still on this Player, we can just get the FirstLocal one.</p> <p>The we create an FString that will hold the TravelURL, which we need for a ClientTravel to the Map of the Server. How do we get the TravelURL? Easy: We tell the SessionInterface to create us one. Just pass the SessionName (which at this point is already the one of the Session we joined!) and the FString. Then we can call the ClientTravel function of the PlayerController and we are on the ServerMap, ready to play!</p> <p>But now we need to also be able to destroy a Session. This is important, because Sessions take Slots on Servers and prevent us from creating new ones or join others as long as they exist.</p> <h2 id="destroying-a-session"><a href="#destroying-a-session" class="header-anchor">#</a> Destroying a Session</h2> <p>Destroying a Session doesn't need an extra function from us, since we don't need settings or something like that. So we only need the delegate, handle and delegate function:</p> <h4 id="destroying-a-session-header-file"><a href="#destroying-a-session-header-file" class="header-anchor">#</a> Destroying a Session | Header file</h4> <p>In our UNWGameInstance.h:</p> <p>/** Delegate for destroying a session */
+FOnDestroySessionCompleteDelegate OnDestroySessionCompleteDelegate;</p> <p>/** Handle to registered delegate for destroying a session */
+FDelegateHandle OnDestroySessionCompleteDelegateHandle;</p> <p>In our UNWGameInstance.h:</p> <p>/**
+*	Delegate fired when a destroying an online session has completed
+*
+*	@param SessionName the name of the session this callback is for
+*	@param bWasSuccessful true if the async action completed without error, false if there was an error
+*/
+virtual void OnDestroySessionComplete(FName SessionName, bool bWasSuccessful);</p> <h4 id="destroying-a-session-cpp-file"><a href="#destroying-a-session-cpp-file" class="header-anchor">#</a> Destroying a Session | CPP file</h4> <p>Binding the function in the Constructor!</p> <p>In our UNWGameInstance.cpp:</p> <p>/** Bind function for DESTROYING a Session */
+OnDestroySessionCompleteDelegate = FOnDestroySessionCompleteDelegate::CreateUObject(this, &amp;UNWGameInstance::OnDestroySessionComplete);</p> <p>And filling the function with logic:</p> <p>In our UNWGameInstance.cpp:</p> <p>void UNWGameInstance::OnDestroySessionComplete(FName SessionName, bool bWasSuccessful)
+{
+GEngine-&gt;AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT(&quot;OnDestroySessionComplete %s, %d&quot;), *SessionName.ToString(), bWasSuccessful));</p> <div class="language- extra-class"><pre><code>// Get the OnlineSubsystem we want to work with
+IOnlineSubsystem\* OnlineSub = IOnlineSubsystem::Get();
+if (OnlineSub)
+{
+	// Get the SessionInterface from the OnlineSubsystem
+	IOnlineSessionPtr Sessions = OnlineSub-&gt;GetSessionInterface();
+
+	if (Sessions.IsValid())
+	{
+		// Clear the Delegate
+		Sessions-&gt;ClearOnDestroySessionCompleteDelegate\_Handle(OnDestroySessionCompleteDelegateHandle);
+
+		// If it was successful, we just load another level (could be a MainMenu!)
+		if (bWasSuccessful)
+		{
+			UGameplayStatics::OpenLevel(GetWorld(), &quot;ThirdPersonExampleMap&quot;, true);
+		}
+	}
+}
+</code></pre></div><p>}</p> <p>Doing the same with the OnlineSubsystem and the SessionInterface again and once the destruction was successful, we Open the start level again, which could be the MainMenu for example.</p> <p>And that's it, this is all you need for a basic setup. You can now create Widgets or so that can use these functions, <strong>BUT</strong> you can't make these functions BlueprintCallable. You need a second function for each process that is BlueprintCallable.</p> <h1 id="blueprintcallable-functions-to-test-this-setup"><a href="#blueprintcallable-functions-to-test-this-setup" class="header-anchor">#</a> BlueprintCallable Functions to test this Setup</h1> <h2 id="creating-a-session-2"><a href="#creating-a-session-2" class="header-anchor">#</a> Creating a Session</h2> <p>In our UNWGameInstance.h:</p> <p>UFUNCTION(BlueprintCallable, Category = &quot;Network|Test&quot;)
+void StartOnlineGame();</p> <p>In our UNWGameInstance.cpp:</p> <p>void UNWGameInstance::StartOnlineGame()
+{
+// Creating a local player where we can get the UserID from
+ULocalPlayer* const Player = GetFirstGamePlayer();</p> <div class="language- extra-class"><pre><code>// Call our custom HostSession function. GameSessionName is a GameInstance variable
+HostSession(Player-&gt;GetPreferredUniqueNetId(), GameSessionName, true, true, 4);
+</code></pre></div><p>}</p> <h2 id="searching-and-finding-a-session-2"><a href="#searching-and-finding-a-session-2" class="header-anchor">#</a> Searching and Finding a Session</h2> <p>In our UNWGameInstance.h:</p> <p>UFUNCTION(BlueprintCallable, Category = &quot;Network|Test&quot;)
+void FindOnlineGames();</p> <p>In our UNWGameInstance.cpp:</p> <p>void UNWGameInstance::FindOnlineGames()
+{
+ULocalPlayer* const Player = GetFirstGamePlayer();</p> <div class="language- extra-class"><pre><code>FindSessions(Player-&gt;GetPreferredUniqueNetId(), GameSessionName, true, true);
+</code></pre></div><p>}</p> <h2 id="joining-a-session-2"><a href="#joining-a-session-2" class="header-anchor">#</a> Joining a Session</h2> <p>In our UNWGameInstance.h:</p> <p>UFUNCTION(BlueprintCallable, Category = &quot;Network|Test&quot;)
+void JoinOnlineGame();</p> <p>In our UNWGameInstance.cpp:</p> <p>void UNWGameInstance::JoinOnlineGame()
+{
+ULocalPlayer* const Player = GetFirstGamePlayer();</p> <div class="language- extra-class"><pre><code>// Just a SearchResult where we can save the one we want to use, for the case we find more than one!
+FOnlineSessionSearchResult SearchResult;
+
+// If the Array is not empty, we can go through it
+if (SessionSearch-&gt;SearchResults.Num() &gt; 0)
+{
+	for (int32 i = 0; i &lt; SessionSearch-&gt;SearchResults.Num(); i++)
+	{
+		// To avoid something crazy, we filter sessions from ourself
+		if (SessionSearch-&gt;SearchResults\[i\].Session.OwningUserId != Player-&gt;GetPreferredUniqueNetId())
+		{
+			SearchResult = SessionSearch-&gt;SearchResults\[i\];
+
+			// Once we found sounce a Session that is not ours, just join it. Instead of using a for loop, you could
+			// use a widget where you click on and have a reference for the GameSession it represents which you can use
+			// here
+			JoinSession(Player-&gt;GetPreferredUniqueNetId(), GameSessionName, SearchResult);
+			break;
+		}
+	}
+}	
+</code></pre></div><p>}</p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" alt="Note"> We are just joining ONE of the Sessions we found. You could use a Widget similar to the one in the ShootoutGame to display them and join them by clicking. But this is just an easy setup where we don't want any fancy distracting things.</p> <h2 id="destroying-a-session-2"><a href="#destroying-a-session-2" class="header-anchor">#</a> Destroying a Session</h2> <p>In our UNWGameInstance.h:</p> <p>UFUNCTION(BlueprintCallable, Category = &quot;Network|Test&quot;)
+void DestroySessionAndLeaveGame();</p> <p>In our UNWGameInstance.cpp:</p> <p>void UNWGameInstance::DestroySessionAndLeaveGame()
+{
+IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();
+if (OnlineSub)
+{
+IOnlineSessionPtr Sessions = OnlineSub-&gt;GetSessionInterface();</p> <div class="language- extra-class"><pre><code>	if (Sessions.IsValid())
+	{
+		Sessions-&gt;AddOnDestroySessionCompleteDelegate\_Handle(OnDestroySessionCompleteDelegate);
+
+		Sessions-&gt;DestroySession(GameSessionName);
+	}
+}
+</code></pre></div><p>}</p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" alt="Note"> We perform the binding etc here, because we have no function yet that does that for us. You could create one if you want to keep it similar to the other 3 operations</p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" alt="Note"> These functions can now get called in the Blueprints by getting the GameInstance, casting it and calling the functions with a simple button press.</p> <h1 id="project-files-to-look-into"><a href="#project-files-to-look-into" class="header-anchor">#</a> Project Files to look into</h1> <p>Yes, i share the project which is working for me already:</p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/b/b3/Icon_template_warning1.png" alt="Note"> This project is only 4.7 right now!</p> <p><a href="https://drive.google.com/file/d/0B34nzTE-VVazS0FXbWUwRUtIdHM/view?usp=sharing" target="_blank" rel="noopener noreferrer">Google Drive Download Link!<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h1 id="author-link"><a href="#author-link" class="header-anchor">#</a> Author Link</h1> <p><a href="/index.php?title=User:EXi&amp;action=edit&amp;redlink=1" title="User:EXi (page does not exist)">eXi</a> (<a href="/index.php?title=User_talk:EXi&amp;action=edit&amp;redlink=1" title="User talk:EXi (page does not exist)">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=How_To_Use_Sessions_In_C%2B%2B&amp;oldid=20698" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=How_To_Use_Sessions_In_C%2B%2B&amp;oldid=20698<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/580.8f1e2872.js" defer></script>
+  </body>
+</html>

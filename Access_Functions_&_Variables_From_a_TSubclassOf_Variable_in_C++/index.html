@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/50.21e60264.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Access Functions &amp; Variables From a TSubclassOf Variable in C++ - Epic Wiki</p> <h1 id="access-functions-variables-from-a-tsubclassof-variable-in-c"><a href="#access-functions-variables-from-a-tsubclassof-variable-in-c" class="header-anchor">#</a> Access Functions &amp; Variables From a TSubclassOf Variable in C++</h1> <p><strong>Rate this Article:</strong></p> <p>5.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""> (2 votes)</p> <p>Approved for Versions:4.5, 4.6, 4.7</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Why">2 Why</a></li> <li><a href="#The_Problem">3 The Problem</a></li> <li><a href="#Example">4 Example</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>In this tutorial I'll show you how to access the variables and functions of a specific class that you have specified, inside a <TSubclassOf> container.</TSubclassOf></p> <h2 id="why"><a href="#why" class="header-anchor">#</a> Why</h2> <p>TSubclassOf is a special template of UClass which only accepts specific subclasses of some base class. So it's still a UClass which is just a class specifier which you can spawn things from, but it does not have the variables or functions of the declared class. however, you can GetDefaultObject<T>() which is a master copy of the defined class object and contains the default variables which you can use before spawning that object.</T></p> <h2 id="the-problem"><a href="#the-problem" class="header-anchor">#</a> The Problem</h2> <p>In my example; I want to know how much ammunition a certain type of projectile will cost me in order to subtract it from my available ammunition, and to ensure I'm allowed to spawn it.</p> <p>The Ordnance.h class allows me to return the (protected variable) cost of the ordnance object (usually a Blueprinted Sub-class) using the float GetAmmoCost(); function:</p> <p><strong>Ordnance.cpp</strong></p> <p>float AOrdnance::GetAmmoCost()
+{
+return AmmoCost;
+}</p> <p>If you have a specific actor of sub-class, you can access this function with any issues. However, if you want to have a weapon that can specify any sub-class of ordnance, you'll have to first get that specified class in order to call the function.</p> <h2 id="example"><a href="#example" class="header-anchor">#</a> Example</h2> <p>The following code in 'Weapon.h' declares a variable using the <TSubclassOf> container. When Blueprinted, it allows the developer to select a specific sub-class of ordnance that we can fire from it. You'll also notice that this is part of a struct (this is not neccesary, but for the purposes of the tutorial shows that the code works with UStructs):</TSubclassOf></p> <p><strong>Weapon.h</strong></p> <p>USTRUCT()
+struct FWeaponData
+{
+GENERATED_USTRUCT_BODY()
+ 
+/* Actual Ordnance To Fire */
+UPROPERTY(EditDefaultsOnly, Category = &quot;Ordnance&quot;)
+TSubclassOf&lt;AOrdnance&gt; OrdnanceClass;
+ 
+FWeaponData()
+: OrdnanceClass(NULL)
+{
+}
+};</p> <p>The following code in 'Weapon.cpp', allows me to access and cast to the specific class defined by that variable, and call functions on it. Traditionally you might think to try and perform a regular 'Cast', but doing so will result in a difficult-to-debug Breakpoint, and stop your code from executing properly.</p> <p>The key difference is the use of the 'GetDefaultObject()' function provided by Unreal, which will actually perform a safe cast and a check to the specific sub-class, enabling you to call functions on it and return values!</p> <p><strong>Weapon.cpp</strong></p> <p>void AWeapon::HandleFiring()
+{
+/* Check if we have Enough Ammo To Fire */
+float OrdnanceCost = WeaponConfig.OrdnanceClass-&gt;GetDefaultObject&lt;AOrdnance&gt;()-&gt;GetAmmoCost();
+bool bEnoughAmmo = GetCurrentAmmo() &gt;= OrdnanceCost;
+ 
+if (bEnoughAmmo)
+{
+FireWeapon(OrdnanceCost); // Tab-Out Pure-Virtual For Now!
+}
+}</p> <p><strong>Note:</strong> You have to do this for ANY type of variable that you want to return from an object specified inside a <TSubclassOf> variable!</TSubclassOf></p> <p>Hope this helps!</p> <p><a href="/User:TheJamsh" title="User:TheJamsh">TheJamsh</a> (<a href="/User_talk:TheJamsh" title="User talk:TheJamsh">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Access_Functions_%26_Variables_From_a_TSubclassOf_Variable_in_C%2B%2B&amp;oldid=12770" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Access_Functions_%26_Variables_From_a_TSubclassOf_Variable_in_C%2B%2B&amp;oldid=12770<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/50.21e60264.js" defer></script>
+  </body>
+</html>

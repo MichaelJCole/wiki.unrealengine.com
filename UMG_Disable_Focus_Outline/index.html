@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1116.a6726b14.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>UMG Disable Focus Outline - Epic Wiki</p> <h1 id="umg-disable-focus-outline"><a href="#umg-disable-focus-outline" class="header-anchor">#</a> UMG Disable Focus Outline</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a> <ul><li><a href="#How_to_disable.2Fcustomize_the_UMG_focus_outline_in_C.2B.2B">1.1 How to disable/customize the UMG focus outline in C++</a></li> <li><a href="#Using_the_project_settings">1.2 Using the project settings</a></li></ul></li> <li><a href="#Related_Tutorials">2 Related Tutorials</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Author:</em> <a href="/User:Moss" title="User:Moss">Moss</a> (<a href="/User_talk:Moss" title="User talk:Moss">talk</a>)</p> <p>While working on <a href="http://redgoddessgame.com/" target="_blank" rel="noopener noreferrer">Red Godess<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> we had an issues with the focus using a GamePad. Always a widget acquired focus it will get a dotted outline that seams to be more for PC keyboard then a GamePad on a console.</p> <p>We first implemented our own focus system which worked like a charm but later we investigated on how to override the default behavior. The following tutorial is about the right way to handle it 😄.</p> <h3 id="how-to-disable-customize-the-umg-focus-outline-in-c"><a href="#how-to-disable-customize-the-umg-focus-outline-in-c" class="header-anchor">#</a> How to disable/customize the UMG focus outline in C++</h3> <p>First of all we have to create a new class that inherits from UGameViewportClient like the following.</p> <p><strong>MyGameViewportClient.h (public header)</strong></p> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;Engine/GameViewportClient.h&quot;
+#include &quot;MyGameViewportClient.generated.h&quot;
+ 
+UCLASS(Within=Engine, transient, config=Engine)
+class MYGAME_API UMyGameViewportClient : public UGameViewportClient
+{
+GENERATED_BODY()
+ 
+public:
+UMyGameViewportClient();
+ 
+// We will override this methos to only return false, this way we complete disable
+// the focus outline. Consider using your own logic here.
+virtual TOptional&lt;bool&gt; QueryShowFocus(const EFocusCause InFocusCause) const override;
+}</p> <p><strong>MyGameViewportClient.cpp (private implementation)</strong></p> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;MyGame.h&quot;
+#include &quot;Public/MyGameViewportClient.h&quot;
+ 
+UMyGameViewportClient::UMyGameViewportClient()
+{
+}
+ 
+TOptional&lt;bool&gt; UMyGameViewportClient::QueryShowFocus(const EFocusCause InFocusCause) const
+{
+// Consider your own special logic, you might want to call the super method first.
+return false;
+}</p> <p>Now you just have to add the class into your <strong>DefaultEngine.ini</strong> file and you should be good to go.</p> <p>[/Script/Engine.Engine]
+GameViewportClientClassName=/Script/MyGame.MyGameViewportClient</p> <p>So that should be all you need to get rid or control the focus outline your own way.</p> <h3 id="using-the-project-settings"><a href="#using-the-project-settings" class="header-anchor">#</a> Using the project settings</h3> <p>As stated by Nick Darnell in the forums, from 4.8 you can customize the behavior directly in the Project Settings.</p> <p>Project Settings &gt;&gt; User Interface &gt;&gt; RenderFocusRule (Set To) Never</p> <p>There are more option to explore if you are corious. This method will apply to the project itself while the C++ version is a more flexible way, for example, you could enable it if a keyboard is plugged in and disable it if a GamePad is detected.</p> <h2 id="related-tutorials"><a href="#related-tutorials" class="header-anchor">#</a> Related Tutorials</h2> <p><a href="https://docs.unrealengine.com/latest/INT/Engine/UMG/index.html" target="_blank" rel="noopener noreferrer">Epic's UMG Documentation<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><a href="/UMG,_Create_Scrollable_List_of_Clickable_Buttons_From_Dynamic_Array" title="UMG, Create Scrollable List of Clickable Buttons From Dynamic Array">UMG, Create Scrollable List of Clickable Buttons From Dynamic Array, by Rama!</a></p> <p><a href="https://forums.unrealengine.com/showthread.php?52773-Tutorial-Snippet-Creating-a-UMG-Widget-in-C-and-delegate-example" target="_blank" rel="noopener noreferrer">[Tutorial/ Snippet] Creating a UMG Widget in C++, and delegate example by WCode.<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p><a href="https://wiki.unrealengine.com/UMG,_How_to_extend_a_UUserWidget::_for_UMG_in_C%2B%2B." target="_blank" rel="noopener noreferrer">[Tutorial] UMG, How to extend a UUserWidget:: for UMG in C++.<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=UMG_Disable_Focus_Outline&amp;oldid=14716" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=UMG_Disable_Focus_Outline&amp;oldid=14716<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1116.a6726b14.js" defer></script>
+  </body>
+</html>

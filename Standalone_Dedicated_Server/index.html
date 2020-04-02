@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1012.b5898a69.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Standalone Dedicated Server - Epic Wiki</p> <h1 id="standalone-dedicated-server"><a href="#standalone-dedicated-server" class="header-anchor">#</a> Standalone Dedicated Server</h1> <p>From Epic Wiki</p> <p>Jump to: <a href="#mw-head">navigation</a>, <a href="#p-search">search</a></p> <p>This guide shows you how to package and compile your game as a standalone dedicated server for both Windows and Linux.</p> <p><em>This is currently only possible using an engine compiled from source. It is not possible through an engine installed via the Epic Launcher. This was deemed necessary due to the increase in size that would occur if the required files were included in the installed version of the engine.</em></p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Packaging_the_Content">1 Packaging the Content</a></li> <li><a href="#Compiling_the_Server">2 Compiling the Server</a> <ul><li><a href="#Linux_Compiler_Toolchain">2.1 Linux Compiler Toolchain</a></li> <li><a href="#Compilation">2.2 Compilation</a></li></ul></li> <li><a href="#Platform_Specifics">3 Platform Specifics</a> <ul><li><a href="#Windows">3.1 Windows</a></li> <li><a href="#Linux">3.2 Linux</a></li></ul></li></ul> <h2 id="packaging-the-content"><a href="#packaging-the-content" class="header-anchor">#</a> Packaging the Content</h2> <p>The dedicated server needs packaged content. Go to File -&gt; Package Project -&gt; Packaging Settings. Here you have a few options:</p> <ul><li>Use Pak File: Pack all the assets into one .pak file - disable if you want to have the regular content structure (e.g. for incremental uploads)</li> <li>Full Rebuild: You might want to disable this to lower packaging times</li></ul> <p>Then go to File -&gt; Package Project -&gt; Package Windows/Linux and select an output directory. The engine will now package the content and compile the standalone client code - this may take some time in case of a full rebuild.</p> <h2 id="compiling-the-server"><a href="#compiling-the-server" class="header-anchor">#</a> Compiling the Server</h2> <h3 id="linux-compiler-toolchain"><a href="#linux-compiler-toolchain" class="header-anchor">#</a> Linux Compiler Toolchain</h3> <p>Linux compilation is currently only supported on Windows using a cross-compilation toolchain based on <a href="http://en.wikipedia.org/wiki/Clang" target="_blank" rel="noopener noreferrer">Clang<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>. A precompiled toolchain from Epic is available here: <a href="https://github.com/EpicGames/UnrealEngine/releases/tag/4.1.0-release" target="_blank" rel="noopener noreferrer">https://github.com/EpicGames/UnrealEngine/releases/tag/4.1.0-release<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>.<br>
+After you unzipped the toolchain, make sure to add the environment variable LINUX_ROOT and set it to the location of the toolchain (see README.md for details).</p> <h3 id="compilation"><a href="#compilation" class="header-anchor">#</a> Compilation</h3> <p>The next step is to compile the server code using Visual Studio. First, you need to set up a special server target for UnrealBuildTool.</p> <p>You can use the following template:</p> <p>// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.</p> <p>using UnrealBuildTool;
+using System.Collections.Generic;</p> <p>public class GameServerTarget : TargetRules
+{
+public GameServerTarget(TargetInfo Target)
+{
+Type = TargetType.Server;
+}</p> <div class="language- extra-class"><pre><code>//
+// TargetRules interface.
+//
+public override void SetupBinaries(
+    TargetInfo Target,
+    ref List&lt;UEBuildBinaryConfiguration\&gt; OutBuildBinaryConfigurations,
+    ref List&lt;string\&gt; OutExtraModuleNames
+    )
+{
+    base.SetupBinaries(Target, ref OutBuildBinaryConfigurations, ref OutExtraModuleNames);
+    OutExtraModuleNames.Add(&quot;Game&quot;);
+}
+
+public override bool GetSupportedPlatforms(ref List&lt;UnrealTargetPlatform\&gt; OutPlatforms)
+{
+    // It is valid for only server platforms
+    return UnrealBuildTool.UnrealBuildTool.GetAllServerPlatforms(ref OutPlatforms, false);
+}
+
+public override List&lt;UnrealTargetPlatform\&gt; GUBP\_GetPlatforms\_MonolithicOnly(UnrealTargetPlatform HostPlatform)
+{
+    if (HostPlatform \== UnrealTargetPlatform.Mac)
+    {
+        return new List&lt;UnrealTargetPlatform\&gt;();
+    }
+    return new List&lt;UnrealTargetPlatform\&gt; { HostPlatform, UnrealTargetPlatform.Win32, UnrealTargetPlatform.Linux };
+}
+
+public override List&lt;UnrealTargetConfiguration\&gt; GUBP\_GetConfigs\_MonolithicOnly(UnrealTargetPlatform HostPlatform, UnrealTargetPlatform Platform)
+{
+    return new List&lt;UnrealTargetConfiguration\&gt; { UnrealTargetConfiguration.Development };
+}
+</code></pre></div><p>}</p> <p>Just replace all instances of &quot;Game&quot; with the name of your game project.</p> <p>Its possible that there are no functions to override by the overrides so it will not build. Throw these out aswell if there are problems.</p> <p>Save it as <Game>Server.Target.cs next to the other target files and regenerate the project files.</Game></p> <p>Open Visual Studio, set the configuration to *Server and select the platform target accordingly.</p> <p>Now it's time to build your game project. Using the above UBT target, the executable will end up in <game>/Binaries/<platform>/<Game>Server. Move the executable over to <cooked>/<platform>/<game>/binaries/<platform>.</platform></game></platform></cooked></Game></platform></game></p> <h2 id="platform-specifics"><a href="#platform-specifics" class="header-anchor">#</a> Platform Specifics</h2> <h3 id="windows"><a href="#windows" class="header-anchor">#</a> Windows</h3> <p>Simply execute <Game>Server.exe. If you want a log window, start with -log.</Game></p> <h3 id="linux"><a href="#linux" class="header-anchor">#</a> Linux</h3> <p>The server will listen for UDP packets on port 7777 by default, so make sure to open this port in your firewall.</p> <p>With some Unreal Engine releases (4.2 and below) you can run into this message if you don't pass -pak:</p> <p>Could not adjust number of file handles, consider changing &quot;nofile&quot; in /etc/security/limits.conf and relogin.</p> <p>The solution is to pass -pak on the command line when starting the server.</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Standalone_Dedicated_Server&amp;oldid=155" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Standalone_Dedicated_Server&amp;oldid=155<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/index.php?title=Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/index.php?title=Category:Tutorials&amp;action=edit&amp;redlink=1" title="Category:Tutorials (page does not exist)">Tutorials</a></li> <li><a href="/index.php?title=Category:Epic_Created_Content" title="Category:Epic Created Content">Epic Created Content</a></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1012.b5898a69.js" defer></script>
+  </body>
+</html>

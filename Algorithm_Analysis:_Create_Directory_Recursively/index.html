@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/59.74ae0d03.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Algorithm Analysis: Create Directory Recursively - Epic Wiki</p> <h1 id="algorithm-analysis-create-directory-recursively"><a href="#algorithm-analysis-create-directory-recursively" class="header-anchor">#</a> Algorithm Analysis: Create Directory Recursively</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Standard_Create_Directory">2 Standard Create Directory</a></li> <li><a href="#The_Issue">3 The Issue</a></li> <li><a href="#Static">4 Static</a></li> <li><a href="#CreateDirectoryRecursively">5 CreateDirectoryRecursively</a> <ul><li><a href="#Input">5.1 Input</a></li> <li><a href="#Output">5.2 Output</a></li></ul></li> <li><a href="#Algorithm_Analysis">6 Algorithm Analysis</a> <ul><li><a href="#Loop_Protection">6.1 Loop Protection</a></li> <li><a href="#Algorithm_Formatting_to_Avoid_Input_Requirements">6.2 Algorithm Formatting to Avoid Input Requirements</a></li> <li><a href="#Recycling_Memory_in_Looping_Algorithms">6.3 Recycling Memory in Looping Algorithms</a></li> <li><a href="#Simplicity">6.4 Simplicity</a></li> <li><a href="#Review">6.5 Review</a></li></ul></li> <li><a href="#Conclusion">7 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Algorithm &amp; Algorithm Analysis by:</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p><strong>I have a gift for you!</strong></p> <p>And also a chance to do some in-depth C++ algorithm analysis with you 😃</p> <p>Here is my entire function for recursively creating a directory!</p> <h2 id="standard-create-directory"><a href="#standard-create-directory" class="header-anchor">#</a> Standard Create Directory</h2> <p>The standard create directory function in UE4 is:</p> <p>FPlatformFileManager::Get().GetPlatformFile().CreateDirectory(*FullPath);</p> <p>FullPath should look something like:</p> <p>&quot;C:/YourProj/YourLevels/YourSubLevels&quot;</p> <h2 id="the-issue"><a href="#the-issue" class="header-anchor">#</a> The Issue</h2> <p>If you try to create the above directory, YourSubLevels, supplying the entire path, the CreateDirectory function will fail if all of the super directories do not exist.</p> <p>So if <code>C:/YourProj/YourLevels/</code> does not exist, the function will fail.</p> <p>But in my case, I want to ensure that all necessary super directories will be created!</p> <p><strong>So I wrote a function to do this!</strong></p> <h2 id="static"><a href="#static" class="header-anchor">#</a> Static</h2> <p>Remove the word static if you just want to plop this function in a .h file somewhere to test it 😃</p> <h2 id="createdirectoryrecursively"><a href="#createdirectoryrecursively" class="header-anchor">#</a> CreateDirectoryRecursively</h2> <p>//Create Directory, Creating Entire Structure as Necessary
+//		so if JoyLevels and Folder1 do not exist in JoyLevels/Folder1/Folder2
+//			they will be created so that Folder2 can be created!
+ 
+//This is my solution for fact that trying to create a directory fails
+//		if its super directories do not exist
+ 
+ 
+//Expects entire directory path, such as:
+ 
+// C:/Folder1/Folder2/Folder3/NewFolderToMake/
+ 
+//			Author: Rama
+ 
+ 
+static FORCEINLINE void CreateDirectoryRecursively(FString FolderToMake)
+{
+//FolderToMake is not const so split can be used, and does not damage input
+ 
+//Loop Proteciton
+const int32 MAX_LOOP_ITR = 3000; //limit of 3000 directories in the structure
+ 
+// Normalize all / and \ to TEXT(&quot;/&quot;) and remove any trailing TEXT(&quot;/&quot;)
+//if the character before that is not a TEXT(&quot;/&quot;) or a colon
+FPaths::NormalizeDirectoryName(FolderToMake);
+ 
+//Normalize removes the last &quot;/&quot;, but my algorithm wants it
+FolderToMake += &quot;/&quot;;
+ 
+FString Base;
+FString Left;
+FString Remaining;
+ 
+//Split off the Root
+FolderToMake.Split(TEXT(&quot;/&quot;),&amp;Base,&amp;Remaining);
+Base += &quot;/&quot;; //add root text to Base
+ 
+int32 LoopItr = 0;
+while(Remaining != &quot;&quot; &amp;&amp; LoopItr &lt; MAX_LOOP_ITR)
+{
+Remaining.Split(TEXT(&quot;/&quot;),&amp;Left,&amp;Remaining);
+ 
+//Add to the Base
+Base += Left + FString(&quot;/&quot;); //add left and split text to Base
+ 
+//Create Incremental Directory Structure!
+FPlatformFileManager::Get().GetPlatformFile().CreateDirectory(*Base);
+ 
+LoopItr++;
+}
+}</p> <h3 id="input"><a href="#input" class="header-anchor">#</a> Input</h3> <p><strong>New Folder =</strong> C:/Users/Rama/Documents/Victory/FolderSong/FolderDance/FolderRain/FolderRainbow</p> <p>FString NewFolder =
+&quot;C:/Users/Rama/Documents/Victory/FolderSong/FolderDance/FolderRain/FolderRainbow/&quot;;
+ 
+//remove UMyFunctionLibrary:: if you removed the &quot;static&quot;
+UMyFunctionLibrary::CreateDirectoryRecursively(NewFolder);</p> <h3 id="output"><a href="#output" class="header-anchor">#</a> Output</h3> <p><a href="/File:RainbowRecursively.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/9/94/RainbowRecursively.jpg" alt="RainbowRecursively.jpg"></a></p> <h2 id="algorithm-analysis"><a href="#algorithm-analysis" class="header-anchor">#</a> Algorithm Analysis</h2> <h3 id="loop-protection"><a href="#loop-protection" class="header-anchor">#</a> Loop Protection</h3> <p>The first and most important thing to note is that this is a while loop!</p> <p>So in any while loop it is a really good idea to have Loop Protection!</p> <p>const int32 MAX_LOOP_ITR = 3000;
+int32 LoopItr = 0;
+ 
+while(Remaining != &quot;&quot; &amp;&amp; LoopItr &lt; MAX_LOOP_ITR)
+{
+//...
+LoopItr++;
+}</p> <p>The loop is supposed to end happily and healthily when Remaining == &quot;&quot;, because all parts of the directory structure have been created.</p> <p>If the directory structure contains 3000 folders I'd be rather surprised, and so I use this number as the max loop count, to protect against a permanent hang.</p> <p>You should always incorporate Loop Protection if you are using a While Loop!</p> <h3 id="algorithm-formatting-to-avoid-input-requirements"><a href="#algorithm-formatting-to-avoid-input-requirements" class="header-anchor">#</a> Algorithm Formatting to Avoid Input Requirements</h3> <p>My algorithm requires that the file path not be using any \ characters instead of / for the file path, such as</p> <p>C:\YourProj\YourLevels\YourSubLevels</p> <p>In order to ensure that my algorithm will work, I am using Epic's awesome NormalizeDirectoryName function!</p> <p>// Normalize all / and \ to TEXT(&quot;/&quot;) and remove any trailing TEXT(&quot;/&quot;) if the character before that is not a TEXT(&quot;/&quot;) or a colon
+FPaths::NormalizeDirectoryName(FolderToMake);</p> <p>If I did not do this re-formatting internally to guarantee success, I would have had to make users understand to only supply a certain format.</p> <p>So wherever possible, you should try to format the input yourself to meet your algorithm's requirements.</p> <h3 id="recycling-memory-in-looping-algorithms"><a href="#recycling-memory-in-looping-algorithms" class="header-anchor">#</a> Recycling Memory in Looping Algorithms</h3> <p>I am using Split to recycle variables to minimize Memory usage.</p> <p>//While Loop
+//{
+Remaining.Split(TEXT(&quot;/&quot;),&amp;Left,&amp;Remaining);
+//}</p> <p>Recall from my <strong><a href="/Entry_Level_Guide_to_UE4_C%2B%2B" title="Entry Level Guide to UE4 C++">UE4 C++ Introductory Guide</a></strong> that the &amp; symbol means that you are accessing the memory location of the variable.</p> <p>So in the while loop above, the Split function is continuously recycling the variable data!</p> <p>Split is separating the input string Remaining on the first instance of the &quot;/&quot;.</p> <p>The left part of Remaining is passed off to the Base, added to the rest of the Base in order to make the folder.</p> <p>The right part of the string, the remaining portion, is passed right back into Remaining!</p> <p>So the contents of Remaining are replaced after the function is run!</p> <p>In this way I am using the same amount of memory whether the directory structure contains 3 or 700 directories!</p> <p>In any looping alogrithm make careful use of pointers and the &amp; operator to minimize memory used</p> <h3 id="simplicity"><a href="#simplicity" class="header-anchor">#</a> Simplicity</h3> <p>When I first was making this function, it was getting very complicated.</p> <p>I stepped back, realized where my mistake was, and re wrote the algorithm much more simply!</p> <p>If your algorithms are running away with you and getting complicated,
+take a step back and look for a simpler approach,
+that may involving using or understanding the UE4 C++ API better.</p> <p>In my case I did not notice that using NormalizeDirectoryName was removing the last &quot;/&quot; that my algorithm relied upon.</p> <p>In my fix for this, I also ended up guaranteeing that a last &quot;/&quot; will be added even if the user did not put one in!</p> <p>// Normalize all / and \ to TEXT(&quot;/&quot;) and remove any trailing TEXT(&quot;/&quot;) if the character before that is not a TEXT(&quot;/&quot;) or a colon
+FPaths::NormalizeDirectoryName(FolderToMake);
+ 
+//Normalize removes the last &quot;/&quot;, but my algorithm wants it
+FolderToMake += &quot;/&quot;;</p> <h3 id="review"><a href="#review" class="header-anchor">#</a> Review</h3> <p>Now check out the entire algorithm again, and see what you've learned from reading this algorithm analysis!</p> <p><strong><a href="#CreateDirectoryRecursively">Algorithm Review! See What You've Learned!</a></strong></p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>I hope you have additional insights now for when you are writing your own C++ Algorithms.</p> <p>And I hope you enjoy using my CreateDirectoryRecursively!</p> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Algorithm_Analysis:_Create_Directory_Recursively&amp;oldid=2606" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Algorithm_Analysis:_Create_Directory_Recursively&amp;oldid=2606<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/59.74ae0d03.js" defer></script>
+  </body>
+</html>

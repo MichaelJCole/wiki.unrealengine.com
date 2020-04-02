@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1005.551a0bc4.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Spawn Different Pawns For Players in Multiplayer - Epic Wiki</p> <h1 id="spawn-different-pawns-for-players-in-multiplayer"><a href="#spawn-different-pawns-for-players-in-multiplayer" class="header-anchor">#</a> Spawn Different Pawns For Players in Multiplayer</h1> <p><strong>Rate this Article:</strong></p> <p>4.50</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_half.gif" alt=""> (2 votes)</p> <p>Approved for Versions:4.7</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Step_1:_Custom_Game_Mode">2 Step 1: Custom Game Mode</a></li> <li><a href="#Step_2:_Custom_Player_Controller">3 Step 2: Custom Player Controller</a></li> <li><a href="#Client.2FServer_Functions">4 Client/Server Functions</a></li> <li><a href="#Text_File_Implementation">5 Text File Implementation</a></li> <li><a href="#Assertion">6 Assertion</a></li> <li><a href="#Final_Word">7 Final Word</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>In this tutorial, I'll show you how I use C++ to allow a player to spawn into a Multiplayer game with a Pawn of their choice. By default, Unreal Engine allows you to choose a Pawn class that every player will use. We will change this functionality so that the Clients (and Server) can choose their Pawn way before they are spawned into the world.</p> <h2 id="step-1-custom-game-mode"><a href="#step-1-custom-game-mode" class="header-anchor">#</a> Step 1: Custom Game Mode</h2> <p>To start with, we need to override the 'GetDefaultPawnClassForController' function in AGameMode. Normally this function simply returns the GameModes 'DefaultPawnClass', but we want to change this so that it can hook into our custom Player Controller, and read the value from there.</p> <p><strong>This is a much more flexible approach than creating lots of Pawn Variables in the GameMode, since we can specify any pawn class we want from our PlayerController this way!</strong></p> <p><strong>MyGameMode.h</strong></p> <p>UCLASS()
+class MYGAME_API AMyGameMode : public AGameMode
+{
+GENERATED_UCLASS_BODY()
+ 
+/* Override To Read In Pawn From Custom Controller */
+UClass* GetDefaultPawnClassForController(AController* InController) override;
+};</p> <p><strong>MyGameMode.cpp</strong></p> <p>AMyGameMode::AMyGameMode(const FObjectInitializer&amp; ObjectInitializer) : Super(ObjectInitializer)
+{
+/* Use our custom Player-Controller Class */
+PlayerControllerClass = AMyPlayerController::StaticClass();
+}
+ 
+UClass* AMyGameMode::GetDefaultPawnClassForController(AController* InController)
+{
+/* Override Functionality to get Pawn from PlayerController */
+AMyPlayerController* MyController = Cast&lt;AMyPlayerController&gt;(InController);
+if (MyController)
+{
+return MyController-&gt;GetPlayerPawnClass();
+}
+ 
+/* If we don't get the right Controller, use the Default Pawn */
+return DefaultPawnClass;
+}</p> <p>Intellisense/Visual Assist will warn you that 'GetPlayerPawnClass()' doesnt' exist yet. Fear not, we'll create that in the next section!</p> <h2 id="step-2-custom-player-controller"><a href="#step-2-custom-player-controller" class="header-anchor">#</a> Step 2: Custom Player Controller</h2> <p>We must now invoke some custom functionality in our PlayerController, in order to tell the Gamemode which Pawn to use. On this rare occasion, we actually want the Client to have authority over the Server to ensure the Client chooses the Pawn locally, and tell the server to do the rest.</p> <p>My method sets a Replicated Variable on the Server, the value of which is determined on the Client beforehand. This way, we take advantage of UE4s authoritative server system, keeping the two players in-sync and ensuring that no client-side cheating can ever occur. The server still handles the spawning of the Pawn, and the developer can choose to further validate the Clients choice if they want to.</p> <p><strong>NOTE:</strong> The method posted below determines which Pawn to use based on an external .txt file. This is purely because it suited our implementation, but I do NOT recommend following this method for almost any other game, since the file can be easily modified by an end user. It would be much safer and more flexible, to use a SaveGame class generated inside the game itself, and have the server verify that the Pawn is a valid option server-side.</p> <p>Saving the correct Pawn to use as a SaveGame is outside the scope of this tutorial, but you can study ShooterGame's <strong>ShooterPersistentUser</strong> class to learn more about how to use them. Simply replace the body of 'DeterminePawnClass' with code that loads the Pawn class from your custom SaveGame.</p> <p><strong>MyPlayerController.h</strong></p> <p>UCLASS()
+class MYGAME_API AMyPlayerController : public APlayerController
+{
+GENERATED_BODY()
+ 
+public:
+/* Constructor */
+AMyPlayerController(const FObjectInitializer&amp; ObjectInitializer);
+ 
+FORCEINLINE UClass* GetPlayerPawnClass() { return MyPawnClass; }
+ 
+protected:
+/* Return The Correct Pawn Class Client-Side */
+UFUNCTION(Reliable, Client)
+void DeterminePawnClass();
+virtual void DeterminePawnClass_Implementation();
+ 
+/* Use BeginPlay to start the functionality */
+virtual void BeginPlay() override;
+ 
+/* Set Pawn Class On Server For This Controller */
+UFUNCTION(Reliable, Server, WithValidation)
+virtual void ServerSetPawn(TSubclassOf&lt;APawn&gt; InPawnClass);
+virtual void ServerSetPawn_Implementation(TSubclassOf&lt;APawn&gt; InPawnClass);
+virtual bool ServerSetPawn_Validate(TSubclassOf&lt;APawn&gt; InPawnClass);
+ 
+/* Actual Pawn class we want to use */
+UPROPERTY(Replicated)
+TSubclassOf&lt;APawn&gt; MyPawnClass;
+ 
+/* First Pawn Type To Use */
+UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;My Controller&quot;)
+TSubclassOf&lt;AGESGame_ServerPawn&gt; PawnToUseA;
+ 
+/* Second Pawn Type To Use */
+UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;My Controller&quot;)
+TSubclassOf&lt;AGESGame_Pawn&gt; PawnToUseB;
+};</p> <p><strong>MyPlayerController.cpp</strong></p> <p>AMyPlayerController::AMyPlayerController(const FObjectInitializer&amp; ObjectInitializer) : Super(ObjectInitializer)
+{
+/* Initialize The Values */
+PawnToUseA= NULL;
+PawnToUseB= NULL;
+ 
+/* Make sure the PawnClass is Replicated */
+bReplicates = true;
+}
+ 
+void AMyPlayerController::BeginPlay()
+{
+Super::BeginPlay();
+ 
+DeterminePawnClass();
+}
+ 
+// Pawn Class
+void AMyPlayerController::DeterminePawnClass_Implementation()
+{
+if (IsLocalController()) //Only Do This Locally (NOT Client-Only, since Server wants this too!)
+{
+/* Load Text File Into String Array */
+TArray&lt;FString&gt; TextStrings;
+const FString FilePath = FPaths::GameDir() + &quot;Textfiles/PlayerSettings.txt&quot;;
+ 
+/* Use PawnA if the Text File tells us to */
+if (TextStrings[0]== &quot;PawnA&quot;)
+{
+ServerSetPawn(PawnToUseA);
+return;
+}
+ 
+/* Otherwise, Use PawnB 😃 */
+ServerSetPawn(PawnToUseB);
+return;
+}
+}
+ 
+bool AMyPlayerController::ServerSetPawn_Validate(TSubclassOf&lt;APawn&gt; InPawnClass)
+{
+return true;
+}
+ 
+void AMyPlayerController::ServerSetPawn_Implementation(TSubclassOf&lt;APawn&gt; InPawnClass)
+{
+MyPawnClass = InPawnClass;
+ 
+/* Just in case we didn't get the PawnClass on the Server in time... */
+GetWorld()-&gt;GetAuthGameMode()-&gt;RestartPlayer(this);
+}
+ 
+// Replication
+void AMyPlayerController::GetLifetimeReplicatedProps(TArray&lt;FLifetimeProperty&gt;&amp; OutLifetimeProps) const
+{
+DOREPLIFETIME(AMyPlayerController, MyPawnClass);
+}</p> <h2 id="client-server-functions"><a href="#client-server-functions" class="header-anchor">#</a> Client/Server Functions</h2> <p>The <strong>most important functionality</strong> in the Player Controller is NOT necessarily how you determine which pawn to use, but is actually the use of Client/Server functions and the Replicated 'MyPawnClass' variable. Without this, the Server will never know which Pawn the Client wants to spawn.</p> <p>Also note the use of 'IsLocalPlayerController()' during the 'DeterminePawnClass' function. This is a check to ensure that the Server doesn't try to load it's own TextFile for the player, and ensures that the Client tells the Server which Pawn it wants to use, not the other way around. Without it, all of the players will actually end up using the Servers' chosen Pawn, regardless of what they really want to do! Don't replace this with an Authority check, since the Server could also be a player!</p> <h2 id="text-file-implementation"><a href="#text-file-implementation" class="header-anchor">#</a> Text File Implementation</h2> <p>If you want to use this functionality exactly as it's posted above, you need to create a folder in your projects' Root Directory called 'TextFiles', and in there create a new .txt file called 'PlayerSettings.txt'</p> <p>The Player Controller will search for the file on BeginPlay and attempt to load the text inside it into an array of strings. Each line in the text file forms another element in the array. If the first line in the text file is 'PawnA', the controller will tell the GameMode to use 'PawnToUseA' for this player. If any other value is entered or no value is found, it will instead use 'PawnToUseB'.</p> <h2 id="assertion"><a href="#assertion" class="header-anchor">#</a> Assertion</h2> <p>I <strong>Strongly Recommend</strong> you add additional checks and/or asserts to the above code. The final code that I actually use does have this in place, but I used an alternative Assert Library that I do not have permission to share, and so cut them out. Remember, you should always check if something valid and never allow your code to de-reference a NULL pointer!</p> <p>If a .txt file isn't found for the example posted above, it will crash the engine. If you want to build a packaged version of your game, you <strong>must</strong> copy the TextFiles folder into the games' folder when packaging has finished!</p> <h2 id="final-word"><a href="#final-word" class="header-anchor">#</a> Final Word</h2> <p>I do NOT encourage the use of TextFiles to determine which pawn to use for a real project. The code above is only meant to show the order of operations, and the use of Client/Server functionality to ensure reliability. It was suitable only for a very unique implementation. I highly recommend modifying the 'DeterminePawnClass' function to return a Pawn class from a SaveGame, or similar. This method is much more secure and less prone to errors.</p> <p>In due time, I will update this tutorial to do exactly that, as I believe it is much more suited to most projects. More advanced C++ users will be able to integrate this on their own from this point on however, so enjoy!</p> <p>Hope this helps!</p> <p><a href="/User:TheJamsh" title="User:TheJamsh">TheJamsh</a> (<a href="/User_talk:TheJamsh" title="User talk:TheJamsh">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Spawn_Different_Pawns_For_Players_in_Multiplayer&amp;oldid=13391" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Spawn_Different_Pawns_For_Players_in_Multiplayer&amp;oldid=13391<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1005.551a0bc4.js" defer></script>
+  </body>
+</html>

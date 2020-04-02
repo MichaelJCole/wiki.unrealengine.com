@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/933.98593f41.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Projectile C++ - Epic Wiki</p> <h1 id="projectile-c"><a href="#projectile-c" class="header-anchor">#</a> Projectile C++</h1> <p>From Epic Wiki</p> <p>Jump to: <a href="#mw-navigation">navigation</a>, <a href="#p-search">search</a></p> <p><strong>Rate this Article:</strong></p> <p>3.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""> (one vote)</p> <p>Approved for Versions:(please verify)</p> <p>I've been looking for some very simple, bare bones tutorials on creating simple and modular objects for Unreal, and despite Rama's excellent work so far, some of them are still a bit over my head.</p> <p>With that in mind, I figured I'd walk you through the step-by-step process of creating a projectile. I'll use the C++ Flying Template as my starting point, and grab the projectile from the C++ First Person Shooter template. Therefore, to have a better understanding of how this works, I suggest that you have both templates created.</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Grabbing_the_projectile_.h_and_.cpp">1 Grabbing the projectile .h and .cpp</a></li> <li><a href="#Modifying_the_FlyingPawn_.h_and_.cpp">2 Modifying the FlyingPawn .h and .cpp</a></li> <li><a href="#Creating_the_projectile_Blueprint">3 Creating the projectile Blueprint</a></li> <li><a href="#Adding_the_projectile_blueprint_to_the_Ship_Blueprint">4 Adding the projectile blueprint to the Ship Blueprint</a></li></ul> <h2 id="grabbing-the-projectile-h-and-cpp"><a href="#grabbing-the-projectile-h-and-cpp" class="header-anchor">#</a> Grabbing the projectile .h and .cpp</h2> <p>I suggest just copying the FirstPersonProjectile.h &amp; FirstPersonProjectile.cpp files from the First Person Shooter template and using those in the Flying project.</p> <p>Place the .h file in your Flying / Classes folder and .cpp files in Flying/Private. The top of FirstPersonProjectile.cpp has an #include for the first person game. Instead, we want it to point towards our current game: Flying.h. Replace what is currently there, with:</p> <p>#include &quot;Flying.h&quot;</p> <h2 id="modifying-the-flyingpawn-h-and-cpp"><a href="#modifying-the-flyingpawn-h-and-cpp" class="header-anchor">#</a> Modifying the FlyingPawn .h and .cpp</h2> <p>Inside your AFlyingPawn constructor, you need to add the MuzzleOffset for your projectile.</p> <p>AFlyingPawn::AFlyingPawn(const class FPostConstructInitializeProperties&amp; PCIP)
+: Super(PCIP)
+{
+…..
+// Default offset from the camera location for projectiles to spawn
+MuzzleOffset = FVector(80.0f, 0.0f, -30.0f);
+ 
+// Note: The ProjectileClass and the skeletal mesh/anim blueprints for FlyingPawn are set in the
+// derived blueprint asset named ShipBP (to avoid direct content references in C++)
+….
+}</p> <p>The numbers for the vector are irrelevant for the moment, but you can always go back and tweak them later from within the Blueprint.</p> <p>We need to create an input action for firing our projectile now. Within <strong>SetupPalyerInputComponent</strong>, add the following:</p> <p>void AFlyingPawn::SetupPlayerInputComponent(class UInputComponent* InputComponent)
+{
+….
+BIND_ACTION(InputComponent, &quot;Fire&quot;,		   IE_Pressed,  &amp;AFlyingPawn::OnFire);
+….
+}</p> <p><strong>&quot;Fire&quot;</strong> is the name of the input action we are about to create. <strong>IE_Pressed</strong> is the input enumeration for when we want the event to occur. This could be triggered either when we click on a key, or release the key. (IE_Released)</p> <p><strong>&amp;AFlyingPawn::OnFire</strong> is name of the method called on this object when the left-mouse button is clicked. We're passing it as a C++ method pointer, hence the pointer symbol &quot;&amp;&quot; and the class name in which the method exists in, so that's why we have <strong>AFlyingPawn::</strong>. The macro actually expands to <strong>InputComponent-&gt;BindAction(&quot;Fire&quot;, IE_PRESSED, this, &amp;AFlyingPawn::OnFire);</strong> but can be considered as more descriptive. This and similar macros are defined in &quot;InputComponent.h&quot; in the engine source code.</p> <p>Within the Rocket Editor, in the top left corner, left-click on <strong>Edit -&gt; Project Settings.</strong> Under the Engine category, left-click on &quot;Input&quot;. Left-click on Action Mappings, then the arrow next to the first item in the array (0). This will allow you to bind key mappings to a string (Action Name).</p> <p><strong>Action Name:</strong> Fire <strong>Key:</strong> LeftMouseButton</p> <p><a href="/index.php?title=Special:Upload&amp;wpDestFile=Projectile1" title="File:Projectile1">File:Projectile1</a></p> <p>Leave Shift, Ctrl, and Alt unchecked, then click &quot;Save As Defaults&quot; in the top of the page. See why we called it &quot;Fire&quot; now?</p> <p>Back in Visual Studio, we need to add the OnFire function. Place this code just beneath <strong>SetUpPlayerInputComponent</strong> in <strong>FlyingPawn.cpp:</strong></p> <p>void AFlyingPawn::OnFire()
+{
+// try and fire a projectile
+if (ProjectileClass != NULL)
+{
+// Get the camera transforms
+FVector  CameraLoc;
+FRotator CameraRot;
+GetActorEyesViewPoint(CameraLoc, CameraRot);
+ 
+// MuzzleOffset is in camera space, so transform it to world space before offsetting from the camera to find the   final muzzle position
+FVector const MuzzleLocation = CameraLoc + FTransform(CameraRot).TransformVector(MuzzleOffset);
+FRotator MuzzleRotation	  = CameraRot;
+MuzzleRotation.Pitch		  += 10.0f;			// skew the aim upwards a bit
+ 
+UWorld* const World = GetWorld();
+if (World)
+{
+FActorSpawnParameters SpawnParams;
+SpawnParams.Owner	   = this;
+SpawnParams.Instigator = Instigator;
+ 
+// spawn the projectile at the muzzle
+AFirstpersonProjectile* Projectile = World-&gt;SpawnActor&lt;AFirstpersonProjectile&gt;(ProjectileClass, MuzzleLocation, MuzzleRotation, SpawnParams);
+if (Projectile)
+{
+// find launch direction
+FVector const LaunchDir = MuzzleRotation.Vector();
+Projectile-&gt;InitVelocity(LaunchDir);
+ 
+}
+}
+}
+}</p> <p>It's all pretty well documented, but if you would like more clarification, let me know and I can write more comments in there. Our work here is done, so now it's time to head to <strong>FlyingPawn.h.</strong> Add this Uproperty beneath the public section of your header:</p> <p>/** Gun muzzle's offset from the camera location */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
+FVector MuzzleOffset;
+ 
+/** Projectile class to spawn */
+UPROPERTY(EditDefaultsOnly, Category=Projectile)
+ 
+TSubclassOf&lt;class AFirstpersonProjectile&gt; ProjectileClass;</p> <p>Just beneath that, we also want to add the OnFire function we created in the .cpp file:</p> <p>/* Called when the Fire Key is pressed */
+UFUNCTION()
+void OnFire();</p> <p>The hard part is over -- now we can just focus on what we're doing in the Rocket editor. Save and build your project. I also recently found out that you can debug the project directly from Visual Studio, which should make things far easier for you if you're trying to figure out why the projectile is not working. From the Debug pulldown in Visual studio, select <strong>&quot;Debug Editor&quot;</strong> and press F5 to launch a new instance of the Rocket Editor. Any breakpoints you set in Visual Studio now will work when playing your game within Rocket.</p> <h2 id="creating-the-projectile-blueprint"><a href="#creating-the-projectile-blueprint" class="header-anchor">#</a> Creating the projectile Blueprint</h2> <p>In the Content Browser, right-click and select the option for &quot;Basic Assets -&gt; Blueprint&quot; A pop-up will appear, asking you to pick a parent class. It will allow you to type in the name of the custom object you're looking for as well. Type in &quot;Projectile&quot; and your FirstPersonProjectile should appear. Double click and a new blueprint should appear in the content browser.</p> <p>Double click on that Blueprint to see the editor. In the top right corner, select <strong>&quot;Components&quot;</strong>, in the area where it says <strong>Defaults &gt; Components &gt; Graph.</strong> We want to add a new Static Mesh component, so that we can actually see our projectile within the game. The First Person Template has an identical blueprint, so if you are lost at any point, take a look at the one there.</p> <p>Around the top left corner, click on <strong>&quot;Add Component&quot;</strong> and a dropdown will appear. Left-click on &quot;Static Mesh&quot;. A details panel will appear. Beneath the section for <strong>Static Mesh,</strong> click on the area next to the empty image. It should read: &quot;None&quot;. From here, type in <strong>&quot;Sphere&quot;</strong>, then scroll down. Towards the bottom you will see &quot;Sphere&quot; with the words &quot;Static Mesh&quot; beneath it. That's what we want.</p> <p>In the top-right corner, click on the &quot;<strong>Defaults&quot;</strong> button. A &quot;Blueprints Defaults&quot; panel should appear. Within the <strong>Collision section</strong>, we want Collision Presets to be set to: Projectile. In the top left corner, left-click on <strong>Compile</strong>, then Save. Back in the Content Browser within the main Rocket Editor, right click on our Blueprint, then rename it to Projectile.</p> <h2 id="adding-the-projectile-blueprint-to-the-ship-blueprint"><a href="#adding-the-projectile-blueprint-to-the-ship-blueprint" class="header-anchor">#</a> Adding the projectile blueprint to the Ship Blueprint</h2> <p>Double click on the <strong>ShipBp</strong> to open it up. Beneath the section marked &quot;Projectile&quot; you ill see a <strong>Projectile</strong> Class property. Set it to &quot;Projectile&quot;, and NOT FirstPersonProjectile.</p> <p>Remember that muzzle offset we created within the FlyingPawn.cpp file before? Well it appears here now, because we exposed it as a public UPROPERTY. This is where the projectile will be fired from. If you left it as-is, then the projectiles should fire from the front of the ship.</p> <p>In the top-left corner, click on <strong>compile and save.</strong> The last step is to compile the who project from within the Rocket Editor. On the top of the screen, left-click on compile. Wait a few moments and let the project build. You can see in the bottom right corner of the screen that it's compiling your project, as that pop-up should appear.</p> <p>I've noticed that sometimes Rocket can be finicky about compiling, so if it doesn't work right away, trying closing the Editor, then opening it again and compiling. You may also have to have Visual Studio closed when this is compiling within the Editor, too.</p> <p>The final step is to click &quot;Play in…&quot; and launch the game. If all went according to plan, then you should be able to left-click on the mouse and see projectiles fire! For an addded effect, trying attaching a particle system component to the projectile, in the same manner that we added the sphere static mesh.</p> <p>If you have any questions, or can think of ways that I can improve this tutorial, then please leave comments here. If I find that these types of tutorials are helpful for people, then I'll write more. Thanks again Rama and Stephen Ellis for all of your time and patience when assisting me to get started with the projectile.</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Projectile_C%2B%2B&amp;oldid=8297" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Projectile_C%2B%2B&amp;oldid=8297<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Pages_with_broken_file_links" title="Category:Pages with broken file links">Pages with broken file links</a></li> <li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/933.98593f41.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/123.c34de5ac.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Bind keyboard and mouse input events dynamically - Epic Wiki</p> <h1 id="bind-keyboard-and-mouse-input-events-dynamically"><a href="#bind-keyboard-and-mouse-input-events-dynamically" class="header-anchor">#</a> Bind keyboard and mouse input events dynamically</h1> <p>Hi ,</p> <p>In this tutorial I am going to show you how to bind your input axis and action events in runtime, as in most of today's game , we have the option of customizing keyboard input. So , here I am assuming that you have one datatable imported which contains the following columns :</p> <p>1&gt;Action 2&gt;DefaultInput 3&gt;Input</p> <p>Action is the column which contains the event name , DefaultInput contains the default value the event is bound to(this column is useful only when you hit the RESET button in your key customization menu) , and Input column contains the current input value , which is the value user has saved most recently. You can modify this Input column in your widget class on key pressed event , however , that is a story for another day.</p> <p>Lets move on to our playercharacter class. Include these three namespaces.</p> <ol><li>include &quot;Runtime/Engine/Classes/GameFramework/PlayerInput.h&quot;</li> <li>include &quot;Runtime/Engine/Classes/GameFramework/InputSettings.h&quot;</li> <li>include &quot;Runtime/CoreUObject/Public/UObject/UObjectGlobals.h&quot;</li></ol> <p>Now in your constructor , initialize your datatable , whcih you have to define in the header file</p> <p>static ConstructorHelpers::FObjectFinder<UDataTable> KeyBoardBindingTable_BP(TEXT(&quot;DataTable'/Game/DataTables/KeyboardConfig.KeyboardConfig'&quot;));</UDataTable></p> <p>KeyBoardBindingTable = KeyBoardBindingTable_BP.Object;</p> <p>Now , in your SetupPlayerInputComponent method inside your playercharacter, add the following lines</p> <div class="language- extra-class"><pre><code>check(InputComponent);
+const UInputSettings\* InputSettings = GetDefault&lt;UInputSettings&gt;();
+int rowindex = 1;
+while (true)
+{
+	FKeyBoardBindingTable\* LookUpRow = KeyBoardBindingTable-&gt;FindRow&lt;FKeyBoardBindingTable&gt;(FName(\*FString::FromInt(rowindex)), TEXT(&quot;Look Up&quot;));
+	if (LookUpRow)
+	{
+		if (LookUpRow-&gt;Action == &quot;Move Forward&quot;)
+		{
+			const FInputAxisKeyMapping axismapping(FName(&quot;Move Forward&quot;), FKey(FName(\*LookUpRow-&gt;Input)), 1);
+			((UInputSettings\*)InputSettings)-&gt;AddAxisMapping(axismapping);
+		}
+		else if (LookUpRow-&gt;Action == &quot;Move Backward&quot;)
+		{
+			const FInputAxisKeyMapping axismapping(FName(&quot;Move Forward&quot;), FKey(FName(\*LookUpRow-&gt;Input)), -1);
+			((UInputSettings\*)InputSettings)-&gt;AddAxisMapping(axismapping);
+
+		}
+		else if (LookUpRow-&gt;Action == &quot;Move Left&quot;)
+		{
+			const FInputAxisKeyMapping axismapping(FName(&quot;Move Right&quot;), FKey(FName(\*LookUpRow-&gt;Input)), -1);
+			((UInputSettings\*)InputSettings)-&gt;AddAxisMapping(axismapping);
+		}
+		else if (LookUpRow-&gt;Action == &quot;Move Right&quot;)
+		{
+			const FInputAxisKeyMapping axismapping(FName(&quot;Move Right&quot;), FKey(FName(\*LookUpRow-&gt;Input)), 1);
+			((UInputSettings\*)InputSettings)-&gt;AddAxisMapping(axismapping);
+		}
+
+		else
+		{
+			const FInputActionKeyMapping actionmapping(FName(\*LookUpRow-&gt;Action), FKey(FName(\*LookUpRow-&gt;Input)), false, false, false, false);
+			((UInputSettings\*)InputSettings)-&gt;AddActionMapping(actionmapping);
+		}
+		rowindex++;
+
+	}
+	else
+	{
+		break;
+	}
+}
+
+const FInputAxisKeyMapping turnaxismapping(FName(&quot;Turn&quot;), FKey(FName(&quot;MouseX&quot;)), 1);
+((UInputSettings\*)InputSettings)-&gt;AddAxisMapping(turnaxismapping);
+
+const FInputAxisKeyMapping lookupaxismapping(FName(&quot;LookUp&quot;), FKey(FName(&quot;MouseY&quot;)), 1);
+((UInputSettings\*)InputSettings)-&gt;AddAxisMapping(lookupaxismapping);
+
+((UInputSettings\*)InputSettings)-&gt;SaveKeyMappings();
+
+InputComponent-&gt;BindAction(&quot;Jump&quot;, IE\_Pressed, this, &amp;ACharacter::Jump);
+
+InputComponent-&gt;BindAxis(&quot;Move Forward&quot;, this, &amp;AForgottenLegionCharacter::MoveForward);
+InputComponent-&gt;BindAxis(&quot;Move Right&quot;, this, &amp;AForgottenLegionCharacter::MoveRight);
+InputComponent-&gt;BindAxis(&quot;Turn&quot;, this, &amp;APawn::AddControllerYawInput);
+InputComponent-&gt;BindAxis(&quot;LookUp&quot;, this, &amp;APawn::AddControllerPitchInput);
+</code></pre></div><p>That's it. Now every time , you are going to hit &quot;Play&quot; in your editor , the input column will be read from your datatable and saved in your config file , which you can verify by going to Project Settings-&gt;Input section.</p> <p>Enjoy.</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Bind_keyboard_and_mouse_input_events_dynamically&amp;oldid=14313" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Bind_keyboard_and_mouse_input_events_dynamically&amp;oldid=14313<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/123.c34de5ac.js" defer></script>
+  </body>
+</html>

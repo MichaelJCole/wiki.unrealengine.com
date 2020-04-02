@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/468.a16dd2fa.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Dynamic Textures - Epic Wiki</p> <h1 id="dynamic-textures"><a href="#dynamic-textures" class="header-anchor">#</a> Dynamic Textures</h1> <p>Sometimes it's necessary to create a texture at runtime and update its contents. Depending on your particular needs there are a couple different methods:</p> <ul><li>If you need to create a dynamic UTexture2D at runtime and update it efficiently every frame, use UTexture2D::CreateTransient() and copy/paste the following function:</li></ul> <p>NOTE: Currently UE4 doesn't support updating subregions of a texture so you have to update the entire thing every frame or you will end up with garbage in places. In the DX11 runtime the texture creation is done with D3D11_USAGE_DEFAULT not D3D11_USAGE_DYNAMIC.</p> <p>DynamicTexture = UTexture2D::CreateTransient(SizeX, SizeY);
+ 
+// Allocate the texture HRI
+DynamicTexture-&gt;UpdateResource();
+ 
+// Use this function to update the texture rects you want to change:
+// NOTE: There is a method called UpdateTextureRegions in UTexture2D but it is compiled WITH_EDITOR and is not marked as ENGINE_API so it cannot be linked
+// from plugins.
+ 
+void UpdateTextureRegions(UTexture2D* Texture, int32 MipIndex, uint32 NumRegions, FUpdateTextureRegion2D* Regions, uint32 SrcPitch, uint32 SrcBpp, uint8* SrcData, bool bFreeData)
+{
+if (Texture-&gt;Resource)
+{
+struct FUpdateTextureRegionsData
+{
+FTexture2DResource* Texture2DResource;
+int32 MipIndex;
+uint32 NumRegions;
+FUpdateTextureRegion2D* Regions;
+uint32 SrcPitch;
+uint32 SrcBpp;
+uint8* SrcData;
+};
+ 
+FUpdateTextureRegionsData* RegionData = new FUpdateTextureRegionsData;
+ 
+RegionData-&gt;Texture2DResource = (FTexture2DResource*)Texture-&gt;Resource;
+RegionData-&gt;MipIndex = MipIndex;
+RegionData-&gt;NumRegions = NumRegions;
+RegionData-&gt;Regions = Regions;
+RegionData-&gt;SrcPitch = SrcPitch;
+RegionData-&gt;SrcBpp = SrcBpp;
+RegionData-&gt;SrcData = SrcData;
+ 
+ENQUEUE_UNIQUE_RENDER_COMMAND_TWOPARAMETER(
+UpdateTextureRegionsData,
+FUpdateTextureRegionsData*, RegionData, RegionData,
+bool, bFreeData, bFreeData,
+{
+for (uint32 RegionIndex = 0; RegionIndex &lt; RegionData-&gt;NumRegions; ++RegionIndex)
+{
+int32 CurrentFirstMip = RegionData-&gt;Texture2DResource-&gt;GetCurrentFirstMip();
+if (RegionData-&gt;MipIndex &gt;= CurrentFirstMip)
+{
+RHIUpdateTexture2D(
+RegionData-&gt;Texture2DResource-&gt;GetTexture2DRHI(),
+RegionData-&gt;MipIndex - CurrentFirstMip,
+RegionData-&gt;Regions[RegionIndex],
+RegionData-&gt;SrcPitch,
+RegionData-&gt;SrcData
++ RegionData-&gt;Regions[RegionIndex].SrcY * RegionData-&gt;SrcPitch
++ RegionData-&gt;Regions[RegionIndex].SrcX * RegionData-&gt;SrcBpp
+);
+}
+}
+if (bFreeData)
+{
+FMemory::Free(RegionData-&gt;Regions);
+FMemory::Free(RegionData-&gt;SrcData);
+}
+delete RegionData;
+});
+}
+}</p> <ul><li>If you need to create a dynamic texture and update it a single time you can use this method. Note: After every call to Lock/Unlock you must call UpdateResource(). This deletes the HRI texture and recreates it so it won't be fast but if done infrequently it is simpler to use.</li></ul> <p>Texture = UTexture2D::CreateTransient(SizeX, SizeY);
+FTexture2DMipMap&amp; Mip = [Texture]-&gt;PlatformData-&gt;Mips[Level];
+void* Data = Mip.BulkData.Lock( LOCK_READ_WRITE );
+FMemory::Memcpy( Data, NewData, DataSize );
+Mip.BulkData.Unlock( );
+Texture-&gt;UpdateResource();</p> <ul><li>If you are using Slate, or a Slate viewport to render you can use a FSlateTexture2DRHIRef which can be created from the slate function:</li></ul> <p>FSlateTexture2DRHIRef Texture = MakeShareable(new FSlateTexture2DRHIRef(Width, Height, PF_B8G8R8A8, NULL, TexCreate_Dynamic, bCreateEmptyTexture));</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Dynamic_Textures&amp;oldid=4120" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Dynamic_Textures&amp;oldid=4120<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/468.a16dd2fa.js" defer></script>
+  </body>
+</html>

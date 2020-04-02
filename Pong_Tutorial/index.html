@@ -1,0 +1,3252 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/921.7704d9b0.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Pong Tutorial - Epic Wiki</p> <h1 id="pong-tutorial"><a href="#pong-tutorial" class="header-anchor">#</a> Pong Tutorial</h1> <p><strong>This tutorial was recently finished and due to its length, there may be some grammatical/syntax errors scattered throughout it. If you are going through this and find anything confusing or that you think should be there, please change it! I am certain that I was not able to cover everything.</strong></p> <p>Hi everyone. I recently went through the UE4 code base and created a pong game to help myself become familiarized with the Engine. Just a heads up that I am in no way sure that the implementation of this game follows the best practices for development. However, the goal of this tutorial was to implement everything via C++, which I managed. Hopefully by the end of this tutorial you will have a much better feel for working with the Engine in C++ and also a better feel for how awesome blueprints can be.</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Creating_the_Project">1 Creating the Project</a></li> <li><a href="#Setting_Up_the_World">2 Setting Up the World</a></li> <li><a href="#Creating_the_Assets">3 Creating the Assets</a></li> <li><a href="#Opening_up_the_Code">4 Opening up the Code</a></li> <li><a href="#Creating_the_Background">5 Creating the Background</a> <ul><li><a href="#Background.h">5.1 Background.h</a></li> <li><a href="#Background.cpp">5.2 Background.cpp</a></li></ul></li> <li><a href="#Creating_the_Other_Sprites">6 Creating the Other Sprites</a> <ul><li><a href="#Ball.h">6.1 Ball.h</a></li> <li><a href="#Ball.cpp">6.2 Ball.cpp</a></li> <li><a href="#Paddle.h">6.3 Paddle.h</a></li> <li><a href="#Paddle.cpp">6.4 Paddle.cpp</a></li> <li><a href="#Bounds.h">6.5 Bounds.h</a></li> <li><a href="#Bounds.cpp">6.6 Bounds.cpp</a></li> <li><a href="#Goal.h">6.7 Goal.h</a></li> <li><a href="#Goal.cpp">6.8 Goal.cpp</a></li></ul></li> <li><a href="#Creating_the_GameMode">7 Creating the GameMode</a> <ul><li><a href="#PongGameMode.h">7.1 PongGameMode.h</a></li> <li><a href="#PongGameMode.cpp">7.2 PongGameMode.cpp</a></li></ul></li> <li><a href="#Initializing_the_Background.2FCamera.2FPaddle.2FBall">8 Initializing the Background/Camera/Paddle/Ball</a> <ul><li><a href="#Background">8.1 Background</a> <ul><li><a href="#Background.h_2">8.1.1 Background.h</a></li> <li><a href="#Background.cpp_2">8.1.2 Background.cpp</a></li></ul></li> <li><a href="#PongCamera">8.2 PongCamera</a> <ul><li><a href="#PongCamera.h">8.2.1 PongCamera.h</a></li> <li><a href="#PongCamera.cpp">8.2.2 PongCamera.cpp</a></li></ul></li> <li><a href="#Paddle">8.3 Paddle</a> <ul><li><a href="#Paddle.h_2">8.3.1 Paddle.h</a></li> <li><a href="#Paddle.cpp_2">8.3.2 Paddle.cpp</a></li></ul></li> <li><a href="#Ball">8.4 Ball</a> <ul><li><a href="#Ball.h_2">8.4.1 Ball.h</a></li> <li><a href="#Ball.cpp_2">8.4.2 Ball.cpp</a></li></ul></li> <li><a href="#PongGameMode">8.5 PongGameMode</a> <ul><li><a href="#PongGameMode.h_2">8.5.1 PongGameMode.h</a></li> <li><a href="#PongGameMode.cpp_2">8.5.2 PongGameMode.cpp</a></li></ul></li></ul></li> <li><a href="#Moving_the_Paddle">9 Moving the Paddle</a> <ul><li><a href="#Paddle.h_3">9.1 Paddle.h</a></li> <li><a href="#Paddle.cpp_3">9.2 Paddle.cpp</a></li></ul></li> <li><a href="#Adding_Bounds">10 Adding Bounds</a> <ul><li><a href="#Bounds">10.1 Bounds</a> <ul><li><a href="#Bounds.h_2">10.1.1 Bounds.h</a></li> <li><a href="#Bounds.cpp_2">10.1.2 Bounds.cpp</a></li></ul></li> <li><a href="#Background.h_3">10.2 Background.h</a></li> <li><a href="#Background.cpp_3">10.3 Background.cpp</a></li> <li><a href="#PongGameMode.h_3">10.4 PongGameMode.h</a></li> <li><a href="#PongGameMode.cpp_3">10.5 PongGameMode.cpp</a></li> <li><a href="#Paddle.h_4">10.6 Paddle.h</a></li> <li><a href="#Paddle.cpp_4">10.7 Paddle.cpp</a></li></ul></li> <li><a href="#Creating_the_GameState">11 Creating the GameState</a> <ul><li><a href="#PongGameState.h">11.1 PongGameState.h</a></li> <li><a href="#PongGameState.cpp">11.2 PongGameState.cpp</a></li> <li><a href="#PongGameMode.h_4">11.3 PongGameMode.h</a></li> <li><a href="#PongGameMode.cpp_4">11.4 PongGameMode.cpp</a></li></ul></li> <li><a href="#Adding_Movement_to_the_Ball">12 Adding Movement to the Ball</a> <ul><li><a href="#Ball.h_3">12.1 Ball.h</a></li> <li><a href="#Ball.cpp_3">12.2 Ball.cpp</a></li> <li><a href="#Paddle.h_5">12.3 Paddle.h</a></li> <li><a href="#Paddle.cpp_5">12.4 Paddle.cpp</a></li> <li><a href="#PongGameState.h_2">12.5 PongGameState.h</a></li> <li><a href="#PongGameState.cpp_2">12.6 PongGameState.cpp</a></li></ul></li> <li><a href="#Goals.2FPaddle_AI">13 Goals/Paddle AI</a> <ul><li><a href="#Paddle_2">13.1 Paddle</a> <ul><li><a href="#Paddle.h_6">13.1.1 Paddle.h</a></li> <li><a href="#Paddle.cpp_6">13.1.2 Paddle.cpp</a></li></ul></li> <li><a href="#PaddleAI">13.2 PaddleAI</a> <ul><li><a href="#PaddleAI.h">13.2.1 PaddleAI.h</a></li> <li><a href="#PaddleAI.cpp">13.2.2 PaddleAI.cpp</a></li></ul></li> <li><a href="#Goal">13.3 Goal</a> <ul><li><a href="#Goal.h_2">13.3.1 Goal.h</a></li> <li><a href="#Goal.cpp_2">13.3.2 Goal.cpp</a></li></ul></li> <li><a href="#GameMode">13.4 GameMode</a> <ul><li><a href="#PongGameMode.h_5">13.4.1 PongGameMode.h</a></li> <li><a href="#PongGameMode.cpp_5">13.4.2 PongGameMode.cpp</a></li></ul></li> <li><a href="#GameState">13.5 GameState</a> <ul><li><a href="#PongGameState.h_3">13.5.1 PongGameState.h</a></li> <li><a href="#PongGameState.cpp_3">13.5.2 PongGameState.cpp</a></li></ul></li></ul></li> <li><a href="#Creating_the_HUD_.2F_Finishing_up">14 Creating the HUD / Finishing up</a> <ul><li><a href="#Pong_HUD">14.1 Pong HUD</a> <ul><li><a href="#PongHUD.h">14.1.1 PongHUD.h</a></li> <li><a href="#PongHUD.cpp">14.1.2 PongHUD.cpp</a></li></ul></li> <li><a href="#Paddle.h_7">14.2 Paddle.h</a></li> <li><a href="#Paddle.cpp_7">14.3 Paddle.cpp</a></li> <li><a href="#PaddleAI.h_2">14.4 PaddleAI.h</a></li> <li><a href="#PaddleAI.cpp_2">14.5 PaddleAI.cpp</a></li> <li><a href="#Ball.h_4">14.6 Ball.h</a></li> <li><a href="#Ball.cpp_4">14.7 Ball.cpp</a></li> <li><a href="#PongGameState.h_4">14.8 PongGameState.h</a></li> <li><a href="#PongGameState.cpp_4">14.9 PongGameState.cpp</a></li></ul></li> <li><a href="#Finished">15 Finished</a></li> <li><a href="#All_Source_Files">16 All Source Files</a></li></ul> <h2 id="creating-the-project"><a href="#creating-the-project" class="header-anchor">#</a> Creating the Project</h2> <p>So, this tutorial is being written for version 4.8.0 of the Engine. If you are using an older version, I would recommend upgrading to the latest.</p> <ol><li>Launch the Engine</li> <li>Click on New Project</li> <li>Select Blueprint -&gt; Blank - We just want to start with a completely empty project</li> <li>Target Desktop/Console, Scalable 3D or 2D graphics, and No Starter Content</li> <li>Select a Location for your project and a name - I used Pong</li></ol> <h2 id="setting-up-the-world"><a href="#setting-up-the-world" class="header-anchor">#</a> Setting Up the World</h2> <ol><li>Go to the World Outliner in the right hand corner and delete everything under the World - Atmospheric Fog, Floor, Light Source, etc...</li> <li>Click Save and Save as PongMap</li></ol> <p>Now we have a completely blank project with nothing in the world. So what is next?</p> <h2 id="creating-the-assets"><a href="#creating-the-assets" class="header-anchor">#</a> Creating the Assets</h2> <p>The Following Assets are needed:</p> <p>A Paddle</p> <p>A Background (For the Pong Board)</p> <p>A Ball</p> <p>A Goal</p> <p>A Boundary</p> <p>So for these, I drew them in paint and made the background transparent. You can download the file here:</p> <p><a href="/File:PongAssets.png" title="Pong Assets"><img src="https://d26ilriwvtzlb.cloudfront.net/3/37/PongAssets.png" alt="Pong Assets"></a></p> <p>Or you can create your own.</p> <p>Once you have the .png file containing all of the sprites that you are going to use, drag it into the Content part of the Editor and the .png should be loaded in as a texture.</p> <p>This editor is awesome and allows us to extract the sprites directly from the texture. The editor will handle creating UPaperSprite Objects for us which contain collision/rendering data - how awesome is that?</p> <p>We are still going to have to modify the collision for the Boundaries however. The collision data for it is that of a filled square but we want a hollow square.</p> <ol><li>Double click on the Texture</li> <li>Under Details -&gt; Texture, Expand the Options and for the Filter Select Nearest</li> <li>Save and close</li> <li>Right Click on the Texture and Select Sprite Actions -&gt; Extract Sprites</li> <li>Click Extract. You should now have 5 sprites in your content folder</li> <li>Right Click on the Content Folder and Select New Folder - Call it Sprites</li> <li>Drag the five sprites from the Content Folder to the Sprites Folder -&gt; Select Move Here</li> <li>Rename the black circle to Ball, the black rectangle to Paddle, the large white box to Background, the smaller white rectangle to Goal, and the hollow rectangle to Bounds</li></ol> <p>Now we have the sprites that we need to work with to make the pong game!</p> <h2 id="opening-up-the-code"><a href="#opening-up-the-code" class="header-anchor">#</a> Opening up the Code</h2> <p>Okay, lets open up the code so that we can start to work with our sprites.</p> <ol><li>In the Editor, click on File -&gt; New C++ Class<br>
+We are going to be creating the background first, so we are going to want to extend the Actor class<br>
+Make sure to read up on the Terminology here: <a href="https://docs.unrealengine.com/latest/INT/GettingStarted/Terminology/index.html" target="_blank" rel="noopener noreferrer">https://docs.unrealengine.com/latest/INT/GettingStarted/Terminology/index.html<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></li> <li>Select Actor as the Class to extend and give it the name &quot;Background&quot;</li> <li>Click Create Class<br>
+Your project should be created now. Visual Studio will open up and there should be two .h and .cpp files under Source/Pong - Pong.cpp and Background.cpp</li></ol> <p>Before we get started with Creating the background, we are going to be using Paper2D, so we need to first make sure that we are building the Project with that included.</p> <ol><li>Open Pong/Pong.Build.cs</li> <li>Add &quot;Paper2D&quot; to the PublicDependency ModuleNames</li> <li>It should look like this: <code>PublicDependencyModuleNames.AddRange(new string[] { &quot;Core&quot;, &quot;CoreUObject&quot;, &quot;Engine&quot;, &quot;InputCore&quot;, &quot;Paper2D&quot; });</code> Paper2D will be added as a dependency now.</li> <li>Go back into the Editor and select File -&gt; Refresh Visual Studio Project<br>
+This will update the project so that you can see the Paper2D headers via intellisense.</li></ol> <h2 id="creating-the-background"><a href="#creating-the-background" class="header-anchor">#</a> Creating the Background</h2> <p>So, now we need to get our Background sprite and make it so that the Background Class we created will render the sprite to the screen. In the Unreal Engine, Components are used in order to create a modular way to attach functionality to objects. You can read up on components in the UE4 Documentation here: <a href="https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/Actors/Components/index.html" target="_blank" rel="noopener noreferrer">https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/Actors/Components/index.html<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a><br>
+Really, the documentation is going to be your friend.</p> <p>So, we have a Background Actor and we want to assign the Background Sprite that we made to it. So, lets take a look at the API reference to find out if there is any class pre-made for us that will save us a ton of time. Take a look at the Paper2D API reference here: <a href="https://docs.unrealengine.com/latest/INT/API/Plugins/Paper2D/index.html" target="_blank" rel="noopener noreferrer">https://docs.unrealengine.com/latest/INT/API/Plugins/Paper2D/index.html<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>You'll notice that if you read the description for each of the Classes in the library, you'll find a UPaperSpriteComponent which is defined as: A component that handles rendering and collision for a single instance of a UPaperSprite asset. This is really nice because we can attach this component to our Actor and have it handle all the rendering and collision. We will want this for each of our sprites (We won't want collision for the background, but we can just disable that).</p> <p>So, lets create a UPaperSpriteComponent in our Background Class.</p> <ol><li>Open up Background.h</li> <li>Add <code>const FObjectInitializer&amp; ObjectInitializer</code> into the constructor<br>
+You can see this constructor defined in the generated.h file included if you are curious.</li> <li>Add a private variable <code>class UPaperSpriteComponent* Sprite</code> We are using the class keyword because we are making a forward declaration so that we don't have to include the header file that defines UPaperSpriteComponent - we will include the header in the .cpp.</li> <li>You header should look like this:</li></ol> <h3 id="background-h"><a href="#background-h" class="header-anchor">#</a> Background.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Actor.h&quot;
+#include &quot;Background.generated.h&quot;
+ 
+UCLASS()
+class PONG_API ABackground : public AActor
+{
+GENERATED_BODY()
+ 
+public:	
+// Sets default values for this actor's properties
+ABackground( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+ 
+private:
+ 
+//Reference to the Background Sprite
+class UPaperSpriteComponent* Sprite;
+};</p> <p>Now we want to attach the UPaperSpriteComponent to this Actor in the constructor. We have the Sprite in the header just to have a reference to the Component once we attach it. Now, since we exported the sprites in the editor, there are UPaperSprite objects that are created which we can grab references to.</p> <p>Also, we can create a default UPaperSpriteComponent and attach it to ABackground through the use of the FObjectInitializer object. We can call the method CreateDefaultSubObject which will attach a SubOject to the Actor and register it. This is doing the same thing as adding a component to an actor via the editor. We are just implementing it in C++.</p> <h3 id="background-cpp"><a href="#background-cpp" class="header-anchor">#</a> Background.cpp</h3> <p>The code for this is as follows, your Background.cpp should look similar to this:</p> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;Background.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+ 
+// Sets default values
+ABackground::ABackground( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+//Find the Background Sprite -- Right click on your sprite in the editor and click copy reference to get the path to it
+ConstructorHelpers::FObjectFinder&lt;UPaperSprite&gt; BackgroundSpriteRef( TEXT( &quot;PaperSprite'/Game/Sprites/Background'&quot; ) );
+ 
+//Create a default UPaperSpriteComponent and register it to this Actor
+Sprite = ObjectInitializer.CreateDefaultSubobject&lt;UPaperSpriteComponent&gt;( this, TEXT( &quot;SpriteComp&quot; ) );
+ 
+//Set the Sprite to render for the UPaperSpriteComponent to the BackgroundSprite Reference we grabbed
+Sprite-&gt;SetSprite( BackgroundSpriteRef.Object );
+}
+ 
+// Called when the game starts or when spawned
+void ABackground::BeginPlay()
+{
+Super::BeginPlay();
+ 
+}
+ 
+// Called every frame
+void ABackground::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+}</p> <p>Ok, now we have a background actor that renders to the background sprite we created. Awesome! Lets test it out.</p> <ol><li>Save all your files and compile in the editor</li> <li>In the Content Browser, go to C++ Classes/Pong - Your Background class should be shown in here</li> <li>Drag it out into your world</li></ol> <p>You should now see your sprite in the world. This sprite is going to be used as the background.</p> <h2 id="creating-the-other-sprites"><a href="#creating-the-other-sprites" class="header-anchor">#</a> Creating the Other Sprites</h2> <p>We still need to create classes for the other four sprites in the game - The ball and the paddle. The ball is going to be another class that we add which extends Actor - we need it to have a render target and collision.</p> <ol><li>In the editor, add a C++ class which extends Actor</li> <li>Name it Ball and click Create class</li></ol> <p>We also need a class for the paddle. This class is different in that we are going to be controlling it. So, it is going to have to handle input. For this, we want to extend the Pawn class(The pawn class also extends the Actor Class) which is used when we want to create a controllable object in the world. You might think that the Character Class should be used here instead, but that would be used for a sprite that is going to have animations attached to it. The pong paddle is never going to be animating.</p> <ol><li>in the editor, add a C++ class which extends Pawn</li> <li>Name it Paddle and click Create class</li></ol> <p>The Code for the .h and .cpp of each class is below - you may want to try to implement these by yourself before looking at how it is impelemented below to get a better feel for the syntax of the Unreal Engine.</p> <h3 id="ball-h"><a href="#ball-h" class="header-anchor">#</a> Ball.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Actor.h&quot;
+#include &quot;Ball.generated.h&quot;
+ 
+UCLASS()
+class PONG_API ABall : public AActor
+{
+GENERATED_BODY()
+ 
+public:	
+// Sets default values for this actor's properties
+ABall( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+private:
+ 
+//Reference to the Sprite Component which contains the ball sprite
+class UPaperSpriteComponent* Sprite;
+ 
+};</p> <h3 id="ball-cpp"><a href="#ball-cpp" class="header-anchor">#</a> Ball.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;Ball.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+ 
+// Sets default values
+ABall::ABall( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+//Find the Ball Sprite -- Right click on your sprite in the editor and click copy reference to get the path to it
+ConstructorHelpers::FObjectFinder&lt;UPaperSprite&gt; BallSpriteRef( TEXT( &quot;PaperSprite'/Game/Sprites/Ball'&quot; ) );
+ 
+//Create a default UPaperSpriteComponent and register it to this Actor
+Sprite = ObjectInitializer.CreateDefaultSubobject&lt;UPaperSpriteComponent&gt;( this, TEXT( &quot;SpriteComp&quot; ) );
+ 
+//Set the Sprite to render for the UPaperSpriteComponent to the BallSprite Reference we grabbed
+Sprite-&gt;SetSprite( BallSpriteRef.Object );
+}
+ 
+// Called when the game starts or when spawned
+void ABall::BeginPlay()
+{
+Super::BeginPlay();
+ 
+}
+ 
+// Called every frame
+void ABall::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+}</p> <h3 id="paddle-h"><a href="#paddle-h" class="header-anchor">#</a> Paddle.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Pawn.h&quot;
+#include &quot;Paddle.generated.h&quot;
+ 
+UCLASS()
+class PONG_API APaddle : public APawn
+{
+GENERATED_BODY()
+ 
+public:
+// Sets default values for this pawn's properties
+APaddle( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+// Called to bind functionality to input
+virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+ 
+private:
+ 
+//Reference to the Sprite Component which contains the paddle sprite
+class UPaperSpriteComponent* Sprite;
+ 
+};</p> <h3 id="paddle-cpp"><a href="#paddle-cpp" class="header-anchor">#</a> Paddle.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;Paddle.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+ 
+ 
+// Sets default values
+APaddle::APaddle( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+//Find the Paddle Sprite -- Right click on your sprite in the editor and click copy reference to get the path to it
+ConstructorHelpers::FObjectFinder&lt;UPaperSprite&gt; PaddleSpriteRef( TEXT( &quot;PaperSprite'/Game/Sprites/Paddle'&quot; ) );
+ 
+//Create a default UPaperSpriteComponent and register it to this Actor
+Sprite = ObjectInitializer.CreateDefaultSubobject&lt;UPaperSpriteComponent&gt;( this, TEXT( &quot;SpriteComp&quot; ) );
+ 
+//Set the Sprite to render for the UPaperSpriteComponent to the PaddleSprite Reference we grabbed
+Sprite-&gt;SetSprite( PaddleSpriteRef.Object );
+}
+ 
+// Called when the game starts or when spawned
+void APaddle::BeginPlay()
+{
+Super::BeginPlay();
+ 
+}
+ 
+// Called every frame
+void APaddle::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+}
+ 
+// Called to bind functionality to input
+void APaddle::SetupPlayerInputComponent(class UInputComponent* InputComponent)
+{
+Super::SetupPlayerInputComponent(InputComponent);
+ 
+}</p> <h3 id="bounds-h"><a href="#bounds-h" class="header-anchor">#</a> Bounds.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Actor.h&quot;
+#include &quot;Bounds.generated.h&quot;
+ 
+UCLASS()
+class PONG_API ABounds : public AActor
+{
+GENERATED_BODY()
+ 
+public:	
+// Sets default values for this actor's properties
+ABounds( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+ 
+private:
+ 
+//Reference to the Component that holds the Bounds Sprite.
+class UPaperSpriteComponent* Sprite;
+};</p> <h3 id="bounds-cpp"><a href="#bounds-cpp" class="header-anchor">#</a> Bounds.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;Bounds.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+ 
+// Sets default values
+ABounds::ABounds( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+//Find the Bounds Sprite -- Right click on your sprite in the editor and click copy reference to get the path to it
+ConstructorHelpers::FObjectFinder&lt;UPaperSprite&gt; BoundsSpriteRef( TEXT( &quot;PaperSprite'/Game/Sprites/Bounds'&quot; ) );
+ 
+//Create a default UPaperSpriteComponent and register it to this Actor
+Sprite = ObjectInitializer.CreateDefaultSubobject&lt;UPaperSpriteComponent&gt;( this, TEXT( &quot;SpriteComp&quot; ) );
+ 
+//Set the Sprite to render for the UPaperSpriteComponent to the BoundsSprite Reference we grabbed
+Sprite-&gt;SetSprite( BoundsSpriteRef.Object );
+}
+ 
+// Called when the game starts or when spawned
+void ABounds::BeginPlay()
+{
+Super::BeginPlay();
+ 
+}
+ 
+// Called every frame
+void ABounds::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+}</p> <h3 id="goal-h"><a href="#goal-h" class="header-anchor">#</a> Goal.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Actor.h&quot;
+#include &quot;Goal.generated.h&quot;
+ 
+UCLASS()
+class PONG_API AGoal : public AActor
+{
+GENERATED_BODY()
+ 
+public:	
+// Sets default values for this actor's properties
+AGoal( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+ 
+private:
+ 
+//Reference to the Sprite that represents a pong goal area
+class UPaperSpriteComponent* Sprite;
+ 
+};</p> <h3 id="goal-cpp"><a href="#goal-cpp" class="header-anchor">#</a> Goal.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;Goal.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+ 
+// Sets default values
+AGoal::AGoal( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+//Find the Goal Sprite -- Right click on your sprite in the editor and click copy reference to get the path to it
+ConstructorHelpers::FObjectFinder&lt;UPaperSprite&gt; GoalSpriteRef( TEXT( &quot;PaperSprite'/Game/Sprites/Goal'&quot; ) );
+ 
+//Create a default UPaperSpriteComponent and register it to this Actor
+Sprite = ObjectInitializer.CreateDefaultSubobject&lt;UPaperSpriteComponent&gt;( this, TEXT( &quot;SpriteComp&quot; ) );
+ 
+//Set the Sprite to render for the UPaperSpriteComponent to the GoalSprite Reference we grabbed
+Sprite-&gt;SetSprite( GoalSpriteRef.Object );
+ 
+}
+ 
+// Called when the game starts or when spawned
+void AGoal::BeginPlay()
+{
+Super::BeginPlay();
+ 
+}
+ 
+// Called every frame
+void AGoal::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+}</p> <h2 id="creating-the-gamemode"><a href="#creating-the-gamemode" class="header-anchor">#</a> Creating the GameMode</h2> <p>When we start up our game, we are going to want our own custom GameMode override. This is where we will set the DefaultPawnClass, the GameStateClass, and the HudClass. We can also do some initialization here for the game.</p> <ol><li>Create a C++ class that extends GameMode, call it PongGameMode</li> <li>In the constructor set the DefaultPawnClass to APaddle::StaticClass()<br>
+This is going to make it so that when you start to play the game, APaddle is spawned which will be the default player-controlled object. You'll notice that there are a bunch of different Objects created in the world by default when you hit play. We are going to be creating custom classes for most of these.</li> <li>We are going to override the StartPlay() function contained in GameMode.h - You should view the header files to get a feel for all the different functions that you can override</li></ol> <h3 id="ponggamemode-h"><a href="#ponggamemode-h" class="header-anchor">#</a> PongGameMode.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/GameMode.h&quot;
+#include &quot;PongGameMode.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS()
+class PONG_API APongGameMode : public AGameMode
+{
+GENERATED_BODY()
+ 
+public:
+//Constructor where we set the default classes to initialize
+APongGameMode( const FObjectInitializer&amp; ObjectInitializer );
+ 
+//Function called to spawn our pawn objects into the world
+virtual void StartPlay() override;
+};</p> <h3 id="ponggamemode-cpp"><a href="#ponggamemode-cpp" class="header-anchor">#</a> PongGameMode.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;PongGameMode.h&quot;
+#include &quot;Paddle.h&quot;
+ 
+ 
+ 
+APongGameMode::APongGameMode( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+DefaultPawnClass = APaddle::StaticClass();
+}
+ 
+ 
+void APongGameMode::StartPlay()
+{
+ 
+Super::StartPlay();
+Super::StartMatch();
+}</p> <ol><li>Save/Compile</li> <li>In the editor, on the right side under World Settings, Set the GameMode Override to PongGameMode</li> <li>Save</li></ol> <p>Now when you hit Play, A Paddle should be spawned into the game. This is because the PongGameMode creates the default Pawn to spawn as the Paddle.</p> <h2 id="initializing-the-background-camera-paddle-ball"><a href="#initializing-the-background-camera-paddle-ball" class="header-anchor">#</a> Initializing the Background/Camera/Paddle/Ball</h2> <p>We have a GameMode, Camera, Background, Ball, and Paddle. So now we need to actually spawn all of these actors into our world. To do this, we can make a call <code>GetWorld()-&gt;SpawnActor</code> We will use this to create the Camera.Background, and the Ball. We will also set the PongCameraActor that we spawn to be our focused view. When we spawn the background, we are also going to want to set it's size to take up the entire view that we are looking at, so we will have to make some functions in the PongCameraActor/Background classes in order to help us do that.</p> <h3 id="background"><a href="#background" class="header-anchor">#</a> Background</h3> <p>For the background, we are going to want a way to set the width/height of the background sprite. So, three functions were created to handle doing this - SetHeight, SetWidth, and SetDimensions</p> <h4 id="background-h-2"><a href="#background-h-2" class="header-anchor">#</a> Background.h</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Actor.h&quot;
+#include &quot;Background.generated.h&quot;
+ 
+UCLASS()
+class PONG_API ABackground : public AActor
+{
+GENERATED_BODY()
+ 
+public:	
+// Sets default values for this actor's properties
+ABackground( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+// Set the Width of this sprite
+void SetWidth( float Width );
+ 
+// Set the Height of this sprite
+void SetHeight( float Height );
+ 
+// Set the Width and Height of this sprite via a FVector2D
+void SetDimensions( FVector2D&amp; Dimensions );
+ 
+private:
+ 
+//Reference to the Background Sprite
+class UPaperSpriteComponent* Sprite;
+};</p> <h4 id="background-cpp-2"><a href="#background-cpp-2" class="header-anchor">#</a> Background.cpp</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;Background.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+ 
+// Sets default values
+ABackground::ABackground( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+//Find the Background Sprite -- Right click on your sprite in the editor and click copy reference to get the path to it
+ConstructorHelpers::FObjectFinder&lt;UPaperSprite&gt; BackgroundSpriteRef( TEXT( &quot;PaperSprite'/Game/Sprites/Background'&quot; ) );
+ 
+//Create a default UPaperSpriteComponent and register it to this Actor
+Sprite = ObjectInitializer.CreateDefaultSubobject&lt;UPaperSpriteComponent&gt;( this, TEXT( &quot;SpriteComp&quot; ) );
+ 
+//Set the Sprite to render for the UPaperSpriteComponent to the BackgroundSprite Reference we grabbed
+Sprite-&gt;SetSprite( BackgroundSpriteRef.Object );
+}
+ 
+// Called when the game starts or when spawned
+void ABackground::BeginPlay()
+{
+Super::BeginPlay();
+ 
+}
+ 
+// Called every frame
+void ABackground::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+}
+ 
+// Set the Width of this sprite
+void ABackground::SetWidth( float Width )
+{
+//calculate the new X scale value
+float sourceWidth = Sprite-&gt;GetSprite()-&gt;GetSourceSize().X;
+float scale;
+ 
+//Scale must be &gt; 1 is the sourceWidth &lt; Width and &lt; 1 in the other case
+if ( Width &lt;= sourceWidth )
+{
+scale = sourceWidth / Width;
+}
+else
+{
+scale = Width / sourceWidth;
+}
+ 
+//Update the current scale with the new value
+FVector scaleV = Sprite-&gt;RelativeScale3D;
+scaleV.X = scale;
+Sprite-&gt;SetRelativeScale3D( scaleV );
+}
+ 
+// Set the Height of this sprite
+void ABackground::SetHeight( float Height )
+{
+//calculate the new Z scale value (Camera is orientated so that Z is up/down)
+float sourceHeight = Sprite-&gt;GetSprite()-&gt;GetSourceSize().Y;
+float scale;
+ 
+//Scale must be &gt; 1 is the sourceHeight &lt; Height and &lt; 1 in the other case
+if ( Height &lt;= sourceHeight )
+{
+scale = sourceHeight / Height;
+}
+else
+{
+scale = Height / sourceHeight;
+}
+ 
+//Update the current scale with the new value
+FVector scaleV = Sprite-&gt;RelativeScale3D;
+scaleV.Z = scale;
+Sprite-&gt;SetRelativeScale3D( scaleV );
+}
+ 
+//Wrapper around SetHeight and SetWidth for a FVector2D
+void ABackground::SetDimensions( FVector2D&amp; Dimensions )
+{
+SetWidth( Dimensions.X );
+SetHeight( Dimensions.Y );
+}</p> <h3 id="pongcamera"><a href="#pongcamera" class="header-anchor">#</a> PongCamera</h3> <p>First, we need to create the class.</p> <ol><li>Go into the Editor, select New C++ Class</li> <li>Click the CheckBox for Showing All the Classes</li> <li>Search for and Select &quot;CameraActor&quot;</li> <li>Call your new class PongCamera</li> <li>Create</li></ol> <p>Since we are making a 2D type of game, we are going to want to use an Orthographic perspective. The reason for this is that we won't have to worry about the depth of the objects too much (In this game, the y-axis is being used to represent the depth)</p> <p>By extending the CameraActor class, we will default get a CameraComponent constructed onto our Actor. So, we need to run some initialization on this Class. Also, we need to create a function to get the Dimensions that we can use to set our background object. So, lets make this class.</p> <h4 id="pongcamera-h"><a href="#pongcamera-h" class="header-anchor">#</a> PongCamera.h</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;Camera/CameraActor.h&quot;
+#include &quot;PongCamera.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS( )
+class PONG_API APongCamera : public ACameraActor
+{
+GENERATED_BODY( )
+ 
+public:
+ 
+APongCamera( const FObjectInitializer&amp; ObjectInitializer );
+ 
+//Get a 2D vector representing the Height/Width of what is being current displayed on the screen
+FVector2D GetViewDimensions();
+ 
+};</p> <h4 id="pongcamera-cpp"><a href="#pongcamera-cpp" class="header-anchor">#</a> PongCamera.cpp</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;PongCamera.h&quot;
+ 
+ 
+APongCamera::APongCamera( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+UCameraComponent* Camera = GetCameraComponent();
+ 
+//Set the Camera To Orthographic.  Also set the Location and Rotation on the Camera: X is left and right, Z is up and down, Y is depth relative to this camera
+Camera-&gt;ProjectionMode = ECameraProjectionMode::Orthographic;
+Camera-&gt;SetRelativeLocation( FVector( 0.0f, 100.0f, 0.0f ) );
+Camera-&gt;SetRelativeRotation( FRotator( 0.0f, -90.0f, 0.0f ) );
+Camera-&gt;SetAbsolute( true, true, true );
+ 
+}
+ 
+//Get the Dimensions of what our camera can view
+FVector2D APongCamera::GetViewDimensions()
+{
+UCameraComponent* Camera = GetCameraComponent();
+FVector2D dimensions;
+ 
+//The width is the Orthographic view Width.  Calculate the height from the Aspect ratio and OrthoWidth
+dimensions.X = Camera-&gt;OrthoWidth;
+dimensions.Y = 1 / ( Camera-&gt;AspectRatio / Camera-&gt;OrthoWidth );
+ 
+return dimensions;
+}</p> <h3 id="paddle"><a href="#paddle" class="header-anchor">#</a> Paddle</h3> <p>For the ball, all we are going to do is set it up to spawn to the left on the board. We also need to remember that our Background has a location of 0,0,0. So, since we want our Paddle to be visible in front of the board, we are going to set the Y value of the paddle to be greater than that of the Background. In this case, we will just set it to 10.</p> <p>Now, we could make a function in the paddle to set the starting location based on the background dimensions or the camera view. But, we are not going to worry about that and we are just going to hard-code in some values. If you want to attempt to initialize the paddle on the left hand side via a function call, it would make for a good practice exercise at this point.</p> <h4 id="paddle-h-2"><a href="#paddle-h-2" class="header-anchor">#</a> Paddle.h</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Pawn.h&quot;
+#include &quot;Paddle.generated.h&quot;
+ 
+UCLASS()
+class PONG_API APaddle : public APawn
+{
+GENERATED_BODY()
+ 
+public:
+// Sets default values for this pawn's properties
+APaddle( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+// Called to bind functionality to input
+virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+ 
+private:
+ 
+//Reference to the Sprite Component which contains the paddle sprite
+class UPaperSpriteComponent* Sprite;
+ 
+};</p> <h4 id="paddle-cpp-2"><a href="#paddle-cpp-2" class="header-anchor">#</a> Paddle.cpp</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;Paddle.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+ 
+ 
+// Sets default values
+APaddle::APaddle( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+//Find the Paddle Sprite -- Right click on your sprite in the editor and click copy reference to get the path to it
+ConstructorHelpers::FObjectFinder&lt;UPaperSprite&gt; PaddleSpriteRef( TEXT( &quot;PaperSprite'/Game/Sprites/Paddle'&quot; ) );
+ 
+//Create a default UPaperSpriteComponent and register it to this Actor
+Sprite = ObjectInitializer.CreateDefaultSubobject&lt;UPaperSpriteComponent&gt;( this, TEXT( &quot;SpriteComp&quot; ) );
+ 
+//Set the Sprite to render for the UPaperSpriteComponent to the PaddleSprite Reference we grabbed
+Sprite-&gt;SetSprite( PaddleSpriteRef.Object );
+}
+ 
+// Called when the game starts or when spawned
+void APaddle::BeginPlay()
+{
+Super::BeginPlay();
+ 
+//Set the location of the Paddle to the Left
+Sprite-&gt;SetRelativeLocation( FVector( -200.0f, 10.f, 0.0f ) );
+Sprite-&gt;SetRelativeRotation( FRotator( 0.f, 0.f, 0.f ) );
+Sprite-&gt;SetRelativeScale3D( FVector( 0.1f, 1.0f, 0.1f ) );
+Sprite-&gt;SetAbsolute( true, true, true );
+}
+ 
+// Called every frame
+void APaddle::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+}
+ 
+// Called to bind functionality to input
+void APaddle::SetupPlayerInputComponent(class UInputComponent* InputComponent)
+{
+Super::SetupPlayerInputComponent(InputComponent);
+ 
+}</p> <h3 id="ball"><a href="#ball" class="header-anchor">#</a> Ball</h3> <p>For the ball, we are going to spawn it right in the middle of the screen instead of to the left with the paddle. This is a very similar setup.</p> <h4 id="ball-h-2"><a href="#ball-h-2" class="header-anchor">#</a> Ball.h</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Actor.h&quot;
+#include &quot;Ball.generated.h&quot;
+ 
+UCLASS()
+class PONG_API ABall : public AActor
+{
+GENERATED_BODY()
+ 
+public:	
+// Sets default values for this actor's properties
+ABall( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+private:
+ 
+//Reference to the Sprite Component which contains the ball sprite
+class UPaperSpriteComponent* Sprite;
+ 
+};</p> <h4 id="ball-cpp-2"><a href="#ball-cpp-2" class="header-anchor">#</a> Ball.cpp</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;Ball.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+ 
+// Sets default values
+ABall::ABall( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+//Find the Ball Sprite -- Right click on your sprite in the editor and click copy reference to get the path to it
+ConstructorHelpers::FObjectFinder&lt;UPaperSprite&gt; BallSpriteRef( TEXT( &quot;PaperSprite'/Game/Sprites/Ball'&quot; ) );
+ 
+//Create a default UPaperSpriteComponent and register it to this Actor
+Sprite = ObjectInitializer.CreateDefaultSubobject&lt;UPaperSpriteComponent&gt;( this, TEXT( &quot;SpriteComp&quot; ) );
+ 
+//Set the Sprite to render for the UPaperSpriteComponent to the BallSprite Reference we grabbed
+Sprite-&gt;SetSprite( BallSpriteRef.Object );
+}
+ 
+// Called when the game starts or when spawned
+void ABall::BeginPlay()
+{
+Super::BeginPlay();
+ 
+//Set the ball to spawn in the middle of the Board and scale its size down
+Sprite-&gt;SetRelativeLocation( FVector( 0.0f, 10.0f, 0.0f ) );
+Sprite-&gt;SetRelativeScale3D( FVector( 0.07f, 1.0f, 0.07f ) );
+Sprite-&gt;SetAbsolute( true, true, true );
+}
+ 
+// Called every frame
+void ABall::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+}</p> <h3 id="ponggamemode"><a href="#ponggamemode" class="header-anchor">#</a> PongGameMode</h3> <p>Finally, we are going to actually spawn everything in the GameMode's StartPlay() function. This is where we are going to tie the background and camera together too.</p> <h4 id="ponggamemode-h-2"><a href="#ponggamemode-h-2" class="header-anchor">#</a> PongGameMode.h</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/GameMode.h&quot;
+#include &quot;PongGameMode.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS()
+class PONG_API APongGameMode : public AGameMode
+{
+GENERATED_BODY()
+ 
+public:
+//Constructor where we set the default classes to initialize
+APongGameMode( const FObjectInitializer&amp; ObjectInitializer );
+ 
+//Function called to spawn our pawn objects into the world
+virtual void StartPlay() override;
+};</p> <h4 id="ponggamemode-cpp-2"><a href="#ponggamemode-cpp-2" class="header-anchor">#</a> PongGameMode.cpp</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;PongGameMode.h&quot;
+#include &quot;Paddle.h&quot;
+#include &quot;PongCamera.h&quot;
+#include &quot;Background.h&quot;
+#include &quot;Ball.h&quot;
+ 
+APongGameMode::APongGameMode( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+DefaultPawnClass = APaddle::StaticClass();
+ 
+}
+ 
+ 
+void APongGameMode::StartPlay()
+{
+Super::StartPlay( );
+UWorld* const World = GetWorld();
+if ( World )
+{
+APongCamera* camera = World-&gt;SpawnActor&lt;APongCamera&gt;( APongCamera::StaticClass() );
+ 
+//Camera is set to the CameraActor created
+World-&gt;GetFirstPlayerController()-&gt;SetViewTarget( camera );
+ 
+//Set the background to fill up the entire view of the camera
+ABackground* background = World-&gt;SpawnActor&lt;ABackground&gt;( ABackground::StaticClass() );
+FVector2D dimensions = camera-&gt;GetViewDimensions();
+background-&gt;SetDimensions( dimensions );
+ 
+//Spawn the Ball into the World
+World-&gt;SpawnActor&lt;ABall&gt;( ABall::StaticClass() );
+}
+ 
+Super::StartMatch();
+}</p> <p>Play the game and you should see a Pong game in the works! There should be a paddle, a ball, and a background in your view.</p> <h2 id="moving-the-paddle"><a href="#moving-the-paddle" class="header-anchor">#</a> Moving the Paddle</h2> <p>So, now we need to make it where we can move the paddle up and down. To do this, we are going to bind the up and down arrow keys to call a function within the Paddle class. So, lets set this up.</p> <ol><li>In the editor, go to Edit -&gt; Project Settings</li> <li>Under Engine go to Input</li> <li>Create a new Axis Mapping and Call it &quot;Move&quot;</li> <li>Create two mappings under the group</li> <li>For the first one, select the Up key and set the scale to 1.0</li> <li>For the second one, select the Down Key and set the scale to -1.0</li> <li>Exit out of the Settings</li></ol> <p>Go back to Visual Studio and open up Paddle.cpp. We are going to modify this class to handle the input. Now, it may be the case where you want to create your own custom movement component and custom player controller. We are not going to do this because the paddle has very basic movement functionality that can be handled with ease inside the paddle class. I am mentioning this because if you are going to create more complex handling of the Player's will, then you might want your own playercontroller. You can read more on it here: <a href="https://docs.unrealengine.com/latest/INT/Gameplay/Framework/Controller/PlayerController/" target="_blank" rel="noopener noreferrer">https://docs.unrealengine.com/latest/INT/Gameplay/Framework/Controller/PlayerController/<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>Ok, now lets bind the input key to our paddle and update the movement of the paddle within the Tick function, please read the comments in the code to see how this is working.</p> <h3 id="paddle-h-3"><a href="#paddle-h-3" class="header-anchor">#</a> Paddle.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Pawn.h&quot;
+#include &quot;Paddle.generated.h&quot;
+ 
+UCLASS()
+class PONG_API APaddle : public APawn
+{
+GENERATED_BODY()
+ 
+public:
+// Sets default values for this pawn's properties
+APaddle( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+// Called to bind functionality to input
+virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+ 
+// Function called to move the paddle.  Scale represents up/down
+void MovePaddle( float Scale );
+ 
+private:
+ 
+//Reference to the Sprite Component which contains the paddle sprite
+class UPaperSpriteComponent* Sprite;
+ 
+};</p> <h3 id="paddle-cpp-3"><a href="#paddle-cpp-3" class="header-anchor">#</a> Paddle.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;Paddle.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+ 
+ 
+// Sets default values
+APaddle::APaddle( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+//Find the Paddle Sprite -- Right click on your sprite in the editor and click copy reference to get the path to it
+ConstructorHelpers::FObjectFinder&lt;UPaperSprite&gt; PaddleSpriteRef( TEXT( &quot;PaperSprite'/Game/Sprites/Paddle'&quot; ) );
+ 
+//Create a default UPaperSpriteComponent and register it to this Actor
+Sprite = ObjectInitializer.CreateDefaultSubobject&lt;UPaperSpriteComponent&gt;( this, TEXT( &quot;SpriteComp&quot; ) );
+ 
+//Set the Sprite to render for the UPaperSpriteComponent to the PaddleSprite Reference we grabbed
+Sprite-&gt;SetSprite( PaddleSpriteRef.Object );
+ 
+ObjectInitializer.CreateDefaultSubobject&lt;UPawnMovementComponent&gt;( this, TEXT( &quot;MovementComp&quot; ) );
+}
+ 
+// Called when the game starts or when spawned
+void APaddle::BeginPlay()
+{
+Super::BeginPlay();
+ 
+//Set the location of the Paddle to the Left
+Sprite-&gt;SetRelativeLocation( FVector( -200.0f, 10.f, 0.0f ) );
+Sprite-&gt;SetRelativeRotation( FRotator( 0.f, 0.f, 0.f ) );
+Sprite-&gt;SetRelativeScale3D( FVector( 0.1f, 1.0f, 0.1f ) );
+Sprite-&gt;SetAbsolute( true, true, true );
+}
+ 
+// Called every frame
+void APaddle::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+// Update the sprites location based on the movement input
+FVector move = GetMovementInputVector();
+FVector location = GetActorLocation();
+location += move*DeltaTime;
+Sprite-&gt;SetRelativeLocation( location );
+ 
+}
+ 
+// Called to bind functionality to input
+void APaddle::SetupPlayerInputComponent(class UInputComponent* InputComponent)
+{
+Super::SetupPlayerInputComponent(InputComponent);
+ 
+const UInputSettings* settings = GetDefault&lt;UInputSettings&gt;( );
+ 
+//Create movement mappings for upwards and downwards movement, the float value tells if we are moving the paddle up or down
+const FInputAxisKeyMapping upKey(&quot;Move&quot;, EKeys::Up, 1.0f);
+const FInputAxisKeyMapping downKey( &quot;Move&quot;, EKeys::Down, -1.0f );
+ 
+// Add the axis mappings
+// Once this code is executed, these mappings will be added in the editors Input Settings!
+((UInputSettings*)settings)-&gt;AddAxisMapping( upKey );
+((UInputSettings*)settings)-&gt;AddAxisMapping( downKey );
+ 
+// Bind the axis - if we press up, the function is called with 1.0.  if we press down, the function is called with -1.0.
+// if we do nothing, the function is called with 0.0f
+InputComponent-&gt;BindAxis( &quot;Move&quot;, this, &amp;APaddle::MovePaddle );
+ 
+}
+ 
+void APaddle::MovePaddle( float Scale )
+{
+//Add a movement input, hardcoding in 75.0f for the vector
+FVector direction = FVector( 0.0f, 0.0f, 75.0f );
+GetMovementComponent()-&gt;ConsumeInputVector();
+AddMovementInput( direction, Scale );
+}</p> <p>Running this, you'll notice that the paddle moves up and down but there is a problem! It can go straight off the screen. This is the next issue that we'll have to fix.</p> <h2 id="adding-bounds"><a href="#adding-bounds" class="header-anchor">#</a> Adding Bounds</h2> <p>There are three different bounds that need to be added to the Pong game. Bounds for encompassing the border of the gameboard - you don't want the ball to go off screen ever. Also there need to be bounds for the goals when the pong ball counts as a score for the player or AI.</p> <p>There are many ways to go about implementing this and I chose to use some sprites in order to handle collisions/overlap events. This seemed like the easiest way to me to create the necessary data to handle collision. Now we are going to go back into some of the classes created earlier and modify them to handle/generate events that we want.</p> <h3 id="bounds"><a href="#bounds" class="header-anchor">#</a> Bounds</h3> <p>The Bounds Class was modified to have a function to set it's scale (Since the bounds are being generated from a Sprite that is relative to the background Sprite, we want these two Objects to have the same scale). We also want the bounds to be set up for collision correctly. It should Block everything. The position of the Bounds should also be the same as the paddle/ball in the world - This is hardcoded to 50.0 units.</p> <p>Before we go in and modify the code, we need to set the collision to be correct on the sprite itself.</p> <ol><li>Go to the Bounds Sprite in the editor and double click on it</li> <li>Click on Edit Collision</li> <li>You will notice that the collision is set to be a filled rectangle. We DO NOT want this. In order to fix this, we are going to have to modify the collision data of the sprite.</li> <li>Under Collision/Collision Shapes on the right hand side, delete the current collision shape, we do not want it</li> <li>Add Four new collision shapes - Each a rectangle that covers one edge of the sprite. Use the tips in the top-left of the editor for help with how to insert/remove vertices.</li></ol> <p>Once your finished, your collision is probably not going to be perfect, but it will be decent. You can get a feel for working visually with the collision geometry. Now, lets go edit the Bounds Class.</p> <h4 id="bounds-h-2"><a href="#bounds-h-2" class="header-anchor">#</a> Bounds.h</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Actor.h&quot;
+#include &quot;Bounds.generated.h&quot;
+ 
+UCLASS()
+class PONG_API ABounds : public AActor
+{
+GENERATED_BODY()
+ 
+public:	
+// Sets default values for this actor's properties
+ABounds( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+// Set the X,Y, and Z scale for the sprite
+void SetScale( FVector&amp; vector );
+ 
+private:
+ 
+//Reference to the Component that holds the Bounds Sprite.
+class UPaperSpriteComponent* Sprite;
+};</p> <h4 id="bounds-cpp-2"><a href="#bounds-cpp-2" class="header-anchor">#</a> Bounds.cpp</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;Bounds.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+ 
+// Sets default values
+ABounds::ABounds( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+//Find the Bounds Sprite -- Right click on your sprite in the editor and click copy reference to get the path to it
+ConstructorHelpers::FObjectFinder&lt;UPaperSprite&gt; BoundsSpriteRef( TEXT( &quot;PaperSprite'/Game/Sprites/Bounds'&quot; ) );
+ 
+//Create a default UPaperSpriteComponent and register it to this Actor
+Sprite = ObjectInitializer.CreateDefaultSubobject&lt;UPaperSpriteComponent&gt;( this, TEXT( &quot;Bounds&quot; ) );
+ 
+//Set the Sprite to render for the UPaperSpriteComponent to the BoundsSprite Reference we grabbed
+Sprite-&gt;SetSprite( BoundsSpriteRef.Object );
+ 
+//Make sure that this component blocks everything
+Sprite-&gt;GetBodyInstance()-&gt;SetCollisionEnabled( ECollisionEnabled::QueryAndPhysics );
+Sprite-&gt;GetBodyInstance()-&gt;SetObjectType( ECollisionChannel::ECC_WorldStatic );
+ 
+//Don't draw this sprite
+Sprite-&gt;SetVisibility( false );
+ 
+}
+ 
+// Called when the game starts or when spawned
+void ABounds::BeginPlay()
+{
+Super::BeginPlay();
+ 
+//Set the location of the Bounds to be the same as the paddle - This is just hardcoded to 50 units
+Sprite-&gt;SetRelativeLocation( FVector( 0.0f, 50.f, 0.0f ) );
+Sprite-&gt;SetAbsolute( true, true, true );
+ 
+//Ensure that this component's name is &quot;Bounds&quot;
+Rename( TEXT( &quot;Bounds&quot; ) );
+}
+ 
+// Called every frame
+void ABounds::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+}
+ 
+// Set the X,Y, and Z scale for the sprite
+void ABounds::SetScale( FVector&amp; vector )
+{
+Sprite-&gt;SetRelativeScale3D( vector );
+}</p> <p>The Background class was also modified to add in an accessor for the Scale. The GameMode was also updated to spawn the bounds.</p> <h3 id="background-h-3"><a href="#background-h-3" class="header-anchor">#</a> Background.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Actor.h&quot;
+#include &quot;Background.generated.h&quot;
+ 
+UCLASS()
+class PONG_API ABackground : public AActor
+{
+GENERATED_BODY()
+ 
+public:	
+// Sets default values for this actor's properties
+ABackground( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+// Set the Width of this sprite
+void SetWidth( float Width );
+ 
+// Set the Height of this sprite
+void SetHeight( float Height );
+ 
+// Set the Width and Height of this sprite via a FVector2D
+void SetDimensions( FVector2D&amp; Dimensions );
+ 
+// Get the scale
+FVector&amp; GetScale();
+ 
+private:
+ 
+//Reference to the Background Sprite
+class UPaperSpriteComponent* Sprite;
+};</p> <h3 id="background-cpp-3"><a href="#background-cpp-3" class="header-anchor">#</a> Background.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;Background.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+ 
+// Sets default values
+ABackground::ABackground( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+//Find the Background Sprite -- Right click on your sprite in the editor and click copy reference to get the path to it
+ConstructorHelpers::FObjectFinder&lt;UPaperSprite&gt; BackgroundSpriteRef( TEXT( &quot;PaperSprite'/Game/Sprites/Background'&quot; ) );
+ 
+//Create a default UPaperSpriteComponent and register it to this Actor
+Sprite = ObjectInitializer.CreateDefaultSubobject&lt;UPaperSpriteComponent&gt;( this, TEXT( &quot;SpriteComp&quot; ) );
+ 
+//Set the Sprite to render for the UPaperSpriteComponent to the BackgroundSprite Reference we grabbed
+Sprite-&gt;SetSprite( BackgroundSpriteRef.Object );
+}
+ 
+// Called when the game starts or when spawned
+void ABackground::BeginPlay()
+{
+Super::BeginPlay();
+ 
+}
+ 
+// Called every frame
+void ABackground::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+}
+ 
+// Set the Width of this sprite
+void ABackground::SetWidth( float Width )
+{
+//calculate the new X scale value
+float sourceWidth = Sprite-&gt;GetSprite()-&gt;GetSourceSize().X;
+float scale;
+ 
+//Scale must be &gt; 1 is the sourceWidth &lt; Width and &lt; 1 in the other case
+if ( Width &lt;= sourceWidth )
+{
+scale = sourceWidth / Width;
+}
+else
+{
+scale = Width / sourceWidth;
+}
+ 
+//Update the current scale with the new value
+FVector scaleV = Sprite-&gt;RelativeScale3D;
+scaleV.X = scale;
+Sprite-&gt;SetRelativeScale3D( scaleV );
+}
+ 
+// Set the Height of this sprite
+void ABackground::SetHeight( float Height )
+{
+//calculate the new Z scale value (Camera is orientated so that Z is up/down)
+float sourceHeight = Sprite-&gt;GetSprite()-&gt;GetSourceSize().Y;
+float scale;
+ 
+//Scale must be &gt; 1 is the sourceHeight &lt; Height and &lt; 1 in the other case
+if ( Height &lt;= sourceHeight )
+{
+scale = sourceHeight / Height;
+}
+else
+{
+scale = Height / sourceHeight;
+}
+ 
+//Update the current scale with the new value
+FVector scaleV = Sprite-&gt;RelativeScale3D;
+scaleV.Z = scale;
+Sprite-&gt;SetRelativeScale3D( scaleV );
+}
+ 
+//Wrapper around SetHeight and SetWidth for a FVector2D
+void ABackground::SetDimensions( FVector2D&amp; Dimensions )
+{
+SetWidth( Dimensions.X );
+SetHeight( Dimensions.Y );
+}
+ 
+FVector&amp; ABackground::GetScale()
+{
+return Sprite-&gt;RelativeScale3D;
+}</p> <h3 id="ponggamemode-h-3"><a href="#ponggamemode-h-3" class="header-anchor">#</a> PongGameMode.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/GameMode.h&quot;
+#include &quot;PongGameMode.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS()
+class PONG_API APongGameMode : public AGameMode
+{
+GENERATED_BODY()
+ 
+public:
+//Constructor where we set the default classes to initialize
+APongGameMode( const FObjectInitializer&amp; ObjectInitializer );
+ 
+//Function called to spawn our pawn objects into the world
+virtual void StartPlay() override;
+};</p> <h3 id="ponggamemode-cpp-3"><a href="#ponggamemode-cpp-3" class="header-anchor">#</a> PongGameMode.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;PongGameMode.h&quot;
+#include &quot;Paddle.h&quot;
+#include &quot;PongCamera.h&quot;
+#include &quot;Background.h&quot;
+#include &quot;Ball.h&quot;
+#include &quot;Bounds.h&quot;
+#include &quot;Goal.h&quot;
+ 
+APongGameMode::APongGameMode( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+DefaultPawnClass = APaddle::StaticClass();
+ 
+}
+ 
+ 
+void APongGameMode::StartPlay()
+{
+Super::StartPlay( );
+UWorld* const World = GetWorld();
+if ( World )
+{
+APongCamera* camera = World-&gt;SpawnActor&lt;APongCamera&gt;( APongCamera::StaticClass() );
+ 
+//Camera is set to the CameraActor created
+World-&gt;GetFirstPlayerController()-&gt;SetViewTarget( camera );
+ 
+//Set the background to fill up the entire view of the camera
+ABackground* background = World-&gt;SpawnActor&lt;ABackground&gt;( ABackground::StaticClass() );
+FVector2D dimensions = camera-&gt;GetViewDimensions();
+background-&gt;SetDimensions( dimensions );
+ 
+//Spawn the Ball into the World
+World-&gt;SpawnActor&lt;ABall&gt;( ABall::StaticClass() );
+ 
+FVector scale = background-&gt;GetScale();
+ 
+//Spawn the Bounds into the World
+ABounds* bounds = World-&gt;SpawnActor&lt;ABounds&gt;( ABounds::StaticClass() );
+bounds-&gt;SetScale( scale );
+}
+ 
+Super::StartMatch();
+}</p> <p>Finally, we want to make it so that the Paddle is unable to move once it hits the bounds. In order to do this, two booleans will be added to the Paddle header - MoveUp and MoveDown. These will represent when the paddle is able to move up and when the paddle is able to move down. In order to set these values, two functions will need to be overridden - NotifyActorBeginOverlap and NotifyActorEndOverlap. These two functions will be called when the Actor Overlaps with another Actor. In this case, we will be waiting for when the paddle starts to overlap with the bounds and we will force the paddle to stop moving.</p> <h3 id="paddle-h-4"><a href="#paddle-h-4" class="header-anchor">#</a> Paddle.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Pawn.h&quot;
+#include &quot;Paddle.generated.h&quot;
+ 
+UCLASS()
+class PONG_API APaddle : public APawn
+{
+GENERATED_BODY()
+ 
+public:
+// Sets default values for this pawn's properties
+APaddle( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+// Called to bind functionality to input
+virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+ 
+// Function called to move the paddle.  Scale represents up/down
+void MovePaddle( float Scale );
+ 
+// Notification when the paddle begins to overlap another Actor
+virtual void NotifyActorBeginOverlap( AActor* OtherActor ) override;
+ 
+// Notification when the paddle ends overlap
+virtual void NotifyActorEndOverlap( AActor* OtherActor ) override;
+ 
+protected:
+ 
+//Reference to the Sprite Component which contains the paddle sprite
+UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Paddle )
+class UPaperSpriteComponent* Sprite;
+ 
+private:
+ 
+//Booleans for keeping track of valid movement directions
+bool MoveUp;
+bool MoveDown;
+ 
+};</p> <h3 id="paddle-cpp-4"><a href="#paddle-cpp-4" class="header-anchor">#</a> Paddle.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;Paddle.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+ 
+ 
+// Sets default values
+APaddle::APaddle( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+//Find the Paddle Sprite -- Right click on your sprite in the editor and click copy reference to get the path to it
+ConstructorHelpers::FObjectFinder&lt;UPaperSprite&gt; PaddleSpriteRef( TEXT( &quot;PaperSprite'/Game/Sprites/Paddle'&quot; ) );
+ 
+//Create a default UPaperSpriteComponent and register it to this Actor
+Sprite = ObjectInitializer.CreateDefaultSubobject&lt;UPaperSpriteComponent&gt;( this, TEXT( &quot;SpriteComp&quot; ) );
+ 
+//Set the Sprite to render for the UPaperSpriteComponent to the PaddleSprite Reference we grabbed
+Sprite-&gt;SetSprite( PaddleSpriteRef.Object );
+ 
+ObjectInitializer.CreateDefaultSubobject&lt;UPawnMovementComponent&gt;( this, TEXT( &quot;MovementComp&quot; ) );
+ 
+//Can initially move in all directions
+MoveUp = true;
+MoveDown = true;
+ 
+}
+ 
+// Called when the game starts or when spawned
+void APaddle::BeginPlay()
+{
+Super::BeginPlay();
+ 
+//Set the location of the Paddle to the Left
+Sprite-&gt;SetRelativeLocation( FVector( -200.0f, 50.f, 0.0f ) );
+Sprite-&gt;SetRelativeRotation( FRotator( 0.f, 0.f, 0.f ) );
+Sprite-&gt;SetRelativeScale3D( FVector( 0.1f, 1.0f, 0.1f ) );
+Sprite-&gt;SetAbsolute( true, true, true );
+}
+ 
+// Called every frame
+void APaddle::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+// Update the sprites location based on the movement input
+FVector move = GetMovementInputVector();
+if ( ( MoveUp &amp;&amp; move.Z &gt; 0 ) || ( MoveDown &amp;&amp; move.Z &lt; 0 ) )
+{
+FVector location = GetActorLocation( );
+location += move*DeltaTime;
+Sprite-&gt;SetRelativeLocation( location );
+}
+ 
+}
+ 
+// Called to bind functionality to input
+void APaddle::SetupPlayerInputComponent(class UInputComponent* InputComponent)
+{
+Super::SetupPlayerInputComponent(InputComponent);
+ 
+const UInputSettings* settings = GetDefault&lt;UInputSettings&gt;( );
+ 
+//Create movement mappings for upwards and downwards movement, the float value tells if we are moving the paddle up or down
+const FInputAxisKeyMapping upKey(&quot;Move&quot;, EKeys::Up, 1.0f);
+const FInputAxisKeyMapping downKey( &quot;Move&quot;, EKeys::Down, -1.0f );
+ 
+// Add the axis mappings
+// Once this code is executed, these mappings will be added in the editors Input Settings!
+((UInputSettings*)settings)-&gt;AddAxisMapping( upKey );
+((UInputSettings*)settings)-&gt;AddAxisMapping( downKey );
+ 
+// Bind the axis - if we press up, the function is called with 1.0.  if we press down, the function is called with -1.0.
+// if we do nothing, the function is called with 0.0f
+InputComponent-&gt;BindAxis( &quot;Move&quot;, this, &amp;APaddle::MovePaddle );
+ 
+//Set the sprite to generate overlap events for world-static objects -&gt; The Bounds is set to World Static, so this should generate an overlap event now
+Sprite-&gt;GetBodyInstance()-&gt;SetCollisionEnabled( ECollisionEnabled::QueryAndPhysics );
+Sprite-&gt;GetBodyInstance()-&gt;SetObjectType( ECollisionChannel::ECC_Pawn );
+Sprite-&gt;GetBodyInstance()-&gt;SetResponseToChannel( ECollisionChannel::ECC_WorldStatic, ECollisionResponse::ECR_Overlap );
+}
+ 
+void APaddle::MovePaddle( float Scale )
+{
+//Add a movement input, hardcoding in 75.0f for the vector
+FVector direction = FVector( 0.0f, 0.0f, 75.0f );
+GetMovementComponent()-&gt;ConsumeInputVector();
+AddMovementInput( direction, Scale );
+}
+ 
+void APaddle::NotifyActorBeginOverlap( AActor* OtherActor )
+{
+if ( OtherActor-&gt;GetName().Equals( &quot;Bounds&quot; ) )
+{
+FVector prev = GetMovementComponent()-&gt;GetLastInputVector();
+ 
+//If moving into a bound, set the movement in that direction to false
+if ( prev.Z &gt; 0.0f )
+{
+MoveUp = false;
+}
+else if ( prev.Z &lt; 0.0f )
+{
+MoveDown = false;
+}
+ 
+}
+}
+ 
+void APaddle::NotifyActorEndOverlap( AActor* OtherActor )
+{
+if ( OtherActor-&gt;GetName().Equals( &quot;Bounds&quot; ) )
+{
+//Out of the bounds so enable all movement inputs
+MoveUp = true;
+MoveDown = true;
+}
+}</p> <h2 id="creating-the-gamestate"><a href="#creating-the-gamestate" class="header-anchor">#</a> Creating the GameState</h2> <p>Next, a game state will be added. This is a state machine will handle the custom states that the pong game goes through. Before the game starts and you can move your paddle around, we are going to make it so that you must press the spacebar first. This will be handled in the GameState class as a specific state. We will define custom states in the header of the class.</p> <ol><li>In the Editor Add a New C++ Class</li> <li>Select Game State as the Class to Extend</li> <li>Name the new Class &quot;PongGameState&quot; and Create</li></ol> <p>Some states that will be added will be as follows:</p> <p>WAITING_TO_START</p> <p>PUSH_BALL</p> <p>PLAYING</p> <p>UPDATE_SCORE</p> <p>These are all personally chosen and you can make whatever you desire. The GameMode will also need to be updated to set this as the default gamestate to use.</p> <h3 id="ponggamestate-h"><a href="#ponggamestate-h" class="header-anchor">#</a> PongGameState.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/GameState.h&quot;
+#include &quot;PongGameState.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS()
+class PONG_API APongGameState : public AGameState
+{
+GENERATED_BODY()
+ 
+enum PONG_STATES
+{
+WAITING_TO_START,
+PUSH_BALL,
+PLAYING,
+UPDATE_SCORE
+};
+ 
+public:
+ 
+APongGameState( const FObjectInitializer&amp; ObjectInitializer );
+ 
+//Tick called every frame
+virtual void Tick( float DeltaTime ) override;
+ 
+private:
+ 
+//The current state the game is in
+PONG_STATES CurrentState;
+ 
+};</p> <h3 id="ponggamestate-cpp"><a href="#ponggamestate-cpp" class="header-anchor">#</a> PongGameState.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;PongGameState.h&quot;
+ 
+APongGameState::APongGameState( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+PrimaryActorTick.bCanEverTick = true;
+CurrentState = PONG_STATES::WAITING_TO_START;
+}
+ 
+ 
+void APongGameState::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+// If match is in progress, run the custom state machine
+if ( IsMatchInProgress( ) )
+{
+switch ( CurrentState )
+{
+case PONG_STATES::WAITING_TO_START:
+CurrentState = PONG_STATES::PUSH_BALL;
+break;
+ 
+case PONG_STATES::PUSH_BALL:
+CurrentState = PONG_STATES::PLAYING;
+break;
+ 
+case PONG_STATES::PLAYING:
+break;
+ 
+case PONG_STATES::UPDATE_SCORE:
+CurrentState = PONG_STATES::WAITING_TO_START;
+break;
+ 
+default:
+CurrentState = PONG_STATES::WAITING_TO_START;
+break;
+}
+}
+}</p> <h3 id="ponggamemode-h-4"><a href="#ponggamemode-h-4" class="header-anchor">#</a> PongGameMode.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/GameMode.h&quot;
+#include &quot;PongGameMode.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS()
+class PONG_API APongGameMode : public AGameMode
+{
+GENERATED_BODY()
+ 
+public:
+//Constructor where we set the default classes to initialize
+APongGameMode( const FObjectInitializer&amp; ObjectInitializer );
+ 
+//Function called to spawn our pawn objects into the world
+virtual void StartPlay() override;
+};</p> <h3 id="ponggamemode-cpp-4"><a href="#ponggamemode-cpp-4" class="header-anchor">#</a> PongGameMode.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;PongGameMode.h&quot;
+#include &quot;Paddle.h&quot;
+#include &quot;PongCamera.h&quot;
+#include &quot;Background.h&quot;
+#include &quot;Ball.h&quot;
+#include &quot;Bounds.h&quot;
+#include &quot;Goal.h&quot;
+#include &quot;PongGameState.h&quot;
+ 
+APongGameMode::APongGameMode( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+//Set Default Classes
+DefaultPawnClass = APaddle::StaticClass();
+GameStateClass = APongGameState::StaticClass();
+}
+ 
+ 
+void APongGameMode::StartPlay()
+{
+Super::StartPlay( );
+UWorld* const World = GetWorld();
+if ( World )
+{
+APongCamera* camera = World-&gt;SpawnActor&lt;APongCamera&gt;( APongCamera::StaticClass() );
+ 
+//Camera is set to the CameraActor created
+World-&gt;GetFirstPlayerController()-&gt;SetViewTarget( camera );
+ 
+//Set the background to fill up the entire view of the camera
+ABackground* background = World-&gt;SpawnActor&lt;ABackground&gt;( ABackground::StaticClass() );
+FVector2D dimensions = camera-&gt;GetViewDimensions();
+background-&gt;SetDimensions( dimensions );
+ 
+//Spawn the Ball into the World
+World-&gt;SpawnActor&lt;ABall&gt;( ABall::StaticClass() );
+ 
+FVector scale = background-&gt;GetScale();
+ 
+//Spawn the Bounds into the World
+ABounds* bounds = World-&gt;SpawnActor&lt;ABounds&gt;( ABounds::StaticClass() );
+bounds-&gt;SetScale( scale );
+}
+ 
+Super::StartMatch();
+}</p> <h2 id="adding-movement-to-the-ball"><a href="#adding-movement-to-the-ball" class="header-anchor">#</a> Adding Movement to the Ball</h2> <p>Movement needs to be added to the ball. The ball should start out by shooting off in one direction (Towards the player in this game). In order to do this, the PongGameState class will be modified to cause the ball to shoot off to the left upon reaching the PUSH_BALL state. Also, collision will have to be updated for the Ball so that it interacts with the paddle and the Bounds correctly.</p> <p>The Ball needs to generate Hit Events, so physics must be simulated. Direction and Speed need to be kept track of for the ball. When a Hit Event Occurs, the direction should be updated so that the Ball is reflected in the right direction. Not only this, but the ball should also gain some velocity moving up/down if it hits the paddle.</p> <p><strong>Note: There may be updates to some classes that I did not catch. I changed quite a few things. Make sure that in all the custom Classes with sprites that you add &quot;RootComponent = Sprite;&quot; in the constructor. I may have changed some of the initialization around for some of the classes as well</strong></p> <p>Some changes that need to be made to get this all working are as follows:</p> <p>Add a accessor for the Z velocity in the paddle class</p> <p>Add velocity/direction to the Ball class</p> <p>Add movement updates in the tick function of the Ball class</p> <p>Override the NotifyHit event in the Ball class to update the direction/velocity</p> <p>Update the GameState to shoot off the ball - A function will be added to the Ball Class to start movement</p> <h3 id="ball-h-3"><a href="#ball-h-3" class="header-anchor">#</a> Ball.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Actor.h&quot;
+#include &quot;Ball.generated.h&quot;
+ 
+UCLASS()
+class PONG_API ABall : public AActor
+{
+GENERATED_BODY()
+ 
+public:	
+// Sets default values for this actor's properties
+ABall( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+// Called to start moving the Ball
+void StartMove();
+ 
+// notify hit
+virtual void NotifyHit( UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult&amp; Hit ) override;
+ 
+protected:
+ 
+//Reference to the Sprite Component which contains the ball sprite
+UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Ball )
+class UPaperSpriteComponent* Sprite;
+ 
+private:
+ 
+//The direction the ball is traveling in
+FVector Direction;
+ 
+//Velocity of the ball.  How Fast it is travelling. Distance/Time
+float Velocity;
+};</p> <h3 id="ball-cpp-3"><a href="#ball-cpp-3" class="header-anchor">#</a> Ball.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;Ball.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+#include &quot;Paddle.h&quot;
+ 
+// Sets default values
+ABall::ABall( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+//Find the Ball Sprite -- Right click on your sprite in the editor and click copy reference to get the path to it
+ConstructorHelpers::FObjectFinder&lt;UPaperSprite&gt; BallSpriteRef( TEXT( &quot;PaperSprite'/Game/Sprites/Ball'&quot; ) );
+ 
+//Find the Material we want to set this ball to: Note, you should have created this in the Editor
+//ConstructorHelpers::FObjectFinder<UPhysicalMaterial> BallPhysicsRef( TEXT( &quot;PhysicalMaterial'/Game/Materials/BallMaterial'&quot; ) );
+ 
+//Create a default UPaperSpriteComponent and register it to this Actor
+Sprite = ObjectInitializer.CreateDefaultSubobject&lt;UPaperSpriteComponent&gt;( this, TEXT( &quot;SpriteComp&quot; ) );
+ 
+//Set the Sprite to render for the UPaperSpriteComponent to the BallSprite Reference we grabbed
+Sprite-&gt;SetSprite( BallSpriteRef.Object );
+ 
+RootComponent = Sprite;
+ 
+//Set the physics properties
+//Restrict the translation/rotation axis
+SetActorEnableCollision( true );
+Sprite-&gt;SetEnableGravity( false );
+Sprite-&gt;SetConstraintMode( EDOFMode::SixDOF );
+Sprite-&gt;GetBodyInstance()-&gt;bLockXRotation = true;
+Sprite-&gt;GetBodyInstance()-&gt;bLockYRotation = true;
+Sprite-&gt;GetBodyInstance()-&gt;bLockZRotation = true;
+Sprite-&gt;GetBodyInstance()-&gt;bLockXTranslation = false;
+Sprite-&gt;GetBodyInstance()-&gt;bLockYTranslation = true;
+Sprite-&gt;GetBodyInstance()-&gt;bLockZTranslation = false;
+ 
+//Enable Hit Notifies
+Sprite-&gt;SetNotifyRigidBodyCollision( true );
+ 
+//Set the ball to spawn in the middle of the Board and scale its size down
+Sprite-&gt;SetRelativeLocation( FVector( 0.0f, 50.0f, 0.0f ) );
+Sprite-&gt;SetRelativeScale3D( FVector( 0.07f, 1.0f, 0.07f ) );
+Sprite-&gt;SetAbsolute( true, true, true );
+ 
+Sprite-&gt;SetLinearDamping( 0.0f );
+Sprite-&gt;SetSimulatePhysics( true );
+ 
+Direction = FVector( 0.0f, 0.0f, 0.0f );
+Velocity = 0.0f;
+}
+ 
+// Called when the game starts or when spawned
+void ABall::BeginPlay()
+{
+Super::BeginPlay();
+}
+ 
+// Called every frame
+void ABall::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+//Set a time variable to be &lt; one hundreth of a second
+float time = (DeltaTime &gt; 0.01f ? 0.0083f : DeltaTime);
+ 
+//Update the translation based on the time variable
+FTransform transform = Sprite-&gt;GetRelativeTransform();
+transform.AddToTranslation( Direction * Velocity * time );
+Sprite-&gt;SetRelativeTransform( transform );
+ 
+}
+ 
+void ABall::StartMove()
+{
+// Move the ball via setting the Direction and Velocity
+Direction = FVector( -1.0f, 0.0f, 0.0f );
+Velocity = 250.0f;
+}
+ 
+//The Ball has hit something
+void ABall::NotifyHit( UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult&amp; Hit )
+{
+//Make sure that the physics velocities are set to 0.  We are keeping track of direction/speed.  We want this hit event so that we can easily mirror the direction
+Sprite-&gt;SetAllPhysicsAngularVelocity( FVector( 0.0f, 0.0f, 0.0f ) );
+Sprite-&gt;SetAllPhysicsLinearVelocity( FVector( 0.0f, 0.0f, 0.0f ) );
+ 
+//Mirror the Direction so that we can get the new trajectory of the ball
+Direction = Direction.MirrorByVector( HitNormal );
+ 
+//If the ball hits the paddle, add Z velocity to the ball (This can become very fast)
+if ( Other-&gt;GetName().Equals( &quot;Paddle&quot; ) )
+{
+APaddle* paddle = (APaddle*)Other;
+Direction.Z += (paddle-&gt;GetZVelocity() / Velocity);
+}
+}</UPhysicalMaterial></p> <h3 id="paddle-h-5"><a href="#paddle-h-5" class="header-anchor">#</a> Paddle.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Pawn.h&quot;
+#include &quot;Paddle.generated.h&quot;
+ 
+UCLASS()
+class PONG_API APaddle : public APawn
+{
+GENERATED_BODY()
+ 
+public:
+// Sets default values for this pawn's properties
+APaddle( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+// Called to bind functionality to input
+virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+ 
+// Function called to move the paddle.  Scale represents up/down
+void MovePaddle( float Scale );
+ 
+// Notification when the paddle begins to overlap another Actor
+virtual void NotifyActorBeginOverlap( AActor* OtherActor ) override;
+ 
+// Notification when the paddle ends overlap
+virtual void NotifyActorEndOverlap( AActor* OtherActor ) override;
+ 
+// How fast the paddle is moving up or down
+float GetZVelocity();
+ 
+protected:
+ 
+//Reference to the Sprite Component which contains the paddle sprite
+UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Paddle )
+class UPaperSpriteComponent* Sprite;
+ 
+private:
+ 
+//Booleans for keeping track of valid movement directions
+bool MoveUp;
+bool MoveDown;
+ 
+//How fast the paddle is moving
+float Velocity;
+ 
+};</p> <h3 id="paddle-cpp-5"><a href="#paddle-cpp-5" class="header-anchor">#</a> Paddle.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;Paddle.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+ 
+ 
+// Sets default values
+APaddle::APaddle( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+//Find the Paddle Sprite -- Right click on your sprite in the editor and click copy reference to get the path to it
+ConstructorHelpers::FObjectFinder&lt;UPaperSprite&gt; PaddleSpriteRef( TEXT( &quot;PaperSprite'/Game/Sprites/Paddle'&quot; ) );
+ 
+//Create a default UPaperSpriteComponent and register it to this Actor
+Sprite = ObjectInitializer.CreateDefaultSubobject&lt;UPaperSpriteComponent&gt;( this, TEXT( &quot;SpriteComp&quot; ) );
+ 
+//Set the Sprite to render for the UPaperSpriteComponent to the PaddleSprite Reference we grabbed
+Sprite-&gt;SetSprite( PaddleSpriteRef.Object );
+ 
+RootComponent = Sprite;
+ 
+ObjectInitializer.CreateDefaultSubobject&lt;UPawnMovementComponent&gt;( this, TEXT( &quot;MovementComp&quot; ) );
+ 
+//Can initially move in all directions
+MoveUp = true;
+MoveDown = true;
+ 
+//Set the sprite to generate overlap events for world-static objects -&gt; The Bounds is set to World Static, so this should generate an overlap event now
+Sprite-&gt;GetBodyInstance()-&gt;SetCollisionEnabled( ECollisionEnabled::QueryAndPhysics );
+Sprite-&gt;GetBodyInstance()-&gt;SetObjectType( ECollisionChannel::ECC_Pawn );
+Sprite-&gt;GetBodyInstance()-&gt;SetResponseToChannel( ECollisionChannel::ECC_WorldStatic, ECollisionResponse::ECR_Overlap );
+ 
+Sprite-&gt;SetSimulatePhysics( false );
+ 
+//Set the location of the Paddle to the Left
+Sprite-&gt;SetRelativeLocation( FVector( -200.0f, 50.f, 0.0f ) );
+Sprite-&gt;SetRelativeRotation( FRotator( 0.f, 0.f, 0.f ) );
+Sprite-&gt;SetRelativeScale3D( FVector( 0.1f, 1.0f, 0.1f ) );
+Sprite-&gt;SetAbsolute( true, true, true );
+ 
+ 
+ 
+}
+ 
+// Called when the game starts or when spawned
+void APaddle::BeginPlay()
+{
+Super::BeginPlay();
+Sprite-&gt;SetRelativeLocation( FVector( -200.0f, 50.f, 0.0f ) );
+Sprite-&gt;SetRelativeRotation( FRotator( 0.f, 0.f, 0.f ) );
+ 
+//Ensure that this component's name is &quot;Paddle&quot;
+Rename( TEXT( &quot;Paddle&quot; ) );
+}
+ 
+// Called every frame
+void APaddle::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+// Update the sprites location based on the movement input
+FVector move = GetMovementInputVector();
+if ( ( MoveUp &amp;&amp; move.Z &gt; 0 ) || ( MoveDown &amp;&amp; move.Z &lt; 0 ) )
+{
+FTransform loc = Sprite-&gt;GetRelativeTransform();
+loc.AddToTranslation( move*DeltaTime );
+Sprite-&gt;SetRelativeTransform( loc );
+}
+ 
+}
+ 
+// Called to bind functionality to input
+void APaddle::SetupPlayerInputComponent(class UInputComponent* InputComponent)
+{
+Super::SetupPlayerInputComponent(InputComponent);
+ 
+const UInputSettings* settings = GetDefault&lt;UInputSettings&gt;( );
+ 
+//Create movement mappings for upwards and downwards movement, the float value tells if we are moving the paddle up or down
+const FInputAxisKeyMapping upKey(&quot;Move&quot;, EKeys::Up, 1.0f);
+const FInputAxisKeyMapping downKey( &quot;Move&quot;, EKeys::Down, -1.0f );
+ 
+// Add the axis mappings
+// Once this code is executed, these mappings will be added in the editors Input Settings!
+((UInputSettings*)settings)-&gt;AddAxisMapping( upKey );
+((UInputSettings*)settings)-&gt;AddAxisMapping( downKey );
+ 
+// Bind the axis - if we press up, the function is called with 1.0.  if we press down, the function is called with -1.0.
+// if we do nothing, the function is called with 0.0f
+InputComponent-&gt;BindAxis( &quot;Move&quot;, this, &amp;APaddle::MovePaddle );
+ 
+Velocity = 0.0f;
+}
+ 
+void APaddle::MovePaddle( float Scale )
+{
+//Add a movement input, hardcoding in 75.0f for the vector
+FVector direction = FVector( 0.0f, 0.0f, 75.0f );
+GetMovementComponent()-&gt;ConsumeInputVector();
+AddMovementInput( direction, Scale );
+Velocity = Scale * 75.0f;
+}
+ 
+void APaddle::NotifyActorBeginOverlap( AActor* OtherActor )
+{
+if ( OtherActor-&gt;GetName().Equals( &quot;Bounds&quot; ) )
+{
+FVector prev = GetMovementComponent()-&gt;GetLastInputVector();
+ 
+//If moving into a bound, set the movement in that direction to false
+if ( prev.Z &gt; 0.0f )
+{
+MoveUp = false;
+}
+else if ( prev.Z &lt; 0.0f )
+{
+MoveDown = false;
+}
+ 
+}
+}
+ 
+void APaddle::NotifyActorEndOverlap( AActor* OtherActor )
+{
+if ( OtherActor-&gt;GetName().Equals( &quot;Bounds&quot; ) )
+{
+//Out of the bounds so enable all movement inputs
+MoveUp = true;
+MoveDown = true;
+}
+}
+ 
+//Get the ZVelocity (How fast the paddle is moving up or down)
+float APaddle::GetZVelocity()
+{
+return Velocity;
+}</p> <h3 id="ponggamestate-h-2"><a href="#ponggamestate-h-2" class="header-anchor">#</a> PongGameState.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/GameState.h&quot;
+#include &quot;PongGameState.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS()
+class PONG_API APongGameState : public AGameState
+{
+GENERATED_BODY()
+ 
+enum PONG_STATES
+{
+WAITING_TO_START,
+PUSH_BALL,
+PLAYING,
+UPDATE_SCORE
+};
+ 
+public:
+ 
+APongGameState( const FObjectInitializer&amp; ObjectInitializer );
+ 
+//Tick called every frame
+virtual void Tick( float DeltaTime ) override;
+ 
+//Mutator for the reference to the Ball
+void SetBall( class ABall* Ball );
+ 
+private:
+ 
+//The current state the game is in
+PONG_STATES CurrentState;
+ 
+//Reference to the Ball
+class ABall* Ball;
+ 
+};</p> <h3 id="ponggamestate-cpp-2"><a href="#ponggamestate-cpp-2" class="header-anchor">#</a> PongGameState.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;PongGameState.h&quot;
+#include &quot;Ball.h&quot;
+ 
+APongGameState::APongGameState( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+PrimaryActorTick.bCanEverTick = true;
+CurrentState = PONG_STATES::WAITING_TO_START;
+}
+ 
+ 
+void APongGameState::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+// If match is in progress, run the custom state machine
+if ( IsMatchInProgress( ) )
+{
+switch ( CurrentState )
+{
+case PONG_STATES::WAITING_TO_START:
+CurrentState = PONG_STATES::PUSH_BALL;
+break;
+ 
+case PONG_STATES::PUSH_BALL:
+Ball-&gt;StartMove();
+CurrentState = PONG_STATES::PLAYING;
+break;
+ 
+case PONG_STATES::PLAYING:
+break;
+ 
+case PONG_STATES::UPDATE_SCORE:
+CurrentState = PONG_STATES::WAITING_TO_START;
+break;
+ 
+default:
+CurrentState = PONG_STATES::WAITING_TO_START;
+break;
+}
+}
+}
+ 
+void APongGameState::SetBall( ABall* Ball )
+{
+this-&gt;Ball = Ball;
+}</p> <p>The Ball should now move around in the world and collide/bounce off of everything. If you move the paddle and hit the ball, the ball should move up/down in the direction that you hit it.</p> <h2 id="goals-paddle-ai"><a href="#goals-paddle-ai" class="header-anchor">#</a> Goals/Paddle AI</h2> <p>The next step will be to add in the goals. A way to know when the Ball is overlapping a goal will also need to be known in the gamestate in order to move the state forwards when a goal is made. In order to do this, an overlap event will be added that will be called with the overlap happens.</p> <p>Also, a PaddleAI class will be made that extends the Paddle Class. This will control the AI for the paddle.</p> <ol><li>Create a new C++ Class</li> <li>Select the Paddle Class as the class to extend</li> <li>Name the new Class &quot;PaddleAI&quot; and create</li></ol> <h3 id="paddle-2"><a href="#paddle-2" class="header-anchor">#</a> Paddle</h3> <p>A GetPosition Function has been added to this class in order to get where the paddle currently is. This is used when setting the locations of the Goals because we want the goals to be located behind the paddles. The renaming in the BeginPlay() method was also moved to the GameMode as part of initialization there due to double renaming once the PaddleAI class was created.</p> <h4 id="paddle-h-6"><a href="#paddle-h-6" class="header-anchor">#</a> Paddle.h</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Pawn.h&quot;
+#include &quot;Paddle.generated.h&quot;
+ 
+UCLASS()
+class PONG_API APaddle : public APawn
+{
+GENERATED_BODY()
+ 
+public:
+// Sets default values for this pawn's properties
+APaddle( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+// Called to bind functionality to input
+virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+ 
+// Function called to move the paddle.  Scale represents up/down
+void MovePaddle( float Scale );
+ 
+// Notification when the paddle begins to overlap another Actor
+virtual void NotifyActorBeginOverlap( AActor* OtherActor ) override;
+ 
+// Notification when the paddle ends overlap
+virtual void NotifyActorEndOverlap( AActor* OtherActor ) override;
+ 
+// How fast the paddle is moving up or down
+float GetZVelocity();
+ 
+// Get the location of the sprite
+FVector2D GetPosition();
+ 
+protected:
+ 
+//Reference to the Sprite Component which contains the paddle sprite
+UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Paddle )
+class UPaperSpriteComponent* Sprite;
+ 
+private:
+ 
+//Booleans for keeping track of valid movement directions
+bool MoveUp;
+bool MoveDown;
+ 
+//How fast the paddle is moving
+float Velocity;
+ 
+};</p> <h4 id="paddle-cpp-6"><a href="#paddle-cpp-6" class="header-anchor">#</a> Paddle.cpp</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;Paddle.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+ 
+ 
+// Sets default values
+APaddle::APaddle( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+//Find the Paddle Sprite -- Right click on your sprite in the editor and click copy reference to get the path to it
+ConstructorHelpers::FObjectFinder&lt;UPaperSprite&gt; PaddleSpriteRef( TEXT( &quot;PaperSprite'/Game/Sprites/Paddle'&quot; ) );
+ 
+//Create a default UPaperSpriteComponent and register it to this Actor
+Sprite = ObjectInitializer.CreateDefaultSubobject&lt;UPaperSpriteComponent&gt;( this, TEXT( &quot;SpriteComp&quot; ) );
+ 
+//Set the Sprite to render for the UPaperSpriteComponent to the PaddleSprite Reference we grabbed
+Sprite-&gt;SetSprite( PaddleSpriteRef.Object );
+ 
+RootComponent = Sprite;
+ 
+ObjectInitializer.CreateDefaultSubobject&lt;UPawnMovementComponent&gt;( this, TEXT( &quot;MovementComp&quot; ) );
+ 
+//Can initially move in all directions
+MoveUp = true;
+MoveDown = true;
+ 
+//Set the sprite to generate overlap events for world-static objects -&gt; The Bounds is set to World Static, so this should generate an overlap event now
+Sprite-&gt;GetBodyInstance()-&gt;SetCollisionEnabled( ECollisionEnabled::QueryAndPhysics );
+Sprite-&gt;GetBodyInstance()-&gt;SetObjectType( ECollisionChannel::ECC_Pawn );
+Sprite-&gt;GetBodyInstance()-&gt;SetResponseToChannel( ECollisionChannel::ECC_WorldStatic, ECollisionResponse::ECR_Overlap );
+ 
+Sprite-&gt;SetSimulatePhysics( false );
+ 
+//Set the location of the Paddle to the Left
+Sprite-&gt;SetRelativeLocation( FVector( -200.0f, 50.f, 0.0f ) );
+Sprite-&gt;SetRelativeRotation( FRotator( 0.f, 0.f, 0.f ) );
+Sprite-&gt;SetRelativeScale3D( FVector( 0.1f, 1.0f, 0.1f ) );
+Sprite-&gt;SetAbsolute( true, true, true );
+ 
+ 
+ 
+}
+ 
+// Called when the game starts or when spawned
+void APaddle::BeginPlay()
+{
+Super::BeginPlay();
+Sprite-&gt;SetRelativeLocation( FVector( -200.0f, 50.f, 0.0f ) );
+Sprite-&gt;SetRelativeRotation( FRotator( 0.f, 0.f, 0.f ) );
+}
+ 
+// Called every frame
+void APaddle::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+// Update the sprites location based on the movement input
+FVector move = GetMovementInputVector();
+if ( ( MoveUp &amp;&amp; move.Z &gt; 0 ) || ( MoveDown &amp;&amp; move.Z &lt; 0 ) )
+{
+FTransform loc = Sprite-&gt;GetRelativeTransform();
+loc.AddToTranslation( move*DeltaTime );
+Sprite-&gt;SetRelativeTransform( loc );
+}
+ 
+}
+ 
+// Called to bind functionality to input
+void APaddle::SetupPlayerInputComponent(class UInputComponent* InputComponent)
+{
+Super::SetupPlayerInputComponent(InputComponent);
+ 
+const UInputSettings* settings = GetDefault&lt;UInputSettings&gt;( );
+ 
+//Create movement mappings for upwards and downwards movement, the float value tells if we are moving the paddle up or down
+const FInputAxisKeyMapping upKey(&quot;Move&quot;, EKeys::Up, 1.0f);
+const FInputAxisKeyMapping downKey( &quot;Move&quot;, EKeys::Down, -1.0f );
+ 
+// Add the axis mappings
+// Once this code is executed, these mappings will be added in the editors Input Settings!
+((UInputSettings*)settings)-&gt;AddAxisMapping( upKey );
+((UInputSettings*)settings)-&gt;AddAxisMapping( downKey );
+ 
+// Bind the axis - if we press up, the function is called with 1.0.  if we press down, the function is called with -1.0.
+// if we do nothing, the function is called with 0.0f
+InputComponent-&gt;BindAxis( &quot;Move&quot;, this, &amp;APaddle::MovePaddle );
+ 
+Velocity = 0.0f;
+}
+ 
+void APaddle::MovePaddle( float Scale )
+{
+//Add a movement input, hardcoding in 75.0f for the vector
+FVector direction = FVector( 0.0f, 0.0f, 75.0f );
+GetMovementComponent()-&gt;ConsumeInputVector();
+AddMovementInput( direction, Scale );
+Velocity = Scale * 75.0f;
+}
+ 
+void APaddle::NotifyActorBeginOverlap( AActor* OtherActor )
+{
+if ( OtherActor-&gt;GetName().Equals( &quot;Bounds&quot; ) )
+{
+FVector prev = GetMovementComponent()-&gt;GetLastInputVector();
+ 
+//If moving into a bound, set the movement in that direction to false
+if ( prev.Z &gt; 0.0f )
+{
+MoveUp = false;
+}
+else if ( prev.Z &lt; 0.0f )
+{
+MoveDown = false;
+}
+ 
+}
+}
+ 
+void APaddle::NotifyActorEndOverlap( AActor* OtherActor )
+{
+if ( OtherActor-&gt;GetName().Equals( &quot;Bounds&quot; ) )
+{
+//Out of the bounds so enable all movement inputs
+MoveUp = true;
+MoveDown = true;
+}
+}
+ 
+//Get the ZVelocity (How fast the paddle is moving up or down)
+float APaddle::GetZVelocity()
+{
+return Velocity;
+}
+ 
+FVector2D APaddle::GetPosition()
+{
+FVector2D location;
+location.X = Sprite-&gt;GetComponentLocation().X;
+location.Y = Sprite-&gt;GetComponentLocation().Z;
+ 
+return location;
+}</p> <h3 id="paddleai"><a href="#paddleai" class="header-anchor">#</a> PaddleAI</h3> <p>The AI Paddle class was created. A SetBall Method was created in order to store a reference to the Ball. This is used in the Tick function for some very simple ai. If the ball is above the paddle, the paddle moves up. If the ball is below the paddle, the paddle moves down. If the paddle and the ball are at the same height, the paddle does not move.</p> <h4 id="paddleai-h"><a href="#paddleai-h" class="header-anchor">#</a> PaddleAI.h</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;Paddle.h&quot;
+#include &quot;PaddleAI.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS()
+class PONG_API APaddleAI : public APaddle
+{
+GENERATED_BODY()
+ 
+public:
+// Sets default values for this pawn's properties
+APaddleAI( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+// Ball Reference
+void SetBall( class ABall* Ball );
+ 
+private:
+ 
+//Reference to Ball
+class ABall* Ball;
+ 
+};</p> <h4 id="paddleai-cpp"><a href="#paddleai-cpp" class="header-anchor">#</a> PaddleAI.cpp</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;PaddleAI.h&quot;
+#include &quot;Ball.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+ 
+ 
+ 
+// Sets default values
+APaddleAI::APaddleAI( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+}
+ 
+// Called when the game starts or when spawned
+void APaddleAI::BeginPlay( )
+{
+Super::BeginPlay();
+Sprite-&gt;SetRelativeLocation( FVector( 200.0f, 50.f, 0.0f ) );
+Sprite-&gt;SetRelativeRotation( FRotator( 0.f, 0.f, 0.f ) );
+}
+ 
+// Called every frame
+void APaddleAI::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+// Update the direction the AI should move based on where the Ball is
+if ( Sprite-&gt;GetComponentLocation().Z &gt; Ball-&gt;GetActorLocation().Z )
+{
+MovePaddle( -1.0f );
+}
+else if ( Sprite-&gt;GetComponentLocation().Z &lt; Ball-&gt;GetActorLocation().Z )
+{
+MovePaddle( 1.0f );
+}
+else
+{
+MovePaddle( 0.0f );
+}
+ 
+}
+ 
+void APaddleAI::SetBall( ABall* Ball )
+{
+this-&gt;Ball = Ball;
+}</p> <h3 id="goal"><a href="#goal" class="header-anchor">#</a> Goal</h3> <p>The goals were made so that a SetPosition function could be called to set the position of them. There are two goals, the PlayerGoal and the AIGoal. These were spawned and set in the GameMode class shown later on in this tutorial. The goals need to be initialized so that they are not visible and they generate overlap events when a dynamic object(The Ball) collides with it.</p> <h4 id="goal-h-2"><a href="#goal-h-2" class="header-anchor">#</a> Goal.h</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Actor.h&quot;
+#include &quot;Goal.generated.h&quot;
+ 
+UCLASS()
+class PONG_API AGoal : public AActor
+{
+GENERATED_BODY()
+ 
+public:	
+// Sets default values for this actor's properties
+AGoal( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+// Set the X,Y, and Z scale for the sprite
+void SetScale( FVector&amp; vector );
+ 
+// Set the position of the Goal
+void SetPosition( FVector&amp; position );
+ 
+// Accessor for the width
+float GetWidth();
+ 
+private:
+ 
+//Reference to the Sprite that represents a pong goal area
+class UPaperSpriteComponent* Sprite;
+ 
+};</p> <h4 id="goal-cpp-2"><a href="#goal-cpp-2" class="header-anchor">#</a> Goal.cpp</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;Goal.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+ 
+// Sets default values
+AGoal::AGoal( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+//Find the Goal Sprite -- Right click on your sprite in the editor and click copy reference to get the path to it
+ConstructorHelpers::FObjectFinder&lt;UPaperSprite&gt; GoalSpriteRef( TEXT( &quot;PaperSprite'/Game/Sprites/Goal'&quot; ) );
+ 
+//Create a default UPaperSpriteComponent and register it to this Actor
+Sprite = ObjectInitializer.CreateDefaultSubobject&lt;UPaperSpriteComponent&gt;( this, TEXT( &quot;SpriteComp&quot; ) );
+ 
+//Set the Sprite to render for the UPaperSpriteComponent to the GoalSprite Reference we grabbed
+Sprite-&gt;SetSprite( GoalSpriteRef.Object );
+ 
+RootComponent = Sprite;
+ 
+//Make sure that this component overlaps
+Sprite-&gt;GetBodyInstance()-&gt;SetCollisionEnabled( ECollisionEnabled::QueryOnly );
+Sprite-&gt;GetBodyInstance()-&gt;SetObjectType( ECollisionChannel::ECC_WorldStatic );
+Sprite-&gt;GetBodyInstance()-&gt;SetResponseToAllChannels( ECollisionResponse::ECR_Overlap );
+Sprite-&gt;SetVisibility( false );
+}
+ 
+// Called when the game starts or when spawned
+void AGoal::BeginPlay()
+{
+Super::BeginPlay();
+ 
+}
+ 
+// Called every frame
+void AGoal::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+}
+ 
+// Set the X,Y, and Z scale for the sprite
+void AGoal::SetScale( FVector&amp; vector )
+{
+Sprite-&gt;SetRelativeScale3D( vector );
+}
+ 
+void AGoal::SetPosition( FVector&amp; position )
+{
+Sprite-&gt;SetRelativeLocation( position );
+}
+ 
+float AGoal::GetWidth()
+{
+return Sprite-&gt;GetSprite()-&gt;GetSourceSize().X;
+}</p> <h3 id="gamemode"><a href="#gamemode" class="header-anchor">#</a> GameMode</h3> <p>The gamemode was updated to spawn an AIPaddle, spawn the Goals, rename the paddles/goals, set the positions of the goals, and update the state/aipaddle with references to the Ball. Just a bunch of initialization stuff here.</p> <h4 id="ponggamemode-h-5"><a href="#ponggamemode-h-5" class="header-anchor">#</a> PongGameMode.h</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/GameMode.h&quot;
+#include &quot;PongGameMode.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS()
+class PONG_API APongGameMode : public AGameMode
+{
+GENERATED_BODY()
+ 
+public:
+//Constructor where we set the default classes to initialize
+APongGameMode( const FObjectInitializer&amp; ObjectInitializer );
+ 
+//Function called to spawn our pawn objects into the world
+virtual void StartPlay() override;
+};</p> <h4 id="ponggamemode-cpp-5"><a href="#ponggamemode-cpp-5" class="header-anchor">#</a> PongGameMode.cpp</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;PongGameMode.h&quot;
+#include &quot;Paddle.h&quot;
+#include &quot;PongCamera.h&quot;
+#include &quot;Background.h&quot;
+#include &quot;Ball.h&quot;
+#include &quot;Bounds.h&quot;
+#include &quot;Goal.h&quot;
+#include &quot;PongGameState.h&quot;
+#include &quot;PaddleAI.h&quot;
+ 
+APongGameMode::APongGameMode( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+//Set Default Classes
+DefaultPawnClass = APaddle::StaticClass();
+GameStateClass = APongGameState::StaticClass();
+}
+ 
+ 
+void APongGameMode::StartPlay()
+{
+Super::StartPlay( );
+UWorld* const World = GetWorld();
+if ( World )
+{
+APongGameState* gameState = GetGameState&lt;APongGameState&gt;();
+APongCamera* camera = World-&gt;SpawnActor&lt;APongCamera&gt;( APongCamera::StaticClass() );
+ 
+//Camera is set to the CameraActor created
+World-&gt;GetFirstPlayerController()-&gt;SetViewTarget( camera );
+ 
+//Set the background to fill up the entire view of the camera
+ABackground* background = World-&gt;SpawnActor&lt;ABackground&gt;( ABackground::StaticClass() );
+FVector2D dimensions = camera-&gt;GetViewDimensions();
+background-&gt;SetDimensions( dimensions );
+ 
+//Spawn the Ball into the World
+ABall* ball = World-&gt;SpawnActor&lt;ABall&gt;( ABall::StaticClass() );
+ 
+FVector scale = background-&gt;GetScale();
+ 
+//Spawn the Bounds into the World
+ABounds* bounds = World-&gt;SpawnActor&lt;ABounds&gt;( ABounds::StaticClass() );
+bounds-&gt;SetScale( scale );
+ 
+//Spawn the Player and AI Goals
+AGoal* playerGoal = World-&gt;SpawnActor&lt;AGoal&gt;( AGoal::StaticClass() );
+AGoal* aiGoal = World-&gt;SpawnActor&lt;AGoal&gt;( AGoal::StaticClass() );
+ 
+playerGoal-&gt;SetScale( scale );
+aiGoal-&gt;SetScale( scale );
+ 
+playerGoal-&gt;Rename( TEXT( &quot;PlayerGoal&quot; ) );
+aiGoal-&gt;Rename( TEXT( &quot;AIGoal&quot; ) );
+ 
+//Get a reference to the paddles and rename them
+APaddle* playerPaddle = (APaddle*)World-&gt;GetFirstPlayerController()-&gt;GetPawn();
+APaddleAI* aiPaddle = World-&gt;SpawnActor&lt;APaddleAI&gt;( APaddleAI::StaticClass( ) );
+playerPaddle-&gt;Rename( TEXT( &quot;PlayerPaddle&quot; ) );
+aiPaddle-&gt;Rename( TEXT( &quot;AIPaddle&quot; ) );
+ 
+//playerGoal spawns on the left, aiGoal on the right
+FVector playerPos, aiPos;
+playerPos.Y = 50.f;
+aiPos.Y = 50.f;
+playerPos.X = playerPaddle-&gt;GetPosition().X - ( playerGoal-&gt;GetWidth() * scale.X ) / 2;
+aiPos.X = 5.0f + aiPaddle-&gt;GetPosition().X + ( playerGoal-&gt;GetWidth() * scale.X ) / 2;
+playerPos.Z = 0.f;
+aiPos.Z = 0.f;
+ 
+playerGoal-&gt;SetPosition( playerPos );
+aiGoal-&gt;SetPosition( aiPos );
+ 
+gameState-&gt;SetBall( ball );
+aiPaddle-&gt;SetBall( ball );
+}
+ 
+Super::StartMatch();
+}</p> <h3 id="gamestate"><a href="#gamestate" class="header-anchor">#</a> GameState</h3> <p>The PongGameState was updated majorly for some of these changes made. A UFUNCTION() BallOVerlap function was created. This function was created and registered such that it is called whenever the Ball overlaps with another Actor. Private variables for the score were added in order to keep track of when a score was made. A ResetBoard helper function was also made so that the state machine can call it to reset everything back to initial states after a goal has been scored.</p> <h4 id="ponggamestate-h-3"><a href="#ponggamestate-h-3" class="header-anchor">#</a> PongGameState.h</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/GameState.h&quot;
+#include &quot;PongGameState.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS()
+class PONG_API APongGameState : public AGameState
+{
+GENERATED_BODY()
+ 
+enum PONG_STATES
+{
+WAITING_TO_START,
+PUSH_BALL,
+PLAYING,
+UPDATE_SCORE
+};
+ 
+public:
+ 
+APongGameState( const FObjectInitializer&amp; ObjectInitializer );
+ 
+//Tick called every frame
+virtual void Tick( float DeltaTime ) override;
+ 
+//Mutator for the reference to the Ball
+void SetBall( class ABall* Ball );
+ 
+//Overlap event for when the ball overlaps
+UFUNCTION()
+void BallOverlap( AActor* OtherActor );
+ 
+private:
+//Helper function to Reset the Board to it's initial state
+void ResetBoard();
+ 
+private:
+ 
+//The current state the game is in
+PONG_STATES CurrentState;
+ 
+//Reference to the Ball
+class ABall* Ball;
+ 
+//booleans to keep track of when a goal is scored
+bool AIScored;
+bool PlayerScored;
+ 
+//values to store to the current score
+int AIScore;
+int PlayerScore;
+ 
+};</p> <h4 id="ponggamestate-cpp-3"><a href="#ponggamestate-cpp-3" class="header-anchor">#</a> PongGameState.cpp</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;PongGameState.h&quot;
+#include &quot;Ball.h&quot;
+ 
+APongGameState::APongGameState( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+PrimaryActorTick.bCanEverTick = true;
+PlayerScore = 0;
+AIScore = 0;
+CurrentState = PONG_STATES::WAITING_TO_START;
+}
+ 
+ 
+void APongGameState::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+// If match is in progress, run the custom state machine
+if ( IsMatchInProgress( ) )
+{
+switch ( CurrentState )
+{
+case PONG_STATES::WAITING_TO_START:
+ResetBoard();
+CurrentState = PONG_STATES::PUSH_BALL;
+break;
+ 
+case PONG_STATES::PUSH_BALL:
+Ball-&gt;StartMove();
+CurrentState = PONG_STATES::PLAYING;
+break;
+ 
+case PONG_STATES::PLAYING:
+if ( PlayerScored || AIScored )
+{
+CurrentState = PONG_STATES::WAITING_TO_START;
+}
+break;
+ 
+case PONG_STATES::UPDATE_SCORE:
+CurrentState = PONG_STATES::WAITING_TO_START;
+break;
+ 
+default:
+CurrentState = PONG_STATES::WAITING_TO_START;
+break;
+}
+}
+}
+ 
+void APongGameState::SetBall( ABall* Ball )
+{
+this-&gt;Ball = Ball;
+Ball-&gt;OnActorBeginOverlap.AddDynamic( this, &amp;APongGameState::BallOverlap );
+}
+ 
+void APongGameState::BallOverlap( AActor* OtherActor )
+{
+if ( OtherActor-&gt;GetName().Equals( &quot;PlayerGoal&quot; ) )
+{
+AIScored = true;
+AIScore++;
+}
+ 
+if ( OtherActor-&gt;GetName().Equals( &quot;AIGoal&quot; ) )
+{
+PlayerScored = true;
+PlayerScore++;
+}
+}
+ 
+void APongGameState::ResetBoard()
+{
+PlayerScored = false;
+AIScored = false;
+}</p> <h2 id="creating-the-hud-finishing-up"><a href="#creating-the-hud-finishing-up" class="header-anchor">#</a> Creating the HUD / Finishing up</h2> <p>Collision should be working now. The score should be updating. All that is needed now is a way to display the score and to polish up the states. In order to display the score, a HUD is going to be created. The HUD is going to be used to draw test to the canvas. In our case, we are going to draw the current score of the Pong Game and maybe an Initial text to start the game, something like &quot;Press space to Begin.&quot;.</p> <h3 id="pong-hud"><a href="#pong-hud" class="header-anchor">#</a> Pong HUD</h3> <ol><li>Create a new c++ class in the editor</li> <li>Extend the HUD class</li> <li>call the new class &quot;PongHUD&quot; and click create</li></ol> <p>The HUD is going to go through a Draw Function where it will constantly draw the HUD. Some functions are made for different components to be drawn. The Score is set to always be drawn, and a boolean value controls when the Score is drawn.</p> <h4 id="ponghud-h"><a href="#ponghud-h" class="header-anchor">#</a> PongHUD.h</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/HUD.h&quot;
+#include &quot;PongHUD.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS( )
+class PONG_API APongHUD : public AHUD
+{
+GENERATED_BODY( )
+ 
+ 
+public:
+ 
+APongHUD( const FObjectInitializer&amp; ObjectInitializer );
+ 
+virtual void DrawHUD() override;
+ 
+//Display the current Pong Score on the screen
+void DisplayScore( );
+ 
+//Display The text waiting for space
+void DisplaySpaceText();
+ 
+//Set if the waiting for space text should be displayed
+void DisplayWaitingForSpace( bool bSpace );
+ 
+//Set the score to be displayed
+void SetScore( int PlayerScore, int AIScore );
+ 
+private:
+ 
+//The score of the game
+int Score[2];
+ 
+//Display space text?
+bool bWaitingForSpace;
+};</p> <h4 id="ponghud-cpp"><a href="#ponghud-cpp" class="header-anchor">#</a> PongHUD.cpp</h4> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;PongHUD.h&quot;
+ 
+ 
+ 
+ 
+APongHUD::APongHUD( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+Score[0] = 0;
+Score[1] = 0;
+bWaitingForSpace = false;
+}
+ 
+void APongHUD::DrawHUD( )
+{
+Super::DrawHUD();
+ 
+DisplayScore();
+ 
+if ( bWaitingForSpace )
+{
+DisplaySpaceText();
+}
+}
+ 
+void APongHUD::DisplaySpaceText( )
+{
+FVector2D sLoc;
+GetOwningPlayerController()-&gt;ProjectWorldLocationToScreen( FVector( -50.0f, 0.0f, 0.0f ), sLoc );
+FString s = &quot;Press Space to Begin.&quot;;
+DrawText( s, FLinearColor::Blue, sLoc.X, sLoc.Y );
+}
+ 
+void APongHUD::DisplayScore()
+{
+FVector2D sLoc;
+GetOwningPlayerController( )-&gt;ProjectWorldLocationToScreen( FVector( -50.0f, 0.0f, 150.0f ), sLoc );
+FString s = &quot;Score: &quot; + FString::FromInt( Score[0] ) + &quot; - &quot; + FString::FromInt( Score[1] );
+DrawText( s, FLinearColor::Blue, sLoc.X, sLoc.Y );
+}
+ 
+void APongHUD::SetScore( int PlayerScore, int AIScore)
+{
+Score[0] = PlayerScore;
+Score[1] = AIScore;
+}
+ 
+void APongHUD::DisplayWaitingForSpace( bool bSpace )
+{
+bWaitingForSpace = bSpace;
+}</p> <p>Helper functions were added to the Ball and Paddle in order to Reset them. This is called from the PongGameState when we go into the RESET state. A boolean, bMoveable was also added to the paddle in order to control when the paddle can move.</p> <h3 id="paddle-h-7"><a href="#paddle-h-7" class="header-anchor">#</a> Paddle.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Pawn.h&quot;
+#include &quot;Paddle.generated.h&quot;
+ 
+UCLASS()
+class PONG_API APaddle : public APawn
+{
+GENERATED_BODY()
+ 
+public:
+// Sets default values for this pawn's properties
+APaddle( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+// Called to bind functionality to input
+virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+ 
+// Function called to move the paddle.  Scale represents up/down
+void MovePaddle( float Scale );
+ 
+// Notification when the paddle begins to overlap another Actor
+virtual void NotifyActorBeginOverlap( AActor* OtherActor ) override;
+ 
+// Notification when the paddle ends overlap
+virtual void NotifyActorEndOverlap( AActor* OtherActor ) override;
+ 
+// How fast the paddle is moving up or down
+float GetZVelocity();
+ 
+// Get the location of the sprite
+FVector2D GetPosition();
+ 
+// Reset the paddles location
+virtual void Reset();
+ 
+// Sets if the paddle can be moved
+void SetMoveable( bool bMoveable );
+ 
+protected:
+ 
+//Reference to the Sprite Component which contains the paddle sprite
+UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Paddle )
+class UPaperSpriteComponent* Sprite;
+ 
+//Booleans for keeping track of valid movement directions
+bool bMoveUp;
+bool bMoveDown;
+ 
+private:
+ 
+//How fast the paddle is moving
+float Velocity;
+ 
+//Is the paddle moveable, can it move?
+bool bMoveable;
+ 
+};</p> <h3 id="paddle-cpp-7"><a href="#paddle-cpp-7" class="header-anchor">#</a> Paddle.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;Paddle.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+ 
+ 
+// Sets default values
+APaddle::APaddle( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+//Find the Paddle Sprite -- Right click on your sprite in the editor and click copy reference to get the path to it
+ConstructorHelpers::FObjectFinder&lt;UPaperSprite&gt; PaddleSpriteRef( TEXT( &quot;PaperSprite'/Game/Sprites/Paddle'&quot; ) );
+ 
+//Create a default UPaperSpriteComponent and register it to this Actor
+Sprite = ObjectInitializer.CreateDefaultSubobject&lt;UPaperSpriteComponent&gt;( this, TEXT( &quot;SpriteComp&quot; ) );
+ 
+//Set the Sprite to render for the UPaperSpriteComponent to the PaddleSprite Reference we grabbed
+Sprite-&gt;SetSprite( PaddleSpriteRef.Object );
+ 
+RootComponent = Sprite;
+ 
+ObjectInitializer.CreateDefaultSubobject&lt;UPawnMovementComponent&gt;( this, TEXT( &quot;MovementComp&quot; ) );
+ 
+//Can initially move in all directions
+bMoveUp = true;
+bMoveDown = true;
+ 
+//Set the sprite to generate overlap events for world-static objects -&gt; The Bounds is set to World Static, so this should generate an overlap event now
+Sprite-&gt;GetBodyInstance()-&gt;SetCollisionEnabled( ECollisionEnabled::QueryAndPhysics );
+Sprite-&gt;GetBodyInstance()-&gt;SetObjectType( ECollisionChannel::ECC_Pawn );
+Sprite-&gt;GetBodyInstance()-&gt;SetResponseToChannel( ECollisionChannel::ECC_WorldStatic, ECollisionResponse::ECR_Overlap );
+ 
+Sprite-&gt;SetSimulatePhysics( false );
+ 
+//Set the location of the Paddle to the Left
+Sprite-&gt;SetRelativeLocation( FVector( -200.0f, 50.f, 0.0f ) );
+Sprite-&gt;SetRelativeRotation( FRotator( 0.f, 0.f, 0.f ) );
+Sprite-&gt;SetRelativeScale3D( FVector( 0.1f, 1.0f, 0.1f ) );
+Sprite-&gt;SetAbsolute( true, true, true );
+ 
+ 
+ 
+}
+ 
+// Called when the game starts or when spawned
+void APaddle::BeginPlay()
+{
+Super::BeginPlay();
+Sprite-&gt;SetRelativeLocation( FVector( -200.0f, 50.f, 0.0f ) );
+Sprite-&gt;SetRelativeRotation( FRotator( 0.f, 0.f, 0.f ) );
+}
+ 
+// Called every frame
+void APaddle::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+// Update the sprites location based on the movement input
+FVector move = GetMovementInputVector();
+if ( ( ( bMoveUp &amp;&amp; move.Z &gt; 0 ) || ( bMoveDown &amp;&amp; move.Z &lt; 0 ) ) &amp;&amp; bMoveable )
+{
+FTransform loc = Sprite-&gt;GetRelativeTransform();
+loc.AddToTranslation( move*DeltaTime );
+Sprite-&gt;SetRelativeTransform( loc );
+}
+ 
+}
+ 
+// Called to bind functionality to input
+void APaddle::SetupPlayerInputComponent(class UInputComponent* InputComponent)
+{
+Super::SetupPlayerInputComponent(InputComponent);
+ 
+const UInputSettings* settings = GetDefault&lt;UInputSettings&gt;( );
+ 
+//Create movement mappings for upwards and downwards movement, the float value tells if we are moving the paddle up or down
+const FInputAxisKeyMapping upKey(&quot;Move&quot;, EKeys::Up, 1.0f);
+const FInputAxisKeyMapping downKey( &quot;Move&quot;, EKeys::Down, -1.0f );
+ 
+// Add the axis mappings
+// Once this code is executed, these mappings will be added in the editors Input Settings!
+((UInputSettings*)settings)-&gt;AddAxisMapping( upKey );
+((UInputSettings*)settings)-&gt;AddAxisMapping( downKey );
+ 
+// Bind the axis - if we press up, the function is called with 1.0.  if we press down, the function is called with -1.0.
+// if we do nothing, the function is called with 0.0f
+InputComponent-&gt;BindAxis( &quot;Move&quot;, this, &amp;APaddle::MovePaddle );
+ 
+Velocity = 0.0f;
+}
+ 
+void APaddle::MovePaddle( float Scale )
+{
+//Add a movement input, hardcoding in 75.0f for the vector
+FVector direction = FVector( 0.0f, 0.0f, 75.0f );
+GetMovementComponent()-&gt;ConsumeInputVector();
+AddMovementInput( direction, Scale );
+Velocity = Scale * 75.0f;
+}
+ 
+void APaddle::NotifyActorBeginOverlap( AActor* OtherActor )
+{
+if ( OtherActor-&gt;GetName().Equals( &quot;Bounds&quot; ) )
+{
+FVector prev = GetMovementComponent()-&gt;GetLastInputVector();
+ 
+//If moving into a bound, set the movement in that direction to false
+if ( prev.Z &gt; 0.0f )
+{
+bMoveUp = false;
+}
+else if ( prev.Z &lt; 0.0f )
+{
+bMoveDown = false;
+}
+ 
+}
+}
+ 
+void APaddle::NotifyActorEndOverlap( AActor* OtherActor )
+{
+if ( OtherActor-&gt;GetName().Equals( &quot;Bounds&quot; ) )
+{
+//Out of the bounds so enable all movement inputs
+bMoveUp = true;
+bMoveDown = true;
+}
+}
+ 
+//Get the ZVelocity (How fast the paddle is moving up or down)
+float APaddle::GetZVelocity()
+{
+return Velocity;
+}
+ 
+FVector2D APaddle::GetPosition()
+{
+FVector2D location;
+location.X = Sprite-&gt;GetComponentLocation().X;
+location.Y = Sprite-&gt;GetComponentLocation().Z;
+ 
+return location;
+}
+ 
+// Reset the paddles location
+void APaddle::Reset()
+{
+Sprite-&gt;SetRelativeLocation( FVector( -200.0f, 50.f, 0.0f ) );
+Sprite-&gt;SetRelativeRotation( FRotator( 0.f, 0.f, 0.f ) );
+Sprite-&gt;SetRelativeScale3D( FVector( 0.1f, 1.0f, 0.1f ) );
+bMoveUp = true;
+bMoveDown = true;
+}
+ 
+void APaddle::SetMoveable( bool bMoveable )
+{
+this-&gt;bMoveable = bMoveable;
+}</p> <h3 id="paddleai-h-2"><a href="#paddleai-h-2" class="header-anchor">#</a> PaddleAI.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;Paddle.h&quot;
+#include &quot;PaddleAI.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS()
+class PONG_API APaddleAI : public APaddle
+{
+GENERATED_BODY()
+ 
+public:
+// Sets default values for this pawn's properties
+APaddleAI( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+// Ball Reference
+void SetBall( class ABall* Ball );
+ 
+// AI Paddle Reset override
+virtual void Reset() override;
+ 
+private:
+ 
+//Reference to Ball
+class ABall* Ball;
+ 
+};</p> <h3 id="paddleai-cpp-2"><a href="#paddleai-cpp-2" class="header-anchor">#</a> PaddleAI.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;PaddleAI.h&quot;
+#include &quot;Ball.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+ 
+ 
+ 
+// Sets default values
+APaddleAI::APaddleAI( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+}
+ 
+// Called when the game starts or when spawned
+void APaddleAI::BeginPlay( )
+{
+Super::BeginPlay();
+Sprite-&gt;SetRelativeLocation( FVector( 200.0f, 50.f, 0.0f ) );
+Sprite-&gt;SetRelativeRotation( FRotator( 0.f, 0.f, 0.f ) );
+}
+ 
+// Called every frame
+void APaddleAI::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+//Paddle AI can always move
+bMoveUp = true;
+bMoveDown = true;
+ 
+// Update the direction the AI should move based on where the Ball is
+if ( Sprite-&gt;GetComponentLocation().Z &gt; Ball-&gt;GetActorLocation().Z )
+{
+MovePaddle( -1.0f );
+}
+else if ( Sprite-&gt;GetComponentLocation().Z &lt; Ball-&gt;GetActorLocation().Z )
+{
+MovePaddle( 1.0f );
+}
+else
+{
+MovePaddle( 0.0f );
+}
+ 
+}
+ 
+void APaddleAI::SetBall( ABall* Ball )
+{
+this-&gt;Ball = Ball;
+}
+ 
+// Reset the paddles location
+void APaddleAI::Reset( )
+{
+Sprite-&gt;SetRelativeLocation( FVector( 200.0f, 50.f, 0.0f ) );
+Sprite-&gt;SetRelativeRotation( FRotator( 0.f, 0.f, 0.f ) );
+bMoveUp = true;
+bMoveDown = true;
+}</p> <h3 id="ball-h-4"><a href="#ball-h-4" class="header-anchor">#</a> Ball.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/Actor.h&quot;
+#include &quot;Ball.generated.h&quot;
+ 
+UCLASS()
+class PONG_API ABall : public AActor
+{
+GENERATED_BODY()
+ 
+public:	
+// Sets default values for this actor's properties
+ABall( const FObjectInitializer&amp; ObjectInitializer );
+ 
+// Called when the game starts or when spawned
+virtual void BeginPlay() override;
+ 
+// Called every frame
+virtual void Tick( float DeltaSeconds ) override;
+ 
+// Called to start moving the Ball
+void StartMove();
+ 
+// notify hit
+virtual void NotifyHit( UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult&amp; Hit ) override;
+ 
+// Reset the Ball
+void Reset();
+ 
+protected:
+ 
+//Reference to the Sprite Component which contains the ball sprite
+UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = Ball )
+class UPaperSpriteComponent* Sprite;
+ 
+private:
+ 
+//The direction the ball is traveling in
+FVector Direction;
+ 
+//Velocity of the ball.  How Fast it is travelling. Distance/Time
+float Velocity;
+};</p> <h3 id="ball-cpp-4"><a href="#ball-cpp-4" class="header-anchor">#</a> Ball.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;Ball.h&quot;
+#include &quot;PaperSpriteComponent.h&quot;
+#include &quot;Paddle.h&quot;
+ 
+// Sets default values
+ABall::ABall( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+PrimaryActorTick.bCanEverTick = true;
+ 
+//Find the Ball Sprite -- Right click on your sprite in the editor and click copy reference to get the path to it
+ConstructorHelpers::FObjectFinder&lt;UPaperSprite&gt; BallSpriteRef( TEXT( &quot;PaperSprite'/Game/Sprites/Ball'&quot; ) );
+ 
+//Create a default UPaperSpriteComponent and register it to this Actor
+Sprite = ObjectInitializer.CreateDefaultSubobject&lt;UPaperSpriteComponent&gt;( this, TEXT( &quot;SpriteComp&quot; ) );
+ 
+//Set the Sprite to render for the UPaperSpriteComponent to the BallSprite Reference we grabbed
+Sprite-&gt;SetSprite( BallSpriteRef.Object );
+ 
+RootComponent = Sprite;
+ 
+//Set the physics properties
+//Restrict the translation/rotation axis
+SetActorEnableCollision( true );
+Sprite-&gt;SetEnableGravity( false );
+Sprite-&gt;SetConstraintMode( EDOFMode::SixDOF );
+Sprite-&gt;GetBodyInstance()-&gt;bLockXRotation = true;
+Sprite-&gt;GetBodyInstance()-&gt;bLockYRotation = true;
+Sprite-&gt;GetBodyInstance()-&gt;bLockZRotation = true;
+Sprite-&gt;GetBodyInstance()-&gt;bLockXTranslation = false;
+Sprite-&gt;GetBodyInstance()-&gt;bLockYTranslation = true;
+Sprite-&gt;GetBodyInstance()-&gt;bLockZTranslation = false;
+ 
+//Enable Hit Notifies
+Sprite-&gt;SetNotifyRigidBodyCollision( true );
+ 
+//Set the ball to spawn in the middle of the Board and scale its size down
+Sprite-&gt;SetRelativeLocation( FVector( 0.0f, 50.0f, 0.0f ) );
+Sprite-&gt;SetRelativeScale3D( FVector( 0.07f, 1.0f, 0.07f ) );
+Sprite-&gt;SetAbsolute( true, true, true );
+ 
+Sprite-&gt;SetLinearDamping( 0.0f );
+Sprite-&gt;SetSimulatePhysics( true );
+ 
+Direction = FVector( 0.0f, 0.0f, 0.0f );
+Velocity = 0.0f;
+}
+ 
+// Called when the game starts or when spawned
+void ABall::BeginPlay()
+{
+Super::BeginPlay();
+}
+ 
+// Called every frame
+void ABall::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+//Set a time variable to be &lt; one hundreth of a second
+float time = (DeltaTime &gt; 0.01f ? 0.0083f : DeltaTime);
+ 
+//Update the translation based on the time variable
+FTransform transform = Sprite-&gt;GetRelativeTransform();
+transform.AddToTranslation( Direction * Velocity * time );
+Sprite-&gt;SetRelativeTransform( transform );
+ 
+}
+ 
+void ABall::StartMove()
+{
+// Move the ball via setting the Direction and Velocity
+Direction = FVector( -1.0f, 0.0f, 0.0f );
+Velocity = 250.0f;
+}
+ 
+//The Ball has hit something
+void ABall::NotifyHit( UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult&amp; Hit )
+{
+//Make sure that the physics velocities are set to 0.  We are keeping track of direction/speed.  We want this hit event so that we can easily mirror the direction
+Sprite-&gt;SetAllPhysicsAngularVelocity( FVector( 0.0f, 0.0f, 0.0f ) );
+Sprite-&gt;SetAllPhysicsLinearVelocity( FVector( 0.0f, 0.0f, 0.0f ) );
+ 
+//Mirror the Direction so that we can get the new trajectory of the ball
+Direction = Direction.MirrorByVector( HitNormal );
+ 
+//If the ball hits the paddle, add Z velocity to the ball (This can become very fast)
+if ( Other-&gt;GetName().Contains( &quot;Paddle&quot; ) )
+{
+APaddle* paddle = (APaddle*)Other;
+Direction.Z += (paddle-&gt;GetZVelocity() / Velocity);
+}
+}
+ 
+void ABall::Reset()
+{
+Sprite-&gt;SetRelativeLocation( FVector( 0.0f, 50.0f, 0.0f ) );
+Sprite-&gt;SetRelativeScale3D( FVector( 0.07f, 1.0f, 0.07f ) );
+Direction = FVector( 0.0f, 0.0f, 0.0f );
+Velocity = 0.0f;
+}</p> <p>Finally, the GameState was updated significantly. The states were all filled in.</p> <h3 id="ponggamestate-h-4"><a href="#ponggamestate-h-4" class="header-anchor">#</a> PongGameState.h</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#pragma once
+ 
+#include &quot;GameFramework/GameState.h&quot;
+#include &quot;PongGameState.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS()
+class PONG_API APongGameState : public AGameState
+{
+GENERATED_BODY()
+ 
+enum PONG_STATES
+{
+RESET,
+WAITING_TO_START,
+PUSH_BALL,
+PLAYING
+};
+ 
+public:
+ 
+APongGameState( const FObjectInitializer&amp; ObjectInitializer );
+ 
+//Called when play begins
+virtual void BeginPlay() override;
+ 
+//Tick called every frame
+virtual void Tick( float DeltaTime ) override;
+ 
+//Mutator for the reference to the Ball
+void SetBall( class ABall* Ball );
+ 
+//Overlap event for when the ball overlaps
+UFUNCTION()
+void BallOverlap( AActor* OtherActor );
+ 
+private:
+//Helper function to Reset the Board to it's initial state
+void ResetBoard();
+ 
+private:
+ 
+//The current state the game is in
+PONG_STATES CurrentState;
+ 
+//Reference to the Ball
+class ABall* Ball;
+ 
+//booleans to keep track of when a goal is scored
+bool bAIScored;
+bool bPlayerScored;
+ 
+//values to store to the current score
+int AIScore;
+int PlayerScore;
+ 
+//Reference to the controller used for the paddle
+class APlayerController* Controller;
+class APongHUD* HUD;
+ 
+};</p> <h3 id="ponggamestate-cpp-4"><a href="#ponggamestate-cpp-4" class="header-anchor">#</a> PongGameState.cpp</h3> <p>// Fill out your copyright notice in the Description page of Project Settings.
+ 
+#include &quot;Pong.h&quot;
+#include &quot;PongGameState.h&quot;
+#include &quot;Ball.h&quot;
+#include &quot;Paddle.h&quot;
+#include &quot;PongHUD.h&quot;
+ 
+APongGameState::APongGameState( const FObjectInitializer&amp; ObjectInitializer )
+: Super( ObjectInitializer )
+{
+PrimaryActorTick.bCanEverTick = true;
+PlayerScore = 0;
+AIScore = 0;
+CurrentState = PONG_STATES::WAITING_TO_START;
+}
+ 
+void APongGameState::BeginPlay()
+{
+Super::BeginPlay();
+ 
+Controller = GetWorld()-&gt;GetFirstPlayerController();
+HUD = (APongHUD*)Controller-&gt;GetHUD();
+}
+ 
+void APongGameState::Tick( float DeltaTime )
+{
+Super::Tick( DeltaTime );
+ 
+// If match is in progress, run the custom state machine
+if ( IsMatchInProgress( ) )
+{
+switch ( CurrentState )
+{
+case PONG_STATES::RESET:
+ResetBoard();
+for ( auto it = GetWorld( )-&gt;GetPawnIterator( ); it.GetIndex( ) &lt; GetWorld( )-&gt;GetNumPawns( ); it++ )
+{
+( (APaddle*)it-&gt;Get() )-&gt;SetMoveable( false );
+}
+CurrentState = PONG_STATES::WAITING_TO_START;
+break;
+ 
+case PONG_STATES::WAITING_TO_START:
+HUD-&gt;DisplayWaitingForSpace( true );
+if ( Controller-&gt;WasInputKeyJustReleased( EKeys::SpaceBar ) )
+{
+HUD-&gt;DisplayWaitingForSpace( false );
+for ( auto it = GetWorld( )-&gt;GetPawnIterator( ); it.GetIndex( ) &lt; GetWorld( )-&gt;GetNumPawns( ); it++ )
+{
+( (APaddle*)it-&gt;Get() )-&gt;SetMoveable( true );
+}
+CurrentState = PONG_STATES::PUSH_BALL;
+}
+break;
+ 
+case PONG_STATES::PUSH_BALL:
+Ball-&gt;StartMove();
+CurrentState = PONG_STATES::PLAYING;
+break;
+ 
+case PONG_STATES::PLAYING:
+if (bPlayerScored || bAIScored )
+{
+HUD-&gt;SetScore( PlayerScore, AIScore );
+CurrentState = PONG_STATES::RESET;
+}
+break;
+ 
+default:
+CurrentState = PONG_STATES::RESET;
+break;
+}
+}
+}
+ 
+void APongGameState::SetBall( ABall* Ball )
+{
+this-&gt;Ball = Ball;
+Ball-&gt;OnActorBeginOverlap.AddDynamic( this, &amp;APongGameState::BallOverlap );
+}
+ 
+void APongGameState::BallOverlap( AActor* OtherActor )
+{
+if ( OtherActor-&gt;GetName().Equals( &quot;PlayerGoal&quot; ) )
+{
+bAIScored = true;
+AIScore++;
+}
+ 
+if ( OtherActor-&gt;GetName().Equals( &quot;AIGoal&quot; ) )
+{
+bPlayerScored = true;
+PlayerScore++;
+}
+}
+ 
+void APongGameState::ResetBoard()
+{
+ 
+bPlayerScored = false;
+bAIScored = false;
+ 
+// Reset the paddles
+for ( auto it = GetWorld( )-&gt;GetPawnIterator( ); it.GetIndex( ) &lt; GetWorld( )-&gt;GetNumPawns( ); it++ )
+{
+( (APaddle*)it-&gt;Get() )-&gt;Reset( );
+}
+ 
+Ball-&gt;Reset();
+ 
+}</p> <h2 id="finished"><a href="#finished" class="header-anchor">#</a> Finished</h2> <p>And that is Pong, Congratulations!</p> <h2 id="all-source-files"><a href="#all-source-files" class="header-anchor">#</a> All Source Files</h2> <p>Here are all of the final source files zipped up: <a href="/File:PongSource.zip" title="File:PongSource.zip">File:PongSource.zip</a></p> <p><strong>Author:</strong> Igne</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Pong_Tutorial&amp;oldid=17207" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Pong_Tutorial&amp;oldid=17207<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/921.7704d9b0.js" defer></script>
+  </body>
+</html>

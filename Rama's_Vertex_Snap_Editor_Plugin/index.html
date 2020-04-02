@@ -1,0 +1,2248 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/943.a40951ad.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Rama's Vertex Snap Editor Plugin - Epic Wiki</p> <h1 id="rama-s-vertex-snap-editor-plugin"><a href="#rama-s-vertex-snap-editor-plugin" class="header-anchor">#</a> Rama's Vertex Snap Editor Plugin</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a> <ul><li><a href="#Entire_C.2B.2B_Source_Code">1.1 Entire C++ Source Code</a></li></ul></li> <li><a href="#Pictures">2 Pictures</a></li> <li><a href="#Plugin_Release_Dates_and_UE4_Engine_Versions">3 Plugin Release Dates and UE4 Engine Versions</a></li> <li><a href="#All_Future_Updates">4 All Future Updates</a> <ul><li><a href="#4.11">4.1 4.11</a></li> <li><a href="#4.10">4.2 4.10</a></li> <li><a href="#4.9.2">4.3 4.9.2</a></li></ul></li> <li><a href="#Plugin_Download">5 Plugin Download</a> <ul><li><a href="#Victory_BP_Library_.7E_100.2B_Extra_Blueprint_Nodes">5.1 Victory BP Library ~ 100+ Extra Blueprint Nodes</a></li> <li><a href="#Victory_Ed_Engine_.7E_Vertex_Snapping_.26_Instanced_Static_Mesh_Editor">5.2 Victory Ed Engine ~ Vertex Snapping &amp; Instanced Static Mesh Editor</a></li></ul></li> <li><a href="#Installation_of_Victory_Blueprint_Library">6 Installation of Victory Blueprint Library</a></li> <li><a href="#Installation_of_VictoryEdEngine_for_Vertex_Snapping">7 Installation of VictoryEdEngine for Vertex Snapping</a> <ul><li><a href="#Disabling_My_Editor_Mode_.2F_Entire_Plugin">7.1 Disabling My Editor Mode / Entire Plugin</a></li></ul></li> <li><a href="#Instanced_Static_Mesh_Editor">8 Instanced Static Mesh Editor</a> <ul><li><a href="#Update:_Part_of_Victory_Ed_Engine">8.1 Update: Part of Victory Ed Engine</a></li> <li><a href="#Mandatory_Setup_Step">8.2 Mandatory Setup Step</a></li></ul></li> <li><a href="#Works_With_UE4_Undo_System">9 Works With UE4 Undo System</a></li> <li><a href="#Newest_Editor_Feature:">10 Newest Editor Feature:</a> <ul><li><a href="#New_Display_Options">10.1 New Display Options</a></li> <li><a href="#New_Workflow.283.2F27.2F14.29">10.2 New Workflow(3/27/14)</a></li> <li><a href="#New_Snap_to_Surface_Normal_Workflow">10.3 New Snap to Surface Normal Workflow</a></li></ul></li> <li><a href="#Drop_Static_Meshes_to_Nearest_Surface.21">11 Drop Static Meshes to Nearest Surface!</a></li> <li><a href="#Vertex_Snap_Plugin">12 Vertex Snap Plugin</a> <ul><li><a href="#UE4_Editor_Plugin.2C_No_Code_Compile_Required">12.1 UE4 Editor Plugin, No Code Compile Required</a></li></ul></li> <li><a href="#Victory_Editor_Align_Mode">13 Victory Editor Align Mode</a> <ul><li><a href="#Features:">13.1 Features:</a> <ul><li><a href="#Instant_Mouse_Move_of_Static_Mesh_Actor">13.1.1 Instant Mouse Move of Static Mesh Actor</a></li> <li><a href="#Reset_any_Static_Mesh_Actor.27s_rotation_to_0">13.1.2 Reset any Static Mesh Actor's rotation to 0</a></li> <li><a href="#Vertx_Display_and_Snapping">13.1.3 Vertx Display and Snapping</a></li> <li><a href="#Vertex_Resizing">13.1.4 Vertex Resizing</a></li> <li><a href="#Verticies_Dynamically_Update">13.1.5 Verticies Dynamically Update</a></li> <li><a href="#Vertex_Selection">13.1.6 Vertex Selection</a></li></ul></li> <li><a href="#WorkFlow_Efficiency">13.2 WorkFlow Efficiency</a> <ul><li><a href="#Fast_User_Interface">13.2.1 Fast User Interface</a></li> <li><a href="#Speed:_Using_the_PDI_.2F_Primitive_Draw_Interface">13.2.2 Speed: Using the PDI / Primitive Draw Interface</a></li> <li><a href="#High_Vertex_Counts">13.2.3 High Vertex Counts</a></li> <li><a href="#Editor_Environment_Integration">13.2.4 Editor Environment Integration</a></li></ul></li> <li><a href="#Using_Vertex_Snap_Mode">13.3 Using Vertex Snap Mode</a></li> <li><a href="#Vertex_Editor_Plugin_Summary">13.4 Vertex Editor Plugin Summary</a></li></ul></li> <li><a href="#">14</a></li> <li><a href="#My_Entire_Plugin_C.2B.2B_Source_Code">15 My Entire Plugin C++ Source Code</a> <ul><li><a href="#Credits">15.1 Credits</a></li> <li><a href="#VictoryEdEngine">15.2 VictoryEdEngine</a> <ul><li><a href="#.H">15.2.1 .H</a></li> <li><a href="#.CPP">15.2.2 .CPP</a></li></ul></li> <li><a href="#VictoryEdMode">15.3 VictoryEdMode</a> <ul><li><a href="#.H_2">15.3.1 .H</a></li> <li><a href="#.CPP_2">15.3.2 .CPP</a></li></ul></li></ul></li> <li><a href="#_2">16</a></li> <li><a href="#Core_of_Making_Your_Own_Editor_Mode">17 Core of Making Your Own Editor Mode</a> <ul><li><a href="#Interaction_of_EdEngine_with_EdMode_Class">17.1 Interaction of EdEngine with EdMode Class</a></li> <li><a href="#Activating_The_Editor_Mode.2C_Once_Created">17.2 Activating The Editor Mode, Once Created</a></li> <li><a href="#The_Ed_Mode.27s_Unique_ID">17.3 The Ed Mode's Unique ID</a></li></ul></li> <li><a href="#Plugin_Build.cs">18 Plugin Build.cs</a></li> <li><a href="#Plugin_Download_2">19 Plugin Download</a></li> <li><a href="#Enjoy.21">20 Enjoy!</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Plugin Author:</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>Here is my Vertex Snapping UE4 Editor Plugin!</p> <p>Below I am sharing with you not only the actual plugin, but the <strong>entire source code for</strong>:</p> <p>1. The plugin, showing you how to make your own (you get the source with my plugin file download)</p> <p>2. My extended UE4 Editor Engine class</p> <p>3. My very own Vertex Snapping Editor Mode, showing you via complete example how you can make your own Editor Modes!</p> <h3 id="entire-c-source-code"><a href="#entire-c-source-code" class="header-anchor">#</a> Entire C++ Source Code</h3> <p><a href="#My_Entire_Plugin_C.2B.2B_Source_Code">My Entire C++ Source Code For You!</a></p> <h2 id="pictures"><a href="#pictures" class="header-anchor">#</a> Pictures</h2> <p><a href="/File:InstancedStaticMeshEditor.jpg" title="800x"><img src="https://d26ilriwvtzlb.cloudfront.net/b/b2/InstancedStaticMeshEditor.jpg" alt="800x"></a></p> <p><a href="/File:VertexSnapContinuous.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/8/8d/VertexSnapContinuous.jpg/486px-VertexSnapContinuous.jpg" alt="VertexSnapContinuous.jpg"></a></p> <p><a href="/File:VertexEditorPlugin_Snap.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/3/38/VertexEditorPlugin_Snap.jpg/600px-VertexEditorPlugin_Snap.jpg" alt="VertexEditorPlugin Snap.jpg"></a></p> <p><a href="/File:VertexEditorPlugin_Resize.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/b/bf/VertexEditorPlugin_Resize.jpg/600px-VertexEditorPlugin_Resize.jpg" alt="VertexEditorPlugin Resize.jpg"></a></p> <p><a href="/File:VertexEditorPlugin_SnapAngle.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/f/fc/VertexEditorPlugin_SnapAngle.jpg/600px-VertexEditorPlugin_SnapAngle.jpg" alt="VertexEditorPlugin SnapAngle.jpg"></a></p> <h2 id="plugin-release-dates-and-ue4-engine-versions"><a href="#plugin-release-dates-and-ue4-engine-versions" class="header-anchor">#</a> Plugin Release Dates and UE4 Engine Versions</h2> <h2 id="all-future-updates"><a href="#all-future-updates" class="header-anchor">#</a> All Future Updates</h2> <p>Because of the wiki file size limit of 20mb I am compelled to unify my Victory Plugin distribution into Editor + Packaged Binaries only in a media fire download from now on.</p> <p>All future updates are at this link:</p> <p><a href="https://www.mediafire.com/?ieovbd5l9d7yub2" target="_blank" rel="noopener noreferrer">Rama's Victory Plugin, Editor + Packaged Binaries<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>Entire C++ Source code is included!</p> <p><strong>Github link:</strong> <a href="https://github.com/EverNewJoy/VictoryPlugin" target="_blank" rel="noopener noreferrer">https://github.com/EverNewJoy/VictoryPlugin<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h3 id="_4-11"><a href="#_4-11" class="header-anchor">#</a> 4.11</h3> <p>4.11 is the current engine version of my Victory Plugin, beginning with the February 15th build!</p> <p>Please note that due to wiki file size limits (20mb), starting with 4.11 Victory Packaged Binaries only contains Development Win64.</p> <p>If you need to package for a build other than Development Win64 you will need to install visual studio 2015 and compile the source code that I freely provide with every build.</p> <h3 id="_4-10"><a href="#_4-10" class="header-anchor">#</a> 4.10</h3> <p>The last 4.10 updates of my plugins:</p> <p>February 6th, 2016</p> <h3 id="_4-9-2"><a href="#_4-9-2" class="header-anchor">#</a> 4.9.2</h3> <p>The last 4.9.2 updates for my plugins:</p> <p><strong>Victory BP Library</strong> ~ October 14th, 2015</p> <p><strong>Victory BP Library Packaged Binaries</strong> ~ October 14th, 2015</p> <p><strong>Victory Ed Engine(Vertex Snap and ISM Editor)</strong> ~ October 25th, 2015</p> <h2 id="plugin-download"><a href="#plugin-download" class="header-anchor">#</a> Plugin Download</h2> <p>(Please note these files do not contain an executable, just the .dll that UE4 needs for a plugin, that's why the file warning appears)</p> <h3 id="victory-bp-library-100-extra-blueprint-nodes"><a href="#victory-bp-library-100-extra-blueprint-nodes" class="header-anchor">#</a> Victory BP Library ~ 100+ Extra Blueprint Nodes</h3> <p><a href="/File:VictoryPlugin.zip" title="File:VictoryPlugin.zip">File:VictoryPlugin.zip</a></p> <p>If you want to <strong>package</strong> my plugin for <strong>Win32 Shipping</strong> or <strong>Win64 Development</strong> you can merge these binaries with the main plugin installation above!</p> <p><a href="/File:VictoryPluginPackaged.zip" title="File:VictoryPluginPackaged.zip">File:VictoryPluginPackaged.zip</a></p> <h3 id="victory-ed-engine-vertex-snapping-instanced-static-mesh-editor"><a href="#victory-ed-engine-vertex-snapping-instanced-static-mesh-editor" class="header-anchor">#</a> Victory Ed Engine ~ Vertex Snapping &amp; Instanced Static Mesh Editor</h3> <p><a href="/File:VictoryEdEngine.zip" title="File:VictoryEdEngine.zip">File:VictoryEdEngine.zip</a></p> <h2 id="installation-of-victory-blueprint-library"><a href="#installation-of-victory-blueprint-library" class="header-anchor">#</a> Installation of Victory Blueprint Library</h2> <p>You should install my Victory Plugin in the Engine/Plugins/Runtime folder of the appropriate Engine version.</p> <p>You should always try to package for Development Win64 first, and Shipping Win32 as these are the only two platforms I support for those who do not have C++ access.</p> <p><a href="https://forums.unrealengine.com/showthread.php?3851-(39)-Rama-s-Extra-Blueprint-Nodes-for-You-as-a-Plugin-No-C-Required!&amp;p=476476&amp;viewfull=1#post476476" target="_blank" rel="noopener noreferrer">Detailed Description<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h2 id="installation-of-victoryedengine-for-vertex-snapping"><a href="#installation-of-victoryedengine-for-vertex-snapping" class="header-anchor">#</a> Installation of VictoryEdEngine for Vertex Snapping</h2> <p><a href="/File:Victorybpplugin.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/0/0b/Victorybpplugin.jpg/650px-Victorybpplugin.jpg" alt="Victorybpplugin.jpg"></a></p> <p>Plugin download (<strong>5.8 MB</strong>):</p> <p>It is important to do all of these steps in order</p> <p>1. download my editor / BP plugin and put in a directory directly off of your main project directory called &quot;<strong>Plugins</strong>&quot;</p> <p>spelling must be exact</p> <p>2. Load UE4 editor and go to Windows-&gt;Plugins</p> <p>3. Find my plugin and make sure it is checked as being active</p> <p>4. maybe double check #3</p> <p>5. close the editor.</p> <p>6. go to <strong>YourProject/Config/DefaultEngine.ini</strong></p> <p>7. add these lines:</p> <p>[/Script/Engine.Engine]
+UnrealEdEngine=/Script/VictoryEdEngine.VictoryEdEngine</p> <p>8. Load UE4 Editor again</p> <p>9. click on any static mesh actor</p> <p>10. You should now see the Victory Editor HotKeys button in the top left</p> <p>11. If you hover mouse over this title area any time, you can get the list of hotkeys</p> <p>12. Enjoooy!</p> <p><strong>What does this all do?</strong></p> <p>My plugin includes an alternative UnrealEdEngine class, that makes use of my new additional FEdMode editor mode class.</p> <p>The config file tells the main UE4 binary to use my alternative UnrealEdEngine class instead of the default.</p> <p>Commenting out the line you added will instantly disable my Editor Mode.</p> <p>Unchecking my plugin in Windows-&gt;Plugins within the editor, but leaving the config file set,</p> <p>is pretty much guaranteed to cause a crash.</p> <p>soooo</p> <h3 id="disabling-my-editor-mode-entire-plugin"><a href="#disabling-my-editor-mode-entire-plugin" class="header-anchor">#</a> Disabling My Editor Mode / Entire Plugin</h3> <p>To disable my editor mode you should *always* comment out the DefaultEngine.ini line first!</p> <p>Then you can load the editor again and disable the plugin entirely</p> <p>My plugin cannot corrupt or damage your main UE4 install in any way,</p> <p>If you get a crash dont panic, just read these steps again</p> <p><strong>&quot; Help I can't Load UE4 Anymore &quot;</strong></p> <p>The worst that can happen is that the config file gets setup up wrong,</p> <p>and you wont be able to load the editor,</p> <p>and it will crash if you try cause it can't find the new Engine class.</p> <p><strong>But, this is extremely easy to fix!</strong></p> <p>just comment out the line that you added in your config file and you are guaranteed good-to-go</p> <p>[/Script/Engine.Engine]
+UnrealEdEngine=/Script/VictoryEdEngine.VictoryEdEngine</p> <h2 id="instanced-static-mesh-editor"><a href="#instanced-static-mesh-editor" class="header-anchor">#</a> Instanced Static Mesh Editor</h2> <p><a href="/File:InstancedStaticMeshEditor.jpg" title="800x"><img src="https://d26ilriwvtzlb.cloudfront.net/b/b2/InstancedStaticMeshEditor.jpg" alt="800x"></a></p> <p><strong>Introduction Video</strong></p> <p><strong>Setup</strong></p> <p>I recently added a feature so that you can select many static mesh actors that all have the same static mesh and convert them into 1 instanced static mesh!</p> <p>This process can be reversed at any time to make individual edits!</p> <p>In this way you can enable UE4 to render 1000s of static meshes while maintaining very high FPS!</p> <p>Now you can edit instanced static meshes with all the tools you are familiar with and convert all the static mesh actors when you are done, to get a huge FPS boost!</p> <h3 id="update-part-of-victory-ed-engine"><a href="#update-part-of-victory-ed-engine" class="header-anchor">#</a> Update: Part of Victory Ed Engine</h3> <p>My ISM Editor feature is now part of the Victory Ed Engine plugin which is separate from the Victory BP Library plugin 😃</p> <h3 id="mandatory-setup-step"><a href="#mandatory-setup-step" class="header-anchor">#</a> Mandatory Setup Step</h3> <p>To make my Instanced Static Mesh system work with your project you have to choose a ISM actor class. You can either create your own by adding a Instanced Static Mesh Actor to a new Actor blueprint, making the ISM component the root component, or you can use the VictoryISM class in my Victory BP Library plugin!</p> <p>1. Go to Project Settings-&gt;Game-&gt;Victory Ed Engine</p> <p>2. Choose your own custom Instanced Static Mesh Actor class, or use the one from my Victory BP Library plugin</p> <p>3. Select a bunch of static mesh actors and press i to convert them, shift + i to convert back, also work with undo/redo</p> <p>4. Enjoy!</p> <h2 id="works-with-ue4-undo-system"><a href="#works-with-ue4-undo-system" class="header-anchor">#</a> Works With UE4 Undo System</h2> <p>My Vertex Snap Editor Mode now works with UE4's undo system!</p> <p>Yay!</p> <p>You can undo as many individual snap events as you want!</p> <p>Note that I only save an undo state when you release the V key to avoid flooding the system while you are continuously snapping while holding down V.</p> <p>So make sure you release the V key to save your final state before using CTRL + Z</p> <p><a href="/File:Undo.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/b/bb/Undo.jpg/600px-Undo.jpg" alt="Undo.jpg"></a></p> <p>Rama</p> <h2 id="newest-editor-feature"><a href="#newest-editor-feature" class="header-anchor">#</a> Newest Editor Feature:</h2> <h3 id="new-display-options"><a href="#new-display-options" class="header-anchor">#</a> New Display Options</h3> <p>Now pressing the U key is a display toggle!</p> <ul><li>Default = only show the vertex the mouse is hovering over</li> <li>Press U once to show all vertices</li> <li>Press U again to show no vertices</li> <li>Press U again to be back to showing cursor-highlighted vertices only</li> <li>etc</li></ul> <h3 id="new-workflow-3-27-14"><a href="#new-workflow-3-27-14" class="header-anchor">#</a> New Workflow(3/27/14)</h3> <ul><li>Press V to select a vertex</li> <li>Hold down V to continuously snap to vertices of other highlighted meshes</li> <li>Release to finalize the move</li></ul> <h3 id="new-snap-to-surface-normal-workflow"><a href="#new-snap-to-surface-normal-workflow" class="header-anchor">#</a> New Snap to Surface Normal Workflow</h3> <ul><li>Press V and and also hold down shift</li> <li>If you fiddle with your approach angle and move the mouse little bits, you can get some really great normal alignments without much effort</li></ul> <p>Enjoy!</p> <p>Rama</p> <p><a href="/File:VertexSnapContinuous.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/8/8d/VertexSnapContinuous.jpg/486px-VertexSnapContinuous.jpg" alt="VertexSnapContinuous.jpg"></a></p> <h2 id="drop-static-meshes-to-nearest-surface"><a href="#drop-static-meshes-to-nearest-surface" class="header-anchor">#</a> Drop Static Meshes to Nearest Surface!</h2> <p><strong>Now you can just press the Y key in the UE4 Editor</strong></p> <p>to drop the selected Static Mesh or Static Meshes to the nearest surface in the level!</p> <p>You can drop Static Meshes down to each other too!</p> <p>My algorithm takes into account the actual shape of the static mesh being dropped, as well as the landscape/level/meshes it is being dropped onto!</p> <p><strong>If you have multiple objects selected</strong>, they are treated as one big object and all the surfaces are calculated together, and the group is dropped, maintaining formation, to the nearest surface within your level.</p> <h2 id="vertex-snap-plugin"><a href="#vertex-snap-plugin" class="header-anchor">#</a> Vertex Snap Plugin</h2> <p>My extended Editor Engine detects when the user clicks on a static mesh actor, and activates my Vertex Snapping Editor Mode.</p> <h3 id="ue4-editor-plugin-no-code-compile-required"><a href="#ue4-editor-plugin-no-code-compile-required" class="header-anchor">#</a> UE4 Editor Plugin, No Code Compile Required</h3> <p>Dear Community,</p> <p>This is my very first <strong>new Editor Mode</strong> for the main UE4 Editor!</p> <p>This is a tiny ( under 10 MB ) plugin, that you can download and use without having to compile any source code.</p> <p>Your project <em>does not</em> have to be a code-based project!</p> <p><strong>It adds 3 new features</strong></p> <p>1. Toggle instantly moving selected static meshes to the mouse cursor, to quickly move them around, or &quot;teleport&quot; them across the map, supports Multi Selection.</p> <p>2. Press K to reset a static mesh actor's rotation</p> <p>3. Vertex Snapping! Optionally snap to surface normal of destination static mesh</p> <p>-verticies can be resized anytime using + or -
+-you can cycle among 5 different verticies display options at any time
+-you can toggle vertex displaying by pressing Y.</p> <p>All of the features are related to static mesh actors and my editor mode disables itself if you are not working with a static mesh actor.</p> <p>It is super easy to enable or disable my editor mode, or suspend it entirely after trying it out.</p> <p><strong>With my editor mode plugin you can enjoy some new features for your UE4 Editor Experience!</strong></p> <h2 id="victory-editor-align-mode"><a href="#victory-editor-align-mode" class="header-anchor">#</a> Victory Editor Align Mode</h2> <h3 id="features"><a href="#features" class="header-anchor">#</a> Features:</h3> <h4 id="instant-mouse-move-of-static-mesh-actor"><a href="#instant-mouse-move-of-static-mesh-actor" class="header-anchor">#</a> Instant Mouse Move of Static Mesh Actor</h4> <p>-Press T key to toggle this mode! (mapping it to a mouse button proved too complicated given all existing editor mouse button functionality)</p> <p>-The selected Static Mesh(es) will move instantly to follow the mouse cursor anywhere in the XY plane, staying on the current Z</p> <p>-This can be used to instantly move objects to a location by a. selecting them all b. moving to your desired destination location c. press T key and they will all warp to your current location 😃</p> <p>-Supports multi-selection</p> <h4 id="reset-any-static-mesh-actor-s-rotation-to-0"><a href="#reset-any-static-mesh-actor-s-rotation-to-0" class="header-anchor">#</a> Reset any Static Mesh Actor's rotation to 0</h4> <p>-Press the K key -just a handy little feature, -extra-useful if the vertex Snap-By-Surface-Normal goes wonky</p> <h4 id="vertx-display-and-snapping"><a href="#vertx-display-and-snapping" class="header-anchor">#</a> Vertx Display and Snapping</h4> <p>-Press Y key to toggle displaying of static mesh verticies! -Press B to toggled between five different display types for all verticies a. simple crosshair b. solid rectangle c. 3D box d. diamond (pretty good even at 4000 verticies) e. sphere (slow for &gt; 3000 verticies)</p> <p>-Hold SHIFT while selecting the second vertex to use Snap-By-Surface-Normal, which will try to align the source static mesh actor with the surface of the destination actor.</p> <p>-snap selected static mesh actor by chosen vertex to the chosen vertex of another static mesh actor,</p> <p>-can do whole process with 3 input key presses total!</p> <h4 id="vertex-resizing"><a href="#vertex-resizing" class="header-anchor">#</a> Vertex Resizing</h4> <p>You can resize all the verticies at once by pressing and holding -/+</p> <h4 id="verticies-dynamically-update"><a href="#verticies-dynamically-update" class="header-anchor">#</a> Verticies Dynamically Update</h4> <p>No matter how you scale or rotate the mesh the drawn verticies will update correctly:)</p> <h4 id="vertex-selection"><a href="#vertex-selection" class="header-anchor">#</a> Vertex Selection</h4> <p>You can move/rotate the selected static mesh actor after selecting one of its verticies, and the selection will be maintained and updated.</p> <h3 id="workflow-efficiency"><a href="#workflow-efficiency" class="header-anchor">#</a> WorkFlow Efficiency</h3> <h4 id="fast-user-interface"><a href="#fast-user-interface" class="header-anchor">#</a> Fast User Interface</h4> <p>Vertex snapping can be accompished in three input presses total</p> <p>1. select the actor you are going to move 2. hover over chosen vertex and press V 3. hover over chosen vertex of other mesh and press V</p> <p>The reason this only takes 3 inputs is because when you hover the mouse over other static mesh actors,</p> <p>my editor mode automatically highlights all of the vertices and the vertex that is closest to the cursor.</p> <p><strong>Why not use Mouse Click?</strong></p> <p>The reason the vertex selections are key presses not mouse clicks:</p> <p>-any kind of mouse click tends to change selection, and I dont wish to override this functionality</p> <p>-it's easy to miss-click with the mouse on a vertex that is at a corner, and end up selecting the landscape instead</p> <p>-the thematic consistency provided by using a same-key-press to do the whole snap process feels nice 😃</p> <p><strong>The flow becomes:</strong></p> <p>hover mouse over vertex press key V</p> <p>hover mouse over other vertex press same key V</p> <p>Snap done!</p> <h4 id="speed-using-the-pdi-primitive-draw-interface"><a href="#speed-using-the-pdi-primitive-draw-interface" class="header-anchor">#</a> Speed: Using the PDI / Primitive Draw Interface</h4> <p>In case you are curious, I am drawing directly to the PDI, the fundamental drawing surface, using DrawPoint.</p> <p>This is about as light-weight as I know how to get at present</p> <p>An advantage of using PDI and DrawPoint is that only verticies in the chosen depth priority will draw.</p> <p><strong>This enables me to hide verticies</strong> that you would not realistically want to click on from the opposite side of a mesh.</p> <h4 id="high-vertex-counts"><a href="#high-vertex-counts" class="header-anchor">#</a> High Vertex Counts</h4> <p>-Verticies are not drawn if the object vertex count is too high (10,000 at moment), as that could cause a long delay or even a hang if you click on a high-res statue or something like that 😃</p> <p>- I automatically switch sphere vertex display mode down to box mode if vertex cound is &gt; 5000 to prevent slowdown if cycling through the B key</p> <h4 id="editor-environment-integration"><a href="#editor-environment-integration" class="header-anchor">#</a> Editor Environment Integration</h4> <p>-Victory Align Mode auto-activates when you click on Static Mesh Actors,</p> <p>-Press P key to restore previous Editor mode and Real Time Status instantly</p> <p>-Clicking on non-static mesh actors will restore previous Editor Mode</p> <p><strong>Example:</strong></p> <p>If you are busy clicking on stuff and you end up in my editor mode by accident, press the P key to instantly revert to prevous mode</p> <p><strong>Interface:</strong></p> <p>-There is a useful hover-button in top left of window that will show you all the hotkeys for this Editor Mode any time you hover mouse over it</p> <p>-The hover-button fades itself out to be less visual distraction, but hovering mouse over it will fade it back in and display helpful info</p> <p>-When using the Instant Mouse Move by tapping the T key,</p> <div class="language- extra-class"><pre><code> the move/rotate/scale main editor widget disappears to let you know you are in that mode and also because it is not really usable while using the T-key mode.
+</code></pre></div><p>-Deselecting or exiting the mode cancels the Instant T(ranslate) key mode.</p> <h3 id="using-vertex-snap-mode"><a href="#using-vertex-snap-mode" class="header-anchor">#</a> Using Vertex Snap Mode</h3> <p>Once you click on a static mesh actor, if the verticies are not showing, press the V key</p> <p>1. Hover mouse on vertex,</p> <p>2. press V</p> <p>3. Hover mouse over other static mesh and one of its verticies,</p> <p>4. press V</p> <p>If you are using Align-By-Surface-Normal, the selected static mesh will attempt to orient itself to the surface closest to the vertex of the other static mesh.</p> <h3 id="vertex-editor-plugin-summary"><a href="#vertex-editor-plugin-summary" class="header-anchor">#</a> Vertex Editor Plugin Summary</h3> <p><strong>Light-Weight for Your UE4 Editing Experience</strong></p> <p>I tried to make the vertex-selection aspect of my editor mode as light-weight as possible,</p> <p>- no traces - no collision - no extra actors involved - just drawing to the PDI</p> <p>There is not actually any 3D collision for the verticies!</p> <p>I defined a &quot;button&quot; struct which stores the projected coordinates of the verticies, plus the resizable drawn-vertex scaling.</p> <p>So as you scale the verticies the buttons grow to accommodate.</p> <p>Whenever the view changes, the buttons are freshed.</p> <p>If there is no input to the UE4 Editor or you have it in the background, the buttons are never refreshed</p> <p>In Summary, it's just a bunch of invisible floats that are determining when you are clicking or highlighting the verticies of the Static Mesh Actors</p> <p><strong>Have Fun</strong></p> <p>Have fun with my editor mode!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <h2 id="my-entire-plugin-c-source-code"><a href="#my-entire-plugin-c-source-code" class="header-anchor">#</a> My Entire Plugin C++ Source Code</h2> <h3 id="credits"><a href="#credits" class="header-anchor">#</a> Credits</h3> <p>Feel free to use my C++ code as an outline for making your own Editor Mode Plugin!</p> <p>Just please give me credit somewhere appropriate.</p> <p>I did not use any algorithms or math equations from any source,</p> <p>I wrote all the code myself and just used Epic's awesome UE4 Beta .h files as a reference.</p> <p><strong>This code does not contain any UE4 C++ source code, as I did not have access to it when I wrote this plugin.</strong></p> <h3 id="victoryedengine"><a href="#victoryedengine" class="header-anchor">#</a> VictoryEdEngine</h3> <p>This is the class that becomes your new UE4 Engine class, and it must be set to be used by UE4 via DefaultEngine.ini</p> <p>[/Script/Engine.Engine]
+;UnrealEdEngine=/Script/UnrealEd.UnrealEdEngine
+UnrealEdEngine=/Script/VictoryBPLibrary.VictoryEdEngine</p> <h4 id="h"><a href="#h" class="header-anchor">#</a> .H</h4> <p>#pragma once
+ 
+#include &quot;UnrealEd.h&quot;
+#include &quot;VictoryEdAlignMode.h&quot;
+#include &quot;VictoryEdEngine.generated.h&quot;
+ 
+USTRUCT()
+struct FDropToClosestSurfaceData
+{
+GENERATED_USTRUCT_BODY()
+ 
+UPROPERTY()
+AStaticMeshActor* TheActor;
+ 
+UPROPERTY()
+FVector SurfaceLoc;
+ 
+UPROPERTY()
+float DistSquared;
+ 
+FDropToClosestSurfaceData()
+{
+DistSquared = 1000000000;
+SurfaceLoc = FVector::ZeroVector;
+TheActor = NULL;
+}
+};
+USTRUCT()
+struct FVButton
+{
+GENERATED_USTRUCT_BODY()
+ 
+UPROPERTY()
+int32 Vibe;
+ 
+UPROPERTY()
+FVector PointInWorld;
+ 
+UPROPERTY()
+float minX;
+ 
+UPROPERTY()
+float maxX;
+ 
+UPROPERTY()
+float minY;
+ 
+UPROPERTY()
+float maxY;
+ 
+FVButton()
+{
+Vibe = -1;
+}
+};
+ 
+UCLASS(config=Engine)
+class UVictoryEdEngine : public UUnrealEdEngine
+{
+GENERATED_UCLASS_BODY()
+ 
+bool CreatedVictoryEdMode;
+ 
+//the user-selected mode prior to initiating VictoryEdMode
+FEditorModeID PrevModeID;
+ 
+ 
+//utility
+ 
+//Assets
+public:
+ 
+/*
+UPROPERTY()
+UStaticMesh* AssetSM_EngineCube;
+//StaticMesh'/Engine/EngineMeshes/Cube.Cube'
+ 
+ 
+UPROPERTY()
+UMaterial* ColorMat;
+ 
+UPROPERTY()
+UMaterialInstanceDynamic* ColorMatInst_GlowyBlue;
+ 
+UPROPERTY()
+UMaterialInstanceDynamic* ColorMatInst_GlowyRed;
+ 
+UPROPERTY()
+UMaterialInstanceDynamic* ColorMatInst_GlowyYellow;
+*/
+ 
+//Font
+public:
+UPROPERTY()
+UFont* VictoryEditorFont;
+//Font'/Engine/EngineFonts/RobotoDistanceField.RobotoDistanceField'
+ 
+FORCEINLINE UFont* GetVictoryFont()
+{
+if(VictoryEditorFont) return VictoryEditorFont;
+return GetStatsFont();
+}
+ 
+//Selection
+public:
+AActor* VSelectedActor;
+ 
+TArray&lt;FVector&gt; SelectionRelativeOffsets;
+void GetSelectedActorsRelativeOffsets();
+bool SelectedActorVerticiesNeedsUpdating;
+bool ClearSelectedVertex;
+ 
+//core
+public:
+static const FName VictoryEditorModeID;
+void SwitchToVictoryEdMode();
+ 
+FORCEINLINE void ExitVictoryAlignMode()
+{
+//Deactivate Mode
+GEditorModeTools().DeactivateMode( VictoryEditorModeID );
+ 
+//Restore Previous Realtime State
+//GCurrentLevelEditingViewportClient-&gt;RestoreRealtime(true); //allow disable
+ 
+//Activate Previous Mode
+GEditorModeTools().ActivateMode(PrevModeID);
+}
+ 
+//tests
+public:
+void RunTests();
+ 
+protected:
+ 
+virtual void NoteSelectionChange() OVERRIDE;
+ 
+virtual void Tick(float DeltaSeconds, bool bIdleMode) OVERRIDE;
+};</p> <h4 id="cpp"><a href="#cpp" class="header-anchor">#</a> .CPP</h4> <p>// Copyright 1998-2013 Epic Games, Inc. All Rights Reserved.
+ 
+//Unreal Editor Fun With Rama
+ 
+//#include &quot;VictoryGame.h&quot;
+#include &quot;VictoryBPLibraryPrivatePCH.h&quot;
+ 
+ 
+const FName UVictoryEdEngine::VictoryEditorModeID = FName(&quot;VictoryEditorMode&quot;);
+ 
+UVictoryEdEngine::UVictoryEdEngine(const class FPostConstructInitializeProperties&amp; PCIP)
+: Super(PCIP)
+{
+CreatedVictoryEdMode = false;
+ 
+PrevModeID = FBuiltinEditorModes::EM_Default;
+ 
+//Font
+static ConstructorHelpers::FObjectFinder&lt;UFont&gt; TheFontOb(TEXT(&quot;Font'/Engine/EngineFonts/RobotoDistanceField.RobotoDistanceField'&quot;));
+VictoryEditorFont = (UFont*)TheFontOb.Object;
+ 
+/*
+//Cube
+static ConstructorHelpers::FObjectFinder<UStaticMesh> StaticMeshOb_cube(TEXT(&quot;StaticMesh'/Engine/EngineMeshes/Cube.Cube'&quot;));
+AssetSM_EngineCube= StaticMeshOb_cube.Object;
+ 
+//Color Mat Inst
+static ConstructorHelpers::FObjectFinder<UMaterial> ColorMatInstOb(TEXT(&quot;Material'/Engine/EditorMaterials/Utilities/LinearColorPicker_MAT.LinearColorPicker_MAT'&quot;));
+ColorMat = ColorMatInstOb.Object;
+ 
+//Create Instance
+if(ColorMat)
+{
+ColorMatInst_GlowyBlue = UMaterialInstanceDynamic::Create(ColorMat, this);
+if(ColorMatInst_GlowyBlue) ColorMatInst_GlowyBlue-&gt;SetVectorParameterValue(FName(&quot;Color&quot;), FLinearColor(0,0,1,1));
+ 
+ColorMatInst_GlowyRed = UMaterialInstanceDynamic::Create(ColorMat, this);
+if(ColorMatInst_GlowyRed) ColorMatInst_GlowyRed-&gt;SetVectorParameterValue(FName(&quot;Color&quot;), FLinearColor(1,0,0,1));
+ 
+ColorMatInst_GlowyYellow = UMaterialInstanceDynamic::Create(ColorMat, this);
+if(ColorMatInst_GlowyYellow) ColorMatInst_GlowyYellow-&gt;SetVectorParameterValue(FName(&quot;Color&quot;), FLinearColor(1,1,0,1));
+}
+*/
+}
+ 
+void UVictoryEdEngine::SwitchToVictoryEdMode()
+{
+//Create it if it not exist yet
+if(!CreatedVictoryEdMode)
+{
+//Proper way to make a shared ref ???
+TSharedRef&lt;class FVictoryEdAlignMode,ESPMode::Fast&gt; VictoryEdMode = MakeShareable( new FVictoryEdAlignMode() );
+ 
+//Init VictoryEdMode
+VictoryEdMode-&gt;JoyInit(this);
+ 
+//Register
+GEditorModeTools().RegisterMode(VictoryEdMode);
+ 
+CreatedVictoryEdMode = true;
+}
+ 
+//~~~ Store Previous Editor Mode ~~~
+TArray&lt;FEdMode*&gt; OutActiveModes;
+FEdMode* CurMode = NULL;
+GEditorModeTools().GetActiveModes( OutActiveModes );
+ 
+for(int32 Itr = 0; Itr &lt; OutActiveModes.Num(); Itr++)
+{
+CurMode = OutActiveModes[Itr];
+if(!CurMode) continue;
+if(CurMode-&gt;GetID() == VictoryEditorModeID ) continue;
+ 
+PrevModeID = CurMode-&gt;GetID();
+//UE_LOG(Victory,Warning, TEXT(&quot;Previous Editor Mode: %s&quot;), *CurMode-&gt;GetID().ToString() );
+}
+ 
+//Activate Victory Editor Mode
+GEditorModeTools().ActivateMode(VictoryEditorModeID);
+}
+ 
+void UVictoryEdEngine::RunTests()
+{
+//tests
+}
+ 
+ 
+void UVictoryEdEngine::GetSelectedActorsRelativeOffsets()
+{
+SelectionRelativeOffsets.Empty();
+//~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//Get the Relative Offsets
+const FVector Origin = VSelectedActor-&gt;GetActorLocation();
+ 
+AActor* VSelectItrActor;
+for(FSelectionIterator VSelectItr = GetSelectedActorIterator();
+VSelectItr; ++VSelectItr )
+{
+VSelectItrActor = Cast&lt;AActor&gt;(*VSelectItr);
+if(!VSelectItrActor) continue;
+//~~~~~~~~~~~~~~~~~~
+ 
+SelectionRelativeOffsets.Add(VSelectItrActor-&gt;GetActorLocation() - Origin );
+//UE_LOG(Victory, Error, TEXT(&quot;Relative offset %s&quot;), *SelectionRelativeOffsets[SelectionRelativeOffsets.Num() - 1].ToString());
+};
+}
+void UVictoryEdEngine::NoteSelectionChange()
+{
+Super::NoteSelectionChange();
+//~~~~~~~~~~~~~~~~~
+ 
+if(!GetSelectedActors()) return;
+AActor* SelectedActor = Cast&lt;AActor&gt;(GetSelectedActors()-&gt;GetTop(AActor::StaticClass()));
+if(!SelectedActor) return;
+//~~~~~~~~~~~~~~~
+ 
+if(SelectedActor != VSelectedActor) ClearSelectedVertex = true;
+ 
+//Update
+VSelectedActor = SelectedActor;
+ 
+//Always Refresh
+SelectedActorVerticiesNeedsUpdating = true;
+ 
+//For use with multi-select moves
+GetSelectedActorsRelativeOffsets();
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//Only Activate for Static Mesh Actors Currently
+if(SelectedActor-&gt;IsA(AStaticMeshActor::StaticClass()))
+{
+//Switch to Victory Align Mode if not active already
+if(!GEditorModeTools().IsModeActive(VictoryEditorModeID))
+SwitchToVictoryEdMode();
+}
+else
+{
+//Deactivate Mode for Non-Static Mesh Actors
+ExitVictoryAlignMode();
+}
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//RunTests();
+ 
+//UE_LOG(Victory, Warning, TEXT(&quot;New Selected Actor %s&quot;), *SelectedActor-&gt;GetName() );
+//UE_LOG(Victory, Warning, TEXT(&quot;New Selected Actor Location %s&quot;), *SelectedActor-&gt;GetActorLocation().ToString() );
+}
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+void UVictoryEdEngine::Tick(float DeltaSeconds, bool bIdleMode)
+{
+Super::Tick(DeltaSeconds,bIdleMode);
+ 
+}</UMaterial></UStaticMesh></p> <h3 id="victoryedmode"><a href="#victoryedmode" class="header-anchor">#</a> VictoryEdMode</h3> <p>Since the EdMode is a pure C++ class, it must go in the Public directory of your plugin file structure!</p> <h4 id="h-2"><a href="#h-2" class="header-anchor">#</a> .H</h4> <p>#pragma once
+ 
+#include &quot;UnrealEd.h&quot;
+#include &quot;Editor.h&quot;
+//#include &quot;BSPOps.h&quot;
+ 
+class UVictoryEdEngine;
+ 
+struct FVButton;
+struct FDropToClosestSurfaceData;
+ 
+class FVictoryEdAlignMode : public FEdMode
+{
+ 
+//Statics
+public:
+static const FColor RV_VRed;
+static const FColor RV_VBlue;
+static const FColor RV_VYellow;
+static const FLinearColor RV_Red;
+static const FLinearColor RV_Yellow;
+static const FLinearColor RV_Blue;
+ 
+//Display Updates
+public:
+bool DoSingleDisplayUpdate;
+//Drop to Surface
+public:
+ 
+//if multiple selected, the test runs on each and finds the nearest of nearest surfaces
+void DropSelectedActorsToNearestSurface();
+ 
+FDropToClosestSurfaceData* GetActorWithShortestDrop(TArray&lt;FDropToClosestSurfaceData&gt;&amp; TheData);
+ 
+FORCEINLINE void GetBottomSurfacePoint(AStaticMeshActor* TheSMA, FVector&amp; BottomMostPoint)
+{
+BottomMostPoint = FVector::ZeroVector;
+if(!TheSMA) return;
+if(!TheSMA-&gt;StaticMeshComponent) return;
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+FVector Origin;
+FVector Extent;
+TheSMA-&gt;GetActorBounds(true,Origin,Extent);
+TheSMA-&gt;StaticMeshComponent-&gt;GetDistanceToCollision(Origin - FVector(0,0,Extent.Z + 100),BottomMostPoint);
+}
+//Vertex:
+public:
+ 
+void GetSelectedVertexLocation(FVector&amp; LocOut);
+ 
+//Snap Key Pressed!
+bool SnapKeyPressed;
+ 
+//VertexDisplayChoice
+uint8 VertexDisplayChoice;
+ 
+//Snap!
+void DoVertexSnap(const FVector&amp; Dest);
+ 
+FPositionVertexBuffer* 			SelectedVertexBuffer;
+FPositionVertexBuffer* 			HighlightedVertexBuffer;
+ 
+//Highlighted Actor
+AStaticMeshActor* 				HighlightedActor;
+ 
+//Buttons
+TArray&lt;FVButton&gt; SelectedActorButtons;
+TArray&lt;FVButton&gt; HighlightedActorButtons;
+ 
+//CheckArrays - find the vertex button closest to camera
+TArray&lt;FVButton*&gt; ClosestSelectedActorButtons;
+TArray&lt;FVButton*&gt; ClosestHighlightedActorButtons;
+int32 FindClosestOfButtons(TArray&lt;FVButton*&gt; Inbuttons);
+void RefreshVertexButtons(const FSceneView* View);
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//Vertex Scale
+float CurrentVerticiesScale;
+bool PlusIsDown;
+bool MinusIsDown;
+bool DoDrawVerticies;
+ 
+//Index of Vertex, so actor can move and maintain selection
+int32 SelectedVertexForSelectedActor;
+int32 HighlightedVertexForSelectedActor;
+int32 HighlightedVertexForHighlightedActor;
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+FVector VertexWorldSpace;
+FVector2D Vertex2DCenter;
+ 
+//Vertex Functions
+void PDI_DrawVerticies(const FSceneView* View, FPrimitiveDrawInterface* PDI, const FPositionVertexBuffer* VertexBuffer, const FTransform&amp; SMATransform, bool DrawingSelectedActor);
+ 
+//Get Vertex Bufer
+FPositionVertexBuffer* GetVerticies(AStaticMeshActor* TheSMA);
+ 
+//Mouse Instant Move SMA
+public:
+bool UsingMouseInstantMove;
+void ProcessMouseInstantMove(FLevelEditorViewportClient* ViewportClient);
+//
+//Selection
+public:
+AActor* VSelectItrActor;
+ 
+//Input Related
+public:
+FVector2D 		MouseLocation;
+FVector2D 		PrevMouseLocation;
+FVector 	CursorWorldPrevPos;
+FVector 	CursorWorldPos;
+FVector 	CursorWorldDir;
+FVector 	CursorWorldDelta;
+ 
+void InputKeyPressed(EKey Key);
+void InputKeyReleased(EKey Key);
+void InputKeyDoubleClick(EKey Key);
+ 
+void MiddleMouseEvent(EInputEvent Event);
+void LeftMouseClick();
+ 
+ 
+//States
+bool RMBDown;
+bool XDown;
+bool YDown;
+bool ShiftDown;
+ 
+//HUD
+public:
+FIntPoint ViewportSize;
+ 
+void DrawHotkeyToolTip(FCanvas* Canvas);
+void DrawMouseCoordinates(FCanvas* Canvas);
+ 
+void CheckCursorInButtons(FCanvas* Canvas);
+TArray&lt;FVButton&gt; 	VictoryButtons;
+int32 					ActiveButton_Vibe;
+FVButton* 			CurCheckButton;
+void RefreshVictoryButtons();
+bool PendingButtonRefresh;
+ 
+//Utility
+public:
+void DrawVictoryText(FCanvas* Canvas, const FString&amp; TheStr, float X, float Y, float TheScale=1 );
+void DrawVictoryTextWithColor(FCanvas* Canvas, const FString&amp; TheStr, float X, float Y, FLinearColor TheColor=FLinearColor(1,0,1,1), float TheScale=1 );
+void DrawVictoryLine(FCanvas* Canvas, const FVector2D&amp; Start, const FVector2D&amp; End, FLinearColor TheColor=FLinearColor(1,0,1,1), float Thick=0 );
+void DrawVictoryRect(FCanvas* Canvas, float X, float Y, float Width, float Height, FLinearColor Color=FLinearColor(0,0,1,1));
+ 
+//Scene-view Level Project and Deproject
+void VictoryProject(		const FSceneView* View,const FVector&amp; WorldPoint,		FVector2D&amp; OutPixelLocation);
+void VictoryDeProject(	const FSceneView* View,const FVector2D&amp; ScreenPoint, FVector&amp; out_WorldOrigin, FVector&amp; out_WorldDirection);
+ 
+//Box from Point with Size
+FORCEINLINE FBox BoxFromPointWithSize(const FVector&amp; InCenter, const float&amp; Size)
+{
+return FBox(
+InCenter+(FVector(1,1,1) * -Size/2),
+InCenter+(FVector(1,1,1) * Size/2)
+);
+}
+ 
+//RV
+public:
+int32 RV_Int32;
+float RV_yStart;
+float RV_Float;
+FVector RV_Vect;
+FRotator RV_Rot;
+FCollisionQueryParams RV_TraceParams;
+FHitResult RV_Hit;
+AActor* RV_HitActor;
+//Victory Title
+//Time
+public:
+FDateTime VictoryTitleAppearTime;
+FTimespan CurTimeSpan;
+bool VictoryTitleVisible;
+bool FadeInVictoryTitle;
+float VictoryTitleAlpha;
+ 
+FORCEINLINE void VictoryTitleAppears()
+{
+VictoryTitleAppearTime = FDateTime::Now();
+VictoryTitleAlpha = 1;
+VictoryTitleVisible = true;
+FadeInVictoryTitle = false;
+}
+ 
+//Tick
+public:
+void Tick_VictoryTitle(FLevelEditorViewportClient* ViewportClient);
+void Tick_VictoryTitleFadeIn();
+void Tick_VictoryInterface(FLevelEditorViewportClient* ViewportClient);
+ 
+//Core
+public:
+UPROPERTY()
+UVictoryEdEngine* VictoryEngine;
+ 
+bool ReEntering;
+ 
+//Constructor/Destructor
+public:
+FVictoryEdAlignMode();
+~FVictoryEdAlignMode();
+void JoyInit(UVictoryEdEngine* EnginePtr);
+ 
+//FEdMode
+public:
+virtual void Enter() OVERRIDE;
+virtual void Exit() OVERRIDE;
+ 
+//More fundamental than DrawHUD
+virtual void Render(const FSceneView* View,FViewport* Viewport,FPrimitiveDrawInterface* PDI) OVERRIDE;
+ 
+virtual void DrawHUD(FLevelEditorViewportClient* ViewportClient,FViewport* Viewport,const FSceneView* View,FCanvas* Canvas) OVERRIDE;
+virtual bool InputKey(FLevelEditorViewportClient* ViewportClient,FViewport* Viewport,EKey Key,EInputEvent Event) OVERRIDE;
+virtual bool MouseMove(FLevelEditorViewportClient* ViewportClient,FViewport* Viewport,int32 x, int32 y) OVERRIDE;
+virtual bool InputAxis(FLevelEditorViewportClient* InViewportClient,FViewport* Viewport,int32 ControllerId,EKey Key,float Delta,float DeltaTime) OVERRIDE;
+/** Notifies all active modes of any change in mouse movement */
+virtual bool InputDelta( FLevelEditorViewportClient* InViewportClient,FViewport* InViewport,FVector&amp; InDrag,FRotator&amp; InRot,FVector&amp; InScale ) OVERRIDE;
+ 
+virtual bool HandleClick(FLevelEditorViewportClient* InViewportClient, HHitProxy *HitProxy, const FViewportClick &amp;Click) OVERRIDE;
+virtual void Tick(FLevelEditorViewportClient* ViewportClient,float DeltaTime) OVERRIDE;
+ 
+//Cursor
+virtual bool GetCursor(EMouseCursor::Type&amp; OutCursor) const OVERRIDE;
+ 
+/**
+* Lets the mode determine if it wants to draw the widget or not.
+*/
+virtual bool ShouldDrawWidget() const;
+};</p> <h4 id="cpp-2"><a href="#cpp-2" class="header-anchor">#</a> .CPP</h4> <p>// Victory Ed Mode extension by Rama
+ 
+// Copyright 1998-2013 Epic Games, Inc. All Rights Reserved.
+ 
+//Victory Alignment Mode
+ 
+//#include &quot;VictoryGame.h&quot;
+#include &quot;VictoryBPLibraryPrivatePCH.h&quot;
+ 
+//~~~~~~~~~~~~~~~~
+ 
+#define CHECK_VSELECTED if(!VictoryEngine) return; if(!VictoryEngine-&gt;VSelectedActor) return;
+ 
+//~~~ Display Choices ~~~
+#define VERTEX_DISPLAY_STARS 		0
+#define VERTEX_DISPLAY_3DBOX 		1
+#define VERTEX_DISPLAY_RECT 			2
+#define VERTEX_DISPLAY_DIAMOND3D 	3
+#define VERTEX_DISPLAY_SPHERE 		4
+#define VERTEX_SELECTED_MULT		1.333
+#define VERTEX_SHAPE_MULT			0.8
+//~~~ Defines ~~~
+ 
+//MAX
+#define MAX_VERTEX_COUNT_FOR_DRAWING 10000
+#define MAX_VERTEX_COUNT_FOR_DRAWING_SPHERES 5000
+ 
+//Speeds
+#define XYZSPEEDMULT 20
+ 
+//3D
+#define DEFAULT_INSTANT_MOVE_DISTANCE 2048
+#define CURSOR_DELTA_DISTANCE_CALC 2048
+//HUD
+#define VICTORY_TITLE_HEIGHT 38
+#define VICTORY_TEXT_HEIGHT 24
+ 
+//Color
+#define RED 		0
+#define BLUE		1
+#define YELLOW 3
+ 
+//TIME
+#define VICTORY_TITLE_VISIBLE_DURATION 2
+ 
+//Button Vibes
+#define BUTTON_VIBE_VICTORYHOTKEYS 		0
+ 
+//~~~ Const ~~~
+const FLinearColor FVictoryEdAlignMode::RV_Red = FLinearColor(1,0,0,1);
+const FLinearColor FVictoryEdAlignMode::RV_Yellow = FLinearColor(1,1,0,1);
+const FLinearColor FVictoryEdAlignMode::RV_Blue= FLinearColor(0,0,1,1);
+const FColor FVictoryEdAlignMode::RV_VRed = FColor(255,0,0,255);
+const FColor FVictoryEdAlignMode::RV_VBlue = FColor(0,0,255,255);
+const FColor FVictoryEdAlignMode::RV_VYellow = FColor(255,255,0,255);
+ 
+ 
+FVictoryEdAlignMode::FVictoryEdAlignMode()
+{
+ 
+}
+FVictoryEdAlignMode::~FVictoryEdAlignMode()
+{	
+}
+ 
+//INIT
+void FVictoryEdAlignMode::JoyInit(UVictoryEdEngine* EnginePtr)
+{
+ID = FName(&quot;VictoryEditorMode&quot;);
+ 
+//VictoryEngine
+VictoryEngine = EnginePtr;
+ 
+//Victory Buttons
+RefreshVictoryButtons();
+ 
+//Enable Realtime
+ReEntering = true;
+ 
+//Verticies
+DoDrawVerticies = true;
+VertexDisplayChoice = VERTEX_DISPLAY_STARS;
+ 
+//~~~
+ 
+UsingMouseInstantMove = false;
+CurrentVerticiesScale = 12;
+ 
+//~~~
+ 
+//Traces
+RV_TraceParams = FCollisionQueryParams(FName(TEXT(&quot;HUDRMBDown&quot;)), true, NULL);
+RV_TraceParams.bTraceComplex = true;
+//RV_TraceParams.bTraceAsyncScene = true;
+RV_TraceParams.bReturnPhysicalMaterial = false;
+}
+ 
+void FVictoryEdAlignMode::RefreshVictoryButtons()
+{
+VictoryButtons.Empty();
+//~~~~~~~~~~~~
+ 
+FVButton NewButton;
+NewButton.Vibe 	= BUTTON_VIBE_VICTORYHOTKEYS;
+NewButton.minX	=	10;
+NewButton.maxX	=	200;
+NewButton.minY	=	VICTORY_TITLE_HEIGHT;
+NewButton.maxY	=	VICTORY_TITLE_HEIGHT + VICTORY_TEXT_HEIGHT;
+VictoryButtons.Add(NewButton);
+}
+ 
+//EXIT
+void FVictoryEdAlignMode::Exit()
+{
+UsingMouseInstantMove = false;
+}
+//ENTER
+void FVictoryEdAlignMode::Enter()
+{
+//FEdMode::Enter();
+//~~~~~~~~
+ 
+//Victory Title Appears
+VictoryTitleAppears();
+ReEntering = true;
+ 
+//Clear keys
+MinusIsDown = false;
+PlusIsDown = false;
+ShiftDown = false;
+ 
+//Trace
+RV_TraceParams = FCollisionQueryParams(FName(TEXT(&quot;HUDRMBDown&quot;)), true, NULL);
+ 
+//~~~~~~~~~~~~~~~~
+ 
+//testing
+CHECK_VSELECTED
+ 
+//CreateUModel();
+}
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+FDropToClosestSurfaceData* FVictoryEdAlignMode::GetActorWithShortestDrop(TArray&lt;FDropToClosestSurfaceData&gt;&amp; TheData)
+{
+//No Actors
+if(TheData.Num() &lt; 1) return NULL;
+ 
+//Only 1 Actor
+if(TheData.Num() &lt; 2) return &amp;TheData[0];
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+float SmallestDistance = 100000000;
+int32 SmallestDataIndex = 0;
+ 
+//Find Smallest
+for(int32 b = 0; b &lt; TheData.Num(); b++)
+{
+if( TheData[b].DistSquared &lt; SmallestDistance)
+{
+SmallestDistance = TheData[b].DistSquared;
+SmallestDataIndex = b;
+}
+}
+ 
+//Valid?
+if(TheData.IsValidIndex(SmallestDataIndex))
+{
+return &amp;TheData[SmallestDataIndex];
+}
+ 
+return NULL;
+}
+void FVictoryEdAlignMode::DropSelectedActorsToNearestSurface()
+{
+if(!VictoryEngine) return;
+//~~~~~~~~~~~~~
+ 
+ 
+//ONLY WORKING WITH SMAs at the moment, due to nature of rest of plugin
+AStaticMeshActor* AsSMA = NULL;
+ 
+//~~~~~~~~~~~~~~
+// Closest Surface Data
+//~~~~~~~~~~~~~~
+TArray&lt;FDropToClosestSurfaceData&gt; ClosestSurfaceData;
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//TRACE PARAMETERS
+FCollisionQueryParams TraceParams(FName(TEXT(&quot;VictoryEd Trace&quot;)), true, NULL);
+TraceParams.bTraceComplex = true;
+//TraceParams.bTraceAsyncScene = true;
+TraceParams.bReturnPhysicalMaterial = false;
+ 
+//Ignore  ALL Selected Actors
+for(FSelectionIterator VSelectItr = VictoryEngine-&gt;GetSelectedActorIterator();
+VSelectItr; ++VSelectItr )
+{
+VSelectItrActor = Cast&lt;AActor&gt;(*VSelectItr);
+if(!VSelectItrActor) continue;
+//~~~~~~~~~~~~~~~~~~
+ 
+//Add
+TraceParams.AddIgnoredActor(VSelectItrActor);
+}
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//~~~~~~~~~~~
+//Hit Result
+FHitResult TheHit;
+//~~~~~~~~~~~
+ 
+ 
+//Iterate Over Selected Actors
+FVector ActorLoc;
+FVector BottomPoint;
+FVector OffsetFromCenter;
+for(FSelectionIterator VSelectItr = VictoryEngine-&gt;GetSelectedActorIterator();
+VSelectItr; ++VSelectItr )
+{
+AsSMA = Cast&lt;AStaticMeshActor&gt;(*VSelectItr);
+if(!AsSMA) continue;
+//~~~~~~~~~~~~~~~~~~
+ 
+//~~~~~~~~~~~~~~~
+//~~~ Do the Trace ~~~
+//~~~~~~~~~~~~~~~
+ 
+//Re-initialize hit info
+TheHit = FHitResult(ForceInit);
+ 
+//Trace!
+ActorLoc = AsSMA-&gt;GetActorLocation();
+GetWorld()-&gt;LineTraceSingle(
+TheHit,		//result
+ActorLoc,								
+ActorLoc + FVector(0,0,-20000),
+ECC_Pawn, //collision channel
+TraceParams
+);
+ 
+//Hit any Actor?
+if(!TheHit.GetActor()) continue;
+//~~~~~~~~~~~~~~~~~
+ 
+ 
+//See .h
+GetBottomSurfacePoint(AsSMA,BottomPoint);
+ 
+ 
+//Offset From Center
+OffsetFromCenter = ActorLoc - BottomPoint;
+ 
+//~~~ ADD Closest Surface Data ~~~
+FDropToClosestSurfaceData NewData;
+NewData.TheActor = AsSMA;
+NewData.SurfaceLoc = TheHit.ImpactPoint + OffsetFromCenter;
+NewData.DistSquared = FVector::DistSquared(AsSMA-&gt;GetActorLocation(),NewData.SurfaceLoc);
+ClosestSurfaceData.Add(NewData);
+ 
+}
+ 
+ 
+//Get Smallest Drop Data
+FDropToClosestSurfaceData* SmallestDropData = GetActorWithShortestDrop(ClosestSurfaceData);
+if(!SmallestDropData) return;
+//~~~~~~~~~~~~~~~
+ 
+//Get Smallest Drop Actor
+AStaticMeshActor* AnchorActor = SmallestDropData-&gt;TheActor;
+if(!AnchorActor) return;
+//~~~~~~~~~~~~~~~
+ 
+ 
+ 
+//Get Relative Offsets of this to all other actors in selection
+const FVector Origin = AnchorActor-&gt;GetActorLocation();
+TArray&lt;FVector&gt; AnchorOffsets;
+AActor* AsActor;
+for(FSelectionIterator VSelectItr = VictoryEngine-&gt;GetSelectedActorIterator();
+VSelectItr; ++VSelectItr )
+{
+AsActor = Cast&lt;AActor&gt;(*VSelectItr);
+if(!AsActor) continue;
+//~~~~~~~~~~~~~~~~~~
+ 
+AnchorOffsets.Add(AsActor-&gt;GetActorLocation() - Origin);
+}
+ 
+ 
+//~~~ Move Anchor Actor ~~~
+ 
+//Move to impact, Plus the offset from nearest surface of object
+AnchorActor-&gt;SetActorLocation(SmallestDropData-&gt;SurfaceLoc);
+ 
+//Move all other actors to Anchor Actor + Offset
+int32 AnchorItr = 0;
+for(FSelectionIterator VSelectItr = VictoryEngine-&gt;GetSelectedActorIterator();
+VSelectItr; ++VSelectItr )
+{
+AsActor = Cast&lt;AActor&gt;(*VSelectItr);
+if(!AsActor) continue;
+//~~~~~~~~~~~~~~~~~~
+ 
+//VALID?
+if(!AnchorOffsets.IsValidIndex(AnchorItr)) break;
+ 
+AsActor-&gt;SetActorLocation(SmallestDropData-&gt;SurfaceLoc + AnchorOffsets[AnchorItr]);
+ 
+//INC
+AnchorItr++;
+}
+ 
+ 
+//~~~~~~~~~~~~~~
+ 
+//Update Display!
+DoSingleDisplayUpdate = true;
+ 
+ 
+//~~~ RESELECT SINGLE ACTOR TO MOVE WIDGET
+if(VictoryEngine-&gt;GetSelectedActorCount() &lt; 2)
+{
+//~~~~~~~~~~~~~~~~~
+//Deselect without Noting
+VictoryEngine-&gt;SelectNone(false, true, false);
+VictoryEngine-&gt;SelectActor(AnchorActor,true,true);
+}
+}
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+FPositionVertexBuffer* FVictoryEdAlignMode::GetVerticies(AStaticMeshActor* TheSMA)
+{
+if(!TheSMA) return NULL;
+if(!TheSMA-&gt;IsValidLowLevel()) return NULL;
+if(!TheSMA-&gt;StaticMeshComponent) return NULL;
+if(!TheSMA-&gt;StaticMeshComponent-&gt;StaticMesh) return NULL;
+if(!TheSMA-&gt;StaticMeshComponent-&gt;StaticMesh-&gt;RenderData) return NULL;
+ 
+//Valid LOD ?
+if(TheSMA-&gt;StaticMeshComponent-&gt;StaticMesh-&gt;RenderData-&gt;LODResources.Num() &lt;= 0) return NULL;
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//~~~~~~~~~~~~~~~~~~~~
+//				Vertex Buffer Check
+FPositionVertexBuffer* VertexBuffer =
+&amp;TheSMA-&gt;StaticMeshComponent-&gt;StaticMesh-&gt;RenderData-&gt;LODResources[0].PositionVertexBuffer;
+ 
+//~~~~~~~~~~~~~~~~~~~~
+//			Count Too High?
+if(VertexBuffer-&gt;GetNumVertices() &gt; MAX_VERTEX_COUNT_FOR_DRAWING)
+{
+//UE_LOG(Victory, Error, TEXT(&quot;Vertex Count too high to draw! %d&quot;), VertexBuffer-&gt;GetNumVertices() );
+return NULL;
+//~~~~~~~
+}
+ 
+//Return Vertex Buffer
+return &amp;TheSMA-&gt;StaticMeshComponent-&gt;StaticMesh-&gt;RenderData-&gt;LODResources[0].PositionVertexBuffer;
+}
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+/*
+UENUM()
+enum EInputEvent
+{
+IE_Pressed              =0,
+IE_Released             =1,
+IE_Repeat               =2,
+IE_DoubleClick          =3,
+IE_Axis                 =4,
+IE_MAX                  =5,
+};
+*/
+ 
+//Pressed
+void FVictoryEdAlignMode::InputKeyPressed(EKey Key)
+{
+//UE_LOG(Victory, Error, TEXT(&quot;Key pressed %s&quot;), *EKeys::GetKeyName(Key).ToString() );
+ 
+if(!VictoryEngine) return;
+//~~~~~~~~~~~~
+ 
+//RMB
+if(Key == EKeys::RightMouseButton)
+{
+RMBDown = true;
+return;
+//~~~~~~
+}
+ 
+//Left Mouse
+if(Key == EKey::LeftMouseButton)
+{
+LeftMouseClick();
+return;
+//~~~~~~
+}
+ 
+//X Key
+if(Key == EKey::X)
+{
+XDown = true;
+return;
+}
+ 
+//Y Key
+if(Key == EKey::Y)
+{
+DropSelectedActorsToNearestSurface();
+return;
+}
+ 
+//U Key
+if(Key == EKey::U)
+{
+YDown = true;
+DoDrawVerticies = !DoDrawVerticies;
+return;
+}
+ 
+//K Key
+if(Key == EKey::K)
+{
+if(VictoryEngine-&gt;VSelectedActor)
+VictoryEngine-&gt;VSelectedActor-&gt;SetActorRotation(FRotator::ZeroRotator);
+return;
+}
+ 
+//SHIFT KEY
+if(Key == EKey::LeftShift || Key == EKey::RightShift)
+{
+ShiftDown = true;
+return;
+}
+ 
+ 
+//- Key
+if(Key == EKeys::Underscore)
+{
+MinusIsDown = true;
+PendingButtonRefresh = true;
+return;
+}
+//+ Key
+if(Key == EKey::Equals)
+{
+PlusIsDown = true;
+PendingButtonRefresh = true;
+return;
+}
+ 
+//T Key
+if(Key == EKey::T)
+{
+UsingMouseInstantMove = !UsingMouseInstantMove;
+return;
+//~~~~~~~~~
+}
+ 
+//V Key
+if(Key == EKey::V)
+{
+SnapKeyPressed = true;
+return;
+//~~~~~~~~~
+}
+//B Key
+if(Key == EKey::B)
+{
+VertexDisplayChoice++;
+if(VertexDisplayChoice &gt; 4) VertexDisplayChoice = 0;
+return;
+//~~~~~~~~~
+}
+ 
+ 
+//Restore Previous Editor Mode
+if(Key == EKey:😛)
+{
+//Clear all Verticies
+ 
+//Exit
+VictoryEngine-&gt;ExitVictoryAlignMode();
+ 
+return;
+//~~~~~~
+}
+}
+ 
+//Released
+void FVictoryEdAlignMode::InputKeyReleased(EKey Key)
+{
+//RMB
+if(Key == EKeys::RightMouseButton)
+{
+PendingButtonRefresh = true;
+RMBDown = false;
+}
+ 
+//LMB
+else if(Key == EKeys::LeftMouseButton)
+{
+PendingButtonRefresh = true;
+}
+ 
+//SHIFT KEY
+if(Key == EKey::LeftShift || Key == EKey::RightShift) ShiftDown = false;
+ 
+//- Key
+else if(Key == EKeys::Underscore) MinusIsDown = false;
+ 
+//+ Key
+else if(Key == EKey::Equals)  PlusIsDown = false;
+ 
+//X Key
+else if(Key == EKey::X) XDown = false;
+ 
+//Y Key
+else if(Key == EKey::Y) YDown = false;
+ 
+}
+ 
+//Double Click
+void FVictoryEdAlignMode::InputKeyDoubleClick(EKey Key)
+{
+//UE_LOG(Victory, Error, TEXT(&quot;Key DOUBLE CLICK %s&quot;), *EKeys::GetKeyName(Key).ToString() );
+}
+ 
+bool FVictoryEdAlignMode::InputKey(FLevelEditorViewportClient* ViewportClient,FViewport* Viewport,EKey Key,EInputEvent Event)
+{
+//Middle Mouse
+if (Key == EKeys::MiddleMouseButton) 			MiddleMouseEvent(Event);
+else if(Event == EInputEvent::IE_Pressed) 		InputKeyPressed(Key);
+else if(Event == EInputEvent::IE_Released) 	InputKeyReleased(Key);
+else if(Event == EInputEvent::IE_DoubleClick) 	InputKeyDoubleClick(Key);
+ 
+return false;
+}
+ 
+void FVictoryEdAlignMode::ProcessMouseInstantMove(FLevelEditorViewportClient* ViewportClient)
+{
+CHECK_VSELECTED
+if(!ViewportClient) return;
+//~~~~~~~~~~~~~~~
+ 
+//Re-initialize hit info
+RV_Hit = FHitResult(ForceInit);
+ 
+//Clear Previous Ignore Actors
+RV_TraceParams.IgnoreActors.Empty();
+ 
+//Ignore All Selected Actors!!!
+for(FSelectionIterator VSelectItr = VictoryEngine-&gt;GetSelectedActorIterator();
+VSelectItr; ++VSelectItr )
+{
+VSelectItrActor = Cast&lt;AActor&gt;(*VSelectItr);
+if(!VSelectItrActor) continue;
+//~~~~~~~~~~~~~~~~~~
+ 
+//Add
+RV_TraceParams.AddIgnoredActor(VSelectItrActor);
+}
+ 
+//Trace
+GetWorld()-&gt;LineTraceSingle(
+RV_Hit,		//result
+CursorWorldPos,	//start
+CursorWorldPos + 100000 * CursorWorldDir , //end
+ECC_WorldStatic, //collision channel
+RV_TraceParams
+);
+ 
+//Store Hit Actor
+RV_HitActor = RV_Hit.GetActor();
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//				Update Highlighted Actor
+ 
+//does  not equal same		  does not equal the main Selected Actor
+if(RV_HitActor != HighlightedActor &amp;&amp; RV_HitActor != VictoryEngine-&gt;VSelectedActor )
+{
+//potentially deselect any highlighted
+HighlightedActor = Cast&lt;AStaticMeshActor&gt;(RV_HitActor);
+ 
+//Refresh Vertex Buffer
+HighlightedVertexBuffer = NULL;
+if(HighlightedActor) HighlightedVertexBuffer = GetVerticies(HighlightedActor);
+ 
+ 
+}
+ 
+if(RV_Hit.bBlockingHit)
+{
+//INVALIDATE THE DISPLAY
+ViewportClient-&gt;Viewport-&gt;InvalidateDisplay();
+}
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//			PROCESS MOUSE INSTANT MOVE?
+if(!UsingMouseInstantMove) return;
+//~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//If not hit something, use default distance
+if(!RV_Hit.bBlockingHit) RV_Hit.ImpactPoint = CursorWorldPos + DEFAULT_INSTANT_MOVE_DISTANCE * CursorWorldDir;
+ 
+ 
+//		Move the Primary, the Origin!
+RV_Vect = RV_Hit.ImpactPoint;
+ 
+//Use Existing Z of Object
+RV_Vect.Z = VictoryEngine-&gt;VSelectedActor-&gt;GetActorLocation().Z;
+ 
+//Update Location
+VictoryEngine-&gt;VSelectedActor-&gt;SetActorLocation(RV_Vect);	
+ 
+//Save New Origin Location
+const FVector NewOrigin(RV_Vect);
+ 
+//~~~~~~~
+ 
+//Update the Others According to the Moved Origin
+RV_Int32 = 0;
+for(FSelectionIterator VSelectItr = VictoryEngine-&gt;GetSelectedActorIterator();
+VSelectItr; ++VSelectItr )
+{
+VSelectItrActor = Cast&lt;AActor&gt;(*VSelectItr);
+if(!VSelectItrActor)
+{
+RV_Int32++;
+continue;
+}
+//~~~~~~~~~~~~~~~~~~
+ 
+//Get New Origin
+RV_Vect = NewOrigin;
+ 
+//Add Offset
+if(VictoryEngine-&gt;SelectionRelativeOffsets.IsValidIndex(RV_Int32))
+{
+RV_Vect+=VictoryEngine-&gt;SelectionRelativeOffsets[RV_Int32];
+}
+ 
+//Update Location
+VSelectItrActor-&gt;SetActorLocation(RV_Vect);
+ 
+//Inc
+RV_Int32++;
+}
+ 
+//INVALIDATE THE DISPLAY
+ViewportClient-&gt;Viewport-&gt;InvalidateDisplay();
+ 
+}
+ 
+bool FVictoryEdAlignMode::InputDelta( FLevelEditorViewportClient* InViewportClient,FViewport* InViewport,FVector&amp; InDrag,FRotator&amp; InRot,FVector&amp; InScale )
+{
+//only works if LMB is down
+ 
+return false;
+}
+ 
+bool FVictoryEdAlignMode::InputAxis(FLevelEditorViewportClient* InViewportClient,FViewport* Viewport,int32 ControllerId,EKey Key,float Delta,float DeltaTime)
+{
+//only works if any mouse button is down
+ 
+return false;
+}
+ 
+bool FVictoryEdAlignMode::MouseMove(FLevelEditorViewportClient* ViewportClient,FViewport* Viewport,int32 x, int32 y)
+{
+if(!ViewportClient) return false;
+ 
+//~~~~~~~~~~~~~~~
+//	ESSENTIAL UPDATES
+MouseLocation.X=x;
+MouseLocation.Y=y;
+ 
+//~~~ Cursor World Space ~~~
+FViewportCursorLocation CursorWS = ViewportClient-&gt;GetCursorWorldLocationFromMousePos();
+CursorWorldPos = CursorWS.GetOrigin();
+CursorWorldDir = CursorWS.GetDirection();
+ 
+//Calc Delta
+RV_Vect = CursorWorldPos + CursorWorldDir * CURSOR_DELTA_DISTANCE_CALC;
+CursorWorldDelta = RV_Vect - CursorWorldPrevPos;
+CursorWorldDelta /= 4;
+if(CursorWorldDelta.SizeSquared() &lt; 3) CursorWorldDelta = FVector::ZeroVector;
+if(CursorWorldDelta.SizeSquared() &gt; 10000) CursorWorldDelta = FVector::ZeroVector;
+ 
+//Save Prev
+CursorWorldPrevPos = RV_Vect;
+ 
+//~~~~~~~~~~~~~~~
+ 
+//SUPER HYPER BUTTON REFRESHING
+//		due to the slide physx camera thing when moving
+if(!UsingMouseInstantMove) PendingButtonRefresh = true;
+ 
+return false;
+}
+ 
+//Middle Mouse Event
+void FVictoryEdAlignMode::MiddleMouseEvent(EInputEvent Event)
+{
+//Pressed
+if(Event == EInputEvent::IE_Pressed)
+{
+ 
+ 
+return;
+}
+ 
+//Released
+if(Event == EInputEvent::IE_Released)
+{
+ 
+return;
+}
+}
+ 
+//Left Mouse Click
+void FVictoryEdAlignMode::LeftMouseClick()
+{
+CHECK_VSELECTED
+ 
+//SelectedVertexForSelectedActor = -1;
+}
+bool FVictoryEdAlignMode::HandleClick(FLevelEditorViewportClient* InViewportClient, HHitProxy *HitProxy, const FViewportClick &amp;Click)
+{
+ 
+return false;
+}
+ 
+//~~~
+ 
+//``
+void FVictoryEdAlignMode::GetSelectedVertexLocation(FVector&amp; LocOut)
+{
+CHECK_VSELECTED
+ 
+if(!SelectedVertexBuffer)  return;	
+//~~~~~~~~~~~~~~~~~~
+ 
+const FTransform SMATransform = VictoryEngine-&gt;VSelectedActor-&gt;GetTransform();
+const FVector SMALocation 		= SMATransform.GetLocation();
+const int32 VertexCount 			= SelectedVertexBuffer-&gt;GetNumVertices();
+for(int32 Itr = 0; Itr &lt; VertexCount; Itr++)
+{
+if(Itr == SelectedVertexForSelectedActor)
+{
+LocOut = SMALocation + SMATransform.TransformVector(SelectedVertexBuffer-&gt;VertexPosition(Itr));
+return;
+//~~~~
+}
+}
+}
+ 
+void FVictoryEdAlignMode::DoVertexSnap(const FVector&amp; Dest)
+{
+CHECK_VSELECTED
+ 
+FVector SelectedVertexLocation;
+ 
+//Initial Location
+GetSelectedVertexLocation(SelectedVertexLocation);
+ 
+//Match rotation of owner of target vertex?
+if(ShiftDown)
+{
+VictoryEngine-&gt;VSelectedActor-&gt;SetActorRotation(RV_Hit.ImpactNormal.Rotation());
+//Recalc Selected Vertex After Rotation
+GetSelectedVertexLocation(SelectedVertexLocation);
+ 
+//UE_LOG(Victory, Error, TEXT(&quot;WHAT IS HIT NORMAL %s&quot;), *RV_Hit.ImpactNormal.Rotation().ToString() );
+}
+ 
+//No modifier, just regular click
+ 
+//1. calc distance between selected vertex and JSMA location
+//2. move the JSMA to the target vertex
+//3. subtract the distance
+ 
+//Distance Offset
+const FVector LocOffset = SelectedVertexLocation - VictoryEngine-&gt;VSelectedActor-&gt;GetActorLocation();
+ 
+//Set Location
+VictoryEngine-&gt;VSelectedActor-&gt;SetActorLocation(Dest - LocOffset);
+ 
+//Refresh After Moving
+PendingButtonRefresh = true;
+}
+ 
+void FVictoryEdAlignMode::RefreshVertexButtons(const FSceneView* View)
+{
+CHECK_VSELECTED
+ 
+if(!View) return;
+//~~~~~~~~~~~~~
+ 
+//No Longer Pending
+PendingButtonRefresh = false;
+ 
+//Refresh
+SelectedActorButtons.Empty();
+HighlightedActorButtons.Empty();
+ 
+//~~~ Vars ~~~
+const float ButtonHalfSize = CurrentVerticiesScale/2;
+ 
+//~~~~~~~~~~~~~~~~~~~~~
+//			Selected Actor
+//~~~~~~~~~~~~~~~~~~~~~
+if(!VictoryEngine-&gt;VSelectedActor-&gt;IsValidLowLevel() ) return;
+ 
+if(!SelectedVertexBuffer)  return;	
+//~~~~~~~~~~~~~~~~~~
+ 
+FTransform SMATransform = VictoryEngine-&gt;VSelectedActor-&gt;GetTransform();
+FVector SMALocation 		= SMATransform.GetLocation();
+const int32 VertexCount 			= SelectedVertexBuffer-&gt;GetNumVertices();
+for(int32 Itr = 0; Itr &lt; VertexCount; Itr++)
+{
+//Get Rotated Scaled Translated Vertex Pos
+VertexWorldSpace = SMALocation + SMATransform.TransformVector(SelectedVertexBuffer-&gt;VertexPosition(Itr));
+ 
+//Get 2D Center
+VictoryProject(View,
+VertexWorldSpace,
+Vertex2DCenter
+);
+ 
+FVButton NewButton;
+NewButton.Vibe 			= 	Itr;
+NewButton.PointInWorld 	= 	VertexWorldSpace;
+NewButton.minX			=	Vertex2DCenter.X - ButtonHalfSize;
+NewButton.maxX			=	Vertex2DCenter.X + ButtonHalfSize;
+NewButton.minY			=	Vertex2DCenter.Y - ButtonHalfSize;
+NewButton.maxY			=	Vertex2DCenter.Y + ButtonHalfSize;
+ 
+//Add Button
+SelectedActorButtons.Add(NewButton);
+}
+ 
+//~~~~~~~~~~~~~~~~~~~~~
+//			Highlighted Actor
+//~~~~~~~~~~~~~~~~~~~~~
+if(!HighlightedActor) return;
+if(!HighlightedActor-&gt;IsValidLowLevel()) return;
+ 
+if(!HighlightedVertexBuffer)  return;	
+//~~~~~~~~~~~~~~~~~~
+ 
+SMATransform = HighlightedActor-&gt;GetTransform();
+SMALocation 		= SMATransform.GetLocation();
+const int32 VertexCount2 			= HighlightedVertexBuffer-&gt;GetNumVertices();
+for(int32 Itr = 0; Itr &lt; VertexCount2; Itr++)
+{
+//Get Rotated Scaled Translated Vertex Pos
+VertexWorldSpace = SMALocation + SMATransform.TransformVector(HighlightedVertexBuffer-&gt;VertexPosition(Itr));
+ 
+//Get 2D Center
+VictoryProject(View,
+VertexWorldSpace,
+Vertex2DCenter
+);
+ 
+FVButton NewButton;
+NewButton.Vibe 			= 	Itr;
+NewButton.PointInWorld 	= 	VertexWorldSpace;
+NewButton.minX			=	Vertex2DCenter.X - ButtonHalfSize;
+NewButton.maxX			=	Vertex2DCenter.X + ButtonHalfSize;
+NewButton.minY			=	Vertex2DCenter.Y - ButtonHalfSize;
+NewButton.maxY			=	Vertex2DCenter.Y + ButtonHalfSize;
+ 
+//Add Button
+HighlightedActorButtons.Add(NewButton);
+}
+ 
+}
+ 
+//```
+void FVictoryEdAlignMode::PDI_DrawVerticies(const FSceneView* View, FPrimitiveDrawInterface* PDI, const FPositionVertexBuffer* VertexBuffer, const FTransform&amp; SMATransform, bool DrawingSelectedActor)
+{
+CHECK_VSELECTED
+ 
+if(!View) 			return;
+if(!PDI) 			return;
+if(!VertexBuffer) 	return;
+//~~~~~~~~~~~~~~~
+ 
+//Location
+const FVector SMALocation 			= SMATransform.GetLocation();
+ 
+//Get Count
+const int32 VertexCount = VertexBuffer-&gt;GetNumVertices();
+ 
+//~~~~~~~~~~~~~~~~~~~~~
+//			Selected Actor
+//~~~~~~~~~~~~~~~~~~~~~
+if(DrawingSelectedActor)
+{
+for(int32 Itr = 0; Itr &lt; VertexCount; Itr++)
+{
+//Selected Vertex?
+if(SelectedVertexForSelectedActor == Itr )
+{
+//Draw to the PDI
+PDI-&gt;DrawPoint(
+SMALocation + SMATransform.TransformVector(VertexBuffer-&gt;VertexPosition(Itr)),
+RV_Yellow,
+CurrentVerticiesScale*VERTEX_SELECTED_MULT,
+0 //depth
+);
+continue;
+}
+else if(HighlightedVertexForSelectedActor == Itr)
+{
+//Draw to the PDI
+PDI-&gt;DrawPoint(
+SMALocation + SMATransform.TransformVector(VertexBuffer-&gt;VertexPosition(Itr)),
+FLinearColor(0,1,1,1),
+CurrentVerticiesScale*VERTEX_SELECTED_MULT,
+0 //depth
+);
+continue;
+}
+else
+{
+ 
+//Spheres
+if(VertexDisplayChoice == VERTEX_DISPLAY_SPHERE)
+{
+if(VertexCount &gt; MAX_VERTEX_COUNT_FOR_DRAWING_SPHERES)
+{
+DrawWireBox(
+PDI,
+BoxFromPointWithSize(SMALocation + SMATransform.TransformVector(VertexBuffer-&gt;VertexPosition(Itr)),CurrentVerticiesScale*0.5),
+RV_VRed,
+0
+);
+continue;
+}
+else
+{
+DrawWireSphere(
+PDI,
+SMALocation + SMATransform.TransformVector(VertexBuffer-&gt;VertexPosition(Itr)),
+RV_VRed,
+CurrentVerticiesScale*VERTEX_SHAPE_MULT,
+12,
+0
+);
+continue;
+}
+}
+ 
+//Diamond
+else if(VertexDisplayChoice == VERTEX_DISPLAY_DIAMOND3D)
+{
+DrawWireSphere(
+PDI,
+SMALocation + SMATransform.TransformVector(VertexBuffer-&gt;VertexPosition(Itr)),
+RV_VRed,
+CurrentVerticiesScale*VERTEX_SHAPE_MULT,
+4,
+0
+);
+continue;
+}
+ 
+//Box
+else if(VertexDisplayChoice == VERTEX_DISPLAY_3DBOX)
+{
+DrawWireBox(
+PDI,
+BoxFromPointWithSize(SMALocation + SMATransform.TransformVector(VertexBuffer-&gt;VertexPosition(Itr)),CurrentVerticiesScale*VERTEX_SHAPE_MULT),
+RV_VRed,
+0
+);
+continue;
+}
+ 
+//Stars
+else if(VertexDisplayChoice == VERTEX_DISPLAY_STARS)
+{
+DrawWireStar(
+PDI,
+SMALocation + SMATransform.TransformVector(VertexBuffer-&gt;VertexPosition(Itr)),
+CurrentVerticiesScale,
+RV_VRed,
+0
+);
+continue;
+}
+ 
+//Rect
+else if(VertexDisplayChoice == VERTEX_DISPLAY_RECT)
+{
+//Draw to the PDI
+PDI-&gt;DrawPoint(
+SMALocation + SMATransform.TransformVector(VertexBuffer-&gt;VertexPosition(Itr)),
+RV_Red,
+CurrentVerticiesScale,
+0 //depth
+);
+continue;
+}
+ 
+}
+ 
+}
+}
+ 
+//~~~~~~~~~~~~~~~~~~~~~
+//			Highlighted Actor
+//~~~~~~~~~~~~~~~~~~~~~
+else
+{
+for(int32 Itr = 0; Itr &lt; VertexCount; Itr++)
+{
+if(HighlightedVertexForHighlightedActor == Itr)
+{
+//Draw to the PDI
+PDI-&gt;DrawPoint(
+SMALocation + SMATransform.TransformVector(VertexBuffer-&gt;VertexPosition(Itr)),
+FLinearColor(0,1,1,1),
+CurrentVerticiesScale*VERTEX_SELECTED_MULT,
+0 //depth
+);
+continue;
+}
+ 
+//Spheres
+if(VertexDisplayChoice == VERTEX_DISPLAY_SPHERE)
+{
+if(VertexCount &gt; MAX_VERTEX_COUNT_FOR_DRAWING_SPHERES)
+{
+DrawWireBox(
+PDI,
+BoxFromPointWithSize(SMALocation + SMATransform.TransformVector(VertexBuffer-&gt;VertexPosition(Itr)),CurrentVerticiesScale*VERTEX_SHAPE_MULT),
+RV_VBlue,
+0
+);
+continue;
+}
+else
+{
+DrawWireSphere(
+PDI,
+SMALocation + SMATransform.TransformVector(VertexBuffer-&gt;VertexPosition(Itr)),
+RV_VBlue,
+CurrentVerticiesScale*VERTEX_SHAPE_MULT,
+12,
+0
+);
+continue;
+}
+}
+ 
+//Diamond
+else if(VertexDisplayChoice == VERTEX_DISPLAY_DIAMOND3D)
+{
+DrawWireSphere(
+PDI,
+SMALocation + SMATransform.TransformVector(VertexBuffer-&gt;VertexPosition(Itr)),
+RV_VBlue,
+CurrentVerticiesScale*VERTEX_SHAPE_MULT,
+4,
+0
+);
+continue;
+}
+ 
+//Box
+else if(VertexDisplayChoice == VERTEX_DISPLAY_3DBOX)
+{
+DrawWireBox(
+PDI,
+BoxFromPointWithSize(SMALocation + SMATransform.TransformVector(VertexBuffer-&gt;VertexPosition(Itr)),CurrentVerticiesScale),
+RV_VBlue,
+0
+);
+continue;
+}
+ 
+//Stars
+else if(VertexDisplayChoice == VERTEX_DISPLAY_STARS)
+{
+ 
+DrawWireStar(
+PDI,
+SMALocation + SMATransform.TransformVector(VertexBuffer-&gt;VertexPosition(Itr)),
+CurrentVerticiesScale,
+RV_VBlue,
+0
+);
+continue;
+}
+ 
+//Rect
+else if(VertexDisplayChoice == VERTEX_DISPLAY_RECT)
+{
+//Draw to the PDI
+PDI-&gt;DrawPoint(
+SMALocation + SMATransform.TransformVector(VertexBuffer-&gt;VertexPosition(Itr)),
+RV_Blue,
+CurrentVerticiesScale,
+0 //depth
+);
+continue;
+}
+}	
+}
+}
+ 
+ 
+void FVictoryEdAlignMode::DrawHotkeyToolTip(FCanvas* Canvas)
+{
+if(!Canvas) return;
+//~~~~~~~~~
+ 
+RV_yStart = MouseLocation.Y + 16;
+ 
+//Background
+DrawVictoryRect(Canvas,
+MouseLocation.X - 7,
+RV_yStart - 7,
+420,
+VICTORY_TEXT_HEIGHT * 10 + 120,
+FLinearColor(0,0,1,0.777)
+);
+ 
+DrawVictoryTextWithColor(Canvas,
+&quot;~~~ Victory Editor Mode Hotkeys ~<s>&quot;,
+MouseLocation.X,RV_yStart,
+RV_Yellow
+);
+ 
+RV_yStart += VICTORY_TEXT_HEIGHT * 2;
+DrawVictoryTextWithColor(Canvas,
+&quot;P ~ Restore previous Editor Mode&quot;,
+MouseLocation.X,RV_yStart,
+RV_Yellow
+);
+ 
+RV_yStart += VICTORY_TEXT_HEIGHT + 20;
+DrawVictoryTextWithColor(Canvas,
+&quot;Y ~ Drop Objects to Nearest Surface!&quot;,
+MouseLocation.X,RV_yStart,
+RV_Yellow
+);
+ 
+RV_yStart += VICTORY_TEXT_HEIGHT + 20;
+DrawVictoryTextWithColor(Canvas,
+&quot;T ~ Toggle Instant Mouse Move Mode&quot;,
+MouseLocation.X,RV_yStart,
+RV_Yellow
+);
+ 
+RV_yStart += VICTORY_TEXT_HEIGHT;
+DrawVictoryTextWithColor(Canvas,
+&quot;K ~ Reset Rotation&quot;,
+MouseLocation.X,RV_yStart,
+RV_Yellow
+);
+ 
+RV_yStart += VICTORY_TEXT_HEIGHT + 20;
+DrawVictoryTextWithColor(Canvas,
+&quot;V ~ Select Verticies for Snapping!&quot;,
+MouseLocation.X,RV_yStart,
+RV_Yellow
+);
+ 
+RV_yStart += VICTORY_TEXT_HEIGHT + 5;
+DrawVictoryTextWithColor(Canvas,
+&quot;SHIFT + V ~ Snap by Surface Normal&quot;,
+MouseLocation.X,RV_yStart,
+RV_Yellow
+);
+ 
+RV_yStart += VICTORY_TEXT_HEIGHT + 5;
+DrawVictoryTextWithColor(Canvas,
+&quot;B ~ Toggle Different Vertex Types!!!&quot;,
+MouseLocation.X,RV_yStart,
+RV_Yellow
+);
+ 
+RV_yStart += VICTORY_TEXT_HEIGHT + 4;
+DrawVictoryTextWithColor(Canvas,
+&quot;Hold + or - ~ Change Vertex Size!&quot;,
+MouseLocation.X,RV_yStart,
+RV_Yellow
+);
+ 
+RV_yStart += VICTORY_TEXT_HEIGHT + 4;
+DrawVictoryTextWithColor(Canvas,
+&quot;U ~ Toggle Hiding of All Verticies&quot;,
+MouseLocation.X,RV_yStart,
+RV_Yellow
+);
+}
+ 
+void FVictoryEdAlignMode::DrawVictoryText(FCanvas* Canvas, const FString&amp; TheStr, float X, float Y, float TheScale )
+{
+if(!Canvas) return;
+//</s>~~~~~~~
+ 
+FCanvasTextItem NewText(
+FVector2D(X,Y),
+FText::FromString(TheStr),
+VictoryEngine-&gt;GetVictoryFont(),
+FLinearColor(1,0,1,1)
+);
+NewText.Scale.Set(TheScale,TheScale);
+NewText.bOutlined = true;
+NewText.Draw(Canvas);
+}
+void FVictoryEdAlignMode::DrawVictoryTextWithColor(FCanvas* Canvas, const FString&amp; TheStr, float X, float Y, FLinearColor TheColor, float TheScale )
+{
+if(!Canvas) return;
+//~~~~~~~~~
+ 
+FCanvasTextItem NewText(
+FVector2D(X,Y),
+FText::FromString(TheStr),
+VictoryEngine-&gt;GetVictoryFont(),
+TheColor
+);
+NewText.Scale.Set(TheScale,TheScale);
+NewText.bOutlined = true;
+ 
+//Outline gets its alpha from the main color
+NewText.OutlineColor = FLinearColor(0,0,0,TheColor.A * 2);
+ 
+NewText.Draw(Canvas);
+}
+ 
+void FVictoryEdAlignMode::DrawVictoryLine(
+FCanvas* Canvas,
+const FVector2D&amp; Start,
+const FVector2D&amp; End,
+FLinearColor TheColor,
+float Thick
+)
+{
+if(!Canvas) return;
+//~~~~~~~~~
+ 
+FCanvasLineItem NewLine(Start,End);
+NewLine.SetColor(TheColor);
+NewLine.LineThickness = Thick;
+NewLine.Draw(Canvas);
+}
+void FVictoryEdAlignMode::DrawVictoryRect(FCanvas* Canvas, float X, float Y, float Width, float Height, FLinearColor Color)
+{
+if(!Canvas) return;
+//~~~~~~~~~
+ 
+FCanvasTileItem TileItem(
+FVector2D(X, Y),
+FVector2D( Width, Height ),
+Color
+);
+ 
+TileItem.BlendMode = SE_BLEND_Translucent;
+TileItem.Draw(Canvas);
+ 
+/*
+Canvas-&gt;DrawTile(
+X, Y,
+Width, Height,
+0, 0, 1, 1,
+Color
+);
+*/
+ 
+}
+ 
+int32 FVictoryEdAlignMode::FindClosestOfButtons(TArray&lt;FVButton*&gt; Inbuttons)
+{
+float CurDistance;
+float MinDistance = 10000000000;
+int32 MinIndex = -1;
+for(int32 Itr=0; Itr &lt; Inbuttons.Num(); Itr++)
+{
+CurCheckButton = Inbuttons[Itr];
+if(!CurCheckButton) continue;
+ 
+//world space location stored in the Button itself
+CurDistance = FVector::DistSquared(CurCheckButton-&gt;PointInWorld,CursorWorldPos);
+ 
+//Min Check
+if(CurDistance &lt; MinDistance)
+{
+MinDistance = CurDistance;
+MinIndex = Itr;
+}
+}
+ 
+//VALIDITY CHECK
+if(!Inbuttons.IsValidIndex(MinIndex))
+return -1;
+ 
+else return MinIndex;
+}
+ 
+void FVictoryEdAlignMode::CheckCursorInButtons(FCanvas* Canvas)
+{	
+if(!Canvas) return;
+//~~~~~~~~~
+ 
+//Reset Highlighted
+HighlightedVertexForSelectedActor = -1;
+HighlightedVertexForHighlightedActor = -1;
+ 
+//~~~~~~~~~~~~~~~~~~~
+//Main Buttons
+//~~~~~~~~~~~~~~~~~~~
+RV_Int32=0;
+while(VictoryButtons.IsValidIndex(RV_Int32))
+{
+CurCheckButton = &amp;VictoryButtons[RV_Int32];
+ 
+//check cursor in bounds
+if (CurCheckButton-&gt;minX &lt;= MouseLocation.X &amp;&amp; MouseLocation.X &lt;= CurCheckButton-&gt;maxX &amp;&amp;
+CurCheckButton-&gt;minY &lt;= MouseLocation.Y &amp;&amp; MouseLocation.Y &lt;= CurCheckButton-&gt;maxY )
+{
+//Active Button Type
+ActiveButton_Vibe = CurCheckButton-&gt;Vibe;
+ 
+if(ActiveButton_Vibe == BUTTON_VIBE_VICTORYHOTKEYS)
+{
+DrawHotkeyToolTip(Canvas);
+FadeInVictoryTitle = true;
+VictoryTitleVisible = false; //prevent a duel between the two
+return;
+//~~~~~
+}
+}
+ 
+//~~~~~~~
+RV_Int32++;
+}
+ 
+//~~~~~~~~~~~~~~~~~~~
+//Selected Actor Vertex Buttons
+//~~~~~~~~~~~~~~~~~~~
+RV_Int32=0;
+ClosestSelectedActorButtons.Empty();
+while(SelectedActorButtons.IsValidIndex(RV_Int32))
+{
+CurCheckButton = &amp;SelectedActorButtons[RV_Int32];
+//check cursor in bounds
+if (CurCheckButton-&gt;minX &lt;= MouseLocation.X &amp;&amp; MouseLocation.X &lt;= CurCheckButton-&gt;maxX &amp;&amp;
+CurCheckButton-&gt;minY &lt;= MouseLocation.Y &amp;&amp; MouseLocation.Y &lt;= CurCheckButton-&gt;maxY )
+{
+ClosestSelectedActorButtons.Add(&amp;SelectedActorButtons[RV_Int32]);
+}
+ 
+//~~~~~~~
+RV_Int32++;
+}
+ 
+//Find closest of potentially highlighted/selected
+ 
+const int32 FoundIndex = FindClosestOfButtons(ClosestSelectedActorButtons);
+if(FoundIndex != -1)
+{
+CurCheckButton = ClosestSelectedActorButtons[FoundIndex];
+if(CurCheckButton)
+{
+//Active Button Type
+ActiveButton_Vibe = CurCheckButton-&gt;Vibe;
+ 
+//Highlight Vertex if hovered over!
+HighlightedVertexForSelectedActor = ActiveButton_Vibe;
+ 
+//Vertex Selected and not same?
+if(SnapKeyPressed &amp;&amp; SelectedVertexForSelectedActor != ActiveButton_Vibe )
+{
+SnapKeyPressed = false;
+SelectedVertexForSelectedActor = ActiveButton_Vibe;
+return;
+//~~~~~
+}
+}
+}
+ 
+ 
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+ 
+//~~~~~~~~~~~~~~~~~~~~~~
+//Highlighted Actor Vertex Buttons
+//~~~~~~~~~~~~~~~~~~~~~~
+ 
+RV_Int32=0;
+ClosestHighlightedActorButtons.Empty();
+while(HighlightedActorButtons.IsValidIndex(RV_Int32))
+{
+CurCheckButton = &amp;HighlightedActorButtons[RV_Int32];
+//check cursor in bounds
+if (CurCheckButton-&gt;minX &lt;= MouseLocation.X &amp;&amp; MouseLocation.X &lt;= CurCheckButton-&gt;maxX &amp;&amp;
+CurCheckButton-&gt;minY &lt;= MouseLocation.Y &amp;&amp; MouseLocation.Y &lt;= CurCheckButton-&gt;maxY )
+{
+ClosestHighlightedActorButtons.Add(&amp;HighlightedActorButtons[RV_Int32]);
+}
+ 
+//~~~~~~~
+RV_Int32++;
+}
+ 
+//Find closest of potentially highlighted/selected
+ 
+const int32 FoundIndex2 = FindClosestOfButtons(ClosestHighlightedActorButtons);
+if(FoundIndex2 != -1)
+{
+CurCheckButton = ClosestHighlightedActorButtons[FoundIndex2];
+if(CurCheckButton)
+{
+//Active Button Type
+ActiveButton_Vibe = CurCheckButton-&gt;Vibe;
+ 
+//Highlight Vertex if hovered over!
+HighlightedVertexForHighlightedActor = ActiveButton_Vibe;
+ 
+//Vertex Selected?
+if(SnapKeyPressed)
+{
+SnapKeyPressed = false;
+DoVertexSnap(CurCheckButton-&gt;PointInWorld);
+}
+}
+}
+}
+ 
+//Victory Project
+void FVictoryEdAlignMode::VictoryProject(const FSceneView* View,const FVector&amp; WorldPoint,FVector2D&amp; OutPixelLocation)
+{
+if(!View) return;
+//~~~~~~~~~
+ 
+/** Transforms a point from the view's world-space into pixel coordinates relative to the view's X,Y (left, top). */
+View-&gt;WorldToPixel(WorldPoint,OutPixelLocation);
+}
+ 
+//Victory DeProject
+void FVictoryEdAlignMode::VictoryDeProject(const FSceneView* View,const FVector2D&amp; ScreenPoint, FVector&amp; out_WorldOrigin, FVector&amp; out_WorldDirection)
+{
+if(!View) return;
+//~~~~~~~~~
+ 
+//NEEDS TO BE MADE CONST TO BE ABLE TO USE THIS
+/** transforms 2D screen coordinates into a 3D world-space origin and direction
+* @param ScreenPos - screen coordinates in pixels
+* @param out_WorldOrigin (out) - world-space origin vector
+* @param out_WorldDirection (out) - world-space direction vector
+*/
+//View-&gt;DeprojectFVector2D(ScreenPoint, out_WorldOrigin, out_WorldDirection);
+ 
+ 
+/** transforms 2D screen coordinates into a 3D world-space origin and direction
+* @param ScreenPos - screen coordinates in pixels
+* @param ViewRect - view rectangle
+* @param InvViewMatrix - inverse view matrix
+* @param InvProjMatrix - inverse projection matrix
+* @param out_WorldOrigin (out) - world-space origin vector
+* @param out_WorldDirection (out) - world-space direction vector
+*/
+FSceneView::DeprojectScreenToWorld(
+ScreenPoint,
+View-&gt;ViewRect,
+View-&gt;InvViewMatrix,
+View-&gt;ViewMatrices.GetInvProjMatrix(),
+out_WorldOrigin,
+out_WorldDirection
+);
+ 
+}
+ 
+ 
+//Draw Using the More Fundamental Method, PDI
+void FVictoryEdAlignMode::Render(const FSceneView* View,FViewport* Viewport,FPrimitiveDrawInterface* PDI)
+{
+//~~~ Verticies ~~~
+if(DoDrawVerticies)
+{
+ 
+if(SelectedVertexBuffer &amp;&amp; VictoryEngine-&gt;VSelectedActor)
+{
+PDI_DrawVerticies(View,	PDI,
+SelectedVertexBuffer,VictoryEngine-&gt;VSelectedActor-&gt;GetTransform(),
+true
+);
+}
+ 
+//Dont draw if Highlighted == Selected, drawn already
+if(HighlightedVertexBuffer &amp;&amp; HighlightedActor &amp;&amp; HighlightedActor != VictoryEngine-&gt;VSelectedActor)
+{
+PDI_DrawVerticies( View,	PDI,
+HighlightedVertexBuffer, HighlightedActor-&gt;GetTransform(),
+false //Highlighted Actor
+);
+}
+ 
+} //end of do draw verticies
+//~~~~~~~~~~~~~~~~~~~
+}
+ 
+//Draw HUD
+void FVictoryEdAlignMode::DrawHUD(FLevelEditorViewportClient* ViewportClient,FViewport* Viewport,const FSceneView* View,FCanvas* Canvas)
+{
+if(!Canvas) return;
+if(!VictoryEngine) return;
+//~~~~~~~~~~~
+ 
+//Title Button
+DrawVictoryTextWithColor(Canvas, &quot;Victory Editor Hotkeys&quot;, 10,VICTORY_TITLE_HEIGHT, FLinearColor(1,0,1,VictoryTitleAlpha));
+ 
+//~~~ Cursor ~~~
+if(!UsingMouseInstantMove) CheckCursorInButtons(Canvas);
+ 
+//~~~ Make Buttons? ~~~
+if(PendingButtonRefresh) RefreshVertexButtons(View);
+ 
+//~~~~~~~~~~~~~~~~~~~
+//Mouse Coordinates
+//DrawVictoryText(Canvas, MouseLocation.ToString(), 400,50);
+ 
+//Mouse World Space Dir
+//DrawVictoryText(Canvas, CursorWorldDir.ToString(), 300,50 + VICTORY_TEXT_HEIGHT );
+}
+ 
+void FVictoryEdAlignMode::Tick_VictoryTitle(FLevelEditorViewportClient* ViewportClient)
+{
+CurTimeSpan = FDateTime::Now() - VictoryTitleAppearTime;
+ 
+//If &gt; then Allowed Visible Duration, start to fade out
+if(CurTimeSpan.GetTotalSeconds() &gt; VICTORY_TITLE_VISIBLE_DURATION)
+{
+if(VictoryTitleAlpha &lt;= 0)
+{
+VictoryTitleVisible = false;
+VictoryTitleAlpha = 0;
+return;
+}
+ 
+VictoryTitleAlpha -= 0.01;
+}
+ 
+//INVALIDATE THE DISPLAY
+ViewportClient-&gt;Viewport-&gt;InvalidateDisplay();
+}
+void FVictoryEdAlignMode::Tick_VictoryTitleFadeIn()
+{
+if(VictoryTitleAlpha &gt;=1)
+{
+VictoryTitleAppears();
+return;
+}
+ 
+VictoryTitleAlpha += 0.01;
+}
+ 
+//TICK
+void FVictoryEdAlignMode::Tick_VictoryInterface(FLevelEditorViewportClient* ViewportClient)
+{
+if(!ViewportClient) return;
+//~~~~~~~~~~~
+ 
+//Re-activate Real-time each time enter Mode
+/*
+if(ReEntering)
+{
+ReEntering = false;
+ViewportClient-&gt;SetRealtime(true,true);
+}
+*/
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//							HUD
+ViewportSize = ViewportClient-&gt;Viewport-&gt;GetSizeXY();
+ 
+//Victory Title Tick
+if(VictoryTitleVisible) Tick_VictoryTitle(ViewportClient);
+ 
+//Fading in?
+if(FadeInVictoryTitle)
+{
+Tick_VictoryTitleFadeIn();
+ViewportClient-&gt;Viewport-&gt;InvalidateDisplay();
+}
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//			Move cursor if RMB is down
+//if(RMBDown) ViewportClient-&gt;Viewport-&gt;SetMouse(ViewportSize.X/2, ViewportSize.Y/2);
+}
+ 
+bool FVictoryEdAlignMode::ShouldDrawWidget() const
+{
+if(UsingMouseInstantMove) return false;
+return true;
+}
+ 
+ 
+bool FVictoryEdAlignMode::GetCursor(EMouseCursor::Type&amp; OutCursor) const
+{
+if(UsingMouseInstantMove)
+{
+OutCursor = EMouseCursor::GrabHand;
+return true;
+}
+ 
+return false; //no modified cursor
+}
+ 
+void FVictoryEdAlignMode::Tick(FLevelEditorViewportClient* ViewportClient,float DeltaTime)
+{
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//				Single Invalidate
+if(DoSingleDisplayUpdate)
+{
+ViewportClient-&gt;Viewport-&gt;InvalidateDisplay();
+DoSingleDisplayUpdate = false;
+}
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//				HUD Elements and Input
+Tick_VictoryInterface(ViewportClient);
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//				TRACE CURSOR POSITION
+ProcessMouseInstantMove(ViewportClient);
+ 
+ 
+ 
+//~~~ Begin Vertex Related ~~~
+CHECK_VSELECTED
+ 
+//Minus or Plus?
+if(MinusIsDown) CurrentVerticiesScale -= 0.333;
+else if(PlusIsDown) CurrentVerticiesScale += 0.333;
+if(CurrentVerticiesScale &lt; 2) CurrentVerticiesScale = 2;
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//					New Selection Actor?
+if(VictoryEngine-&gt;SelectedActorVerticiesNeedsUpdating)
+{
+VictoryEngine-&gt;SelectedActorVerticiesNeedsUpdating = false;
+SelectedVertexBuffer = GetVerticies(Cast&lt;AStaticMeshActor&gt;(VictoryEngine-&gt;VSelectedActor));
+PendingButtonRefresh = true;
+}
+ 
+if(VictoryEngine-&gt;ClearSelectedVertex)
+{
+VictoryEngine-&gt;ClearSelectedVertex = false;
+SelectedVertexForSelectedActor = -1;
+}
+}</p> <h2 id="core-of-making-your-own-editor-mode"><a href="#core-of-making-your-own-editor-mode" class="header-anchor">#</a> Core of Making Your Own Editor Mode</h2> <h3 id="interaction-of-edengine-with-edmode-class"><a href="#interaction-of-edengine-with-edmode-class" class="header-anchor">#</a> Interaction of EdEngine with EdMode Class</h3> <p>The key interaction between the Editor Mode class and the extended Unreal Engine class is in the Unreal Engine class, where it creates the editor mode instance.</p> <p>Here is that code:</p> <p>//Create it if it not exist yet
+if(!CreatedVictoryEdMode)
+{
+TSharedRef&lt;class FVictoryEdAlignMode,ESPMode::Fast&gt; VictoryEdMode = MakeShareable( new FVictoryEdAlignMode() );
+ 
+//Init VictoryEdMode
+VictoryEdMode-&gt;JoyInit(this);
+ 
+//Register
+GEditorModeTools().RegisterMode(VictoryEdMode);
+ 
+CreatedVictoryEdMode = true;
+}</p> <h3 id="activating-the-editor-mode-once-created"><a href="#activating-the-editor-mode-once-created" class="header-anchor">#</a> Activating The Editor Mode, Once Created</h3> <p>Once you've created your own EdMode class instance, you activate your editor mode using:</p> <p>//Activate Victory Editor Mode
+GEditorModeTools().ActivateMode(VictoryEditorModeID);</p> <h3 id="the-ed-mode-s-unique-id"><a href="#the-ed-mode-s-unique-id" class="header-anchor">#</a> The Ed Mode's Unique ID</h3> <p>Note that this is a const FName that I declared here:</p> <p>const FName UVictoryEdEngine::VictoryEditorModeID = FName(&quot;VictoryEditorMode&quot;);</p> <p>And you have to actually give your EdMode its ID in its class constructor. In my case I used my custom JoyInit function</p> <p>//INIT
+void FVictoryEdAlignMode::JoyInit(UVictoryEdEngine* EnginePtr)
+{
+ID = FName(&quot;VictoryEditorMode&quot;);
+}</p> <h2 id="plugin-build-cs"><a href="#plugin-build-cs" class="header-anchor">#</a> Plugin Build.cs</h2> <p>// Copyright 1998-2013 Epic Games, Inc. All Rights Reserved.
+ 
+using UnrealBuildTool;
+ 
+public class VictoryBPLibrary : ModuleRules
+{
+public VictoryBPLibrary(TargetInfo Target)
+{
+PublicDependencyModuleNames.AddRange(
+new string[] {
+&quot;Core&quot;,
+&quot;CoreUObject&quot;,
+&quot;Engine&quot;,
+&quot;UnrealEd&quot;,
+}
+);
+}
+}</p> <h2 id="plugin-download-2"><a href="#plugin-download-2" class="header-anchor">#</a> Plugin Download</h2> <p><a href="/File:VictoryPlugin.zip" title="File:VictoryPlugin.zip">File:VictoryPlugin.zip</a></p> <p>(Please note this file does not contain an executable, just the .dll that UE4 needs for a plugin, that's why the file warning appears)</p> <h2 id="enjoy"><a href="#enjoy" class="header-anchor">#</a> Enjoy!</h2> <p>I hope that providing you with my entire Vertex Snapping C++ Source code helps you to create your own Editor Plugins!</p> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Rama%27s_Vertex_Snap_Editor_Plugin&amp;oldid=17829" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Rama%27s_Vertex_Snap_Editor_Plugin&amp;oldid=17829<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Plug-ins" title="Category:Plug-ins">Plug-ins</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/943.a40951ad.js" defer></script>
+  </body>
+</html>

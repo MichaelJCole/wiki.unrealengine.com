@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1132.1d6b53ed.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>UT4 Weapons Tutorial - Crosshair HUD Indicators - Epic Wiki</p> <h1 id="ut4-weapons-tutorial-crosshair-hud-indicators"><a href="#ut4-weapons-tutorial-crosshair-hud-indicators" class="header-anchor">#</a> UT4 Weapons Tutorial - Crosshair HUD Indicators</h1> <p><strong>Rate this Tutorial:</strong></p> <p>0.00</p> <p><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""></p> <p>Approved for Versions:4.6, 4.7</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Unreal_Tournament_Weapons_Tutorial_-_Crosshair_HUD_Indicators">1 Unreal Tournament Weapons Tutorial - Crosshair HUD Indicators</a> <ul><li><a href="#Requirements">1.1 Requirements</a></li> <li><a href="#Overview">1.2 Overview</a> <ul><li><a href="#Video_Demonstration">1.2.1 Video Demonstration</a></li></ul></li> <li><a href="#Rocket_Launcher">1.3 Rocket Launcher</a> <ul><li><a href="#UTWeap_RocketLauncher.cpp_DrawWeaponCrosshair_Code">1.3.1 UTWeap_RocketLauncher.cpp DrawWeaponCrosshair Code</a></li></ul></li> <li><a href="#Draw_Text_on_Crosshair">1.4 Draw Text on Crosshair</a> <ul><li><a href="#UTWeap_ExampleWeapon.h">1.4.1 UTWeap_ExampleWeapon.h</a></li> <li><a href="#UTWeap_ExampleWeapon.cpp">1.4.2 UTWeap_ExampleWeapon.cpp</a></li></ul></li></ul></li></ul> <h1 id="unreal-tournament-weapons-tutorial-crosshair-hud-indicators"><a href="#unreal-tournament-weapons-tutorial-crosshair-hud-indicators" class="header-anchor">#</a> Unreal Tournament Weapons Tutorial - Crosshair HUD Indicators</h1> <p>This tutorial will show you how to create some simple crosshair HUD indicators in the Unreal Tournament project, using C++.</p> <h2 id="requirements"><a href="#requirements" class="header-anchor">#</a> Requirements</h2> <p>Some existing C++ &amp; Unreal Engine knowledge is needed.</p> <ul><li>Engine version: 4.6+</li> <li>Skill level: Beginner - Intermediate</li> <li>Unreal Tournament Jan 2015 or Later</li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>Creating a new weapon in Unreal Tournament doesn't have to be difficult. But if you are introducing functionality that differs significantly from the standard Unreal Tournament arsenal of weapons, one of the challenges you'll face is communicating how your weapon functions to players who have never touched the weapon before. Unfortunately, players aren't likely to stop in the middle of their deathmatch to read a manual!</p> <p>One simple way that you can help to communicate functionality of your weapon is to use the crosshair to display that information. This page is intended to give you a couple of basic templates for ways that you can override the weapon crosshair to display additional information. In this tutorial I will be providing code examples for ways that the crosshair can be used to communicate information to the player about weapon state.</p> <h3 id="video-demonstration"><a href="#video-demonstration" class="header-anchor">#</a> Video Demonstration</h3> <h2 id="rocket-launcher"><a href="#rocket-launcher" class="header-anchor">#</a> Rocket Launcher</h2> <p>The prototypical example of using the crosshair to display additional information about the state of your weapon is the standard Unreal Tournament Rocket Launcher. The Rocket Launcher incorporates several features to help communicate weapon state to the user. So how are these things accomplished?</p> <h3 id="utweap-rocketlauncher-cpp-drawweaponcrosshair-code"><a href="#utweap-rocketlauncher-cpp-drawweaponcrosshair-code" class="header-anchor">#</a> UTWeap_RocketLauncher.cpp DrawWeaponCrosshair Code</h3> <p>void AUTWeap_RocketLauncher::DrawWeaponCrosshair_Implementation(UUTHUDWidget* WeaponHudWidget, float RenderDelta)
+{
+//Draw the Rocket Firemode Text
+if (bDrawRocketModeString &amp;&amp; RocketModeFont != NULL)
+{
+FText RocketModeText = RocketFireModes[CurrentRocketFireMode].DisplayString;
+float PosY = WeaponHudWidget-&gt;GetRenderScale() * UnderReticlePadding;
+ 
+WeaponHudWidget-&gt;DrawText(RocketModeText, 0.0f, PosY, RocketModeFont, FLinearColor::Black, 1.0f, 1.0f, FLinearColor::White, ETextHorzPos::Center, ETextVertPos::Top);
+}
+ 
+//Draw the crosshair
+if (LoadCrosshairTextures.IsValidIndex(NumLoadedRockets) &amp;&amp; LoadCrosshairTextures[NumLoadedRockets] != NULL)
+{
+UTexture2D* Tex = LoadCrosshairTextures[NumLoadedRockets];
+float W = Tex-&gt;GetSurfaceWidth();
+float H = Tex-&gt;GetSurfaceHeight();
+float Scale = WeaponHudWidget-&gt;GetRenderScale() * CrosshairScale * GetCrosshairScale(WeaponHudWidget-&gt;UTHUDOwner);
+ 
+float DegreesPerRocket = 360.0f / MaxLoadedRockets;
+float CrosshairRot = 0;
+ 
+if (NumLoadedRockets &lt; MaxLoadedRockets)
+{
+float DeltaTime = GetWorld()-&gt;TimeSeconds - LastLoadTime;
+float Alpha = FMath::Clamp(DeltaTime / CrosshairRotationTime, 0.0f, 1.0f);
+CrosshairRot = FMath::Lerp(0.f, DegreesPerRocket, Alpha);
+}
+ 
+WeaponHudWidget-&gt;DrawTexture(Tex, 0, 0, W * Scale, H * Scale, 0.0, 0.0, W, H, 1.0, GetCrosshairColor(WeaponHudWidget), FVector2D(0.5f, 0.5f), CrosshairRot);
+AUTPlayerState* PS;
+if (ShouldDrawFFIndicator(WeaponHudWidget-&gt;UTHUDOwner-&gt;PlayerOwner, PS))
+{
+WeaponHudWidget-&gt;DrawTexture(WeaponHudWidget-&gt;UTHUDOwner-&gt;DefaultCrosshairTex, 0, 0, W * Scale * 0.75f, H * Scale * 0.75f, 0.0, 0.0, 16, 16, 1.0, FLinearColor::Green, FVector2D(0.5f, 0.5f), 45.0f);
+}
+else
+{
+UpdateCrosshairTarget(PS, WeaponHudWidget, RenderDelta);
+}
+}
+ 
+//Draw the locked on crosshair
+if (HasLockedTarget())
+{
+UTexture2D* Tex = LockCrosshairTexture;
+float W = Tex-&gt;GetSurfaceWidth();
+float H = Tex-&gt;GetSurfaceHeight();
+float Scale = WeaponHudWidget-&gt;GetRenderScale() * GetCrosshairScale(WeaponHudWidget-&gt;UTHUDOwner);
+ 
+FVector ScreenTarget = WeaponHudWidget-&gt;GetCanvas()-&gt;Project(LockedTarget-&gt;GetActorLocation());
+ScreenTarget.X -= WeaponHudWidget-&gt;GetCanvas()-&gt;SizeX*0.5f;
+ScreenTarget.Y -= WeaponHudWidget-&gt;GetCanvas()-&gt;SizeY*0.5f;
+ 
+float CrosshairRot = GetWorld()-&gt;TimeSeconds * 90.0f;
+ 
+WeaponHudWidget-&gt;DrawTexture(Tex, ScreenTarget.X, ScreenTarget.Y, W * Scale, H * Scale, 0.0, 0.0, W, H, 1.0, FLinearColor::Red, FVector2D(0.5f, 0.5f), CrosshairRot);
+}
+}</p> <p>As we can see here, the Rocket Launcher crosshair code is being used to handle several distinct features of the weapon:</p> <ul><li>When the Rocket Launcher is utilizing one of its toggled alternate firemodes, the appropriate text string is drawn below the crosshair.</li> <li>Then the handling of the actual crosshair is drawn. The first step of this is that the texture drawn for the crosshair is chosen based on the number of loaded rockets. The second step is to rotate the crosshair to its next position as further rockets are loaded</li> <li>Lastly, the crosshair is actually used to draw an indicator on the screen when the Rocket Launcher is locked on to a given target.</li></ul> <h2 id="draw-text-on-crosshair"><a href="#draw-text-on-crosshair" class="header-anchor">#</a> Draw Text on Crosshair</h2> <p>The first and simplest example is using the crosshair to draw text on the screen. The example I will be covering here uses the crosshair to display both dynamic text and static text in order to achieve a readout of &quot;X / 100.&quot; This can be easily adapted to display whatever textual or numerical information is needed for your purpose. Lets begin with the header file.</p> <h3 id="utweap-exampleweapon-h"><a href="#utweap-exampleweapon-h" class="header-anchor">#</a> UTWeap_ExampleWeapon.h</h3> <p>#pragma once
+ 
+#include &quot;UTInventory.h&quot;
+#include &quot;UTWeapon.h&quot;
+#include &quot;UTWeap_ExampleWeapon.generated.h&quot;
+ 
+ 
+/**
+*
+*/
+UCLASS()
+class UNREALTOURNAMENT_API AUTWeap_ExampleWeapon: public AUTWeapon
+{
+GENERATED_BODY()
+ 
+public:
+ 
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ExampleWeapon)
+UFont* ExampleDisplayFont;
+ 
+void DrawWeaponCrosshair_Implementation(UUTHUDWidget* WeaponHudWidget, float RenderDelta) override;
+ 
+};</p> <p>As we can see here, we have a very minimal number of things we need to add to our weapon header in order to display some text. Lets move on to the .cpp file.</p> <h3 id="utweap-exampleweapon-cpp"><a href="#utweap-exampleweapon-cpp" class="header-anchor">#</a> UTWeap_ExampleWeapon.cpp</h3> <p>#include &quot;UnrealTournament.h&quot;
+#include &quot;UTWeap_ExampleWeapon.h&quot;
+ 
+void AUTWeap_ExampleWeapon::DrawWeaponCrosshair_Implementation(UUTHUDWidget* WeaponHudWidget, float RenderDelta)
+{
+// DisplayCount is the string that we will ultimately be displaying. This should be used for something meaningful to your weapon!
+FString DisplayCount = FString::FromInt( FMath::RandRange(0, 100) );
+ 
+// We concatenate to DisplayCount the string &quot; / &quot; to use as a divider
+DisplayCount += FString(TEXT(&quot; / &quot;));
+ 
+// Now we concatenate to DisplayCount the string representation of 100.
+DisplayCount += FString::FromInt(100);
+ 
+// PosY is a variable declared to determine the position
+float PosY = WeaponHudWidget-&gt;GetRenderScale() * 50;
+ 
+// We use the UUTHUDWidget::DrawText function to draw our string onto the weapon HUD widget
+WeaponHudWidget-&gt;DrawText(FText::FromString(DisplayCount), 0.0f, PosY, ExampleDisplayFont, FLinearColor::Black, 1.0f, 1.0f, FLinearColor::White, ETextHorzPos::Center, ETextVertPos::Top);
+ 
+Super::DrawWeaponCrosshair_Implementation(WeaponHudWidget, RenderDelta);
+}</p> <p>As we can see here, this code is relatively straightforward. We declare a variable of type FString, converting an integer value (presumably something meaningful, but in our example we are merely generating a random number between 0 and 100) to FString type. To this dynamic value, we concatenate some additional static values that give us information on the range of values we can expect. Once we have our string, then we use the UUTHUDWidget built in DrawText function to display our string. This last step is the most involved and if you wish to truly understand what is happening I recommend reviewing the implementation of DrawText.</p> <p><strong>Reminder</strong>: In order to actually see any text when wielding your weapon, you need to have set the font that is used! This should be done in the blueprint of your weapon class to avoid hard-coding references to assets like the font.</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=UT4_Weapons_Tutorial_-_Crosshair_HUD_Indicators&amp;oldid=12407" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=UT4_Weapons_Tutorial_-_Crosshair_HUD_Indicators&amp;oldid=12407<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li> <li><a href="/Category:Unreal_Tournament" title="Category:Unreal Tournament">Unreal Tournament</a></li> <li><a href="/Category:UT_Content_Creation" title="Category:UT Content Creation">UT Content Creation</a></li> <li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1132.1d6b53ed.js" defer></script>
+  </body>
+</html>

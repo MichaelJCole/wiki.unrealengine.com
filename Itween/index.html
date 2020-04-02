@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/786.4db43af7.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Itween - Epic Wiki</p> <h1 id="itween"><a href="#itween" class="header-anchor">#</a> Itween</h1> <p>Parameter Parsing<br>
+Strings may be passed into the &quot;Parameters&quot; input on Simple, Expert, and Minimal iTween operations.</p> <p><em>Anatomy of an iTween Parameter</em><br>
+Each parameter has four elements, from left to right: The key, the assignment operator (or equals sign), the value and the punctuation (or semicolon).<br>
+-The key tells the parser which variable in the iTweenEvent to change.<br>
+-The assignment operator tells the parser that the command part is finished.<br>
+-The input is what the variable will be changed to.<br>
+-The punctuation tells the parser that the value part is finished and this parameter is complete.</p> <p>Example: &quot;name = New Tween; vectorFrom = this; vectorTo = (10, 50, 100); time = 3.5;&quot;</p> <p>Keys are case-insensitive and space-agnostic, so &quot;name,&quot; &quot;NAME,&quot; and &quot;Na Me&quot; will all have the same effect. Values are not case-insensitive, so names should be input with the actual capitalization you want. Numeric values like &quot;float&quot; and &quot;vector&quot; are space-agnostic, but lettered values are not, i.e. &quot;name.&quot;</p> <p>Punctuation at the end of the last parameter in a string is not required, but is considered a best practice.</p> <p><em>Parser Arithmetic</em><br>
+For numeric values, arithmetic operations are not parsed with one exception: one single multiplication operation per value. This allows for vectors and rotators to be easily multiplied, but also works for floats and other numeric values.</p> <p><em>Keywords</em><br>
+Consider that vectors, rotators, and vector2D keys can take lettered values such as &quot;this,&quot; &quot;current,&quot; &quot;zero&quot; and &quot;one.&quot;</p> <p>Example: &quot;vectorfrom = this * 2; vectorto = one * 5;&quot;</p> <p>In this example, the from vector will be the object's current location multiplied by 2 and the to vector will be (5,5,5).</p> <p>&quot;this&quot; OR &quot;current&quot; will return the object's current vector, rotator, or vector2D.<br>
+&quot;zero&quot; will return (0,0,0) or (0,0) for vector2D.<br>
+&quot;one&quot; will return (1,1,1) or (1,1) for vector2D.</p> <p><em>Parser Grammar</em><br>
+Vectors, Vector2Ds, Rotators, and Linear Colors can be written with parentheses (), braces {}, brackets [] or nothing at all as long as the values are separated by commas (,).</p> <p>Converting these values to string through the engine is also allowed into the parser. For example, converting a vector (9,7,8) to string will produce &quot;X=9 Y=7 Z=8&quot;. The parser will recognize these without issue.</p> <p>Linear color values can be input as 0-to-1-based RGB vectors or one of the following named colors: black, blue, cyan, green, magenta, red, white, and yellow.</p> <p>Object references can be set by FName. These object reference keys include onstarttarget, onticktarget, onlooptarget, oncompletetarget, and orientationtarget. Note that the custom curve used as an EaseType cannot be set through the parser.</p> <p><em>Variables in the Parser</em><br>
+Variable names may not be passed as a value because they can not be parsed from a string. In Blueprints, best practice is to use the &quot;Format Text&quot; node and convert your variable into text (or in some cases to string then to text) then convert the &quot;Format Text&quot; node's output into a string. Readings from string conversions will be understood by the parser. For C++ users, best practice is as follows:</p> <p>(&quot;vectorfrom = this; vectorto = &quot; + vectorVariable.ToString() + &quot;; time = 5&quot;)</p> <p><em>Keys and Values</em><br>
+By default, the values listed below are listed in the order that they are evaluated by the parser.</p> <p>Key</p> <p>Effect</p> <p>Alternative Keys</p> <p>Acceptable Values</p> <p>Example</p> <p>Default Value</p> <p>name</p> <p>Sets the Tween's name.</p> <p>N/A</p> <p>Anything</p> <p>name = Super Tween 1!;</p> <p>&quot;&quot;</p> <p>floatfrom</p> <p>Sets the &quot;from&quot; float for operations that use floats.<br>
+Ex: UMG RT Rotate From/To, Float From/To</p> <p>ffrom</p> <p>1 OR 1.0 OR<br>
+1f OR 1.f</p> <p>floatfrom = 65;<br>
+ffrom = 4.5 * 2;</p> <p>0</p> <p>floatto</p> <p>Sets the &quot;from&quot; float for operations that use floats.<br>
+Ex: UMG RT Rotate From/To, Float From/To</p> <p>fto</p> <p>1 OR 1.0 OR<br>
+1f OR 1.f</p> <p>floatto = 7f;<br>
+fto = 100.267f * 30;</p> <p>0</p> <p>coordinatespace</p> <p>Sets the space for the tween.<br>
+Ex: world space, parent space, or self space</p> <p>cspace</p> <p>world, self, space</p> <p>coordinatespace = self;<br>
+cspace = parent;</p> <p>world</p> <p>vectorfrom</p> <p>Sets the &quot;from&quot; vector for operations that use vectors.<br>
+Ex: Vector From/To, Actor Scale From/To</p> <p>vfrom</p> <p>zero: (0,0,0)<br>
+one: (1,1,1)<br>
+2,2,2 OR [3,3,3]</p> <p>vectorfrom = (2,75,33);<br>
+vfrom = one * 5;</p> <p>FVector(0,0,0)</p> <p>vectorto</p> <p>Sets the &quot;to&quot; vector for operations that use vectors.<br>
+Ex: Component Move From/To</p> <p>vto</p> <p>zero: (0,0,0)<br>
+one: (1,1,1)<br>
+X=20 Y=90 Z=100</p> <p>vectorto = zero;<br>
+vto = 8,0,8 * 2.65;</p> <p>FVector(0,0,0)</p> <p>vector2dfrom</p> <p>Sets the &quot;from&quot; vector2D for operations that use vector2Ds.<br>
+Ex: Vector2D From/To, UMG RT Scale From/To</p> <p>v2from</p> <p>zero: (0,0)<br>
+one: (1,1)<br>
+{4,4} OR (5,5)</p> <p>vector2dfrom = (2,75);<br>
+v2from = one * 5;</p> <p>FVector2D(0,0)</p> <p>vector2dto</p> <p>Sets the &quot;to&quot; vector2D for operations that use vector2Ds.<br>
+Ex: UMG RT Move From/To</p> <p>v2to</p> <p>zero: (0,0)<br>
+one: (1,1)<br>
+X=20 Y=90</p> <p>vector2dto = zero;<br>
+v2to = 8,0 * 2.65;</p> <p>FVector2D(0,0)</p> <p>rotatorfrom</p> <p>Sets the &quot;from&quot; rotator for operations that use rotators.<br>
+Ex: Rotator From/To, Actor Rotate From/To</p> <p>rfrom</p> <p>zero: (0,0,0)<br>
+one: (1,1,1)<br>
+2,2,2 OR [3,3,3]</p> <p>rotatorfrom = (2,75,33);<br>
+rfrom = one * 5;</p> <p>FRotator(0,0,0)</p> <p>rotatorto</p> <p>Sets the &quot;to&quot; rotator for operations that use rotators.<br>
+Ex: Component Rotate From/To</p> <p>rto</p> <p>zero: (0,0,0)<br>
+one: (1,1,1)<br>
+R=20 P=90 Y=100</p> <p>rotatorto = zero;<br>
+rto = 8,0,8 * 2.65;</p> <p>FRotator(0,0,0)</p> <p>linearcolorfrom</p> <p>Sets the &quot;from&quot; linear color for operations that use linear colors.<br>
+Can accept some color names, an RGB vector (R,G,B) or an RGB vector with Alpha argument (R,G,B,A).<br>
+Ex: Linear Color From/To</p> <p>linearcolourfrom<br>
+colorfrom<br>
+colourfrom<br>
+cfrom OR lcfrom</p> <p>black, blue,<br>
+cyan, green,<br>
+magenta, red,<br>
+white, yellow<br>
+1,0,1<br>
+[0.5,0.75,1,0.5]</p> <p>linearcolorfrom = (2,75,33);<br>
+cfrom = white;</p> <p>FColor::Black</p> <p>linearcolorto</p> <p>Sets the &quot;to&quot; linear color for operations that use linear colors.<br>
+Can accept some color names, an RGB vector (R,G,B) or an RGB vector with Alpha argument (R,G,B,A).<br>
+Ex: Linear Color From/To</p> <p>linearcolourto<br>
+colorto<br>
+colourto<br>
+cto OR lcto</p> <p>black, blue,<br>
+cyan, green,<br>
+magenta, red,<br>
+white, yellow<br>
+{0.5,0.75,1,0.5}<br>
+R=1 G=1 B=0 A=1</p> <p>colorto = zero;<br>
+lcto = yellow;</p> <p>FColor::Black</p> <p>delaytype</p> <p>Sets when to wait for the delay parameter.<br>
+First: Only delay before the tween begins<br>
+First and After Each Loop Section (firstloop): Delay before the tween and after every looping rewind or switch between back-and-forth.<br>
+First and After Each Full Loop (firstloopfull): Delay before the tween and after every looping rewind or back-and-forth set.<br>
+After Each Loop Section (loop): Loop after every looping rewind or switch between back-and-forth only.<br>
+After Each Full Loop (loopfull): Loop after every looping rewind or back-and-forth set only.</p> <p>dtype</p> <p>first OR firstloop OR<br>
+firstloopfull OR<br>
+loop OR loopfull</p> <p>delaytype = first;<br>
+dtype = loopfull;</p> <p>DelayType::first</p> <p>delay</p> <p>Sets the amount of time in seconds that the operation will wait before starting or looping, depending on the delaytype.</p> <p>N/A</p> <p>1 OR 1.0 OR<br>
+1f OR 1.f</p> <p>delay = 3.5;<br>
+delay = 4.5 * 2;</p> <p>0</p> <p>ticktype</p> <p>Sets whether to use speed or time in seconds for the tween's duration.<br>
+Seconds: The ticktypevalue will be evaluated as literal time in seconds.<br>
+Speed: The ticktypevalue will be evaluated as distance between from and to variables divided by the ticktypevalue divided by 100.</p> <p>ttype</p> <p>seconds OR speed</p> <p>ticktype = seconds;<br>
+ttype = speed;</p> <p>TickType::seconds</p> <p>ticktypevalue</p> <p>Sets the duration of the tween, whether that be in seconds or by speed.</p> <p>ttv</p> <p>1 OR 1.0 OR<br>
+1f OR 1.f</p> <p>ticktypevalue = 3;<br>
+ttv = 1.1 * 3;</p> <p>5</p> <p>speed</p> <p>Sets the ticktype to speed and sets the ticktypevalue to a literal float. Think of this as a shortcut.</p> <p>N/A</p> <p>1 OR 1.0 OR<br>
+1f OR 1.f</p> <p>speed = 10;</p> <p>N/A</p> <p>timeinseconds</p> <p>Sets the ticktype to seconds and sets the ticktypevalue to a literal float. Think of this as a shortcut.</p> <p>time</p> <p>1 OR 1.0 OR<br>
+1f OR 1.f</p> <p>timeinseconds = 3;<br>
+time = 1.0;</p> <p>N/A</p> <p>punchamplitude</p> <p>Sets the amplitude by which the &quot;punch&quot; easetype will move.</p> <p>punch OR pamp</p> <p>1 OR 1.0 OR<br>
+1f OR 1.f</p> <p>punchamplitude = 2;<br>
+punch = 3;<br>
+pamp = 4.2 * 4;</p> <p>1</p> <p>generatedpointdistance</p> <p>Sets the distance at which vertices will be generated for a procedural spline component from the point of origin. Distance is in unreal units.<br>
+For example, a gpd of 100 will generate a vertex 100 UU away from the selected origin in the selected direction and add it to the spline. Used for spline operations.</p> <p>gpd</p> <p>1 OR 1.0 OR<br>
+1f OR 1.f</p> <p>generatedpointdistance = 100;<br>
+gpd = 50.f;</p> <p>100</p> <p>sweep</p> <p>Sets whether or not an actor will stop tweening when it collides with another object.<br>
+Ex: Actor Move From/To</p> <p>N/A</p> <p>true OR false</p> <p>sweep = true;</p> <p>false</p> <p>vectorconstraints</p> <p>Constrains an object's vector-based tween to the specified axis or axes.<br>
+Ex: Actor Move From/To, Actor Scale From/To</p> <p>vconst</p> <p>no OR none<br>
+x OR y OR z<br>
+xy OR xz OR yz</p> <p>vectorconstraints = x;<br>
+vconst = xy</p> <p>VectorConstraints::none</p> <p>vector2dconstraints</p> <p>Constrains an object's vector2D-based tween to the specified axis or axes.<br>
+Ex: UMG RT Move From/To, UMG RT Shear From/To</p> <p>v2const</p> <p>no OR none<br>
+x OR y</p> <p>vector2dconstraints = x;<br>
+v2const = y</p> <p>Vector2DConstraints::none</p> <p>rotatorconstraints</p> <p>Constrains an object's rotator-based tween to the specified axis or axes.<br>
+Ex: Component Rotate From/To</p> <p>rconst</p> <p>no OR none<br>
+pitch OR yaw<br>
+OR roll<br>
+pitchyaw OR pitchroll<br>
+OR yawroll</p> <p>rotatorconstraints = pitch;<br>
+vconst = yawroll</p> <p>RotatorConstraints::none</p> <p>looptype</p> <p>Sets whether to loop and how to loop.<br>
+Once: The tween will not loop.<br>
+Back-and-forth (pingpong/backandforth): The tween will arrive at its destination then move back toward its starting position and repeat.<br>
+Rewind: The tween will keep playing over and over, start to finish.</p> <p>loop</p> <p>once OR backandforth<br>
+OR pingpong OR rewind</p> <p>looptype = pingpong;<br>
+loop = rewind;</p> <p>LoopType::once</p> <p>orientation</p> <p>Specifies the look direction of a moving object.<br>
+Ex: Actor Move From/To<br>
+NoOrientationChange (no): The direction in which the object looks will not be changed by the tween.<br>
+OrientToPath (path): The object will look in the direction it's traveling.<br>
+OrientToTarget (target): The object will rotate to look at a specific target onscreen.</p> <p>looktype<br>
+look</p> <p>no OR path<br>
+OR target</p> <p>orientation = path;<br>
+look = target</p> <p>LookType::noOrientationChange</p> <p>orientationspeed</p> <p>Sets the speed at which the object will reach its orientation if orientation is set to &quot;path&quot; or &quot;target.&quot;</p> <p>ospeed OR lookspeed</p> <p>1 OR 1.0 OR<br>
+1f OR 1.f</p> <p>orientationspeed = 2;<br>
+ospeed = 3;<br>
+lookspeed = 4.2 * 4;</p> <p>5</p> <p>tickwhenpaused</p> <p>Sets whether or not an actor will continue to tween even with the built-in UE4 &quot;Pause&quot; function enabled. Leaving this option set to &quot;false&quot; will respect whatever setting is currently set for the object with regards to &quot;Tick When Paused.&quot; Setting it to true will leave it set to true on the actor for now.<br>
+Ex: Actor Move From/To, Component Rotate From/To</p> <p>twp</p> <p>true OR false</p> <p>tickwhenpaused = true;<br>
+twp = true;</p> <p>false</p> <p>ignoretimedilation</p> <p>If enabled, the tweening object will have a time dilation that is the inverse of the global dilation.<br>
+This is useful for when you use global time dilation modulation for slowdown effects or for pausing but you want the tween to function normally.<br>
+The original time dilation will be restored after the tween completes or is stopped.<br>
+Ex: Actor Move From/To, Component Rotate From/To</p> <p>itd</p> <p>true OR false</p> <p>ignoretimedilation = true;<br>
+itd = true;</p> <p>false</p> <p>onstarttarget</p> <p>Sets the target to which the OnTweenStart interface message will be sent. Takes an object FName as a value.</p> <p>ontweenstarttarget OR ost</p> <p>object FName</p> <p>onstarttarget = My_Character; ost = Table;</p> <p>nullptr</p> <p>onticktarget</p> <p>Sets the target to which the OnTweenTick and OnTweenDataTick interface messages will be sent. Takes an object FName as a value.</p> <p>ontweenticktarget OR ott</p> <p>object FName</p> <p>onticktarget = My_Character; ott = Table;</p> <p>nullptr</p> <p>onlooptarget</p> <p>Sets the target to which the OnTweenLoop interface message will be sent. Takes an object FName as a value.</p> <p>ontweenlooptarget OR olt</p> <p>object FName</p> <p>onlooptarget = My_Character; olt = Table;</p> <p>nullptr</p> <p>oncompletetarget</p> <p>Sets the target to which the OnTweenComplete interface message will be sent. Takes an object FName as a value.</p> <p>ontweencompletetarget OR oct</p> <p>object FName</p> <p>onlooptarget = My_Character; olt = Table;</p> <p>nullptr</p> <p>orientationtarget</p> <p>If the LookType/orientation is set to &quot;Orient To Target&quot; then this will set that target to which the object will orient itself. Takes an object FName as a value.</p> <p>ot</p> <p>object FName</p> <p>orientationtarget = My_Character; ot = Table;</p> <p>nullptr</p> <p>splinecomponent</p> <p>If performing a spline operation, you may use this key to specify a spline component by name. Takes an object FName as a value.</p> <p>spline</p> <p>object FName</p> <p>splinecomponent = SplineComponent1; spline = coilSpline;</p> <p>nullptr</p> <p>interpolatetospline</p> <p>If performing a spline operation, sets whether or not the object will interpolate from its current position/rotation to the beginning of the spline position/rotation. If disabled, the object will snap to the start spline position/rotation.<br>
+Ex: Actor Move To Spline Point, Component Rotate To Spline Point</p> <p>its</p> <p>true OR false</p> <p>interpolatetospline = true;<br>
+its = true;</p> <p>false</p> <p>switchpathorientationdirection</p> <p>If performing a spline operation and LoopType is pingpong/back-and-forth, this will determine whether or not the object will look back during its pong/back travel.<br>
+Ex: Actor Move To Spline Point, Component Rotate To Spline Point</p> <p>its</p> <p>true OR false</p> <p>switchpathorientationdirection = false;<br>
+spod = false;</p> <p>true</p> <p>destroysplineobject</p> <p>If performing a spline operation, this will destroy the actor that contains the spline component used in the operation. This should only be used when creating procedural splines using GenerateSplineFromVectorArray or GenerateSplineFromRotatorArray.<br>
+Ex: Actor Move To Spline Point, Component Rotate To Spline Point</p> <p>destroysplineobject<br>
+OR destroyspline OR dso</p> <p>true OR false</p> <p>destroysplineobject = true;<br>
+dso = true;</p> <p>false</p> <p>shortestpath</p> <p>Will use find the shortest path between current rotation and the target rotation. Will avoid Gimbal Lock, but will not rotate more than is necessary to reach a rotation between 0 and 359 degrees.<br>
+If disabled, 0 to 540 degrees will get you 3 full rotations; enabled will only get you one.<br>
+Ex: Actor Rotate From/To, Component Rotate From/To</p> <p>short</p> <p>true OR false</p> <p>shortestpath = true;<br>
+short = true;</p> <p>false</p> <p>easetype</p> <p>Determines how the object will ease in or out of its tween. See table below for more information.</p> <p>ease</p> <p>see table below for easetype values</p> <p>easetype = easeinandoutback;<br>
+ease = ioquad;</p> <p>EaseType::Linear</p> <p>timerinterval</p> <p>Sets the interval, in seconds, at which the tween will update.<br>
+0 will make the tween operate on the tick function. Values greater or less than 0 will operate at the designated interval.<br>
+You may add &quot;fps&quot; into the value to make the tween run at a fixed framerate. This works by setting timerInterval to 1 divided by the numerical value when &quot;fps&quot; is found in the value.</p> <p>interval OR ti</p> <p>1 OR 1.0 OR<br>
+1f OR 1.f</p> <p>timerinterval = 0.5;<br>
+interval = 30fps;<br>
+ti = 0.016;</p> <p>0</p> <p><em>EaseTypes</em><br>
+With iTween, users can modulate the transform of their tweens to give them a different look. &quot;In&quot; refers to the beginning of the tween. &quot;Out&quot; refers to the end of the tween. &quot;Ease In Quadratic&quot; will produce a natural, slowed ease at the beginning of the tween and end more quickly. Try out different easetypes to get a feel for how they look. Generally, most users opt for &quot;EaseInAndOutQuadratic&quot; for single-motion tweens because it has the most natural look to it.<br>
+Values in this table are listed by the order that they are listed in the &quot;EEaseType&quot; enumeration.<br>
+Quadratic, Cubic, Quartic, Quintic, Circular, Sine and Exponential all perform the same type of animation more or less: a smooth push to the destination with a shorter or longer ease. Because of this, I will not be writing descriptions for them.<br> <strong>Note that the Elastic, Bounce, Back, Punch and Spring EaseTypes, also known as Out-Of-Bounds EaseTypes, do not currently work properly with spline operations. They won't cause crashes, but they won't look right because they work by running data through an equation. Splines only go from 0 to the specified spline &quot;duration,&quot; so if the equation returns a negative number or a number greater than the spline's duration, the equation ends up clamped. This is being investigated for a fix, but as of now we have no announcements.</strong></p> <p>EaseType</p> <p>Description</p> <p>Acceptable Values</p> <p>Curve</p> <p>Linear</p> <p>No modulation. 1:1 relationship between Lerped value and output value.</p> <p>linear</p> <p>Coming Soon</p> <p>EaseInQuadratic</p> <p>See above paragraph.</p> <p>EaseInQuadratic OR iquad</p> <p>Coming Soon</p> <p>EaseOutQuadratic</p> <p>See above paragraph.</p> <p>EaseOutQuadratic OR oquad</p> <p>Coming Soon</p> <p>EaseInAndOutQuadratic</p> <p>See above paragraph.</p> <p>EaseInAndOutQuadratic OR ioquad</p> <p>Coming Soon</p> <p>EaseInCubic</p> <p>See above paragraph.</p> <p>EaseInCubic OR icubic</p> <p>Coming Soon</p> <p>EaseOutCubic</p> <p>See above paragraph.</p> <p>EaseOutCubic OR ocubic</p> <p>Coming Soon</p> <p>EaseInAndOutCubic</p> <p>See above paragraph.</p> <p>EaseInAndOutCubic OR iocubic</p> <p>Coming Soon</p> <p>EaseInQuartic</p> <p>See above paragraph.</p> <p>EaseInQuartic OR iquart</p> <p>Coming Soon</p> <p>EaseOutQuartic</p> <p>See above paragraph.</p> <p>EaseOutQuartic OR oquart</p> <p>Coming Soon</p> <p>EaseInAndOutQuartic</p> <p>See above paragraph.</p> <p>EaseInAndOutQuartic OR ioquart</p> <p>Coming Soon</p> <p>EaseInQuintic</p> <p>See above paragraph.</p> <p>EaseInQuintic OR iquint</p> <p>Coming Soon</p> <p>EaseOutQuintic</p> <p>See above paragraph.</p> <p>EaseOutQuintic OR oquint</p> <p>Coming Soon</p> <p>EaseInAndOutQuintic</p> <p>See above paragraph.</p> <p>EaseInAndOutQuintic OR ioquint</p> <p>Coming Soon</p> <p>EaseInSine</p> <p>See above paragraph.</p> <p>EaseInSine OR isine</p> <p>Coming Soon</p> <p>EaseOutSine</p> <p>See above paragraph.</p> <p>EaseOutSine OR osine</p> <p>Coming Soon</p> <p>EaseInAndOutSine</p> <p>See above paragraph.</p> <p>EaseInAndOutSine OR iosine</p> <p>Coming Soon</p> <p>EaseInExponential</p> <p>See above paragraph.</p> <p>EaseInExponential OR iexpo</p> <p>Coming Soon</p> <p>EaseOutExponential</p> <p>See above paragraph.</p> <p>EaseOutExponential OR oexpo</p> <p>Coming Soon</p> <p>EaseInAndOutExponential</p> <p>See above paragraph.</p> <p>EaseInAndOutExponential OR ioexpo</p> <p>Coming Soon</p> <p>EaseInCircular</p> <p>See above paragraph.</p> <p>EaseInCircular OR icirc</p> <p>Coming Soon</p> <p>EaseOutCircular</p> <p>See above paragraph.</p> <p>EaseOutCircular OR ocirc</p> <p>Coming Soon</p> <p>EaseInAndOutCircular</p> <p>See above paragraph.</p> <p>EaseInAndOutCircular OR iocirc</p> <p>Coming Soon</p> <p>EaseInBounce</p> <p>The tween will act is if it's bouncing into place, but in reverse; the tween will seem to bounce out of its source transform. The opposite of EaseOutBounce.</p> <p>EaseInBounce OR ibounce</p> <p>Coming Soon</p> <p>EaseOutBounce</p> <p>The tween will appear to bounce like a ball as it hits its destination.</p> <p>EaseOutBounce OR obounce</p> <p>Coming Soon</p> <p>EaseInAndOutBounce</p> <p>The tween will appear to reverse bounce out of its source transform then land on its destination, again bouncing like a ball.</p> <p>EaseInAndOutBounce OR iobounce</p> <p>Coming Soon</p> <p>EaseInBack</p> <p>The tween winds up and softly moves to its destination.</p> <p>EaseInBack OR iback</p> <p>Coming Soon</p> <p>EaseOutBack</p> <p>The tween moves to its destination, overshoots, then comes back.</p> <p>EaseOutBack OR oback</p> <p>Coming Soon</p> <p>EaseInAndOutBack</p> <p>The tween winds up in anticipation and then moves toward its destination, but overshoots then comes back.</p> <p>EaseInAndOutBack OR ioback</p> <p>Coming Soon</p> <p>EaseInElastic</p> <p>The tween will appear to vibrate in an elastic manner Then push to its destination The opposite of EaseOutElastic.</p> <p>EaseInElastic OR ielastic</p> <p>Coming Soon</p> <p>EaseOutElastic</p> <p>The tween will push toward its destination then vibrate and fling as if it had landed in a rubber band.</p> <p>EaseOutElastic OR oelastic</p> <p>Coming Soon</p> <p>EaseInAndOutElastic</p> <p>The tween will vibrate in an elastic manner then fling to its destination and vibrate in the same manner again.</p> <p>EaseInAndOutElastic OR ioelastic</p> <p>Coming Soon</p> <p>Punch</p> <p>Pushes like one of the elastic tweens in the direction of the destination, but ends up back where it started. The degree of violence is affected by the punchAmplitude property.</p> <p>punch</p> <p>Coming Soon</p> <p>Spring</p> <p>A much softer version of EaseOutElastic.</p> <p>spring</p> <p>Coming Soon</p> <p>CustomCurve</p> <p>Select this EaseType to use a CurveFloat asset to drive the tween's easing.</p> <p>curve</p> <p>Coming Soon</p> <p>iTween for UE4 Installer source</p> <p>Form1.Designer.cs</p> <p>namespace iTweenForUE4Installer
+{
+partial class iTween
+{
+/// </p><summary>
+/// Required designer variable.
+/// </summary>
+private System.ComponentModel.IContainer components = null;<p></p> <div class="language- extra-class"><pre><code>       /// &lt;summary&gt;
+       /// Clean up any resources being used.
+       /// &lt;/summary&gt;
+       /// &lt;param name=&quot;disposing&quot;&gt;true if managed resources should be disposed; otherwise, false.&lt;/param&gt;
+       protected override void Dispose(bool disposing)
+       {
+           if (disposing &amp;&amp; (components != null))
+           {
+               components.Dispose();
+           }
+           base.Dispose(disposing);
+       }
+
+       #region Windows Form Designer generated code
+
+       /// &lt;summary&gt;
+       /// Required method for Designer support - do not modify
+       /// the contents of this method with the code editor.
+       /// &lt;/summary&gt;
+       private void InitializeComponent()
+       {
+           System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(iTween));
+           this.lblVersion = new System.Windows.Forms.Label();
+           this.rbnCPP = new System.Windows.Forms.RadioButton();
+           this.rbnBlue = new System.Windows.Forms.RadioButton();
+           this.btnInstall = new System.Windows.Forms.Button();
+           this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+           this.txbPath = new System.Windows.Forms.TextBox();
+           this.btnBrowse = new System.Windows.Forms.Button();
+           this.lnkPixelPlacement = new System.Windows.Forms.LinkLabel();
+           this.imgLogo = new System.Windows.Forms.PictureBox();
+           this.lblDescription = new System.Windows.Forms.Label();
+           this.lnkSweet = new System.Windows.Forms.LinkLabel();
+           this.lblStatus = new System.Windows.Forms.Label();
+           this.chkDebugMessages = new System.Windows.Forms.CheckBox();
+           this.chkErrorMessages = new System.Windows.Forms.CheckBox();
+           this.txtListLog = new System.Windows.Forms.TextBox();
+           this.btnCopyLog = new System.Windows.Forms.Button();
+           this.btnShowLog = new System.Windows.Forms.Button();
+           this.lblLinkSeparator = new System.Windows.Forms.Label();
+           this.btnUninstall = new System.Windows.Forms.Button();
+           this.chkSaveLog = new System.Windows.Forms.CheckBox();
+           ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
+           this.SuspendLayout();
+           // 
+           // lblVersion
+           // 
+           this.lblVersion.AutoSize = true;
+           this.lblVersion.Dock = System.Windows.Forms.DockStyle.Right;
+           this.lblVersion.Location = new System.Drawing.Point(646, 0);
+           this.lblVersion.Name = &quot;lblVersion&quot;;
+           this.lblVersion.Size = new System.Drawing.Size(103, 13);
+           this.lblVersion.TabIndex = 0;
+           this.lblVersion.Text = &quot;iTween version here&quot;;
+           this.lblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
+           // 
+           // rbnCPP
+           // 
+           this.rbnCPP.AutoSize = true;
+           this.rbnCPP.Location = new System.Drawing.Point(12, 94);
+           this.rbnCPP.Name = &quot;rbnCPP&quot;;
+           this.rbnCPP.Size = new System.Drawing.Size(130, 17);
+           this.rbnCPP.TabIndex = 2;
+           this.rbnCPP.TabStop = true;
+           this.rbnCPP.Text = &quot;I\\'m a C++ User or both&quot;;
+           this.rbnCPP.UseVisualStyleBackColor = true;
+           this.rbnCPP.Click += new System.EventHandler(this.SetStatusWaiting);
+           // 
+           // rbnBlue
+           // 
+           this.rbnBlue.AutoSize = true;
+           this.rbnBlue.Location = new System.Drawing.Point(12, 71);
+           this.rbnBlue.Name = &quot;rbnBlue&quot;;
+           this.rbnBlue.Size = new System.Drawing.Size(154, 17);
+           this.rbnBlue.TabIndex = 1;
+           this.rbnBlue.TabStop = true;
+           this.rbnBlue.Text = &quot;I\\'m a Blueprinter exclusively&quot;;
+           this.rbnBlue.UseVisualStyleBackColor = true;
+           this.rbnBlue.Click += new System.EventHandler(this.SetStatusWaiting);
+           // 
+           // btnInstall
+           // 
+           this.btnInstall.Enabled = false;
+           this.btnInstall.Location = new System.Drawing.Point(172, 71);
+           this.btnInstall.Name = &quot;btnInstall&quot;;
+           this.btnInstall.Size = new System.Drawing.Size(59, 22);
+           this.btnInstall.TabIndex = 3;
+           this.btnInstall.Text = &quot;Install&quot;;
+           this.btnInstall.UseVisualStyleBackColor = true;
+           this.btnInstall.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnInstall\_Click);
+           // 
+           // folderBrowserDialog1
+           // 
+           this.folderBrowserDialog1.HelpRequest += new System.EventHandler(this.folderBrowserDialog1\_HelpRequest);
+           // 
+           // txbPath
+           // 
+           this.txbPath.Location = new System.Drawing.Point(10, 166);
+           this.txbPath.Name = &quot;txbPath&quot;;
+           this.txbPath.Size = new System.Drawing.Size(166, 20);
+           this.txbPath.TabIndex = 4;
+           this.txbPath.Text = &quot;UE4 Project Path here...&quot;;
+           this.txbPath.Click += new System.EventHandler(this.SetStatusWaiting);
+           this.txbPath.TextChanged += new System.EventHandler(this.ValidatePath);
+           // 
+           // btnBrowse
+           // 
+           this.btnBrowse.Location = new System.Drawing.Point(180, 164);
+           this.btnBrowse.Name = &quot;btnBrowse&quot;;
+           this.btnBrowse.Size = new System.Drawing.Size(51, 22);
+           this.btnBrowse.TabIndex = 5;
+           this.btnBrowse.Text = &quot;Browse&quot;;
+           this.btnBrowse.UseVisualStyleBackColor = true;
+           this.btnBrowse.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnBrowse\_Click);
+           // 
+           // lnkPixelPlacement
+           // 
+           this.lnkPixelPlacement.AutoSize = true;
+           this.lnkPixelPlacement.Location = new System.Drawing.Point(82, 190);
+           this.lnkPixelPlacement.Name = &quot;lnkPixelPlacement&quot;;
+           this.lnkPixelPlacement.Size = new System.Drawing.Size(79, 13);
+           this.lnkPixelPlacement.TabIndex = 6;
+           this.lnkPixelPlacement.TabStop = true;
+           this.lnkPixelPlacement.Text = &quot;PixelPlacement&quot;;
+           this.lnkPixelPlacement.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkPixelPlacement\_Click);
+           // 
+           // imgLogo
+           // 
+           this.imgLogo.Location = new System.Drawing.Point(12, 1);
+           this.imgLogo.Name = &quot;imgLogo&quot;;
+           this.imgLogo.Size = new System.Drawing.Size(64, 64);
+           this.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+           this.imgLogo.TabIndex = 7;
+           this.imgLogo.TabStop = false;
+           // 
+           // lblDescription
+           // 
+           this.lblDescription.Location = new System.Drawing.Point(82, 23);
+           this.lblDescription.Name = &quot;lblDescription&quot;;
+           this.lblDescription.Size = new System.Drawing.Size(160, 45);
+           this.lblDescription.TabIndex = 8;
+           this.lblDescription.Text = &quot;Choose the path to your project containing a \*.uproject file to enable the \\&quot;Insta&quot; +
+   &quot;ll\\&quot; button!&quot;;
+           // 
+           // lnkSweet
+           // 
+           this.lnkSweet.AutoSize = true;
+           this.lnkSweet.Location = new System.Drawing.Point(164, 190);
+           this.lnkSweet.Name = &quot;lnkSweet&quot;;
+           this.lnkSweet.Size = new System.Drawing.Size(67, 13);
+           this.lnkSweet.TabIndex = 9;
+           this.lnkSweet.TabStop = true;
+           this.lnkSweet.Text = &quot;Sweet Team&quot;;
+           this.lnkSweet.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkSweet\_Click);
+           // 
+           // lblStatus
+           // 
+           this.lblStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+           this.lblStatus.AutoSize = true;
+           this.lblStatus.Location = new System.Drawing.Point(348, 214);
+           this.lblStatus.Name = &quot;lblStatus&quot;;
+           this.lblStatus.Size = new System.Drawing.Size(52, 13);
+           this.lblStatus.TabIndex = 10;
+           this.lblStatus.Text = &quot;Waiting...&quot;;
+           this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+           // 
+           // chkDebugMessages
+           // 
+           this.chkDebugMessages.AutoSize = true;
+           this.chkDebugMessages.Location = new System.Drawing.Point(12, 118);
+           this.chkDebugMessages.Name = &quot;chkDebugMessages&quot;;
+           this.chkDebugMessages.Size = new System.Drawing.Size(212, 17);
+           this.chkDebugMessages.TabIndex = 11;
+           this.chkDebugMessages.Text = &quot;Print iTween Debug Messages in Editor&quot;;
+           this.chkDebugMessages.UseVisualStyleBackColor = true;
+           this.chkDebugMessages.CheckedChanged += new System.EventHandler(this.SetStatusWaiting);
+           this.chkDebugMessages.CheckStateChanged += new System.EventHandler(this.SetStatusWaiting);
+           this.chkDebugMessages.Click += new System.EventHandler(this.SetStatusWaiting);
+           // 
+           // chkErrorMessages
+           // 
+           this.chkErrorMessages.AutoSize = true;
+           this.chkErrorMessages.Checked = true;
+           this.chkErrorMessages.CheckState = System.Windows.Forms.CheckState.Checked;
+           this.chkErrorMessages.Location = new System.Drawing.Point(12, 141);
+           this.chkErrorMessages.Name = &quot;chkErrorMessages&quot;;
+           this.chkErrorMessages.Size = new System.Drawing.Size(202, 17);
+           this.chkErrorMessages.TabIndex = 12;
+           this.chkErrorMessages.Text = &quot;Print iTween Error Messages in Editor&quot;;
+           this.chkErrorMessages.UseVisualStyleBackColor = true;
+           // 
+           // txtListLog
+           // 
+           this.txtListLog.Location = new System.Drawing.Point(8, 237);
+           this.txtListLog.Multiline = true;
+           this.txtListLog.Name = &quot;txtListLog&quot;;
+           this.txtListLog.ReadOnly = true;
+           this.txtListLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+           this.txtListLog.Size = new System.Drawing.Size(732, 159);
+           this.txtListLog.TabIndex = 13;
+           // 
+           // btnCopyLog
+           // 
+           this.btnCopyLog.Location = new System.Drawing.Point(168, 209);
+           this.btnCopyLog.Name = &quot;btnCopyLog&quot;;
+           this.btnCopyLog.Size = new System.Drawing.Size(63, 22);
+           this.btnCopyLog.TabIndex = 14;
+           this.btnCopyLog.Text = &quot;Copy Log&quot;;
+           this.btnCopyLog.UseVisualStyleBackColor = true;
+           this.btnCopyLog.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnCopyLog\_Click);
+           // 
+           // btnShowLog
+           // 
+           this.btnShowLog.Location = new System.Drawing.Point(8, 209);
+           this.btnShowLog.Name = &quot;btnShowLog&quot;;
+           this.btnShowLog.Size = new System.Drawing.Size(66, 22);
+           this.btnShowLog.TabIndex = 15;
+           this.btnShowLog.Text = &quot;Show Log&quot;;
+           this.btnShowLog.UseVisualStyleBackColor = true;
+           this.btnShowLog.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnShowLog\_Click);
+           // 
+           // lblLinkSeparator
+           // 
+           this.lblLinkSeparator.AutoSize = true;
+           this.lblLinkSeparator.Location = new System.Drawing.Point(158, 190);
+           this.lblLinkSeparator.Name = &quot;lblLinkSeparator&quot;;
+           this.lblLinkSeparator.Size = new System.Drawing.Size(9, 13);
+           this.lblLinkSeparator.TabIndex = 16;
+           this.lblLinkSeparator.Text = &quot;|&quot;;
+           // 
+           // btnUninstall
+           // 
+           this.btnUninstall.Enabled = false;
+           this.btnUninstall.Location = new System.Drawing.Point(172, 94);
+           this.btnUninstall.Name = &quot;btnUninstall&quot;;
+           this.btnUninstall.Size = new System.Drawing.Size(59, 22);
+           this.btnUninstall.TabIndex = 17;
+           this.btnUninstall.Text = &quot;Uninstall&quot;;
+           this.btnUninstall.UseVisualStyleBackColor = true;
+           this.btnUninstall.Click += new System.EventHandler(this.btnUninstall\_Click);
+           // 
+           // chkSaveLog
+           // 
+           this.chkSaveLog.AutoSize = true;
+           this.chkSaveLog.Checked = true;
+           this.chkSaveLog.CheckState = System.Windows.Forms.CheckState.Checked;
+           this.chkSaveLog.Location = new System.Drawing.Point(10, 189);
+           this.chkSaveLog.Name = &quot;chkSaveLog&quot;;
+           this.chkSaveLog.Size = new System.Drawing.Size(72, 17);
+           this.chkSaveLog.TabIndex = 18;
+           this.chkSaveLog.Text = &quot;Save Log&quot;;
+           this.chkSaveLog.UseVisualStyleBackColor = true;
+           // 
+           // iTween
+           // 
+           this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+           this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+           this.ClientSize = new System.Drawing.Size(749, 408);
+           this.Controls.Add(this.chkSaveLog);
+           this.Controls.Add(this.btnUninstall);
+           this.Controls.Add(this.lblLinkSeparator);
+           this.Controls.Add(this.btnShowLog);
+           this.Controls.Add(this.btnCopyLog);
+           this.Controls.Add(this.txtListLog);
+           this.Controls.Add(this.chkErrorMessages);
+           this.Controls.Add(this.chkDebugMessages);
+           this.Controls.Add(this.lblStatus);
+           this.Controls.Add(this.lnkSweet);
+           this.Controls.Add(this.lblDescription);
+           this.Controls.Add(this.imgLogo);
+           this.Controls.Add(this.lnkPixelPlacement);
+           this.Controls.Add(this.btnBrowse);
+           this.Controls.Add(this.txbPath);
+           this.Controls.Add(this.btnInstall);
+           this.Controls.Add(this.rbnBlue);
+           this.Controls.Add(this.rbnCPP);
+           this.Controls.Add(this.lblVersion);
+           this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+           this.Icon = ((System.Drawing.Icon)(resources.GetObject(&quot;$this.Icon&quot;)));
+           this.Name = &quot;iTween&quot;;
+           this.Text = &quot;iTween for UE4 Installer&quot;;
+           this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormClose);
+           this.Load += new System.EventHandler(this.iTween\_Load);
+           ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).EndInit();
+           this.ResumeLayout(false);
+           this.PerformLayout();
+
+       }
+
+       #endregion
+
+       private System.Windows.Forms.Label lblVersion;
+       private System.Windows.Forms.RadioButton rbnCPP;
+       private System.Windows.Forms.RadioButton rbnBlue;
+       private System.Windows.Forms.Button btnInstall;
+       private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+       private System.Windows.Forms.TextBox txbPath;
+       private System.Windows.Forms.Button btnBrowse;
+       private System.Windows.Forms.LinkLabel lnkPixelPlacement;
+       private System.Windows.Forms.PictureBox imgLogo;
+       private System.Windows.Forms.Label lblDescription;
+       private System.Windows.Forms.LinkLabel lnkSweet;
+       private System.Windows.Forms.Label lblStatus;
+       private System.Windows.Forms.CheckBox chkDebugMessages;
+       private System.Windows.Forms.CheckBox chkErrorMessages;
+       private System.Windows.Forms.TextBox txtListLog;
+       private System.Windows.Forms.Button btnCopyLog;
+       private System.Windows.Forms.Button btnShowLog;
+       private System.Windows.Forms.Label lblLinkSeparator;
+       private System.Windows.Forms.Button btnUninstall;
+       private System.Windows.Forms.CheckBox chkSaveLog;
+   }
+</code></pre></div><p>}</p> <p>Form1.cs</p> <p>using System;
+using System.Diagnostics;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows;
+using System.IO;</p> <p>namespace iTweenForUE4Installer
+{
+public partial class iTween : Form
+{
+//Paths
+string iTweenUpluginPath = &quot;iTween/iTween.uplugin&quot;;
+string imagePath = &quot;iTween/Resources/Icon128.png&quot;;
+string projectName;</p> <div class="language- extra-class"><pre><code>       string BPPath;
+       string CPPPath;
+
+       //URLs
+       string urlPixelPlacement = &quot;[http://wwww.pixelplacement.com](http://wwww.pixelplacement.com)&quot;;
+       string urlSweet = &quot;[https://forums.unrealengine.com/showthread.php?33992-Open-Beta-Procedural-On-the-Fly-Animation-in-UE4-iTween](https://forums.unrealengine.com/showthread.php?33992-Open-Beta-Procedural-On-the-Fly-Animation-in-UE4-iTween)!&quot;;
+
+       //log
+       List&lt;string&gt; textLog = new List&lt;string&gt;();
+
+       bool showLogState = false;
+       int collapsedWidth = 258;
+       int collapsedHeight = 274;
+       int expandedWidth;
+       int expandedHeight;
+
+       public iTween()
+       {
+           InitializeComponent();
+       }
+
+       private void iTween\_Load(object sender, EventArgs e)
+       {
+           expandedHeight = this.Height;
+           expandedWidth = this.Width;
+           this.Height = collapsedHeight;
+           AddToListLog(&quot;Window height is &quot; + this.Height.ToString());
+           this.Width = collapsedWidth;
+           AddToListLog(&quot;Window width is &quot; + this.Width.ToString());
+
+           lblStatus.Text = &quot;Waiting...&quot;;
+
+           //Set the logo image
+           if (File.Exists(imagePath))
+           {
+               imgLogo.Image = Image.FromFile(imagePath);
+               AddToListLog(&quot;iTween logo found.&quot;);
+           }
+           else
+           {
+               imgLogo.Image = imgLogo.ErrorImage;
+               AddToListLog(&quot;iTween logo not found.&quot;);
+           }
+
+           //Set Blueprinter Radio Button checked
+           rbnBlue.Checked = true;
+
+           //Set version name (all this just for that! Ha.)
+           if (File.Exists(iTweenUpluginPath))
+           {
+               StreamReader sr = new StreamReader(iTweenUpluginPath);
+               string line;
+               string fileText = &quot;&quot;;
+               int lineCount = 1;
+               string versionLine = &quot;versionLine is null.&quot;;
+               while ((line = sr.ReadLine()) != null)
+               {
+                   if (line.Contains(&quot;VersionName&quot;))
+                   {
+                       versionLine = line;
+                   }
+                   fileText = fileText + lineCount.ToString() + &quot; - &quot; + line + &quot;\\n&quot;;
+                   lineCount++;
+               }
+               versionLine = versionLine.Substring(versionLine.IndexOf(&quot;:&quot;) + 3);
+               versionLine = versionLine.Substring(0, versionLine.Length - 2);
+               lblVersion.Text = &quot;Version &quot; + versionLine;
+               AddToListLog(&quot;Version found in file '&quot; + iTweenUpluginPath + &quot;': &quot; + lblVersion.Text);
+           }
+           else
+           {
+               PrintMessage(&quot;This executable must be placed inside the root iTween folder to work. If it is in this folder, you may be missing 
+</code></pre></div><p>some files. Please unzip the source archive again and rerun this executable or install manually.&quot;);
+AddToListLog(&quot;Incorrect installer configuration.&quot;);
+}</p> <div class="language- extra-class"><pre><code>           if (File.Exists(Application.StartupPath + &quot;\\\\InstallerPrefs.txt&quot;))
+           {
+               LoadPrefs();
+           }
+       }
+
+       void PrintMessage(string message)
+       {
+           MessageBox.Show(message);
+       }
+
+       void LoadPrefs()
+       {
+           
+           foreach (string s in File.ReadAllLines(Application.StartupPath + &quot;\\\\InstallerPrefs.txt&quot;))
+           {
+               string\[\] entries;
+               string\[\] splitter = new string\[\] {&quot;&amp;=&amp;&quot;};
+               if (s.Contains(&quot;radioButton&quot;))
+               {
+                   entries = s.Split(splitter, StringSplitOptions.None);
+
+                   if (entries.Contains(&quot;blue&quot;))
+                   {
+                       rbnBlue.Checked = true;
+                   }
+                   else if (entries.Contains(&quot;cpp&quot;))
+                   {
+                       rbnCPP.Checked = true;
+                   }
+               }
+               else if (s.Contains(&quot;debugMessages&quot;))
+               {
+                   entries = s.Split(splitter, StringSplitOptions.None);
+
+                   if (entries.Contains(&quot;true&quot;))
+                   {
+                       chkDebugMessages.Checked = true;
+                   }
+                   else if (entries.Contains(&quot;false&quot;))
+                   {
+                       chkDebugMessages.Checked = false;
+                   }
+               }
+               else if (s.Contains(&quot;errorMessages&quot;))
+               {
+                   entries = s.Split(splitter, StringSplitOptions.None);
+
+                   if (entries.Contains(&quot;true&quot;))
+                   {
+                       chkErrorMessages.Checked = true;
+                   }
+                   else if (entries.Contains(&quot;false&quot;))
+                   {
+                       chkErrorMessages.Checked = false;
+                   }
+               }
+               else if (s.Contains(&quot;saveLog&quot;))
+               {
+                   entries = s.Split(splitter, StringSplitOptions.None);
+
+                   if (entries.Contains(&quot;true&quot;))
+                   {
+                       chkSaveLog.Checked = true;
+                   }
+                   else if (entries.Contains(&quot;false&quot;))
+                   {
+                       chkSaveLog.Checked = false;
+                   }
+               }
+               else if (s.Contains(&quot;lastPath&quot;))
+               {
+                   entries = s.Split(splitter, StringSplitOptions.None);
+
+                   txbPath.Text = entries\[entries.Length - 1\];
+               }
+           }
+       }
+
+       private void ValidatePath(object sender, EventArgs e)
+       {
+           if (Directory.Exists(txbPath.Text))
+           {
+               string\[\] files = Directory.GetFiles(txbPath.Text, &quot;\*.uproject&quot;);
+
+               if (files.Length &gt; 0)
+               {
+                   while (txbPath.Text.Substring(txbPath.Text.Length - 1) == &quot;\\\\&quot;)
+                   {
+                       txbPath.Text = txbPath.Text.Substring(0, txbPath.Text.Length - 1);
+                   }
+
+                   projectName = files\[0\].Substring(txbPath.Text.Length + 1, files\[0\].IndexOf(&quot;.uproject&quot;) - txbPath.Text.Length - 1);
+                   AddToListLog(&quot;Project name: &quot; + projectName);
+
+                   btnInstall.Enabled = true;
+
+                   BPPath = txbPath.Text + &quot;\\\\Plugins\\\\iTween&quot;;
+                   CPPPath = txbPath.Text + &quot;\\\\Source\\\\&quot; + projectName + &quot;\\\\iTween&quot;;
+
+                   if (Directory.Exists(BPPath) &amp;&amp; rbnBlue.Checked || Directory.Exists(CPPPath) &amp;&amp; rbnCPP.Checked)
+                   {
+                       btnUninstall.Enabled = true;
+                   }
+                   else
+                   {
+                       btnUninstall.Enabled = false;
+                   }
+               }
+               else
+               {
+                   btnInstall.Enabled = false;
+                   btnUninstall.Enabled = false;
+               }
+           }
+           else
+           {
+               btnInstall.Enabled = false;
+               btnUninstall.Enabled = false;
+           }
+       }
+
+       private void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+       {
+           // Get the subdirectories for the specified directory.
+           DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+           DirectoryInfo\[\] dirs = dir.GetDirectories();
+
+           if (!dir.Exists)
+           {
+               throw new DirectoryNotFoundException(
+                   &quot;Source directory does not exist or could not be found: &quot;
+                   + sourceDirName);
+           }
+
+           // If the destination directory doesn't exist, create it. 
+           if (!Directory.Exists(destDirName))
+           {
+               Directory.CreateDirectory(destDirName);
+               AddToListLog(&quot;Created new directory at '&quot; + destDirName + &quot;'&quot;);
+           }
+
+           // Get the files in the directory and copy them to the new location.
+           FileInfo\[\] files = dir.GetFiles();
+           foreach (FileInfo file in files)
+           {
+               string temppath = Path.Combine(destDirName, file.Name);
+               file.CopyTo(temppath, false);
+               AddToListLog(&quot;Copied '&quot; + file.Name + &quot;' from '&quot; + sourceDirName + &quot;' to '&quot; + destDirName + &quot;'&quot;);
+           }
+
+           // If copying subdirectories, copy them and their contents to new location. 
+           if (copySubDirs)
+           {
+               foreach (DirectoryInfo subdir in dirs)
+               {
+                   string temppath = Path.Combine(destDirName, subdir.Name);
+                   DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+               }
+           }
+       }
+
+       public void btnInstall\_Click(object sender, MouseEventArgs e)
+       {
+           if (rbnBlue.Checked)
+           {
+               AddToListLog(&quot;Installing for Blueprint as a plugin for &quot; + projectName + &quot;...&quot;);
+               btnUninstall\_Click(sender, e);
+
+               lblStatus.Text = &quot;Copying...&quot;;
+               AddToListLog(&quot;Copying...&quot;);
+
+               DirectoryCopy(&quot;iTween\\\\&quot;, txbPath.Text + &quot;\\\\Plugins\\\\iTween&quot;, true);
+
+               lblStatus.Text = &quot;Done!&quot;;
+               AddToListLog(&quot;Done!&quot;);
+           } 
+           else if (rbnCPP.Checked)
+           {
+               AddToListLog(&quot;Installing for C++ user or both to &quot; + projectName + &quot;'s source folder...&quot;);
+               btnUninstall\_Click(sender, e);
+
+               lblStatus.Text = &quot;Copying...&quot;;
+               AddToListLog(&quot;Copying...&quot;);
+
+               DirectoryCopy(&quot;iTween\\\\Source\\\\iTween\\\\Private\\\\&quot;, txbPath.Text + &quot;\\\\Source\\\\&quot; + projectName + &quot;\\\\iTween&quot;, true);
+
+               lblStatus.Text = &quot;Fixing...&quot;;
+
+               LocalizeSourceFiles();
+
+               lblStatus.Text = &quot;Done!&quot;;
+               AddToListLog(&quot;Done!&quot;);
+           }
+
+           ValidatePath(sender, e);
+       }
+
+       private void LocalizeSourceFiles()
+       {
+           string sourcePath = txbPath.Text + &quot;\\\\Source\\\\&quot; + projectName + &quot;\\\\iTween\\\\&quot;;
+           string insertInclude = &quot;#include \\&quot;&quot; + projectName + &quot;.h\\&quot;&quot;;
+           string insertAPI = projectName.ToUpper() + &quot;\_API&quot;;
+
+           string\[\] sourceFiles = Directory.GetFiles(sourcePath, &quot;\*.cpp&quot;);
+           string\[\] headerFiles = Directory.GetFiles(sourcePath, &quot;\*.h&quot;);
+
+           //Source files
+           AddToListLog(&quot;Editing iTween source files...&quot;);
+           foreach (string s in sourceFiles)
+           {
+               if (File.Exists(s))
+               {
+                   List&lt;string&gt; textLines = new List&lt;string&gt;();
+                   foreach (string lines in File.ReadAllLines(s))
+                   {
+                       textLines.Add(lines);
+                   }
+                   textLines.Insert(textLines.IndexOf(&quot;#include \\&quot;iTweenPCH.h\\&quot;&quot;), insertInclude);
+                   AddToListLog(&quot;Added &quot; + &quot;'#include \\&quot;&quot; + projectName + &quot;.h\\&quot;'&quot; + &quot; to '&quot; + s + &quot;' at line &quot; + (textLines.IndexOf(&quot;#include 
+</code></pre></div><p>\&quot;iTweenPCH.h\&quot;&quot;) - 1).ToString());</p> <div class="language- extra-class"><pre><code>                   File.Delete(s);
+                   File.WriteAllLines(s, textLines.ToArray());
+               }
+           }
+
+           //Header files
+           AddToListLog(&quot;Editing iTween header files...&quot;);
+           foreach (string s in headerFiles)
+           {
+               if (File.Exists(s))
+               {
+                   List&lt;string&gt; textLines = new List&lt;string&gt;();
+                   foreach (string lines in File.ReadAllLines(s))
+                   {
+                       textLines.Add(lines);
+                   }
+                   for (int i = 0; i &lt; textLines.Count; i++)
+                   {
+                       if (textLines\[i\].Contains(&quot;class&quot;) &amp;&amp; textLines\[i\].Contains(&quot;: public&quot;))
+                       {
+                           textLines\[i\] = textLines\[i\].Insert(&quot;class&quot;.Length, &quot; &quot; + insertAPI);
+                           AddToListLog(&quot;Added '&quot; + insertAPI + &quot;' to '&quot; + s + &quot;' at line &quot; + i.ToString());
+
+                           if (s == sourcePath + &quot;iTAux.h&quot;)
+                           {
+                               if (!chkDebugMessages.Checked &amp;&amp; textLines\[i\].Contains(&quot;bool printDebugMessages = true;&quot;))
+                               {
+                                   AddToListLog(&quot;User wants debug messages off but they are on.&quot;);
+                                   textLines\[i\].Replace(&quot;true&quot;, &quot;false&quot;);
+                                   AddToListLog(&quot;Set line &quot; + i.ToString() + &quot; to '&quot; + textLines\[i\] + &quot;'&quot;);
+                               }
+                               else if (chkDebugMessages.Checked &amp;&amp; textLines\[i\].Contains(&quot;bool printDebugMessages = false;&quot;))
+                               {
+                                   AddToListLog(&quot;User wants debug messages on but they are off.&quot;);
+                                   textLines\[i\].Replace(&quot;false&quot;, &quot;true&quot;);
+                                   AddToListLog(&quot;Set line &quot; + i.ToString() + &quot; to '&quot; + textLines\[i\] + &quot;'&quot;);
+                               }
+
+                               if (!chkErrorMessages.Checked &amp;&amp; textLines\[i\].Contains(&quot;bool printErrorMessages = true;&quot;))
+                               {
+                                   AddToListLog(&quot;User wants error messages off but they are on.&quot;);
+                                   textLines\[i\].Replace(&quot;true&quot;, &quot;false&quot;);
+                                   AddToListLog(&quot;Set line &quot; + i.ToString() + &quot; to '&quot; + textLines\[i\] + &quot;'&quot;);
+                               }
+                               else if (chkErrorMessages.Checked &amp;&amp; textLines\[i\].Contains(&quot;bool printErrorMessages = false;&quot;))
+                               {
+                                   AddToListLog(&quot;User wants error messages on but they are off.&quot;);
+                                   textLines\[i\].Replace(&quot;false&quot;, &quot;true&quot;);
+                                   AddToListLog(&quot;Set line &quot; + i.ToString() + &quot; to '&quot; + textLines\[i\] + &quot;'&quot;);
+                               }
+                               break;
+                           }
+                           else
+                           {
+                               break;
+                           }
+                       }
+                       else if (s == sourcePath + &quot;iTweenPCH.h&quot;)
+                       {
+                           if (textLines\[i\].Contains(&quot;Module&quot;))
+                           {
+                               AddToListLog(&quot;Removed '&quot; + textLines\[i\] + &quot;' from '&quot; + s + &quot;'&quot;);
+                               textLines.RemoveAt(i);
+                           }
+                       }
+                   }
+
+                   File.Delete(s);
+                   File.WriteAllLines(s, textLines.ToArray());
+               }
+           }
+
+           //Add Modules to Build File
+           AddToListLog(&quot;Opening '&quot; + txbPath.Text + &quot;\\\\Source\\\\&quot; + projectName + &quot;\\\\&quot; + projectName + &quot;.Build.cs'...&quot;);
+           List&lt;string&gt; text = new List&lt;string&gt;();
+           foreach (string lines in File.ReadAllLines(txbPath.Text + &quot;\\\\Source\\\\&quot; + projectName + &quot;\\\\&quot; + projectName + &quot;.Build.cs&quot;))
+           {
+               text.Add(lines);
+           }
+           AddToListLog(&quot;Adding '&quot; + &quot;        PrivateDependencyModuleNames.AddRange(new string\[\] { \\&quot;Slate\\&quot;, \\&quot;SlateCore\\&quot;, \\&quot;EditorStyle\\&quot;, 
+</code></pre></div><p>\&quot;UMG\&quot; });&quot; + &quot;' to '&quot; + txbPath.Text + &quot;\\Source\\&quot; + projectName + &quot;\\&quot; + projectName + &quot;.Build.cs' at line &quot; + (text.IndexOf(&quot;	public &quot; +
+projectName + &quot;(TargetInfo Target)&quot;) + 2).ToString());
+text.Insert(text.IndexOf(&quot;	public &quot; + projectName + &quot;(TargetInfo Target)&quot;) + 2, &quot;<br>
+PrivateDependencyModuleNames.AddRange(new string[] { \&quot;Slate\&quot;, \&quot;SlateCore\&quot;, \&quot;EditorStyle\&quot;, \&quot;UMG\&quot; });&quot;);
+text.Insert(text.IndexOf(&quot;	public &quot; + projectName + &quot;(TargetInfo Target)&quot;) + 3, &quot;&quot;);
+File.Delete(txbPath.Text + &quot;\\Source\\&quot; + projectName + &quot;\\&quot; + projectName + &quot;.Build.cs&quot;);
+File.WriteAllLines(txbPath.Text + &quot;\\Source\\&quot; + projectName + &quot;\\&quot; + projectName + &quot;.Build.cs&quot;, text.ToArray());</p> <div class="language- extra-class"><pre><code>           //File Cleanup
+           AddToListLog(&quot;Removing plugin module files '&quot; + sourcePath + &quot;iTweenModule.cpp&quot; + &quot;' and '&quot; + sourcePath + &quot;iTweenModule.h&quot; + &quot;' since 
+</code></pre></div><p>they are not needed for the C++ option.&quot;);
+File.Delete(sourcePath + &quot;iTweenModule.cpp&quot;);
+File.Delete(sourcePath + &quot;iTweenModule.h&quot;);
+}</p> <div class="language- extra-class"><pre><code>       private void folderBrowserDialog1\_HelpRequest(object sender, EventArgs e)
+       {
+
+       }
+
+       private void AddToListLog(string logMessage)
+       {
+           textLog.Add(&quot;&gt;&gt; &quot; + logMessage);
+           txtListLog.Lines = textLog.ToArray();
+       }
+
+       private void btnBrowse\_Click(object sender, MouseEventArgs e)
+       {
+           lblStatus.Text = &quot;Waiting...&quot;;
+
+           if (Directory.Exists(txbPath.Text))
+           {
+   	        folderBrowserDialog1.SelectedPath = txbPath.Text;
+           }
+           folderBrowserDialog1.ShowDialog();
+
+           txbPath.Text = folderBrowserDialog1.SelectedPath;
+           AddToListLog(&quot;Selected path is '&quot; + folderBrowserDialog1.SelectedPath + &quot;'&quot;);
+       }
+
+       private void lnkPixelPlacement\_Click(object sender, LinkLabelLinkClickedEventArgs e)
+       {
+           lblStatus.Text = &quot;Waiting...&quot;;
+
+           Process.Start(urlPixelPlacement);
+       }
+
+       private void lnkSweet\_Click(object sender, LinkLabelLinkClickedEventArgs e)
+       {
+           lblStatus.Text = &quot;Waiting...&quot;;
+
+           Process.Start(urlSweet);
+       }
+
+       private void SetStatusWaiting(object sender, EventArgs e)
+       {
+           lblStatus.Text = &quot;Waiting...&quot;;
+
+           if (sender == rbnBlue || sender == rbnCPP)
+           {
+               ValidatePath(sender, e);
+           }
+       }
+
+       private void btnCopyLog\_Click(object sender, MouseEventArgs e)
+       {
+           string str = &quot;&gt;&gt; Log from session at &quot; + DateTime.Now.ToString() + &quot;:\\r\\n\\r\\n&quot;;
+
+           foreach (string s in txtListLog.Lines)
+           {
+               str = str + s + &quot;\\r\\n&quot;;
+           }
+
+           str = str + &quot;\\r\\n-------------------------&quot;;
+
+           Clipboard.SetText(str);
+       }
+
+       private void btnShowLog\_Click(object sender, MouseEventArgs e)
+       {
+           if (!showLogState)
+           {
+               this.Height = expandedHeight;
+               this.Width = expandedWidth;
+               btnShowLog.Text = &quot;Hide Log&quot;;
+               showLogState = true;
+           }
+           else
+           {
+               this.Height = collapsedHeight;
+               this.Width = collapsedWidth;
+               btnShowLog.Text = &quot;Show Log&quot;;
+               showLogState = false;
+           }
+       }
+
+       private void btnUninstall\_Click(object sender, EventArgs e)
+       {
+           if (Directory.Exists(BPPath) &amp;&amp; rbnBlue.Checked)
+           {
+               lblStatus.Text = &quot;Cleaning...&quot;;
+               AddToListLog(&quot;Cleaning...&quot;);
+
+               Directory.Delete(BPPath, true);
+               AddToListLog(&quot;Deleted folder '&quot; + BPPath + &quot;'&quot;);
+           }
+           else if (Directory.Exists(CPPPath) &amp;&amp; rbnCPP.Checked)
+           {
+               lblStatus.Text = &quot;Cleaning...&quot;;
+               AddToListLog(&quot;Cleaning...&quot;);
+
+               Directory.Delete(CPPPath, true);
+               AddToListLog(&quot;Deleted folder '&quot; + CPPPath + &quot;'&quot;);
+           }
+
+           lblStatus.Text = &quot;Done!&quot;;
+           AddToListLog(&quot;Uninstall finished!&quot;);
+
+           ValidatePath(sender, e);
+       }
+
+       private void FormClose(object sender, FormClosedEventArgs e)
+       {
+           if (chkSaveLog.Checked)
+           {
+               List&lt;string&gt; lastLog = new List&lt;string&gt;();
+               if (File.Exists(Application.StartupPath + &quot;\\\\iTween for UE4 installer log.txt&quot;))
+               {
+                   foreach (string s in File.ReadAllLines(Application.StartupPath + &quot;\\\\iTween for UE4 installer log.txt&quot;))
+                   {
+                       lastLog.Add(s);
+                   }
+                   File.Delete(Application.StartupPath + &quot;\\\\iTween for UE4 installer log.txt&quot;);
+               }
+               lastLog.Add(&quot;&gt;&gt; Log from session at &quot; + DateTime.Now.ToString() + &quot;:&quot;);
+               lastLog.Add(&quot;&quot;);
+               foreach (string s in txtListLog.Lines)
+               {
+                   lastLog.Add(s);
+               }
+               lastLog.Add(&quot;&quot;);
+               lastLog.Add(&quot;-------------------------&quot;);
+               lastLog.Add(&quot;&quot;);
+               File.WriteAllLines(Application.StartupPath + &quot;\\\\iTween for UE4 installer log.txt&quot;, lastLog.ToArray());
+           }
+
+           SavePrefs();
+       }
+
+       void SavePrefs()
+       {
+           List&lt;string&gt; saveStrings = new List&lt;string&gt;();
+           saveStrings.Add(&quot;radioButton&amp;=&amp;&quot; + (rbnBlue.Checked ? &quot;blue&quot; : &quot;cpp&quot;));
+           saveStrings.Add(&quot;debugMessages&amp;=&amp;&quot; + (chkDebugMessages.Checked ? &quot;true&quot; : &quot;false&quot;));
+           saveStrings.Add(&quot;errorMessages&amp;=&amp;&quot; + (chkErrorMessages.Checked ? &quot;true&quot; : &quot;false&quot;));
+           saveStrings.Add(&quot;lastPath&amp;=&amp;&quot; + (txbPath.Text));
+           saveStrings.Add(&quot;saveLog&amp;=&amp;&quot; + (chkSaveLog.Checked ? &quot;true&quot; : &quot;false&quot;));
+
+           if (File.Exists(Application.StartupPath + &quot;\\\\InstallerPrefs.txt&quot;))
+           {
+               File.Delete(Application.StartupPath + &quot;\\\\InstallerPrefs.txt&quot;);
+           }
+
+           File.WriteAllLines(Application.StartupPath + &quot;\\\\InstallerPrefs.txt&quot;, saveStrings.ToArray());
+       }
+   }
+</code></pre></div><p>}</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Itween&amp;oldid=10936" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Itween&amp;oldid=10936<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/786.4db43af7.js" defer></script>
+  </body>
+</html>

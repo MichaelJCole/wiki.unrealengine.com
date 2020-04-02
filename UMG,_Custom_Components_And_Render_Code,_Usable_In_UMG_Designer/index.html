@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1113.bc48d813.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>UMG, Custom Widget Components And Render Code, Usable In UMG Designer - Epic Wiki</p> <h1 id="umg-custom-widget-components-and-render-code-usable-in-umg-designer"><a href="#umg-custom-widget-components-and-render-code-usable-in-umg-designer" class="header-anchor">#</a> UMG, Custom Widget Components And Render Code, Usable In UMG Designer</h1> <p>(Redirected from <a href="/index.php?title=UMG,_Custom_Components_And_Render_Code,_Usable_In_UMG_Designer&amp;redirect=no" title="UMG, Custom Components And Render Code, Usable In UMG Designer">UMG, Custom Components And Render Code, Usable In UMG Designer</a>)</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Video_of_Custom_UMG_Component.2C_Editable_within_Designer">2 Video of Custom UMG Component, Editable within Designer</a></li> <li><a href="#Custom_UMG_Component_Property:_Thickness">3 Custom UMG Component Property: Thickness</a></li> <li><a href="#Build_CS">4 Build CS</a></li> <li><a href="#C.2B.2B_Code_for_You">5 C++ Code for You</a> <ul><li><a href="#JoySoftEdgeImage.h">5.1 JoySoftEdgeImage.h</a></li> <li><a href="#JoySoftEdgeImage.cpp">5.2 JoySoftEdgeImage.cpp</a></li> <li><a href="#.h">5.3 .h</a></li> <li><a href="#.cpp">5.4 .cpp</a></li></ul></li> <li><a href="#Conclusion">6 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><a href="/File:RamaUMGCustomComponents.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/a/ac/RamaUMGCustomComponents.jpg/900px-RamaUMGCustomComponents.jpg" alt="RamaUMGCustomComponents.jpg"></a></p> <p><em>Original Author:</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>In this wiki I provide you with the full code that I used to create a custom Designer-positionable and editable UMG component!</p> <p>This is a UMG widget/component with completely custom render code that works with UMG's render transform system!</p> <h2 id="video-of-custom-umg-component-editable-within-designer"><a href="#video-of-custom-umg-component-editable-within-designer" class="header-anchor">#</a> Video of Custom UMG Component, Editable within Designer</h2> <h2 id="custom-umg-component-property-thickness"><a href="#custom-umg-component-property-thickness" class="header-anchor">#</a> Custom UMG Component Property: Thickness</h2> <p>In my code I am not only sharing with you how to do custom render code, I am also showing you how to make your own custom properties that will update in the UMG Designer!</p> <p>As you see in the video, my custom property Thickness, which directly affects the rendering, does update instantly every time I enter new values within the UMG Designer!</p> <h2 id="build-cs"><a href="#build-cs" class="header-anchor">#</a> Build CS</h2> <p>Make sure you have this in your project's build cs to ensure my code below will compile!</p> <p>PublicDependencyModuleNames.AddRange(new string[] {
+&quot;Core&quot;, &quot;CoreUObject&quot;, &quot;Engine&quot;, &quot;InputCore&quot;,
+&quot;UMG&quot;, &quot;Slate&quot;, &quot;SlateCore&quot;,
+});</p> <h2 id="c-code-for-you"><a href="#c-code-for-you" class="header-anchor">#</a> C++ Code for You</h2> <p>You are welcome to use my C++ code as a template for your own custom UMG components, just please credit me as the original author/contributor of the code that you use! Mentioning me as &quot;Rama&quot; is sufficient.</p> <p>Note that there are two new classes!</p> <p>There is the Slate C++ Core widget, which has the custom render code and the custom property, thickness, for use with the render code.</p> <p>This Slate widget extends SImage to minimize introduction of duplicate/unnecessary code while also allowing me to inherit any new features that Epic adds to the SImage in the future!</p> <p>Then there is also a UMG Component which wraps my custom Slate widget!</p> <p>The core additional code to this UMG component class is my code to enable the Thickness property to trigger dynamic updates of the visual appearance of the custom component while in the Designer! These dynamic updates are accomplished using SynchronizeProperties().</p> <h3 id="joysoftedgeimage-h"><a href="#joysoftedgeimage-h" class="header-anchor">#</a> JoySoftEdgeImage.h</h3> <p>/*
+JoySoftEdgeImage by Rama
+*/
+#pragma once
+ 
+//~~~~~~~~~~~~ UMG ~~~~~~~~~~~~~~~~
+#include &quot;Runtime/UMG/Public/UMG.h&quot;
+#include &quot;Runtime/UMG/Public/UMGStyle.h&quot;
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+//Custom Slate Element
+#include &quot;SSoftEdgeImage.h&quot;
+ 
+#include &quot;JoySoftEdgeImage.generated.h&quot;
+ 
+UCLASS()
+class UJoySoftEdgeImage : public UWidget
+{
+GENERATED_UCLASS_BODY()
+ 
+//Custom Slate Element
+protected:
+TSharedPtr&lt;SSoftEdgeImage&gt; MyImage;
+ 
+//~~~~~~~~~~
+//Thickness
+// 	Rama's custom UMG Widget property!
+//~~~~~~~~~~
+public:
+/** Thickness */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=&quot;Joy Soft Edge Image&quot;)
+float Thickness;
+ 
+//Delegate verison if you want it!
+//		-Rama
+//UPROPERTY()
+//FGetFloat ThicknessDelegate;
+ 
+/** Update thickness of Soft Edge Image! Yay! */
+UFUNCTION(BlueprintCallable, Category=&quot;Joy Soft Edge Image&quot;)
+void SetThickness(float InThickness);
+ 
+//~~~ Rest is copied from UMG Image.h ~~~
+public:
+ 
+/** Image to draw */
+UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Appearance)
+FSlateBrush Brush;
+ 
+/** A bindable delegate for the Image. */
+UPROPERTY()
+FGetSlateBrush BrushDelegate;
+ 
+/** Color and opacity */
+UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Appearance)
+FLinearColor ColorAndOpacity;
+ 
+/** A bindable delegate for the ColorAndOpacity. */
+UPROPERTY()
+FGetLinearColor ColorAndOpacityDelegate;
+ 
+public:
+ 
+UPROPERTY(EditDefaultsOnly, Category=Events)
+FOnPointerEvent OnMouseButtonDownEvent;
+ 
+public:
+ 
+/**  */
+UFUNCTION(BlueprintCallable, Category=&quot;Appearance&quot;)
+void SetColorAndOpacity(FLinearColor InColorAndOpacity);
+ 
+/**  */
+UFUNCTION(BlueprintCallable, Category=&quot;Appearance&quot;)
+void SetOpacity(float InOpacity);
+ 
+/**  */
+UFUNCTION(BlueprintCallable, Category=&quot;Appearance&quot;)
+void SetBrushFromAsset(USlateBrushAsset* Asset);
+ 
+/**  */
+UFUNCTION(BlueprintCallable, Category=&quot;Appearance&quot;)
+void SetBrushFromTexture(UTexture2D* Texture);
+ 
+/**  */
+UFUNCTION(BlueprintCallable, Category=&quot;Appearance&quot;)
+void SetBrushFromMaterial(UMaterialInterface* Material);
+ 
+/**  */
+UFUNCTION(BlueprintCallable, Category=&quot;Appearance&quot;)
+UMaterialInstanceDynamic* GetDynamicMaterial();
+ 
+// UWidget interface
+virtual void SynchronizeProperties() override;
+// End of UWidget interface
+ 
+// UVisual interface
+virtual void ReleaseSlateResources(bool bReleaseChildren) override;
+// End of UVisual interface
+ 
+#if WITH_EDITOR
+// UWidget interface
+virtual const FSlateBrush* GetEditorIcon() override;
+virtual const FText GetPaletteCategory() override;
+// End UWidget interface
+#endif
+ 
+protected:
+// UWidget interface
+virtual TSharedRef&lt;SWidget&gt; RebuildWidget() override;
+// End of UWidget interface
+ 
+/** Translates the bound brush data and assigns it to the cached brush used by this widget. */
+const FSlateBrush* ConvertImage(TAttribute&lt;FSlateBrush&gt; InImageAsset) const;
+ 
+FReply HandleMouseButtonDown(const FGeometry&amp; Geometry, const FPointerEvent&amp; MouseEvent);
+};</p> <h3 id="joysoftedgeimage-cpp"><a href="#joysoftedgeimage-cpp" class="header-anchor">#</a> JoySoftEdgeImage.cpp</h3> <p>/*
+UJoySoftEdgeImage by Rama
+*/
+ 
+//Project Name
+#include &quot;Abatron.h&quot;
+#include &quot;JoySoftEdgeImage.h&quot;
+ 
+//LOCTEXT
+#define LOCTEXT_NAMESPACE &quot;UMG&quot;
+ 
+/////////////////////////////////////////////////////
+// UJoySoftEdgeImage
+ 
+ 
+ 
+UJoySoftEdgeImage::UJoySoftEdgeImage(const FObjectInitializer&amp; ObjectInitializer)
+: Super(ObjectInitializer)
+, ColorAndOpacity(FLinearColor(0,0,1,0.0333))
+, Thickness(24)
+{<br>
+//Default Values Set Here, see above
+}
+ 
+//Rebuild using custom Slate Widget
+//		-Rama
+TSharedRef&lt;SWidget&gt; UJoySoftEdgeImage::RebuildWidget()
+{
+MyImage = SNew(SSoftEdgeImage);
+return MyImage.ToSharedRef();
+}
+ 
+//Set Thickness
+void UJoySoftEdgeImage::SetThickness(float InThickness)
+{
+Thickness = InThickness;
+if ( MyImage.IsValid() )
+{
+MyImage-&gt;SetThickness(InThickness);
+}
+}
+ 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//This is where the SSoftEdgeImage slate widget gets updated
+//		when the UPROPERTY() is changed in the Editor
+//		-Rama
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void UJoySoftEdgeImage::SynchronizeProperties()
+{
+Super::SynchronizeProperties();
+ 
+//Thickness Delegate Version
+//TAttribute<float> ThickBind = OPTIONAL_BINDING(float, Thickness);
+//MyImage-&gt;SetThickness(ThickBind.Get());
+ 
+//Thickness non-delegate version
+MyImage-&gt;SetThickness(Thickness);
+ 
+//Color and Opacity
+TAttribute&lt;FSlateColor&gt; ColorAndOpacityBinding = OPTIONAL_BINDING(FSlateColor, ColorAndOpacity);
+MyImage-&gt;SetColorAndOpacity(ColorAndOpacityBinding);
+ 
+//Image
+TAttribute&lt;const FSlateBrush*&gt; ImageBinding = OPTIONAL_BINDING_CONVERT(FSlateBrush, Brush, const FSlateBrush*, ConvertImage);
+MyImage-&gt;SetImage(ImageBinding);
+ 
+//Mouse
+MyImage-&gt;SetOnMouseButtonDown(BIND_UOBJECT_DELEGATE(FPointerEventHandler, HandleMouseButtonDown));
+}
+ 
+ 
+//~~~ Rest is copied from UMG Image.h ~~~
+ 
+void UJoySoftEdgeImage::ReleaseSlateResources(bool bReleaseChildren)
+{
+Super::ReleaseSlateResources(bReleaseChildren);
+ 
+MyImage.Reset();
+}
+ 
+void UJoySoftEdgeImage::SetColorAndOpacity(FLinearColor InColorAndOpacity)
+{
+ColorAndOpacity = InColorAndOpacity;
+if ( MyImage.IsValid() )
+{
+MyImage-&gt;SetColorAndOpacity(ColorAndOpacity);
+}
+}
+ 
+void UJoySoftEdgeImage::SetOpacity(float InOpacity)
+{
+ColorAndOpacity.A = InOpacity;
+if ( MyImage.IsValid() )
+{
+MyImage-&gt;SetColorAndOpacity(ColorAndOpacity);
+}
+}
+ 
+const FSlateBrush* UJoySoftEdgeImage::ConvertImage(TAttribute&lt;FSlateBrush&gt; InImageAsset) const
+{
+UJoySoftEdgeImage* MutableThis = const_cast&lt;UJoySoftEdgeImage*&gt;( this );
+MutableThis-&gt;Brush = InImageAsset.Get();
+ 
+return &amp;Brush;
+}
+ 
+void UJoySoftEdgeImage::SetBrushFromAsset(USlateBrushAsset* Asset)
+{
+Brush = Asset ? Asset-&gt;Brush : FSlateBrush();
+ 
+if ( MyImage.IsValid() )
+{
+MyImage-&gt;SetImage(&amp;Brush);
+}
+}
+ 
+void UJoySoftEdgeImage::SetBrushFromTexture(UTexture2D* Texture)
+{
+Brush.SetResourceObject(Texture);
+ 
+if ( MyImage.IsValid() )
+{
+MyImage-&gt;SetImage(&amp;Brush);
+}
+}
+ 
+void UJoySoftEdgeImage::SetBrushFromMaterial(UMaterialInterface* Material)
+{
+Brush.SetResourceObject(Material);
+ 
+//TODO UMG Check if the material can be used with the UI
+ 
+if ( MyImage.IsValid() )
+{
+MyImage-&gt;SetImage(&amp;Brush);
+}
+}
+ 
+UMaterialInstanceDynamic* UJoySoftEdgeImage::GetDynamicMaterial()
+{
+UMaterialInterface* Material = NULL;
+ 
+UObject* Resource = Brush.GetResourceObject();
+Material = Cast&lt;UMaterialInterface&gt;(Resource);
+ 
+if ( Material )
+{
+UMaterialInstanceDynamic* DynamicMaterial = Cast&lt;UMaterialInstanceDynamic&gt;(Material);
+ 
+if ( !DynamicMaterial )
+{
+DynamicMaterial = UMaterialInstanceDynamic::Create(Material, this);
+Brush.SetResourceObject(DynamicMaterial);
+ 
+if ( MyImage.IsValid() )
+{
+MyImage-&gt;SetImage(&amp;Brush);
+}
+}
+ 
+return DynamicMaterial;
+}
+ 
+//TODO UMG can we do something for textures?  General purpose dynamic material for them?
+ 
+return NULL;
+}
+ 
+FReply UJoySoftEdgeImage::HandleMouseButtonDown(const FGeometry&amp; Geometry, const FPointerEvent&amp; MouseEvent)
+{
+if ( OnMouseButtonDownEvent.IsBound() )
+{
+return OnMouseButtonDownEvent.Execute(Geometry, MouseEvent).NativeReply;
+}
+ 
+return FReply::Unhandled();
+}
+ 
+#if WITH_EDITOR
+ 
+const FSlateBrush* UJoySoftEdgeImage::GetEditorIcon()
+{
+return FUMGStyle::Get().GetBrush(&quot;Widget.Image&quot;);
+}
+ 
+const FText UJoySoftEdgeImage::GetPaletteCategory()
+{
+return LOCTEXT(&quot;Common&quot;, &quot;Common&quot;);
+}
+ 
+#endif
+ 
+ 
+/////////////////////////////////////////////////////
+ 
+#undef LOCTEXT_NAMESPACE</float></p> <h3 id="h"><a href="#h" class="header-anchor">#</a> .h</h3> <p>/*
+By Rama
+*/
+ 
+#pragma once
+ 
+//Slate Core
+#include &quot;SlateCore.h&quot;
+ 
+class SSoftEdgeImage
+: public SImage
+{
+public:
+SLATE_BEGIN_ARGS( SSoftEdgeImage )
+: _Image( FCoreStyle::Get().GetDefaultBrush() )
+, _ColorAndOpacity( FLinearColor(0,0,1,0.02333) )
+, _Thickness(24)
+, _OnMouseButtonDown()
+{}
+ 
+/** Image resource */
+SLATE_ATTRIBUTE( const FSlateBrush*, Image )
+ 
+/** Color and opacity */
+SLATE_ATTRIBUTE( FSlateColor, ColorAndOpacity )
+ 
+/** Thickness */
+SLATE_ATTRIBUTE( float, Thickness )
+ 
+/** Invoked when the mouse is pressed in the widget. */
+SLATE_EVENT( FPointerEventHandler, OnMouseButtonDown )
+ 
+SLATE_END_ARGS()
+ 
+/**
+* Construct this widget
+*
+* @param	InArgs	The declaration data for this widget
+*/
+void Construct( const FArguments&amp; InArgs );
+ 
+//~~~~~~~~
+//Thickness
+//~~~~~~~~
+public:
+void SetThickness( float InThickness );
+ 
+/** How many times the image is repeated to give a softness to the edge */
+float Thickness;
+ 
+public:
+ 
+// SWidget overrides
+ 
+virtual int32 OnPaint( const FPaintArgs&amp; Args, const FGeometry&amp; AllottedGeometry, const FSlateRect&amp; MyClippingRect, FSlateWindowElementList&amp; OutDrawElements, int32 LayerId, const FWidgetStyle&amp; InWidgetStyle, bool bParentEnabled ) const override;
+ 
+};</p> <h3 id="cpp"><a href="#cpp" class="header-anchor">#</a> .cpp</h3> <p>/*
+By Rama
+*/
+ 
+#include &quot;Abatron.h&quot;
+#include &quot;SSoftEdgeImage.h&quot;
+ 
+DECLARE_CYCLE_STAT( TEXT(&quot;OnPaint SSoftEdgeImage&quot;), STAT_SlateOnPaint_SSoftEdgeImage, STATGROUP_Slate );
+ 
+/**
+* Construct this widget
+*
+* @param	InArgs	The declaration data for this widget
+*/
+void SSoftEdgeImage::Construct( const FArguments&amp; InArgs )
+{
+Image 				= InArgs._Image;
+ColorAndOpacity 		= InArgs._ColorAndOpacity;
+Thickness 			= InArgs._Thickness.Get();
+OnMouseButtonDownHandler 	= InArgs._OnMouseButtonDown;
+}
+ 
+void SSoftEdgeImage::SetThickness( float InThickness )
+{
+Thickness = InThickness;
+}
+ 
+int32 SSoftEdgeImage::OnPaint( const FPaintArgs&amp; Args, const FGeometry&amp; AllottedGeometry, const FSlateRect&amp; MyClippingRect, FSlateWindowElementList&amp; OutDrawElements, int32 LayerId, const FWidgetStyle&amp; InWidgetStyle, bool bParentEnabled ) const
+{
+#if SLATE_HD_STATS
+SCOPE_CYCLE_COUNTER( STAT_SlateOnPaint_SSoftEdgeImage );
+#endif
+const FSlateBrush* ImageBrush = Image.Get();
+ 
+if ((ImageBrush != nullptr) &amp;&amp; (ImageBrush-&gt;DrawAs != ESlateBrushDrawType::NoDrawType))
+{
+const bool bIsEnabled = ShouldBeEnabled(bParentEnabled);
+const uint32 DrawEffects = bIsEnabled ? ESlateDrawEffect::None : ESlateDrawEffect::DisabledEffect;
+ 
+const FColor FinalColorAndOpacity( InWidgetStyle.GetColorAndOpacityTint() * ColorAndOpacity.Get().GetColor(InWidgetStyle) * ImageBrush-&gt;GetTint( InWidgetStyle ) );
+ 
+//For Thickness
+for (int32 v = 0; v &lt; Thickness; v++ )
+{   		
+//Size
+FVector2D AdjustedSize =
+FVector2D(
+AllottedGeometry.GetLocalSize().X - v*2,
+AllottedGeometry.GetLocalSize().Y - v*2
+);
+ 
+//There's a warning about using this constructor in Geometry.h
+//		But it looks like the code was fixed in Geometry.cpp to use layout transform properly. Plus all render transforms work great in Editor.
+//			So keeping this for now 😃
+FPaintGeometry PaintGeom =
+AllottedGeometry.ToPaintGeometry(
+FVector2D(v,v),		//Local Translation
+AdjustedSize,		//Local Size
+1			//Local Scale
+);
+ 
+FSlateDrawElement::MakeBox(
+OutDrawElements, 	//Out
+LayerId,
+PaintGeom, 		//Paint Geom
+ImageBrush, 		//Brush
+MyClippingRect, 		//Clip
+DrawEffects,
+FinalColorAndOpacity 	//Color and Opacity
+);
+ 
+} //For loop
+}
+return LayerId;
+}</p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>In this wiki I have now given you the entire code that I used to create the custom UMG widget with custom render code that you saw in my video!</p> <p>Have fun making your own UMG Widgets for use with the UMG Designer!</p> <p>♥</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=UMG,_Custom_Widget_Components_And_Render_Code,_Usable_In_UMG_Designer&amp;oldid=21856" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=UMG,_Custom_Widget_Components_And_Render_Code,_Usable_In_UMG_Designer&amp;oldid=21856<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1113.bc48d813.js" defer></script>
+  </body>
+</html>

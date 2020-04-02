@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/388.41f01d2b.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Create Custom K2 Node For Blueprint - Epic Wiki</p> <h1 id="create-custom-k2-node-for-blueprint"><a href="#create-custom-k2-node-for-blueprint" class="header-anchor">#</a> Create Custom K2 Node For Blueprint</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents:</h2> <p>I will show you how to create real Blueprint Node using C++. Normally all you need is expose function from C++, back to blueprints, but creating custom node have big benefits. One the biggest is dynamic allocation of pins!</p> <h2 id="preparations"><a href="#preparations" class="header-anchor">#</a> Preparations</h2> <p>You will need to make some preprations before you can make custom node. First you need to add custom Editor Module your plugin, game or engine module. As it requires quite a bit of editor specific modules dependencies. For now assume you are working on plugin. open .uplugin file and add this code:</p> <p>&quot;Modules&quot; :
+[
+{
+&quot;Name&quot;: &quot;GameInventorySystem&quot;,
+&quot;Type&quot;: &quot;Runtime&quot;,
+&quot;LoadingPhase&quot; : &quot;PreDefault&quot;
+},
+{
+&quot;Name&quot; : &quot;GameInventorySystemEditor&quot;,
+&quot;Type&quot; : &quot;Editor&quot;
+}
+],</p> <p>The first module is your runtime module. Second one is editor module, which will have dependencies on runtime module. Name your modules however you want, although it's good practice to postfix editor modules with Editor.</p> <p>Also please note I will be using code from my own plugin.</p> <p>Now in runtime module we need to add, BlueprintFunctionLibrary, and in it at least one function.</p> <p>class GAMEINVENTORYSYSTEM_API UGISBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
+{
+GENERATED_UCLASS_BODY()
+public:
+UFUNCTION(BlueprintCallable, meta = (WorldContext = &quot;WorldContextObject&quot;, FriendlyName = &quot;Create Item Data&quot;, BlueprintInternalUseOnly = &quot;true&quot;), Category = &quot;Game Inventory System&quot;)
+static class UGISItemData* Create(UObject* WorldContextObject, TSubclassOf&lt;class UGISItemData&gt; ItemType, APlayerController* OwningPlayer);
+};</p> <p>Important part about UFUNCTION is BlueprintInternalUseOnly, which hides node from blueprint. That is fully intentional, we don't want this node to show in BP. Also don't forget to add implementation. Which will return pointer to created item. You can do it just by using ConstructObject&lt;&gt; or you can create template function like this:</p> <p>template&lt; class T &gt;
+T* CreateDataItem(APlayerController* OwningPlayer, UClass* UserWidgetClass)
+{
+if (!UserWidgetClass-&gt;IsChildOf(UGISItemData::StaticClass()))
+{
+return nullptr;
+}
+ 
+// Assign the outer to the game instance if it exists, otherwise use the player controller's world
+UWorld* World = OwningPlayer-&gt;GetWorld();
+StaticCast&lt;UObject*&gt;(World);
+UGISItemData* NewWidget = ConstructObject&lt;UGISItemData&gt;(UserWidgetClass, OwningPlayer);
+return Cast&lt;T&gt;(NewWidget);
+}</p> <p>You can also add additional post construction initialization steps in this function, to accomodate for your specific needs.</p> <p>Now move to editor module and open YourModuleName.Build.cs</p> <p>Add this:</p> <p><code>PublicIncludePaths.AddRange( new string[] { &quot;YourRunTimeModule&quot;, &quot;YourRunTimeModule/Public&quot; // ... add public include paths required here ... } ); PrivateIncludePaths.AddRange( new string[] { &quot;YourRunTimeModuleEditor/Private&quot;, // ... add other private include paths required here ... } ); PublicDependencyModuleNames.AddRange( new string[] { &quot;Core&quot;, &quot;YourRunTimeModule&quot; // ... add other public dependencies that you statically link with here ... } ); PrivateDependencyModuleNames.AddRange( new string[] { // ... add private dependencies that you statically link with here ... &quot;Core&quot;, &quot;CoreUObject&quot;, &quot;InputCore&quot;, &quot;Slate&quot;, &quot;Engine&quot;, &quot;AssetTools&quot;, &quot;UnrealEd&quot;, // for FAssetEditorManager &quot;KismetWidgets&quot;, &quot;KismetCompiler&quot;, &quot;BlueprintGraph&quot;, &quot;GraphEditor&quot;, &quot;Kismet&quot;, // for FWorkflowCentricApplication &quot;PropertyEditor&quot;, &quot;EditorStyle&quot;, &quot;Slate&quot;, &quot;SlateCore&quot;, &quot;MovieSceneCore&quot;, &quot;Sequencer&quot;, &quot;DetailCustomizations&quot;, &quot;Settings&quot;, &quot;RenderCore&quot;, } );</code></p> <h2 id="implementing-node"><a href="#implementing-node" class="header-anchor">#</a> Implementing Node:</h2> <p>Now add new class, to your editor module. Name it something Like BPNode_MyNode (mine is named BPNode_CreateItemData). Epic convention is K2, but it was from before Blueprint name has been invented (;.</p> <p>Header:</p> <p>#pragma once
+#include &quot;K2Node.h&quot;
+#include &quot;K2Node_ConstructObjectFromClass.h&quot;
+#include &quot;BPNode_CreateItemData.generated.h&quot;
+ 
+UCLASS(BlueprintType, Blueprintable)
+class GAMEINVENTORYSYSTEMEDITOR_API UBPNode_CreateItemData : public UK2Node_ConstructObjectFromClass
+{
+GENERATED_UCLASS_BODY()
+ 
+// Begin UEdGraphNode interface.
+virtual void AllocateDefaultPins() override;
+virtual FLinearColor GetNodeTitleColor() const override;
+//this is where node will be expanded with additional pins!
+virtual void ExpandNode(class FKismetCompilerContext&amp; CompilerContext, UEdGraph* SourceGraph) override;
+// End UEdGraphNode interface.
+ 
+// Begin UK2Node interface
+void GetMenuEntries(FGraphContextMenuBuilder&amp; ContextMenuBuilder) const;
+virtual FText GetMenuCategory() const override;
+// End UK2Node interface.
+ 
+/** Get the owning player pin */
+UEdGraphPin* GetOwningPlayerPin() const;
+ 
+protected:
+/** Gets the default node title when no class is selected */
+virtual FText GetBaseNodeTitle() const;
+/** Gets the node title when a class has been selected. */
+virtual FText GetNodeTitleFormat() const;
+/** Gets base class to use for the 'class' pin.  UObject by default. */
+virtual UClass* GetClassPinBaseClass() const;
+**  */
+virtual bool IsSpawnVarPin(UEdGraphPin* Pin) override;
+};</p> <p>Implementation:</p> <p>// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;GameInventorySystemEditor.h&quot;
+ 
+#include &quot;GISBlueprintFunctionLibrary.h&quot;
+#include &quot;GISItemData.h&quot;
+ 
+#include &quot;KismetCompiler.h&quot;
+#include &quot;BlueprintNodeSpawner.h&quot;
+#include &quot;EditorCategoryUtils.h&quot;
+#include &quot;K2ActionMenuBuilder.h&quot;
+ 
+#include &quot;BPNode_CreateItemData.h&quot;
+ 
+#define LOCTEXT_NAMESPACE &quot;GameInventorySystem&quot;
+ 
+//Helper which will store one of the function inputs we excpect BP callable function will have.
+struct FBPNode_CreateItemDataHelper
+{
+static FString OwningPlayerPinName;
+};
+ 
+FString FBPNode_CreateItemDataHelper::OwningPlayerPinName(TEXT(&quot;OwningPlayer&quot;));
+ 
+UBPNode_CreateItemData::UBPNode_CreateItemData(const FObjectInitializer&amp; ObjectInitializer)
+: Super(ObjectInitializer)
+{
+NodeTooltip = LOCTEXT(&quot;NodeTooltip&quot;, &quot;Creates a new Item Data&quot;);
+}
+ 
+//Adds default pins to node. These Pins (inputs ?) are always displayed.
+void UBPNode_CreateItemData::AllocateDefaultPins()
+{
+Super::AllocateDefaultPins();
+ 
+const UEdGraphSchema_K2* K2Schema = GetDefault&lt;UEdGraphSchema_K2&gt;();
+ 
+// OwningPlayer pin
+UEdGraphPin* OwningPlayerPin = CreatePin(EGPD_Input, K2Schema-&gt;PC_Object, TEXT(&quot;&quot;), APlayerController::StaticClass(), false, false, FBPNode_CreateItemDataHelper::OwningPlayerPinName);
+SetPinToolTip(*OwningPlayerPin, LOCTEXT(&quot;OwningPlayerPinDescription&quot;, &quot;The player that 'owns' the this item.&quot;));
+}
+ 
+FLinearColor UBPNode_CreateItemData::GetNodeTitleColor() const
+{
+return Super::GetNodeTitleColor();
+}
+ 
+FText UBPNode_CreateItemData::GetBaseNodeTitle() const
+{
+return LOCTEXT(&quot;CreateItemData_BaseTitle&quot;, &quot;Create Item Data&quot;);
+}
+ 
+FText UBPNode_CreateItemData::GetNodeTitleFormat() const
+{
+return LOCTEXT(&quot;CreateItemData&quot;, &quot;Create {ClassName} Item Data&quot;);
+}
+ 
+//which class can be used with this node to create objects. All childs of class can be used.
+UClass* UBPNode_CreateItemData::GetClassPinBaseClass() const
+{
+return UGISItemData::StaticClass();
+}
+ 
+//Set context menu category in which our node will be present.
+FText UBPNode_CreateItemData::GetMenuCategory() const
+{
+return FText::FromString(&quot;Game Inventory System&quot;);
+}
+ 
+void UBPNode_CreateItemData::GetMenuEntries(FGraphContextMenuBuilder&amp; ContextMenuBuilder) const
+{
+UBPNode_CreateItemData* TemplateNode = NewObject&lt;UBPNode_CreateItemData&gt;(GetTransientPackage(), GetClass());
+ 
+const FString Category = TEXT(&quot;UGame Inventory System&quot;);
+const FText   MenuDesc = LOCTEXT(&quot;CreateItemDataMenuOption&quot;, &quot;Create Item Data...&quot;);
+const FString Tooltip = TEXT(&quot;Create a new Item Data container&quot;);
+ 
+TSharedPtr&lt;FEdGraphSchemaAction_K2NewNode&gt; NodeAction = FK2ActionMenuBuilder::AddNewNodeAction(ContextMenuBuilder, Category, MenuDesc, Tooltip);
+NodeAction-&gt;NodeTemplate = TemplateNode;
+}
+ 
+//gets out predefined pin
+UEdGraphPin* UBPNode_CreateItemData::GetOwningPlayerPin() const
+{
+UEdGraphPin* Pin = FindPin(FBPNode_CreateItemDataHelper::OwningPlayerPinName);
+check(Pin == NULL || Pin-&gt;Direction == EGPD_Input);
+return Pin;
+}
+ 
+bool UBPNode_CreateItemData::IsSpawnVarPin(UEdGraphPin* Pin)
+{
+return(Super::IsSpawnVarPin(Pin) &amp;&amp;
+Pin-&gt;PinName != FBPNode_CreateItemDataHelper::OwningPlayerPinName);
+}
+ 
+//and this is where magic really happens. This will expand node for our custom object, with properties
+//which are set as EditAwnywhere and meta=(ExposeOnSpawn), or equivalent in blueprint.
+void UBPNode_CreateItemData::ExpandNode(class FKismetCompilerContext&amp; CompilerContext, UEdGraph* SourceGraph)
+{
+Super::ExpandNode(CompilerContext, SourceGraph);
+ 
+//look for static function in BlueprintFunctionLibrary
+//In this class and of this name
+static FName Create_FunctionName = GET_FUNCTION_NAME_CHECKED(UGISBlueprintFunctionLibrary, Create);
+//with these inputs (as a Side note, these should be probabaly FName not FString)
+static FString WorldContextObject_ParamName = FString(TEXT(&quot;WorldContextObject&quot;));
+static FString WidgetType_ParamName = FString(TEXT(&quot;ItemType&quot;));
+static FString OwningPlayer_ParamName = FString(TEXT(&quot;OwningPlayer&quot;));
+ 
+//get pointer to self;
+UBPNode_CreateItemData* CreateItemDataNode = this;
+ 
+//get pointers to default pins.
+//Exec pins are those big arrows, connected with thick white lines.
+UEdGraphPin* SpawnNodeExec = CreateItemDataNode-&gt;GetExecPin();
+//gets world context pin from our static function
+UEdGraphPin* SpawnWorldContextPin = CreateItemDataNode-&gt;GetWorldContextPin();
+//the same as above
+UEdGraphPin* SpawnOwningPlayerPin = CreateItemDataNode-&gt;GetOwningPlayerPin();
+//get class pin which is used to determine which class to spawn.
+UEdGraphPin* SpawnClassPin = CreateItemDataNode-&gt;GetClassPin();
+//then pin is the same as exec pin, just on the other side (the out arrow).
+UEdGraphPin* SpawnNodeThen = CreateItemDataNode-&gt;GetThenPin();
+//result pin, which will output our spawned object.
+UEdGraphPin* SpawnNodeResult = CreateItemDataNode-&gt;GetResultPin();
+ 
+UClass* SpawnClass = (SpawnClassPin != NULL) ? Cast&lt;UClass&gt;(SpawnClassPin-&gt;DefaultObject) : NULL;
+if ((0 == SpawnClassPin-&gt;LinkedTo.Num()) &amp;&amp; (NULL == SpawnClass))
+{
+CompilerContext.MessageLog.Error(*LOCTEXT(&quot;CreateItemDAtaNodeMissingClass_Error&quot;, &quot;Spawn node @@ must have a class specified.&quot;).ToString(), CreateItemDataNode);
+// we break exec links so this is the only error we get, don't want the CreateItemData node being considered and giving 'unexpected node' type warnings
+CreateItemDataNode-&gt;BreakAllNodeLinks();
+return;
+}
+ 
+//////////////////////////////////////////////////////////////////////////
+// create 'UWidgetBlueprintLibrary::Create' call node
+UK2Node_CallFunction* CallCreateNode = CompilerContext.SpawnIntermediateNode&lt;UK2Node_CallFunction&gt;(CreateItemDataNode, SourceGraph);
+CallCreateNode-&gt;FunctionReference.SetExternalMember(Create_FunctionName, UBPNode_CreateItemData::StaticClass());
+CallCreateNode-&gt;AllocateDefaultPins();
+ 
+//allocate nodes for created widget.
+UEdGraphPin* CallCreateExec = CallCreateNode-&gt;GetExecPin();
+UEdGraphPin* CallCreateWorldContextPin = CallCreateNode-&gt;FindPinChecked(WorldContextObject_ParamName);
+UEdGraphPin* CallCreateWidgetTypePin = CallCreateNode-&gt;FindPinChecked(WidgetType_ParamName);
+UEdGraphPin* CallCreateOwningPlayerPin = CallCreateNode-&gt;FindPinChecked(OwningPlayer_ParamName);
+UEdGraphPin* CallCreateResult = CallCreateNode-&gt;GetReturnValuePin();
+ 
+// Move 'exec' connection from create widget node to 'UWidgetBlueprintLibrary::Create'
+CompilerContext.MovePinLinksToIntermediate(*SpawnNodeExec, *CallCreateExec);
+ 
+if (SpawnClassPin-&gt;LinkedTo.Num() &gt; 0)
+{
+// Copy the 'blueprint' connection from the spawn node to 'UWidgetBlueprintLibrary::Create'
+CompilerContext.MovePinLinksToIntermediate(*SpawnClassPin, *CallCreateWidgetTypePin);
+}
+else
+{
+// Copy blueprint literal onto 'UWidgetBlueprintLibrary::Create' call
+CallCreateWidgetTypePin-&gt;DefaultObject = SpawnClass;
+}
+ 
+// Copy the world context connection from the spawn node to 'UWidgetBlueprintLibrary::Create' if necessary
+if (SpawnWorldContextPin)
+{
+CompilerContext.MovePinLinksToIntermediate(*SpawnWorldContextPin, *CallCreateWorldContextPin);
+}
+ 
+// Copy the 'Owning Player' connection from the spawn node to 'UWidgetBlueprintLibrary::Create'
+CompilerContext.MovePinLinksToIntermediate(*SpawnOwningPlayerPin, *CallCreateOwningPlayerPin);
+ 
+// Move result connection from spawn node to 'UWidgetBlueprintLibrary::Create'
+CallCreateResult-&gt;PinType = SpawnNodeResult-&gt;PinType; // Copy type so it uses the right actor subclass
+CompilerContext.MovePinLinksToIntermediate(*SpawnNodeResult, *CallCreateResult);
+ 
+//////////////////////////////////////////////////////////////////////////
+// create 'set var' nodes
+ 
+// Get 'result' pin from 'begin spawn', this is the actual actor we want to set properties on
+UEdGraphPin* LastThen = FKismetCompilerUtilities::GenerateAssignmentNodes(CompilerContext, SourceGraph, CallCreateNode, CreateItemDataNode, CallCreateResult, GetClassToSpawn());
+ 
+// Move 'then' connection from create widget node to the last 'then'
+CompilerContext.MovePinLinksToIntermediate(*SpawnNodeThen, *LastThen);
+ 
+// Break any links to the expanded node
+CreateItemDataNode-&gt;BreakAllNodeLinks();
+}
+ 
+#undef LOCTEXT_NAMESPACE</p> <p>Hopefully comments should explain what this code does. The short version is, it create node with dynamically allocated pins, which construct custom objects.</p> <p><a href="/index.php?title=User:Iniside&amp;action=edit&amp;redlink=1" title="User:Iniside (page does not exist)">iniside</a> (<a href="/index.php?title=User_talk:Iniside&amp;action=edit&amp;redlink=1" title="User talk:Iniside (page does not exist)">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Create_Custom_K2_Node_For_Blueprint&amp;oldid=10481" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Create_Custom_K2_Node_For_Blueprint&amp;oldid=10481<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/388.41f01d2b.js" defer></script>
+  </body>
+</html>

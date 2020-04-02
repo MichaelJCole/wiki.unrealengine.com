@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/524.01bd537c.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Game Instance, Custom Game Instance For Inter-Level Persistent Data Storage - Epic Wiki</p> <h1 id="game-instance-custom-game-instance-for-inter-level-persistent-data-storage"><a href="#game-instance-custom-game-instance-for-inter-level-persistent-data-storage" class="header-anchor">#</a> Game Instance, Custom Game Instance For Inter-Level Persistent Data Storage</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Solus_Example">2 Solus Example</a></li> <li><a href="#Example_For_You">3 Example For You</a></li> <li><a href="#.H">4 .H</a></li> <li><a href="#.CPP">5 .CPP</a></li> <li><a href="#PlayerController.cpp">6 PlayerController.cpp</a></li> <li><a href="#Config_Setting">7 Config Setting</a></li> <li><a href="#Other_Solus_C.2B.2B_Tutorials">8 Other Solus C++ Tutorials</a></li> <li><a href="#Conclusion">9 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>One of the new UE4 engine features as of 4.4 is the Game Instance class!</p> <p>This is a globally accessible instanced UObject that can store any data you want to be carried between levels!</p> <p>Where formally you would have had to write out data to a config file or to binary file, to transfer between levels, now you can use the Game Instance class!</p> <p>API documentation: <code>[UGameInstance](https://docs.unrealengine.com/latest/INT/API/Runtime/Engine/Engine/UGameInstance/index.html)</code></p> <h2 id="solus-example"><a href="#solus-example" class="header-anchor">#</a> Solus Example</h2> <p>As a realistic example, in Solus there is a Comms Tower that needs to be in the same state when loaded into different levels, as it is seen from a great distance.</p> <p>The player can perform actions that evolve the state of the Comms Tower, and those changes have to be reflected in each level that the player enters.</p> <p>Using the Game Instance class, I can record the state of the Comms Tower any time the player makes modifications to it, and carry that information over when the player transitions to a new level!</p> <p>Then, whenever the player saves the game, I can still save the Comms Tower normally, but a significant amount of management has been eased out of binary file manipulations thanks to the Game Instance class.</p> <h2 id="example-for-you"><a href="#example-for-you" class="header-anchor">#</a> Example For You</h2> <p>Here's an example we can do together!</p> <p>We'll make a custom Game Instance class, and increment an int32 in the tick function of our player controller class.</p> <p>Then you can watch as you change to several different maps in your own game (console -&gt; open mapname), and you will see we'll have a record of the total ticks that have occurred, even between the different levels!</p> <h2 id="h"><a href="#h" class="header-anchor">#</a> .H</h2> <p>Please note the essential include!</p> <p>Also note you could access the Game Instance var in blueprints, by using the BP node to Get Game Instance and casting to your custom Game Instance Class!</p> <p>/*
+By Rama
+*/
+ 
+#pragma once
+ 
+//Essential Include
+#include &quot;Engine/GameInstance.h&quot;
+ 
+#include &quot;SolusGameInstance.generated.h&quot;
+ 
+UCLASS()
+class USolusGameInstance : public UGameInstance
+{
+GENERATED_BODY()
+public:
+USolusGameInstance(const FObjectInitializer&amp; ObjectInitializer);
+ 
+/** Increment this value in any map, change map, and notice it persists! */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=SolusHUDCrosshair)
+int32 InterLevelPersistentValue;
+ 
+};</p> <h2 id="cpp"><a href="#cpp" class="header-anchor">#</a> .CPP</h2> <p>#include &quot;Solus.h&quot;
+#include &quot;SolusGameInstance.h&quot;
+ 
+USolusGameInstance::USolusGameInstance(const FObjectInitializer&amp; ObjectInitializer)
+: Super(ObjectInitializer)
+{
+ 
+}</p> <h2 id="playercontroller-cpp"><a href="#playercontroller-cpp" class="header-anchor">#</a> PlayerController.cpp</h2> <p>As you can see below, every Actor.h class has a function called GetGameInstance() similar to GetWorld() as of 4.4 !</p> <p>So this means you have global access to persistent values in your custom game instance class, in your entire code base!</p> <p>void ASolusPC::PlayerTick(float DeltaTime)
+{
+Super::PlayerTick(DeltaTime);
+ 
+USolusGameInstance* SGI = Cast&lt;USolusGameInstance&gt;(GetGameInstance());
+if(SGI)
+{
+SGI-&gt;InterLevelPersistentValue++;
+ClientMessage(FString::FromInt(SGI-&gt;InterLevelPersistentValue));
+}
+ 
+}</p> <h2 id="config-setting"><a href="#config-setting" class="header-anchor">#</a> Config Setting</h2> <p>Make sure to set your DefaultEngine.ini to use your custom game instance!</p> <p>[/Script/EngineSettings.GameMapsSettings]
+GameInstanceClass=/Script/Solus.SolusGameInstance</p> <h2 id="other-solus-c-tutorials"><a href="#other-solus-c-tutorials" class="header-anchor">#</a> Other Solus C++ Tutorials</h2> <p>I have many Solus C++ tutorials here!</p> <p><a href="/Solus_C%2B%2B_Tutorials" title="Solus C++ Tutorials">Solus_C++_Tutorials</a></p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>Have fun today!</p> <p>Rama</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Game_Instance,_Custom_Game_Instance_For_Inter-Level_Persistent_Data_Storage&amp;oldid=13797" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Game_Instance,_Custom_Game_Instance_For_Inter-Level_Persistent_Data_Storage&amp;oldid=13797<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/524.01bd537c.js" defer></script>
+  </body>
+</html>

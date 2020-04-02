@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/293.7773bfcd.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>C++ Mutator Tutorial - Epic Wiki</p> <h1 id="c-mutator-tutorial"><a href="#c-mutator-tutorial" class="header-anchor">#</a> C++ Mutator Tutorial</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#C.2B.2B_Mutator_Tutorial">1 C++ Mutator Tutorial</a> <ul><li><a href="#Requirements">1.1 Requirements</a></li> <li><a href="#Directory_Structure">1.2 Directory Structure</a></li> <li><a href="#UPlugin_File">1.3 UPlugin File</a></li> <li><a href="#Build.cs_File">1.4 Build.cs File</a></li> <li><a href="#Header_File">1.5 Header File</a></li> <li><a href="#Plugin_Module_Interface">1.6 Plugin Module Interface</a></li> <li><a href="#The_Mutator">1.7 The Mutator</a></li> <li><a href="#Building_your_Mutator">1.8 Building your Mutator</a></li> <li><a href="#Testing_your_Mutator">1.9 Testing your Mutator</a></li></ul></li></ul> <h1 id="c-mutator-tutorial-2"><a href="#c-mutator-tutorial-2" class="header-anchor">#</a> C++ Mutator Tutorial</h1> <p>This tutorial will teach you how to make a simple mutator for UT using C++. We'll be making a UE4 plugin that defines a child class of AUTMutator.</p> <h2 id="requirements"><a href="#requirements" class="header-anchor">#</a> Requirements</h2> <ul><li>Engine version: 4.3</li> <li>Skill level: intermediate C++ knowledge</li></ul> <h2 id="directory-structure"><a href="#directory-structure" class="header-anchor">#</a> Directory Structure</h2> <ul><li>If UnrealTournament\Plugins does not already exist, create it</li> <li>Create a directory inside of UnrealTournament\Plugins to hold our mutator, in this case it would be &quot;SampleMutator&quot;</li> <li>Create a &quot;Source&quot; directory inside of the SampleMutator directory</li> <li>Create a &quot;SampleMutator&quot; directory inside of the &quot;Source&quot; directory</li> <li>Finally create a &quot;Public&quot; directory and a &quot;Private&quot; directory inside of the last &quot;SampleMutator&quot; directory that we made</li></ul> <h2 id="uplugin-file"><a href="#uplugin-file" class="header-anchor">#</a> UPlugin File</h2> <ul><li>We need to create SampleMutator.uplugin to let UE4 know we have a plugin it should load.</li> <li>On Windows, one way to do this is to create a new text file and rename the file extension to .uplugin. Copying an existing .uplugin file and editing it may not work!</li> <li>It should live at the same level that the Source directory does</li></ul> <p><strong>SampleMutator.uplugin</strong> - Plugin defintion</p> <p>{
+&quot;FileVersion&quot; : 3,
+ 
+&quot;FriendlyName&quot; : &quot;Sample Mutator&quot;,
+&quot;Version&quot; : 1,
+&quot;VersionName&quot; : &quot;1.0&quot;,
+&quot;CreatedBy&quot; : &quot;Epic Games, Inc.&quot;,
+&quot;CreatedByURL&quot; : &quot;http://epicgames.com&quot;,
+&quot;EngineVersion&quot; : &quot;4.3.0&quot;,
+&quot;Description&quot; : &quot;Sample Mutator&quot;,
+&quot;Category&quot; : &quot;UnrealTournament.Mutator&quot;,
+&quot;EnabledByDefault&quot; : false,
+ 
+&quot;Modules&quot; :
+[
+{
+&quot;Name&quot; : &quot;SampleMutator&quot;,
+&quot;Type&quot; : &quot;Runtime&quot;,
+&quot;WhitelistPlatforms&quot; : [ &quot;Win32&quot;, &quot;Win64&quot; ]
+}
+]
+}</p> <h2 id="build-cs-file"><a href="#build-cs-file" class="header-anchor">#</a> Build.cs File</h2> <ul><li>We need to create SampleMutator.Build.cs so that Unreal Build tool knows how to generate our dll file</li> <li>It should live at the same level that the Public and Private directories do</li> <li>We'll use the PrivateIncludesPaths array to make #include cleaner throughout our source files</li></ul> <p><strong>SampleMutator.Build.cs</strong> - Unreal Build Tool definitions</p> <p>namespace UnrealBuildTool.Rules
+{
+public class SampleMutator : ModuleRules
+{
+public SampleMutator(TargetInfo Target)
+{
+PrivateIncludePaths.Add(&quot;SampleMutator/Private&quot;);
+ 
+PublicDependencyModuleNames.AddRange(
+new string[]
+{
+&quot;Core&quot;,
+&quot;CoreUObject&quot;,
+&quot;Engine&quot;,
+&quot;UnrealTournament&quot;,
+}
+);
+}
+}
+}</p> <h2 id="header-file"><a href="#header-file" class="header-anchor">#</a> Header File</h2> <ul><li>Unreal Build Tool requires that we have a shared header file as the first include in every cpp source file in the plugin.</li> <li>We'll put the SampleMutator.h header file inside of the Private directory</li> <li>We need to #include Core.h, Engine.h and UTMutator.h to have enough defintions to make a child class from AUTMutator
+<ol><li>include &quot;SampleMutator.generated.h&quot; is required by Unreal Header Tool</li></ol></li> <li>We're only overriding CheckRelevance_Implemenation in this example, but more powerful mutators will overload more of the functions exposed by AUTMutator</li></ul> <p><strong>SampleMutator.h</strong> - Sample Mutator class definition</p> <p>#pragma once
+ 
+#include &quot;Core.h&quot;
+#include &quot;Engine.h&quot;
+#include &quot;UTMutator.h&quot;
+#include &quot;UTWeapon.h&quot;
+ 
+#include &quot;SampleMutator.generated.h&quot;
+ 
+UCLASS(Blueprintable, Meta = (ChildCanTick))
+class ASampleMutator : public AUTMutator
+{
+GENERATED_UCLASS_BODY()
+ 
+bool CheckRelevance_Implementation(AActor* Other) OVERRIDE;
+ 
+ 
+UPROPERTY()
+TSubclassOf&lt;AUTWeapon&gt; RocketLauncherClass;
+};</p> <h2 id="plugin-module-interface"><a href="#plugin-module-interface" class="header-anchor">#</a> Plugin Module Interface</h2> <ul><li>Create SampleMutatorPlugin.cpp inside of the Public directory</li> <li>There's not much interesting in this file, it just provides UE4 a way to load this mutator as a plugin so I'm going to gloss over this file</li> <li>Note that SampleMutator.h must be the first #include and the IMPLEMENT_MODULE macro does all the heavy lifting</li></ul> <p><strong>SampleMutatorPlugin.cpp</strong> - Plugin Module Interface</p> <p>#include &quot;SampleMutator.h&quot;
+ 
+#include &quot;Core.h&quot;
+#include &quot;Engine.h&quot;
+#include &quot;ModuleManager.h&quot;
+#include &quot;ModuleInterface.h&quot;
+ 
+class FSampleMutatorPlugin : public IModuleInterface
+{
+/** IModuleInterface implementation */
+virtual void StartupModule() override;
+virtual void ShutdownModule() override;
+};
+ 
+IMPLEMENT_MODULE( FSampleMutatorPlugin, SampleMutator )
+ 
+void FSampleMutatorPlugin::StartupModule()
+{
+ 
+}
+ 
+ 
+void FSampleMutatorPlugin::ShutdownModule()
+{
+ 
+}</p> <h2 id="the-mutator"><a href="#the-mutator" class="header-anchor">#</a> The Mutator</h2> <ul><li>This sample is going to replace all weapon pickups with Rocket Launcher pickups
+<ul><li>We'll accomplish that by overriding the CheckRelevance_Implementation function and watching for AUTPickupWeapon</li> <li>When we find a AUTPickupWeapon, we'll replace its WeaponType reference with a reference to BP_RocketLauncher_C</li></ul></li> <li>Our mutator is going to live in SampleMutator.cpp inside the Public directory</li> <li>Note that once again SampleMutator.h has to be the first #include</li> <li>Our constructor is blank, but feel free to put initialization code in there in a future plugin</li> <li>StaticLoadClass is used to get the reference to Blueprint'/Game/RestrictedAssets/Weapons/RocketLauncher/BP_RocketLauncher.BP_RocketLauncher_C'
+<ul><li>The use of a hardcoded reference here is very brittle and not considered good design, a mutator that requires direct blueprint references might be more easily implemented in blueprints</li></ul></li> <li>Calling Super::CheckRelevance_Implementation(Other) is highly recommended as failing to do so won't call other mutators in the mutator list</li></ul> <p><strong>SampleMutator.cpp</strong> - Replace all weapon pickups with rocket launcher pickups</p> <p>#include &quot;SampleMutator.h&quot;
+ 
+#include &quot;UTPickupWeapon.h&quot;
+ 
+ASampleMutator::ASampleMutator(const FPostConstructInitializeProperties&amp; PCIP)
+: Super(PCIP)
+{
+}
+ 
+bool ASampleMutator::CheckRelevance_Implementation(AActor* Other)
+{
+// Find the rocket launcher blueprint
+if (RocketLauncherClass == nullptr)
+{
+RocketLauncherClass = StaticLoadClass(AUTWeapon::StaticClass(), nullptr, TEXT(&quot;Blueprint'/Game/RestrictedAssets/Weapons/RocketLauncher/BP_RocketLauncher.BP_RocketLauncher_C'&quot;));
+}
+ 
+// If a weapon pickup has a current weapon type, replace it with the rocket launcher
+AUTPickupWeapon *PickupWeapon = Cast&lt;AUTPickupWeapon&gt;(Other);
+if (PickupWeapon)
+{
+if (PickupWeapon-&gt;WeaponType != nullptr)
+{
+PickupWeapon-&gt;WeaponType = RocketLauncherClass;
+}
+}
+ 
+return Super::CheckRelevance_Implementation(Other);
+}</p> <h2 id="building-your-mutator"><a href="#building-your-mutator" class="header-anchor">#</a> Building your Mutator</h2> <ul><li>Right click your UnrealTournament.uproject in Window Explorer and select &quot;Generate Visual Studio project files&quot;</li> <li>Open up the Unreal Tournament solution file in Visual Studio</li> <li>Build the Unreal Tournament project in Development Editor configuration</li> <li>You will notice that in addition to UE4Editor-UnrealTournament.dll, UnrealTournament\Plugins\SampleMutator\Binaries\Win64\UE4Editor-SampleMutator.dll was generated</li></ul> <h2 id="testing-your-mutator"><a href="#testing-your-mutator" class="header-anchor">#</a> Testing your Mutator</h2> <ul><li>Run from a commandline &quot;UE4Editor.exe UnrealTournament -game Example_Map?mutator=SampleMutator.SampleMutator&quot;</li> <li>You should notice that the weapon pickups in the map have been replaced by Rocket Launchers</li></ul> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=C%2B%2B_Mutator_Tutorial&amp;oldid=15713" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=C%2B%2B_Mutator_Tutorial&amp;oldid=15713<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Unreal_Tournament" title="Category:Unreal Tournament">Unreal Tournament</a></li> <li><a href="/Category:UT_Content_Creation" title="Category:UT Content Creation">UT Content Creation</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/293.7773bfcd.js" defer></script>
+  </body>
+</html>

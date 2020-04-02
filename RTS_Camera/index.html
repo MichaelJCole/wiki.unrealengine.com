@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/941.b71d03f4.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>RTS Camera - Epic Wiki</p> <h1 id="rts-camera"><a href="#rts-camera" class="header-anchor">#</a> RTS Camera</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#RTS_Camera_Code">1 RTS Camera Code</a></li> <li><a href="#Details">2 Details</a></li> <li><a href="#FESpectatorPawn.h">3 FESpectatorPawn.h</a></li> <li><a href="#FESpectatorPawn.cpp">4 FESpectatorPawn.cpp</a></li></ul> <h2 id="rts-camera-code"><a href="#rts-camera-code" class="header-anchor">#</a> RTS Camera Code</h2> <p><a href="/File:RTSCamera.png"><img src="https://d26ilriwvtzlb.cloudfront.net/e/ea/RTSCamera.png" alt="RTSCamera.png"></a></p> <h1 id="details"><a href="#details" class="header-anchor">#</a> Details</h1> <p>I will add more details to this page when I have time, just thought I would share my code for an RTS Camera for those of you who need a place to start! Let me know if you have any questions or suggestions to improve my code! The cursor is not locked into the viewport, I am still looking for a way to do this.</p> <p>Also, for zooming with the mouse wheel, add the inputs for mouse wheel up and down with the names:</p> <p>WheelMouseUp</p> <p>WheelMouseDown</p> <p>Hope this helps!</p> <p>Connor Brewster</p> <h1 id="fespectatorpawn-h"><a href="#fespectatorpawn-h" class="header-anchor">#</a> FESpectatorPawn.h</h1> <p>#pragma once
+ 
+#include &quot;GameFramework/SpectatorPawn.h&quot;
+#include &quot;FESpectatorPawn.generated.h&quot;
+ 
+/** AFESpectatorPawn
+* This Pawn Will Move Like An RTS Camera
+*/
+UCLASS()
+class FE_API AFESpectatorPawn : public ASpectatorPawn
+{
+GENERATED_UCLASS_BODY()
+ 
+public:
+/** Camera Component */
+UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
+TSubobjectPtr&lt;class UCameraComponent&gt; CameraComponent;
+ 
+/** Camera Z Angle */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera)
+float CameraZAnlge;
+ 
+/** Camera Radius From Pawn Position */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera)
+float CameraRadius;
+ 
+/** Camera Height Angle */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera)
+float CameraHeightAngle;
+ 
+/** Camera Zoom Speed */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera)
+float CameraZoomSpeed;
+ 
+/** Camera Radius Max */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera)
+float CameraRadiusMax;
+ 
+/** Camera Radius Min */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera)
+float CameraRadiusMin;
+ 
+/** Camera Movement Speed */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera)
+float CameraMovementSpeed;
+ 
+/** Camera Scroll Boundary */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera)
+float CameraScrollBoundary;
+ 
+/** Should the camera move? */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera)
+bool bCanMoveCamera;
+ 
+private:
+/** Sets up player inputs
+*    @param InputComponent - Input Component
+*/
+void SetupPlayerInputComponent(class UInputComponent* InputComponent);
+ 
+public:
+/** Zooms In The Camera */
+UFUNCTION()
+void ZoomIn();
+ 
+/** Zooms Out The Camera */
+UFUNCTION()
+void ZoomOut();
+ 
+/** Gets the roatation of the camera with only the yaw value
+* @return - returns a rotator that is (0, yaw, 0) of the Camera
+*/
+UFUNCTION()
+FRotator GetIsolatedCameraYaw();
+ 
+/** Moves the camera forward
+* @param direcation - (1.0 for forward, -1.0 for backward)
+*/
+UFUNCTION()
+void MoveCameraForward(float direction);
+ 
+/** Moves the camera forward
+* @param direcation - (1.0 for right, -1.0 for left)
+*/
+UFUNCTION()
+void MoveCameraRight(float direction);
+ 
+/** Repositions The Camera */
+UFUNCTION()
+void RepositionCamera();
+ 
+/** Tick Function, Called Every Frame */
+UFUNCTION()
+virtual void Tick(float deltaSeconds) override;
+};</p> <h1 id="fespectatorpawn-cpp"><a href="#fespectatorpawn-cpp" class="header-anchor">#</a> FESpectatorPawn.cpp</h1> <p>#include &quot;FE.h&quot;
+#include &quot;FESpectatorPawn.h&quot;
+ 
+ 
+AFESpectatorPawn::AFESpectatorPawn(const class FPostConstructInitializeProperties&amp; PCIP)
+: Super(PCIP)
+{
+//Disable Standard WASD Movement
+bAddDefaultMovementBindings = false;
+ 
+//Set Default Camera Values
+CameraRadius = 1000.0f;
+CameraZAnlge = 0.0f;
+CameraHeightAngle = 70.0f;
+CameraZoomSpeed = 32.0f;
+CameraRadiusMin = 750.0f;
+CameraRadiusMax = 2000.0f;
+CameraMovementSpeed = 2000.0f;
+CameraScrollBoundary = 25.0f;
+//TODO: While selecting units, the camera CANNOT move!
+bCanMoveCamera = true;
+ 
+//Intialize The Camera
+CameraComponent = PCIP.CreateDefaultSubobject&lt;UCameraComponent&gt;(this, TEXT(&quot;RTS Camera&quot;));
+CameraComponent-&gt;AttachParent = this-&gt;GetRootComponent();
+CameraComponent-&gt;bUsePawnControlRotation = false;
+RepositionCamera();
+ 
+//Enable Tick function
+PrimaryActorTick.bCanEverTick = true;
+}
+ 
+void AFESpectatorPawn::SetupPlayerInputComponent(class UInputComponent* InputComponent)
+{
+check(InputComponent);
+ 
+//Bind Mouse Wheel Zooming Actions
+InputComponent-&gt;BindAction(&quot;WheelMouseUp&quot;, IE_Pressed, this, &amp;AFESpectatorPawn::ZoomIn);
+InputComponent-&gt;BindAction(&quot;WheelMouseDown&quot;, IE_Pressed, this, &amp;AFESpectatorPawn::ZoomOut);
+ 
+//Bind WASD Movement
+//FOR TESTING PURPOSES ONLY!!!
+//InputComponent-&gt;BindAxis(&quot;MoveForward&quot;, this, &amp;AFESpectatorPawn::MoveCameraForward);
+//InputComponent-&gt;BindAxis(&quot;MoveRight&quot;, this, &amp;AFESpectatorPawn::MoveCameraRight);
+}
+ 
+void AFESpectatorPawn::ZoomIn()
+{
+//Don't execute any further if the camera can't move
+if (!bCanMoveCamera)
+return;
+ 
+//Decrease the CameraRadius but clamp it between the min and max radii
+CameraRadius = FMath::Clamp(CameraRadius - CameraZoomSpeed, CameraRadiusMin, CameraRadiusMax);
+ 
+//Reposition the camera in the local space
+RepositionCamera();
+}
+ 
+void AFESpectatorPawn::ZoomOut()
+{
+//Don't execute any further if the camera can't move
+if (!bCanMoveCamera)
+return;
+ 
+//Increase the CameraRadius but clamp it between the min and max radii
+CameraRadius = FMath::Clamp(CameraRadius + CameraZoomSpeed, CameraRadiusMin, CameraRadiusMax);
+ 
+//Reposition the camera in the local space
+RepositionCamera();
+}
+ 
+FRotator AFESpectatorPawn::GetIsolatedCameraYaw()
+{
+//Return a FRotator containing (0, CameraYaw, 0)
+return FRotator(0.0f, CameraComponent-&gt;ComponentToWorld.Rotator().Yaw, 0.0f);
+}
+ 
+void AFESpectatorPawn::MoveCameraForward(float direction)
+{
+//Don't execute any further if the camera can't move
+if (!bCanMoveCamera)
+return;
+ 
+//Calculate how much to move the camera by
+float movementValue = direction * CameraMovementSpeed;
+ 
+//Create a delta vector that moves by the movementValue in the direction of the camera's yaw
+FVector deltaMovement = movementValue * GetIsolatedCameraYaw().Vector();
+ 
+//Add the delta to a new vector
+FVector newLocation = this-&gt;GetActorLocation() + deltaMovement;
+ 
+//Set the new location of the pawn
+SetActorLocation(newLocation);
+}
+ 
+void AFESpectatorPawn::MoveCameraRight(float direction)
+{
+//Don't execute any further if the camera can't move
+if (!bCanMoveCamera)
+return;
+ 
+//Calculate how much to move the camera by
+float movementValue = direction * CameraMovementSpeed;
+ 
+//Create a delta vector that moves by the movementValue in the direction of the right of the camera's yaw
+FVector deltaMovement = movementValue * (FRotator(0.0f,90.0f,0.0f) + GetIsolatedCameraYaw()).Vector();
+ 
+//Add the delta to a new vector
+FVector newLocation = this-&gt;GetActorLocation() + deltaMovement;
+ 
+//Set the new location of the pawn
+SetActorLocation(newLocation);
+}
+ 
+void AFESpectatorPawn::RepositionCamera()
+{
+//Create variables to hold the new values
+FVector newLocation(0.0f, 0.0f, 0.0f);
+FRotator newRotation(0.0f, 0.0f, 0.0f);
+ 
+//Find Cos and Sin of the Camera Z Angle
+float sinCameraZAngle = FMath::Sin(FMath::DegreesToRadians(CameraZAnlge));
+float cosCameraZAngle = FMath::Cos(FMath::DegreesToRadians(CameraZAnlge));
+ 
+//Find the Cos and Sin of the Camera Height Angle
+float sinCameraHeightAngle = FMath::Sin(FMath::DegreesToRadians(CameraHeightAngle));
+float cosCameraHeightAngle = FMath::Cos(FMath::DegreesToRadians(CameraHeightAngle));
+ 
+//Set newLocation X to cosCameraZAngle * sinCameraHeightAngle * CameraRadius
+newLocation.X = cosCameraZAngle * cosCameraHeightAngle * CameraRadius;
+ 
+//Set newLocation Y to sinCameraZangle * sinCameraHeightAngle * CameraRadius
+newLocation.Y = sinCameraZAngle * cosCameraHeightAngle * CameraRadius;
+ 
+//Set newLocation Z to cosCameraHeightAngle * CameraRadius
+newLocation.Z = sinCameraHeightAngle * CameraRadius;
+ 
+//Set the new rotations
+newRotation = (FVector(0.0f,0.0f,0.0f) - newLocation).Rotation();
+ 
+ 
+//Set the camera's location and rotation to the new values
+CameraComponent-&gt;SetRelativeLocation(newLocation);
+CameraComponent-&gt;SetRelativeRotation(newRotation);
+}
+ 
+void AFESpectatorPawn::Tick(float deltaSeconds)
+{
+Super::Tick(deltaSeconds);
+ 
+//Create variables to hold mouse position and screen size
+FVector2D mousePosition;
+FVector2D viewportSize;
+ 
+//Get mouse position and screen size
+UGameViewportClient* gameViewport = GEngine-&gt;GameViewport;
+ 
+//Make sure viewport exists
+check(gameViewport);
+gameViewport-&gt;GetViewportSize(viewportSize);
+ 
+//Make sure the viewport has focus(contains the mouse)
+if (gameViewport-&gt;IsFocused(gameViewport-&gt;Viewport) &amp;&amp; gameViewport-&gt;GetMousePosition(mousePosition) &amp;&amp; bCanMoveCamera)
+{
+//Check if the mouse is at the left or right edge of the screen and move accordingly
+if (mousePosition.X &lt; CameraScrollBoundary)
+{
+MoveCameraRight(-1.0f * deltaSeconds);
+}
+else if (viewportSize.X - mousePosition.X &lt; CameraScrollBoundary)
+{
+MoveCameraRight(1.0f * deltaSeconds);
+}
+ 
+//Check if the mouse is at the top or bottom edge of the screen and move accordingly
+if (mousePosition.Y &lt; CameraScrollBoundary)
+{
+MoveCameraForward(1.0f * deltaSeconds);
+}
+else if (viewportSize.Y - mousePosition.Y &lt; CameraScrollBoundary)
+{
+MoveCameraForward(-1.0f * deltaSeconds);
+}
+}
+}</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=RTS_Camera&amp;oldid=9763" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=RTS_Camera&amp;oldid=9763<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/941.b71d03f4.js" defer></script>
+  </body>
+</html>

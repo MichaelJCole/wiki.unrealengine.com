@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/535.1d33260d.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Get Available Screen Resolutions in Blueprints - Epic Wiki</p> <h1 id="get-available-screen-resolutions-in-blueprints"><a href="#get-available-screen-resolutions-in-blueprints" class="header-anchor">#</a> Get Available Screen Resolutions in Blueprints</h1> <p><strong>Rate this Page:</strong></p> <p>5.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""> (one vote)</p> <p>Approved for Versions:4.6</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Code">2 Code</a> <ul><li><a href="#Header_File">2.1 Header File</a></li> <li><a href="#Cpp_File">2.2 Cpp File</a></li></ul></li></ul> <h1 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h1> <p>The following Blueprint Node is based on the function provided by Rama, see <a href="https://wiki.unrealengine.com/index.php?title=Solus_C%2B%2B_Tutorials&amp;oldid=9371#Solus_Options_Menu:_Screen_Resolutions" target="_blank" rel="noopener noreferrer">Solus Options Menu: Screen Resolutions<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>. The provided function has the limitation that you cannot use it in your own Blueprint Library. The reason is because the <a href="https://docs.unrealengine.com/latest/INT/API/Runtime/RHI/FScreenResolutionRHI/index.html" target="_blank" rel="noopener noreferrer">FScreenResolutionRHI<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> Type is not a BlueprintType. As I required such a function for my options UMG widget I wrote it, tested it and decided to share it.</p> <h1 id="code"><a href="#code" class="header-anchor">#</a> Code</h1> <p>The following code is meant to be included in your own Blueprint Library. If you do not know how to make a Blueprint Library I recommend you read <a href="/Blueprint_Function_Library,_Create_Your_Own_to_Share_With_Others" title="Blueprint Function Library, Create Your Own to Share With Others">Rama's Guide</a></p> <h2 id="header-file"><a href="#header-file" class="header-anchor">#</a> Header File</h2> <p>First you declare the new FScreenResolutionRHI type. As mentioned in the comments it is not an exact duplicate of FScreenResolutionRHI. The reason is that when I used uint32 I was not able to use break or make nodes. My guess is that the Blueprint's Integer Type is defined as int32 in c++ and thus is not compatible with uint32. If someone can confirm this feel free to do.</p> <p>/**
+* Screen Resolution
+* @remark Engine type is not meant for blueprints so we replicate the type.
+* @remark The Engine type uses uint32 but we need to use int32. Otherwise it won't be possible to break/make this type.
+*/
+USTRUCT(BlueprintType)
+struct FScreenResolutionRHIBP
+{
+GENERATED_USTRUCT_BODY()
+ 
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ScreenResolution)
+int32 Width;
+ 
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ScreenResolution)
+int32 Height;
+ 
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ScreenResolution)
+int32 RefreshRate;
+ 
+FScreenResolutionRHIBP()
+{
+Width = Height = RefreshRate = 0;
+}
+};
+ 
+/**
+* Retrieve a sorted list of all screen resolutions supported by the player's display adapter.
+*
+* @returns the array of all supported screen resolutions.
+*/
+UFUNCTION(BlueprintPure, Category = Utility)
+static TArray&lt;struct FScreenResolutionRHIBP&gt; GetDisplayAdapterScreenResolutions();</p> <h2 id="cpp-file"><a href="#cpp-file" class="header-anchor">#</a> Cpp File</h2> <p>#include &quot;RHI.h&quot;
+ 
+...
+ 
+TArray&lt;FScreenResolutionRHIBP&gt; YourBlueprintLibrary::GetDisplayAdapterScreenResolutions()
+{
+TArray&lt;FScreenResolutionRHIBP&gt; ResolutionsToReturn;
+FScreenResolutionArray Resolutions;
+if (RHIGetAvailableResolutions(Resolutions, false))
+{
+// Preallocate just enough memory to store all elements
+ResolutionsToReturn.Reserve(Resolutions.Num());
+ 
+for (const FScreenResolutionRHI&amp; EachResolution : Resolutions)
+{
+FScreenResolutionRHIBP resolution;
+resolution.Width = EachResolution.Width;
+resolution.Height = EachResolution.Height;
+resolution.RefreshRate = EachResolution.RefreshRate;
+ 
+ResolutionsToReturn.Add(resolution);
+}
+}
+ 
+return ResolutionsToReturn;
+}</p> <p>Enjoy!</p> <p>--<a href="/index.php?title=User:Jtpgames&amp;action=edit&amp;redlink=1" title="User:Jtpgames (page does not exist)">Jtpgames</a> (<a href="/index.php?title=User_talk:Jtpgames&amp;action=edit&amp;redlink=1" title="User talk:Jtpgames (page does not exist)">talk</a>) 13:27, 18 January 2015 (UTC)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Get_Available_Screen_Resolutions_in_Blueprints&amp;oldid=11080" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Get_Available_Screen_Resolutions_in_Blueprints&amp;oldid=11080<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Blueprint" title="Category:Blueprint">Blueprint</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/535.1d33260d.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/821.dbc1a110.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Log Macro with Netmode and Colour - Epic Wiki</p> <h1 id="log-macro-with-netmode-and-colour"><a href="#log-macro-with-netmode-and-colour" class="header-anchor">#</a> Log Macro with Netmode and Colour</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#YourProject.h">2 YourProject.h</a></li> <li><a href="#YourProject.cpp">3 YourProject.cpp</a></li> <li><a href="#Examples">4 Examples</a> <ul><li><a href="#Function_logging">4.1 Function logging</a></li> <li><a href="#Variable_logging">4.2 Variable logging</a></li></ul></li> <li><a href="#Credits">5 Credits</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>Macro that adds the current netmode and colour to logging, as well as making it easier to use.<br>
+Not recommended as a replacement for UE_LOG, but as a quick'n dirty tool for rapid iteration.</p> <h2 id="yourproject-h"><a href="#yourproject-h" class="header-anchor">#</a> YourProject.h</h2> <p>#define NETMODE_WORLD (((GEngine == nullptr) || (GetWorld() == nullptr)) ? TEXT(&quot;&quot;) \
+ : (GEngine-&gt;GetNetMode(GetWorld()) == NM_Client) ? TEXT(&quot;[Client] &quot;) \
+ : (GEngine-&gt;GetNetMode(GetWorld()) == NM_ListenServer) ? TEXT(&quot;[ListenServer] &quot;) \
+ : (GEngine-&gt;GetNetMode(GetWorld()) == NM_DedicatedServer) ? TEXT(&quot;[DedicatedServer] &quot;) \
+ : TEXT(&quot;[Standalone] &quot;))
+ 
+#if _MSC_VER
+#define FUNC_NAME    TEXT(__FUNCTION__)
+#else // FIXME - GCC?
+#define FUNC_NAME    TEXT(__func__)
+#endif
+ 
+#define TRACE(Format, ...) \
+{ \
+SET_WARN_COLOR(COLOR_CYAN);\
+const FString Msg = FString::Printf(TEXT(Format), ##__VA_ARGS__); \
+if (Msg == &quot;&quot;) \
+{ \
+UE_LOG(LogYourCategory, Log, TEXT(&quot;%s%s() : %s&quot;), NETMODE_WORLD, FUNC_NAME, *GetNameSafe(this));\
+} \
+else \
+{ \
+UE_LOG(LogYourCategory, Log, TEXT(&quot;%s%s() : %s&quot;), NETMODE_WORLD, FUNC_NAME, *Msg);\
+} \
+CLEAR_WARN_COLOR();\
+}
+ 
+#define TRACESTATIC(Format, ...) \
+{ \
+SET_WARN_COLOR(COLOR_CYAN);\
+const FString Msg = FString::Printf(TEXT(Format), ##__VA_ARGS__); \
+UE_LOG(LogYourCategory, Log, TEXT(&quot;%s() : %s&quot;), FUNC_NAME, *Msg);\
+CLEAR_WARN_COLOR();\
+}
+ 
+#define TRACEWARN(Format, ...) \
+{ \
+SET_WARN_COLOR( COLOR_YELLOW );\
+const FString Msg = FString::Printf(TEXT(Format), ##__VA_ARGS__); \
+UE_LOG(LogYourCategory, Log, TEXT(&quot;**WARNING** %s%s() : %s&quot;), NETMODE_WORLD, FUNC_NAME, *Msg);\
+CLEAR_WARN_COLOR();\
+}
+ 
+#define TRACEERROR(Format, ...) \
+{ \
+SET_WARN_COLOR( COLOR_RED );\
+const FString Msg = FString::Printf(TEXT(Format), ##__VA_ARGS__); \
+UE_LOG(LogYourCategory, Log, TEXT(&quot;**ERROR** %s%s() : %s&quot;), NETMODE_WORLD, FUNC_NAME, *Msg);\
+CLEAR_WARN_COLOR();\
+}
+ 
+#define SCREENDEBUG(Format, ...) \
+{ \
+const FString Msg = FString::Printf(TEXT(Format), ##__VA_ARGS__); \
+if (Msg == &quot;&quot;) \
+{ \
+TCHAR StdMsg[MAX_SPRINTF] = TEXT(&quot;&quot;); \
+FCString::Sprintf(StdMsg, TEXT(&quot;%s%s() : %s&quot;), NETMODE_WORLD, FUNC_NAME, *GetNameSafe(this)); \
+GEngine-&gt;AddOnScreenDebugMessage(-1, 10.0f, FColor::White, StdMsg); \
+} \
+else \
+{ \
+GEngine-&gt;AddOnScreenDebugMessage(-1, 10.0f, FColor::White, Msg); \
+} \
+}</p> <h2 id="yourproject-cpp"><a href="#yourproject-cpp" class="header-anchor">#</a> YourProject.cpp</h2> <div class="language- extra-class"><pre><code>DEFINE\_LOG\_CATEGORY( LogYourCategory );
+</code></pre></div><h2 id="examples"><a href="#examples" class="header-anchor">#</a> Examples</h2> <h3 id="function-logging"><a href="#function-logging" class="header-anchor">#</a> Function logging</h3> <p>Usage:</p> <p>void USomeClass::WithSomeFunction()
+{
+TRACE(&quot;&quot;);
+}</p> <p>Output:<br>
+LogYourCategory: [Standalone] USomeClass::WithSomeFunction() :</p> <h3 id="variable-logging"><a href="#variable-logging" class="header-anchor">#</a> Variable logging</h3> <p>Usage:</p> <p>void USomeClass::WithSomeFunction()
+{
+TRACE(&quot;Name: %s, Health %d, DistanceToEnemy: %f&quot;, *PlayerName.ToString(), Health, GetDistance(EnemyLoc));
+}</p> <p>Output:<br>
+LogYourCategory: [Client] USomeClass::WithSomeFunction() : Name: DudeGuy, Health 76, DistanceToEnemy: 128.0512</p> <h2 id="credits"><a href="#credits" class="header-anchor">#</a> Credits</h2> <p><a href="/index.php?title=User:Spoof&amp;action=edit&amp;redlink=1" title="User:Spoof (page does not exist)">Spoof</a> - original implementation.<br> <a href="/User:Kris" title="User:Kris">Kris</a> - simplification &amp; netmode.</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Log_Macro_with_Netmode_and_Colour&amp;oldid=14089" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Log_Macro_with_Netmode_and_Colour&amp;oldid=14089<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/821.dbc1a110.js" defer></script>
+  </body>
+</html>

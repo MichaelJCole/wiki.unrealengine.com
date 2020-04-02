@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/72.fecf1740.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Animation Node, Translate With Complete Source Code and Instructions - Epic Wiki</p> <h1 id="animation-node-translate-with-complete-source-code-and-instructions"><a href="#animation-node-translate-with-complete-source-code-and-instructions" class="header-anchor">#</a> Animation Node, Translate With Complete Source Code and Instructions</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Complete_Code_for_the_Translate_With_Node">2 Complete Code for the Translate With Node</a></li> <li><a href="#Choosing_a_beginning_Class">3 Choosing a beginning Class</a></li> <li><a href="#AnimNode_TranslateWith">4 AnimNode_TranslateWith</a> <ul><li><a href="#.h">4.1 .h</a></li></ul></li> <li><a href="#About_the_Header_.28.h.29_file">5 About the Header (.h) file</a> <ul><li><a href="#.cpp">5.1 .cpp</a></li></ul></li> <li><a href="#About_the_Code.28.cpp.29_file">6 About the Code(.cpp) file</a></li> <li><a href="#About_EvaluateBoneTransforms">7 About EvaluateBoneTransforms</a></li> <li><a href="#AnimGraphNode_TranslateWith">8 AnimGraphNode_TranslateWith</a> <ul><li><a href="#.h_2">8.1 .h</a></li> <li><a href="#.cpp_2">8.2 .cpp</a></li></ul></li> <li><a href="#Build.cs_and_YourGame.h_files">9 Build.cs and YourGame.h files</a> <ul><li><a href="#Extension:_Non-editor_builds">9.1 Extension: Non-editor builds</a></li></ul></li> <li><a href="#Conclusion">10 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Original Author</em> <a href="/index.php?title=User:Chance_07&amp;action=edit&amp;redlink=1" title="User:Chance 07 (page does not exist)">Chance_07</a></p> <p><strong>Dear Community</strong>,</p> <p>In this new tutorial, I will explain the complete process of creating a new Animation Node.</p> <p>The main purpose for a new tutorial is to help clear up some of the common issue people have been running into when creating nodes for use in Blueprint.</p> <p>This tutorial will focus on creating a new Skeletal Control Node called Translate With.</p> <p>A quick primer on the Translate With Node: The node is designed to take a bone (Target) and replicate the movements of another bone (Source) on the specified Axis, with the specified offset. <a href="/File:Translatewith.jpg"><img src="https://d3ar1piqh1oeli.cloudfront.net/2/2f/Translatewith.jpg/1357px-Translatewith.jpg" alt="Translatewith.jpg"></a></p> <h2 id="complete-code-for-the-translate-with-node"><a href="#complete-code-for-the-translate-with-node" class="header-anchor">#</a> Complete Code for the Translate With Node</h2> <p>I will include the complete source code, along with any other needed lines of code to completely integrate the new node into your source. (<em>A note on integration, before you begin, you need to determine the scope you wish to use a new node in. For example, if you want to use the node for only one project, you do not need to add the code to the engine source, and can instead add it only to your module. If you plan to use the node across a number of different projects, it may be worth your time to integrate it into your engine, however, this can cause issues if you plan to share the node with others, as they would also have to add the node to the engine in the same manner that you have</em>)</p> <h2 id="choosing-a-beginning-class"><a href="#choosing-a-beginning-class" class="header-anchor">#</a> Choosing a beginning Class</h2> <p>In Unreal there are a massive amount of Classes to start with. In general, it is always a good idea to take the time to look through these classes for a couple of reasons. First, by looking through the Classes already in place, you can find the Class that best suits your needs as a base or starting point. Second, it can be extremely helpful to look at the code of other Classes to better understand how to extend these Classes for your needs. If you are unsure of what Class to start from, you can visit <a href="https://docs.unrealengine.com/latest/INT/Programming/index.html" target="_blank" rel="noopener noreferrer">https://docs.unrealengine.com/latest/INT/Programming/index.html<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> for a detailed list of the components included in the Engine.</p> <p>For this particular project, we will be extending the <strong>AnimNode_Base</strong> class, which you can look through in <strong>AnimNodeBase.h</strong> I am starting with this class because it has the majority of the functionality we will need, but does not include any additional functionality we do not need. In contrast, you can look at <strong>AnimNode_SkeletalControl.h</strong> and see that it already has a few things we will not be using to help you understand this choice better.</p> <h2 id="animnode-translatewith"><a href="#animnode-translatewith" class="header-anchor">#</a> AnimNode_TranslateWith</h2> <h3 id="h"><a href="#h" class="header-anchor">#</a> .h</h3> <p>// Created by Chance_07 2014
+#pragma once
+ 
+#include &quot;AnimNode_TranslateWith.generated.h&quot;
+ 
+USTRUCT()
+struct FAnimNode_TranslateWith : public  FAnimNode_Base
+{
+GENERATED_USTRUCT_BODY()
+ 
+/** Input link(Base Pose) **/
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Links)
+FComponentSpacePoseLink ComponentPose;
+ 
+/** Name of bone to control **/
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SkeletalControl)
+FBoneReference TargetBone;
+ 
+/** Source Bone Name to get transform from **/
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SkeletalControl)
+FBoneReference SourceBone;
+ 
+/** This is typically the FORWARD Axis, and is false by default **/
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AxisLock, meta = (PinHiddenByDefault))
+bool bUpdateX;
+ 
+/** This is typically the SIDE-TO-SIDE Axis, and is false by default **/
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AxisLock, meta = (PinHiddenByDefault))
+bool bUpdateY;
+ 
+/** This is typically the UP Axis, and is true by default **/
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AxisLock, meta = (PinHiddenByDefault))
+bool bUpdateZ;
+ 
+/** Target Location in world space if LookAtBone is empty */
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SkeletalControl)
+FVector AddtoOffset;
+ 
+/** Controls how much of the translation is blended to the target, default is 1 **/
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SkeletalControl, meta = (PinShownByDefault))
+float BlendWeight;
+public:
+FAnimNode_TranslateWith();
+public:
+// FAnimNode_Base interface
+virtual void Initialize(const FAnimationInitializeContext&amp; Context) OVERRIDE;
+virtual void CacheBones(const FAnimationCacheBonesContext &amp; Context)  OVERRIDE;
+virtual void Update(const FAnimationUpdateContext&amp; Context) OVERRIDE;
+virtual void EvaluateComponentSpace(FComponentSpacePoseContext&amp; Output) OVERRIDE;
+// End of FAnimNode_RCAnimNode interface
+protected:
+// initialize any bone references you have
+virtual void InitializeBoneReferences(const FBoneContainer &amp; RequiredBones);
+// return true if it is valid to Evaluate
+virtual bool IsValidToEvaluate(const USkeleton * Skeleton, const FBoneContainer &amp; RequiredBones);
+// Evaluate the new component-space transforms for the affected bones.
+virtual void EvaluateBoneTransforms(USkeletalMeshComponent* SkelComp, const FBoneContainer &amp; RequiredBones, FA2CSPose&amp; MeshBases, TArray&lt;FBoneTransform&gt;&amp; OutBoneTransforms);// {}
+private:
+FVector ModTargetLocationInCompSpace;
+FVector CurrentAddedOffset;
+FVector JointOffset;
+};</p> <h2 id="about-the-header-h-file"><a href="#about-the-header-h-file" class="header-anchor">#</a> About the Header (.h) file</h2> <p>Lets take a quick look at this header file. At the top we have an include file. AnimNode_TranslateWith.generated.h is created by UBT. You do not need to create or edit this file, but should always be included with your code.</p> <p>Next, we have our USTRUCT() declaration which tells Unreal what this section has, and what Class we are pulling from (in this case, FAnimNode_Base).</p> <p>After the main declaration, we have a few more that come in the form of UPROPRETY. The first one, ComponentPose, is going to be used as the input for our node when added to an Animation Blueprint.</p> <p>The next two are our Target Bone, and our Source Bone. The Target Bone is the bone we will be applying all of our transformations to, while the Source Bone is the bone we will be pulling information from.</p> <p>Next we have the Constructor (FAnimNode_TranslateWith()😉</p> <p>After the Constructor, we have some functions. Notice that the first four have the word OVERRIDE at the end. This simply means that the parent class also has these functions, but we wish to modify them in our .cpp file.</p> <p>The last two parts of our header have a few added functions, and a few variables. Notice that the variables are set to private. In this instance, I have no intention of letting any other nodes, or code have access to these, and therefor they are private.</p> <h3 id="cpp"><a href="#cpp" class="header-anchor">#</a> .cpp</h3> <p>// Created by Chance_07 2014
+ 
+#include &quot;YourGame.h&quot;
+#include &quot;EnginePrivate.h&quot;
+#include &quot;AnimNode_TranslateWith.h&quot;
+ 
+FAnimNode_TranslateWith::FAnimNode_TranslateWith()
+: FAnimNode_Base()
+, bUpdateX(false)// This is only to set
+, bUpdateY(false)// the defaults for the
+, bUpdateZ(true)// Axis pins (Can be changed in BP)
+, AddtoOffset(FVector::ZeroVector)
+{
+BlendWeight = 1;
+JointOffset.ZeroVector;
+// NULL so that it will be tested at least once
+CurrentAddedOffset.X = NULL;
+CurrentAddedOffset.Y = NULL;
+CurrentAddedOffset.Z = NULL;
+}
+ 
+void FAnimNode_TranslateWith::Initialize(const FAnimationInitializeContext&amp; Context)
+{
+ComponentPose.Initialize(Context);
+}
+ 
+void FAnimNode_TranslateWith::Update(const FAnimationUpdateContext&amp; Context)
+{
+ComponentPose.Update(Context);
+}
+ 
+void FAnimNode_TranslateWith::CacheBones(const FAnimationCacheBonesContext &amp; Context)
+{
+InitializeBoneReferences(Context.AnimInstance-&gt;RequiredBones);
+ComponentPose.CacheBones(Context);
+}
+ 
+//This is just a check to make sure that the bones are present
+void FAnimNode_TranslateWith::InitializeBoneReferences(const FBoneContainer &amp; RequiredBones)
+{
+// Check the Source Bone
+if (SourceBone.Initialize(RequiredBones)){}
+else
+{
+UE_LOG(LogAnimation, Warning, TEXT(&quot;No Source Bone found, please check input&quot;));
+}
+ 
+// Check the Target Bone
+if (TargetBone.Initialize(RequiredBones)){}
+else
+{
+UE_LOG(LogAnimation, Warning, TEXT(&quot;No Target Bone found, please check input&quot;));
+}
+}
+ 
+//This Checks for Updates, if no Axis is checked, returns Base Pose and moves on
+void FAnimNode_TranslateWith::EvaluateComponentSpace(FComponentSpacePoseContext&amp; Output)
+{
+// Evaluate the input
+ComponentPose.EvaluateComponentSpace(Output);
+ 
+ 
+// If any Axis is checked, and both bones are present, then we will continue
+if (((bUpdateX) || (bUpdateY) || (bUpdateZ)) &amp;&amp; IsValidToEvaluate(Output.AnimInstance-&gt;CurrentSkeleton, Output.AnimInstance-&gt;RequiredBones))
+{
+USkeletalMeshComponent* Component = Output.AnimInstance-&gt;GetSkelMeshComponent();
+TArray&lt;FBoneTransform&gt; BoneTransforms;
+EvaluateBoneTransforms(Component, Output.AnimInstance-&gt;RequiredBones, Output.Pose, BoneTransforms);
+ 
+checkSlow(!ContainsNaN(BoneTransforms));
+ 
+if (BoneTransforms.Num() &gt; 0)
+{
+Output.Pose.LocalBlendCSBoneTransforms(BoneTransforms, BlendWeight);
+}
+}
+}
+ 
+//This Evaluates the bones, and transforms
+void FAnimNode_TranslateWith::EvaluateBoneTransforms(USkeletalMeshComponent* SkelComp, const FBoneContainer &amp; RequiredBones, FA2CSPose&amp; MeshBases, TArray&lt;FBoneTransform&gt;&amp; OutBoneTransforms)
+{
+check(OutBoneTransforms.Num() == 0);
+ 
+// Component Space Transforms used to modify Target Bone
+FTransform SourceBoneTM = MeshBases.GetComponentSpaceTransform(SourceBone.BoneIndex);
+FTransform TargetBoneTM = MeshBases.GetComponentSpaceTransform(TargetBone.BoneIndex);
+ 
+// If any changes have occured, add them, and reset offset
+if (!(CurrentAddedOffset == AddtoOffset))
+{
+CurrentAddedOffset = SkelComp-&gt;ComponentToWorld.InverseTransformPosition(AddtoOffset);
+JointOffset.Set((NULL),(NULL),(NULL));
+}
+ 
+if ( (JointOffset.X == NULL) || (JointOffset.Y == NULL) || (JointOffset.Z == NULL))// If no Axis are checked, no need to do anything
+{
+// These are based on the Base Pose location and used to create the default offset
+FVector tempSourceOffset;
+FVector tempTargetOffset;
+ 
+// Get the Base Pose of the Source Bone
+tempSourceOffset.Set((SourceBoneTM.GetLocation().X), (SourceBoneTM.GetLocation().Y), (SourceBoneTM.GetLocation().Z));
+ 
+// Get the Base Pose of the Target Bone
+tempTargetOffset.Set((TargetBoneTM.GetLocation().X), (TargetBoneTM.GetLocation().Y), (TargetBoneTM.GetLocation().Z));
+ 
+// Get the Starting Offset from ALL inputs
+JointOffset.Set((tempTargetOffset.X-tempSourceOffset.X+CurrentAddedOffset.X),(tempTargetOffset.Y-tempSourceOffset.Y+CurrentAddedOffset.Y),(tempTargetOffset.Z-tempSourceOffset.Z+CurrentAddedOffset.Z));
+ 
+// Assign Offset to Mod Target Location
+ModTargetLocationInCompSpace.Set((tempTargetOffset.X), (tempTargetOffset.Y), (tempTargetOffset.Z));
+ 
+ 
+}
+//need to add a multiplier control so that you can control how much of the source movement is translated to the target(I.E. BlendEffects)
+if (bUpdateX)//Update X if checked
+{		
+ModTargetLocationInCompSpace.X = ((SourceBoneTM.GetTranslation().X)+ JointOffset.X);//SourceTM + Offset
+}
+if (bUpdateY)//Update Y if checked
+{
+ModTargetLocationInCompSpace.Y = ((SourceBoneTM.GetTranslation().Y) + JointOffset.Y);
+}
+if (bUpdateZ)//Update Z if checked
+{	
+ModTargetLocationInCompSpace.Z = ((SourceBoneTM.GetTranslation().Z) + JointOffset.Z); //(SourceBoneTM.GetTranslation().Z);
+}
+//Set the Targets Transform and pass out to Output(End of tick)
+TargetBoneTM.SetTranslation(ModTargetLocationInCompSpace);
+ 
+// Returns to caller with new location
+OutBoneTransforms.Add(FBoneTransform(TargetBone.BoneIndex, TargetBoneTM));	
+}
+ 
+// Makes sure that both bones are valid
+bool FAnimNode_TranslateWith::IsValidToEvaluate(const USkeleton * Skeleton, const FBoneContainer &amp; RequiredBones)
+{
+// if both bones are valid
+return (TargetBone.IsValid(RequiredBones) &amp;&amp; (SourceBone.IsValid(RequiredBones)));
+}</p> <h2 id="about-the-code-cpp-file"><a href="#about-the-code-cpp-file" class="header-anchor">#</a> About the Code(.cpp) file</h2> <p>Lets take a look at the code file now.</p> <p>Again we start off with a couple of include files. One thing to note here, is that the first include file should always be the header file for your module. In this case, &quot;YourGame.h&quot;. We also need to make sure that we include the AnimNode_TranslateWith.h file, otherwise our code will not know which header to use.</p> <p>After the includes, we have some defaults. This section is generally up to the user, but it does outline the starting point of the node. For this example, we have set the Z-Axis to true, and the other Axis' to false. We also declare a starting point for our BlendWeight, and clear out our CurrentAddedOffset (which I will explain soon).</p> <p>Next we have some functions. First we will Initialize the input (ComponentPose). Next we call Update. After Update, we call the CacheBones function. This does two things. First, it calls the InitializeBoneReferences function. After that has run, we cache the ComponentPose.</p> <p>The InitializeBoneReferences works the same as our Initialize from earlier, except that it focuses on our Target and Source bones. If for whatever reason, it cannot find one of these two, we will print an error message to the Output Log. This can be helpful for troubleshooting issues.</p> <p>After InitializeBoneReferences, we have EvaluateComponentSpace. This takes our input pose, and evaluates it. After that, it checks a couple things. First, we test to see if at least one Axis is selected for update. If no Axis has been selected, there is no need to go any farther. After we check the Axis selection, and if one is selected, we then check that the bones in Target and Source are valid bones to be evaluated. If both bones are, then we will continue.</p> <p>If everything has checked out good to this point, we will create a couple variables, and then call EvaluateBoneTransforms.</p> <p>After EvaluateBoneTransforms has finished, we come back here and run checkSlow on our BoneTransforms.</p> <p>Finally, we send the output to the next node in the Animation Blueprint.</p> <h2 id="about-evaluatebonetransforms"><a href="#about-evaluatebonetransforms" class="header-anchor">#</a> About EvaluateBoneTransforms</h2> <p>This is the &quot;meat&quot; of our node. First we will check our OutBoneTransforms array. Next we create two FTransform variables, and assign them to our Source bone, and Target bone. Next, we check our CurrentAddedOffset to see if it equals AddtoOffset. If you remember, earlier we set CurrentAddedOffset to NULL. This is why. The first time this runs, when we test the CurrentAddedOffset == AddtoOffset, it always come back as false which will in turn, run the following code. From that point on, if nothing changes, it will not have a need to update this part. After we have assigned CrrentAddedOffset a value, we clear JointOffset. This again is strictly to update only if we have to.</p> <p>We check JointOffset for NULL values, and if any return we will run the following section. We create two FVectors, assign them each a value, run some simple math operations and then assign them to JointOffset. We also assign the Target bones location to ModTargetLocationInCompSpace, which simply holds the starting location in Component Space.</p> <p>Next, we check each Axis one at a time, and if an Axis is selected, we change ModTargetLocationInCompSpace accordingly (this will be used to update our Target bone).</p> <p>Finally, we input or new location to our Target bone transform, and return the new value to our OutBoneTransform.</p> <h2 id="animgraphnode-translatewith"><a href="#animgraphnode-translatewith" class="header-anchor">#</a> AnimGraphNode_TranslateWith</h2> <p>So now what? We have our code in place, maybe we have compiled and run the Editor, but no node. We still have two files left to add. These are the AnimGraphNode files and they hold the code that creates the visual representation of our node.</p> <h3 id="h-2"><a href="#h-2" class="header-anchor">#</a> .h</h3> <p>// Created by Chance_07 2014
+#pragma once
+ 
+#include &quot;AnimGraphNode_Base.h&quot;
+#include &quot;AnimNode_TranslateWith.h&quot;
+#include &quot;AnimGraphNode_TranslateWith.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS(MinimalAPI, dependson = AnimNode_TranslateWith)
+class UAnimGraphNode_TranslateWith : public UAnimGraphNode_Base
+{
+GENERATED_UCLASS_BODY()
+ 
+UPROPERTY(EditAnywhere, Category = SkeletalControl)
+FAnimNode_TranslateWith Node;
+ 
+public:
+// UEdGraphNode interface
+virtual FText GetNodeTitle(ENodeTitleType::Type TitleType) const OVERRIDE;
+virtual FString GetTooltip() const OVERRIDE;
+virtual FString GetNodeCategory() const OVERRIDE;
+virtual FLinearColor GetNodeTitleColor() const OVERRIDE;
+virtual void CreateOutputPins() OVERRIDE;
+// End of UEdGraphNode interface
+ 
+protected:
+virtual FText GetControllerDescription() const ;
+ 
+};</p> <p>AnimGraphNode_TranslateWith.h contains the same format as our previous header file. We have our include files, our declarations, and our OVERRIDE. You should notice, we do have one UPROPRETY in here where we declare a variable using the Category = SkeletalControl. This is where in the context menu our node will appear.</p> <h3 id="cpp-2"><a href="#cpp-2" class="header-anchor">#</a> .cpp</h3> <p>// Created by Chance_07 2014
+ 
+#include &quot;YourGame.h&quot;
+#include &quot;Editor/AnimGraph/Private/AnimGraphPrivatePCH.h&quot;
+#include &quot;AnimationGraphSchema.h&quot;
+#include &quot;AnimGraphNode_TranslateWith.h&quot;
+ 
+#define LOCTEXT_NAMESPACE &quot;AnimGraph_TranslateWith&quot;
+ 
+UAnimGraphNode_TranslateWith::UAnimGraphNode_TranslateWith(const FPostConstructInitializeProperties&amp; PCIP)
+: Super(PCIP)
+{
+}
+ 
+//Title Color!
+FLinearColor UAnimGraphNode_TranslateWith::GetNodeTitleColor() const
+{
+return FLinearColor(0.75f, 0.75f, 0.10f);
+}
+ 
+//Node Category
+FString UAnimGraphNode_TranslateWith::GetNodeCategory() const
+{
+return FString(&quot;Skeletal Controls&quot;);
+}
+FText UAnimGraphNode_TranslateWith::GetControllerDescription() const
+{
+return LOCTEXT(&quot;TranslateWithNode&quot;, &quot;Translate With&quot;);
+}
+ 
+ 
+//Node Tooltip
+FString UAnimGraphNode_TranslateWith::GetTooltip() const
+{
+return TEXT(&quot;The Translate WIth control allows the Target Bone to follow the Translation of the Source Bone on all Specified Axis&quot;);
+}
+ 
+//Node Title(Needs to be updated now since node is much more versatile)
+FText UAnimGraphNode_TranslateWith::GetNodeTitle(ENodeTitleType::Type TitleType) const
+{
+ 
+FFormatNamedArguments Args;
+Args.Add(TEXT(&quot;ControllerDescription&quot;), GetControllerDescription());
+ 
+ 
+if (TitleType == ENodeTitleType::ListView)
+{
+return FText::Format(LOCTEXT(&quot;AnimGraphNode_TranslateWith_Title&quot;, &quot;{ControllerDescription}&quot;), Args);
+}
+else
+{
+Args.Add(TEXT(&quot;SourceBoneName&quot;), FText::FromName(Node.SourceBone.BoneName));
+Args.Add(TEXT(&quot;TargetBoneName&quot;), FText::FromName(Node.TargetBone.BoneName));
+return FText::Format(LOCTEXT(&quot;AnimGraphNode_TranslateWith_Title&quot;, &quot;{ControllerDescription}\nSource Bone: {SourceBoneName}\nTarget Bone: {TargetBoneName}&quot;), Args);
+}
+ 
+}
+ 
+//Node Output Pin(Output is in Component Space, Change at own RISK!)
+void UAnimGraphNode_TranslateWith::CreateOutputPins()
+{
+const UAnimationGraphSchema* Schema = GetDefault&lt;UAnimationGraphSchema&gt;();
+CreatePin(EGPD_Output, Schema-&gt;PC_Struct, TEXT(&quot;&quot;), FComponentSpacePoseLink::StaticStruct(), /*bIsArray=*/ false, /*bIsReference=*/ false, TEXT(&quot;Pose&quot;));
+}
+ 
+#undef LOCTEXT_NAMESPACE</p> <p>AnimGraphNode_TranslateWith.cpp again contains the functions we will be running. The one part I would like to draw your attention to is the CreateOutputPins function. As you can see, it is marked as Change at own RISK, and for very good reason. This output is designed to run in ComponentSpace, and if for some reason, that changes, it can cause instability issues in the Editor. I recommend, at least until you are very familiar with the Engine, that you do not change this.</p> <h2 id="build-cs-and-yourgame-h-files"><a href="#build-cs-and-yourgame-h-files" class="header-anchor">#</a> Build.cs and YourGame.h files</h2> <p>Depending on the Engine version you are using, this may change some but I will cover the basics. YourGame.h contains a list of include files that your module or game needs access to, so be sure to check that you have included anything you need to here. This can change greatly based on your project, but always try to only include files you have to. There is no need to include files you already have access to.</p> <p>An example here would be:</p> <p>#include &quot;BlueprintUtilities.h&quot;</p> <p>Build.cs again can change greatly based on your project, but a couple lines that will help get you started:</p> <div class="language- extra-class"><pre><code>    PublicDependencyModuleNames.AddRange(new string\[\] { &quot;Core&quot;, &quot;CoreUObject&quot;, &quot;Engine&quot;});
+</code></pre></div><p>PrivateDependencyModuleNames.AddRange(new string[] { &quot;InputCore&quot;, &quot;HTTP&quot;, &quot;AnimGraph&quot;, &quot;BlueprintGraph&quot;, &quot;UnrealEd&quot; });</p> <p>These are basically just paths to different locations within the engine.</p> <h3 id="extension-non-editor-builds"><a href="#extension-non-editor-builds" class="header-anchor">#</a> Extension: Non-editor builds</h3> <p>Added by Leon Rosengarten (lion032)</p> <p>When you add editor extensions you must separate the extensions into it's own module that only will be linked when you build your game with editor otherwise it will not compile since non-editor builds will not include any editor data!</p> <p>To properly add new AnimNode and AnimGraph to your project you will need to split it into two modules, one for the game and one for the editor.</p> <p>Example:</p> <p>Directory tree:</p> <p>/Source
+/MyGameName
+/Classes
+/Animation
+AnimNode_MyNode.h
+/Private
+/Animation
+AnimNode_MyNode.h
+/Public
+MyGameName.Build.cs
+/MyEditorExtension
+/Classes
+MyEditorExtension.Build.cs
+/Animation
+AnimGraphNode_MyNode.h
+/Private
+/Animation
+AnimGraphNode_MyNode.h
+MyEditorExtension.cpp
+/Public
+MyEditorExtension.h</p> <p>MyEditorExtension.Build.cs:</p> <p>using UnrealBuildTool;
+ 
+public class MyEditorExtension: ModuleRules
+{
+public MyEditorExtension(TargetInfo Target)
+{
+ 
+PrivateIncludePaths.Add(&quot;EditorModule/Private&quot;);
+ 
+PublicDependencyModuleNames.AddRange(new string[] { &quot;Core&quot;, &quot;CoreUObject&quot;, &quot;Engine&quot;, &quot;InputCore&quot;, });
+ 
+PrivateDependencyModuleNames.AddRange(new string[] { &quot;UnrealEd&quot;, &quot;BlueprintGraph&quot;, &quot;AnimGraph&quot;, });
+ 
+PublicDependencyModuleNames.AddRange(
+new string[] {
+&quot;MyGameName&quot;
+}
+);
+ 
+CircularlyReferencedDependentModules.AddRange(
+new string[] {
+&quot;MyGameName&quot;,
+}
+);
+}
+}</p> <p>MyGameName.Build.cs:</p> <p>using UnrealBuildTool;
+ 
+public class MyGameName: ModuleRules
+{
+public MyGameName(TargetInfo Target)
+{
+PublicDependencyModuleNames.AddRange(new string[] { &quot;Core&quot;, &quot;CoreUObject&quot;, &quot;Engine&quot;, &quot;InputCore&quot; });
+ 
+if (UEBuildConfiguration.bBuildEditor == true)
+{
+ 
+PublicDependencyModuleNames.AddRange(
+new string[] {
+&quot;MyEditorExtension&quot;
+}
+);
+ 
+CircularlyReferencedDependentModules.AddRange(
+new string[] {
+&quot;MyEditorExtension&quot;,
+}
+);
+}
+ 
+}
+}</p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>At this point, you should be able to compile the Engine and run your game. Create a new Animation Blueprint (or open existing one), right click and look under Skeletal Controls. You should see Translate With as an available node now.</p> <p>Congratulations! You created a new animation node.</p> <p><a href="/index.php?title=User:Chance_07&amp;action=edit&amp;redlink=1" title="User:Chance 07 (page does not exist)">Chance_07</a></p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Animation_Node,_Translate_With_Complete_Source_Code_and_Instructions&amp;oldid=14551" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Animation_Node,_Translate_With_Complete_Source_Code_and_Instructions&amp;oldid=14551<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/72.fecf1740.js" defer></script>
+  </body>
+</html>

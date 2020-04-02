@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/533.c65e5416.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Garbage Collection ~ Count References To Any Object - Epic Wiki</p> <h1 id="garbage-collection-count-references-to-any-object"><a href="#garbage-collection-count-references-to-any-object" class="header-anchor">#</a> Garbage Collection ~ Count References To Any Object</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Code">2 Code</a></li> <li><a href="#Who_Is_Referred_to_By_My_Object.3F">3 Who Is Referred to By My Object?</a></li> <li><a href="#Conclusion">4 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Original Author:</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>For a more thorough background in this topic of Memory Management I recommend you check out my main Garbage Collection wiki first:</p> <p><a href="https://wiki.unrealengine.com/Garbage_Collection_%26_Dynamic_Memory_Allocation#Counting_UPROPERTY.28.29_References_To_Any_Object" target="_blank" rel="noopener noreferrer">Garbage Collection and Dynamic Memory Allocation<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>In this wiki I am providing you with an extremely handy memory management tool, which is the ability to count references to any UObject yourself!</p> <p>Additionally you can supply an array if you want to know exactly who is referred to by your object!</p> <p>Victory!</p> <h2 id="code"><a href="#code" class="header-anchor">#</a> Code</h2> <p>static int32 URamaStaticFunctionLib::GetObjReferenceCount(UObject* Obj, TArray&lt;UObject*&gt;* OutReferredToObjects = nullptr)
+{
+if(!Obj || !Obj-&gt;IsValidLowLevelFast())
+{
+return -1;
+}
+ 
+TArray&lt;UObject*&gt; ReferredToObjects;				//req outer, ignore archetype, recursive, ignore transient
+FReferenceFinder ObjectReferenceCollector( ReferredToObjects, Obj, false, true, true, false);
+ObjectReferenceCollector.FindReferences( Obj );
+ 
+if(OutReferredToObjects)
+{
+OutReferredToObjects-&gt;Append(ReferredToObjects);
+}
+return OutReferredToObjects.Num();
+}</p> <h2 id="who-is-referred-to-by-my-object"><a href="#who-is-referred-to-by-my-object" class="header-anchor">#</a> Who Is Referred to By My Object?</h2> <p>You can supply an array to my function if you want to know exactly who the object is referring to!</p> <p>TArray&lt;UObject*&gt; ReferredToObjs;
+ 
+GetObjReferenceCount(this,&amp;ReferredToObjs);
+ 
+for(UObject* Each : ReferredToObjs)
+{
+if(Each)
+{
+UE_LOG(YourLog,Warning,TEXT(&quot;%s&quot;), *Each-&gt;GetName());
+}
+}</p> <p><a href="/File:ObjRefCount.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/0/07/ObjRefCount.jpg" alt="ObjRefCount.jpg"></a></p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>This is all the info you need to do your own careful UPROPERTY() memory management!</p> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Garbage_Collection_%7E_Count_References_To_Any_Object&amp;oldid=21046" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Garbage_Collection_%7E_Count_References_To_Any_Object&amp;oldid=21046<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/533.c65e5416.js" defer></script>
+  </body>
+</html>

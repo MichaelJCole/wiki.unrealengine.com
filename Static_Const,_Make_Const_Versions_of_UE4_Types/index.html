@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1013.c92c8360.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Static Const, Make Const Versions of UE4 Types - Epic Wiki</p> <h1 id="static-const-make-const-versions-of-ue4-types"><a href="#static-const-make-const-versions-of-ue4-types" class="header-anchor">#</a> Static Const, Make Const Versions of UE4 Types</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#.h">2 .h</a></li> <li><a href="#.cpp">3 .cpp</a></li> <li><a href="#Keep_Global_Namespace_Clean">4 Keep Global Namespace Clean</a></li> <li><a href="#Summary">5 Summary</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>Dear Community,</p> <p>Using Constant versions of complex variable types can be useful,</p> <p><strong>especially if these variables are used every tick but their values never change</strong>.</p> <p>To make a Constant version of something like an FLinearColor or an FName you can do this:</p> <h2 id="h"><a href="#h" class="header-anchor">#</a> .h</h2> <p>public:
+ 
+static const FLinearColor Red;
+static const FName HeadSocket;</p> <h2 id="cpp"><a href="#cpp" class="header-anchor">#</a> .cpp</h2> <p>// Copyright 1998-2013 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;YourGameGame.h&quot;
+ 
+//////////////////////////////////////////////////////////////////////////
+// AYourClass
+ 
+//you declare the static const outside of any function, but make sure to include the YourClass:: part 😃
+ 
+const FName        AYourClass::HeadSocket = FName(&quot;Head&quot;);
+const FLinearColor AYourClass::Red = FLinearColor(1,0,0,1);
+ 
+AYourClass::AYourClass(const class FPostConstructInitializeProperties&amp; PCIP)
+: Super(PCIP)
+{
+ 
+}</p> <h2 id="keep-global-namespace-clean"><a href="#keep-global-namespace-clean" class="header-anchor">#</a> Keep Global Namespace Clean</h2> <p>Make sure to specify your class context when you declare your static const variables!</p> <p>Myclass::</p> <h2 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h2> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Static_Const,_Make_Const_Versions_of_UE4_Types&amp;oldid=1248" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Static_Const,_Make_Const_Versions_of_UE4_Types&amp;oldid=1248<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1013.c92c8360.js" defer></script>
+  </body>
+</html>

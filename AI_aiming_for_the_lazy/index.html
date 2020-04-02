@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/47.6c185b5e.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>AI aiming for the lazy - Epic Wiki</p> <h1 id="ai-aiming-for-the-lazy"><a href="#ai-aiming-for-the-lazy" class="header-anchor">#</a> AI aiming for the lazy</h1> <p><strong>Rate this Tutorial:</strong></p> <p>0.00</p> <p><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""></p> <p>Approved for Versions:4.10</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Requirements">2 Requirements</a></li> <li><a href="#Getting_Started">3 Getting Started</a> <ul><li><a href="#Setting_up_character">3.1 Setting up character</a></li> <li><a href="#Fire_behavior_part_1">3.2 <strong>Fire</strong> behavior part 1</a></li></ul></li> <li><a href="#C.2B.2B_Hardcore">4 C++ Hardcore</a> <ul><li><a href="#Minimal_math">4.1 Minimal math</a></li> <li><a href="#KINSOL_library">4.2 KINSOL library</a></li> <li><a href="#Linking_libraries_to_our_project">4.3 Linking libraries to our project</a></li> <li><a href="#Actuall_C.2B.2B_hardcore">4.4 Actuall C++ hardcore</a></li></ul></li> <li><a href="#Tying_everything_together">5 Tying everything together</a> <ul><li><a href="#Fire_behavior_part_2">5.1 <strong>Fire</strong> behavior part 2</a></li></ul></li> <li><a href="#Further_improvements">6 Further improvements</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p>You'll learn how to implement basic aiming for your AI characters that do not require lot of math, only basic school knowledge on vectors and movement equations.</p> <p>I wrote this tutorial with maximal clarity in mind. If you want to see main content, go to <a href="#KINSOL_library">KINSOL library</a> section.</p> <p>Names of all entities (assets, variables, components) created during tutorial given in <strong>bold</strong>. Entities from FPS template have their names in <em>italic</em>.</p> <h2 id="requirements"><a href="#requirements" class="header-anchor">#</a> Requirements</h2> <p>You should be ready to get your hands dirty with some C++. Of course you'll need Visual Studio.</p> <p>Though I'll indicate all necessary steps, but since you are here it would be more efficient to know about <a href="https://docs.unrealengine.com/latest/INT/Engine/AI/BehaviorTrees/index.html" target="_blank" rel="noopener noreferrer">Behavior Trees<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> and <a href="https://docs.unrealengine.com/latest/INT/Engine/AI/BehaviorTrees/QuickStart/6/index.html" target="_blank" rel="noopener noreferrer">AI controllers<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>.</p> <h2 id="getting-started"><a href="#getting-started" class="header-anchor">#</a> Getting Started</h2> <p>Create new project (let's call it <strong>AIAiming</strong> hereupon) from Blueprint FPS template. Described here is UE 4.10, adjust values you'll stumble on in this tutorial if your template differs.</p> <h3 id="setting-up-character"><a href="#setting-up-character" class="header-anchor">#</a> Setting up character</h3> <p>Make new folder <strong>AICharacter</strong> in <a href="https://docs.unrealengine.com/latest/INT/Engine/Content/Browser/index.html" target="_blank" rel="noopener noreferrer">Content Browser<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>. Create three new assets there:</p> <ul><li>Blueprint <strong>Firer</strong> inherited from <em>Character</em></li> <li>Blueprint <strong>FirerController</strong> inherited from <em>AIController</em></li> <li>Behavior Tree <strong>FirerBehavior</strong></li></ul> <p><a href="/File:Assets.png" title="Created assets"><img src="https://d26ilriwvtzlb.cloudfront.net/9/92/Assets.png" alt="Created assets"></a></p> <p>Open <strong>Firer</strong>.</p> <ul><li>Set <em>AI Controller Class</em> to <strong>FirerController</strong></li> <li>Select <em>Mesh (Inherited)</em> component
+<ul><li>Set <em>Skeletal Mesh</em> to <em>SK_Mannequin_Arms</em></li> <li>Set <em>Anim Blueprint Class</em> to <em>FirstPerson_AnimBP</em></li> <li>Set mesh location to (-0.51, -2.6, -155.71) and Z rotation to -10° (same values as in <em>FirstPersonCharacter</em>).</li></ul></li> <li>Add Skeletal Mesh Component <strong>Gun</strong> in Components list, grub it and attach to <em>Mesh (Inherited)</em>.</li></ul> <p><a href="/File:Gun-component.png" title="Gun Component"><img src="https://d26ilriwvtzlb.cloudfront.net/0/00/Gun-component.png" alt="Gun Component"></a></p> <ul><li>Set Skeletal Mesh for <strong>Gun</strong> to <em>SK_FPGun</em>.</li> <li>Setup following Construction Script (references to components are created by simple drug'n'drop from components list):</li></ul> <p><a href="/File:Firer-construction-script.png" title="Firer Construction Script"><img src="https://d26ilriwvtzlb.cloudfront.net/4/45/Firer-construction-script.png" alt="Firer Construction Script"></a></p> <ul><li>Create vector variable <strong>GunOffset</strong> with default value (100, 33, 10) (again copy-paste from <em>FirstPersonCharacter</em>)</li></ul> <p><a href="/File:Firer-gun-offset.png" title="Firer GunOffset variable"><img src="https://d26ilriwvtzlb.cloudfront.net/2/23/Firer-gun-offset.png" alt="Firer GunOffset variable"></a></p> <p>Your character should look something like this:</p> <p><a href="/File:Firer.png" title="Firer blueprint"><img src="https://d26ilriwvtzlb.cloudfront.net/8/84/Firer.png" alt="Firer blueprint"></a></p> <ul><li>Reproduce following Event Graph:</li></ul> <p><a href="/File:Firer-event-graph.png" title="Firer Event Graph"><img src="https://d26ilriwvtzlb.cloudfront.net/c/c5/Firer-event-graph.png" alt="Firer Event Graph"></a></p> <p>It's almost copy-paste from <em>FirstPersonCharacter</em>. We deleted input events, replaced mesh reference, replaced <em>GetControlRotation</em> with <em>GetActorRotation</em> and created custom event (RMB-&gt;Add Event-&gt;Add Custom Event...) <strong>FireProjectile</strong>.</p> <p>Open <strong>FirerController</strong></p> <ul><li>Setup following minimal Event Graph:</li></ul> <p><a href="/File:Firer-controller-event-graph.png" title="FirerController Event Graph"><img src="https://d26ilriwvtzlb.cloudfront.net/1/15/Firer-controller-event-graph.png" alt="FirerController Event Graph"></a></p> <h3 id="fire-behavior-part-1"><a href="#fire-behavior-part-1" class="header-anchor">#</a> <strong>Fire</strong> behavior part 1</h3> <p>Open <strong>FirerBehavior</strong>. Create new Task, rename it to <strong>Fire</strong> and open for editing.</p> <p><a href="/File:Create-task.png" title="Create task"><img src="https://d26ilriwvtzlb.cloudfront.net/3/3a/Create-task.png" alt="Create task"></a></p> <p>Create <strong>Target offset</strong> vector variable. It will specify offset from player character (it's pivot point if to be precise) location to point we want to hit. If for example our player mesh was full-blown humanoid mannequin, we would've liked to hit exactly in the head and <strong>Target offset</strong> would've specified vector from character's location to character mesh's head. Since we only have hands, we make our firer aim exactly at the camera. You can measure offset using ruler (middle mouse button):</p> <p><a href="/File:Ruler.png" title="Ruler tool"><img src="https://d26ilriwvtzlb.cloudfront.net/a/aa/Ruler.png" alt="Ruler tool"></a></p> <p>In our case camera is perfectly aligned to pivot point except for Z coordinate, so <strong>Target offset</strong> will be:</p> <p><a href="/File:Target-offset.png" title="TargetOffset variable"><img src="https://d26ilriwvtzlb.cloudfront.net/2/2f/Target-offset.png" alt="TargetOffset variable"></a></p> <p>Override <em>Receive Execute</em> and reproduce following graph:</p> <p><a href="/File:Fire-partial-event-graph.png" title="Partial Event Graph of Fire task"><img src="https://d26ilriwvtzlb.cloudfront.net/c/c3/Fire-partial-event-graph.png" alt="Partial Event Graph of Fire task"></a></p> <p>It incomplete, but we will return to it when C++ part is ready.</p> <h2 id="c-hardcore"><a href="#c-hardcore" class="header-anchor">#</a> C++ Hardcore</h2> <p>Go to <em>File</em> -&gt; <em>New C++ Class ...</em> and select <em>Blueprint Function Library</em> as parent class. I named it <strong>FiringLibrary</strong> (banal to the end), but it doesn't really matter. Since it's first C++ class in our game, editor will take some time to create, build and open project for Visual Studio. For now just leave it there, we will return to it a bit later.</p> <h3 id="minimal-math"><a href="#minimal-math" class="header-anchor">#</a> Minimal math</h3> <p>So how are we going to aim? Let's remember some school physics. Our target (possible offseted) current location is _<strong>P</strong>_T, and it moves with speed _<strong>V</strong>_T, so in <em>t</em> seconds it will be at</p> <p>_<strong>P</strong>_T + _<strong>V</strong>_T * <em>t</em>.</p> <p>(<em>t</em> is a variable, we'll have to compute it). Our projectile in <em>t</em> seconds will be at</p> <p>_<strong>P</strong>_P + _<strong>V</strong>_P * <em>t</em> + <em><strong>g</strong></em> * _t_2 / 2</p> <p>_<strong>P</strong>_P is a location where projectile will be created, _<strong>V</strong>_P - it's speed and <em><strong>g</strong></em> - gravity vector ((0, 0, -980) by default in UE4 because all lengths are in centimeters). We want for our projectile to meet target, so their locations should be equal:</p> <p>_<strong>P</strong>_T + _<strong>V</strong>_T * <em>t</em> = _<strong>P</strong>_P + _<strong>V</strong>_P * <em>t</em> + <em><strong>g</strong></em> * _t_2 / 2</p> <p>or</p> <p>_<strong>P</strong>_T + _<strong>V</strong>_T * <em>t</em> - _<strong>P</strong>_P - _<strong>V</strong>_P * <em>t</em> - <em><strong>g</strong></em> * _t_2 / 2 = <em><strong>0</strong></em></p> <p>It's a system of three nonlinear equations. If our firer stand in one place we have three variables:</p> <ol><li>time <em>t</em> &gt; 0</li> <li>-180 &lt; <em>yaw</em> &lt; 180</li> <li>-90 &lt; <em>pitch</em> &lt; 90</li></ol> <p>So you can go and solve it, arriving at general quartic equation (with sines and cosines!) and feeling the fear from it's <a href="https://en.wikipedia.org/wiki/Quartic_function#/media/File:Quartic_Formula.svg" target="_blank" rel="noopener noreferrer">general solution<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>. You can try different approximations as <a href="http://www.gamasutra.com/blogs/KainShin/20090515/83954/Predictive_Aim_Mathematics_for_AI_Targeting.php" target="_blank" rel="noopener noreferrer">this<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> guy did, but I'm too lazy for such things and going to make computer solve it for me.</p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" alt="Note"> We don't really care for time <em>t</em>, but it's computation is unavoidable consequence of current problem formulation. It's possible to get rid of it, but won't make problem easier.</p> <h3 id="kinsol-library"><a href="#kinsol-library" class="header-anchor">#</a> KINSOL library</h3> <p>(I describe building process for Windows. Can't help poor souls with MacOS. Smarties with linux should be able to build everything themselves because hey, you've installed linux!)</p> <p><a href="https://computation.llnl.gov/casc/sundials/description/description.html#descr_kinsol" target="_blank" rel="noopener noreferrer">KINSOL<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> &quot;is a solver for nonlinear algebraic systems&quot;. It is OSS released under a <a href="http://computation.llnl.gov/casc/sundials/download/license.html" target="_blank" rel="noopener noreferrer">BSD license<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> which means you only can't call their code yours. <a href="http://computation.llnl.gov/casc/sundials/download/download.php" target="_blank" rel="noopener noreferrer">Download<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> it (only KINSOL is needed. You will be asked for email but that's only a formality).</p> <p>Install <a href="https://cmake.org/download/" target="_blank" rel="noopener noreferrer">CMake<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> (grub simpliest win32 exe installer, no need to go fancy). Make sure you checked the box &quot;Add CMake to the system <a href="https://en.wikipedia.org/wiki/PATH_(variable)#DOS.2C_OS.2F2.2C_and_Windows" target="_blank" rel="noopener noreferrer">PATH<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot; (for current user would be enough) during installation.</p> <p>Create folder <strong>C:\path\to\your\project\AIAiming\ThirdParty\kinsol</strong>. We will install library here.</p> <p>From archive you've downloaded erlier unpack whole folder <strong>kinsol-<em>version</em></strong> somewhere (precise location doesn't matter, you can delete folder after building). Create <strong>kinsol-build</strong> near it so you have structure:</p> <p>some folder\
+kinsol-<em>version</em>
+kinsol-build</p> <p>Everything ready, let's build this baby!</p> <ul><li>Run cmd (from Start of Win+R).</li> <li>Enter command <strong>cd &quot;C:\full\path\to\some foler\kinsol-build&quot;</strong></li> <li>Enter command <strong>cmake-gui ..\kinsol-<em>version</em></strong></li> <li>Click <strong>Configure</strong> button in appeared window</li> <li>Select <em>Visual Studio 14 2015 Win64</em> from generator list</li></ul> <p><a href="/File:Configure.png" title="CMake configure"><img src="https://d26ilriwvtzlb.cloudfront.net/5/5a/Configure.png" alt="CMake configure"></a></p> <ul><li>Do not panic because of all the red</li> <li><em>BUILD_KINSOL</em> and <em>BUILD_STATIC_LIBS</em> boxes must be checked, every else unchecked.</li> <li>Change <em>CMAKE_CONFIGURATION_TYPES</em> value to <em>Release</em></li> <li>Change <em>CMAKE_INSTALL_PREFIX</em> to <strong>C:\path\to\your\project\AIAiming\ThirdParty\kinsol</strong></li> <li>Change <em>SUNDIALS_PRECISION</em> to <em>single</em> (double is useless because all computations inside UE use floats)</li></ul> <p><a href="/File:Kinsol-build-configuration.png" title="KINSOL build configuration"><img src="https://d26ilriwvtzlb.cloudfront.net/d/d8/Kinsol-build-configuration.png" alt="KINSOL build configuration"></a></p> <ul><li>Hit <em>Generate</em> button and close the window when done</li> <li>There will appear several VS projects in <strong>kinsol-build</strong>, you need to open <em>sundials</em> solution</li> <li>Build <em>ALL_BUILD</em> project.</li> <li>Build <em>INSTALL</em> project</li></ul> <p>If all went well built libraries should appear with C++ headers in <strong>C:\path\to\your\project\AIAiming\ThirdParty\kinsol</strong>.</p> <p>We don't need <strong>kinsol-build</strong> and <strong>kinsol-<em>version</em></strong> anymore, you can delete them.</p> <h3 id="linking-libraries-to-our-project"><a href="#linking-libraries-to-our-project" class="header-anchor">#</a> Linking libraries to our project</h3> <p>(Huge gratitude to author of <a href="/Linking_Static_Libraries_Using_The_Build_System" title="Linking Static Libraries Using The Build System">tutorial</a> for linking)</p> <p>Let's return to our game's project in Visual Studio. You can read article mentioned above to understand what's going on or simply open <strong>AIAiming.Build.cs</strong>, add following code to body of <strong>AIAiming</strong> class</p> <div class="language- extra-class"><pre><code>private string ModulePath
+{
+    get { return Path.GetDirectoryName(RulesCompiler.GetModuleFilename(this.GetType().Name)); }
+}
+</code></pre></div><p>private string ThirdPartyPath
+{
+get { return Path.GetFullPath(Path.Combine(ModulePath, &quot;../../ThirdParty/&quot;)); }
+}
+ 
+public bool LoadKinsol(TargetInfo Target)
+{
+bool isLibrarySupported = false;
+ 
+if ((Target.Platform == UnrealTargetPlatform.Win64) || (Target.Platform == UnrealTargetPlatform.Win32))
+{
+isLibrarySupported = true;
+string LibrariesPath = Path.Combine(ThirdPartyPath, &quot;kinsol&quot;, &quot;lib&quot;);
+ 
+PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, &quot;sundials_kinsol.lib&quot;));
+PublicAdditionalLibraries.Add(Path.Combine(LibrariesPath, &quot;sundials_nvecserial.lib&quot;));
+}
+ 
+if (isLibrarySupported)
+{
+// Include path
+PublicIncludePaths.Add(Path.Combine(ThirdPartyPath, &quot;kinsol&quot;, &quot;include&quot;));
+}
+ 
+Definitions.Add(string.Format(&quot;WITH_KINSOL_BINDING={0}&quot;, isLibrarySupported ? 1 : 0));
+ 
+return isLibrarySupported;
+}</p> <p>and following line to the end of <strong>AIAiming(TargetInfo Target)</strong> constructor</p> <div class="language- extra-class"><pre><code>    LoadKinsol(Target);
+</code></pre></div><p>and following</p> <p>using System.IO;</p> <p>after</p> <p>using UnrealBuildTool;</p> <p>This code will tell the engine to link libraries during compilation.</p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" alt="Note"> Libraries built this way will only work for x64 builds of your game, but if you care it's likely you already know how to fix it.</p> <h3 id="actuall-c-hardcore"><a href="#actuall-c-hardcore" class="header-anchor">#</a> Actuall C++ hardcore</h3> <p>OK. This time for real. Open header of your blueprint library and add following function declaration to your class:</p> <p>UFUNCTION(BlueprintCallable, Category = &quot;Ballistics&quot;)
+static bool ComputeFiringRotation(const AActor* ''t''arget, const FVector&amp; targetOffset, const AActor* firer, const FVector&amp; gunOffset, float projectileSpeed, FRotator&amp; firingRotation);</p> <p>This function will try to solve equations. It will pass computed rotation to blueprint in <strong>firingRotation</strong> reference and boolean return value will indicate if computation was successful (it may be not).</p> <p>Switch to <strong>FiringLibrary.cpp</strong>.</p> <ul><li>Add necessary includes:</li></ul> <p>#include &lt;kinsol/kinsol.h&gt;
+#include &lt;kinsol/kinsol_dense.h&gt;
+#include &lt;nvector/nvector_serial.h&gt;
+#include &lt;sundials/sundials<sub>T</sub>ypes.h&gt;
+#include &lt;sundials/sundials_math.h&gt;</p> <ul><li>Declare struct that will keep necessary data to compute equations</li></ul> <p>struct FiringData {
+ 
+FiringData(const AActor* ''t''arget,
+const AActor* firer, const FVector&amp; gunOffset,
+float projectileSpeed)
+: targetLocation(target-&gt;GetActorLocation())
+, targetVelocity(target-&gt;GetVelocity())
+, firerLocation(firer-&gt;GetActorLocation())
+, gunOffset(gunOffset)
+, projectileSpeed(projectileSpeed)
+, g(FVector(0, 0, firer-&gt;GetWorld()-&gt;GetWorldSettings()-&gt;GetGravityZ()))
+{}
+ 
+FVector targetLocation;
+FVector targetVelocity;
+FVector firerLocation;
+FVector gunOffset;
+float projectileSpeed;
+FVector g;
+};</p> <ul><li>Declare function that computes our equations (it will be called by KINSOL)</li></ul> <p>// x are current values of variables and library expect us to put equations' values in f
+// userData is arbitrary data that we want to use in computations.
+// We have to specify it to library by calling KINSetUserData()
+// In our case we specify userData to point at FiringData struct.
+int F(N_Vector x, N_Vector f, void* userData) {
+float t = NV_Ith_S(x, 0);
+float yaw = NV_Ith_S(x, 1);
+float pitch = NV_Ith_S(x, 2);
+auto rotator = FRotator(pitch, yaw, 0);
+ 
+auto firingData = (FiringData*)userData;
+ 
+ 
+auto p1 = firingData-&gt;targetLocation + firingData-&gt;targetVelocity*t;
+ 
+auto projectileStartingLocation = firingData-&gt;firerLocation + rotator.RotateVector(firingData-&gt;gunOffset);
+auto projectileVelocity = rotator.RotateVector(FVector::ForwardVector * firingData-&gt;projectileSpeed);
+auto p2 = projectileStartingLocation + velocity * ''t'' + firingData-&gt;g * ''t'' * ''t'' / 2;
+ 
+auto eq = p1 - p2;
+ 
+NV_Ith_S(f, 0) = eq.X;
+NV_Ith_S(f, 1) = eq.Y;
+NV_Ith_S(f, 2) = eq.Z;
+ 
+return 0;
+}</p> <p><strong>p1</strong> is expected target location, <strong>p2</strong> is expected projectile position. Computation of <strong>projectileStartingLocation</strong> and <strong>projectileVelocity</strong> follows from the way we spawn projectile. They are virtually the same as ones from <em>Spawn projectile</em> box in <strong>Firer</strong>.</p> <p>Returning 0 indicates that computations went smooth. If something breaks during execution of your variant of function return non-zero value.</p> <p>Finally all preparations done and we can write out the function we are here for:</p> <p>bool UFiringLibrary::ComputeFiringRotation(const AActor* ''t''arget, const FVector&amp; targetOffset,
+const AActor* firer, const FVector&amp; gunOffset,
+float projectileSpeed, FRotator&amp; firingRotation) {
+ 
+// Number of equations
+const int N = 3;
+ 
+// x is our initial guess on variables of equation.
+auto x = N_VNew_Serial(N);
+if (x == nullptr) return false;
+// I guessed projectile will hit target after one second.
+NV_Ith_S(x, 0) = 1;
+// Guess for rotation is simply current firer rotation.
+NV_Ith_S(x, 1) = firer-&gt;GetActorRotation().Yaw;
+NV_Ith_S(x, 2) = firer-&gt;GetActorRotation().Pitch;
+ 
+// Scale of equations' variables. Scaling them may help with speed of solving,
+// but find solutions far from initial values.
+auto scale = N_VNew_Serial(N);
+if (scale == nullptr) return false;
+N_VConst_Serial(1, scale); // no scaling
+ 
+// Constraints on equations' variables
+auto constraints = N_VNew_Serial(N);
+if (constraints == nullptr) return false;
+ 
+// 0.0 means no constraints on variable
+// -1.0, 1.0 means &lt;= 0 or &gt;= 0 constraints correspondingly
+// -2.0, 2.0 means &lt; 0 or &gt; 0 constraints correspondingly
+NV_Ith_S(constraints, 0) = 2.0f; // t &gt; 0
+NV_Ith_S(constraints, 1) = 0; // no constraints on yaw
+NV_Ith_S(constraints, 2) = 0; // no constraints on pitch
+ 
+// handler for KINSOL library
+auto kinsolMemory = KINCreate();
+if (kinsolMemory == nullptr) return false;
+ 
+// setting pointer to userData for use in our F function
+FiringData firingData(target, targetOffset, firer, gunOffset, projectileSpeed);
+int flag = KINSetUserData(kinsolMemory, &amp;firingData);
+if (flag &lt; 0) return false;
+ 
+// setting up constraints
+flag = KINSetConstraints(kinsolMemory, constraints);
+if (flag &lt; 0) return false;
+ 
+// We want our equations be this (1.0f) close to zeros. 1 cm is pretty good precision.
+flag = KINSetFuncNormTol(kinsolMemory, 1.0f);
+if (flag &lt; 0) return false;
+// Stop if difference in consecutive values of variables this (1e-5f) small.
+flag = KINSetScaledStepTol(kinsolMemory, 1e-5f);
+if (flag &lt; 0) return false;
+ 
+// specifying our equations' function
+flag = KINInit(kinsolMemory, F, x);
+if (flag &lt; 0) return false;
+ 
+// initializing the simplest available solver
+flag = KINDense(kinsolMemory, N);
+if (flag &lt; 0) return false;
+ 
+// little magic
+flag = KINSetMaxSetupCalls(kinsolMemory, 1);
+if (flag &lt; 0) return false;
+ 
+// actually solving equations
+flag = KINSol(kinsolMemory, x, KIN_LINESEARCH, scale, scale);
+if (flag &lt; 0) return false;
+ 
+// getting solution rotations
+firingRotation = FRotator(NV_Ith_S(x, 2), NV_Ith_S(x, 1), 0);
+ 
+bool success = false;
+switch (flag)
+{
+case KIN_SUCCESS:
+case KIN_INITIAL_GUESS_OK:
+// equations were successfully solved
+success = true;
+break;
+case KIN_STEP_LT_STPTOL:
+// algorithm finished correctly but no good solution were found
+break;
+default:
+ 
+break;
+}
+ 
+// releasing memory
+N_VDestroy_Serial(x);
+N_VDestroy_Serial(scale);
+N_VDestroy_Serial(constraints);
+KINFree(&amp;kinsolMemory);
+ 
+return success;
+}</p> <p>Build project. We're done with code part.</p> <h2 id="tying-everything-together"><a href="#tying-everything-together" class="header-anchor">#</a> Tying everything together</h2> <h3 id="fire-behavior-part-2"><a href="#fire-behavior-part-2" class="header-anchor">#</a> <strong>Fire</strong> behavior part 2</h3> <p>Complete our <strong>Fire</strong> task Event Graph:</p> <p><a href="/File:Fire-full-event-graph.png" title="Full Event Graph of Fire task"><img src="https://d26ilriwvtzlb.cloudfront.net/c/c6/Fire-full-event-graph.png" alt="Full Event Graph of Fire task"></a></p> <p>Functionality is pretty straightforward - if necessary rotation was successfully computed we rotate our firer to it and emitting <strong>FireProjectile</strong> event. Projectile speed is taken from <em>FirstPersonProjectile</em> blueprint.</p> <p>At last create following structure in <strong>FirerBehavior</strong> Behavior Tree:</p> <p><a href="/File:Firer-behavior-tree.png" title="Firer Behavior Tree"><img src="https://d26ilriwvtzlb.cloudfront.net/c/c2/Firer-behavior-tree.png" alt="Firer Behavior Tree"></a></p> <p>You can now place our <strong>Firer</strong> character somewhere on the map and try out it's aiming:</p> <p><a href="/File:Demonstration.png" title="Aiming"><img src="https://d26ilriwvtzlb.cloudfront.net/0/05/Demonstration.png" alt="Aiming"></a></p> <h2 id="further-improvements"><a href="#further-improvements" class="header-anchor">#</a> Further improvements</h2> <p>The very first enhancement you should think about is gradual rotation. Right now our firer changes it's rotation instantly. But then you have to consider time required to rotate to given angles in equations.</p> <p>After it you'll probably like to move your firer around, but then you'll have more variables than equations and it will no longer be system of equations solving problem, but an <a href="https://en.wikipedia.org/wiki/Mathematical_optimization" target="_blank" rel="noopener noreferrer">optimization<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> problem. But you're lucky because <a href="https://en.wikipedia.org/wiki/Comparison_of_optimization_software" target="_blank" rel="noopener noreferrer">there are<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> a lot more optimization libraries than nonlinear equations solvers.</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=AI_aiming_for_the_lazy&amp;oldid=16988" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=AI_aiming_for_the_lazy&amp;oldid=16988<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/47.6c185b5e.js" defer></script>
+  </body>
+</html>

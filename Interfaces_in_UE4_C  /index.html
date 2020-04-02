@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/606.8d353441.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Interfaces in C++ - Epic Wiki</p> <h1 id="interfaces-in-c"><a href="#interfaces-in-c" class="header-anchor">#</a> Interfaces in C++</h1> <p>From Epic Wiki</p> <p>(Redirected from <a href="/index.php?title=Interfaces_in_UE4_C%2B%2B&amp;redirect=no" title="Interfaces in UE4 C++">Interfaces in UE4 C++</a>)</p> <p>Jump to: <a href="#mw-navigation">navigation</a>, <a href="#p-search">search</a></p> <p><strong>Rate this Article:</strong></p> <p>3.00</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""> (one vote)</p> <p>Approved for Versions:(please verify)</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#The_Interface">2 The Interface</a> <ul><li><a href="#IToStringInterface::">2.1 IToStringInterface::</a></li></ul></li> <li><a href="#Multiple_Class_Inheritance">3 Multiple Class Inheritance</a></li> <li><a href="#InterfaceCast">4 InterfaceCast</a> <ul><li><a href="#Determining_If_a_Given_Actor_Has_The_Interface">4.1 Determining If a Given Actor Has The Interface</a></li> <li><a href="#The_Magic_of_InterfaceCast_and_UE4_C.2B.2B_Interfaces">4.2 The Magic of InterfaceCast and UE4 C++ Interfaces</a></li></ul></li> <li><a href="#Creating_Global_Events">5 Creating Global Events</a> <ul><li><a href="#Object_Iterator_Vs_Actor_Iterator">5.1 Object Iterator Vs Actor Iterator</a></li> <li><a href="#Object_Iterator_to_Trigger_Global_Event">5.2 Object Iterator to Trigger Global Event</a></li> <li><a href="#Actor_Iterator_to_Trigger_Global_Event">5.3 Actor Iterator to Trigger Global Event</a></li> <li><a href="#Minimizing_Iterator_Time">5.4 Minimizing Iterator Time</a></li></ul></li> <li><a href="#Narrowed_Actor_Iterator_Search">6 Narrowed Actor Iterator Search</a></li> <li><a href="#Narrowed_Object_Iterator_Search">7 Narrowed Object Iterator Search</a></li> <li><a href="#Summary">8 Summary</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Original Author</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community,</p> <p>Here's a tutorial on using <strong>UE4 C++ Interfaces</strong> to trigger global custom game events directly in C++ or via the level blueprint (or anywhere really).</p> <p>This tutorial enables you to have a custom event like TheSunReachedHighNoon, and have a bunch of actors respond to this event differently, each with their own implementation of the event.</p> <p>So flowers could override TheSunReachedHighNoon to open blossoms completely,</p> <p>frogs could use override TheSunReachedHighNoon to hide under rocks</p> <p>etc etc</p> <p>And you can trigger the event via a blueprintcallable function used in a static blueprint library if you want!</p> <p>This means you can trigger global actor events from your level blueprint and ask actors to do specific things,</p> <p>without having to iterate over the actors in the level blueprint itself.</p> <p>I also show you how you can <strong>easily determine whether any given actor has the interface or not.</strong></p> <h2 id="the-interface"><a href="#the-interface" class="header-anchor">#</a> The Interface</h2> <p>As a really simple example, I wrote a ToString() interface.</p> <p>I will discuss how to turn this into a global event below.</p> <p>In the overall theme of making a global event you'd replace ToString() with TheSunReachedHighNoon()</p> <p>but to make sure you can actually test the code I am using ToString() instead.</p> <p>.h</p> <p>// Copyright 1998-2013 Epic Games, Inc. All Rights Reserved.
+ 
+#pragma once
+ 
+#include &quot;ToStringInterface.generated.h&quot;
+ 
+/** Class needed to support InterfaceCast<IToStringInterface>(Object) */
+UINTERFACE(MinimalAPI)
+class UToStringInterface : public UInterface
+{
+GENERATED_UINTERFACE_BODY()
+};
+ 
+class IToStringInterface
+{
+GENERATED_IINTERFACE_BODY()
+ 
+virtual FString ToString();
+};</IToStringInterface></p> <p>.cpp</p> <p>// Copyright 1998-2013 Epic Games, Inc. All Rights Reserved.
+ 
+#include &quot;VictoryGame.h&quot;
+ 
+//////////////////////////////////////////////////////////////////////////
+// ToStringInterface
+ 
+UToStringInterface::UToStringInterface(const class FPostConstructInitializeProperties&amp; PCIP)
+: Super(PCIP)
+{
+ 
+}
+ 
+//This is required for compiling, would also let you know if somehow you called
+//the base event/function rather than the over-rided version
+FString IToStringInterface::ToString()
+{
+return &quot;IToStringInterface::ToString()&quot;;
+}</p> <h3 id="itostringinterface"><a href="#itostringinterface" class="header-anchor">#</a> IToStringInterface::</h3> <p>note that it is IToStringInterface::ToString(), not UToStringInterface::ToString()</p> <h2 id="multiple-class-inheritance"><a href="#multiple-class-inheritance" class="header-anchor">#</a> Multiple Class Inheritance</h2> <p>You have to use <strong>multiple inheritance</strong>, and only the IToStringInterface part.</p> <p>The first inherited class will be anything you want, relative to your project, I just used ASkeletalMeshActor as an example.</p> <p>.h</p> <p>UCLASS(placeable)
+class AFlower : public ASkeletalMeshActor,  public IToStringInterface
+{
+GENERATED_UCLASS_BODY()
+ 
+FLinearColor FlowerColor;
+ 
+FVector FlowerScale3D;
+ 
+void OpenBlossom();
+void CloseUpForTheNight();
+ 
+//IToStringInterface
+public:
+ 
+virtual FString ToString() OVERRIDE;
+ 
+};</p> <p>.cpp</p> <p>//other flower code
+ 
+//IToStringInterface
+FString AFlower::ToString()
+{
+return &quot;Flower!&quot;;
+}</p> <p>Any number of classes can implement this Event now, using similar format</p> <p>.h</p> <p>UCLASS(placeable)
+class AFrog : public ACharacter,  public IToStringInterface
+{
+GENERATED_UCLASS_BODY()
+ 
+FLinearColor FrogBaseColor;
+ 
+FVector FrogScale3D;
+ 
+void HopAround();
+void HideUnderRockCauseSunIsTooHot();
+ 
+//IToStringInterface
+public:
+ 
+virtual FString ToString() OVERRIDE;
+ 
+};</p> <p>.cpp</p> <p>//other Frog code
+ 
+//IToStringInterface
+FString AFrog::ToString()
+{
+return &quot;Frog!!!!&quot;;
+}</p> <h2 id="interfacecast"><a href="#interfacecast" class="header-anchor">#</a> InterfaceCast</h2> <h3 id="determining-if-a-given-actor-has-the-interface"><a href="#determining-if-a-given-actor-has-the-interface" class="header-anchor">#</a> Determining If a Given Actor Has The Interface</h3> <p><strong>NOTE: Using C++ interfaces in Blueprint objects requires a different approach. <a href="https://wiki.unrealengine.com/Interfaces_And_Blueprints" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/Interfaces_And_Blueprints<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></strong></p> <p>You use InterfaceCast to determine if a object is using your interface, if it returns NULL then the object is not using it.</p> <p>If the InterfaceCast returns your Interface type, then calling it's function will use the subclassed version specific to the object you called it on.</p> <p>See below for what I mean, it's really really cool actually 😃</p> <p>//Example: somewhere in your Player Controller class code you have instances of a frog and a flower and a tree
+ 
+//spawned and set somewhere in player controller code (for use of ClientMessage)
+//can really do this anywhere you want, this is just a test you can easily do
+AFrog* MyFrog;
+AFlower* MyFlower;
+ATree* HappyTree;
+ 
+//....
+ 
+//Check Frog
+IToStringInterface* TheInterface = InterfaceCast&lt;IToStringInterface&gt;(MyFrog);
+ 
+if(TheInterface)
+{
+ClientMessage(&quot;Frog Uses Interface&quot;);
+ClientMessage(TheInterface-&gt;ToString());
+}
+ 
+//Check Flower
+TheInterface = InterfaceCast&lt;IToStringInterface&gt;(MyFlower);
+ 
+if(TheInterface)
+{
+ClientMessage(&quot;Flower Uses Interface&quot;);
+ClientMessage(TheInterface-&gt;ToString());
+}
+ 
+//Check HappyTree
+TheInterface = InterfaceCast&lt;IToStringInterface&gt;(HappyTree);
+ 
+if(TheInterface)
+{
+ClientMessage(&quot;Flower Uses Interface&quot;);
+ClientMessage(TheInterface-&gt;ToString());
+}
+else ClientMessage(&quot;HappyTree Does Not Use Interface&quot;);
+ 
+//end of code segment</p> <h3 id="the-magic-of-interfacecast-and-ue4-c-interfaces"><a href="#the-magic-of-interfacecast-and-ue4-c-interfaces" class="header-anchor">#</a> The Magic of InterfaceCast and UE4 C++ Interfaces</h3> <p>From the above code you can see that I am always calling</p> <p>TheInterface-&gt;ToString()</p> <p>and the type of TheInterface never changes, it is always IToStringInterface* and I only create it once at the very top.</p> <p>So why would calling</p> <p>TheInterface-&gt;ToString()</p> <p>produce different results for each use of TheInterface with different Objects?</p> <p>Because C++ fundamentals include a feature called &quot;polymorphism&quot;, that's why 😃</p> <p>InterfaceCasting each type of object returns the subclassed version of the ToString() function!</p> <h2 id="creating-global-events"><a href="#creating-global-events" class="header-anchor">#</a> Creating Global Events</h2> <p>Now you have all the tools you need to create a global event!</p> <p>Whenever you want to create a global event, simply</p> <p>1. iterate over all actors in the world</p> <p>2. check if that actor implements your custom event interface</p> <p>3. run the custom event for that actor.</p> <h3 id="object-iterator-vs-actor-iterator"><a href="#object-iterator-vs-actor-iterator" class="header-anchor">#</a> Object Iterator Vs Actor Iterator</h3> <p>If you are wanting to use a blueprintcallable function in a custom blueprint library,</p> <p>you must use the Object Iterator, not the Actor Iterator, since static classes can't use GetWorld() (as far as I know)</p> <h3 id="object-iterator-to-trigger-global-event"><a href="#object-iterator-to-trigger-global-event" class="header-anchor">#</a> Object Iterator to Trigger Global Event</h3> <p>You can use this anywhere, but in PIE it will detect objects in the pre-PIE world as well as the game world, in an unspecified order.</p> <p>IToStringInterface* TheInterface = NULL;
+for ( TObjectIterator&lt;AActor&gt; It; It; ++It )
+{
+//Try InterFaceCasting
+TheInterface = InterfaceCast&lt;IToStringInterface&gt;(*It);
+ 
+//Run the Event specific to the actor, if the actor has the interface
+if(TheInterface) ClientMessage(TheInterface-&gt;ToString());
+}</p> <p>Again in this simple case, the &quot;Event&quot; is just the ToString() function, but I wanted something you could try out before doing fancier things and get fast feedback via ClientMessage in as non-project-specific a way as possible</p> <h3 id="actor-iterator-to-trigger-global-event"><a href="#actor-iterator-to-trigger-global-event" class="header-anchor">#</a> Actor Iterator to Trigger Global Event</h3> <p>If you dont need to trigger the event from a static function in a blueprint library,</p> <p>and can call the function with a blueprintcallable or regular function somewhere else in an Actor class.</p> <p>Then you can use the actor iterator (My personal favorite!)</p> <p>IToStringInterface* TheInterface = NULL;
+TActorIterator&lt; AActor &gt; ActorItr(GetWorld());
+while (ActorItr)
+{
+//Try InterFaceCasting
+TheInterface = InterfaceCast&lt;IToStringInterface&gt;(*ActorItr);
+ 
+//Run the Event specific to the actor, if the actor has the interface
+if(TheInterface) ClientMessage(TheInterface-&gt;ToString());
+ 
+//
+++ActorItr;  //dont forget this or game will hang due to while loop
+//could use a for loop instead
+}</p> <h3 id="minimizing-iterator-time"><a href="#minimizing-iterator-time" class="header-anchor">#</a> Minimizing Iterator Time</h3> <p>If you know only certain subclasses of Actor have any chance of using your event</p> <p>like only StaticMeshActors or only Characters, than you can specify a different class for the Actor or Object Iterator</p> <h2 id="narrowed-actor-iterator-search"><a href="#narrowed-actor-iterator-search" class="header-anchor">#</a> Narrowed Actor Iterator Search</h2> <p>IToStringInterface* TheInterface = NULL;
+TActorIterator&lt; AStaticMeshActor &gt; ActorItr(GetWorld());
+while (ActorItr)
+{
+//Try InterFaceCasting
+TheInterface = InterfaceCast&lt;IToStringInterface&gt;(*ActorItr);
+ 
+//Run the Event specific to the actor, if the actor has the interface
+if(TheInterface) ClientMessage(TheInterface-&gt;ToString());
+ 
+//
+++ActorItr;  //dont forget this or game will hang due to while loop
+//could use a for loop instead
+}</p> <h2 id="narrowed-object-iterator-search"><a href="#narrowed-object-iterator-search" class="header-anchor">#</a> Narrowed Object Iterator Search</h2> <p>(You can use this anywhere, but in PIE it will detect all sorts of things)</p> <p>IToStringInterface* TheInterface = NULL;
+for ( TObjectIterator&lt;ACharacter&gt; It; It; ++It )
+{
+//Try InterFaceCasting
+TheInterface = InterfaceCast&lt;IToStringInterface&gt;(*It);
+ 
+//Run the Event specific to the actor, if the actor has the interface
+if(TheInterface) ClientMessage(TheInterface-&gt;ToString());
+}</p> <h2 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h2> <p>Now you can trigger global events that only certain actors will respond to, and you can have each actor respond in their own unique way, while keeping the code very simple!</p> <p>Yay!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Interfaces_in_C%2B%2B&amp;oldid=8283" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Interfaces_in_C%2B%2B&amp;oldid=8283<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/606.8d353441.js" defer></script>
+  </body>
+</html>

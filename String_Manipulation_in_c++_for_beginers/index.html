@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/1027.2ca000a7.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>String Manipulation in c++ for beginers - Epic Wiki</p> <h1 id="string-manipulation-in-c-for-beginers"><a href="#string-manipulation-in-c-for-beginers" class="header-anchor">#</a> String Manipulation in c++ for beginers</h1> <p><strong>Convenience STRING manipulation Tutorial. ideal for beginners debugging</strong></p> <p>After getting my self reaquainted with c++ I remembered just how much of a pain strings can be.</p> <p>UE4 gives us FString, FName and FText to work with for various scenarios, and I recomend reading up on them, its important info for speed of calculation and localisation. Nonetheless the standard string (std::string) still has uses, especialy as a debugging tool. These files should allow you to work with strings in a manner similar to unreal script or other scripting languages. I wrote the following code to facilitate simple on screen debugging, and thought Id share it with the comunity.</p> <p>Example uses: PrintStr(&quot;some text about mouse X:&quot; + ToString(MouseLocation.X) + &quot; Y:&quot; + ToString(MouseLocation.Y));</p> <p>Add code to your project (select no base class) - name AdvString in order to use GEngine you need to include Engine.h in your main project file, Projects created in later versions only include Engineminimal.h HEADER</p> <ol><li><p>// File: AdvString.h</p></li> <li><p>#include <iostream></iostream></p></li> <li><p>#include <sstream></sstream></p></li> <li><p>#include <string></string></p></li> <li><p>#include <stdexcept></stdexcept></p></li> <li><p>#include &quot;Spiral.h&quot;</p></li> <li><p>class BadConversion : public std::runtime_error {</p></li> <li><p>public:</p></li> <li><div class="language- extra-class"><pre><code>BadConversion(std::string const&amp; s)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	: std::runtime\_error(s)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>{ }
+</code></pre></div></li> <li><p>};</p></li> <li><p>inline std::string ToString(double x)</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code>std::ostringstream o;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>if (!(o &lt;&lt; x))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	throw BadConversion(&quot;ToString(double)&quot;);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>return o.str();
+</code></pre></div></li> <li><p>}</p></li> <li><p>inline std::string ToString(float x)</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code>std::ostringstream o;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>if (!(o &lt;&lt; x))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	throw BadConversion(&quot;ToString(float)&quot;);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>return o.str();
+</code></pre></div></li> <li><p>}</p></li> <li><p>inline std::string ToString(int x)</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code>std::ostringstream o;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>if (!(o &lt;&lt; x))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	throw BadConversion(&quot;ToString(int)&quot;);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>return o.str();
+</code></pre></div></li> <li><p>}</p></li> <li><p>inline std::string ToString(short x)</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code>std::ostringstream o;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>if (!(o &lt;&lt; x))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	throw BadConversion(&quot;ToString(short)&quot;);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>return o.str();
+</code></pre></div></li> <li><p>}</p></li> <li><p>inline std::string ToString(long x)</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code>std::ostringstream o;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>if (!(o &lt;&lt; x))
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	throw BadConversion(&quot;ToString(long)&quot;);
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>return o.str();
+</code></pre></div></li> <li><p>}</p></li> <li><p>inline std::string ToString(bool x)</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code>if (x)
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	return &quot;true&quot;;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>}
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>else
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>{
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>	return &quot;false&quot;;
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>}
+</code></pre></div></li> <li><p>}</p></li> <li><p>inline FString ToFString(std::string x)</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code>FString f(x.c\_str());
+</code></pre></div></li> <li><div class="language- extra-class"><pre><code>return f;
+</code></pre></div></li> <li><p>}</p></li> <li><p>inline void PrintFStr(FString text)</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code>GEngine\-\&gt;AddOnScreenDebugMessage(\-1, 1.5, FColor::White, text);
+</code></pre></div></li> <li><p>}</p></li> <li><p>inline void PrintFStrRed(FString text)</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code>GEngine\-\&gt;AddOnScreenDebugMessage(\-1, 1.5, FColor::Red, text);
+</code></pre></div></li> <li><p>}</p></li> <li><p>inline void PrintFStrGreen(FString text)</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code>GEngine\-\&gt;AddOnScreenDebugMessage(\-1, 1.5, FColor::Green, text);
+</code></pre></div></li> <li><p>}</p></li> <li><p>inline void PrintFStrBlue(FString text)</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code>GEngine\-\&gt;AddOnScreenDebugMessage(\-1, 1.5, FColor::Blue, text);
+</code></pre></div></li> <li><p>}</p></li> <li><p>inline void PrintStr(std::string text)</p></li> <li><p>{</p></li> <li><div class="language- extra-class"><pre><code>GEngine\-\&gt;AddOnScreenDebugMessage(\-1, 1.5, FColor::White, ToFString(text));
+</code></pre></div></li> <li><p>}</p></li> <li><p>inline void PrintStrRed(std::string text)</p></li> <li><p>{</p></li> <li><p>GEngine-&gt;AddOnScreenDebugMessage(-1, 1.5, FColor::Red, ToFString(text));</p></li> <li><p>}</p></li> <li><p>inline void PrintStrGreen(std::string text)</p></li> <li><p>{</p></li> <li><p>GEngine-&gt;AddOnScreenDebugMessage(-1, 1.5, FColor::Green, ToFString(text));</p></li> <li><p>}</p></li> <li><p>inline void PrintStrBlue(std::string text)</p></li> <li><p>{</p></li> <li><p>GEngine-&gt;AddOnScreenDebugMessage(-1, 1.5, FColor::Blue, ToFString(text));</p></li> <li><p>}</p></li></ol> <p><strong>source</strong></p> <ol><li><p>#include &quot;YOUR MAIN CLASS.h&quot;</p></li> <li><p>#include &quot;AdvString.h&quot;</p></li> <li><p>// inline code defined in .h</p></li></ol> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=String_Manipulation_in_c%2B%2B_for_beginers&amp;oldid=8888" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=String_Manipulation_in_c%2B%2B_for_beginers&amp;oldid=8888<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/1027.2ca000a7.js" defer></script>
+  </body>
+</html>

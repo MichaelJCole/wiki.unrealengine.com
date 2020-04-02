@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/421.cfaf572c.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>CustomSettings - Epic Wiki</p> <h1 id="customsettings"><a href="#customsettings" class="header-anchor">#</a> CustomSettings</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a> <ul><li><a href="#Custom_settings">1.1 Custom settings</a> <ul><li><a href="#Creating_your_settings_object">1.1.1 Creating your settings object</a></li> <li><a href="#Registering_the_object_with_our_module">1.1.2 Registering the object with our module</a></li></ul></li> <li><a href="#Using_Auto-discovery_Settings">1.2 Using Auto-discovery Settings</a></li> <li><a href="#Summary">1.3 Summary</a></li></ul></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Original Author:</em> <a href="/User:Moss" title="User:Moss">Moss</a> (GitHub repo: <a href="https://github.com/moritz-wundke/CustomSettings" target="_blank" rel="noopener noreferrer">https://github.com/moritz-wundke/CustomSettings<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>)</p> <p>Hi guys!</p> <p>The following tutorial will guide you to expose your config objects (UObjects that have decorated UPROPERTY fields) in a more user-friendly way. What we will do is to expose the configuration fields into the *<strong>Project Settings</strong> part of the editor so you can tweak and change those values from the editor directly without going into the low-level <strong>ini</strong> files.</p> <p><a href="/File:CustomSettings.png"><img src="https://d26ilriwvtzlb.cloudfront.net/0/0f/CustomSettings.png" alt="CustomSettings.png"></a></p> <h3 id="custom-settings"><a href="#custom-settings" class="header-anchor">#</a> Custom settings</h3> <h4 id="creating-your-settings-object"><a href="#creating-your-settings-object" class="header-anchor">#</a> Creating your settings object</h4> <p>We will create a simple <strong>UObject</strong> that will hold out config data. The header should be look like the following:</p> <p>// Copyright 2015 Moritz Wundke. All Rights Reserved.
+// Released under MIT.
+ 
+#pragma once
+ 
+#include &quot;CustomGameSettings.generated.h&quot;
+ 
+/**
+* Setting object used to hold both config settings and editable ones in one place
+* To ensure the settings are saved to the specified config file make sure to add
+* props using the globalconfig or config meta.
+*/
+UCLASS(config = Game, defaultconfig)
+class UCustomGameSettings : public UObject
+{
+GENERATED_BODY()
+ 
+public:
+UCustomGameSettings(const FObjectInitializer&amp; ObjectInitializer);
+ 
+/** Sample bool property */
+UPROPERTY(EditAnywhere, config, Category = Custom)
+bool bSampleBool;
+ 
+/** Sample float property that requires a restart */
+UPROPERTY(EditAnywhere, config, Category = Custom, meta = (ConfigRestartRequired = true))
+float SampleFloatRequireRestart;
+ 
+/** Sample string list */
+UPROPERTY(config, EditAnywhere, Category = Custom)
+TArray&lt;FString&gt; SampleStringList;
+ 
+/** Or add min, max or clamp values to the settings */
+UPROPERTY(config, EditAnywhere, Category = Custom, meta = (UIMin = 1, ClampMin = 1))
+int32 ClampedIntSetting;
+ 
+/** We can even use asset references */
+UPROPERTY(config, EditAnywhere, Category = Materials, meta = (AllowedClasses = &quot;MaterialInterface&quot;))
+FStringAssetReference StringMaterialAssetReference;
+ 
+};</p> <p>As you can see we have to tell the engine which config file to use, the <em>UCLASS</em> decorators will take care of it. Then to add items to our config we just have to decorate our <em>UPROPERTY</em> fileds with the <em>config</em> or <em>globalconfig</em> flags.</p> <p>We will just add a stub ctor as our implementation:</p> <p>// Copyright 2015 Moritz Wundke. All Rights Reserved.
+// Released under MIT.
+ 
+#include &quot;CustomSettings.h&quot;
+#include &quot;CustomGameSettings.h&quot;
+ 
+UCustomGameSettings::UCustomGameSettings(const FObjectInitializer&amp; ObjectInitializer) : Super(ObjectInitializer)
+{
+ 
+}</p> <h4 id="registering-the-object-with-our-module"><a href="#registering-the-object-with-our-module" class="header-anchor">#</a> Registering the object with our module</h4> <p>You can register the object to any game module, this will work for your game modules or even plugins. What we have to do is to create a child class of our <strong>IModuleInterface</strong>, plugins and game modules will inherit from different classes but the process of registering settings will be exactly the same.</p> <p>So we will have to override the <em>StartupModule</em> and <em>ShutdownModule</em> functions, in our case I will also override <em>SupportsDynamicReloading</em>. The idea is to register our settings object in <em>StartModule</em> and unregister them in <em>ShutdownModule</em>.</p> <p>Our module source should be something like the following:</p> <p>// Copyright 2015 Moritz Wundke.All Rights Reserved.
+// Released under MIT.
+ 
+#include &quot;CustomSettings.h&quot;
+ 
+// Settings
+#include &quot;CustomGameSettings.h&quot;
+#include &quot;ISettingsModule.h&quot;
+#include &quot;ISettingsSection.h&quot;
+#include &quot;ISettingsContainer.h&quot;
+ 
+#define LOCTEXT_NAMESPACE &quot;CustomSettings&quot;
+ 
+class FCustomSettingsModule : public FDefaultGameModuleImpl
+{
+virtual void StartupModule() override
+{
+RegisterSettings();
+}
+ 
+virtual void ShutdownModule() override
+{
+if (UObjectInitialized())
+{
+UnregisterSettings();
+}
+}
+ 
+virtual bool SupportsDynamicReloading() override
+{
+return true;
+}
+ 
+private:
+ 
+// Callback for when the settings were saved.
+bool HandleSettingsSaved()
+{
+UCustomGameSettings* Settings = GetMutableDefault&lt;UCustomGameSettings&gt;();
+bool ResaveSettings = false;
+ 
+// You can put any validation code in here and resave the settings in case an invalid
+// value has been entered
+ 
+if (ResaveSettings)
+{
+Settings-&gt;SaveConfig();
+}
+ 
+return true;
+}
+ 
+void RegisterSettings()
+{
+// Registering some settings is just a matter of exposing the default UObject of
+// your desired class, feel free to add here all those settings you want to expose
+// to your LDs or artists.
+ 
+if (ISettingsModule* SettingsModule = FModuleManager::GetModulePtr&lt;ISettingsModule&gt;(&quot;Settings&quot;))
+{
+// Create the new category
+ISettingsContainerPtr SettingsContainer = SettingsModule-&gt;GetContainer(&quot;Project&quot;);
+ 
+SettingsContainer-&gt;DescribeCategory(&quot;CustomSettings&quot;,
+LOCTEXT(&quot;RuntimeWDCategoryName&quot;, &quot;CustomSettings&quot;),
+LOCTEXT(&quot;RuntimeWDCategoryDescription&quot;, &quot;Game configuration for the CustomSettings game module&quot;));
+ 
+// Register the settings
+ISettingsSectionPtr SettingsSection = SettingsModule-&gt;RegisterSettings(&quot;Project&quot;, &quot;CustomSettings&quot;, &quot;General&quot;,
+LOCTEXT(&quot;RuntimeGeneralSettingsName&quot;, &quot;General&quot;),
+LOCTEXT(&quot;RuntimeGeneralSettingsDescription&quot;, &quot;Base configuration for our game module&quot;),
+GetMutableDefault&lt;UCustomGameSettings&gt;()
+);
+ 
+// Register the save handler to your settings, you might want to use it to
+// validate those or just act to settings changes.
+if (SettingsSection.IsValid())
+{
+SettingsSection-&gt;OnModified().BindRaw(this, &amp;FCustomSettingsModule::HandleSettingsSaved);
+}
+}
+}
+ 
+void UnregisterSettings()
+{
+// Ensure to unregister all of your registered settings here, hot-reload would
+// otherwise yield unexpected results.
+ 
+if (ISettingsModule* SettingsModule = FModuleManager::GetModulePtr&lt;ISettingsModule&gt;(&quot;Settings&quot;))
+{
+SettingsModule-&gt;UnregisterSettings(&quot;Project&quot;, &quot;CustomSettings&quot;, &quot;General&quot;);
+}
+}
+};
+ 
+IMPLEMENT_PRIMARY_GAME_MODULE( FCustomSettingsModule, CustomSettings, &quot;CustomSettings&quot; );
+ 
+#undef LOCTEXT_NAMESPACE</p> <p>As you can see we register our <strong>UCustomGameSettings</strong> into a new category, we can create as many categories as we like but I prefer having one one custom section, if not it will get messy quickly. <em>HandleSettingsSaved</em> gets called once the config object has changed, this is the best place to validate your changes and to act to the config changes to reload any required logic.</p> <h3 id="using-auto-discovery-settings"><a href="#using-auto-discovery-settings" class="header-anchor">#</a> Using Auto-discovery Settings</h3> <p>If you just want to add your settings to the <strong>Game</strong> section of the project settings you can skip all the custom stuff from above and just inherit from <strong>UDeveloperSettings</strong>.</p> <p>UCLASS(config=Game, defaultconfig, meta=(DisplayName=&quot;My Settings&quot;))
+class LOADINGSCREEN_API UMyDeveloperSettings : public UDeveloperSettings
+{
+GENERATED_UCLASS_BODY()
+ 
+public:
+ 
+// Add all your properties here as we did before
+};</p> <h3 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h3> <p>Adding settings to your editor makes it easier to modify them and lets non-code folk tweak without the fear of breaking the low-level config files.</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=CustomSettings&amp;oldid=17228" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=CustomSettings&amp;oldid=17228<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/421.cfaf572c.js" defer></script>
+  </body>
+</html>

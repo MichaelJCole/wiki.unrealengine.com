@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/990.493885d6.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Slate, How to Make Fancy Custom SButtons - Epic Wiki</p> <h1 id="slate-how-to-make-fancy-custom-sbuttons"><a href="#slate-how-to-make-fancy-custom-sbuttons" class="header-anchor">#</a> Slate, How to Make Fancy Custom SButtons</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Video">2 Video</a></li> <li><a href="#.H">3 .H</a></li> <li><a href="#.CPP">4 .CPP</a> <ul><li><a href="#FButtonStyle">4.1 FButtonStyle</a></li> <li><a href="#Rainbow_Background_Button">4.2 Rainbow Background Button</a></li> <li><a href="#Trash_Can_Button">4.3 Trash Can Button</a></li> <li><a href="#Setting_The_Cursors">4.4 Setting The Cursors</a></li> <li><a href="#Setting_the_Custom_Tooltips">4.5 Setting the Custom Tooltips</a></li> <li><a href="#Updating_the_Text_When_Highlighted">4.6 Updating the Text When Highlighted</a></li></ul></li> <li><a href="#Summary">5 Summary</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Author:</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>In this tutorial I show you how to make some fancy custom buttons!</p> <p>I show you how to use <strong>images</strong> as button background, or as the entire button!</p> <p>I also show you how to use custom color and font text!</p> <p>I also give you the code for how to make <strong>custom Tool Tips</strong></p> <p>Lastly I show how to make text highlight when it is hovered over 😃</p> <p>Enjoy!</p> <h2 id="video"><a href="#video" class="header-anchor">#</a> Video</h2> <p>Here's a video demoing what I am showing you in this tutorial!</p> <h2 id="h"><a href="#h" class="header-anchor">#</a> .H</h2> <p>//Buttons
+TSharedPtr&lt;SButton&gt; RefreshButton;
+TSharedPtr&lt;STextBlock&gt; RefreshButtonText;
+TSharedPtr&lt;SButton&gt; ClearTileButton;</p> <h2 id="cpp"><a href="#cpp" class="header-anchor">#</a> .CPP</h2> <h3 id="fbuttonstyle"><a href="#fbuttonstyle" class="header-anchor">#</a> FButtonStyle</h3> <p>Both of my example buttons use a special Slate Core Style.</p> <p>.ButtonStyle( FCoreStyle::Get(), &quot;NoBorder&quot; )</p> <h3 id="rainbow-background-button"><a href="#rainbow-background-button" class="header-anchor">#</a> Rainbow Background Button</h3> <p>//The button!
+SAssignNew( RefreshButton, SButton )
+.ButtonStyle( FCoreStyle::Get(), &quot;NoBorder&quot; )
+.OnClicked( this, &amp;SDDFileTree::RefreshButtonPressed )
+.HAlign( HAlign_Center )
+.VAlign( VAlign_Center )
+.ForegroundColor( FSlateColor::UseForeground() )
+[
+//Colored Background
+SNew(SBorder)
+.Padding(FMargin(3))
+ 
+//~~~ Rainbow Image for Button!!! ~~~
+.BorderImage( FCoreStyle::Get().GetBrush(&quot;ColorSpectrum.Spectrum&quot;) )
+[
+//Button Text!! AssignNew so can change color later
+SAssignNew(RefreshButtonText , STextBlock)
+.Text( FString(&quot;Refresh (F5) &quot;) )
+.Font(FSlateFontInfo(FPaths::EngineContentDir() / TEXT(&quot;Slate/Fonts/Roboto-Bold.ttf&quot;), 16))
+.ColorAndOpacity(FLinearColor(1,0,1,1))
+.HighlightColor(FLinearColor(1,1,0,1))
+.ShadowColorAndOpacity(FLinearColor::Black)
+.ShadowOffset(FIntPoint(1, -1))
+]
+]</p> <h3 id="trash-can-button"><a href="#trash-can-button" class="header-anchor">#</a> Trash Can Button</h3> <p>//Resizes the image
+SNew(SBox)
+.WidthOverride(64)
+.HeightOverride(64)
+[
+//~~~ Clear Button / Trash Can ~~~
+SAssignNew( ClearTileButton, SButton )
+.ButtonStyle( FCoreStyle::Get(), &quot;NoBorder&quot; )
+.OnClicked( this, &amp;SDDFileTree::ClearButtonPressed )
+.HAlign( HAlign_Center )
+.VAlign( VAlign_Center )
+.ForegroundColor( FSlateColor::UseForeground() )
+[
+//Button Content Image
+TSharedRef&lt;SWidget&gt;( SNew( SImage ) .Image(
+FCoreStyle::Get().GetBrush(&quot;TrashCan&quot;)
+))
+]
+]</p> <h3 id="setting-the-cursors"><a href="#setting-the-cursors" class="header-anchor">#</a> Setting The Cursors</h3> <p>//Set Cursors
+ClearTileButton-&gt;SetCursor(EMouseCursor::SlashedCircle);
+RefreshButton-&gt;SetCursor(EMouseCursor::Hand);</p> <h3 id="setting-the-custom-tooltips"><a href="#setting-the-custom-tooltips" class="header-anchor">#</a> Setting the Custom Tooltips</h3> <p>ClearTileButton-&gt;SetToolTip(
+SNew(SToolTip)
+[
+SNew(STextBlock)
+.Text(NSLOCTEXT(&quot;FileTree&quot;, &quot;Clear&quot;, &quot;Clear any currently Loaded Preview Tile!  -Rama&quot;))
+.Font(FSlateFontInfo(FPaths::EngineContentDir() / TEXT(&quot;Slate/Fonts/Roboto-Bold.ttf&quot;), 12))
+.ColorAndOpacity(FLinearColor(1,0,1,1))
+.HighlightColor(FLinearColor(1,1,0,1))
+.ShadowColorAndOpacity(FLinearColor::Black)
+.ShadowOffset(FIntPoint(-2, 2))
+]
+);
+ 
+RefreshButton-&gt;SetToolTip(	
+SNew(SToolTip)
+[
+SNew(STextBlock)
+.Text( NSLOCTEXT(&quot;FileTree&quot;, &quot;Refresh&quot;, &quot;Refresh Directory and File Listing, updating to hard drive contents! -Rama&quot;) )
+.Font(FSlateFontInfo(FPaths::EngineContentDir() / TEXT(&quot;Slate/Fonts/Roboto-Bold.ttf&quot;), 12))
+.ColorAndOpacity(FLinearColor(1,0,1,1))
+.HighlightColor(FLinearColor(1,1,0,1))
+.ShadowColorAndOpacity(FLinearColor::Black)
+.ShadowOffset(FIntPoint(-2, 2))
+]
+);</p> <h3 id="updating-the-text-when-highlighted"><a href="#updating-the-text-when-highlighted" class="header-anchor">#</a> Updating the Text When Highlighted</h3> <p>void SDDFileTree::Tick( const FGeometry&amp; AllottedGeometry, const double InCurrentTime, const float InDeltaTime )
+{
+// Call parent implementation
+SCompoundWidget::Tick( AllottedGeometry, InCurrentTime, InDeltaTime );
+ 
+ 
+//~~~~~~~~~~~~
+// Button Hovering
+//~~~~~~~~~~~~
+if(RefreshButtonText-&gt;IsHovered())
+{
+SetRainbowGlowColor();
+RefreshButtonText-&gt;SetForegroundColor( RainbowGlowingColor );
+}
+else
+{
+RefreshButtonText-&gt;SetForegroundColor( FLinearColor(1,0,1,1) );
+}
+}</p> <h2 id="summary"><a href="#summary" class="header-anchor">#</a> Summary</h2> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Slate,_How_to_Make_Fancy_Custom_SButtons&amp;oldid=4671" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Slate,_How_to_Make_Fancy_Custom_SButtons&amp;oldid=4671<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/990.493885d6.js" defer></script>
+  </body>
+</html>

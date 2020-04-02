@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/413.5e968ac1.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Creating a movement component for pawn - Epic Wiki</p> <h1 id="creating-a-movement-component-for-pawn"><a href="#creating-a-movement-component-for-pawn" class="header-anchor">#</a> Creating a movement component for pawn</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Introduction">1 Introduction</a></li> <li><a href="#Task_1_-_Searching_for_the_optimal_path">2 Task 1 - Searching for the optimal path</a></li> <li><a href="#Task_2_-_Implementing_movement_to_the_end_point">3 Task 2 - Implementing movement to the end point</a></li> <li><a href="#Future_Prospects">4 Future Prospects</a></li></ul> <h2 id="introduction"><a href="#introduction" class="header-anchor">#</a> Introduction</h2> <p>Hi, My name is Dmitry and I'm a programmer at Snowforged Entertainment. Our team is currently working on Starfall Tactics – an upcoming online RTS game based on the Unreal Engine 4. I’ve just finished refactoring a movement component for spaceships. This component had to be rewritten three times, going back all the way to the start of development on the game to working on the current alpha version.</p> <p>During this period of time, a lot of mistakes were made and painful lessons learned. In this diary, I’d like to share my experience with you and talk about Navigation Volumes, Movement component, AIController and Pawn.</p> <p><strong>Objective: implement spaceship movement on a given plane.</strong></p> <p>Things to consider:</p> <ul><li>Spaceships in Starfall Tactics have a maximum speed, rotational speed and a rate of acceleration. These parameters directly influence the ship’s movement.</li> <li>You have to rely on Navigation Volume to automatically search for obstacles and decide on the safest path.</li> <li>There shouldn’t be continuous synchronization of position coordinates across the network.</li> <li>Spaceships can start moving from different speed states.</li> <li>Everything must be done natively with regards to the architecture of Unreal Engine 4.</li></ul> <p>For the sake of simplicity, I've decided to break up the task into two sub-tasks: searching for the safest/optimal path and moving to the end point (located under the cursor).</p> <h2 id="task-1-searching-for-the-optimal-path"><a href="#task-1-searching-for-the-optimal-path" class="header-anchor">#</a> Task 1 - Searching for the optimal path</h2> <p>First, let’s consider the elements involved in finding an optimal path via Unreal Engine 4. <strong>UShipMovementComponent</strong> is a movement component inherited from <strong>UPawnMovementComponent</strong>, due to the end unit (in this case, our spaceship) being derived from APawn.</p> <p><strong>UPawnMovementComponent</strong> is originated from <strong>UNavMovementComponent</strong>, which contains the <strong>FNavProperties</strong> field. These are navigational parameters that describe the shape of a given <strong>APawn</strong> that is also used by the <strong>AIController</strong> when searching for pathways.</p> <p>Suppose we have a level that contains a spaceship, some static objects and Navigation Volume. We decide to send this spaceship from one point of the map to another. This is what happens inside UE4:</p> <p><a href="/File:Scheme41.jpg"><img src="https://d26ilriwvtzlb.cloudfront.net/c/c5/Scheme41.jpg" alt="Scheme41.jpg"></a></p> <ol><li><strong>APawn</strong> finds within itself the <strong>ShipAIController</strong> (in our case, it's just the class that was derived from <strong>AIController</strong>, having just a single method) and calls the method for seeking pathways. 2) In this method we first prepare a request to the navigation system. Then, after sending the request, we receive movement control points.</li></ol> <p>TArray<FVector> AShipAIController::SearchPath(const FVector&amp; location)
+{
+FPathFindingQuery Query;
+const bool bValidQuery = PreparePathfinding(Query, location, NULL);
+UNavigationSystem* NavSys = UNavigationSystem::GetCurrent(GetWorld());
+FPathFindingResult PathResult;
+TArray<FVector> Result;
+if(NavSys)
+{
+PathResult = NavSys-&gt;FindPathSync(Query);
+if(PathResult.Result != ENavigationQueryResult::Error)
+{
+if(PathResult.IsSuccessful() &amp;&amp; PathResult.Path.IsValid())
+{
+for(FNavPathPoint point : PathResult.Path-&gt;GetPathPoints())
+{
+Result.Add(point.Location);
+}
+}
+}
+else
+{
+DumpToLog(&quot;Pathfinding failed.&quot;, true, true, FColor::Red);
+}
+}
+else
+{
+DumpToLog(&quot;Can't find navigation system.&quot;, true, true, FColor::Red);
+}
+return Result;
+}</FVector></FVector></p> <ol start="3"><li>These points are then returned as an array to <strong>APawn</strong>, in a format that is convenient for us (<strong>FVector</strong>). Finally, the movement begins.</li></ol> <p>In a nutshell: <strong>APawn</strong> contains a <strong>ShipAIController</strong>, which at the time of the calling of <strong>PreparePathfinding()</strong> refers to <strong>APawn</strong> and receives the <strong>UShipMovementComponent</strong>, containing <strong>FNavProperties</strong> that address the navigation system in order to find the optimal path.</p> <h2 id="task-2-implementing-movement-to-the-end-point"><a href="#task-2-implementing-movement-to-the-end-point" class="header-anchor">#</a> Task 2 - Implementing movement to the end point</h2> <p>So, we’ve just received a list of movement control points. The first point is always the spaceship’s current position, the latter - our destination. In this case, the place on the game map where we clicked with the cursor.</p> <p>I should probably tell you a little bit about how we plan to interface with the network. For the sake of simplicity, let’s break up the process into several steps and describe each one:</p> <ol><li>We call the function responsible for starting the movement - <strong>AShip::CommandMoveTo()</strong>:</li></ol> <p>UCLASS()
+class STARFALL_API AShip : public APawn, public ITeamInterface
+{
+...
+UFUNCTION(BlueprintCallable, Server, Reliable, WithValidation, Category = &quot;Ship&quot;)
+void CommandMoveTo(const FVector&amp; location);
+void CommandMoveTo_Implementation(const FVector&amp; location);
+bool CommandMoveTo_Validate(const FVector&amp; location);
+...
+}</p> <p>Pay close attention. On the client’s side, all Pawns are missing an <strong>AIController</strong>, which exists only on the server. So when the client calls the function to send the ship to a new location, all calculations should be done server-side. In other words, the server is responsible for seeking the optimal path for each spaceship because it is the <strong>AIController</strong> that works with the navigation system.</p> <ol start="2"><li>After we’ve found a list of control points inside the <strong>CommandMoveTo()</strong> method, we call the next one to start moving the selected spaceship. This method should be called on all clients.</li></ol> <p>UCLASS()
+class STARFALL_API AShip : public APawn, public ITeamInterface
+{
+...
+UFUNCTION(BlueprintCallable, Reliable, NetMulticast, Category = &quot;Ship&quot;)
+void StartNavMoveFrom(const FVector&amp; location);
+virtual void StartNavMoveFrom_Implementation(const FVector&amp; location);
+...
+}</p> <p>In this method, a client that does not have any control points adds the fist received coordinate to the list of control points and “starts the engine”, moving the ship into motion. Using timers, we activate the process of sending the remaining intermediate and end points for this particular journey on the server:</p> <p>void AShip::CommandMoveTo(const FVector&amp; location)
+{
+...
+GetWorldTimerManager().SetTimer(timerHandler,
+FTimerDelegate::CreateUObject(this, &amp;AShip::SendNextPathPoint),
+0.1f, true);
+...
+}</p> <p>UCLASS()
+class STARFALL_API AShip : public APawn, public ITeamInterface
+{
+...
+FTimerHandle timerHandler;
+UFUNCTION(BlueprintCallable, Reliable, NetMulticast, Category = &quot;Ship&quot;)
+void SendPathPoint(const FVector&amp; location);
+virtual void SendPathPoint_Implementation(const FVector&amp; location);
+...
+}</p> <p>On the client’s side, while the ship starts to accelerate and move to the first control point, it gradually receives the remaining control points and adds them to an array. This takes some load off the network and allows us to stretch the time it takes to send data, thus distributing the load.</p> <p>Alright, enough with the supplementary info. Let’s get back to business 😉 Our current task – make the ship move towards the nearest control point. Keep in mind that our ship has rotational speed, as well as a speed of acceleration.</p> <p>When you send the spaceship to a new destination, it could be flying at full speed, staying still, accelerating or be in the process of turning in that particular moment. Therefore, we have to act depending on current speed characteristics and destination.</p> <p>We have identified three types of spaceship behavior:</p> <p><a href="/File:Scheme3.png"><img src="https://d26ilriwvtzlb.cloudfront.net/8/8b/Scheme3.png" alt="Scheme3.png"></a></p> <ol><li>The vessel can fly to the end point at full speed and fall back on rotational speed to arrive at its destination.</li> <li>The spaceship’s current speed might be too fast, so it will try to align with its destination using average speed. When the ship directly faces its destination, it will accelerate and try to reach the target at maximum speed.</li> <li>If the other pathways takes more time than simply rotating on the spot and flying to the target in a straight line, the vessel will proceed to do so.</li></ol> <p>Before the ship starts moving to a control point, we need to decide on the speed parameters to be used. To achieve this, we’ve implemented a function for simulating a flight. I’d rather skip explaining the code in this article, but if you need more information on this, just drop me a message.</p> <p>The principles are quite simple - using the current <strong>DeltaTime</strong>, we keep moving the vector of our position and rotate the forward vector, simulating the vessel’s rotation. It’s quite a simple operation that utilizes vectors and <strong>FRotator</strong>.</p> <p>I should probably mention that in each iteration of the ship’s rotation, we should track and accumulate the angle of rotation. If it’s more than 180 degrees, it means that the spaceship has started moving in circles around the end point, so we should probably try the next set of speed parameters.</p> <p>At first, the spaceship tries to fly at full speed and then at reduced speed (we are currently using average speed). If none of these solutions work – the ship simply needs to rotate in order to align with its destination and fly towards it.</p> <p>Please keep in mind that all of the logic in the assessment of the situation and the movement processes should be implemented in <strong>AShip</strong>. This is due to the <strong>AIController</strong> missing on the client’s side, as well as <strong>UShipMovementComponent</strong> playing a different role (which I’ll talk about soon). So to make sure that our spaceships can move on their own, without constantly synchronizing coordinates with the server, we need to realize the movement logic within <strong>AShip</strong>.</p> <p>Now, let’s talk about the most important part of the whole process - our movement component <strong>UShipMovementComponent</strong>. You should keep in mind that components of this type are just like engines. Their function is moving the object forward and rotating it when necessary, without worrying about what kind of logic should the object rely on for movement or what state it is in. Once again, they are only responsible for the actual movement of the said subject.</p> <p>The gist of using <strong>UMovementComponent</strong> and its derived classes is as follows: we use a given <strong>Tick()</strong> to make all mathematical calculations related to our component’s parameters (speed, maximum speed, rotational speed). We then set the <strong>UMovementComponent::Velocity</strong> parameter to a value that is relevant to the spaceship’s transposition at this time tick. Then, we call <strong>UMovementComponent::MoveUpdatedComponent()</strong>, where the actual transposition and rotation of the spaceship occurs.</p> <p>void UShipMovementComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+if(!PawnOwner || !UpdatedComponent || ShouldSkipUpdate(DeltaTime))
+{
+return;
+}
+if (CheckState(EShipMovementState::Accelerating))
+{
+if (CurrentSpeed &lt; CurrentMaxSpeed)
+{
+CurrentSpeed += Acceleration;
+AccelerationPath += CurrentSpeed*DeltaTime;
+}
+else
+{
+CurrentSpeed = CurrentMaxSpeed;
+RemoveState(EShipMovementState::Accelerating);
+}
+}
+else
+if (CheckState(EShipMovementState::Braking))
+{
+if (CurrentSpeed &gt; 0.0f)
+{
+CurrentSpeed -= Acceleration;
+DeaccelerationPath += CurrentSpeed*DeltaTime;
+}
+else
+{
+CurrentSpeed = 0.0f;
+CurrentMaxSpeed = MaxSpeed;
+RemoveState(EShipMovementState::Braking);
+RemoveState(EShipMovementState::Moving);
+}
+}
+else
+if (CheckState(EShipMovementState::SpeedDecreasing))
+{
+if (CurrentSpeed &gt; CurrentMaxSpeed)
+{
+CurrentSpeed -= Acceleration;
+DeaccelerationPath += CurrentSpeed*DeltaTime;
+}
+else
+{
+CurrentSpeed = CurrentMaxSpeed;
+RemoveState(EShipMovementState::SpeedDecreasing);
+}
+}
+if (CheckState(EShipMovementState::Moving) || CheckState(EShipMovementState::Turning))
+{
+MoveForwardWithCurrentSpeed(DeltaTime);
+}
+}
+...
+void UShipMovementComponent::MoveForwardWithCurrentSpeed(float DeltaTime)
+{
+Velocity = UpdatedComponent-&gt;GetForwardVector() * CurrentSpeed * DeltaTime;
+MoveUpdatedComponent(Velocity, AcceptedRotator, false);
+UpdateComponentVelocity();
+}</p> <p>A few words about the states that appear in this article. They are needed to combine the various processes related to movement. For example, when reducing speed (to have enough space for maneuvering, we need to move at average speed) and rotating towards a new destination.</p> <p>In the movement component, states are used only for evaluation purposes: should we continue accelerating or should we decrease momentum, etc.</p> <p>All of the logic related to the transition from one state of motion to another is done via <strong>AShip</strong>. For example, the spaceship is flying at full speed and the final destination has changed, so we need to lower the vessel’s speed to its average value.</p> <p>And a quick word about <strong>AcceptedRotator</strong>. It's the ship’s rotation at the current time tick. In the <strong>AShip</strong> time tick we call the following method of the <strong>UShipMovementComponent</strong>:</p> <p>bool UShipMovementComponent::AcceptTurnToRotator(const FRotator&amp; RotateTo)
+{
+if(FMath::Abs(RotateTo.Yaw - UpdatedComponent-&gt;GetComponentRotation().Yaw) &lt; 0.1f)
+{
+return true;
+}
+FRotator tmpRot = FMath::RInterpConstantTo(UpdatedComponent-&gt;GetComponentRotation(),
+RotateTo, GetWorld()-&gt;GetDeltaSeconds(),
+AngularSpeed);
+AcceptedRotator = tmpRot;
+return false;
+}</p> <p><strong>RotateTo = (GoalLocation - ShipLocation).Rotation()</strong> - ie this is a rotator that denotes what rotation value the vessel should be at in order for it to face the end point.</p> <p>In this method, we evaluate whether the spaceship is already looking at the destination. In that case, this result is returned and the vessel will not rotate. In its assessment of the situation, <strong>AShip</strong> will reset the state <strong>EShipMovementState::Turning</strong> - and <strong>UShipMovementComponent</strong> will no longer attempt to rotate. Otherwise, we use the rotation and interpret based on <strong>DeltaTime</strong> and the spaceship’s rotational speed. Then apply this rotation to the current time tick, when calling <strong>UMovementComponent::MoveUpdatedComponent()</strong>.</p> <h2 id="future-prospects"><a href="#future-prospects" class="header-anchor">#</a> Future Prospects</h2> <p>In my humble opinion, this particular version of <strong>UShipMovementComponent</strong> takes into account all of the problems our team faced during &quot;Starfall Tactics&quot; prototyping stage. As an added bonus, the solution turned out to be quite scalable and there is an opportunity to improve it further.</p> <p>Take, for example, the moment when the spaceship is turning: if we simply rotate the ship, it looks dull, as if the vessel is attached to a piece of string. However, allowing the spaceship to dip slightly in the direction of the turn results in an attractive and fluid action.</p> <p>Also, the synchronization of intermediate spaceship positions is realized on a workable level. As soon as the object reaches its destination, the data is synchronized with the server. So far, the difference in the vessel's final position on the server and the client is fairly small. However, if miscalculations start occurring more frequently, I have a lot of ideas on how to improve synchronization without spaceships performing sudden “jumps”. I guess we’ll talk about them next time.</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Creating_a_movement_component_for_pawn&amp;oldid=12746" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Creating_a_movement_component_for_pawn&amp;oldid=12746<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Epic_Created_Content" title="Category:Epic Created Content">Epic Created Content</a></li> <li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/413.5e968ac1.js" defer></script>
+  </body>
+</html>

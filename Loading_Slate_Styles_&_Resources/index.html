@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/811.3782ee46.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>Slate, Loading Styles &amp; Resources - Epic Wiki</p> <h1 id="slate-loading-styles-resources"><a href="#slate-loading-styles-resources" class="header-anchor">#</a> Slate, Loading Styles &amp; Resources</h1> <p>(Redirected from <a href="/index.php?title=Loading_Slate_Styles_%26_Resources&amp;redirect=no" title="Loading Slate Styles &amp; Resources">Loading Slate Styles &amp; Resources</a>)</p> <p><strong>Rate this Article:</strong></p> <p>1.67</p> <p><img src="/extensions/VoteNY/images/star_on.gif" alt=""><img src="/extensions/VoteNY/images/star_half.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""> (3 votes)</p> <p>Approved for Versions:(please verify)</p> <p><img src="https://d26ilriwvtzlb.cloudfront.net/a/a5/Icon_template_note1.png" alt="Note"></p> <p><strong>Some or all of the information on this page is inconsistent, irrelevant or confusing.</strong></p> <p>Please help clean it up if you are able.</p> <p><a href="/File:Slate_Styles%26Resources.png"><img src="https://d3ar1piqh1oeli.cloudfront.net/2/29/Slate_Styles%26Resources.png/500px-Slate_Styles%26Resources.png" alt=""></a></p> <p><a href="/File:Slate_Styles%26Resources.png" title="Enlarge"><img src="/skins/common/images/magnify-clip.png" alt=""></a></p> <p>Spell icons are property of Electronic Arts, I claim no ownership of these images. Long live UO!</p> <p>Before reading these sources, be sure to take a look at the Hello Slate tutorial, it will bring you up to speed on the necessary reading to process the information below. There are some differences to be sure, we have also added a subclassed Game Module (FDefaultGameModuleImpl) class to the mix, in addition to the AHUD and SCompoundWidget. As of 4.0.2 these classes are working on an otherwise unmodified (except for the in-editor mods in Hello Slate) build, other than that my engine/environment is completely unmodified. The Hello Slate tutorial can be found here...<br> <a href="https://wiki.unrealengine.com/Slate,_Hello" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/Slate,_Hello<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>So, what's going on here. I'll just give a quick run-down of execution when you launch a PIE or stand-alone game. The first thing that happens is the Game Module is instanced/loaded, in this case that happens to be an FMyProject type. Our FMyProject object then instances FMyUIResources as an object named MyUIResources. MyUIResources then loads and registers all of our resources with Slate, it stores a handle to these resources internally which we will be using later. The next thing that happens related to this code happens in AMyHUD.</p> <p>AMyHUD is instanced and loaded by the system on every execution of the PIE, or whenever else the HUD is loaded. It should be set as the designated HUD for our game-type in the editor before running the game, see Hello Slate under the coding tutorials if you have no idea what I'm talking about. The first of our AMyHUD functions to be executed is AMyHUD::BeginPlay(). BeginPlay() creates our widget then gives the Viewport a handle on that widget so that it can be drawn to the screen. It then asks the widget to SetVisibility() to EVisibility::Visible and that's the end of it. Before we move on lets take a step back and talk about SMyUIWidget.</p> <p>SMyUIWidget only has one (required) function, SMyUIWidget::Construct(). Construct first asks our Game Module, FMyGameModule, to give us a handle on the Slate Resources we Initialized() earlier. Then it uses that handle to get a brush, and last it creates the child widgets, using a pointer to the brush we just got a second ago. Destruction should be handled by UE4 and Slate, the only deviation from SCompoundWidget is the addition of a FSlateGameResources TSharedPtr (TSharedPtr<FSlateGameResources>) which should also be destructed when the refcount to it becomes zero.</FSlateGameResources></p> <p>We get TSharedPtrs from the Game Module because we want to be sure that the resources will be for no reason inaccessible to anything that would use them, by having the Game Module hand out TSharedPtrs to the resources, the refcount of these resources will never be zero while something is still using them. When the game shuts down the Game Module's ShutdownModule() is called. ShutdownModule() calls the default ShutdownModule() of it's parent class, then it calls MyUIResources.Shutdown() which Unregisters itself with Slate, dereferences the shared pointer, and frees the memory if the refcount is zero. Take a look at FMyUIResources Shutdown() method to see how this is done.</p> <p>That's all there is to it.</p> <p>////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Date: April 2, 2014
+/////Author: Bleakwise
+/////File: MyGameResources.h
+ 
+#pragma once
+ 
+#include &quot;MyHUD.h&quot;
+#include &quot;Slate.h&quot;
+#include &quot;SlateGameResources.h&quot;
+ 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Data Structure and Interface for maintaining SlateGameResources on Game to Game basis
+class FMyUIResources
+{
+public:
+FMyUIResources() : m_Path(&quot;/Game/UI&quot;), MyUIResources(NULL) { } ;
+ 
+/*Loads resources and registers them with Slate*/
+/*Do this before trying to use resources*/
+void Initialize();
+ 
+/*cleanup*/
+/*Do this when shutting down game module*/
+void Shutdown();
+ 
+/*reloads textures used by slate renderer*/
+/*Does nothing at the moment*/
+void ReloadTextures();
+ 
+/*Give caller a pointer to our FSlateGameResources*/
+TSharedPtr&lt;FSlateGameResources&gt; GetSlateGameResources();
+ 
+protected:
+/*Creates resources*/
+TSharedRef&lt;class FSlateGameResources&gt; Create();
+ 
+/*Defined in Cpp file, change as needed*/
+const FString m_Path;
+ 
+/*Poitner to game resources, Initialize() before using*/
+TSharedPtr&lt;FSlateGameResources&gt; MyUIResources;
+};
+ 
+class SMyUIWidget : public SCompoundWidget
+{
+public:
+SLATE_BEGIN_ARGS(SMyUIWidget)
+{}
+ 
+SLATE_ARGUMENT(TWeakObjectPtr&lt;AMyHUD&gt;, OwnerHUD)
+ 
+SLATE_END_ARGS()
+ 
+//needed for every widget, constructs widget and children.
+void Construct(const FArguments&amp; InArgs);
+ 
+protected:
+//Pointer to our parent HUD
+/////Consdier making OwnerHUD a more base type for polymorphic HUDs
+TWeakObjectPtr&lt;class AMyHUD&gt; OwnerHUD;
+ 
+/*Pointer to resources in GameModule*/
+TSharedPtr&lt;FSlateGameResources&gt; MyUIResources;
+};</p> <p>////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Date: April 2, 2014
+/////Author: Bleakwise
+/////File: MyGameResources.cpp
+ 
+#include &quot;MyProject.h&quot;
+#include &quot;SlateGameResources.h&quot;
+#include &quot;MyGameResources.h&quot;
+ 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/*SMyUIWidget*//*SMyUIWidget*//*SMyUIWidget*//*SMyUIWidget*//*SMyUIWidget*//*SMyUIWidget*/
+////////////////////////////////////////////////////////////////////////////////////////////////////
+ 
+void SMyUIWidget::Construct(const FArguments&amp; InArgs)
+{
+ 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Get handle on game resources from GameModule
+MyUIResources = FModuleManager::GetModuleChecked&lt;FMyProject&gt;(FName(&quot;MyProject&quot;)).GetSlateGameResources();
+ 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Get handle on spell_heal Slate Brush
+/////name: member_icon
+const FSlateBrush *m_icon = MyUIResources-&gt;GetBrush(FName(&quot;/spells/spell_heal&quot;));
+ 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Set owner HUD to whatever HUD called system to create this widget
+/////Consider type if using multiple HUDs/types, see declaration in header
+OwnerHUD = InArgs._OwnerHUD;
+ 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Create the child widgets
+ 
+//No need to add a new slot, ChildSlot is one,
+ChildSlot.VAlign(VAlign_Bottom).HAlign(HAlign_Center)
+[//start adding contents
+SNew(SOverlay)
+/* + operator adds a new slot */
++ SOverlay::Slot().HAlign(HAlign_Fill).VAlign(VAlign_Fill)
+[/* [ operator begins adding things to our new slot's contents */
+SNew(SHorizontalBox).Visibility(EVisibility::Visible)
+//Add slots to HorizontalBox, these will hold images
++ SHorizontalBox::Slot().HAlign(HAlign_Left).VAlign(VAlign_Bottom)
+[   //
+SNew(SImage).Image(m_icon)
+]
++ SHorizontalBox::Slot().HAlign(HAlign_Left).VAlign(VAlign_Bottom)
+[
+SNew(SImage).Image(m_icon)
+]
++ SHorizontalBox::Slot().HAlign(HAlign_Left).VAlign(VAlign_Bottom)
+[
+SNew(SImage).Image(m_icon)
+]
++ SHorizontalBox::Slot().HAlign(HAlign_Left).VAlign(VAlign_Bottom)
+[
+SNew(SImage).Image(m_icon)
+]
+]//End slotting of SOverlay
+];//End slotting ChildSlot
+}
+ 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/*FMyUIResources*//*FMyUIResources*//*FMyUIResources*//*FMyUIResources*//*FMyUIResources*/
+////////////////////////////////////////////////////////////////////////////////////////////////////
+ 
+void FMyUIResources::Initialize()
+{
+if (!MyUIResources.IsValid())
+{
+MyUIResources = Create();
+FSlateStyleRegistry::RegisterSlateStyle(*MyUIResources);
+}
+}
+ 
+TSharedPtr&lt;FSlateGameResources&gt; FMyUIResources::GetSlateGameResources()
+{
+return MyUIResources;
+}
+ 
+TSharedRef&lt;class FSlateGameResources&gt; FMyUIResources::Create()
+{
+return FSlateGameResources::New(FName(&quot;MyUIResources&quot;), m_Path, m_Path);
+}
+ 
+/*Unregister resources/styles with Slate, cleanup, free memory*/
+void FMyUIResources::Shutdown()
+{
+//Unregister *MyUIResources with Slate
+FSlateStyleRegistry::UnRegisterSlateStyle(*MyUIResources);
+ 
+//Debugging
+ensure(MyUIResources.IsUnique());
+ 
+//Removes reference to resources, decrements refcount, destroys resources if refcount=0
+//Do this to all SharedPtrs on Shutdown() or SomethingSimilar() to avoid memory leak
+MyUIResources.Reset();
+}</p> <p>////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Date: April 2, 2014
+/////Author: Bleakwise
+/////File: MyHUD.h
+ 
+#pragma once
+ 
+#include &quot;GameFramework/HUD.h&quot;
+#include &quot;MyHUD.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS()
+class AMyHUD : public AHUD
+{
+public:
+GENERATED_UCLASS_BODY()
+ 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Called as soon as game starts, create SCompoundWidget and give Viewport access
+void BeginPlay();
+ 
+protected:
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Reference to SCompoundWidget
+TSharedPtr&lt;class SMyUIWidget&gt; MyUIWidget;
+};</p> <p>////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Date: April 2, 2014
+/////Author: Bleakwise
+/////File: MyHUD.cpp
+ 
+#include &quot;MyProject.h&quot;
+#include &quot;MyGameResources.h&quot;
+#include &quot;MyHUD.h&quot;
+ 
+ 
+AMyHUD::AMyHUD(const class FPostConstructInitializeProperties&amp; PCIP)
+: Super(PCIP)
+{
+ 
+}
+ 
+void AMyHUD::BeginPlay()
+{
+ 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Create a SMyUIWidget on heap referenced by MyUIWidget pointer member
+SAssignNew(MyUIWidget, SMyUIWidget).OwnerHUD(this);
+ 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Pass our viewport a weak reference to our widget, will not increment refcount
+if (GEngine-&gt;IsValidLowLevel())
+GEngine-&gt;GameViewport-&gt;
+AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(MyUIWidget.ToSharedRef()));
+ 
+if (MyUIWidget.IsValid())
+{
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Set widget's properties as visibile (sets child widget's properties recurisvely)
+MyUIWidget-&gt;SetVisibility(EVisibility::Visible);
+}
+}</p> <p>////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Date: April 4, 2014
+/////Author: Bleakwise
+/////File: MyProject.h
+ 
+#pragma once
+ 
+#include &quot;Engine.h&quot;
+ 
+#include &quot;MyGameResources.h&quot;
+ 
+class FMyProject : public FDefaultGameModuleImpl
+{
+public:
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Called when GameModule is loaded, load any resources game may need here
+void StartupModule();
+ 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Called when GameModule is unloaded, before shutdown, unload resources/cleanup here
+void ShutdownModule();
+ 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Give a handle to MyUIResources to anyone who asks
+TSharedPtr&lt;FSlateGameResources&gt; GetSlateGameResources();
+ 
+protected:
+ 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Data Structure and Interface for maintaining SlateGameResources on Game to Game basis
+FMyUIResources MyUIResources;
+ 
+};</p> <p>////////////////////////////////////////////////////////////////////////////////////////////////////
+/////Date: April 2, 2014
+/////Author: Bleakwise
+/////File: MyProject.cpp
+ 
+#include &quot;MyProject.h&quot;
+ 
+#include &quot;MyProject.generated.inl&quot;
+ 
+IMPLEMENT_PRIMARY_GAME_MODULE( FMyProject, MyProject, &quot;MyProject&quot; );
+ 
+void FMyProject::StartupModule()
+{
+FDefaultGameModuleImpl::StartupModule();
+ 
+/*Loads resources and registers them with Slate*/
+/*Do this before trying to use resources*/
+MyUIResources.Initialize();
+ 
+/*TODO: Anything else game module might need to do on load*/
+}
+ 
+void FMyProject::ShutdownModule()
+{
+FDefaultGameModuleImpl::ShutdownModule();
+ 
+/*Unregister resources/styles with Slate, cleanup, free memory*/
+MyUIResources.Shutdown();
+ 
+/*Cleanup/free any resources here*/
+}
+ 
+/*First defined here, no need to call parent*/
+/*Give caller a pointer to our FSlateGameResources*/
+TSharedPtr&lt;FSlateGameResources&gt; FMyProject::GetSlateGameResources()
+{
+/*Give caller a pointer to our FSlateGameResources*/
+/*Giving strong pointer, helps gurantee access to resources*/
+return MyUIResources.GetSlateGameResources();
+}</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Slate,_Loading_Styles_%26_Resources&amp;oldid=8305" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Slate,_Loading_Styles_%26_Resources&amp;oldid=8305<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li> <li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/811.3782ee46.js" defer></script>
+  </body>
+</html>

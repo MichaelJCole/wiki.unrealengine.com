@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/45.e3b1df6f.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><p>AI Navigation in C++, Customize Path Following Every Tick - Epic Wiki</p> <h1 id="ai-navigation-in-c-customize-path-following-every-tick"><a href="#ai-navigation-in-c-customize-path-following-every-tick" class="header-anchor">#</a> AI Navigation in C++, Customize Path Following Every Tick</h1> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#Rama_C.2B.2B_AI_Jumping_Video">2 Rama C++ AI Jumping Video</a></li> <li><a href="#Rama_Video_.7E_Training_PhysX_Simulating_Balls_to_Navigate_Narrow_Ledges.21">3 Rama Video ~ Training PhysX Simulating Balls to Navigate Narrow Ledges!</a></li> <li><a href="#Steps">4 Steps</a> <ul><li><a href="#Have_your_own_Custom_ai_controller_.28extends_AAIController.29">4.1 Have your own Custom ai controller (extends AAIController)</a></li> <li><a href="#Tell_ai_controller_to_use_custom_path_following_component.2C_which_extends_the_base_UE4_class">4.2 Tell ai controller to use custom path following component, which extends the base UE4 class</a></li> <li><a href="#Make_sure_your_build.cs_is_including_AIModule_as_part_of_your_dependencies">4.3 Make sure your build.cs is including AIModule as part of your dependencies</a></li> <li><a href="#Override_these_functions_in_your_custom_PathFollowingComponent.21">4.4 Override these functions in your custom PathFollowingComponent!</a></li></ul></li> <li><a href="#Video_Result">5 Video Result</a></li> <li><a href="#More_of_Ny_Customized_C.2B.2B_AI_Pathing_Videos">6 More of Ny Customized C++ AI Pathing Videos</a></li> <li><a href="#How_to_Get_All_UE4_Navigation_Polys">7 How to Get All UE4 Navigation Polys</a></li> <li><a href="#Conclusion">8 Conclusion</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><a href="/File:RamaAIJump.gif"><img src="https://d26ilriwvtzlb.cloudfront.net/7/7a/RamaAIJump.gif" alt="RamaAIJump.gif"></a></p> <p><em>Original Author:</em> <a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Dear Community, As gif above shows there is a way to modify standard UE4 pathing via C++ to introduce customized path following behavior without rewriting the whole system!</p> <p>In gif above I am telling the unit how to jump from one nav mesh piece to another using only C++ (nothing was placed in the editor other than basic nav mesh, and I can add new level geometry any time)</p> <p>I am also drawing each UE4 Nav Area that the unit is passing through, and I use Nav Mesh Traces + the area info to identify how the unit should jump, and at what angle, to path over terrain that requires jumping.</p> <p>The point of this wiki is that my method involves only C++ code and a custom Path Following Component.</p> <p>I am adding to the stock UE4 code, keeping its benefits, while introducing my own custom path following mechanics.</p> <h2 id="rama-c-ai-jumping-video"><a href="#rama-c-ai-jumping-video" class="header-anchor">#</a> Rama C++ AI Jumping Video</h2> <p>I used the code structure I am describing in this wiki to train my AI to do jump pathing calculations using just UE4 C++!</p> <p>More Rama AI Jumping Videos</p> <p><a href="https://forums.unrealengine.com/showthread.php?25410-Rama-s-Multi-Threaded-Dynamic-Pathing-System-Full-Physics-Support&amp;p=251216&amp;viewfull=1#post251216" target="_blank" rel="noopener noreferrer">https://forums.unrealengine.com/showthread.php?25410-Rama-s-Multi-Threaded-Dynamic-Pathing-System-Full-Physics-Support&amp;p=251216&amp;viewfull=1#post251216<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h2 id="rama-video-training-physx-simulating-balls-to-navigate-narrow-ledges"><a href="#rama-video-training-physx-simulating-balls-to-navigate-narrow-ledges" class="header-anchor">#</a> Rama Video ~ Training PhysX Simulating Balls to Navigate Narrow Ledges!</h2> <p>In this video you can see that I use a custom path following component ( as explained in this wiki ) to enable PhysX simulating characters to navigate narrow ledges!</p> <h2 id="steps"><a href="#steps" class="header-anchor">#</a> Steps</h2> <p>You need to do several things</p> <h3 id="have-your-own-custom-ai-controller-extends-aaicontroller"><a href="#have-your-own-custom-ai-controller-extends-aaicontroller" class="header-anchor">#</a> Have your own Custom ai controller (extends AAIController)</h3> <p>Here's the required header info</p> <p>#pragma once
+ 
+//Super
+#include &quot;AIController.h&quot;
+ 
+#include &quot;JoyController.generated.h&quot;
+ 
+ 
+UCLASS()
+class AJoyController : public AAIController
+{
+GENERATED_BODY()
+public:
+AJoyController(const FObjectInitializer&amp; ObjectInitializer);</p> <h3 id="tell-ai-controller-to-use-custom-path-following-component-which-extends-the-base-ue4-class"><a href="#tell-ai-controller-to-use-custom-path-following-component-which-extends-the-base-ue4-class" class="header-anchor">#</a> Tell ai controller to use custom path following component, which extends the base UE4 class</h3> <p>Here's the code for that, you just modify the constructor</p> <p>//		UJoyPathFollowComp is used here!
+AJoyController::AJoyController(const FObjectInitializer&amp; ObjectInitializer)
+: Super(ObjectInitializer.SetDefaultSubobjectClass&lt;UJoyPathFollowComp&gt;(TEXT(&quot;PathFollowingComponent&quot;)))
+{</p> <h3 id="make-sure-your-build-cs-is-including-aimodule-as-part-of-your-dependencies"><a href="#make-sure-your-build-cs-is-including-aimodule-as-part-of-your-dependencies" class="header-anchor">#</a> Make sure your build.cs is including AIModule as part of your dependencies</h3> <p>PublicDependencyModuleNames.AddRange(new string[] {
+&quot;Core&quot;,
+&quot;CoreUObject&quot;,
+&quot;Engine&quot;,
+&quot;InputCore&quot; ,
+&quot;Landscape&quot;,
+&quot;UMG&quot;,
+ 
+&quot;PhysX&quot;,  &quot;APEX&quot;,
+ 
+&quot;AIModule&quot;      //&lt;~~~~~~
+});</p> <h3 id="override-these-functions-in-your-custom-pathfollowingcomponent"><a href="#override-these-functions-in-your-custom-pathfollowingcomponent" class="header-anchor">#</a> Override these functions in your custom PathFollowingComponent!</h3> <p>Especially FollowPathSegment !</p> <p>This is where you can take control of exact pathing methods!</p> <p>//~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//	  Per Tick Modification of Path Following
+//			this is how you really customize
+//				how units follow the path!
+ 
+/** follow current path segment */
+virtual void FollowPathSegment(float DeltaTime) override;
+ 
+/** sets variables related to current move segment */
+virtual void SetMoveSegment(int32 SegmentStartIndex) override;
+ 
+/** check state of path following, update move segment if needed */
+virtual void UpdatePathSegment() override;</p> <h2 id="video-result"><a href="#video-result" class="header-anchor">#</a> Video Result</h2> <p>Using the above method is how I made custom C++ Jump pathing calculations that dont need any in-editor additions to the level, just the basic nav mesh volume.</p> <h2 id="more-of-ny-customized-c-ai-pathing-videos"><a href="#more-of-ny-customized-c-ai-pathing-videos" class="header-anchor">#</a> More of Ny Customized C++ AI Pathing Videos</h2> <p><a href="https://forums.unrealengine.com/showthread.php?25410-Rama-s-Multi-Threaded-Dynamic-Pathing-System-Full-Physics-Support&amp;p=129896&amp;viewfull=1#post129896" target="_blank" rel="noopener noreferrer">Rama's C++ Jump Pathing Videos<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <h2 id="how-to-get-all-ue4-navigation-polys"><a href="#how-to-get-all-ue4-navigation-polys" class="header-anchor">#</a> How to Get All UE4 Navigation Polys</h2> <p>In the video above you will see I get all the UE4 Nav Polys in order to do all my C++ AI Jump calculations!</p> <p>Here's the function I wrote to do this, just for you!</p> <p>//Nav Data Main
+FORCEINLINE const ANavigationData* GetMainNavData(FNavigationSystem::ECreateIfEmpty CreateNewIfNoneFound)
+{
+UNavigationSystem* NavSys = GetWorld()-&gt;GetNavigationSystem();
+if(!NavSys) return NULL;
+return NavSys-&gt;GetMainNavData(CreateNewIfNoneFound);
+}
+ 
+//Choose Which Nav Data To Use
+FORCEINLINE const ANavigationData* JoyGetNavData() const
+{
+const FNavAgentProperties&amp; AgentProperties = MovementComp-&gt;GetNavAgentPropertiesRef() ;
+const ANavigationData* NavData = GetNavDataForProps(AgentProperties) ;
+if (NavData == NULL)
+{
+VSCREENMSG(&quot;ERROR USING MAIN NAV DATA&quot;);
+NavData = GetMainNavData();
+}
+ 
+return NavData;
+}
+ 
+//VERY IMPORTANT FOR CRASH PROTECTION !!!!!
+FORCEINLINE bool TileIsValid(const ARecastNavMesh* NavMesh,int32 TileIndex) const
+{
+if(!NavMesh) return false;
+//~~~~~~~~~~~~~~
+const FBox TileBounds = NavMesh-&gt;GetNavMeshTileBounds(TileIndex);
+ 
+return TileBounds.IsValid != 0;
+}
+ 
+//add this to your custom path follow component!
+bool NavPoly_GetAllPolys(TArray&lt;NavNodeRef&gt;&amp; Polys);</p> <p>//Rama's UE4 Nav code to get all the nav polys!
+bool UJoyPathFollowComp::NavPoly_GetAllPolys(TArray&lt;NavNodeRef&gt;&amp; Polys)
+{
+if(!MovementComp) return false;
+//~~~~~~~~~~~~~~~~~~
+ 
+//Get Nav Data
+const ANavigationData* NavData = JoyGetNavData();
+ 
+const ARecastNavMesh* NavMesh = Cast&lt;ARecastNavMesh&gt;(NavData);
+if(!NavMesh)
+{
+return false;
+}
+ 
+TArray&lt;FNavPoly&gt; EachPolys;
+for(int32 v = 0; v &lt; NavMesh-&gt;GetNavMeshTilesCount(); v++)
+{
+ 
+//CHECK IS VALID FIRST OR WILL CRASH!!!
+//     256 entries but only few are valid!
+// use continue in case the valid polys are not stored sequentially
+if(!TileIsValid(NavMesh,v))
+{
+continue;
+}	
+ 
+NavMesh-&gt;GetPolysInTile(v,EachPolys);
+}	
+ 
+ 
+//Add them all!
+for(int32 v = 0; v &lt; EachPolys.Num(); v++)
+{
+Polys.Add(EachPolys[v].Ref);
+}
+}</p> <h2 id="conclusion"><a href="#conclusion" class="header-anchor">#</a> Conclusion</h2> <p>Have fun writing your own custom Path Following code that integrates with the UE4 standard Path Following code!</p> <p>Now you can extend the wonderful foundation that the AI engineers at Epic built for you!</p> <p>Enjoy!</p> <p><a href="/User:Rama" title="User:Rama">Rama</a> (<a href="/User_talk:Rama" title="User talk:Rama">talk</a>)</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=AI_Navigation_in_C%2B%2B,_Customize_Path_Following_Every_Tick&amp;oldid=13958" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=AI_Navigation_in_C%2B%2B,_Customize_Path_Following_Every_Tick&amp;oldid=13958<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Category</a>:</p> <ul><li><a href="/Category:Code" title="Category:Code">Code</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/45.e3b1df6f.js" defer></script>
+  </body>
+</html>

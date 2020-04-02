@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>wiki.unrealengine.com</title>
+    <meta name="description" content="A static site pulled from the internet archive">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css" as="style"><link rel="preload" href="/wiki.unrealengine.com/assets/js/app.aaf63946.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/2.4f53495e.js" as="script"><link rel="preload" href="/wiki.unrealengine.com/assets/js/236.8e492eab.js" as="script">
+    <link rel="stylesheet" href="/wiki.unrealengine.com/assets/css/0.styles.b0e83839.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/wiki.unrealengine.com/" class="home-link router-link-active"><!----> <span class="site-name">wiki.unrealengine.com</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="content__default"><p>Blueprint Node: Sort Array of Actors By Field - Epic Wiki</p> <h1 id="blueprint-node-sort-array-of-actors-by-field"><a href="#blueprint-node-sort-array-of-actors-by-field" class="header-anchor">#</a> Blueprint Node: Sort Array of Actors By Field</h1> <p><strong>Rate this Article:</strong></p> <p>0.00</p> <p><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""><img src="/extensions/VoteNY/images/star_off.gif" alt=""></p> <p>Approved for Versions:(please verify)</p> <h2 id="contents"><a href="#contents" class="header-anchor">#</a> Contents</h2> <ul><li><a href="#Overview">1 Overview</a></li> <li><a href="#The_Setup">2 The Setup</a></li> <li><a href="#The_Header_File_.28.h.29">3 The Header File (.h)</a> <ul><li><a href="#Ordering">3.1 Ordering</a></li> <li><a href="#The_Method_Declaration">3.2 The Method Declaration</a></li> <li><a href="#The_Intercept">3.3 The Intercept</a></li> <li><a href="#Custom_Thunk">3.4 Custom Thunk</a></li> <li><a href="#Source">3.5 Source</a></li></ul></li> <li><a href="#The_Sorting_Predicate">4 The Sorting Predicate</a></li> <li><a href="#The_Source_File_.28.cpp.29">5 The Source File (.cpp)</a></li> <li><a href="#Notes.2FConcerns.2FTODO.2FPitfalls">6 Notes/Concerns/TODO/Pitfalls</a></li></ul> <h2 id="overview"><a href="#overview" class="header-anchor">#</a> Overview</h2> <p><em>Author</em> <a href="/index.php?title=User:Nimgoble&amp;action=edit&amp;redlink=1" title="User:Nimgoble (page does not exist)">Nimgoble</a> (<a href="/index.php?title=User_talk:Nimgoble&amp;action=edit&amp;redlink=1" title="User talk:Nimgoble (page does not exist)">talk</a>)</p> <p>Dear Community,</p> <p>This snippet is to show you how to make a utility function for blueprint arrays that allows you to sort the array by a given field, in ascending or descending order.</p> <h2 id="the-setup"><a href="#the-setup" class="header-anchor">#</a> The Setup</h2> <p>Make yourselves a new Blueprint Function Library in C++.</p> <h2 id="the-header-file-h"><a href="#the-header-file-h" class="header-anchor">#</a> The Header File (.h)</h2> <h3 id="ordering"><a href="#ordering" class="header-anchor">#</a> Ordering</h3> <p>We'll need to know in which order to sort the array: Ascending or Descending. I made an enumeration for this purpose and stuck it in the header file, before the &quot;UXXXBlueprintFunctionLibrary&quot; declaration:</p> <p>UENUM(BlueprintType)
+enum class ESortDirection: uint8
+{
+ASCENDING UMETA(DisplayName = &quot;Ascending&quot;),
+DESCENDING UMETA(DisplayName = &quot;Descending&quot;)
+};</p> <h3 id="the-method-declaration"><a href="#the-method-declaration" class="header-anchor">#</a> The Method Declaration</h3> <p>Let's go ahead and declare our method(s) in the header. We're going to follow the naming conventions of the other TArray utilities and name our methods: &quot;Array_Sort&quot; and &quot;GenericArray_Sort&quot;.</p> <p>We'll need four arguments:<br>
+-A pointer to the array that we'll be sorting<br>
+-A pointer to the array property (I'm not sure why, I was just following convention here).<br>
+-A string that will represent the field that we'll be sorting the array by.<br>
+-The sort direction.</p> <p>So, here's what that looks like in code:</p> <p>UFUNCTION(BlueprintCallable, CustomThunk, meta = (DisplayName = &quot;Sort Array&quot;, CompactNodeTitle = &quot;SORTARRAY&quot;, ArrayParm = &quot;TargetArray|ArrayProperty&quot;), Category = &quot;Utilities|Array&quot;)
+static void Array_Sort(const TArray&lt;int32&gt;&amp; TargetArray, const UArrayProperty* ArrayProperty, const FString &amp;FieldName, ESortDirection SortDirection);
+static void GenericArray_Sort(void* TargetArray, const UArrayProperty* ArrayProp, const FString &amp;FieldName, ESortDirection SortDirection);</p> <p>The first method, &quot;Array_Sort&quot;, is a dummy method. It should never be called. It's there solely to prevent compilation errors. &quot;GenericArray_Sort&quot; is where our sorting will actually be happening. The reason for this is that Unreal Engine 4's templated function support is limited (at the moment). More info <a href="https://forums.unrealengine.com/showthread.php?5324-Templated-Blueprint-functions" target="_blank" rel="noopener noreferrer">here<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>.</p> <h3 id="the-intercept"><a href="#the-intercept" class="header-anchor">#</a> The Intercept</h3> <p>This next snippet is a bit of call stack magic. I believe this intercepts any call to our dummy method, &quot;Array_Sort&quot;, and redirects it to &quot;GenericArray_Sort&quot;.</p> <p>DECLARE_FUNCTION(execArray_Sort)
+{
+Stack.StepCompiledIn&lt;UArrayProperty&gt;(NULL);
+void* ArrayAddr = Stack.MostRecentPropertyAddress;
+ 
+P_GET_OBJECT(UArrayProperty, ArrayProperty);
+PARAM_PASSED_BY_REF(FieldName, UStrProperty, FString);
+PARAM_PASSED_BY_VAL(SortDirection, UByteProperty, ESortDirection);
+P_FINISH;
+ 
+GenericArray_Sort(ArrayAddr, ArrayProperty, FieldName, SortDirection);
+}</p> <h3 id="custom-thunk"><a href="#custom-thunk" class="header-anchor">#</a> Custom Thunk</h3> <p>Next up is our Custom Thunk, which is also part of the pseudo-templating stuff. To be honest, I'm not 100% sure what it does/is used for, EXACTLY. Again, just following convention.</p> <p>struct FXXXCustomThunkTemplates
+{
+template&lt;typename T&gt;
+static void Array_Sort(TArray&lt;T&gt;&amp; TargetArray, const UArrayProperty* ArrayProperty, const FString &amp;FieldName, ESortDirection SortDirection)
+{
+UXXXBlueprintFunctionLibrary::GenericArray_Sort(&amp;TargetArray, ArrayProperty, FieldName, SortDirection);
+}
+};</p> <h3 id="source"><a href="#source" class="header-anchor">#</a> Source</h3> <p>#pragma once
+ 
+#include &quot;Kismet/BlueprintFunctionLibrary.h&quot;
+#include &quot;XXXBlueprintFunctionLibrary.generated.h&quot;
+ 
+/**
+*
+*/
+UCLASS()
+class XXX_API UXXXBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
+{
+GENERATED_BODY()
+public:
+UFUNCTION(BlueprintCallable, CustomThunk, meta = (DisplayName = &quot;Sort Array&quot;, CompactNodeTitle = &quot;SORTARRAY&quot;, ArrayParm      = &quot;TargetArray|ArrayProperty&quot;), Category = &quot;Utilities|Array&quot;)
+static void Array_Sort(const TArray&lt;int32&gt;&amp; TargetArray, const UArrayProperty* ArrayProperty, const FString &amp;FieldName, ESortDirection SortDirection);
+static void GenericArray_Sort(void* TargetArray, const UArrayProperty* ArrayProp, const FString &amp;FieldName, ESortDirection SortDirection);
+ 
+DECLARE_FUNCTION(execArray_Sort)
+{
+Stack.StepCompiledIn&lt;UArrayProperty&gt;(NULL);
+void* ArrayAddr = Stack.MostRecentPropertyAddress;
+ 
+P_GET_OBJECT(UArrayProperty, ArrayProperty);
+PARAM_PASSED_BY_REF(FieldName, UStrProperty, FString);
+PARAM_PASSED_BY_VAL(SortDirection, UByteProperty, ESortDirection);
+P_FINISH;
+ 
+GenericArray_Sort(ArrayAddr, ArrayProperty, FieldName, SortDirection);
+}
+};
+ 
+struct FXXXCustomThunkTemplates
+{
+template&lt;typename T&gt;
+static void Array_Sort(TArray&lt;T&gt;&amp; TargetArray, const UArrayProperty* ArrayProperty, const FString &amp;FieldName, ESortDirection SortDirection)
+{
+UXXXBlueprintFunctionLibrary::GenericArray_Sort(&amp;TargetArray, ArrayProperty, FieldName, SortDirection);
+}
+};</p> <h2 id="the-sorting-predicate"><a href="#the-sorting-predicate" class="header-anchor">#</a> The Sorting Predicate</h2> <p>Next up is our sorting predicate. This will be passed to the &quot;Sort&quot; method of our array of Actors. I put this in the header with all of the other stuff; You can put it wherever you want.</p> <p>This does some UProperty type checking, casting, and comparisons.</p> <p>struct FArraySortByFieldPredicate
+{
+FArraySortByFieldPredicate(const FString &amp;InFieldName, ESortDirection InSortDirection)
+: FieldName(InFieldName), SortDirection(InSortDirection)
+{
+}
+ 
+bool operator ()(const AActor&amp; A, const AActor&amp; B) const
+{
+UClass *ourClass = A.GetClass();
+if (ourClass != B.GetClass())
+return false;
+ 
+UProperty *targetProperty = FindField&lt;UProperty&gt;(ourClass, *FieldName);
+if (targetProperty == nullptr)
+return false;
+ 
+const void *Aa = (SortDirection == ESortDirection::ASCENDING) ? &amp;A : &amp;B;
+const void *Bb = (SortDirection == ESortDirection::ASCENDING) ? &amp;B : &amp;A;
+ 
+if (targetProperty-&gt;IsA&lt;UByteProperty&gt;())
+{
+return Cast&lt;UByteProperty&gt;(targetProperty)-&gt;GetPropertyValue_InContainer(Aa) &lt;
+Cast&lt;UByteProperty&gt;(targetProperty)-&gt;GetPropertyValue_InContainer(Bb);
+}
+else if (targetProperty-&gt;IsA&lt;UIntProperty&gt;())
+{
+return
+Cast&lt;UIntProperty&gt;(targetProperty)-&gt;GetPropertyValue_InContainer(Aa) &lt;
+Cast&lt;UIntProperty&gt;(targetProperty)-&gt;GetPropertyValue_InContainer(Bb);
+}
+else if (targetProperty-&gt;IsA&lt;UUInt32Property&gt;())
+{
+return
+Cast&lt;UUInt32Property&gt;(targetProperty)-&gt;GetPropertyValue_InContainer(Aa) &lt;
+Cast&lt;UUInt32Property&gt;(targetProperty)-&gt;GetPropertyValue_InContainer(Bb);
+}
+else if (targetProperty-&gt;IsA&lt;UFloatProperty&gt;())
+{
+return
+Cast&lt;UFloatProperty&gt;(targetProperty)-&gt;GetPropertyValue_InContainer(Aa) &lt;
+Cast&lt;UFloatProperty&gt;(targetProperty)-&gt;GetPropertyValue_InContainer(Bb);
+}
+else if (targetProperty-&gt;IsA&lt;UDoubleProperty&gt;())
+{
+return
+Cast&lt;UDoubleProperty&gt;(targetProperty)-&gt;GetPropertyValue_InContainer(Aa) &lt;
+Cast&lt;UDoubleProperty&gt;(targetProperty)-&gt;GetPropertyValue_InContainer(Bb);
+}
+else if (targetProperty-&gt;IsA&lt;UStrProperty&gt;())
+{
+return
+Cast&lt;UStrProperty&gt;(targetProperty)-&gt;GetPropertyValue_InContainer(Aa) &lt;
+Cast&lt;UStrProperty&gt;(targetProperty)-&gt;GetPropertyValue_InContainer(Bb);
+}
+else if (targetProperty-&gt;IsA&lt;UNameProperty&gt;())
+{
+return
+Cast&lt;UNameProperty&gt;(targetProperty)-&gt;GetPropertyValue_InContainer(Aa) &lt;
+Cast&lt;UNameProperty&gt;(targetProperty)-&gt;GetPropertyValue_InContainer(Bb);
+}
+else if (targetProperty-&gt;IsA&lt;UTextProperty&gt;())
+{
+return
+Cast&lt;UTextProperty&gt;(targetProperty)-&gt;GetPropertyValue_InContainer(Aa).ToString() &lt;
+Cast&lt;UTextProperty&gt;(targetProperty)-&gt;GetPropertyValue_InContainer(Bb).ToString();
+}
+// fall back, just let diff type win:
+else
+return false;
+}
+ 
+FString FieldName;
+ESortDirection SortDirection;
+};</p> <h2 id="the-source-file-cpp"><a href="#the-source-file-cpp" class="header-anchor">#</a> The Source File (.cpp)</h2> <p>The Source File is fairly straightforward. It contains the body of our dummy method, &quot;Array_Sort&quot; and the body of &quot;GenericArray_Sort&quot;.</p> <p>#include &quot;YourGame.h&quot;
+#include &quot;XXXBlueprintFunctionLibrary.h&quot;
+ 
+void UXXXBlueprintFunctionLibrary::Array_Sort(const TArray&lt;int32&gt;&amp; TargetArray, const UArrayProperty* ArrayProp, const FString &amp;FieldName, ESortDirection SortDirection)
+{
+// We should never hit these!  They're stubs to avoid NoExport on the class.  Call the Generic* equivalent instead
+check(0);
+}
+ 
+void UXXXBlueprintFunctionLibrary::GenericArray_Sort(void* TargetArray, const UArrayProperty* ArrayProp, const FString &amp;FieldName, ESortDirection SortDirection)
+{
+if (TargetArray)
+{
+TArray&lt;AActor *&gt; *actorArray = (TArray&lt;AActor *&gt; *)TargetArray;
+if (actorArray != nullptr)
+{
+actorArray-&gt;Sort(FArraySortByFieldPredicate(FieldName, SortDirection));
+}
+}
+}</p> <h2 id="notes-concerns-todo-pitfalls"><a href="#notes-concerns-todo-pitfalls" class="header-anchor">#</a> Notes/Concerns/TODO/Pitfalls</h2> <p>-This is not a truly templated sort method. I believe that you can send an array of objects that do not derive from AActor. In this case, the sort method will fail silently. With that being said:</p> <p>-This could probably use better logging. Or any, really.</p> <p>-If the class of the objects that you pass in does NOT contain the field in question, you may get weird results.</p> <p>-The blueprint node does NOT contain field names. You'll have to infer which field is which (it isn't hard, considering that there are two of them, and one is an enumeration).</p> <p>-The FArraySortByFieldPredicate structure is limited to basic types.</p> <p>-I don't think sorting strings actually works right now. Perhaps calling &quot;Compare()&quot; would be better than the &quot;&lt;&quot; operator.</p> <p>Retrieved from &quot;<a href="https://wiki.unrealengine.com/index.php?title=Blueprint_Node:_Sort_Array_of_Actors_By_Field&amp;oldid=14806" target="_blank" rel="noopener noreferrer">https://wiki.unrealengine.com/index.php?title=Blueprint_Node:_Sort_Array_of_Actors_By_Field&amp;oldid=14806<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>&quot;</p> <p><a href="/Special:Categories" title="Special:Categories">Categories</a>:</p> <ul><li><a href="/Category:Tutorials" title="Category:Tutorials">Tutorials</a></li> <li><a href="/Category:Code" title="Category:Code">Code</a></li> <li><a href="/Category:Blueprint" title="Category:Blueprint">Blueprint</a></li> <li><a href="/Category:Community_Created_Content" title="Category:Community Created Content">Community Created Content</a></li></ul> <p>Hidden category:</p> <ul><li><a href="/Category:Templates" title="Category:Templates">Templates</a></li></ul> <p><img src="https://tracking.unrealengine.com/track.png" alt=""></p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/wiki.unrealengine.com/assets/js/app.aaf63946.js" defer></script><script src="/wiki.unrealengine.com/assets/js/2.4f53495e.js" defer></script><script src="/wiki.unrealengine.com/assets/js/236.8e492eab.js" defer></script>
+  </body>
+</html>
