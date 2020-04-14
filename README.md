@@ -1,6 +1,6 @@
 # An Archive.org backup of wiki.unrealengine.com
 
-For the articles, [see below](#Articles).
+For the articles, [see below](#Articles).  See also some [unofficial](https://forums.unrealengine.com/unreal-engine/announcements-and-releases/1739154-changes-to-the-official-unreal-engine-wiki?p=1745505#post1745505) and [official](https://forums.unrealengine.com/unreal-engine/announcements-and-releases/1745504-a-new-community-hosted-unreal-engine-wiki) alternatives.
 
 ### About this Site
 
@@ -28,7 +28,7 @@ Some scripts and some [VuePress](https://snipcart.com/blog/choose-best-static-si
 
 ### How can I help?
 
-PR's welcome.  I wanted to setup Git for my project and wanted to read the Git articles.  I'm not planning to grow or maintain the site, but will merge PR's.
+PR's welcome.  I wanted to setup Git for my project and wanted to read the Git articles (git is the wrong tool.  Subversion is my new jam).  I'm not planning to grow or maintain the site, but will merge PR's.
 
 ### Articles
 
