@@ -94,7 +94,7 @@ My multi-threading system did actually calculate the first 50,000 (+1) prime num
 
 .H
 --
-
+```cpp
 //~~~~~ Multi Threading ~~~
 class FPrimeNumberWorker : public FRunnable
 {	
@@ -162,10 +162,10 @@ public:
         static bool IsThreadFinished();
 
 };
-
+```
 .CPP
 ----
-
+```cpp
 //\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
 //Thread Worker Starts as NULL, prior to being instanced
 //		This line is essential! Compiler error without it
@@ -314,10 +314,11 @@ int32 FPrimeNumberWorker::FindNextPrimeNumber()
 	//Success!
 	return TestPrime;
 }
+```
 
 Starting the thread
 -------------------
-
+```cpp
 //In the .h for the player controller
 // this is the actual data
 TArray<uint32\> PrimeNumbers;
@@ -328,7 +329,7 @@ TArray<uint32\> PrimeNumbers;
 //Multi-threading, returns handle that could be cached.
 //		use static function FPrimeNumberWorker::Shutdown() if necessary
 FPrimeNumberWorker::JoyInit(PrimeNumbers, 50000, this);
-
+```
 Thread Management
 -----------------
 
@@ -339,8 +340,9 @@ I used a simple example to get you started, but there's a lot to consider when m
 ### Using Sleep for Thread Management
 
 You should consider using
-
+```cpp
 FPlatformProcess::Sleep(seconds);
+```
 
 to prevent 1 thread from taking too many system resources :)
 
@@ -358,13 +360,13 @@ You can prepare all the data / do all the calculations, but only the game thread
 Notice (since 4.11):
 
 If you want to use the timer, remove, and modify variables use it:
-
+```cpp
 #include "Async.h"
 ...
 AsyncTask(ENamedThreads::GameThread, \[\]() {
      // code to execute on game thread here
  });
-
+```
 Timer Functions in GameThread
 -----------------------------
 
@@ -376,7 +378,7 @@ How to Support Single Threaded Platforms?
 If your code absolutely has to run even in a single threaded environment such as HTML5, then check out
 
 **AsyncIOSystemBase.h**
-
+```cpp
  struct CORE\_API FAsyncIOSystemBase : public FIOSystem, FRunnable, FSingleThreadRunnable
 
 A Runnable can extend SingleThreadRunnable and return itself for FRunnable's hook for single threaded cases:
@@ -391,7 +393,7 @@ virtual class FSingleThreadRunnable\* GetSingleThreadInterface( )
 {
 	return nullptr;
 }
-
+```
 Conclusion
 ----------
 
