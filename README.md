@@ -1,6 +1,6 @@
 # An Archive.org backup of wiki.unrealengine.com
 
-For the articles, [see articles](#articles).  See also some [unofficial](https://forums.unrealengine.com/unreal-engine/announcements-and-releases/1739154-changes-to-the-official-unreal-engine-wiki?p=1745505#post1745505) and [official](https://forums.unrealengine.com/unreal-engine/announcements-and-releases/1745504-a-new-community-hosted-unreal-engine-wiki) alternatives.
+For the articles, [see articles](https://michaeljcole.github.io/wiki.unrealengine.com/#articles).  See also some [unofficial](https://forums.unrealengine.com/unreal-engine/announcements-and-releases/1739154-changes-to-the-official-unreal-engine-wiki?p=1745505#post1745505) and [official](https://forums.unrealengine.com/unreal-engine/announcements-and-releases/1745504-a-new-community-hosted-unreal-engine-wiki) alternatives.
 
 ### About this Site
 
@@ -32,5 +32,5 @@ PR's welcome.  I wanted to setup Git for my project and wanted to read the Git a
 
 ### Articles
 
-Here is a [list of articles](https://michaeljcole.github.io/wiki.unrealengine.com/):
+Here is a [list of articles](https://michaeljcole.github.io/wiki.unrealengine.com/#articles):
 
