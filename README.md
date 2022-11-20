@@ -30,7 +30,9 @@ Some scripts and some [VuePress](https://snipcart.com/blog/choose-best-static-si
 
 ### How can I help?
 
-PR's welcome.  I wanted to setup Git for my project and wanted to read the Git articles (git is the wrong tool.  Subversion is my new jam).  I'm not planning to grow or maintain the site, but will merge PR's.
+~~PR's welcome.  I wanted to setup Git for my project and wanted to read the Git articles (git is the wrong tool.  Subversion is my new jam).  I'm not planning to grow or maintain the site, but will merge PR's.~~
+
+I've moved on from UE and did not merge PR's :-( The most interesting PR was from [Pandora](https://github.com/Pandoa/wiki.unrealengine.com) to fix the code highlighting.  You might check it out!
 
 ### Articles
 
