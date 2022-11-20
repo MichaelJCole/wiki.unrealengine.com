@@ -1,3 +1,5 @@
+Note:  These articles are very out of date and sometimes incorrect.  Your time may be better spent elsewhere.
+
 # An Archive.org backup of wiki.unrealengine.com
 
 For the articles, [see articles](https://michaeljcole.github.io/wiki.unrealengine.com/#articles).  See also some [unofficial](https://forums.unrealengine.com/unreal-engine/announcements-and-releases/1739154-changes-to-the-official-unreal-engine-wiki?p=1745505#post1745505) and [official](https://forums.unrealengine.com/unreal-engine/announcements-and-releases/1745504-a-new-community-hosted-unreal-engine-wiki) alternatives.
